@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chumash Interactive Learning</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
+    
+    /* Login Screen */
+    .login-screen { display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+    .login-card { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); max-width: 400px; width: 100%; }
+    .login-card h1 { color: #2c3e50; margin-bottom: 10px; text-align: center; }
+    .login-card p { color: #666; text-align: center; margin-bottom: 30px; }
+    .login-card input { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 6px; font-size: 1em; }
+    .login-card button { width: 100%; padding: 12px; background: #667eea; color: white; border: none; border-radius: 6px; font-size: 1em; cursor: pointer; transition: 0.3s; }
+    .login-card button:hover { background: #764ba2; }
+    
+    /* Main App */
+    .app-container { display: none; max-width: 1400px; margin: 0 auto; }
+    .app-header { background: white; padding: 20px; border-radius: 12px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+    .user-info { color: #2c3e50; font-weight: bold; }
+    .logout-btn { background: #e74c3c; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; }
+    
+    /* Main Content */
+    .main-content { display: grid; grid-template-columns: 1fr 350px; gap: 20px; }
+    .content-area { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+    
+    /* Tab Navigation */
+    .tabs { display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 2px solid #ecf0f1; }
+    .tab { padding: 10px 20px; cursor: pointer; border: none; background: none; color: #7f8c8d; font-size: 1em; border-bottom: 3px solid transparent; transition: 0.3s; }
+    .tab.active { color: #667eea; border-bottom-color: #667eea; }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    
+    /* Search Bar */
+    .search-bar { display: flex; gap: 10px; margin-bottom: 20px; }
+    .search-bar input { flex: 1; padding: 10px 15px; border: 1px solid #ddd; border-radius: 6px; font-size: 1em; }
+    
+    /* Question Table */
+    table { width: 100%; border-collapse: collapse; }
+    th { background: #f8f9fa; padding: 12px; text-align: left; border-bottom: 2px solid #ecf0f1; font-weight: 600; color: #2c3e50; }
+    td { padding: 12px; border-bottom: 1px solid #ecf0f1; }
+    tr:hover { background: #f8f9fa; }
+    .hebrew { font-size: 1.2em; direction: rtl; font-weight: bold; color: #667eea; }
+    li.correct { color: #27ae60; font-weight: bold; }
+    .correct-cell { color: #27ae60; font-weight: bold; }
+    ol { margin: 0; padding-left: 18px; }
+    
+    /* Quiz Mode */
+    .quiz-container { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+    .quiz-header { margin-bottom: 30px; }
+    .quiz-header h2 { color: #667eea; margin-bottom: 10px; }
+    .progress-bar { background: #ecf0f1; height: 8px; border-radius: 10px; overflow: hidden; margin-bottom: 20px; }
+    .progress-fill { background: #667eea; height: 100%; width: 0%; transition: 0.3s; }
+    
+    .question-box { margin: 30px 0; }
+    .question-text { font-size: 1.2em; color: #2c3e50; margin-bottom: 20px; font-weight: 600; }
+    .choices { display: grid; grid-template-columns: 1fr; gap: 10px; }
+    .choice { padding: 15px; border: 2px solid #ecf0f1; border-radius: 8px; cursor: pointer; transition: 0.3s; background: white; }
+    .choice:hover { border-color: #667eea; background: #f0f4ff; }
+    .choice.selected { border-color: #667eea; background: #e8ecff; }
+    .choice.correct { border-color: #27ae60; background: #e8f8f0; }
+    .choice.incorrect { border-color: #e74c3c; background: #fde8e4; }
+    
+    .answer-feedback { padding: 15px; border-radius: 8px; margin-top: 20px; display: none; }
+    .answer-feedback.show { display: block; }
+    .answer-feedback.correct { background: #d5f4e6; color: #27ae60; border-left: 4px solid #27ae60; }
+    .answer-feedback.incorrect { background: #fadbd8; color: #c0392b; border-left: 4px solid #c0392b; }
+    
+    .quiz-buttons { display: flex; gap: 10px; margin-top: 30px; }
+    .quiz-buttons button { padding: 12px 24px; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; transition: 0.3s; }
+    .btn-next { background: #667eea; color: white; flex: 1; }
+    .btn-next:hover { background: #764ba2; }
+    .btn-skip { background: #e8e8e8; color: #7f8c8d; }
+    
+    /* AI Assistant */
+    .ai-panel { background: #f8f9fa; padding: 20px; border-radius: 12px; border-left: 4px solid #667eea; }
+    .ai-panel h3 { color: #667eea; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+    .ai-chat { max-height: 400px; overflow-y: auto; margin-bottom: 15px; }
+    .ai-message { margin-bottom: 10px; padding: 10px; border-radius: 6px; }
+    .ai-message.user { background: #e8ecff; text-align: right; color: #2c3e50; }
+    .ai-message.assistant { background: white; border: 1px solid #ecf0f1; color: #2c3e50; }
+    .ai-input-group { display: flex; gap: 8px; }
+    .ai-input-group input { flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 6px; }
+    .ai-input-group button { padding: 10px 15px; background: #667eea; color: white; border: none; border-radius: 6px; cursor: pointer; }
+    
+    /* Sessions Sidebar */
+    .sessions-panel { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+    .sessions-panel h3 { color: #2c3e50; margin-bottom: 15px; }
+    .session-item { padding: 10px; background: #f8f9fa; border-radius: 6px; margin-bottom: 8px; font-size: 0.9em; color: #7f8c8d; cursor: pointer; transition: 0.3s; }
+    .session-item:hover { background: #e8ecff; }
+    .session-stats { font-size: 0.85em; color: #999; margin-top: 3px; }
+    
+    @media (max-width: 1024px) {
+      .main-content { grid-template-columns: 1fr; }
+      .ai-panel { grid-column: 1; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Login Screen -->
+<div class="login-screen" id="loginScreen">
+  <div class="login-card">
+    <h1>📖 Chumash Learning</h1>
+    <p>Enter your name to get started</p>
+    <input type="text" id="nameInput" placeholder="Your name" autofocus>
+    <button onclick="login()">Start Learning</button>
+  </div>
+</div>
+
+<!-- Main App -->
+<div class="app-container" id="appContainer">
+  <!-- Header -->
+  <div class="app-header">
+    <div>
+      <h1>📖 Chumash Interactive Learning</h1>
+    </div>
+    <div style="display: flex; align-items: center; gap: 20px;">
+      <div class="user-info">Welcome, <span id="userName"></span>!</div>
+      <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="content-area">
+      <!-- Tabs -->
+      <div class="tabs">
+        <button class="tab active" onclick="switchTab('practice', this)">📚 Practice Questions</button>
+        <button class="tab" onclick="switchTab('quiz', this)">🎯 Quiz Mode</button>
+        <button class="tab" onclick="switchTab('progress', this)">📊 Progress</button>
+      </div>
+
+      <!-- Practice Tab -->
+      <div id="practice" class="tab-content active">
+        <div class="search-bar">
+          <input type="text" id="searchInput" placeholder="Search questions, words, skills..." oninput="filterTable(this.value)">
+        </div>
+        <table id="qtable">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Word (Nikud)</th>
+              <th>Skill</th>
+              <th>Question</th>
+              <th>Choices</th>
+              <th>Answer</th>
+              <th>Explanation</th>
+              <th>Difficulty</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Quiz Tab -->
+      <div id="quiz" class="tab-content">
+        <div class="quiz-container">
+          <div class="quiz-header">
+            <h2>Quiz Mode</h2>
+            <div class="progress-bar">
+              <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <p id="questionCounter">Question 1 of 10</p>
+          </div>
+          <div id="quizContent"></div>
+        </div>
+      </div>
+
+      <!-- Progress Tab -->
+      <div id="progress" class="tab-content">
+        <div style="padding: 20px;">
+          <h2>Your Learning Progress</h2>
+          <div style="margin-top: 20px;">
+            <p><strong>Questions Answered:</strong> <span id="totalAnswered">0</span></p>
+            <p><strong>Correct Answers:</strong> <span id="correctAnswers">0</span></p>
+            <p><strong>Accuracy:</strong> <span id="accuracy">0%</span></p>
+            <p><strong>Last Session:</strong> <span id="lastSession">Never</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Sidebar -->
+    <div>
+      <!-- AI Assistant -->
+      <div class="ai-panel">
+        <h3>🤖 AI Tutor</h3>
+        <p style="color: #7f8c8d; font-size: 0.9em; margin-bottom: 15px;">Ask me about Hebrew grammar, rules, or get examples!</p>
+        <div class="ai-chat" id="aiChat"></div>
+        <div class="ai-input-group">
+          <input type="text" id="aiInput" placeholder="Ask a question..." onkeypress="if(event.key==='Enter') askAI()">
+          <button onclick="askAI()">Send</button>
+        </div>
+      </div>
+
+      <!-- Sessions -->
+      <div class="sessions-panel" style="margin-top: 20px;">
+        <h3>📋 Your Sessions</h3>
+        <div id="sessionsList"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Global state
+  let currentUser = null;
+  let allQuestions = [];
+  let userSessions = {};
+  let currentQuizQuestions = [];
+  let currentQuestionIndex = 0;
+  let quizStats = { correct: 0, total: 0 };
+
+  // Initialize
+  window.addEventListener('DOMContentLoaded', () => {
+    loadUserData();
+    fetchQuestions();
+  });
+
+  function login() {
+    const nameInput = document.getElementById('nameInput');
+    const name = nameInput.value.trim();
+    if (!name) {
+      alert('Please enter your name');
+      return;
+    }
+    currentUser = name;
+    localStorage.setItem('currentUser', name);
+    loadUserData();
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('appContainer').style.display = 'block';
+    document.getElementById('userName').textContent = name;
+    loadSessions();
+  }
+
+  function logout() {
+    if (confirm('Are you sure you want to logout?')) {
+      localStorage.removeItem('currentUser');
+      currentUser = null;
+      document.getElementById('loginScreen').style.display = 'flex';
+      document.getElementById('appContainer').style.display = 'none';
+      document.getElementById('nameInput').value = '';
+      document.getElementById('nameInput').focus();
+    }
+  }
+
+  function loadUserData() {
+    const saved = localStorage.getItem('currentUser');
+    if (saved) {
+      currentUser = saved;
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('appContainer').style.display = 'block';
+      document.getElementById('userName').textContent = saved;
+      loadSessions();
+    }
+  }
+
+  function fetchQuestions() {
+    // Load questions from external JSON
+    fetch('questions.json')
+      .then(r => r.json())
+      .then(data => {
+        allQuestions = data.questions || [];
+        populateTable(allQuestions);
+        initQuizMode();
+      });
+  }
+
+  function populateTable(questions) {
+    const tbody = document.querySelector('#qtable tbody');
+    tbody.innerHTML = questions.map((q, i) => `
+      <tr>
+        <td>${i + 1}</td>
+        <td class="hebrew">${q.word_with_nikud || q.word || ''}</td>
+        <td>${q.skill || ''}</td>
+        <td dir="auto">${q.question}</td>
+        <td><ol>${q.choices.map(c => `<li${c === q.correct_answer ? ' class="correct"' : ''}>${c}</li>`).join('')}</ol></td>
+        <td class="correct-cell">${q.correct_answer}</td>
+        <td>${q.explanation || ''}</td>
+        <td>${q.difficulty || ''}</td>
+      </tr>
+    `).join('');
+  }
+
+  function filterTable(val) {
+    const lower = val.toLowerCase();
+    document.querySelectorAll('#qtable tbody tr').forEach(row => {
+      row.style.display = row.textContent.toLowerCase().includes(lower) ? '' : 'none';
+    });
+  }
+
+  function switchTab(tabName, btn) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.getElementById(tabName).classList.add('active');
+    btn.classList.add('active');
+    
+    if (tabName === 'quiz') {
+      initQuizMode();
+    } else if (tabName === 'progress') {
+      updateProgressDisplay();
+    }
+  }
+
+  function initQuizMode() {
+    if (allQuestions.length === 0) return;
+    currentQuizQuestions = allQuestions.sort(() => 0.5 - Math.random()).slice(0, 10);
+    currentQuestionIndex = 0;
+    quizStats = { correct: 0, total: 0 };
+    displayQuizQuestion();
+  }
+
+  function displayQuizQuestion() {
+    if (currentQuestionIndex >= currentQuizQuestions.length) {
+      endQuiz();
+      return;
+    }
+    
+    const q = currentQuizQuestions[currentQuestionIndex];
+    const progress = ((currentQuestionIndex) / currentQuizQuestions.length) * 100;
+    document.getElementById('progressFill').style.width = progress + '%';
+    document.getElementById('questionCounter').textContent = `Question ${currentQuestionIndex + 1} of ${currentQuizQuestions.length}`;
+    
+    // Display word with nikud in the question
+    const wordDisplay = q.word_with_nikud ? `<span class="hebrew" style="font-size: 1.4em; margin: 10px 0; display: block;">${q.word_with_nikud}</span>` : '';
+    
+    const choicesHtml = q.choices.map((c, i) => `
+      <div class="choice" onclick="selectChoice(${i}, '${c}', '${q.correct_answer}', \`${q.explanation}\`)">
+        ${c}
+      </div>
+    `).join('');
+    
+    document.getElementById('quizContent').innerHTML = `
+      <div class="question-box">
+        ${wordDisplay}
+        <div class="question-text">${q.question}</div>
+        <div class="choices">${choicesHtml}</div>
+        <div class="answer-feedback" id="feedback"></div>
+        <div class="quiz-buttons">
+          <button class="btn-next" id="nextBtn" onclick="nextQuestion()" style="display:none;">Next Question</button>
+          <button class="btn-skip" id="skipBtn" onclick="skipQuestion()">Skip</button>
+        </div>
+      </div>
+    `;
+  }
+
+  function selectChoice(index, choice, correct, explanation) {
+    const choices = document.querySelectorAll('.choice');
+    choices.forEach((c, i) => {
+      c.classList.remove('selected');
+      if (i === index) c.classList.add('selected');
+    });
+    
+    const feedback = document.getElementById('feedback');
+    const nextBtn = document.getElementById('nextBtn');
+    const skipBtn = document.getElementById('skipBtn');
+    
+    if (choice === correct) {
+      feedback.className = 'answer-feedback show correct';
+      feedback.innerHTML = `✅ Correct! ${explanation}`;
+      quizStats.correct++;
+      choices.forEach((c, i) => {
+        if (c.textContent.trim() === correct) c.classList.add('correct');
+      });
+    } else {
+      feedback.className = 'answer-feedback show incorrect';
+      feedback.innerHTML = `❌ Incorrect. The correct answer is: <strong>${correct}</strong><br>${explanation}`;
+      choices.forEach((c, i) => {
+        if (c.textContent.trim() === correct) c.classList.add('correct');
+        if (c.textContent.trim() === choice) c.classList.add('incorrect');
+      });
+    }
+    
+    quizStats.total++;
+    nextBtn.style.display = 'block';
+    skipBtn.style.display = 'none';
+    
+    recordUserProgress();
+  }
+
+  function nextQuestion() {
+    currentQuestionIndex++;
+    displayQuizQuestion();
+  }
+
+  function skipQuestion() {
+    currentQuestionIndex++;
+    displayQuizQuestion();
+  }
+
+  function endQuiz() {
+    const percentage = Math.round((quizStats.correct / quizStats.total) * 100);
+    document.getElementById('quizContent').innerHTML = `
+      <div style="text-align:center; padding: 40px;">
+        <h2>Quiz Complete! 🎉</h2>
+        <p style="font-size: 1.5em; margin: 20px 0; color: #667eea;">
+          You got ${quizStats.correct} out of ${quizStats.total} correct (${percentage}%)
+        </p>
+        <button class="btn-next" onclick="initQuizMode()" style="width: auto; padding: 12px 30px;">Try Again</button>
+      </div>
+    `;
+  }
+
+  function recordUserProgress() {
+    const key = `${currentUser}_progress`;
+    const existing = JSON.parse(localStorage.getItem(key)) || { correct: 0, total: 0, lastSession: null };
+    existing.correct += 1;
+    existing.total += 1;
+    existing.lastSession = new Date().toISOString();
+    localStorage.setItem(key, JSON.stringify(existing));
+  }
+
+  function updateProgressDisplay() {
+    const key = `${currentUser}_progress`;
+    const progress = JSON.parse(localStorage.getItem(key)) || { correct: 0, total: 0 };
+    const accuracy = progress.total > 0 ? Math.round((progress.correct / progress.total) * 100) : 0;
+    
+    document.getElementById('totalAnswered').textContent = progress.total;
+    document.getElementById('correctAnswers').textContent = progress.correct;
+    document.getElementById('accuracy').textContent = accuracy + '%';
+    document.getElementById('lastSession').textContent = progress.lastSession 
+      ? new Date(progress.lastSession).toLocaleString() 
+      : 'Never';
+  }
+
+  async function askAI() {
+    const input = document.getElementById('aiInput');
+    const msg = input.value.trim();
+    if (!msg) return;
+    
+    const chat = document.getElementById('aiChat');
+    chat.innerHTML += `<div class="ai-message user">${msg}</div>`;
+    input.value = '';
+    
+    // Add loading indicator
+    chat.innerHTML += `<div class="ai-message assistant">🤔 Thinking...</div>`;
+    chat.scrollTop = chat.scrollHeight;
+    
+    // For now, create a smart response based on keywords
+    const response = generateTutorResponse(msg);
+    
+    // Remove loading and add response
+    chat.querySelectorAll('.ai-message')[chat.querySelectorAll('.ai-message').length - 1].remove();
+    chat.innerHTML += `<div class="ai-message assistant">${response}</div>`;
+    chat.scrollTop = chat.scrollHeight;
+  }
+
+  function generateTutorResponse(question) {
+    const lower = question.toLowerCase();
+    
+    // Hebrew grammar topics
+    if (lower.includes('shoresh') || lower.includes('root')) {
+      return `<strong>📚 Shoresh (Root) Explanation:</strong><br>
+        A shoresh is the 3-letter root of a Hebrew word. All related words share the same root and core meaning.<br><br>
+        <strong>Examples:</strong><br>
+        • <span style="color: #667eea; font-weight: bold;">אכל</span> (shoresh: א-כ-ל) = ate, eating, food<br>
+        • <span style="color: #667eea; font-weight: bold;">הלך</span> (shoresh: ה-ל-כ) = went, going, walking<br>
+        • <span style="color: #667eea; font-weight: bold;">ראה</span> (shoresh: ר-א-ה) = saw, seeing, vision<br><br>
+        <strong>How to identify:</strong> Remove prefixes (ב, כ, את, ה) and look for the core 3 letters!`;
+    }
+    if (lower.includes('binyan') || lower.includes('stem') || lower.includes('pattern')) {
+      return `<strong>🔤 Binyan (Stem/Pattern) Explanation:</strong><br>
+        A binyan is the pattern that modifies the meaning of a shoresh. It determines if the action is simple, repeated, causative, etc.<br><br>
+        <strong>Common Binyans:</strong><br>
+        • <strong>Qal</strong> (simple): קטל = he killed<br>
+        • <strong>Pi'el</strong> (intensive): קטל = he murdered/slaughtered<br>
+        • <strong>Hif'il</strong> (causative): הקטיל = he caused to kill<br>
+        • <strong>Nif'al</strong> (passive): נקטל = he was killed<br><br>
+        <strong>Tip:</strong> The binyan changes the vowels and sometimes adds letters!`;
+    }
+    if (lower.includes('nekud') || lower.includes('vowel') || lower.includes('nikud')) {
+      return `<strong>🎵 Nekudot (Vowel Marks) Explanation:</strong><br>
+        Nekudot are diacritical marks placed under Hebrew letters to indicate vowel sounds.<br><br>
+        <strong>Common Nekudot:</strong><br>
+        • <strong>Patach ַ</strong> (as in "fat") = "ah" sound<br>
+        • <strong>Segol ֶ</strong> (as in "pet") = "eh" sound<br>
+        • <strong>Chirek ִ</strong> (as in "see") = "ee" sound<br>
+        • <strong>Kamatz ָ</strong> (as in "father") = "ah" sound<br>
+        • <strong>Holam ו</strong> (with letter) = "oh" sound<br>
+        • <strong>Shva ְ</strong> (dot) = silent or very short sound<br><br>
+        <strong>Important:</strong> Changing the nekudot changes the meaning of the word!`;
+    }
+    if (lower.includes('prefix') || lower.includes('את') || lower.includes('את')) {
+      return `<strong>🔗 Common Prefixes:</strong><br>
+        • <strong>ב</strong> (in/with) - בבית = in a house<br>
+        • <strong>כ</strong> (like/as) - כמלך = like a king<br>
+        • <strong>ל</strong> (to/for) - לעם = to a people<br>
+        • <strong>את</strong> (direct object marker) - את הדבר = the thing (object)<br>
+        • <strong>ה</strong> (the) - הארץ = the land<br><br>
+        <strong>Tip:</strong> These connect to the root word!`;
+    }
+    if (lower.includes('translation') || lower.includes('mean') || lower.includes('meaning')) {
+      return `<strong>🔍 How to Translate Hebrew Words:</strong><br>
+        1. Identify the shoresh (3-letter root)<br>
+        2. Check for prefixes (את, ב, כ, ל, ה)<br>
+        3. Look at the binyan (vowel pattern)<br>
+        4. Check for suffixes (pronoun endings)<br><br>
+        <strong>Example:</strong><br>
+        בארץ = בּ + ארץ = "in" + "land" = "in the land"<br><br>
+        Want help with a specific word? Ask me about it!`;
+    }
+    
+    // Default response
+    return `<strong>👋 Hello! I'm your Hebrew Grammar Tutor!</strong><br>
+      I can help you with:<br>
+      • <strong>Shoresh</strong> (roots) and their meanings<br>
+      • <strong>Binyan</strong> (word patterns) and conjugations<br>
+      • <strong>Nekudot</strong> (vowel marks)<br>
+      • <strong>Prefixes & Suffixes</strong><br>
+      • <strong>Translation</strong> techniques<br>
+      • <strong>Grammar rules</strong> and exceptions<br><br>
+      <strong>Try asking:</strong><br>
+      • "What is a shoresh?"<br>
+      • "Explain binyan to me"<br>
+      • "What are nekudot?"<br>
+      • "What prefixes exist?"`;
+  }
+
+  function loadSessions() {
+    const key = `${currentUser}_sessions`;
+    const sessions = JSON.parse(localStorage.getItem(key)) || [];
+    const listDiv = document.getElementById('sessionsList');
+    
+    if (sessions.length === 0) {
+      listDiv.innerHTML = '<p style="color: #999; font-size: 0.9em;">No previous sessions</p>';
+      return;
+    }
+    
+    listDiv.innerHTML = sessions.map((s, i) => `
+      <div class="session-item">
+        Session ${i + 1}
+        <div class="session-stats">${new Date(s.date).toLocaleString()}</div>
+      </div>
+    `).join('');
+  }
+</script>
+
+</body>
+</html>

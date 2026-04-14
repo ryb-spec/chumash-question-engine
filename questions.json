@@ -14,7 +14,8 @@
       "explanation": "ארץ means 'land'.",
       "difficulty": 1,
       "standard": "WM",
-      "micro_standard": "WM1"
+      "micro_standard": "WM1",
+      "word_with_nikud": "אָרֶץ"
     },
     {
       "skill": "reverse_translation",
@@ -30,7 +31,8 @@
       "explanation": "ארץ means 'land'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM2"
+      "micro_standard": "WM2",
+      "word_with_nikud": "אָרֶץ"
     },
     {
       "skill": "semantic",
@@ -46,7 +48,8 @@
       "explanation": "שדה (field) is closest to ארץ (land); the others are more specific or unrelated.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM4"
+      "micro_standard": "WM4",
+      "word_with_nikud": "אָרֶץ"
     },
     {
       "skill": "translation",
@@ -62,7 +65,8 @@
       "explanation": "בית means 'house'.",
       "difficulty": 1,
       "standard": "WM",
-      "micro_standard": "WM1"
+      "micro_standard": "WM1",
+      "word_with_nikud": "בַּיִת"
     },
     {
       "skill": "reverse_translation",
@@ -78,7 +82,8 @@
       "explanation": "בית means 'house'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM2"
+      "micro_standard": "WM2",
+      "word_with_nikud": "בַּיִת"
     },
     {
       "skill": "semantic_translation",
@@ -94,7 +99,8 @@
       "explanation": "בית means 'house'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM4"
+      "micro_standard": "WM4",
+      "word_with_nikud": "בַּיִת"
     },
     {
       "skill": "translation",
@@ -110,7 +116,8 @@
       "explanation": "מים means 'water'.",
       "difficulty": 1,
       "standard": "WM",
-      "micro_standard": "WM1"
+      "micro_standard": "WM1",
+      "word_with_nikud": "מַיִם"
     },
     {
       "skill": "reverse_translation",
@@ -126,7 +133,8 @@
       "explanation": "מים means 'water'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM2"
+      "micro_standard": "WM2",
+      "word_with_nikud": "מַיִם"
     },
     {
       "skill": "semantic",
@@ -142,7 +150,8 @@
       "explanation": "שדה (field) is not related to water; the others are water-related.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM4"
+      "micro_standard": "WM4",
+      "word_with_nikud": "מַיִם"
     },
     {
       "skill": "translation",
@@ -158,7 +167,8 @@
       "explanation": "מלך means 'king'.",
       "difficulty": 1,
       "standard": "WM",
-      "micro_standard": "WM1"
+      "micro_standard": "WM1",
+      "word_with_nikud": "מֶלֶךְ"
     },
     {
       "skill": "reverse_translation",
@@ -174,7 +184,8 @@
       "explanation": "מלך means 'king'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM2"
+      "micro_standard": "WM2",
+      "word_with_nikud": "מֶלֶךְ"
     },
     {
       "skill": "semantic_translation",
@@ -190,7 +201,8 @@
       "explanation": "מלך means 'king'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM4"
+      "micro_standard": "WM4",
+      "word_with_nikud": "מֶלֶךְ"
     },
     {
       "skill": "translation",
@@ -206,7 +218,8 @@
       "explanation": "יום means 'day'.",
       "difficulty": 1,
       "standard": "WM",
-      "micro_standard": "WM1"
+      "micro_standard": "WM1",
+      "word_with_nikud": "יוֹם"
     },
     {
       "skill": "reverse_translation",
@@ -222,7 +235,8 @@
       "explanation": "יום means 'day'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM2"
+      "micro_standard": "WM2",
+      "word_with_nikud": "יוֹם"
     },
     {
       "skill": "semantic_translation",
@@ -238,7 +252,8 @@
       "explanation": "יום means 'day'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM4"
+      "micro_standard": "WM4",
+      "word_with_nikud": "יוֹם"
     },
     {
       "skill": "translation",
@@ -254,7 +269,8 @@
       "explanation": "לילה means 'night'.",
       "difficulty": 1,
       "standard": "WM",
-      "micro_standard": "WM1"
+      "micro_standard": "WM1",
+      "word_with_nikud": "לַיְלָה"
     },
     {
       "skill": "reverse_translation",
@@ -270,7 +286,8 @@
       "explanation": "לילה means 'night'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM2"
+      "micro_standard": "WM2",
+      "word_with_nikud": "לַיְלָה"
     },
     {
       "skill": "semantic_translation",
@@ -286,7 +303,8 @@
       "explanation": "לילה means 'night'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM4"
+      "micro_standard": "WM4",
+      "word_with_nikud": "לַיְלָה"
     },
     {
       "skill": "translation",
@@ -302,7 +320,8 @@
       "explanation": "איש means 'man'.",
       "difficulty": 1,
       "standard": "WM",
-      "micro_standard": "WM1"
+      "micro_standard": "WM1",
+      "word_with_nikud": "אִישׁ"
     },
     {
       "skill": "reverse_translation",
@@ -318,7 +337,8 @@
       "explanation": "איש means 'man'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM2"
+      "micro_standard": "WM2",
+      "word_with_nikud": "אִישׁ"
     },
     {
       "skill": "semantic_translation",
@@ -334,7 +354,8 @@
       "explanation": "איש means 'man'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM4"
+      "micro_standard": "WM4",
+      "word_with_nikud": "אִישׁ"
     },
     {
       "skill": "translation",
@@ -350,7 +371,8 @@
       "explanation": "אשה means 'woman'.",
       "difficulty": 1,
       "standard": "WM",
-      "micro_standard": "WM1"
+      "micro_standard": "WM1",
+      "word_with_nikud": "אִשָּׁה"
     },
     {
       "skill": "reverse_translation",
@@ -366,7 +388,8 @@
       "explanation": "אשה means 'woman'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM2"
+      "micro_standard": "WM2",
+      "word_with_nikud": "אִשָּׁה"
     },
     {
       "skill": "semantic_translation",
@@ -382,7 +405,8 @@
       "explanation": "אשה means 'woman'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM4"
+      "micro_standard": "WM4",
+      "word_with_nikud": "אִשָּׁה"
     },
     {
       "skill": "translation",
@@ -398,7 +422,8 @@
       "explanation": "בן means 'son'.",
       "difficulty": 1,
       "standard": "WM",
-      "micro_standard": "WM1"
+      "micro_standard": "WM1",
+      "word_with_nikud": "בֵּן"
     },
     {
       "skill": "reverse_translation",
@@ -414,7 +439,8 @@
       "explanation": "בן means 'son'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM2"
+      "micro_standard": "WM2",
+      "word_with_nikud": "בֵּן"
     },
     {
       "skill": "semantic_translation",
@@ -430,7 +456,8 @@
       "explanation": "בן means 'son'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM4"
+      "micro_standard": "WM4",
+      "word_with_nikud": "בֵּן"
     },
     {
       "skill": "translation",
@@ -446,7 +473,8 @@
       "explanation": "בת means 'daughter'.",
       "difficulty": 1,
       "standard": "WM",
-      "micro_standard": "WM1"
+      "micro_standard": "WM1",
+      "word_with_nikud": "בַּת"
     },
     {
       "skill": "reverse_translation",
@@ -462,7 +490,8 @@
       "explanation": "בת means 'daughter'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM2"
+      "micro_standard": "WM2",
+      "word_with_nikud": "בַּת"
     },
     {
       "skill": "semantic_translation",
@@ -478,7 +507,8 @@
       "explanation": "בת means 'daughter'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM4"
+      "micro_standard": "WM4",
+      "word_with_nikud": "בַּת"
     },
     {
       "skill": "translation",
@@ -494,7 +524,8 @@
       "explanation": "עם means 'people'.",
       "difficulty": 1,
       "standard": "WM",
-      "micro_standard": "WM1"
+      "micro_standard": "WM1",
+      "word_with_nikud": "עַם"
     },
     {
       "skill": "reverse_translation",
@@ -510,7 +541,8 @@
       "explanation": "עם means 'people'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM2"
+      "micro_standard": "WM2",
+      "word_with_nikud": "עַם"
     },
     {
       "skill": "semantic_translation",
@@ -526,7 +558,8 @@
       "explanation": "עם means 'people'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM4"
+      "micro_standard": "WM4",
+      "word_with_nikud": "עַם"
     },
     {
       "skill": "translation",
@@ -542,7 +575,8 @@
       "explanation": "עיר means 'city'.",
       "difficulty": 1,
       "standard": "WM",
-      "micro_standard": "WM1"
+      "micro_standard": "WM1",
+      "word_with_nikud": "עִיר"
     },
     {
       "skill": "reverse_translation",
@@ -558,7 +592,8 @@
       "explanation": "עיר means 'city'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM2"
+      "micro_standard": "WM2",
+      "word_with_nikud": "עִיר"
     },
     {
       "skill": "semantic_translation",
@@ -574,7 +609,8 @@
       "explanation": "עיר means 'city'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM4"
+      "micro_standard": "WM4",
+      "word_with_nikud": "עִיר"
     },
     {
       "skill": "translation",
@@ -590,7 +626,8 @@
       "explanation": "שדה means 'field'.",
       "difficulty": 1,
       "standard": "WM",
-      "micro_standard": "WM1"
+      "micro_standard": "WM1",
+      "word_with_nikud": "שָׂדֶה"
     },
     {
       "skill": "reverse_translation",
@@ -606,7 +643,8 @@
       "explanation": "שדה means 'field'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM2"
+      "micro_standard": "WM2",
+      "word_with_nikud": "שָׂדֶה"
     },
     {
       "skill": "semantic_translation",
@@ -622,7 +660,8 @@
       "explanation": "שדה means 'field'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM4"
+      "micro_standard": "WM4",
+      "word_with_nikud": "שָׂדֶה"
     },
     {
       "skill": "translation",
@@ -638,7 +677,8 @@
       "explanation": "הר means 'mountain'.",
       "difficulty": 1,
       "standard": "WM",
-      "micro_standard": "WM1"
+      "micro_standard": "WM1",
+      "word_with_nikud": "הַר"
     },
     {
       "skill": "reverse_translation",
@@ -654,7 +694,8 @@
       "explanation": "הר means 'mountain'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM2"
+      "micro_standard": "WM2",
+      "word_with_nikud": "הַר"
     },
     {
       "skill": "semantic_translation",
@@ -670,7 +711,8 @@
       "explanation": "הר means 'mountain'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM4"
+      "micro_standard": "WM4",
+      "word_with_nikud": "הַר"
     },
     {
       "skill": "translation",
@@ -686,7 +728,8 @@
       "explanation": "ים means 'sea'.",
       "difficulty": 1,
       "standard": "WM",
-      "micro_standard": "WM1"
+      "micro_standard": "WM1",
+      "word_with_nikud": "יָם"
     },
     {
       "skill": "reverse_translation",
@@ -702,7 +745,8 @@
       "explanation": "ים means 'sea'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM2"
+      "micro_standard": "WM2",
+      "word_with_nikud": "יָם"
     },
     {
       "skill": "semantic_translation",
@@ -718,7 +762,8 @@
       "explanation": "ים means 'sea'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM4"
+      "micro_standard": "WM4",
+      "word_with_nikud": "יָם"
     },
     {
       "skill": "translation",
@@ -734,7 +779,8 @@
       "explanation": "עץ means 'tree'.",
       "difficulty": 1,
       "standard": "WM",
-      "micro_standard": "WM1"
+      "micro_standard": "WM1",
+      "word_with_nikud": "עֵץ"
     },
     {
       "skill": "reverse_translation",
@@ -750,7 +796,8 @@
       "explanation": "עץ means 'tree'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM2"
+      "micro_standard": "WM2",
+      "word_with_nikud": "עֵץ"
     },
     {
       "skill": "semantic_translation",
@@ -766,7 +813,8 @@
       "explanation": "עץ means 'tree'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM4"
+      "micro_standard": "WM4",
+      "word_with_nikud": "עֵץ"
     },
     {
       "skill": "translation",
@@ -782,7 +830,8 @@
       "explanation": "אכל means 'ate'.",
       "difficulty": 1,
       "standard": "WM",
-      "micro_standard": "WM1"
+      "micro_standard": "WM1",
+      "word_with_nikud": "אָכַל"
     },
     {
       "skill": "reverse_translation",
@@ -798,7 +847,8 @@
       "explanation": "אכל means 'ate'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM2"
+      "micro_standard": "WM2",
+      "word_with_nikud": "אָכַל"
     },
     {
       "skill": "shoresh_translation",
@@ -814,7 +864,8 @@
       "explanation": "אכל has shoresh אכל and means 'ate'.",
       "difficulty": 4,
       "standard": "CF",
-      "micro_standard": "CF1"
+      "micro_standard": "CF1",
+      "word_with_nikud": "אָכַל"
     },
     {
       "skill": "translation",
@@ -830,7 +881,8 @@
       "explanation": "הלך means 'went'.",
       "difficulty": 1,
       "standard": "WM",
-      "micro_standard": "WM1"
+      "micro_standard": "WM1",
+      "word_with_nikud": "הָלַךְ"
     },
     {
       "skill": "reverse_translation",
@@ -846,7 +898,8 @@
       "explanation": "הלך means 'went'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM2"
+      "micro_standard": "WM2",
+      "word_with_nikud": "הָלַךְ"
     },
     {
       "skill": "shoresh_translation",
@@ -862,7 +915,8 @@
       "explanation": "הלך has shoresh הלך and means 'went'.",
       "difficulty": 4,
       "standard": "CF",
-      "micro_standard": "CF1"
+      "micro_standard": "CF1",
+      "word_with_nikud": "הָלַךְ"
     },
     {
       "skill": "translation",
@@ -878,7 +932,8 @@
       "explanation": "ראה means 'saw'.",
       "difficulty": 1,
       "standard": "WM",
-      "micro_standard": "WM1"
+      "micro_standard": "WM1",
+      "word_with_nikud": "רָאָה"
     },
     {
       "skill": "reverse_translation",
@@ -894,7 +949,8 @@
       "explanation": "ראה means 'saw'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM2"
+      "micro_standard": "WM2",
+      "word_with_nikud": "רָאָה"
     },
     {
       "skill": "shoresh_translation",
@@ -910,7 +966,8 @@
       "explanation": "ראה has shoresh ראה and means 'saw'.",
       "difficulty": 4,
       "standard": "CF",
-      "micro_standard": "CF1"
+      "micro_standard": "CF1",
+      "word_with_nikud": "רָאָה"
     },
     {
       "skill": "translation",
@@ -926,7 +983,8 @@
       "explanation": "אמר means 'said'.",
       "difficulty": 1,
       "standard": "WM",
-      "micro_standard": "WM1"
+      "micro_standard": "WM1",
+      "word_with_nikud": "אָמַר"
     },
     {
       "skill": "reverse_translation",
@@ -942,7 +1000,8 @@
       "explanation": "אמר means 'said'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM2"
+      "micro_standard": "WM2",
+      "word_with_nikud": "אָמַר"
     },
     {
       "skill": "shoresh_translation",
@@ -958,7 +1017,8 @@
       "explanation": "אמר has shoresh אמר and means 'said'.",
       "difficulty": 4,
       "standard": "CF",
-      "micro_standard": "CF1"
+      "micro_standard": "CF1",
+      "word_with_nikud": "אָמַר"
     },
     {
       "skill": "translation",
@@ -974,7 +1034,8 @@
       "explanation": "שמע means 'heard'.",
       "difficulty": 1,
       "standard": "WM",
-      "micro_standard": "WM1"
+      "micro_standard": "WM1",
+      "word_with_nikud": "שָׁמַע"
     },
     {
       "skill": "reverse_translation",
@@ -990,7 +1051,8 @@
       "explanation": "שמע means 'heard'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM2"
+      "micro_standard": "WM2",
+      "word_with_nikud": "שָׁמַע"
     },
     {
       "skill": "shoresh_translation",
@@ -1006,7 +1068,8 @@
       "explanation": "שמע has shoresh שמע and means 'heard'.",
       "difficulty": 4,
       "standard": "CF",
-      "micro_standard": "CF1"
+      "micro_standard": "CF1",
+      "word_with_nikud": "שָׁמַע"
     },
     {
       "skill": "translation",
@@ -1022,7 +1085,8 @@
       "explanation": "נתן means 'gave'.",
       "difficulty": 1,
       "standard": "WM",
-      "micro_standard": "WM1"
+      "micro_standard": "WM1",
+      "word_with_nikud": "נָתַן"
     },
     {
       "skill": "reverse_translation",
@@ -1038,7 +1102,8 @@
       "explanation": "נתן means 'gave'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM2"
+      "micro_standard": "WM2",
+      "word_with_nikud": "נָתַן"
     },
     {
       "skill": "shoresh_translation",
@@ -1054,7 +1119,8 @@
       "explanation": "נתן has shoresh נתן and means 'gave'.",
       "difficulty": 4,
       "standard": "CF",
-      "micro_standard": "CF1"
+      "micro_standard": "CF1",
+      "word_with_nikud": "נָתַן"
     },
     {
       "skill": "translation",
@@ -1070,7 +1136,8 @@
       "explanation": "לקח means 'took'.",
       "difficulty": 1,
       "standard": "WM",
-      "micro_standard": "WM1"
+      "micro_standard": "WM1",
+      "word_with_nikud": "לקח"
     },
     {
       "skill": "reverse_translation",
@@ -1086,7 +1153,8 @@
       "explanation": "לקח means 'took'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM2"
+      "micro_standard": "WM2",
+      "word_with_nikud": "לקח"
     },
     {
       "skill": "shoresh_translation",
@@ -1102,7 +1170,8 @@
       "explanation": "לקח has shoresh לקח and means 'took'.",
       "difficulty": 4,
       "standard": "CF",
-      "micro_standard": "CF1"
+      "micro_standard": "CF1",
+      "word_with_nikud": "לקח"
     },
     {
       "skill": "translation",
@@ -1118,7 +1187,8 @@
       "explanation": "בנה means 'built'.",
       "difficulty": 1,
       "standard": "WM",
-      "micro_standard": "WM1"
+      "micro_standard": "WM1",
+      "word_with_nikud": "בנה"
     },
     {
       "skill": "reverse_translation",
@@ -1134,7 +1204,8 @@
       "explanation": "בנה means 'built'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM2"
+      "micro_standard": "WM2",
+      "word_with_nikud": "בנה"
     },
     {
       "skill": "shoresh_translation",
@@ -1150,7 +1221,8 @@
       "explanation": "בנה has shoresh בנה and means 'built'.",
       "difficulty": 4,
       "standard": "CF",
-      "micro_standard": "CF1"
+      "micro_standard": "CF1",
+      "word_with_nikud": "בנה"
     },
     {
       "skill": "translation",
@@ -1166,7 +1238,8 @@
       "explanation": "שמר means 'guarded'.",
       "difficulty": 1,
       "standard": "WM",
-      "micro_standard": "WM1"
+      "micro_standard": "WM1",
+      "word_with_nikud": "שמר"
     },
     {
       "skill": "reverse_translation",
@@ -1182,7 +1255,8 @@
       "explanation": "שמר means 'guarded'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM2"
+      "micro_standard": "WM2",
+      "word_with_nikud": "שמר"
     },
     {
       "skill": "shoresh_translation",
@@ -1198,7 +1272,8 @@
       "explanation": "שמר has shoresh שמר and means 'guarded'.",
       "difficulty": 4,
       "standard": "CF",
-      "micro_standard": "CF1"
+      "micro_standard": "CF1",
+      "word_with_nikud": "שמר"
     },
     {
       "skill": "translation",
@@ -1214,7 +1289,8 @@
       "explanation": "מצא means 'found'.",
       "difficulty": 1,
       "standard": "WM",
-      "micro_standard": "WM1"
+      "micro_standard": "WM1",
+      "word_with_nikud": "מצא"
     },
     {
       "skill": "reverse_translation",
@@ -1230,7 +1306,8 @@
       "explanation": "מצא means 'found'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM2"
+      "micro_standard": "WM2",
+      "word_with_nikud": "מצא"
     },
     {
       "skill": "shoresh_translation",
@@ -1246,7 +1323,8 @@
       "explanation": "מצא has shoresh מצא and means 'found'.",
       "difficulty": 4,
       "standard": "CF",
-      "micro_standard": "CF1"
+      "micro_standard": "CF1",
+      "word_with_nikud": "מצא"
     },
     {
       "skill": "translation",
@@ -1262,7 +1340,8 @@
       "explanation": "ישב means 'sat/dwelt'.",
       "difficulty": 1,
       "standard": "WM",
-      "micro_standard": "WM1"
+      "micro_standard": "WM1",
+      "word_with_nikud": "ישב"
     },
     {
       "skill": "reverse_translation",
@@ -1278,7 +1357,8 @@
       "explanation": "ישב means 'sat/dwelt'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM2"
+      "micro_standard": "WM2",
+      "word_with_nikud": "ישב"
     },
     {
       "skill": "shoresh_translation",
@@ -1294,7 +1374,8 @@
       "explanation": "ישב has shoresh ישב and means 'sat/dwelt'.",
       "difficulty": 4,
       "standard": "CF",
-      "micro_standard": "CF1"
+      "micro_standard": "CF1",
+      "word_with_nikud": "ישב"
     },
     {
       "skill": "translation",
@@ -1310,7 +1391,8 @@
       "explanation": "עלה means 'went up'.",
       "difficulty": 1,
       "standard": "WM",
-      "micro_standard": "WM1"
+      "micro_standard": "WM1",
+      "word_with_nikud": "עלה"
     },
     {
       "skill": "reverse_translation",
@@ -1326,7 +1408,8 @@
       "explanation": "עלה means 'went up'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM2"
+      "micro_standard": "WM2",
+      "word_with_nikud": "עלה"
     },
     {
       "skill": "shoresh_translation",
@@ -1342,7 +1425,8 @@
       "explanation": "עלה has shoresh עלה and means 'went up'.",
       "difficulty": 4,
       "standard": "CF",
-      "micro_standard": "CF1"
+      "micro_standard": "CF1",
+      "word_with_nikud": "עלה"
     },
     {
       "skill": "translation",
@@ -1358,7 +1442,8 @@
       "explanation": "ירד means 'went down'.",
       "difficulty": 1,
       "standard": "WM",
-      "micro_standard": "WM1"
+      "micro_standard": "WM1",
+      "word_with_nikud": "ירד"
     },
     {
       "skill": "reverse_translation",
@@ -1374,7 +1459,8 @@
       "explanation": "ירד means 'went down'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM2"
+      "micro_standard": "WM2",
+      "word_with_nikud": "ירד"
     },
     {
       "skill": "shoresh_translation",
@@ -1390,7 +1476,8 @@
       "explanation": "ירד has shoresh ירד and means 'went down'.",
       "difficulty": 4,
       "standard": "CF",
-      "micro_standard": "CF1"
+      "micro_standard": "CF1",
+      "word_with_nikud": "ירד"
     },
     {
       "skill": "translation",
@@ -1406,7 +1493,8 @@
       "explanation": "שלח means 'sent'.",
       "difficulty": 1,
       "standard": "WM",
-      "micro_standard": "WM1"
+      "micro_standard": "WM1",
+      "word_with_nikud": "שלח"
     },
     {
       "skill": "reverse_translation",
@@ -1422,7 +1510,8 @@
       "explanation": "שלח means 'sent'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM2"
+      "micro_standard": "WM2",
+      "word_with_nikud": "שלח"
     },
     {
       "skill": "shoresh_translation",
@@ -1438,7 +1527,8 @@
       "explanation": "שלח has shoresh שלח and means 'sent'.",
       "difficulty": 4,
       "standard": "CF",
-      "micro_standard": "CF1"
+      "micro_standard": "CF1",
+      "word_with_nikud": "שלח"
     },
     {
       "skill": "translation",
@@ -1454,7 +1544,8 @@
       "explanation": "כתב means 'wrote'.",
       "difficulty": 1,
       "standard": "WM",
-      "micro_standard": "WM1"
+      "micro_standard": "WM1",
+      "word_with_nikud": "כתב"
     },
     {
       "skill": "reverse_translation",
@@ -1470,7 +1561,8 @@
       "explanation": "כתב means 'wrote'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM2"
+      "micro_standard": "WM2",
+      "word_with_nikud": "כתב"
     },
     {
       "skill": "shoresh_translation",
@@ -1486,7 +1578,8 @@
       "explanation": "כתב has shoresh כתב and means 'wrote'.",
       "difficulty": 4,
       "standard": "CF",
-      "micro_standard": "CF1"
+      "micro_standard": "CF1",
+      "word_with_nikud": "כתב"
     },
     {
       "skill": "prefix_translation",
@@ -1502,7 +1595,8 @@
       "explanation": "ויאכל means 'and he ate'.",
       "difficulty": 4,
       "standard": "CF",
-      "micro_standard": "CF2"
+      "micro_standard": "CF2",
+      "word_with_nikud": "ויאכל"
     },
     {
       "skill": "reverse_translation",
@@ -1518,7 +1612,8 @@
       "explanation": "ויאכל means 'and he ate'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM2"
+      "micro_standard": "WM2",
+      "word_with_nikud": "ויאכל"
     },
     {
       "skill": "mixed",
@@ -1534,7 +1629,8 @@
       "explanation": "ויאכל has shoresh אכל and means 'and he ate'.",
       "difficulty": 4,
       "standard": "CF",
-      "micro_standard": "CF1"
+      "micro_standard": "CF1",
+      "word_with_nikud": "ויאכל"
     },
     {
       "skill": "prefix_translation",
@@ -1550,7 +1646,8 @@
       "explanation": "ויאמר means 'and he said'.",
       "difficulty": 4,
       "standard": "CF",
-      "micro_standard": "CF2"
+      "micro_standard": "CF2",
+      "word_with_nikud": "ויאמר"
     },
     {
       "skill": "reverse_translation",
@@ -1566,7 +1663,8 @@
       "explanation": "ויאמר means 'and he said'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM2"
+      "micro_standard": "WM2",
+      "word_with_nikud": "ויאמר"
     },
     {
       "skill": "mixed",
@@ -1582,7 +1680,8 @@
       "explanation": "ויאמר has shoresh אמר and means 'and he said'.",
       "difficulty": 4,
       "standard": "CF",
-      "micro_standard": "CF1"
+      "micro_standard": "CF1",
+      "word_with_nikud": "ויאמר"
     },
     {
       "skill": "prefix_translation",
@@ -1598,7 +1697,8 @@
       "explanation": "ויבן means 'and he built'.",
       "difficulty": 4,
       "standard": "CF",
-      "micro_standard": "CF2"
+      "micro_standard": "CF2",
+      "word_with_nikud": "ויבן"
     },
     {
       "skill": "reverse_translation",
@@ -1614,7 +1714,8 @@
       "explanation": "ויבן means 'and he built'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM2"
+      "micro_standard": "WM2",
+      "word_with_nikud": "ויבן"
     },
     {
       "skill": "mixed",
@@ -1630,7 +1731,8 @@
       "explanation": "ויבן has shoresh בנה and means 'and he built'.",
       "difficulty": 4,
       "standard": "CF",
-      "micro_standard": "CF1"
+      "micro_standard": "CF1",
+      "word_with_nikud": "ויבן"
     },
     {
       "skill": "prefix_translation",
@@ -1646,7 +1748,8 @@
       "explanation": "וילך means 'and he went'.",
       "difficulty": 4,
       "standard": "CF",
-      "micro_standard": "CF2"
+      "micro_standard": "CF2",
+      "word_with_nikud": "וילך"
     },
     {
       "skill": "reverse_translation",
@@ -1662,7 +1765,8 @@
       "explanation": "וילך means 'and he went'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM2"
+      "micro_standard": "WM2",
+      "word_with_nikud": "וילך"
     },
     {
       "skill": "mixed",
@@ -1678,7 +1782,8 @@
       "explanation": "וילך has shoresh הלך and means 'and he went'.",
       "difficulty": 4,
       "standard": "CF",
-      "micro_standard": "CF1"
+      "micro_standard": "CF1",
+      "word_with_nikud": "וילך"
     },
     {
       "skill": "prefix_translation",
@@ -1694,7 +1799,8 @@
       "explanation": "וימצא means 'and he found'.",
       "difficulty": 4,
       "standard": "CF",
-      "micro_standard": "CF2"
+      "micro_standard": "CF2",
+      "word_with_nikud": "וימצא"
     },
     {
       "skill": "reverse_translation",
@@ -1710,7 +1816,8 @@
       "explanation": "וימצא means 'and he found'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM2"
+      "micro_standard": "WM2",
+      "word_with_nikud": "וימצא"
     },
     {
       "skill": "mixed",
@@ -1726,7 +1833,8 @@
       "explanation": "וימצא has shoresh מצא and means 'and he found'.",
       "difficulty": 4,
       "standard": "CF",
-      "micro_standard": "CF1"
+      "micro_standard": "CF1",
+      "word_with_nikud": "וימצא"
     },
     {
       "skill": "prefix_translation",
@@ -1742,7 +1850,8 @@
       "explanation": "ויעל means 'and he went up'.",
       "difficulty": 4,
       "standard": "CF",
-      "micro_standard": "CF2"
+      "micro_standard": "CF2",
+      "word_with_nikud": "ויעל"
     },
     {
       "skill": "reverse_translation",
@@ -1758,7 +1867,8 @@
       "explanation": "ויעל means 'and he went up'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM2"
+      "micro_standard": "WM2",
+      "word_with_nikud": "ויעל"
     },
     {
       "skill": "mixed",
@@ -1774,7 +1884,8 @@
       "explanation": "ויעל has shoresh עלה and means 'and he went up'.",
       "difficulty": 4,
       "standard": "CF",
-      "micro_standard": "CF1"
+      "micro_standard": "CF1",
+      "word_with_nikud": "ויעל"
     },
     {
       "skill": "prefix_translation",
@@ -1790,7 +1901,8 @@
       "explanation": "ויקח means 'and he took'.",
       "difficulty": 4,
       "standard": "CF",
-      "micro_standard": "CF2"
+      "micro_standard": "CF2",
+      "word_with_nikud": "ויקח"
     },
     {
       "skill": "reverse_translation",
@@ -1806,7 +1918,8 @@
       "explanation": "ויקח means 'and he took'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM2"
+      "micro_standard": "WM2",
+      "word_with_nikud": "ויקח"
     },
     {
       "skill": "mixed",
@@ -1822,7 +1935,8 @@
       "explanation": "ויקח has shoresh לקח and means 'and he took'.",
       "difficulty": 4,
       "standard": "CF",
-      "micro_standard": "CF1"
+      "micro_standard": "CF1",
+      "word_with_nikud": "ויקח"
     },
     {
       "skill": "prefix_translation",
@@ -1838,7 +1952,8 @@
       "explanation": "וירא means 'and he saw'.",
       "difficulty": 4,
       "standard": "CF",
-      "micro_standard": "CF2"
+      "micro_standard": "CF2",
+      "word_with_nikud": "וירא"
     },
     {
       "skill": "reverse_translation",
@@ -1854,7 +1969,8 @@
       "explanation": "וירא means 'and he saw'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM2"
+      "micro_standard": "WM2",
+      "word_with_nikud": "וירא"
     },
     {
       "skill": "mixed",
@@ -1870,7 +1986,8 @@
       "explanation": "וירא has shoresh ראה and means 'and he saw'.",
       "difficulty": 4,
       "standard": "CF",
-      "micro_standard": "CF1"
+      "micro_standard": "CF1",
+      "word_with_nikud": "וירא"
     },
     {
       "skill": "prefix_translation",
@@ -1886,7 +2003,8 @@
       "explanation": "וירד means 'and he went down'.",
       "difficulty": 4,
       "standard": "CF",
-      "micro_standard": "CF2"
+      "micro_standard": "CF2",
+      "word_with_nikud": "וירד"
     },
     {
       "skill": "reverse_translation",
@@ -1902,7 +2020,8 @@
       "explanation": "וירד means 'and he went down'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM2"
+      "micro_standard": "WM2",
+      "word_with_nikud": "וירד"
     },
     {
       "skill": "mixed",
@@ -1918,7 +2037,8 @@
       "explanation": "וירד has shoresh ירד and means 'and he went down'.",
       "difficulty": 4,
       "standard": "CF",
-      "micro_standard": "CF1"
+      "micro_standard": "CF1",
+      "word_with_nikud": "וירד"
     },
     {
       "skill": "prefix_translation",
@@ -1934,7 +2054,8 @@
       "explanation": "וישב means 'and he sat/dwelt'.",
       "difficulty": 4,
       "standard": "CF",
-      "micro_standard": "CF2"
+      "micro_standard": "CF2",
+      "word_with_nikud": "וישב"
     },
     {
       "skill": "reverse_translation",
@@ -1950,7 +2071,8 @@
       "explanation": "וישב means 'and he sat/dwelt'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM2"
+      "micro_standard": "WM2",
+      "word_with_nikud": "וישב"
     },
     {
       "skill": "mixed",
@@ -1966,7 +2088,8 @@
       "explanation": "וישב has shoresh ישב and means 'and he sat/dwelt'.",
       "difficulty": 4,
       "standard": "CF",
-      "micro_standard": "CF1"
+      "micro_standard": "CF1",
+      "word_with_nikud": "וישב"
     },
     {
       "skill": "prefix_translation",
@@ -1982,7 +2105,8 @@
       "explanation": "וישלח means 'and he sent'.",
       "difficulty": 4,
       "standard": "CF",
-      "micro_standard": "CF2"
+      "micro_standard": "CF2",
+      "word_with_nikud": "וישלח"
     },
     {
       "skill": "reverse_translation",
@@ -1998,7 +2122,8 @@
       "explanation": "וישלח means 'and he sent'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM2"
+      "micro_standard": "WM2",
+      "word_with_nikud": "וישלח"
     },
     {
       "skill": "mixed",
@@ -2014,7 +2139,8 @@
       "explanation": "וישלח has shoresh שלח and means 'and he sent'.",
       "difficulty": 4,
       "standard": "CF",
-      "micro_standard": "CF1"
+      "micro_standard": "CF1",
+      "word_with_nikud": "וישלח"
     },
     {
       "skill": "prefix_translation",
@@ -2030,7 +2156,8 @@
       "explanation": "וישמע means 'and he heard'.",
       "difficulty": 4,
       "standard": "CF",
-      "micro_standard": "CF2"
+      "micro_standard": "CF2",
+      "word_with_nikud": "וישמע"
     },
     {
       "skill": "reverse_translation",
@@ -2046,7 +2173,8 @@
       "explanation": "וישמע means 'and he heard'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM2"
+      "micro_standard": "WM2",
+      "word_with_nikud": "וישמע"
     },
     {
       "skill": "mixed",
@@ -2062,7 +2190,8 @@
       "explanation": "וישמע has shoresh שמע and means 'and he heard'.",
       "difficulty": 4,
       "standard": "CF",
-      "micro_standard": "CF1"
+      "micro_standard": "CF1",
+      "word_with_nikud": "וישמע"
     },
     {
       "skill": "prefix_translation",
@@ -2078,7 +2207,8 @@
       "explanation": "וישמר means 'and he guarded'.",
       "difficulty": 4,
       "standard": "CF",
-      "micro_standard": "CF2"
+      "micro_standard": "CF2",
+      "word_with_nikud": "וישמר"
     },
     {
       "skill": "reverse_translation",
@@ -2094,7 +2224,8 @@
       "explanation": "וישמר means 'and he guarded'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM2"
+      "micro_standard": "WM2",
+      "word_with_nikud": "וישמר"
     },
     {
       "skill": "mixed",
@@ -2110,7 +2241,8 @@
       "explanation": "וישמר has shoresh שמר and means 'and he guarded'.",
       "difficulty": 4,
       "standard": "CF",
-      "micro_standard": "CF1"
+      "micro_standard": "CF1",
+      "word_with_nikud": "וישמר"
     },
     {
       "skill": "prefix_translation",
@@ -2126,7 +2258,8 @@
       "explanation": "ויתן means 'and he gave'.",
       "difficulty": 4,
       "standard": "CF",
-      "micro_standard": "CF2"
+      "micro_standard": "CF2",
+      "word_with_nikud": "ויתן"
     },
     {
       "skill": "reverse_translation",
@@ -2142,7 +2275,8 @@
       "explanation": "ויתן means 'and he gave'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM2"
+      "micro_standard": "WM2",
+      "word_with_nikud": "ויתן"
     },
     {
       "skill": "mixed",
@@ -2158,7 +2292,8 @@
       "explanation": "ויתן has shoresh נתן and means 'and he gave'.",
       "difficulty": 4,
       "standard": "CF",
-      "micro_standard": "CF1"
+      "micro_standard": "CF1",
+      "word_with_nikud": "ויתן"
     },
     {
       "skill": "pattern",
@@ -2174,7 +2309,8 @@
       "explanation": "ויאמר is a past narrative verb meaning 'and he said'.",
       "difficulty": 4,
       "standard": "PR",
-      "micro_standard": "PR4"
+      "micro_standard": "PR4",
+      "word_with_nikud": "ויאמר"
     },
     {
       "skill": "phrase",
@@ -2190,7 +2326,8 @@
       "explanation": "וילך = and he went, האיש = the man.",
       "difficulty": 5,
       "standard": "PC",
-      "micro_standard": "PC1"
+      "micro_standard": "PC1",
+      "word_with_nikud": "וילך"
     },
     {
       "skill": "translation",
@@ -2206,7 +2343,8 @@
       "explanation": "אדם means 'man'.",
       "difficulty": 1,
       "standard": "WM",
-      "micro_standard": "WM1"
+      "micro_standard": "WM1",
+      "word_with_nikud": "אדם"
     },
     {
       "skill": "translation",
@@ -2222,7 +2360,8 @@
       "explanation": "אב means 'father'.",
       "difficulty": 1,
       "standard": "WM",
-      "micro_standard": "WM1"
+      "micro_standard": "WM1",
+      "word_with_nikud": "אב"
     },
     {
       "skill": "translation",
@@ -2238,7 +2377,8 @@
       "explanation": "אם means 'mother'.",
       "difficulty": 1,
       "standard": "WM",
-      "micro_standard": "WM1"
+      "micro_standard": "WM1",
+      "word_with_nikud": "אם"
     },
     {
       "skill": "translation",
@@ -2254,7 +2394,8 @@
       "explanation": "אח means 'brother'.",
       "difficulty": 1,
       "standard": "WM",
-      "micro_standard": "WM1"
+      "micro_standard": "WM1",
+      "word_with_nikud": "אח"
     },
     {
       "skill": "translation",
@@ -2270,7 +2411,8 @@
       "explanation": "אחות means 'sister'.",
       "difficulty": 1,
       "standard": "WM",
-      "micro_standard": "WM1"
+      "micro_standard": "WM1",
+      "word_with_nikud": "אחות"
     },
     {
       "skill": "translation",
@@ -2286,7 +2428,8 @@
       "explanation": "נער means 'boy'.",
       "difficulty": 1,
       "standard": "WM",
-      "micro_standard": "WM1"
+      "micro_standard": "WM1",
+      "word_with_nikud": "נער"
     },
     {
       "skill": "translation",
@@ -2302,7 +2445,8 @@
       "explanation": "נערה means 'girl'.",
       "difficulty": 1,
       "standard": "WM",
-      "micro_standard": "WM1"
+      "micro_standard": "WM1",
+      "word_with_nikud": "נערה"
     },
     {
       "skill": "translation",
@@ -2318,7 +2462,8 @@
       "explanation": "עבד means 'servant'.",
       "difficulty": 1,
       "standard": "WM",
-      "micro_standard": "WM1"
+      "micro_standard": "WM1",
+      "word_with_nikud": "עבד"
     },
     {
       "skill": "translation",
@@ -2334,7 +2479,8 @@
       "explanation": "כהן means 'priest'.",
       "difficulty": 1,
       "standard": "WM",
-      "micro_standard": "WM1"
+      "micro_standard": "WM1",
+      "word_with_nikud": "כהן"
     },
     {
       "skill": "translation",
@@ -2350,7 +2496,8 @@
       "explanation": "נביא means 'prophet'.",
       "difficulty": 1,
       "standard": "WM",
-      "micro_standard": "WM1"
+      "micro_standard": "WM1",
+      "word_with_nikud": "נביא"
     },
     {
       "skill": "translation",
@@ -2366,7 +2513,8 @@
       "explanation": "לחם means 'bread'.",
       "difficulty": 1,
       "standard": "WM",
-      "micro_standard": "WM1"
+      "micro_standard": "WM1",
+      "word_with_nikud": "לחם"
     },
     {
       "skill": "translation",
@@ -2382,7 +2530,8 @@
       "explanation": "אש means 'fire'.",
       "difficulty": 1,
       "standard": "WM",
-      "micro_standard": "WM1"
+      "micro_standard": "WM1",
+      "word_with_nikud": "אש"
     },
     {
       "skill": "reverse_translation",
@@ -2398,7 +2547,8 @@
       "explanation": "אור means 'light'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM2"
+      "micro_standard": "WM2",
+      "word_with_nikud": "אור"
     },
     {
       "skill": "reverse_translation",
@@ -2414,7 +2564,8 @@
       "explanation": "חשך means 'darkness'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM2"
+      "micro_standard": "WM2",
+      "word_with_nikud": "חשך"
     },
     {
       "skill": "reverse_translation",
@@ -2430,7 +2581,8 @@
       "explanation": "שמש means 'sun'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM2"
+      "micro_standard": "WM2",
+      "word_with_nikud": "שמש"
     },
     {
       "skill": "reverse_translation",
@@ -2446,7 +2598,8 @@
       "explanation": "ירח means 'moon'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM2"
+      "micro_standard": "WM2",
+      "word_with_nikud": "ירח"
     },
     {
       "skill": "reverse_translation",
@@ -2462,7 +2615,8 @@
       "explanation": "כוכב means 'star'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM2"
+      "micro_standard": "WM2",
+      "word_with_nikud": "כוכב"
     },
     {
       "skill": "reverse_translation",
@@ -2478,7 +2632,8 @@
       "explanation": "שמים means 'heavens'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM2"
+      "micro_standard": "WM2",
+      "word_with_nikud": "שמים"
     },
     {
       "skill": "reverse_translation",
@@ -2494,7 +2649,8 @@
       "explanation": "אבן means 'stone'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM2"
+      "micro_standard": "WM2",
+      "word_with_nikud": "אבן"
     },
     {
       "skill": "reverse_translation",
@@ -2510,7 +2666,8 @@
       "explanation": "דרך means 'road'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM2"
+      "micro_standard": "WM2",
+      "word_with_nikud": "דרך"
     },
     {
       "skill": "reverse_translation",
@@ -2526,7 +2683,8 @@
       "explanation": "נהר means 'river'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM2"
+      "micro_standard": "WM2",
+      "word_with_nikud": "נהר"
     },
     {
       "skill": "reverse_translation",
@@ -2542,7 +2700,8 @@
       "explanation": "מדבר means 'wilderness'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM2"
+      "micro_standard": "WM2",
+      "word_with_nikud": "מדבר"
     },
     {
       "skill": "shoresh",
@@ -2558,7 +2717,8 @@
       "explanation": "ויקרא has shoresh קרא.",
       "difficulty": 3,
       "standard": "SR",
-      "micro_standard": "SR2"
+      "micro_standard": "SR2",
+      "word_with_nikud": "ויקרא"
     },
     {
       "skill": "shoresh",
@@ -2574,7 +2734,8 @@
       "explanation": "וידבר has shoresh דבר.",
       "difficulty": 3,
       "standard": "SR",
-      "micro_standard": "SR2"
+      "micro_standard": "SR2",
+      "word_with_nikud": "וידבר"
     },
     {
       "skill": "shoresh",
@@ -2590,7 +2751,8 @@
       "explanation": "ויעש has shoresh עשה.",
       "difficulty": 3,
       "standard": "SR",
-      "micro_standard": "SR2"
+      "micro_standard": "SR2",
+      "word_with_nikud": "ויעש"
     },
     {
       "skill": "shoresh",
@@ -2606,7 +2768,8 @@
       "explanation": "ויצא has shoresh יצא.",
       "difficulty": 3,
       "standard": "SR",
-      "micro_standard": "SR2"
+      "micro_standard": "SR2",
+      "word_with_nikud": "ויצא"
     },
     {
       "skill": "shoresh",
@@ -2622,7 +2785,8 @@
       "explanation": "ויבא has shoresh בא.",
       "difficulty": 4,
       "standard": "SR",
-      "micro_standard": "SR4"
+      "micro_standard": "SR4",
+      "word_with_nikud": "ויבא"
     },
     {
       "skill": "shoresh",
@@ -2638,7 +2802,8 @@
       "explanation": "ויעמד has shoresh עמד.",
       "difficulty": 3,
       "standard": "SR",
-      "micro_standard": "SR2"
+      "micro_standard": "SR2",
+      "word_with_nikud": "ויעמד"
     },
     {
       "skill": "shoresh",
@@ -2654,7 +2819,8 @@
       "explanation": "וימת has shoresh מות.",
       "difficulty": 4,
       "standard": "SR",
-      "micro_standard": "SR4"
+      "micro_standard": "SR4",
+      "word_with_nikud": "וימת"
     },
     {
       "skill": "shoresh",
@@ -2670,7 +2836,8 @@
       "explanation": "ויחי has shoresh חיה.",
       "difficulty": 4,
       "standard": "SR",
-      "micro_standard": "SR4"
+      "micro_standard": "SR4",
+      "word_with_nikud": "ויחי"
     },
     {
       "skill": "shoresh",
@@ -2686,7 +2853,8 @@
       "explanation": "וישב can come from שוב when it means 'and he returned'.",
       "difficulty": 4,
       "standard": "SR",
-      "micro_standard": "SR4"
+      "micro_standard": "SR4",
+      "word_with_nikud": "וישב"
     },
     {
       "skill": "shoresh",
@@ -2702,7 +2870,8 @@
       "explanation": "וילד has shoresh ילד.",
       "difficulty": 4,
       "standard": "SR",
-      "micro_standard": "SR4"
+      "micro_standard": "SR4",
+      "word_with_nikud": "וילד"
     },
     {
       "skill": "prefix_translation",
@@ -2718,7 +2887,8 @@
       "explanation": "ויקרא means 'and he called'.",
       "difficulty": 4,
       "standard": "CF",
-      "micro_standard": "CF2"
+      "micro_standard": "CF2",
+      "word_with_nikud": "ויקרא"
     },
     {
       "skill": "prefix_translation",
@@ -2734,7 +2904,8 @@
       "explanation": "וידבר means 'and he spoke'.",
       "difficulty": 4,
       "standard": "CF",
-      "micro_standard": "CF2"
+      "micro_standard": "CF2",
+      "word_with_nikud": "וידבר"
     },
     {
       "skill": "prefix_translation",
@@ -2750,7 +2921,8 @@
       "explanation": "ויעש means 'and he did'.",
       "difficulty": 4,
       "standard": "CF",
-      "micro_standard": "CF2"
+      "micro_standard": "CF2",
+      "word_with_nikud": "ויעש"
     },
     {
       "skill": "prefix_translation",
@@ -2766,7 +2938,8 @@
       "explanation": "ויצא means 'and he went out'.",
       "difficulty": 4,
       "standard": "CF",
-      "micro_standard": "CF2"
+      "micro_standard": "CF2",
+      "word_with_nikud": "ויצא"
     },
     {
       "skill": "prefix_translation",
@@ -2782,7 +2955,8 @@
       "explanation": "ויבא means 'and he came'.",
       "difficulty": 4,
       "standard": "CF",
-      "micro_standard": "CF2"
+      "micro_standard": "CF2",
+      "word_with_nikud": "ויבא"
     },
     {
       "skill": "prefix_translation",
@@ -2798,7 +2972,8 @@
       "explanation": "ויעמד means 'and he stood'.",
       "difficulty": 4,
       "standard": "CF",
-      "micro_standard": "CF2"
+      "micro_standard": "CF2",
+      "word_with_nikud": "ויעמד"
     },
     {
       "skill": "prefix_translation",
@@ -2814,7 +2989,8 @@
       "explanation": "וימת means 'and he died'.",
       "difficulty": 4,
       "standard": "CF",
-      "micro_standard": "CF2"
+      "micro_standard": "CF2",
+      "word_with_nikud": "וימת"
     },
     {
       "skill": "prefix_translation",
@@ -2830,7 +3006,8 @@
       "explanation": "ויחי means 'and he lived'.",
       "difficulty": 4,
       "standard": "CF",
-      "micro_standard": "CF2"
+      "micro_standard": "CF2",
+      "word_with_nikud": "ויחי"
     },
     {
       "skill": "translation",
@@ -2846,7 +3023,8 @@
       "explanation": "זכר means 'remembered'.",
       "difficulty": 1,
       "standard": "WM",
-      "micro_standard": "WM1"
+      "micro_standard": "WM1",
+      "word_with_nikud": "זכר"
     },
     {
       "skill": "translation",
@@ -2862,7 +3040,8 @@
       "explanation": "ידע means 'knew'.",
       "difficulty": 1,
       "standard": "WM",
-      "micro_standard": "WM1"
+      "micro_standard": "WM1",
+      "word_with_nikud": "ידע"
     },
     {
       "skill": "translation",
@@ -2878,7 +3057,8 @@
       "explanation": "אהב means 'loved'.",
       "difficulty": 1,
       "standard": "WM",
-      "micro_standard": "WM1"
+      "micro_standard": "WM1",
+      "word_with_nikud": "אהב"
     },
     {
       "skill": "translation",
@@ -2894,7 +3074,8 @@
       "explanation": "שנא means 'hated'.",
       "difficulty": 1,
       "standard": "WM",
-      "micro_standard": "WM1"
+      "micro_standard": "WM1",
+      "word_with_nikud": "שנא"
     },
     {
       "skill": "translation",
@@ -2910,7 +3091,8 @@
       "explanation": "ברך means 'blessed'.",
       "difficulty": 1,
       "standard": "WM",
-      "micro_standard": "WM1"
+      "micro_standard": "WM1",
+      "word_with_nikud": "ברך"
     },
     {
       "skill": "translation",
@@ -2926,7 +3108,8 @@
       "explanation": "ענה means 'answered'.",
       "difficulty": 1,
       "standard": "WM",
-      "micro_standard": "WM1"
+      "micro_standard": "WM1",
+      "word_with_nikud": "ענה"
     },
     {
       "skill": "translation",
@@ -2942,7 +3125,8 @@
       "explanation": "חשב means 'thought'.",
       "difficulty": 1,
       "standard": "WM",
-      "micro_standard": "WM1"
+      "micro_standard": "WM1",
+      "word_with_nikud": "חשב"
     },
     {
       "skill": "translation",
@@ -2958,7 +3142,8 @@
       "explanation": "שבר means 'broke'.",
       "difficulty": 1,
       "standard": "WM",
-      "micro_standard": "WM1"
+      "micro_standard": "WM1",
+      "word_with_nikud": "שבר"
     },
     {
       "skill": "translation",
@@ -2974,7 +3159,8 @@
       "explanation": "שתה means 'drank'.",
       "difficulty": 1,
       "standard": "WM",
-      "micro_standard": "WM1"
+      "micro_standard": "WM1",
+      "word_with_nikud": "שתה"
     },
     {
       "skill": "translation",
@@ -2990,7 +3176,8 @@
       "explanation": "ישן means 'slept'.",
       "difficulty": 1,
       "standard": "WM",
-      "micro_standard": "WM1"
+      "micro_standard": "WM1",
+      "word_with_nikud": "ישן"
     },
     {
       "skill": "reverse_translation",
@@ -3006,7 +3193,8 @@
       "explanation": "פרי means 'fruit'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM2"
+      "micro_standard": "WM2",
+      "word_with_nikud": "פרי"
     },
     {
       "skill": "reverse_translation",
@@ -3022,7 +3210,8 @@
       "explanation": "יין means 'wine'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM2"
+      "micro_standard": "WM2",
+      "word_with_nikud": "יין"
     },
     {
       "skill": "reverse_translation",
@@ -3038,7 +3227,8 @@
       "explanation": "חלב means 'milk'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM2"
+      "micro_standard": "WM2",
+      "word_with_nikud": "חלב"
     },
     {
       "skill": "reverse_translation",
@@ -3054,7 +3244,8 @@
       "explanation": "ברזל means 'iron'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM2"
+      "micro_standard": "WM2",
+      "word_with_nikud": "ברזל"
     },
     {
       "skill": "reverse_translation",
@@ -3070,7 +3261,8 @@
       "explanation": "שבוע means 'week'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM2"
+      "micro_standard": "WM2",
+      "word_with_nikud": "שבוע"
     },
     {
       "skill": "reverse_translation",
@@ -3087,7 +3279,8 @@
       "difficulty": 2,
       "standard": "WM",
       "micro_standard": "WM2",
-      "source": "Genesis 8:11 (לעת ערב)"
+      "source": "Genesis 8:11 (לעת ערב)",
+      "word_with_nikud": "עת"
     },
     {
       "skill": "reverse_translation",
@@ -3103,7 +3296,8 @@
       "explanation": "חיים means 'life'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM5"
+      "micro_standard": "WM5",
+      "word_with_nikud": "חיים"
     },
     {
       "skill": "reverse_translation",
@@ -3119,7 +3313,8 @@
       "explanation": "מלחמה means 'war'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM5"
+      "micro_standard": "WM5",
+      "word_with_nikud": "מלחמה"
     },
     {
       "skill": "reverse_translation",
@@ -3135,7 +3330,8 @@
       "explanation": "אהבה means 'love'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM5"
+      "micro_standard": "WM5",
+      "word_with_nikud": "אהבה"
     },
     {
       "skill": "reverse_translation",
@@ -3151,7 +3347,8 @@
       "explanation": "ברכה means 'blessing'.",
       "difficulty": 2,
       "standard": "WM",
-      "micro_standard": "WM5"
+      "micro_standard": "WM5",
+      "word_with_nikud": "ברכה"
     },
     {
       "skill": "shoresh",
@@ -3167,7 +3364,8 @@
       "explanation": "ויזכר has shoresh זכר.",
       "difficulty": 3,
       "standard": "SR",
-      "micro_standard": "SR2"
+      "micro_standard": "SR2",
+      "word_with_nikud": "ויזכר"
     },
     {
       "skill": "shoresh",
@@ -3183,7 +3381,8 @@
       "explanation": "וידע has shoresh ידע.",
       "difficulty": 3,
       "standard": "SR",
-      "micro_standard": "SR2"
+      "micro_standard": "SR2",
+      "word_with_nikud": "וידע"
     },
     {
       "skill": "shoresh",
@@ -3199,7 +3398,8 @@
       "explanation": "ויאהב has shoresh אהב.",
       "difficulty": 3,
       "standard": "SR",
-      "micro_standard": "SR2"
+      "micro_standard": "SR2",
+      "word_with_nikud": "ויאהב"
     },
     {
       "skill": "shoresh",
@@ -3215,7 +3415,8 @@
       "explanation": "וישנא has shoresh שנא.",
       "difficulty": 3,
       "standard": "SR",
-      "micro_standard": "SR2"
+      "micro_standard": "SR2",
+      "word_with_nikud": "וישנא"
     },
     {
       "skill": "shoresh",
@@ -3231,7 +3432,8 @@
       "explanation": "ויברך has shoresh ברך.",
       "difficulty": 3,
       "standard": "SR",
-      "micro_standard": "SR2"
+      "micro_standard": "SR2",
+      "word_with_nikud": "ויברך"
     },
     {
       "skill": "shoresh",
@@ -3247,7 +3449,8 @@
       "explanation": "ויען has shoresh ענה.",
       "difficulty": 3,
       "standard": "SR",
-      "micro_standard": "SR2"
+      "micro_standard": "SR2",
+      "word_with_nikud": "ויען"
     },
     {
       "skill": "shoresh",
@@ -3263,7 +3466,8 @@
       "explanation": "ויחשב has shoresh חשב.",
       "difficulty": 3,
       "standard": "SR",
-      "micro_standard": "SR2"
+      "micro_standard": "SR2",
+      "word_with_nikud": "ויחשב"
     },
     {
       "skill": "shoresh",
@@ -3279,7 +3483,8 @@
       "explanation": "וישבר has shoresh שבר.",
       "difficulty": 3,
       "standard": "SR",
-      "micro_standard": "SR2"
+      "micro_standard": "SR2",
+      "word_with_nikud": "וישבר"
     },
     {
       "skill": "shoresh",
@@ -3295,7 +3500,8 @@
       "explanation": "וישת has shoresh שתה.",
       "difficulty": 3,
       "standard": "SR",
-      "micro_standard": "SR2"
+      "micro_standard": "SR2",
+      "word_with_nikud": "וישת"
     },
     {
       "skill": "shoresh",
@@ -3311,7 +3517,8 @@
       "explanation": "ויפתח has shoresh פתח.",
       "difficulty": 3,
       "standard": "SR",
-      "micro_standard": "SR2"
+      "micro_standard": "SR2",
+      "word_with_nikud": "ויפתח"
     },
     {
       "skill": "prefix_translation",
@@ -3327,7 +3534,8 @@
       "explanation": "ויזכר means 'and he remembered'.",
       "difficulty": 4,
       "standard": "CF",
-      "micro_standard": "CF2"
+      "micro_standard": "CF2",
+      "word_with_nikud": "ויזכר"
     },
     {
       "skill": "prefix_translation",
@@ -3343,7 +3551,8 @@
       "explanation": "וידע means 'and he knew'.",
       "difficulty": 4,
       "standard": "CF",
-      "micro_standard": "CF2"
+      "micro_standard": "CF2",
+      "word_with_nikud": "וידע"
     },
     {
       "skill": "prefix_translation",
@@ -3359,7 +3568,8 @@
       "explanation": "ויאהב means 'and he loved'.",
       "difficulty": 4,
       "standard": "CF",
-      "micro_standard": "CF2"
+      "micro_standard": "CF2",
+      "word_with_nikud": "ויאהב"
     },
     {
       "skill": "prefix_translation",
@@ -3375,7 +3585,8 @@
       "explanation": "ויברך means 'and he blessed'.",
       "difficulty": 4,
       "standard": "CF",
-      "micro_standard": "CF2"
+      "micro_standard": "CF2",
+      "word_with_nikud": "ויברך"
     },
     {
       "skill": "prefix_translation",
@@ -3391,7 +3602,8 @@
       "explanation": "ויען means 'and he answered'.",
       "difficulty": 4,
       "standard": "CF",
-      "micro_standard": "CF2"
+      "micro_standard": "CF2",
+      "word_with_nikud": "ויען"
     },
     {
       "skill": "prefix_translation",
@@ -3407,7 +3619,8 @@
       "explanation": "ויחשב means 'and he thought'.",
       "difficulty": 4,
       "standard": "CF",
-      "micro_standard": "CF2"
+      "micro_standard": "CF2",
+      "word_with_nikud": "ויחשב"
     },
     {
       "skill": "prefix_translation",
@@ -3423,7 +3636,8 @@
       "explanation": "וישבר means 'and he broke'.",
       "difficulty": 4,
       "standard": "CF",
-      "micro_standard": "CF2"
+      "micro_standard": "CF2",
+      "word_with_nikud": "וישבר"
     },
     {
       "skill": "prefix_translation",
@@ -3439,7 +3653,8 @@
       "explanation": "ויפתח means 'and he opened'.",
       "difficulty": 4,
       "standard": "CF",
-      "micro_standard": "CF2"
+      "micro_standard": "CF2",
+      "word_with_nikud": "ויפתח"
     },
     {
       "skill": "prefix_translation",
@@ -3455,7 +3670,8 @@
       "explanation": "ויסגר means 'and he closed'.",
       "difficulty": 4,
       "standard": "CF",
-      "micro_standard": "CF2"
+      "micro_standard": "CF2",
+      "word_with_nikud": "ויסגר"
     },
     {
       "skill": "prefix_translation",
@@ -3471,7 +3687,8 @@
       "explanation": "ויעבר means 'and he passed'.",
       "difficulty": 4,
       "standard": "CF",
-      "micro_standard": "CF2"
+      "micro_standard": "CF2",
+      "word_with_nikud": "ויעבר"
     },
     {
       "skill": "semantic",
@@ -3487,7 +3704,8 @@
       "explanation": "ו is the prefix meaning 'and'.",
       "difficulty": 3,
       "standard": "PR",
-      "micro_standard": "PR1"
+      "micro_standard": "PR1",
+      "word_with_nikud": "ו"
     },
     {
       "skill": "semantic",
@@ -3503,7 +3721,8 @@
       "explanation": "ה is the prefix meaning 'the'.",
       "difficulty": 3,
       "standard": "PR",
-      "micro_standard": "PR1"
+      "micro_standard": "PR1",
+      "word_with_nikud": "ה"
     },
     {
       "skill": "semantic",
@@ -3519,7 +3738,8 @@
       "explanation": "ל is the prefix meaning 'to' or 'for'.",
       "difficulty": 3,
       "standard": "PR",
-      "micro_standard": "PR1"
+      "micro_standard": "PR1",
+      "word_with_nikud": "ל"
     },
     {
       "skill": "semantic",
@@ -3535,7 +3755,8 @@
       "explanation": "ב is the prefix meaning 'in'.",
       "difficulty": 3,
       "standard": "PR",
-      "micro_standard": "PR1"
+      "micro_standard": "PR1",
+      "word_with_nikud": "ב"
     },
     {
       "skill": "semantic",
@@ -3551,7 +3772,8 @@
       "explanation": "מ is the prefix meaning 'from'.",
       "difficulty": 3,
       "standard": "PR",
-      "micro_standard": "PR1"
+      "micro_standard": "PR1",
+      "word_with_nikud": "מ"
     },
     {
       "skill": "semantic",
@@ -3567,7 +3789,8 @@
       "explanation": "על means 'on'.",
       "difficulty": 3,
       "standard": "PR",
-      "micro_standard": "PR1"
+      "micro_standard": "PR1",
+      "word_with_nikud": "על"
     },
     {
       "skill": "semantic",
@@ -3583,7 +3806,8 @@
       "explanation": "אל means 'to'.",
       "difficulty": 3,
       "standard": "PR",
-      "micro_standard": "PR1"
+      "micro_standard": "PR1",
+      "word_with_nikud": "אל"
     },
     {
       "skill": "semantic",
@@ -3599,7 +3823,8 @@
       "explanation": "כי often means 'because' or 'that'.",
       "difficulty": 3,
       "standard": "PR",
-      "micro_standard": "PR1"
+      "micro_standard": "PR1",
+      "word_with_nikud": "כי"
     },
     {
       "skill": "semantic",
@@ -3615,7 +3840,8 @@
       "explanation": "אשר means 'that' or 'which'.",
       "difficulty": 3,
       "standard": "PR",
-      "micro_standard": "PR1"
+      "micro_standard": "PR1",
+      "word_with_nikud": "אשר"
     },
     {
       "skill": "semantic",
@@ -3631,7 +3857,8 @@
       "explanation": "את marks the direct object.",
       "difficulty": 3,
       "standard": "PR",
-      "micro_standard": "PR1"
+      "micro_standard": "PR1",
+      "word_with_nikud": "את"
     },
     {
       "skill": "suffix",
@@ -3647,7 +3874,8 @@
       "correct_answer": "my house",
       "explanation": "י at the end means 'my'.",
       "difficulty": 3,
-      "micro_standard": "PR2"
+      "micro_standard": "PR2",
+      "word_with_nikud": "ביתי"
     },
     {
       "skill": "suffix",
@@ -3663,7 +3891,8 @@
       "correct_answer": "his house",
       "explanation": "ו at the end means 'his'.",
       "difficulty": 3,
-      "micro_standard": "PR2"
+      "micro_standard": "PR2",
+      "word_with_nikud": "ביתו"
     },
     {
       "skill": "suffix",
@@ -3679,7 +3908,8 @@
       "correct_answer": "her house",
       "explanation": "ה at the end means 'her'.",
       "difficulty": 3,
-      "micro_standard": "PR2"
+      "micro_standard": "PR2",
+      "word_with_nikud": "ביתה"
     },
     {
       "skill": "suffix",
@@ -3695,7 +3925,8 @@
       "correct_answer": "our house",
       "explanation": "נו at the end means 'our'.",
       "difficulty": 3,
-      "micro_standard": "PR2"
+      "micro_standard": "PR2",
+      "word_with_nikud": "ביתנו"
     },
     {
       "skill": "suffix",
@@ -3711,7 +3942,8 @@
       "correct_answer": "my father",
       "explanation": "אב means 'father' and י means 'my'.",
       "difficulty": 3,
-      "micro_standard": "PR2"
+      "micro_standard": "PR2",
+      "word_with_nikud": "אבי"
     },
     {
       "skill": "suffix",
@@ -3727,7 +3959,8 @@
       "correct_answer": "their people",
       "explanation": "הם at the end means 'their'.",
       "difficulty": 3,
-      "micro_standard": "PR2"
+      "micro_standard": "PR2",
+      "word_with_nikud": "עמם"
     },
     {
       "skill": "prefix",
@@ -3743,7 +3976,8 @@
       "correct_answer": "in the house",
       "explanation": "ב means 'in'.",
       "difficulty": 4,
-      "micro_standard": "PR3"
+      "micro_standard": "PR3",
+      "word_with_nikud": "בבית"
     },
     {
       "skill": "prefix",
@@ -3759,7 +3993,8 @@
       "correct_answer": "to a house",
       "explanation": "ל means 'to' or 'for'.",
       "difficulty": 4,
-      "micro_standard": "PR3"
+      "micro_standard": "PR3",
+      "word_with_nikud": "לבית"
     },
     {
       "skill": "prefix",
@@ -3775,7 +4010,8 @@
       "correct_answer": "from a house",
       "explanation": "מ means 'from'.",
       "difficulty": 4,
-      "micro_standard": "PR3"
+      "micro_standard": "PR3",
+      "word_with_nikud": "מבית"
     },
     {
       "skill": "prefix",
@@ -3791,7 +4027,8 @@
       "correct_answer": "like a king",
       "explanation": "כ means 'like' or 'as'.",
       "difficulty": 4,
-      "micro_standard": "PR3"
+      "micro_standard": "PR3",
+      "word_with_nikud": "כמלך"
     },
     {
       "skill": "prefix",
@@ -3807,7 +4044,8 @@
       "correct_answer": "the king",
       "explanation": "ה means 'the'.",
       "difficulty": 4,
-      "micro_standard": "PR3"
+      "micro_standard": "PR3",
+      "word_with_nikud": "המלך"
     },
     {
       "skill": "prefix",
@@ -3823,7 +4061,8 @@
       "correct_answer": "in a field",
       "explanation": "ב means 'in' and שדה means 'field'.",
       "difficulty": 4,
-      "micro_standard": "PR3"
+      "micro_standard": "PR3",
+      "word_with_nikud": "בשדה"
     },
     {
       "skill": "combined",
@@ -3839,7 +4078,8 @@
       "correct_answer": "in his house",
       "explanation": "ב = in, בית = house, ו = his.",
       "difficulty": 5,
-      "micro_standard": "CF4"
+      "micro_standard": "CF4",
+      "word_with_nikud": "בביתו"
     },
     {
       "skill": "combined",
@@ -3855,7 +4095,8 @@
       "correct_answer": "to his house",
       "explanation": "ל = to, בית = house, ו = his.",
       "difficulty": 5,
-      "micro_standard": "CF4"
+      "micro_standard": "CF4",
+      "word_with_nikud": "לביתו"
     },
     {
       "skill": "combined",
@@ -3871,7 +4112,8 @@
       "correct_answer": "from his house",
       "explanation": "מ = from, בית = house, ו = his.",
       "difficulty": 5,
-      "micro_standard": "CF4"
+      "micro_standard": "CF4",
+      "word_with_nikud": "מביתו"
     },
     {
       "skill": "combined",
@@ -3887,7 +4129,8 @@
       "correct_answer": "in his land",
       "explanation": "ב = in, ארץ = land, ו = his.",
       "difficulty": 5,
-      "micro_standard": "CF4"
+      "micro_standard": "CF4",
+      "word_with_nikud": "בארצו"
     },
     {
       "skill": "combined",
@@ -3903,7 +4146,8 @@
       "correct_answer": "in the heavens",
       "explanation": "ב = in and שמים means 'heavens'.",
       "difficulty": 5,
-      "micro_standard": "CF4"
+      "micro_standard": "CF4",
+      "word_with_nikud": "בשמים"
     },
     {
       "skill": "combined",
@@ -3919,7 +4163,8 @@
       "correct_answer": "קרא + ו - and he called",
       "explanation": "ו = and, קרא = called.",
       "difficulty": 4,
-      "micro_standard": "CF3"
+      "micro_standard": "CF3",
+      "word_with_nikud": "ויקרא"
     },
     {
       "skill": "combined",
@@ -3935,7 +4180,8 @@
       "correct_answer": "דבר + ו - and he spoke",
       "explanation": "ו = and, דבר = spoke.",
       "difficulty": 4,
-      "micro_standard": "CF3"
+      "micro_standard": "CF3",
+      "word_with_nikud": "וידבר"
     },
     {
       "skill": "combined",
@@ -3951,7 +4197,8 @@
       "correct_answer": "עשה + ו - and he did",
       "explanation": "ו = and, עשה = did/made.",
       "difficulty": 4,
-      "micro_standard": "CF3"
+      "micro_standard": "CF3",
+      "word_with_nikud": "ויעש"
     },
     {
       "skill": "semantic",
@@ -3967,7 +4214,8 @@
       "correct_answer": "מלכה",
       "explanation": "מלכה is the feminine form related to king.",
       "difficulty": 4,
-      "micro_standard": "SR5"
+      "micro_standard": "SR5",
+      "word_with_nikud": "מֶלֶךְ"
     },
     {
       "skill": "semantic",
@@ -3983,7 +4231,8 @@
       "correct_answer": "מלכות",
       "explanation": "מלכות means 'kingdom' and is related to מלך.",
       "difficulty": 4,
-      "micro_standard": "SR5"
+      "micro_standard": "SR5",
+      "word_with_nikud": "מֶלֶךְ"
     },
     {
       "skill": "phrase",
@@ -3999,7 +4248,8 @@
       "correct_answer": "and he sat in his house",
       "explanation": "וישב = and he sat/dwelt, בביתו = in his house.",
       "difficulty": 5,
-      "micro_standard": "PC4"
+      "micro_standard": "PC4",
+      "word_with_nikud": "ביתו"
     },
     {
       "skill": "phrase",
@@ -4015,7 +4265,8 @@
       "correct_answer": "the man went to his land",
       "explanation": "וילך = and he went, האיש = the man, לארצו = to his land.",
       "difficulty": 5,
-      "micro_standard": "PC4"
+      "micro_standard": "PC4",
+      "word_with_nikud": "ארצו"
     },
     {
       "skill": "combined",
@@ -4031,7 +4282,8 @@
       "correct_answer": "to his people",
       "explanation": "ל = to, עם = people, ו = his.",
       "difficulty": 4,
-      "micro_standard": "PR5"
+      "micro_standard": "PR5",
+      "word_with_nikud": "לעמו"
     },
     {
       "skill": "combined",
@@ -4047,7 +4299,8 @@
       "correct_answer": "and he brought him",
       "explanation": "ו = and, בוא/הביא = brought, הו = him.",
       "difficulty": 5,
-      "micro_standard": "CF4"
+      "micro_standard": "CF4",
+      "word_with_nikud": "ויביאהו"
     },
     {
       "skill": "combined",
@@ -4063,7 +4316,8 @@
       "correct_answer": "and he gave him",
       "explanation": "ו = and, נתן = gave, הו = him.",
       "difficulty": 5,
-      "micro_standard": "CF4"
+      "micro_standard": "CF4",
+      "word_with_nikud": "ויתנהו"
     },
     {
       "skill": "combined",
@@ -4079,7 +4333,8 @@
       "correct_answer": "and he took him",
       "explanation": "ו = and, לקח = took, הו = him.",
       "difficulty": 5,
-      "micro_standard": "CF4"
+      "micro_standard": "CF4",
+      "word_with_nikud": "ויקחהו"
     },
     {
       "skill": "combined",
@@ -4095,7 +4350,8 @@
       "correct_answer": "and he saw him",
       "explanation": "ו = and, ראה = saw, הו = him.",
       "difficulty": 5,
-      "micro_standard": "CF4"
+      "micro_standard": "CF4",
+      "word_with_nikud": "ויראהו"
     },
     {
       "skill": "combined",
@@ -4111,7 +4367,8 @@
       "correct_answer": "and he sent him",
       "explanation": "ו = and, שלח = sent, הו = him.",
       "difficulty": 5,
-      "micro_standard": "CF4"
+      "micro_standard": "CF4",
+      "word_with_nikud": "וישלחהו"
     },
     {
       "skill": "combined",
@@ -4127,7 +4384,8 @@
       "correct_answer": "in her house",
       "explanation": "ב = in, בית = house, ה = her.",
       "difficulty": 5,
-      "micro_standard": "CF4"
+      "micro_standard": "CF4",
+      "word_with_nikud": "בביתה"
     },
     {
       "skill": "combined",
@@ -4143,7 +4401,8 @@
       "correct_answer": "to her house",
       "explanation": "ל = to, בית = house, ה = her.",
       "difficulty": 5,
-      "micro_standard": "CF4"
+      "micro_standard": "CF4",
+      "word_with_nikud": "לביתה"
     },
     {
       "skill": "combined",
@@ -4159,7 +4418,8 @@
       "correct_answer": "from her house",
       "explanation": "מ = from, בית = house, ה = her.",
       "difficulty": 5,
-      "micro_standard": "CF4"
+      "micro_standard": "CF4",
+      "word_with_nikud": "מביתה"
     },
     {
       "skill": "combined",
@@ -4175,7 +4435,8 @@
       "correct_answer": "in his hand",
       "explanation": "ב = in, יד = hand, ו = his.",
       "difficulty": 4,
-      "micro_standard": "PR5"
+      "micro_standard": "PR5",
+      "word_with_nikud": "בידו"
     },
     {
       "skill": "combined",
@@ -4191,7 +4452,8 @@
       "correct_answer": "in her hand",
       "explanation": "ב = in, יד = hand, ה = her.",
       "difficulty": 4,
-      "micro_standard": "PR5"
+      "micro_standard": "PR5",
+      "word_with_nikud": "בידה"
     },
     {
       "skill": "prefix",
@@ -4207,7 +4469,8 @@
       "correct_answer": "and the man",
       "explanation": "ו = and, ה = the, איש = man.",
       "difficulty": 4,
-      "micro_standard": "PR3"
+      "micro_standard": "PR3",
+      "word_with_nikud": "והאיש"
     },
     {
       "skill": "prefix",
@@ -4223,7 +4486,8 @@
       "correct_answer": "and in a house",
       "explanation": "ו = and, ב = in, בית = house.",
       "difficulty": 4,
-      "micro_standard": "PR3"
+      "micro_standard": "PR3",
+      "word_with_nikud": "ובבית"
     },
     {
       "skill": "prefix",
@@ -4239,7 +4503,8 @@
       "correct_answer": "and from the city",
       "explanation": "ו = and, מ = from, ה = the, עיר = city.",
       "difficulty": 4,
-      "micro_standard": "PR3"
+      "micro_standard": "PR3",
+      "word_with_nikud": "ומהעיר"
     },
     {
       "skill": "prefix",
@@ -4255,7 +4520,8 @@
       "correct_answer": "and to a king",
       "explanation": "ו = and, ל = to, מלך = king.",
       "difficulty": 4,
-      "micro_standard": "PR3"
+      "micro_standard": "PR3",
+      "word_with_nikud": "ולמלך"
     },
     {
       "skill": "phrase",
@@ -4271,7 +4537,8 @@
       "correct_answer": "and the man saw the king",
       "explanation": "וירא = and he saw, האיש = the man, את marks the object, המלך = the king.",
       "difficulty": 5,
-      "micro_standard": "PC3"
+      "micro_standard": "PC3",
+      "word_with_nikud": "וירא"
     },
     {
       "skill": "phrase",
@@ -4287,7 +4554,8 @@
       "correct_answer": "and the man took the bread",
       "explanation": "ויקח = and he took, האיש = the man, הלחם = the bread.",
       "difficulty": 5,
-      "micro_standard": "PC3"
+      "micro_standard": "PC3",
+      "word_with_nikud": "ויקח"
     },
     {
       "skill": "phrase",
@@ -4303,7 +4571,8 @@
       "correct_answer": "and the father gave his son bread",
       "explanation": "ויתן = and he gave, האב = the father, לבנו = to his son, לחם = bread.",
       "difficulty": 5,
-      "micro_standard": "PC4"
+      "micro_standard": "PC4",
+      "word_with_nikud": "ויתן"
     },
     {
       "skill": "phrase",
@@ -4319,7 +4588,8 @@
       "correct_answer": "and the boy went from the house to a field",
       "explanation": "וילך = and he went, מהבית = from the house, לשדה = to a field.",
       "difficulty": 5,
-      "micro_standard": "PC4"
+      "micro_standard": "PC4",
+      "word_with_nikud": "וילך"
     },
     {
       "skill": "phrase",
@@ -4335,7 +4605,8 @@
       "correct_answer": "and the servant heard the voice of his master",
       "explanation": "וישמע = and he heard, העבד = the servant, קול אדנו = the voice of his master.",
       "difficulty": 5,
-      "micro_standard": "PC3"
+      "micro_standard": "PC3",
+      "word_with_nikud": "וישמע"
     },
     {
       "skill": "combined",
@@ -4351,7 +4622,8 @@
       "correct_answer": "in their land",
       "explanation": "ב = in, ארץ = land, ם/הם = their.",
       "difficulty": 5,
-      "micro_standard": "CF4"
+      "micro_standard": "CF4",
+      "word_with_nikud": "בארצם"
     },
     {
       "skill": "phrase_structure",
@@ -4367,7 +4639,8 @@
       ],
       "correct_answer": "the king's house",
       "explanation": "בית המלך means 'the house of the king'.",
-      "difficulty": 3
+      "difficulty": 3,
+      "word_with_nikud": "בית המלך"
     },
     {
       "skill": "phrase_structure",
@@ -4383,7 +4656,8 @@
       ],
       "correct_answer": "the prophet's voice",
       "explanation": "קול הנביא means 'the voice of the prophet'.",
-      "difficulty": 3
+      "difficulty": 3,
+      "word_with_nikud": "קול הנביא"
     },
     {
       "skill": "phrase_structure",
@@ -4399,7 +4673,8 @@
       ],
       "correct_answer": "the man's hand",
       "explanation": "יד האיש means 'the hand of the man'.",
-      "difficulty": 3
+      "difficulty": 3,
+      "word_with_nikud": "יד האיש"
     },
     {
       "skill": "phrase_structure",
@@ -4415,7 +4690,8 @@
       ],
       "correct_answer": "in the king's field",
       "explanation": "ב = in, and שדה המלך means 'the king's field'.",
-      "difficulty": 4
+      "difficulty": 4,
+      "word_with_nikud": "בשדה המלך"
     },
     {
       "skill": "phrase_structure",
@@ -4431,7 +4707,8 @@
       ],
       "correct_answer": "to the city",
       "explanation": "אל means 'to' and העיר means 'the city'.",
-      "difficulty": 3
+      "difficulty": 3,
+      "word_with_nikud": "אל העיר"
     },
     {
       "skill": "phrase_structure",
@@ -4447,7 +4724,8 @@
       ],
       "correct_answer": "from the house",
       "explanation": "מן means 'from' and הבית means 'the house'.",
-      "difficulty": 3
+      "difficulty": 3,
+      "word_with_nikud": "מן הבית"
     },
     {
       "skill": "phrase_structure",
@@ -4463,7 +4741,8 @@
       ],
       "correct_answer": "and the king said",
       "explanation": "ויאמר = and he said, המלך = the king.",
-      "difficulty": 4
+      "difficulty": 4,
+      "word_with_nikud": "ויאמר המלך"
     },
     {
       "skill": "phrase_structure",
@@ -4479,7 +4758,8 @@
       ],
       "correct_answer": "and the youth went",
       "explanation": "וילך = and he went, הנער = the youth.",
-      "difficulty": 4
+      "difficulty": 4,
+      "word_with_nikud": "וילך הנער"
     },
     {
       "skill": "phrase_structure",
@@ -4495,7 +4775,8 @@
       ],
       "correct_answer": "his father's house",
       "explanation": "בית = house, אביו = his father.",
-      "difficulty": 4
+      "difficulty": 4,
+      "word_with_nikud": "בית אביו"
     },
     {
       "skill": "phrase_structure",
@@ -4511,7 +4792,8 @@
       ],
       "correct_answer": "his mother's voice",
       "explanation": "קול = voice, אמו = his mother.",
-      "difficulty": 4
+      "difficulty": 4,
+      "word_with_nikud": "קול אמו"
     },
     {
       "skill": "sentence_structure",
@@ -4527,7 +4809,8 @@
       ],
       "correct_answer": "the man",
       "explanation": "האיש is the subject, the one doing the action.",
-      "difficulty": 4
+      "difficulty": 4,
+      "word_with_nikud": "האיש הלך"
     },
     {
       "skill": "sentence_structure",
@@ -4543,7 +4826,8 @@
       ],
       "correct_answer": "the bread",
       "explanation": "את marks הלחם as the object that was taken.",
-      "difficulty": 4
+      "difficulty": 4,
+      "word_with_nikud": "ויקח האיש את הלחם"
     },
     {
       "skill": "sentence_structure",
@@ -4559,7 +4843,8 @@
       ],
       "correct_answer": "the king sent the prophet",
       "explanation": "המלך is the subject and את הנביא is the object.",
-      "difficulty": 4
+      "difficulty": 4,
+      "word_with_nikud": "המלך שלח את הנביא"
     },
     {
       "skill": "sentence_structure",
@@ -4575,7 +4860,8 @@
       ],
       "correct_answer": "in the house",
       "explanation": "בבית tells where the sitting happened.",
-      "difficulty": 4
+      "difficulty": 4,
+      "word_with_nikud": "הנער ישב בבית"
     },
     {
       "skill": "sentence_structure",
@@ -4591,7 +4877,8 @@
       ],
       "correct_answer": "verb + subject + object",
       "explanation": "וישמע is the verb, העם is the subject, and את marks the object.",
-      "difficulty": 4
+      "difficulty": 4,
+      "word_with_nikud": "וישמע העם את קול הנביא"
     },
     {
       "skill": "contextual_meaning",
@@ -4607,7 +4894,8 @@
       ],
       "correct_answer": "and he went up",
       "explanation": "The phrase אל ההר shows upward movement toward the mountain.",
-      "difficulty": 5
+      "difficulty": 5,
+      "word_with_nikud": "עלה"
     },
     {
       "skill": "contextual_meaning",
@@ -4623,7 +4911,8 @@
       ],
       "correct_answer": "and he saw",
       "explanation": "את האיש points to seeing a direct object.",
-      "difficulty": 5
+      "difficulty": 5,
+      "word_with_nikud": "רָאָה"
     },
     {
       "skill": "contextual_meaning",
@@ -4639,7 +4928,8 @@
       ],
       "correct_answer": "and he returned",
       "explanation": "אל ארצו suggests movement back to his land, so וישב means returned.",
-      "difficulty": 5
+      "difficulty": 5,
+      "word_with_nikud": "שב"
     },
     {
       "skill": "contextual_meaning",
@@ -4655,7 +4945,8 @@
       ],
       "correct_answer": "that",
       "explanation": "After seeing, כי often introduces what was seen: 'that it was good'.",
-      "difficulty": 5
+      "difficulty": 5,
+      "word_with_nikud": "כי"
     },
     {
       "skill": "contextual_meaning",
@@ -4671,7 +4962,8 @@
       ],
       "correct_answer": "and he spoke",
       "explanation": "With אל העם, דבר is functioning as the verb 'spoke'.",
-      "difficulty": 5
+      "difficulty": 5,
+      "word_with_nikud": "דָּבָר"
     },
     {
       "skill": "sentence_structure",
@@ -4687,7 +4979,8 @@
       ],
       "correct_answer": "the man",
       "explanation": "האיש is the subject doing the action.",
-      "difficulty": 4
+      "difficulty": 4,
+      "word_with_nikud": "וילך האיש אל הבית"
     },
     {
       "skill": "sentence_structure",
@@ -4703,7 +4996,8 @@
       ],
       "correct_answer": "went",
       "explanation": "וילך is the action and means 'went'.",
-      "difficulty": 4
+      "difficulty": 4,
+      "word_with_nikud": "וילך האיש אל הבית"
     },
     {
       "skill": "sentence_structure",
@@ -4719,7 +5013,8 @@
       ],
       "correct_answer": "to the house",
       "explanation": "אל הבית means 'to the house'.",
-      "difficulty": 4
+      "difficulty": 4,
+      "word_with_nikud": "וילך האיש אל הבית"
     },
     {
       "skill": "sentence_structure",
@@ -4735,7 +5030,8 @@
       ],
       "correct_answer": "the man stood up",
       "explanation": "ויקם precedes וילך.",
-      "difficulty": 4
+      "difficulty": 4,
+      "word_with_nikud": "ויקם האיש וילך"
     },
     {
       "skill": "sentence_structure",
@@ -4751,7 +5047,8 @@
       ],
       "correct_answer": "the man went to the house",
       "explanation": "וילך = went, האיש = the man, אל הבית = to the house.",
-      "difficulty": 4
+      "difficulty": 4,
+      "word_with_nikud": "וילך האיש אל הבית"
     },
     {
       "skill": "sentence_structure",
@@ -4767,7 +5064,8 @@
       ],
       "correct_answer": "to the king's house",
       "explanation": "ל indicates direction toward.",
-      "difficulty": 4
+      "difficulty": 4,
+      "word_with_nikud": "לבית המלך"
     },
     {
       "skill": "sentence_structure",
@@ -4783,7 +5081,8 @@
       ],
       "correct_answer": "the man",
       "explanation": "האיש is the subject; the king is the object.",
-      "difficulty": 4
+      "difficulty": 4,
+      "word_with_nikud": "וירא האיש את המלך"
     },
     {
       "skill": "sentence_structure",
@@ -4799,7 +5098,8 @@
       ],
       "correct_answer": "heard",
       "explanation": "וישמע means 'and he heard'.",
-      "difficulty": 4
+      "difficulty": 4,
+      "word_with_nikud": "וישמע המלך את הנביא"
     },
     {
       "skill": "sentence_structure",
@@ -4815,7 +5115,8 @@
       ],
       "correct_answer": "to the city",
       "explanation": "אל indicates movement toward.",
-      "difficulty": 4
+      "difficulty": 4,
+      "word_with_nikud": "וילך הנער אל העיר"
     },
     {
       "skill": "sentence_structure",
@@ -4831,7 +5132,8 @@
       ],
       "correct_answer": "the father gave bread to his son",
       "explanation": "ויתן = gave, לבנו = to his son.",
-      "difficulty": 4
+      "difficulty": 4,
+      "word_with_nikud": "ויתן האב לחם לבנו"
     },
     {
       "skill": "sentence_structure",
@@ -4847,7 +5149,8 @@
       ],
       "correct_answer": "to the king's house",
       "explanation": "ל indicates direction toward.",
-      "difficulty": 4
+      "difficulty": 4,
+      "word_with_nikud": "לבית המלך"
     },
     {
       "skill": "sentence_structure",
@@ -4863,7 +5166,8 @@
       ],
       "correct_answer": "the king's house",
       "explanation": "בית המלך is a Chumash-style possessive phrase: 'the house of the king'.",
-      "difficulty": 4
+      "difficulty": 4,
+      "word_with_nikud": "בית המלך"
     },
     {
       "skill": "sentence_structure",
@@ -4879,7 +5183,8 @@
       ],
       "correct_answer": "the king",
       "explanation": "המלך is the subject; הנביא is the object.",
-      "difficulty": 4
+      "difficulty": 4,
+      "word_with_nikud": "וישלח המלך את הנביא"
     },
     {
       "skill": "combined_reasoning",
@@ -4902,7 +5207,8 @@
       "grammar_layer": true,
       "generation_group": "combined_grammar",
       "tier": "advanced",
-      "mode": "reasoning"
+      "mode": "reasoning",
+      "word_with_nikud": "מביתו"
     },
     {
       "skill": "combined_reasoning",
@@ -4925,7 +5231,8 @@
       "grammar_layer": true,
       "generation_group": "combined_grammar",
       "tier": "advanced",
-      "mode": "reasoning"
+      "mode": "reasoning",
+      "word_with_nikud": "לבנו"
     },
     {
       "skill": "sentence_structure",
@@ -4948,7 +5255,8 @@
       "grammar_layer": true,
       "generation_group": "sentence_reasoning",
       "tier": "advanced",
-      "mode": "reasoning"
+      "mode": "reasoning",
+      "word_with_nikud": "וילך האיש לביתו"
     },
     {
       "skill": "sentence_structure",
@@ -4971,7 +5279,8 @@
       "grammar_layer": true,
       "generation_group": "sentence_reasoning",
       "tier": "advanced",
-      "mode": "reasoning"
+      "mode": "reasoning",
+      "word_with_nikud": "וישב האיש בביתו"
     },
     {
       "skill": "sentence_structure",
@@ -4994,7 +5303,8 @@
       "grammar_layer": true,
       "generation_group": "sentence_reasoning",
       "tier": "advanced",
-      "mode": "reasoning"
+      "mode": "reasoning",
+      "word_with_nikud": "ויתן האב לחם לבנו"
     },
     {
       "skill": "contextual_meaning",
@@ -5017,7 +5327,8 @@
       "grammar_layer": true,
       "generation_group": "context_reasoning",
       "tier": "advanced",
-      "mode": "reasoning"
+      "mode": "reasoning",
+      "word_with_nikud": "עלה"
     },
     {
       "skill": "contextual_meaning",
@@ -5040,7 +5351,8 @@
       "grammar_layer": true,
       "generation_group": "context_reasoning",
       "tier": "advanced",
-      "mode": "reasoning"
+      "mode": "reasoning",
+      "word_with_nikud": "ירד"
     },
     {
       "skill": "contextual_meaning",
@@ -5063,7 +5375,8 @@
       "grammar_layer": true,
       "generation_group": "context_reasoning",
       "tier": "advanced",
-      "mode": "reasoning"
+      "mode": "reasoning",
+      "word_with_nikud": "וישב"
     },
     {
       "skill": "contextual_meaning",
@@ -5086,7 +5399,8 @@
       "grammar_layer": true,
       "generation_group": "context_reasoning",
       "tier": "advanced",
-      "mode": "reasoning"
+      "mode": "reasoning",
+      "word_with_nikud": "ויצא"
     },
     {
       "skill": "sentence_structure",
@@ -5109,7 +5423,8 @@
       "grammar_layer": true,
       "generation_group": "sentence_reasoning",
       "tier": "advanced",
-      "mode": "reasoning"
+      "mode": "reasoning",
+      "word_with_nikud": "וירא הבן את אביו"
     },
     {
       "id": "SS5_substitution_001",
@@ -5131,7 +5446,8 @@
       "question_type": "substitution",
       "word": "לבנו",
       "selected_word": "לבנו",
-      "source": "generated grammar reasoning"
+      "source": "generated grammar reasoning",
+      "word_with_nikud": "לבנו"
     }
   ]
 }
