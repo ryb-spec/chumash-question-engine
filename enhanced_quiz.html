@@ -38,12 +38,13 @@
     .progress-bar { background: #ecf0f1; height: 8px; border-radius: 10px; overflow: hidden; margin-bottom: 15px; }
     .progress-fill { background: linear-gradient(90deg, #667eea, #764ba2); height: 100%; width: 0%; transition: 0.3s; }
     .question-counter { color: #7f8c8d; font-size: 0.9em; }
+    .difficulty-badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.8em; font-weight: 600; margin-left: 10px; }
+    .difficulty-1 { background: #d5f4e6; color: #27ae60; }
+    .difficulty-2 { background: #fef5e7; color: #f39c12; }
+    .difficulty-3 { background: #fadbd8; color: #e74c3c; }
     
     .question-box { margin: 30px 0; }
-    .question-header { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
-    .hebrew-word { font-size: 1.8em; color: #667eea; font-weight: bold; direction: rtl; }
-    .word-label { color: #7f8c8d; font-size: 0.9em; }
-    
+    .question-header { margin-bottom: 20px; }
     .question-text { font-size: 1.2em; color: #2c3e50; margin-bottom: 20px; font-weight: 600; }
     .choices { display: grid; grid-template-columns: 1fr; gap: 10px; }
     .choice { padding: 15px; border: 2px solid #ecf0f1; border-radius: 8px; cursor: pointer; transition: 0.3s; background: white; }
@@ -132,7 +133,7 @@
     <div class="app-title">
       <div>
         <h1>🎯 Chumash Skill Assessor</h1>
-        <div class="tagline">Hebrew Language Proficiency Tool</div>
+        <div class="tagline">Adaptive Hebrew Language Assessment</div>
       </div>
     </div>
     <div class="user-section">
@@ -150,7 +151,9 @@
         <div class="progress-bar">
           <div class="progress-fill" id="progressFill"></div>
         </div>
-        <p class="question-counter">Question <span id="questionNum">1</span> of <span id="totalQuestions">10</span></p>
+        <p class="question-counter">Question <span id="questionNum">1</span> of <span id="totalQuestions">?</span>
+          <span class="difficulty-badge" id="difficultyBadge"></span>
+        </p>
       </div>
       <div id="assessmentContent"></div>
     </div>
@@ -189,15 +192,15 @@
             <span class="session-value" id="bestScore">--</span>
           </div>
           <div class="session-stat">
-            <span class="session-label">Last Attempt:</span>
-            <span class="session-value" id="lastAttempt">Never</span>
+            <span class="session-label">Current Level:</span>
+            <span class="session-value" id="currentLevel">Easy</span>
           </div>
         </div>
       </div>
 
       <!-- AI Tutor -->
       <div class="ai-panel">
-        <h3>🤖 Grammar Guide</h3>
+        <h3>🤖 Torah AI Support</h3>
         <div class="ai-chat" id="aiChat"></div>
         <div class="ai-input-group">
           <input type="text" id="aiInput" placeholder="Ask about grammar..." onkeypress="if(event.key==='Enter') askAI()">
@@ -211,10 +214,12 @@
 <script>
   let currentUser = null;
   let allQuestions = [];
-  let currentQuizQuestions = [];
   let currentQuestionIndex = 0;
   let sessionStats = { correct: 0, total: 0 };
   let allTimeStats = { correct: 0, total: 0, bestScore: 0 };
+  let userLevel = 1; // 1=Easy, 2=Medium, 3=Hard
+  let levelThreshold = { easy: 3, medium: 5, hard: 7 };
+  let questionsToShow = 20;
 
   window.addEventListener('DOMContentLoaded', () => {
     loadUserData();
@@ -273,34 +278,51 @@
   function loadUserStats() {
     const key = `${currentUser}_stats`;
     allTimeStats = JSON.parse(localStorage.getItem(key)) || { correct: 0, total: 0, bestScore: 0, lastAttempt: null };
+    const levelKey = `${currentUser}_level`;
+    userLevel = parseInt(localStorage.getItem(levelKey)) || 1;
     updateProgressDisplay();
+  }
+
+  function filterQuestionsByDifficulty() {
+    let filtered = allQuestions.filter(q => q.difficulty === userLevel);
+    if (filtered.length === 0) {
+      filtered = allQuestions.filter(q => Math.abs(q.difficulty - userLevel) <= 1);
+    }
+    return filtered.sort(() => 0.5 - Math.random()).slice(0, questionsToShow);
   }
 
   function startAssessment() {
     if (allQuestions.length === 0) return;
     
-    currentQuizQuestions = allQuestions.sort(() => 0.5 - Math.random()).slice(0, 10);
+    const questionsForThisLevel = filterQuestionsByDifficulty();
+    questionsToShow = questionsForThisLevel.length;
     currentQuestionIndex = 0;
-    sessionStats = { correct: 0, total: 10 };
+    sessionStats = { correct: 0, total: 0 };
     
-    document.getElementById('totalQuestions').textContent = '10';
-    displayQuestion();
+    document.getElementById('totalQuestions').textContent = questionsToShow;
+    displayQuestion(questionsForThisLevel);
   }
 
-  function displayQuestion() {
-    if (currentQuestionIndex >= currentQuizQuestions.length) {
+  function displayQuestion(questions) {
+    if (currentQuestionIndex >= questions.length) {
       endAssessment();
       return;
     }
     
-    const q = currentQuizQuestions[currentQuestionIndex];
-    const progress = ((currentQuestionIndex) / currentQuizQuestions.length) * 100;
+    const q = questions[currentQuestionIndex];
+    const progress = ((currentQuestionIndex) / questions.length) * 100;
     document.getElementById('progressFill').style.width = progress + '%';
     document.getElementById('questionNum').textContent = currentQuestionIndex + 1;
     
-    const wordDisplay = q.word_with_nikud ? `<div class="hebrew-word">${q.word_with_nikud}</div>` : '';
+    // Set difficulty badge
+    const badgeEl = document.getElementById('difficultyBadge');
+    const diffClass = `difficulty-${q.difficulty}`;
+    const diffText = q.difficulty === 1 ? 'Easy' : q.difficulty === 2 ? 'Medium' : 'Hard';
+    badgeEl.className = `difficulty-badge ${diffClass}`;
+    badgeEl.textContent = diffText;
+    
     const choicesHtml = q.choices.map((c, i) => `
-      <div class="choice" onclick="selectChoice(${i}, '${c}', '${q.correct_answer}', \`${q.explanation}\`)">
+      <div class="choice" onclick="selectChoice(${i}, '${c}', '${q.correct_answer}', \`${q.explanation}\`, ${questions.length})">
         ${c}
       </div>
     `).join('');
@@ -308,21 +330,20 @@
     document.getElementById('assessmentContent').innerHTML = `
       <div class="question-box">
         <div class="question-header">
-          ${wordDisplay}
-          <div class="word-label">${q.skill}</div>
+          (${q.skill})
         </div>
         <div class="question-text">${q.question}</div>
         <div class="choices">${choicesHtml}</div>
         <div class="answer-feedback" id="feedback"></div>
         <div class="assessment-buttons">
-          <button class="btn-next" id="nextBtn" onclick="nextQuestion()" style="display:none;">Next Question</button>
-          <button class="btn-skip" id="skipBtn" onclick="skipQuestion()">Skip</button>
+          <button class="btn-next" id="nextBtn" onclick="nextQuestion(${questions.length})" style="display:none;">Next Question</button>
+          <button class="btn-skip" id="skipBtn" onclick="skipQuestion(${questions.length})">Skip</button>
         </div>
       </div>
     `;
   }
 
-  function selectChoice(index, choice, correct, explanation) {
+  function selectChoice(index, choice, correct, explanation, totalQuestions) {
     const choices = document.querySelectorAll('.choice');
     choices.forEach((c, i) => {
       c.classList.remove('selected');
@@ -333,10 +354,12 @@
     const nextBtn = document.getElementById('nextBtn');
     const skipBtn = document.getElementById('skipBtn');
     
+    let isCorrect = false;
     if (choice === correct) {
       feedback.className = 'answer-feedback show correct';
       feedback.innerHTML = `✅ Correct! ${explanation}`;
       sessionStats.correct++;
+      isCorrect = true;
       choices.forEach((c, i) => {
         if (c.textContent.trim() === correct) c.classList.add('correct');
       });
@@ -351,33 +374,51 @@
     
     nextBtn.style.display = 'block';
     skipBtn.style.display = 'none';
-    recordProgress();
+    
+    sessionStats.total++;
+    recordProgress(isCorrect, totalQuestions);
   }
 
-  function nextQuestion() {
+  function nextQuestion(totalQuestions) {
     currentQuestionIndex++;
-    displayQuestion();
+    const questions = filterQuestionsByDifficulty();
+    displayQuestion(questions);
   }
 
-  function skipQuestion() {
+  function skipQuestion(totalQuestions) {
     currentQuestionIndex++;
-    displayQuestion();
+    const questions = filterQuestionsByDifficulty();
+    displayQuestion(questions);
   }
 
-  function recordProgress() {
+  function recordProgress(isCorrect, totalQuestions) {
     allTimeStats.total++;
-    allTimeStats.correct += sessionStats.correct > 0 ? 1 : 0;
+    if (isCorrect) allTimeStats.correct++;
     allTimeStats.lastAttempt = new Date().toLocaleString();
+    
     const percentage = Math.round((sessionStats.correct / sessionStats.total) * 100);
     if (percentage > allTimeStats.bestScore) {
       allTimeStats.bestScore = percentage;
     }
+    
+    // Adaptive: adjust difficulty based on performance
+    const recentCorrectRate = sessionStats.total >= 3 ? (sessionStats.correct / sessionStats.total) : 0.5;
+    
+    if (recentCorrectRate >= 0.8 && userLevel < 3) {
+      userLevel = 3; // Hard
+    } else if (recentCorrectRate >= 0.6 && userLevel < 2) {
+      userLevel = 2; // Medium
+    } else if (recentCorrectRate < 0.4 && userLevel > 1) {
+      userLevel = 1; // Easy
+    }
+    
     localStorage.setItem(`${currentUser}_stats`, JSON.stringify(allTimeStats));
+    localStorage.setItem(`${currentUser}_level`, userLevel);
     updateProgressDisplay();
   }
 
   function endAssessment() {
-    const percentage = Math.round((sessionStats.correct / sessionStats.total) * 100);
+    const percentage = sessionStats.total > 0 ? Math.round((sessionStats.correct / sessionStats.total) * 100) : 0;
     
     let message = '';
     if (percentage === 100) message = 'Perfect Score! 🌟';
@@ -407,10 +448,6 @@
       </div>
     `;
     
-    recordFinalScore(percentage);
-  }
-
-  function recordFinalScore(percentage) {
     if (percentage > allTimeStats.bestScore) {
       allTimeStats.bestScore = percentage;
       localStorage.setItem(`${currentUser}_stats`, JSON.stringify(allTimeStats));
@@ -425,9 +462,11 @@
     document.getElementById('accuracyBar').style.width = overallAccuracy + '%';
     document.getElementById('totalAnswered').textContent = allTimeStats.total;
     document.getElementById('correctCount').textContent = allTimeStats.correct;
-    document.getElementById('currentSessionScore').textContent = sessionStats.correct > 0 ? Math.round((sessionStats.correct / sessionStats.total) * 100) + '%' : '--';
+    document.getElementById('currentSessionScore').textContent = sessionStats.total > 0 ? Math.round((sessionStats.correct / sessionStats.total) * 100) + '%' : '--';
     document.getElementById('bestScore').textContent = allTimeStats.bestScore > 0 ? allTimeStats.bestScore + '%' : '--';
-    document.getElementById('lastAttempt').textContent = allTimeStats.lastAttempt || 'Never';
+    
+    const levelText = userLevel === 1 ? 'Easy' : userLevel === 2 ? 'Medium' : 'Hard';
+    document.getElementById('currentLevel').textContent = levelText;
   }
 
   async function askAI() {
