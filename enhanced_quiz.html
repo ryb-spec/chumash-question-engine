@@ -42,6 +42,12 @@
     .difficulty-1 { background: #d5f4e6; color: #27ae60; }
     .difficulty-2 { background: #fef5e7; color: #f39c12; }
     .difficulty-3 { background: #fadbd8; color: #e74c3c; }
+    .difficulty-4 { background: #fde3a7; color: #e67e22; }
+    .difficulty-5 { background: #f1948a; color: #c0392b; }
+    .std-row { margin-bottom: 10px; }
+    .std-row-header { display: flex; justify-content: space-between; font-size: 0.82em; margin-bottom: 3px; }
+    .std-row-name { color: #2c3e50; font-weight: 500; }
+    .std-row-val { color: #667eea; font-weight: 600; }
     
     .question-box { margin: 30px 0; }
     .question-header { margin-bottom: 20px; }
@@ -192,8 +198,44 @@
             <span class="session-value" id="bestScore">--</span>
           </div>
           <div class="session-stat">
-            <span class="session-label">Current Level:</span>
-            <span class="session-value" id="currentLevel">Easy</span>
+            <span class="session-label">Max Difficulty:</span>
+            <span class="session-value" id="currentLevel">Starter</span>
+          </div>
+        </div>
+
+        <div style="margin-top: 20px; border-top: 2px solid #ecf0f1; padding-top: 15px;">
+          <div class="progress-label" style="font-weight: 600; margin-bottom: 12px; color: #2c3e50;">Standards Progress</div>
+          <div class="std-row">
+            <div class="std-row-header"><span class="std-row-name">WM – Word Meaning</span><span class="std-row-val" id="std-val-WM">0</span></div>
+            <div class="progress-bar-small"><div class="progress-fill-small" id="std-bar-WM" style="width:0%"></div></div>
+          </div>
+          <div class="std-row">
+            <div class="std-row-header"><span class="std-row-name">SR – Shoresh</span><span class="std-row-val" id="std-val-SR">0</span></div>
+            <div class="progress-bar-small"><div class="progress-fill-small" id="std-bar-SR" style="width:0%"></div></div>
+          </div>
+          <div class="std-row">
+            <div class="std-row-header"><span class="std-row-name">PR – Prefix</span><span class="std-row-val" id="std-val-PR">0</span></div>
+            <div class="progress-bar-small"><div class="progress-fill-small" id="std-bar-PR" style="width:0%"></div></div>
+          </div>
+          <div class="std-row">
+            <div class="std-row-header"><span class="std-row-name">CF – Context Flow</span><span class="std-row-val" id="std-val-CF">0</span></div>
+            <div class="progress-bar-small"><div class="progress-fill-small" id="std-bar-CF" style="width:0%"></div></div>
+          </div>
+          <div class="std-row">
+            <div class="std-row-header"><span class="std-row-name">PC – Phrase Context</span><span class="std-row-val" id="std-val-PC">0</span></div>
+            <div class="progress-bar-small"><div class="progress-fill-small" id="std-bar-PC" style="width:0%"></div></div>
+          </div>
+          <div class="std-row">
+            <div class="std-row-header"><span class="std-row-name">PS – Pasuk Structure</span><span class="std-row-val" id="std-val-PS">0</span></div>
+            <div class="progress-bar-small"><div class="progress-fill-small" id="std-bar-PS" style="width:0%"></div></div>
+          </div>
+          <div class="std-row">
+            <div class="std-row-header"><span class="std-row-name">SS – Sentence Syntax</span><span class="std-row-val" id="std-val-SS">0</span></div>
+            <div class="progress-bar-small"><div class="progress-fill-small" id="std-bar-SS" style="width:0%"></div></div>
+          </div>
+          <div class="std-row">
+            <div class="std-row-header"><span class="std-row-name">CM – Chumash Meaning</span><span class="std-row-val" id="std-val-CM">0</span></div>
+            <div class="progress-bar-small"><div class="progress-fill-small" id="std-bar-CM" style="width:0%"></div></div>
           </div>
         </div>
       </div>
@@ -212,35 +254,62 @@
 </div>
 
 <script>
+  // ── Constants (mirrors run_quiz.py) ──────────────────────────────────────
+  const STANDARDS = ['WM', 'SR', 'PR', 'CF', 'PC', 'PS', 'SS', 'CM'];
+  const PS_MICRO_STANDARDS = ['PS1', 'PS2', 'PS3', 'PS4', 'PS5'];
+  const SS_MICRO_STANDARDS = ['SS1', 'SS2', 'SS3', 'SS4', 'SS5'];
+  const TARGET_STANDARD_WEIGHTS = { WM: 0.4, SR: 0.15, PR: 0.15, CF: 0.08, PC: 0.03, PS: 0.2, SS: 0.1, CM: 0.03 };
+  const MAX_SS_IN_A_ROW = 2;
+  const MIN_QUESTIONS_BEFORE_LEVEL5 = 10;
+  const MAX_LEVEL5_SESSION_RATIO = 0.2;
+  const FAST_TRACK_MIN_QUESTIONS = 5;
+  const FAST_TRACK_ACCURACY = 0.8;
+  const EARLY_LEVEL4_CORRECT = 4;
+  const EARLY_LEVEL5_CORRECT = 6;
+  const EARLY_SS_WM_CORRECT = 3;
+  const CHALLENGE_STREAK = 3;
+  const SESSION_LENGTH = 20;
+  const DIFF_LABELS = { 1: 'Starter', 2: 'Basic', 3: 'Intermediate', 4: 'Advanced', 5: 'Challenge' };
+
+  // ── State ────────────────────────────────────────────────────────────────
   let currentUser = null;
   let allQuestions = [];
-  let currentQuestionIndex = 0;
-  let sessionStats = { correct: 0, total: 0 };
+  let sessionStats = { answered: 0, correct: 0, consecutive_correct: 0, wm_correct: 0, level5_answered: 0 };
   let allTimeStats = { correct: 0, total: 0, bestScore: 0 };
-  let userLevel = 1; // 1=Easy, 2=Medium, 3=Hard
-  let levelThreshold = { easy: 3, medium: 5, hard: 7 };
-  let questionsToShow = 20;
+  let progress = { standards: {}, micro_standards: {}, words: {} };
+  let recentStandards = [];
+  let currentSessionQuestion = 0;
 
+  // ── Startup ───────────────────────────────────────────────────────────────
   window.addEventListener('DOMContentLoaded', () => {
     loadUserData();
     fetchQuestions();
   });
 
+  function fetchQuestions() {
+    fetch('questions.json')
+      .then(r => r.json())
+      .then(data => {
+        allQuestions = data.questions || [];
+        // Seed word / micro_standard keys from the question bank
+        if (currentUser) {
+          for (const q of allQuestions) {
+            progress.words[q.word] = progress.words[q.word] !== undefined ? progress.words[q.word] : 0;
+            progress.micro_standards[q.micro_standard] = progress.micro_standards[q.micro_standard] !== undefined ? progress.micro_standards[q.micro_standard] : 0;
+          }
+          startAssessment();
+        }
+      });
+  }
+
   function login() {
-    const nameInput = document.getElementById('nameInput');
-    const name = nameInput.value.trim();
-    if (!name) {
-      alert('Please enter your name');
-      return;
-    }
+    const name = document.getElementById('nameInput').value.trim();
+    if (!name) { alert('Please enter your name'); return; }
     currentUser = name;
     localStorage.setItem('currentUser', name);
-    loadUserData();
-    document.getElementById('loginScreen').style.display = 'none';
-    document.getElementById('appContainer').style.display = 'block';
-    document.getElementById('userName').textContent = name;
-    loadUserStats();
-    startAssessment();
+    showApp();
+    loadProgress();
+    if (allQuestions.length > 0) startAssessment();
   }
 
   function logout() {
@@ -258,231 +327,325 @@
     const saved = localStorage.getItem('currentUser');
     if (saved) {
       currentUser = saved;
-      document.getElementById('loginScreen').style.display = 'none';
-      document.getElementById('appContainer').style.display = 'block';
-      document.getElementById('userName').textContent = saved;
-      loadUserStats();
-      startAssessment();
+      showApp();
+      loadProgress();
     }
   }
 
-  function fetchQuestions() {
-    fetch('questions.json')
-      .then(r => r.json())
-      .then(data => {
-        allQuestions = data.questions || [];
-        startAssessment();
-      });
+  function showApp() {
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('appContainer').style.display = 'block';
+    document.getElementById('userName').textContent = currentUser;
   }
 
-  function loadUserStats() {
-    const key = `${currentUser}_stats`;
-    allTimeStats = JSON.parse(localStorage.getItem(key)) || { correct: 0, total: 0, bestScore: 0, lastAttempt: null };
-    const levelKey = `${currentUser}_level`;
-    userLevel = parseInt(localStorage.getItem(levelKey)) || 1;
+  function loadProgress() {
+    if (!currentUser) return;
+    const saved = JSON.parse(localStorage.getItem(`${currentUser}_progress`) || 'null');
+    progress = saved || { standards: {}, micro_standards: {}, words: {} };
+    for (const std of STANDARDS) progress.standards[std] = progress.standards[std] !== undefined ? progress.standards[std] : 0;
+    for (const ms of [...PS_MICRO_STANDARDS, ...SS_MICRO_STANDARDS]) {
+      progress.micro_standards[ms] = progress.micro_standards[ms] !== undefined ? progress.micro_standards[ms] : 0;
+    }
+    // Seed any question bank words / micro-standards not yet in progress
+    for (const q of allQuestions) {
+      progress.words[q.word] = progress.words[q.word] !== undefined ? progress.words[q.word] : 0;
+      progress.micro_standards[q.micro_standard] = progress.micro_standards[q.micro_standard] !== undefined ? progress.micro_standards[q.micro_standard] : 0;
+    }
+    allTimeStats = JSON.parse(localStorage.getItem(`${currentUser}_alltimestats`) || '{"correct":0,"total":0,"bestScore":0}');
     updateProgressDisplay();
   }
 
-  function filterQuestionsByDifficulty() {
-    let filtered = allQuestions.filter(q => q.difficulty === userLevel);
-    if (filtered.length === 0) {
-      filtered = allQuestions.filter(q => Math.abs(q.difficulty - userLevel) <= 1);
-    }
-    return filtered.sort(() => 0.5 - Math.random()).slice(0, questionsToShow);
+  function saveProgress() {
+    if (!currentUser) return;
+    localStorage.setItem(`${currentUser}_progress`, JSON.stringify(progress));
+    localStorage.setItem(`${currentUser}_alltimestats`, JSON.stringify(allTimeStats));
   }
+
+  // ── Progression logic (mirrors run_quiz.py) ───────────────────────────────
+
+  function getSessionAccuracy(ss) {
+    return ss.answered === 0 ? 0 : ss.correct / ss.answered;
+  }
+
+  function getMaxDifficulty(prog, ss) {
+    const stds = prog.standards;
+    let maxDiff = 1;
+    if ((stds.WM || 0) >= 60) maxDiff = 2;
+    if ((stds.SR || 0) >= 60) maxDiff = 3;
+    if ((stds.PR || 0) >= 60) maxDiff = 4;
+    if ((stds.CF || 0) >= 70) maxDiff = 5;
+    const acc = getSessionAccuracy(ss);
+    if (ss.answered >= FAST_TRACK_MIN_QUESTIONS && acc >= FAST_TRACK_ACCURACY) maxDiff = Math.min(5, maxDiff + 1);
+    if (ss.correct >= EARLY_LEVEL4_CORRECT) maxDiff = Math.max(maxDiff, 4);
+    if (ss.correct >= EARLY_LEVEL5_CORRECT && acc >= FAST_TRACK_ACCURACY) maxDiff = 5;
+    return maxDiff;
+  }
+
+  function getAllowedPsMicroStandards(prog) {
+    const stds = prog.standards, ms = prog.micro_standards;
+    const allowed = ['PS1', 'PS2'];
+    if (((ms.PS1 || 0) + (ms.PS2 || 0)) / 2 >= 70) allowed.push('PS3');
+    if ((stds.PR || 0) >= 60) allowed.push('PS4');
+    if ((stds.CF || 0) >= 65) allowed.push('PS5');
+    return allowed;
+  }
+
+  function getAllowedSsMicroStandards(prog, ss) {
+    const stds = prog.standards, ms = prog.micro_standards;
+    if (ss.wm_correct < EARLY_SS_WM_CORRECT && ((stds.PS || 0) < 60 || (stds.PR || 0) < 60)) return [];
+    const allowed = ['SS1', 'SS2'];
+    if (((ms.SS1 || 0) + (ms.SS2 || 0)) / 2 >= 70) allowed.push('SS3');
+    if ((ms.SS3 || 0) >= 70) allowed.push('SS4');
+    if ((ms.SS4 || 0) >= 70) allowed.push('SS5');
+    return allowed;
+  }
+
+  function filterByProgression(questions, prog, maxDiff, ss) {
+    const allowedPS = new Set(getAllowedPsMicroStandards(prog));
+    const allowedSS = new Set(getAllowedSsMicroStandards(prog, ss));
+    return questions.filter(q =>
+      q.difficulty <= maxDiff &&
+      (q.standard !== 'PS' || allowedPS.has(q.micro_standard)) &&
+      (q.standard !== 'SS' || allowedSS.has(q.micro_standard))
+    );
+  }
+
+  function filterBySessionLimits(questions, ss) {
+    const byCount = ss.answered >= MIN_QUESTIONS_BEFORE_LEVEL5;
+    const byEarly = ss.correct >= EARLY_LEVEL5_CORRECT && getSessionAccuracy(ss) >= FAST_TRACK_ACCURACY;
+    const byRatio = (ss.level5_answered + 1) / (ss.answered + 1) <= MAX_LEVEL5_SESSION_RATIO;
+    if ((byCount || byEarly) && byRatio) return questions;
+    return questions.filter(q => q.difficulty !== 5);
+  }
+
+  function getChallengePool(allowedQuestions, maxDiff, ss) {
+    if (ss.consecutive_correct < CHALLENGE_STREAK) return null;
+    const pool = allowedQuestions.filter(q => q.difficulty === Math.min(5, maxDiff + 1));
+    return pool.length > 0 ? pool : null;
+  }
+
+  function getStandardWeight(std, prog, recentStds) {
+    const stds = prog.standards;
+    let w = TARGET_STANDARD_WEIGHTS[std] || 0;
+    if (w === 0) return 0;
+    const score = stds[std] || 0;
+    if (score < 40) w *= 1.7;
+    else if (score < 60) w *= 1.35;
+    else if (score >= 85) w *= 0.55;
+    if ((stds.WM || 0) < 60 && std !== 'WM') w *= 0.35;
+    if (std === 'SS') {
+      if ((stds.PS || 0) < 60 || (stds.PR || 0) < 60) return 0;
+      if (score < 50) w *= 0.45;
+      if (recentStds.length >= MAX_SS_IN_A_ROW && recentStds.slice(-MAX_SS_IN_A_ROW).every(s => s === 'SS')) return 0;
+    }
+    if (std === 'PS' && (stds.SS || 0) < 50) w *= 1.2;
+    if (std === 'PR' && (stds.SS || 0) < 50) w *= 1.2;
+    return w;
+  }
+
+  function weightedChoice(items, weights) {
+    const total = weights.reduce((a, b) => a + b, 0);
+    let r = Math.random() * total;
+    for (let i = 0; i < items.length; i++) { r -= weights[i]; if (r <= 0) return items[i]; }
+    return items[items.length - 1];
+  }
+
+  function chooseStandard(pool, prog, recentStds) {
+    const available = [...new Set(pool.map(q => q.standard))].sort();
+    const ws = available.map(s => getStandardWeight(s, prog, recentStds));
+    const filtered = available.filter((_, i) => ws[i] > 0);
+    const fws = ws.filter(w => w > 0);
+    if (filtered.length === 0) return available[Math.floor(Math.random() * available.length)];
+    return weightedChoice(filtered, fws);
+  }
+
+  function chooseWord(pool, prog) {
+    const words = [...new Set(pool.map(q => q.word))];
+    const low = words.filter(w => (prog.words[w] || 0) < 50);
+    const mid = words.filter(w => { const s = prog.words[w] || 0; return s >= 50 && s <= 79; });
+    const high = words.filter(w => (prog.words[w] || 0) >= 80);
+    const r = Math.random();
+    let bucket = (low.length && r < 0.6) ? low : (mid.length && r < 0.9) ? mid : high;
+    if (!bucket.length) bucket = words;
+    return bucket[Math.floor(Math.random() * bucket.length)];
+  }
+
+  function pickNextQuestion() {
+    if (!allQuestions.length) return null;
+    const maxDiff = getMaxDifficulty(progress, sessionStats);
+    let pool = filterByProgression(allQuestions, progress, maxDiff, sessionStats);
+    pool = filterBySessionLimits(pool, sessionStats);
+    const challengePool = getChallengePool(
+      filterByProgression(allQuestions, progress, Math.min(5, maxDiff + 1), sessionStats),
+      maxDiff, sessionStats
+    );
+    if (challengePool) pool = challengePool;
+    if (!pool.length) pool = allQuestions;
+    const std = chooseStandard(pool, progress, recentStandards);
+    const stdPool = pool.filter(q => q.standard === std);
+    const word = chooseWord(stdPool, progress);
+    const wordQs = stdPool.filter(q => q.word === word);
+    return wordQs[Math.floor(Math.random() * wordQs.length)];
+  }
+
+  // ── Assessment flow ───────────────────────────────────────────────────────
 
   function startAssessment() {
-    if (allQuestions.length === 0) return;
-    
-    const questionsForThisLevel = filterQuestionsByDifficulty();
-    questionsToShow = questionsForThisLevel.length;
-    currentQuestionIndex = 0;
-    sessionStats = { correct: 0, total: 0 };
-    
-    document.getElementById('totalQuestions').textContent = questionsToShow;
-    displayQuestion(questionsForThisLevel);
+    if (!allQuestions.length) return;
+    currentSessionQuestion = 0;
+    sessionStats = { answered: 0, correct: 0, consecutive_correct: 0, wm_correct: 0, level5_answered: 0 };
+    recentStandards = [];
+    document.getElementById('totalQuestions').textContent = SESSION_LENGTH;
+    showNextQuestion();
   }
 
-  function displayQuestion(questions) {
-    if (currentQuestionIndex >= questions.length) {
-      endAssessment();
-      return;
-    }
-    
-    const q = questions[currentQuestionIndex];
-    const progress = ((currentQuestionIndex) / questions.length) * 100;
-    document.getElementById('progressFill').style.width = progress + '%';
-    document.getElementById('questionNum').textContent = currentQuestionIndex + 1;
-    
-    // Set difficulty badge
-    const badgeEl = document.getElementById('difficultyBadge');
-    const diffClass = `difficulty-${q.difficulty}`;
-    const diffText = q.difficulty === 1 ? 'Easy' : q.difficulty === 2 ? 'Medium' : 'Hard';
-    badgeEl.className = `difficulty-badge ${diffClass}`;
-    badgeEl.textContent = diffText;
-    
-    const choicesHtml = q.choices.map((c, i) => `
-      <div class="choice" onclick="selectChoice(${i}, '${c}', '${q.correct_answer}', \`${q.explanation}\`, ${questions.length})">
-        ${c}
-      </div>
-    `).join('');
-    
+  function showNextQuestion() {
+    if (currentSessionQuestion >= SESSION_LENGTH) { endAssessment(); return; }
+    const q = pickNextQuestion();
+    if (!q) { endAssessment(); return; }
+
+    document.getElementById('progressFill').style.width = (currentSessionQuestion / SESSION_LENGTH * 100) + '%';
+    document.getElementById('questionNum').textContent = currentSessionQuestion + 1;
+    const badge = document.getElementById('difficultyBadge');
+    badge.className = `difficulty-badge difficulty-${q.difficulty}`;
+    badge.textContent = DIFF_LABELS[q.difficulty] || `Level ${q.difficulty}`;
+
+    const choicesHtml = q.choices.map((c, i) =>
+      `<div class="choice" data-idx="${i}" onclick="selectChoice(this)">${esc(c)}</div>`
+    ).join('');
+
     document.getElementById('assessmentContent').innerHTML = `
       <div class="question-box">
-        <div class="question-header">
-          (${q.skill})
-        </div>
-        <div class="question-text">${q.question}</div>
+        <div class="question-header"><span style="color:#999;font-size:0.85em;">(${esc(q.skill)} · ${q.standard})</span></div>
+        <div class="question-text">${esc(q.question)}</div>
         <div class="choices">${choicesHtml}</div>
         <div class="answer-feedback" id="feedback"></div>
         <div class="assessment-buttons">
-          <button class="btn-next" id="nextBtn" onclick="nextQuestion(${questions.length})" style="display:none;">Next Question</button>
-          <button class="btn-skip" id="skipBtn" onclick="skipQuestion(${questions.length})">Skip</button>
+          <button class="btn-next" id="nextBtn" onclick="advanceQuestion()" style="display:none;">Next Question</button>
+          <button class="btn-skip" id="skipBtn" onclick="skipQuestion()">Skip</button>
         </div>
-      </div>
-    `;
+      </div>`;
+
+    window._currentQ = q;
   }
 
-  function selectChoice(index, choice, correct, explanation, totalQuestions) {
-    const choices = document.querySelectorAll('.choice');
-    choices.forEach((c, i) => {
-      c.classList.remove('selected');
-      if (i === index) c.classList.add('selected');
+  function esc(str) {
+    if (typeof str !== 'string') return str;
+    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  function selectChoice(el) {
+    const q = window._currentQ;
+    if (!q) return;
+    // Disable further clicks
+    document.querySelectorAll('.choice').forEach(c => { c.onclick = null; });
+
+    const chosen = q.choices[parseInt(el.dataset.idx)];
+    const isCorrect = chosen === q.correct_answer;
+
+    document.querySelectorAll('.choice').forEach(c => {
+      const val = q.choices[parseInt(c.dataset.idx)];
+      if (val === q.correct_answer) c.classList.add('correct');
+      if (c === el && !isCorrect) c.classList.add('incorrect');
     });
-    
-    const feedback = document.getElementById('feedback');
-    const nextBtn = document.getElementById('nextBtn');
-    const skipBtn = document.getElementById('skipBtn');
-    
-    let isCorrect = false;
-    if (choice === correct) {
-      feedback.className = 'answer-feedback show correct';
-      feedback.innerHTML = `✅ Correct! ${explanation}`;
+
+    const fb = document.getElementById('feedback');
+    fb.className = `answer-feedback show ${isCorrect ? 'correct' : 'incorrect'}`;
+    fb.innerHTML = isCorrect
+      ? `✅ Correct! ${esc(q.explanation)}`
+      : `❌ Incorrect. Correct answer: <strong>${esc(q.correct_answer)}</strong><br>${esc(q.explanation)}`;
+
+    document.getElementById('nextBtn').style.display = 'block';
+    document.getElementById('skipBtn').style.display = 'none';
+
+    // Update session stats
+    sessionStats.answered++;
+    if (isCorrect) {
       sessionStats.correct++;
-      isCorrect = true;
-      choices.forEach((c, i) => {
-        if (c.textContent.trim() === correct) c.classList.add('correct');
-      });
+      sessionStats.consecutive_correct++;
+      if (q.standard === 'WM') sessionStats.wm_correct++;
+      progress.words[q.word] = Math.min(100, (progress.words[q.word] || 0) + 10);
+      progress.standards[q.standard] = Math.min(100, (progress.standards[q.standard] || 0) + 10);
+      progress.micro_standards[q.micro_standard] = Math.min(100, (progress.micro_standards[q.micro_standard] || 0) + 10);
     } else {
-      feedback.className = 'answer-feedback show incorrect';
-      feedback.innerHTML = `❌ Incorrect. The correct answer is: <strong>${correct}</strong><br>${explanation}`;
-      choices.forEach((c, i) => {
-        if (c.textContent.trim() === correct) c.classList.add('correct');
-        if (c.textContent.trim() === choice) c.classList.add('incorrect');
-      });
+      sessionStats.consecutive_correct = 0;
+      progress.words[q.word] = Math.max(0, (progress.words[q.word] || 0) - 10);
+      progress.standards[q.standard] = Math.max(0, (progress.standards[q.standard] || 0) - 10);
+      progress.micro_standards[q.micro_standard] = Math.max(0, (progress.micro_standards[q.micro_standard] || 0) - 10);
     }
-    
-    nextBtn.style.display = 'block';
-    skipBtn.style.display = 'none';
-    
-    sessionStats.total++;
-    recordProgress(isCorrect, totalQuestions);
-  }
+    if (q.difficulty === 5) sessionStats.level5_answered++;
+    recentStandards.push(q.standard);
 
-  function nextQuestion(totalQuestions) {
-    currentQuestionIndex++;
-    const questions = filterQuestionsByDifficulty();
-    displayQuestion(questions);
-  }
-
-  function skipQuestion(totalQuestions) {
-    currentQuestionIndex++;
-    const questions = filterQuestionsByDifficulty();
-    displayQuestion(questions);
-  }
-
-  function recordProgress(isCorrect, totalQuestions) {
     allTimeStats.total++;
     if (isCorrect) allTimeStats.correct++;
-    allTimeStats.lastAttempt = new Date().toLocaleString();
-    
-    const percentage = Math.round((sessionStats.correct / sessionStats.total) * 100);
-    if (percentage > allTimeStats.bestScore) {
-      allTimeStats.bestScore = percentage;
-    }
-    
-    // Adaptive: adjust difficulty based on performance
-    const recentCorrectRate = sessionStats.total >= 3 ? (sessionStats.correct / sessionStats.total) : 0.5;
-    
-    if (recentCorrectRate >= 0.8 && userLevel < 3) {
-      userLevel = 3; // Hard
-    } else if (recentCorrectRate >= 0.6 && userLevel < 2) {
-      userLevel = 2; // Medium
-    } else if (recentCorrectRate < 0.4 && userLevel > 1) {
-      userLevel = 1; // Easy
-    }
-    
-    localStorage.setItem(`${currentUser}_stats`, JSON.stringify(allTimeStats));
-    localStorage.setItem(`${currentUser}_level`, userLevel);
+    const sessionPct = Math.round(sessionStats.correct / sessionStats.answered * 100);
+    if (sessionPct > allTimeStats.bestScore) allTimeStats.bestScore = sessionPct;
+
+    saveProgress();
     updateProgressDisplay();
   }
 
+  function advanceQuestion() { currentSessionQuestion++; showNextQuestion(); }
+  function skipQuestion() { currentSessionQuestion++; recentStandards.push(null); showNextQuestion(); }
+
   function endAssessment() {
-    const percentage = sessionStats.total > 0 ? Math.round((sessionStats.correct / sessionStats.total) * 100) : 0;
-    
-    let message = '';
-    if (percentage === 100) message = 'Perfect Score! 🌟';
-    else if (percentage >= 80) message = 'Excellent Work! 🎉';
-    else if (percentage >= 60) message = 'Good Progress! 👍';
-    else if (percentage >= 40) message = 'Keep Practicing! 💪';
-    else message = 'Keep Learning! 📚';
-    
+    const pct = sessionStats.answered > 0 ? Math.round(sessionStats.correct / sessionStats.answered * 100) : 0;
+    const msg = pct === 100 ? 'Perfect Score! 🌟' : pct >= 80 ? 'Excellent Work! 🎉' : pct >= 60 ? 'Good Progress! 👍' : pct >= 40 ? 'Keep Practicing! 💪' : 'Keep Learning! 📚';
+    const maxDiff = getMaxDifficulty(progress, sessionStats);
+
+    document.getElementById('progressFill').style.width = '100%';
     document.getElementById('assessmentContent').innerHTML = `
       <div class="results-container">
         <h2>Assessment Complete!</h2>
-        <div class="results-score">${percentage}%</div>
-        <div class="results-message">${message}</div>
+        <div class="results-score">${pct}%</div>
+        <div class="results-message">${msg}</div>
         <div class="results-stats">
-          <div class="stat-box">
-            <div class="stat-label">Questions Answered</div>
-            <div class="stat-value">${sessionStats.total}</div>
-          </div>
-          <div class="stat-box">
-            <div class="stat-label">Correct Answers</div>
-            <div class="stat-value">${sessionStats.correct}</div>
-          </div>
+          <div class="stat-box"><div class="stat-label">Questions Answered</div><div class="stat-value">${sessionStats.answered}</div></div>
+          <div class="stat-box"><div class="stat-label">Correct Answers</div><div class="stat-value">${sessionStats.correct}</div></div>
+          <div class="stat-box"><div class="stat-label">Max Difficulty Reached</div><div class="stat-value">${DIFF_LABELS[maxDiff] || maxDiff}</div></div>
+          <div class="stat-box"><div class="stat-label">Longest Streak</div><div class="stat-value">${sessionStats.consecutive_correct}</div></div>
         </div>
         <div class="results-buttons">
           <button class="btn-again" onclick="startAssessment()">Take Another Assessment</button>
         </div>
-      </div>
-    `;
-    
-    if (percentage > allTimeStats.bestScore) {
-      allTimeStats.bestScore = percentage;
-      localStorage.setItem(`${currentUser}_stats`, JSON.stringify(allTimeStats));
-    }
+      </div>`;
+
+    if (pct > allTimeStats.bestScore) { allTimeStats.bestScore = pct; saveProgress(); }
     updateProgressDisplay();
   }
 
   function updateProgressDisplay() {
-    const overallAccuracy = allTimeStats.total > 0 ? Math.round((allTimeStats.correct / allTimeStats.total) * 100) : 0;
-    
-    document.getElementById('overallAccuracy').textContent = overallAccuracy + '%';
-    document.getElementById('accuracyBar').style.width = overallAccuracy + '%';
+    const acc = allTimeStats.total > 0 ? Math.round(allTimeStats.correct / allTimeStats.total * 100) : 0;
+    document.getElementById('overallAccuracy').textContent = acc + '%';
+    document.getElementById('accuracyBar').style.width = acc + '%';
     document.getElementById('totalAnswered').textContent = allTimeStats.total;
     document.getElementById('correctCount').textContent = allTimeStats.correct;
-    document.getElementById('currentSessionScore').textContent = sessionStats.total > 0 ? Math.round((sessionStats.correct / sessionStats.total) * 100) + '%' : '--';
+    document.getElementById('currentSessionScore').textContent = sessionStats.answered > 0
+      ? Math.round(sessionStats.correct / sessionStats.answered * 100) + '%' : '--';
     document.getElementById('bestScore').textContent = allTimeStats.bestScore > 0 ? allTimeStats.bestScore + '%' : '--';
-    
-    const levelText = userLevel === 1 ? 'Easy' : userLevel === 2 ? 'Medium' : 'Hard';
-    document.getElementById('currentLevel').textContent = levelText;
+    const maxDiff = getMaxDifficulty(progress, sessionStats);
+    document.getElementById('currentLevel').textContent = DIFF_LABELS[maxDiff] || `Level ${maxDiff}`;
+    for (const std of STANDARDS) {
+      const score = progress.standards[std] || 0;
+      const bar = document.getElementById(`std-bar-${std}`);
+      const val = document.getElementById(`std-val-${std}`);
+      if (bar) bar.style.width = score + '%';
+      if (val) val.textContent = score;
+    }
   }
+
+  // ── AI Tutor (unchanged) ─────────────────────────────────────────────────
 
   async function askAI() {
     const input = document.getElementById('aiInput');
     const msg = input.value.trim();
     if (!msg) return;
-    
     const chat = document.getElementById('aiChat');
     chat.innerHTML += `<div class="ai-message user">${msg}</div>`;
     input.value = '';
-    
     chat.innerHTML += `<div class="ai-message assistant">🤔 Thinking...</div>`;
     chat.scrollTop = chat.scrollHeight;
-    
     const response = generateTutorResponse(msg);
-    
     chat.querySelectorAll('.ai-message')[chat.querySelectorAll('.ai-message').length - 1].remove();
     chat.innerHTML += `<div class="ai-message assistant">${response}</div>`;
     chat.scrollTop = chat.scrollHeight;
@@ -490,7 +653,6 @@
 
   function generateTutorResponse(question) {
     const lower = question.toLowerCase();
-    
     if (lower.includes('shoresh') || lower.includes('root')) {
       return `<strong>📚 Shoresh (Root)</strong><br>A 3-letter root shared by related words.<br><strong>Examples:</strong> אכל (ate), הלך (went), ראה (saw)`;
     }
@@ -503,7 +665,6 @@
     if (lower.includes('prefix')) {
       return `<strong>🔗 Prefixes</strong><br>• ב = in/with<br>• כ = like/as<br>• ל = to/for<br>• ה = the<br>• את = object marker`;
     }
-    
     return `I can teach you about:<br>• Shoresh (roots)<br>• Binyan (patterns)<br>• Nekudot (vowels)<br>• Prefixes<br><br>What would you like to learn?`;
   }
 </script>
