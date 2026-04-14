@@ -1,0 +1,18 @@
+You are generating Chumash skill-based questions.
+
+Follow strict JSON format.
+
+Each question must include:
+- skill
+- word
+- question
+- choices (4)
+- correct_answer
+- explanation
+- difficulty
+
+Rules:
+- Only use dataset words
+- Distractors must be real Hebrew words or close meanings
+- No random answers
+- Keep explanations short and clear
