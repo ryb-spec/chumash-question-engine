@@ -1,0 +1,5137 @@
+{
+  "questions": [
+    {
+      "skill": "translation",
+      "word": "ארץ",
+      "question": "What does the word ארץ mean?",
+      "choices": [
+        "land",
+        "house",
+        "water",
+        "king"
+      ],
+      "correct_answer": "land",
+      "explanation": "ארץ means 'land'.",
+      "difficulty": 1,
+      "standard": "WM",
+      "micro_standard": "WM1"
+    },
+    {
+      "skill": "reverse_translation",
+      "word": "ארץ",
+      "question": "Which Hebrew word means land?",
+      "choices": [
+        "בית",
+        "ארץ",
+        "מים",
+        "מלך"
+      ],
+      "correct_answer": "ארץ",
+      "explanation": "ארץ means 'land'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM2"
+    },
+    {
+      "skill": "semantic",
+      "word": "ארץ",
+      "question": "Which word is closest in meaning to ארץ?",
+      "choices": [
+        "שדה",
+        "עיר",
+        "ים",
+        "בית"
+      ],
+      "correct_answer": "שדה",
+      "explanation": "שדה (field) is closest to ארץ (land); the others are more specific or unrelated.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM4"
+    },
+    {
+      "skill": "translation",
+      "word": "בית",
+      "question": "What does the word בית mean?",
+      "choices": [
+        "water",
+        "house",
+        "king",
+        "day"
+      ],
+      "correct_answer": "house",
+      "explanation": "בית means 'house'.",
+      "difficulty": 1,
+      "standard": "WM",
+      "micro_standard": "WM1"
+    },
+    {
+      "skill": "reverse_translation",
+      "word": "בית",
+      "question": "Which Hebrew word means house?",
+      "choices": [
+        "מים",
+        "מלך",
+        "בית",
+        "יום"
+      ],
+      "correct_answer": "בית",
+      "explanation": "בית means 'house'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM2"
+    },
+    {
+      "skill": "semantic_translation",
+      "word": "בית",
+      "question": "Which meaning is closest to the word בית?",
+      "choices": [
+        "home",
+        "dwelling",
+        "building",
+        "house"
+      ],
+      "correct_answer": "house",
+      "explanation": "בית means 'house'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM4"
+    },
+    {
+      "skill": "translation",
+      "word": "מים",
+      "question": "What does the word מים mean?",
+      "choices": [
+        "king",
+        "day",
+        "water",
+        "night"
+      ],
+      "correct_answer": "water",
+      "explanation": "מים means 'water'.",
+      "difficulty": 1,
+      "standard": "WM",
+      "micro_standard": "WM1"
+    },
+    {
+      "skill": "reverse_translation",
+      "word": "מים",
+      "question": "Which Hebrew word means water?",
+      "choices": [
+        "מלך",
+        "יום",
+        "לילה",
+        "מים"
+      ],
+      "correct_answer": "מים",
+      "explanation": "מים means 'water'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM2"
+    },
+    {
+      "skill": "semantic",
+      "word": "מים",
+      "question": "Which word does NOT belong with מים?",
+      "choices": [
+        "ים",
+        "נהר",
+        "שדה",
+        "גשם"
+      ],
+      "correct_answer": "שדה",
+      "explanation": "שדה (field) is not related to water; the others are water-related.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM4"
+    },
+    {
+      "skill": "translation",
+      "word": "מלך",
+      "question": "What does the word מלך mean?",
+      "choices": [
+        "day",
+        "night",
+        "man",
+        "king"
+      ],
+      "correct_answer": "king",
+      "explanation": "מלך means 'king'.",
+      "difficulty": 1,
+      "standard": "WM",
+      "micro_standard": "WM1"
+    },
+    {
+      "skill": "reverse_translation",
+      "word": "מלך",
+      "question": "Which Hebrew word means king?",
+      "choices": [
+        "מלך",
+        "יום",
+        "לילה",
+        "איש"
+      ],
+      "correct_answer": "מלך",
+      "explanation": "מלך means 'king'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM2"
+    },
+    {
+      "skill": "semantic_translation",
+      "word": "מלך",
+      "question": "Which meaning is closest to the word מלך?",
+      "choices": [
+        "ruler",
+        "king",
+        "prince",
+        "leader"
+      ],
+      "correct_answer": "king",
+      "explanation": "מלך means 'king'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM4"
+    },
+    {
+      "skill": "translation",
+      "word": "יום",
+      "question": "What does the word יום mean?",
+      "choices": [
+        "day",
+        "night",
+        "man",
+        "woman"
+      ],
+      "correct_answer": "day",
+      "explanation": "יום means 'day'.",
+      "difficulty": 1,
+      "standard": "WM",
+      "micro_standard": "WM1"
+    },
+    {
+      "skill": "reverse_translation",
+      "word": "יום",
+      "question": "Which Hebrew word means day?",
+      "choices": [
+        "לילה",
+        "יום",
+        "איש",
+        "אשה"
+      ],
+      "correct_answer": "יום",
+      "explanation": "יום means 'day'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM2"
+    },
+    {
+      "skill": "semantic_translation",
+      "word": "יום",
+      "question": "Which meaning is closest to the word יום?",
+      "choices": [
+        "morning",
+        "afternoon",
+        "day",
+        "time"
+      ],
+      "correct_answer": "day",
+      "explanation": "יום means 'day'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM4"
+    },
+    {
+      "skill": "translation",
+      "word": "לילה",
+      "question": "What does the word לילה mean?",
+      "choices": [
+        "man",
+        "night",
+        "woman",
+        "son"
+      ],
+      "correct_answer": "night",
+      "explanation": "לילה means 'night'.",
+      "difficulty": 1,
+      "standard": "WM",
+      "micro_standard": "WM1"
+    },
+    {
+      "skill": "reverse_translation",
+      "word": "לילה",
+      "question": "Which Hebrew word means night?",
+      "choices": [
+        "איש",
+        "אשה",
+        "לילה",
+        "בן"
+      ],
+      "correct_answer": "לילה",
+      "explanation": "לילה means 'night'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM2"
+    },
+    {
+      "skill": "semantic_translation",
+      "word": "לילה",
+      "question": "Which meaning is closest to the word לילה?",
+      "choices": [
+        "evening",
+        "darkness",
+        "midnight",
+        "night"
+      ],
+      "correct_answer": "night",
+      "explanation": "לילה means 'night'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM4"
+    },
+    {
+      "skill": "translation",
+      "word": "איש",
+      "question": "What does the word איש mean?",
+      "choices": [
+        "woman",
+        "son",
+        "man",
+        "daughter"
+      ],
+      "correct_answer": "man",
+      "explanation": "איש means 'man'.",
+      "difficulty": 1,
+      "standard": "WM",
+      "micro_standard": "WM1"
+    },
+    {
+      "skill": "reverse_translation",
+      "word": "איש",
+      "question": "Which Hebrew word means man?",
+      "choices": [
+        "אשה",
+        "בן",
+        "בת",
+        "איש"
+      ],
+      "correct_answer": "איש",
+      "explanation": "איש means 'man'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM2"
+    },
+    {
+      "skill": "semantic_translation",
+      "word": "איש",
+      "question": "Which meaning is closest to the word איש?",
+      "choices": [
+        "man",
+        "person",
+        "male",
+        "individual"
+      ],
+      "correct_answer": "man",
+      "explanation": "איש means 'man'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM4"
+    },
+    {
+      "skill": "translation",
+      "word": "אשה",
+      "question": "What does the word אשה mean?",
+      "choices": [
+        "son",
+        "daughter",
+        "people",
+        "woman"
+      ],
+      "correct_answer": "woman",
+      "explanation": "אשה means 'woman'.",
+      "difficulty": 1,
+      "standard": "WM",
+      "micro_standard": "WM1"
+    },
+    {
+      "skill": "reverse_translation",
+      "word": "אשה",
+      "question": "Which Hebrew word means woman?",
+      "choices": [
+        "אשה",
+        "בן",
+        "בת",
+        "עם"
+      ],
+      "correct_answer": "אשה",
+      "explanation": "אשה means 'woman'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM2"
+    },
+    {
+      "skill": "semantic_translation",
+      "word": "אשה",
+      "question": "Which meaning is closest to the word אשה?",
+      "choices": [
+        "wife",
+        "woman",
+        "female",
+        "person"
+      ],
+      "correct_answer": "woman",
+      "explanation": "אשה means 'woman'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM4"
+    },
+    {
+      "skill": "translation",
+      "word": "בן",
+      "question": "What does the word בן mean?",
+      "choices": [
+        "son",
+        "daughter",
+        "people",
+        "city"
+      ],
+      "correct_answer": "son",
+      "explanation": "בן means 'son'.",
+      "difficulty": 1,
+      "standard": "WM",
+      "micro_standard": "WM1"
+    },
+    {
+      "skill": "reverse_translation",
+      "word": "בן",
+      "question": "Which Hebrew word means son?",
+      "choices": [
+        "בת",
+        "בן",
+        "עם",
+        "עיר"
+      ],
+      "correct_answer": "בן",
+      "explanation": "בן means 'son'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM2"
+    },
+    {
+      "skill": "semantic_translation",
+      "word": "בן",
+      "question": "Which meaning is closest to the word בן?",
+      "choices": [
+        "child",
+        "boy",
+        "son",
+        "descendant"
+      ],
+      "correct_answer": "son",
+      "explanation": "בן means 'son'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM4"
+    },
+    {
+      "skill": "translation",
+      "word": "בת",
+      "question": "What does the word בת mean?",
+      "choices": [
+        "people",
+        "daughter",
+        "city",
+        "field"
+      ],
+      "correct_answer": "daughter",
+      "explanation": "בת means 'daughter'.",
+      "difficulty": 1,
+      "standard": "WM",
+      "micro_standard": "WM1"
+    },
+    {
+      "skill": "reverse_translation",
+      "word": "בת",
+      "question": "Which Hebrew word means daughter?",
+      "choices": [
+        "עם",
+        "עיר",
+        "בת",
+        "שדה"
+      ],
+      "correct_answer": "בת",
+      "explanation": "בת means 'daughter'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM2"
+    },
+    {
+      "skill": "semantic_translation",
+      "word": "בת",
+      "question": "Which meaning is closest to the word בת?",
+      "choices": [
+        "child",
+        "girl",
+        "descendant",
+        "daughter"
+      ],
+      "correct_answer": "daughter",
+      "explanation": "בת means 'daughter'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM4"
+    },
+    {
+      "skill": "translation",
+      "word": "עם",
+      "question": "What does the word עם mean?",
+      "choices": [
+        "city",
+        "field",
+        "people",
+        "mountain"
+      ],
+      "correct_answer": "people",
+      "explanation": "עם means 'people'.",
+      "difficulty": 1,
+      "standard": "WM",
+      "micro_standard": "WM1"
+    },
+    {
+      "skill": "reverse_translation",
+      "word": "עם",
+      "question": "Which Hebrew word means people?",
+      "choices": [
+        "עיר",
+        "שדה",
+        "הר",
+        "עם"
+      ],
+      "correct_answer": "עם",
+      "explanation": "עם means 'people'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM2"
+    },
+    {
+      "skill": "semantic_translation",
+      "word": "עם",
+      "question": "Which meaning is closest to the word עם?",
+      "choices": [
+        "people",
+        "nation",
+        "group",
+        "community"
+      ],
+      "correct_answer": "people",
+      "explanation": "עם means 'people'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM4"
+    },
+    {
+      "skill": "translation",
+      "word": "עיר",
+      "question": "What does the word עיר mean?",
+      "choices": [
+        "field",
+        "mountain",
+        "sea",
+        "city"
+      ],
+      "correct_answer": "city",
+      "explanation": "עיר means 'city'.",
+      "difficulty": 1,
+      "standard": "WM",
+      "micro_standard": "WM1"
+    },
+    {
+      "skill": "reverse_translation",
+      "word": "עיר",
+      "question": "Which Hebrew word means city?",
+      "choices": [
+        "עיר",
+        "שדה",
+        "הר",
+        "ים"
+      ],
+      "correct_answer": "עיר",
+      "explanation": "עיר means 'city'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM2"
+    },
+    {
+      "skill": "semantic_translation",
+      "word": "עיר",
+      "question": "Which meaning is closest to the word עיר?",
+      "choices": [
+        "town",
+        "city",
+        "village",
+        "place"
+      ],
+      "correct_answer": "city",
+      "explanation": "עיר means 'city'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM4"
+    },
+    {
+      "skill": "translation",
+      "word": "שדה",
+      "question": "What does the word שדה mean?",
+      "choices": [
+        "field",
+        "mountain",
+        "sea",
+        "tree"
+      ],
+      "correct_answer": "field",
+      "explanation": "שדה means 'field'.",
+      "difficulty": 1,
+      "standard": "WM",
+      "micro_standard": "WM1"
+    },
+    {
+      "skill": "reverse_translation",
+      "word": "שדה",
+      "question": "Which Hebrew word means field?",
+      "choices": [
+        "הר",
+        "שדה",
+        "ים",
+        "עץ"
+      ],
+      "correct_answer": "שדה",
+      "explanation": "שדה means 'field'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM2"
+    },
+    {
+      "skill": "semantic_translation",
+      "word": "שדה",
+      "question": "Which meaning is closest to the word שדה?",
+      "choices": [
+        "land",
+        "farm",
+        "field",
+        "area"
+      ],
+      "correct_answer": "field",
+      "explanation": "שדה means 'field'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM4"
+    },
+    {
+      "skill": "translation",
+      "word": "הר",
+      "question": "What does the word הר mean?",
+      "choices": [
+        "sea",
+        "mountain",
+        "tree",
+        "land"
+      ],
+      "correct_answer": "mountain",
+      "explanation": "הר means 'mountain'.",
+      "difficulty": 1,
+      "standard": "WM",
+      "micro_standard": "WM1"
+    },
+    {
+      "skill": "reverse_translation",
+      "word": "הר",
+      "question": "Which Hebrew word means mountain?",
+      "choices": [
+        "ים",
+        "עץ",
+        "הר",
+        "ארץ"
+      ],
+      "correct_answer": "הר",
+      "explanation": "הר means 'mountain'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM2"
+    },
+    {
+      "skill": "semantic_translation",
+      "word": "הר",
+      "question": "Which meaning is closest to the word הר?",
+      "choices": [
+        "hill",
+        "peak",
+        "ridge",
+        "mountain"
+      ],
+      "correct_answer": "mountain",
+      "explanation": "הר means 'mountain'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM4"
+    },
+    {
+      "skill": "translation",
+      "word": "ים",
+      "question": "What does the word ים mean?",
+      "choices": [
+        "tree",
+        "land",
+        "sea",
+        "house"
+      ],
+      "correct_answer": "sea",
+      "explanation": "ים means 'sea'.",
+      "difficulty": 1,
+      "standard": "WM",
+      "micro_standard": "WM1"
+    },
+    {
+      "skill": "reverse_translation",
+      "word": "ים",
+      "question": "Which Hebrew word means sea?",
+      "choices": [
+        "עץ",
+        "ארץ",
+        "בית",
+        "ים"
+      ],
+      "correct_answer": "ים",
+      "explanation": "ים means 'sea'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM2"
+    },
+    {
+      "skill": "semantic_translation",
+      "word": "ים",
+      "question": "Which meaning is closest to the word ים?",
+      "choices": [
+        "sea",
+        "water",
+        "ocean",
+        "lake"
+      ],
+      "correct_answer": "sea",
+      "explanation": "ים means 'sea'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM4"
+    },
+    {
+      "skill": "translation",
+      "word": "עץ",
+      "question": "What does the word עץ mean?",
+      "choices": [
+        "land",
+        "house",
+        "water",
+        "tree"
+      ],
+      "correct_answer": "tree",
+      "explanation": "עץ means 'tree'.",
+      "difficulty": 1,
+      "standard": "WM",
+      "micro_standard": "WM1"
+    },
+    {
+      "skill": "reverse_translation",
+      "word": "עץ",
+      "question": "Which Hebrew word means tree?",
+      "choices": [
+        "עץ",
+        "ארץ",
+        "בית",
+        "מים"
+      ],
+      "correct_answer": "עץ",
+      "explanation": "עץ means 'tree'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM2"
+    },
+    {
+      "skill": "semantic_translation",
+      "word": "עץ",
+      "question": "Which meaning is closest to the word עץ?",
+      "choices": [
+        "wood",
+        "tree",
+        "plant",
+        "branch"
+      ],
+      "correct_answer": "tree",
+      "explanation": "עץ means 'tree'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM4"
+    },
+    {
+      "skill": "translation",
+      "word": "אכל",
+      "question": "What does the word אכל mean?",
+      "choices": [
+        "ate",
+        "went",
+        "saw",
+        "said"
+      ],
+      "correct_answer": "ate",
+      "explanation": "אכל means 'ate'.",
+      "difficulty": 1,
+      "standard": "WM",
+      "micro_standard": "WM1"
+    },
+    {
+      "skill": "reverse_translation",
+      "word": "אכל",
+      "question": "Which Hebrew word means ate?",
+      "choices": [
+        "הלך",
+        "אכל",
+        "ראה",
+        "אמר"
+      ],
+      "correct_answer": "אכל",
+      "explanation": "אכל means 'ate'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM2"
+    },
+    {
+      "skill": "shoresh_translation",
+      "word": "אכל",
+      "question": "Which choice gives both the shoresh and meaning of אכל?",
+      "choices": [
+        "הלך - went",
+        "ראה - saw",
+        "אכל - ate",
+        "אמר - said"
+      ],
+      "correct_answer": "אכל - ate",
+      "explanation": "אכל has shoresh אכל and means 'ate'.",
+      "difficulty": 4,
+      "standard": "CF",
+      "micro_standard": "CF1"
+    },
+    {
+      "skill": "translation",
+      "word": "הלך",
+      "question": "What does the word הלך mean?",
+      "choices": [
+        "saw",
+        "went",
+        "said",
+        "heard"
+      ],
+      "correct_answer": "went",
+      "explanation": "הלך means 'went'.",
+      "difficulty": 1,
+      "standard": "WM",
+      "micro_standard": "WM1"
+    },
+    {
+      "skill": "reverse_translation",
+      "word": "הלך",
+      "question": "Which Hebrew word means went?",
+      "choices": [
+        "ראה",
+        "אמר",
+        "הלך",
+        "שמע"
+      ],
+      "correct_answer": "הלך",
+      "explanation": "הלך means 'went'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM2"
+    },
+    {
+      "skill": "shoresh_translation",
+      "word": "הלך",
+      "question": "Which choice gives both the shoresh and meaning of הלך?",
+      "choices": [
+        "ראה - saw",
+        "אמר - said",
+        "שמע - heard",
+        "הלך - went"
+      ],
+      "correct_answer": "הלך - went",
+      "explanation": "הלך has shoresh הלך and means 'went'.",
+      "difficulty": 4,
+      "standard": "CF",
+      "micro_standard": "CF1"
+    },
+    {
+      "skill": "translation",
+      "word": "ראה",
+      "question": "What does the word ראה mean?",
+      "choices": [
+        "said",
+        "heard",
+        "saw",
+        "gave"
+      ],
+      "correct_answer": "saw",
+      "explanation": "ראה means 'saw'.",
+      "difficulty": 1,
+      "standard": "WM",
+      "micro_standard": "WM1"
+    },
+    {
+      "skill": "reverse_translation",
+      "word": "ראה",
+      "question": "Which Hebrew word means saw?",
+      "choices": [
+        "אמר",
+        "שמע",
+        "נתן",
+        "ראה"
+      ],
+      "correct_answer": "ראה",
+      "explanation": "ראה means 'saw'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM2"
+    },
+    {
+      "skill": "shoresh_translation",
+      "word": "ראה",
+      "question": "Which choice gives both the shoresh and meaning of ראה?",
+      "choices": [
+        "ראה - saw",
+        "אמר - said",
+        "שמע - heard",
+        "נתן - gave"
+      ],
+      "correct_answer": "ראה - saw",
+      "explanation": "ראה has shoresh ראה and means 'saw'.",
+      "difficulty": 4,
+      "standard": "CF",
+      "micro_standard": "CF1"
+    },
+    {
+      "skill": "translation",
+      "word": "אמר",
+      "question": "What does the word אמר mean?",
+      "choices": [
+        "heard",
+        "gave",
+        "took",
+        "said"
+      ],
+      "correct_answer": "said",
+      "explanation": "אמר means 'said'.",
+      "difficulty": 1,
+      "standard": "WM",
+      "micro_standard": "WM1"
+    },
+    {
+      "skill": "reverse_translation",
+      "word": "אמר",
+      "question": "Which Hebrew word means said?",
+      "choices": [
+        "אמר",
+        "שמע",
+        "נתן",
+        "לקח"
+      ],
+      "correct_answer": "אמר",
+      "explanation": "אמר means 'said'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM2"
+    },
+    {
+      "skill": "shoresh_translation",
+      "word": "אמר",
+      "question": "Which choice gives both the shoresh and meaning of אמר?",
+      "choices": [
+        "שמע - heard",
+        "אמר - said",
+        "נתן - gave",
+        "לקח - took"
+      ],
+      "correct_answer": "אמר - said",
+      "explanation": "אמר has shoresh אמר and means 'said'.",
+      "difficulty": 4,
+      "standard": "CF",
+      "micro_standard": "CF1"
+    },
+    {
+      "skill": "translation",
+      "word": "שמע",
+      "question": "What does the word שמע mean?",
+      "choices": [
+        "heard",
+        "gave",
+        "took",
+        "built"
+      ],
+      "correct_answer": "heard",
+      "explanation": "שמע means 'heard'.",
+      "difficulty": 1,
+      "standard": "WM",
+      "micro_standard": "WM1"
+    },
+    {
+      "skill": "reverse_translation",
+      "word": "שמע",
+      "question": "Which Hebrew word means heard?",
+      "choices": [
+        "נתן",
+        "שמע",
+        "לקח",
+        "בנה"
+      ],
+      "correct_answer": "שמע",
+      "explanation": "שמע means 'heard'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM2"
+    },
+    {
+      "skill": "shoresh_translation",
+      "word": "שמע",
+      "question": "Which choice gives both the shoresh and meaning of שמע?",
+      "choices": [
+        "נתן - gave",
+        "לקח - took",
+        "שמע - heard",
+        "בנה - built"
+      ],
+      "correct_answer": "שמע - heard",
+      "explanation": "שמע has shoresh שמע and means 'heard'.",
+      "difficulty": 4,
+      "standard": "CF",
+      "micro_standard": "CF1"
+    },
+    {
+      "skill": "translation",
+      "word": "נתן",
+      "question": "What does the word נתן mean?",
+      "choices": [
+        "took",
+        "gave",
+        "built",
+        "guarded"
+      ],
+      "correct_answer": "gave",
+      "explanation": "נתן means 'gave'.",
+      "difficulty": 1,
+      "standard": "WM",
+      "micro_standard": "WM1"
+    },
+    {
+      "skill": "reverse_translation",
+      "word": "נתן",
+      "question": "Which Hebrew word means gave?",
+      "choices": [
+        "לקח",
+        "בנה",
+        "נתן",
+        "שמר"
+      ],
+      "correct_answer": "נתן",
+      "explanation": "נתן means 'gave'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM2"
+    },
+    {
+      "skill": "shoresh_translation",
+      "word": "נתן",
+      "question": "Which choice gives both the shoresh and meaning of נתן?",
+      "choices": [
+        "לקח - took",
+        "בנה - built",
+        "שמר - guarded",
+        "נתן - gave"
+      ],
+      "correct_answer": "נתן - gave",
+      "explanation": "נתן has shoresh נתן and means 'gave'.",
+      "difficulty": 4,
+      "standard": "CF",
+      "micro_standard": "CF1"
+    },
+    {
+      "skill": "translation",
+      "word": "לקח",
+      "question": "What does the word לקח mean?",
+      "choices": [
+        "built",
+        "guarded",
+        "took",
+        "found"
+      ],
+      "correct_answer": "took",
+      "explanation": "לקח means 'took'.",
+      "difficulty": 1,
+      "standard": "WM",
+      "micro_standard": "WM1"
+    },
+    {
+      "skill": "reverse_translation",
+      "word": "לקח",
+      "question": "Which Hebrew word means took?",
+      "choices": [
+        "בנה",
+        "שמר",
+        "מצא",
+        "לקח"
+      ],
+      "correct_answer": "לקח",
+      "explanation": "לקח means 'took'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM2"
+    },
+    {
+      "skill": "shoresh_translation",
+      "word": "לקח",
+      "question": "Which choice gives both the shoresh and meaning of לקח?",
+      "choices": [
+        "לקח - took",
+        "בנה - built",
+        "שמר - guarded",
+        "מצא - found"
+      ],
+      "correct_answer": "לקח - took",
+      "explanation": "לקח has shoresh לקח and means 'took'.",
+      "difficulty": 4,
+      "standard": "CF",
+      "micro_standard": "CF1"
+    },
+    {
+      "skill": "translation",
+      "word": "בנה",
+      "question": "What does the word בנה mean?",
+      "choices": [
+        "guarded",
+        "found",
+        "sat/dwelt",
+        "built"
+      ],
+      "correct_answer": "built",
+      "explanation": "בנה means 'built'.",
+      "difficulty": 1,
+      "standard": "WM",
+      "micro_standard": "WM1"
+    },
+    {
+      "skill": "reverse_translation",
+      "word": "בנה",
+      "question": "Which Hebrew word means built?",
+      "choices": [
+        "בנה",
+        "שמר",
+        "מצא",
+        "ישב"
+      ],
+      "correct_answer": "בנה",
+      "explanation": "בנה means 'built'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM2"
+    },
+    {
+      "skill": "shoresh_translation",
+      "word": "בנה",
+      "question": "Which choice gives both the shoresh and meaning of בנה?",
+      "choices": [
+        "שמר - guarded",
+        "בנה - built",
+        "מצא - found",
+        "ישב - sat/dwelt"
+      ],
+      "correct_answer": "בנה - built",
+      "explanation": "בנה has shoresh בנה and means 'built'.",
+      "difficulty": 4,
+      "standard": "CF",
+      "micro_standard": "CF1"
+    },
+    {
+      "skill": "translation",
+      "word": "שמר",
+      "question": "What does the word שמר mean?",
+      "choices": [
+        "guarded",
+        "found",
+        "sat/dwelt",
+        "went up"
+      ],
+      "correct_answer": "guarded",
+      "explanation": "שמר means 'guarded'.",
+      "difficulty": 1,
+      "standard": "WM",
+      "micro_standard": "WM1"
+    },
+    {
+      "skill": "reverse_translation",
+      "word": "שמר",
+      "question": "Which Hebrew word means guarded?",
+      "choices": [
+        "מצא",
+        "שמר",
+        "ישב",
+        "עלה"
+      ],
+      "correct_answer": "שמר",
+      "explanation": "שמר means 'guarded'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM2"
+    },
+    {
+      "skill": "shoresh_translation",
+      "word": "שמר",
+      "question": "Which choice gives both the shoresh and meaning of שמר?",
+      "choices": [
+        "מצא - found",
+        "ישב - sat/dwelt",
+        "שמר - guarded",
+        "עלה - went up"
+      ],
+      "correct_answer": "שמר - guarded",
+      "explanation": "שמר has shoresh שמר and means 'guarded'.",
+      "difficulty": 4,
+      "standard": "CF",
+      "micro_standard": "CF1"
+    },
+    {
+      "skill": "translation",
+      "word": "מצא",
+      "question": "What does the word מצא mean?",
+      "choices": [
+        "sat/dwelt",
+        "found",
+        "went up",
+        "went down"
+      ],
+      "correct_answer": "found",
+      "explanation": "מצא means 'found'.",
+      "difficulty": 1,
+      "standard": "WM",
+      "micro_standard": "WM1"
+    },
+    {
+      "skill": "reverse_translation",
+      "word": "מצא",
+      "question": "Which Hebrew word means found?",
+      "choices": [
+        "ישב",
+        "עלה",
+        "מצא",
+        "ירד"
+      ],
+      "correct_answer": "מצא",
+      "explanation": "מצא means 'found'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM2"
+    },
+    {
+      "skill": "shoresh_translation",
+      "word": "מצא",
+      "question": "Which choice gives both the shoresh and meaning of מצא?",
+      "choices": [
+        "ישב - sat/dwelt",
+        "עלה - went up",
+        "ירד - went down",
+        "מצא - found"
+      ],
+      "correct_answer": "מצא - found",
+      "explanation": "מצא has shoresh מצא and means 'found'.",
+      "difficulty": 4,
+      "standard": "CF",
+      "micro_standard": "CF1"
+    },
+    {
+      "skill": "translation",
+      "word": "ישב",
+      "question": "What does the word ישב mean?",
+      "choices": [
+        "went up",
+        "went down",
+        "sat/dwelt",
+        "sent"
+      ],
+      "correct_answer": "sat/dwelt",
+      "explanation": "ישב means 'sat/dwelt'.",
+      "difficulty": 1,
+      "standard": "WM",
+      "micro_standard": "WM1"
+    },
+    {
+      "skill": "reverse_translation",
+      "word": "ישב",
+      "question": "Which Hebrew word means sat/dwelt?",
+      "choices": [
+        "עלה",
+        "ירד",
+        "שלח",
+        "ישב"
+      ],
+      "correct_answer": "ישב",
+      "explanation": "ישב means 'sat/dwelt'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM2"
+    },
+    {
+      "skill": "shoresh_translation",
+      "word": "ישב",
+      "question": "Which choice gives both the shoresh and meaning of ישב?",
+      "choices": [
+        "ישב - sat/dwelt",
+        "עלה - went up",
+        "ירד - went down",
+        "שלח - sent"
+      ],
+      "correct_answer": "ישב - sat/dwelt",
+      "explanation": "ישב has shoresh ישב and means 'sat/dwelt'.",
+      "difficulty": 4,
+      "standard": "CF",
+      "micro_standard": "CF1"
+    },
+    {
+      "skill": "translation",
+      "word": "עלה",
+      "question": "What does the word עלה mean?",
+      "choices": [
+        "went down",
+        "sent",
+        "wrote",
+        "went up"
+      ],
+      "correct_answer": "went up",
+      "explanation": "עלה means 'went up'.",
+      "difficulty": 1,
+      "standard": "WM",
+      "micro_standard": "WM1"
+    },
+    {
+      "skill": "reverse_translation",
+      "word": "עלה",
+      "question": "Which Hebrew word means went up?",
+      "choices": [
+        "עלה",
+        "ירד",
+        "שלח",
+        "כתב"
+      ],
+      "correct_answer": "עלה",
+      "explanation": "עלה means 'went up'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM2"
+    },
+    {
+      "skill": "shoresh_translation",
+      "word": "עלה",
+      "question": "Which choice gives both the shoresh and meaning of עלה?",
+      "choices": [
+        "ירד - went down",
+        "עלה - went up",
+        "שלח - sent",
+        "כתב - wrote"
+      ],
+      "correct_answer": "עלה - went up",
+      "explanation": "עלה has shoresh עלה and means 'went up'.",
+      "difficulty": 4,
+      "standard": "CF",
+      "micro_standard": "CF1"
+    },
+    {
+      "skill": "translation",
+      "word": "ירד",
+      "question": "What does the word ירד mean?",
+      "choices": [
+        "went down",
+        "sent",
+        "wrote",
+        "ate"
+      ],
+      "correct_answer": "went down",
+      "explanation": "ירד means 'went down'.",
+      "difficulty": 1,
+      "standard": "WM",
+      "micro_standard": "WM1"
+    },
+    {
+      "skill": "reverse_translation",
+      "word": "ירד",
+      "question": "Which Hebrew word means went down?",
+      "choices": [
+        "שלח",
+        "ירד",
+        "כתב",
+        "אכל"
+      ],
+      "correct_answer": "ירד",
+      "explanation": "ירד means 'went down'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM2"
+    },
+    {
+      "skill": "shoresh_translation",
+      "word": "ירד",
+      "question": "Which choice gives both the shoresh and meaning of ירד?",
+      "choices": [
+        "שלח - sent",
+        "כתב - wrote",
+        "ירד - went down",
+        "אכל - ate"
+      ],
+      "correct_answer": "ירד - went down",
+      "explanation": "ירד has shoresh ירד and means 'went down'.",
+      "difficulty": 4,
+      "standard": "CF",
+      "micro_standard": "CF1"
+    },
+    {
+      "skill": "translation",
+      "word": "שלח",
+      "question": "What does the word שלח mean?",
+      "choices": [
+        "wrote",
+        "sent",
+        "ate",
+        "went"
+      ],
+      "correct_answer": "sent",
+      "explanation": "שלח means 'sent'.",
+      "difficulty": 1,
+      "standard": "WM",
+      "micro_standard": "WM1"
+    },
+    {
+      "skill": "reverse_translation",
+      "word": "שלח",
+      "question": "Which Hebrew word means sent?",
+      "choices": [
+        "כתב",
+        "אכל",
+        "שלח",
+        "הלך"
+      ],
+      "correct_answer": "שלח",
+      "explanation": "שלח means 'sent'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM2"
+    },
+    {
+      "skill": "shoresh_translation",
+      "word": "שלח",
+      "question": "Which choice gives both the shoresh and meaning of שלח?",
+      "choices": [
+        "כתב - wrote",
+        "אכל - ate",
+        "הלך - went",
+        "שלח - sent"
+      ],
+      "correct_answer": "שלח - sent",
+      "explanation": "שלח has shoresh שלח and means 'sent'.",
+      "difficulty": 4,
+      "standard": "CF",
+      "micro_standard": "CF1"
+    },
+    {
+      "skill": "translation",
+      "word": "כתב",
+      "question": "What does the word כתב mean?",
+      "choices": [
+        "ate",
+        "went",
+        "wrote",
+        "saw"
+      ],
+      "correct_answer": "wrote",
+      "explanation": "כתב means 'wrote'.",
+      "difficulty": 1,
+      "standard": "WM",
+      "micro_standard": "WM1"
+    },
+    {
+      "skill": "reverse_translation",
+      "word": "כתב",
+      "question": "Which Hebrew word means wrote?",
+      "choices": [
+        "אכל",
+        "הלך",
+        "ראה",
+        "כתב"
+      ],
+      "correct_answer": "כתב",
+      "explanation": "כתב means 'wrote'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM2"
+    },
+    {
+      "skill": "shoresh_translation",
+      "word": "כתב",
+      "question": "Which choice gives both the shoresh and meaning of כתב?",
+      "choices": [
+        "כתב - wrote",
+        "אכל - ate",
+        "הלך - went",
+        "ראה - saw"
+      ],
+      "correct_answer": "כתב - wrote",
+      "explanation": "כתב has shoresh כתב and means 'wrote'.",
+      "difficulty": 4,
+      "standard": "CF",
+      "micro_standard": "CF1"
+    },
+    {
+      "skill": "prefix_translation",
+      "word": "ויאכל",
+      "question": "What does the word ויאכל mean?",
+      "choices": [
+        "and he ate",
+        "and he said",
+        "and he built",
+        "and he went"
+      ],
+      "correct_answer": "and he ate",
+      "explanation": "ויאכל means 'and he ate'.",
+      "difficulty": 4,
+      "standard": "CF",
+      "micro_standard": "CF2"
+    },
+    {
+      "skill": "reverse_translation",
+      "word": "ויאכל",
+      "question": "Which Hebrew word means and he ate?",
+      "choices": [
+        "ויאמר",
+        "ויאכל",
+        "ויבן",
+        "וילך"
+      ],
+      "correct_answer": "ויאכל",
+      "explanation": "ויאכל means 'and he ate'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM2"
+    },
+    {
+      "skill": "mixed",
+      "word": "ויאכל",
+      "question": "Which choice gives both the shoresh and meaning of ויאכל?",
+      "choices": [
+        "אמר - and he said",
+        "בנה - and he built",
+        "אכל - and he ate",
+        "הלך - and he went"
+      ],
+      "correct_answer": "אכל - and he ate",
+      "explanation": "ויאכל has shoresh אכל and means 'and he ate'.",
+      "difficulty": 4,
+      "standard": "CF",
+      "micro_standard": "CF1"
+    },
+    {
+      "skill": "prefix_translation",
+      "word": "ויאמר",
+      "question": "What does the word ויאמר mean?",
+      "choices": [
+        "and he built",
+        "and he said",
+        "and he went",
+        "and he found"
+      ],
+      "correct_answer": "and he said",
+      "explanation": "ויאמר means 'and he said'.",
+      "difficulty": 4,
+      "standard": "CF",
+      "micro_standard": "CF2"
+    },
+    {
+      "skill": "reverse_translation",
+      "word": "ויאמר",
+      "question": "Which Hebrew word means and he said?",
+      "choices": [
+        "ויבן",
+        "וילך",
+        "ויאמר",
+        "וימצא"
+      ],
+      "correct_answer": "ויאמר",
+      "explanation": "ויאמר means 'and he said'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM2"
+    },
+    {
+      "skill": "mixed",
+      "word": "ויאמר",
+      "question": "Which choice gives both the shoresh and meaning of ויאמר?",
+      "choices": [
+        "בנה - and he built",
+        "הלך - and he went",
+        "מצא - and he found",
+        "אמר - and he said"
+      ],
+      "correct_answer": "אמר - and he said",
+      "explanation": "ויאמר has shoresh אמר and means 'and he said'.",
+      "difficulty": 4,
+      "standard": "CF",
+      "micro_standard": "CF1"
+    },
+    {
+      "skill": "prefix_translation",
+      "word": "ויבן",
+      "question": "What does the word ויבן mean?",
+      "choices": [
+        "and he went",
+        "and he found",
+        "and he built",
+        "and he went up"
+      ],
+      "correct_answer": "and he built",
+      "explanation": "ויבן means 'and he built'.",
+      "difficulty": 4,
+      "standard": "CF",
+      "micro_standard": "CF2"
+    },
+    {
+      "skill": "reverse_translation",
+      "word": "ויבן",
+      "question": "Which Hebrew word means and he built?",
+      "choices": [
+        "וילך",
+        "וימצא",
+        "ויעל",
+        "ויבן"
+      ],
+      "correct_answer": "ויבן",
+      "explanation": "ויבן means 'and he built'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM2"
+    },
+    {
+      "skill": "mixed",
+      "word": "ויבן",
+      "question": "Which choice gives both the shoresh and meaning of ויבן?",
+      "choices": [
+        "בנה - and he built",
+        "הלך - and he went",
+        "מצא - and he found",
+        "עלה - and he went up"
+      ],
+      "correct_answer": "בנה - and he built",
+      "explanation": "ויבן has shoresh בנה and means 'and he built'.",
+      "difficulty": 4,
+      "standard": "CF",
+      "micro_standard": "CF1"
+    },
+    {
+      "skill": "prefix_translation",
+      "word": "וילך",
+      "question": "What does the word וילך mean?",
+      "choices": [
+        "and he found",
+        "and he went up",
+        "and he took",
+        "and he went"
+      ],
+      "correct_answer": "and he went",
+      "explanation": "וילך means 'and he went'.",
+      "difficulty": 4,
+      "standard": "CF",
+      "micro_standard": "CF2"
+    },
+    {
+      "skill": "reverse_translation",
+      "word": "וילך",
+      "question": "Which Hebrew word means and he went?",
+      "choices": [
+        "וילך",
+        "וימצא",
+        "ויעל",
+        "ויקח"
+      ],
+      "correct_answer": "וילך",
+      "explanation": "וילך means 'and he went'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM2"
+    },
+    {
+      "skill": "mixed",
+      "word": "וילך",
+      "question": "Which choice gives both the shoresh and meaning of וילך?",
+      "choices": [
+        "מצא - and he found",
+        "הלך - and he went",
+        "עלה - and he went up",
+        "לקח - and he took"
+      ],
+      "correct_answer": "הלך - and he went",
+      "explanation": "וילך has shoresh הלך and means 'and he went'.",
+      "difficulty": 4,
+      "standard": "CF",
+      "micro_standard": "CF1"
+    },
+    {
+      "skill": "prefix_translation",
+      "word": "וימצא",
+      "question": "What does the word וימצא mean?",
+      "choices": [
+        "and he found",
+        "and he went up",
+        "and he took",
+        "and he saw"
+      ],
+      "correct_answer": "and he found",
+      "explanation": "וימצא means 'and he found'.",
+      "difficulty": 4,
+      "standard": "CF",
+      "micro_standard": "CF2"
+    },
+    {
+      "skill": "reverse_translation",
+      "word": "וימצא",
+      "question": "Which Hebrew word means and he found?",
+      "choices": [
+        "ויעל",
+        "וימצא",
+        "ויקח",
+        "וירא"
+      ],
+      "correct_answer": "וימצא",
+      "explanation": "וימצא means 'and he found'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM2"
+    },
+    {
+      "skill": "mixed",
+      "word": "וימצא",
+      "question": "Which choice gives both the shoresh and meaning of וימצא?",
+      "choices": [
+        "עלה - and he went up",
+        "לקח - and he took",
+        "מצא - and he found",
+        "ראה - and he saw"
+      ],
+      "correct_answer": "מצא - and he found",
+      "explanation": "וימצא has shoresh מצא and means 'and he found'.",
+      "difficulty": 4,
+      "standard": "CF",
+      "micro_standard": "CF1"
+    },
+    {
+      "skill": "prefix_translation",
+      "word": "ויעל",
+      "question": "What does the word ויעל mean?",
+      "choices": [
+        "and he took",
+        "and he went up",
+        "and he saw",
+        "and he went down"
+      ],
+      "correct_answer": "and he went up",
+      "explanation": "ויעל means 'and he went up'.",
+      "difficulty": 4,
+      "standard": "CF",
+      "micro_standard": "CF2"
+    },
+    {
+      "skill": "reverse_translation",
+      "word": "ויעל",
+      "question": "Which Hebrew word means and he went up?",
+      "choices": [
+        "ויקח",
+        "וירא",
+        "ויעל",
+        "וירד"
+      ],
+      "correct_answer": "ויעל",
+      "explanation": "ויעל means 'and he went up'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM2"
+    },
+    {
+      "skill": "mixed",
+      "word": "ויעל",
+      "question": "Which choice gives both the shoresh and meaning of ויעל?",
+      "choices": [
+        "לקח - and he took",
+        "ראה - and he saw",
+        "ירד - and he went down",
+        "עלה - and he went up"
+      ],
+      "correct_answer": "עלה - and he went up",
+      "explanation": "ויעל has shoresh עלה and means 'and he went up'.",
+      "difficulty": 4,
+      "standard": "CF",
+      "micro_standard": "CF1"
+    },
+    {
+      "skill": "prefix_translation",
+      "word": "ויקח",
+      "question": "What does the word ויקח mean?",
+      "choices": [
+        "and he saw",
+        "and he went down",
+        "and he took",
+        "and he sat/dwelt"
+      ],
+      "correct_answer": "and he took",
+      "explanation": "ויקח means 'and he took'.",
+      "difficulty": 4,
+      "standard": "CF",
+      "micro_standard": "CF2"
+    },
+    {
+      "skill": "reverse_translation",
+      "word": "ויקח",
+      "question": "Which Hebrew word means and he took?",
+      "choices": [
+        "וירא",
+        "וירד",
+        "וישב",
+        "ויקח"
+      ],
+      "correct_answer": "ויקח",
+      "explanation": "ויקח means 'and he took'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM2"
+    },
+    {
+      "skill": "mixed",
+      "word": "ויקח",
+      "question": "Which choice gives both the shoresh and meaning of ויקח?",
+      "choices": [
+        "לקח - and he took",
+        "ראה - and he saw",
+        "ירד - and he went down",
+        "ישב - and he sat/dwelt"
+      ],
+      "correct_answer": "לקח - and he took",
+      "explanation": "ויקח has shoresh לקח and means 'and he took'.",
+      "difficulty": 4,
+      "standard": "CF",
+      "micro_standard": "CF1"
+    },
+    {
+      "skill": "prefix_translation",
+      "word": "וירא",
+      "question": "What does the word וירא mean?",
+      "choices": [
+        "and he went down",
+        "and he sat/dwelt",
+        "and he sent",
+        "and he saw"
+      ],
+      "correct_answer": "and he saw",
+      "explanation": "וירא means 'and he saw'.",
+      "difficulty": 4,
+      "standard": "CF",
+      "micro_standard": "CF2"
+    },
+    {
+      "skill": "reverse_translation",
+      "word": "וירא",
+      "question": "Which Hebrew word means and he saw?",
+      "choices": [
+        "וירא",
+        "וירד",
+        "וישב",
+        "וישלח"
+      ],
+      "correct_answer": "וירא",
+      "explanation": "וירא means 'and he saw'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM2"
+    },
+    {
+      "skill": "mixed",
+      "word": "וירא",
+      "question": "Which choice gives both the shoresh and meaning of וירא?",
+      "choices": [
+        "ירד - and he went down",
+        "ראה - and he saw",
+        "ישב - and he sat/dwelt",
+        "שלח - and he sent"
+      ],
+      "correct_answer": "ראה - and he saw",
+      "explanation": "וירא has shoresh ראה and means 'and he saw'.",
+      "difficulty": 4,
+      "standard": "CF",
+      "micro_standard": "CF1"
+    },
+    {
+      "skill": "prefix_translation",
+      "word": "וירד",
+      "question": "What does the word וירד mean?",
+      "choices": [
+        "and he went down",
+        "and he sat/dwelt",
+        "and he sent",
+        "and he heard"
+      ],
+      "correct_answer": "and he went down",
+      "explanation": "וירד means 'and he went down'.",
+      "difficulty": 4,
+      "standard": "CF",
+      "micro_standard": "CF2"
+    },
+    {
+      "skill": "reverse_translation",
+      "word": "וירד",
+      "question": "Which Hebrew word means and he went down?",
+      "choices": [
+        "וישב",
+        "וירד",
+        "וישלח",
+        "וישמע"
+      ],
+      "correct_answer": "וירד",
+      "explanation": "וירד means 'and he went down'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM2"
+    },
+    {
+      "skill": "mixed",
+      "word": "וירד",
+      "question": "Which choice gives both the shoresh and meaning of וירד?",
+      "choices": [
+        "ישב - and he sat/dwelt",
+        "שלח - and he sent",
+        "ירד - and he went down",
+        "שמע - and he heard"
+      ],
+      "correct_answer": "ירד - and he went down",
+      "explanation": "וירד has shoresh ירד and means 'and he went down'.",
+      "difficulty": 4,
+      "standard": "CF",
+      "micro_standard": "CF1"
+    },
+    {
+      "skill": "prefix_translation",
+      "word": "וישב",
+      "question": "What does the word וישב mean?",
+      "choices": [
+        "and he sent",
+        "and he sat/dwelt",
+        "and he heard",
+        "and he guarded"
+      ],
+      "correct_answer": "and he sat/dwelt",
+      "explanation": "וישב means 'and he sat/dwelt'.",
+      "difficulty": 4,
+      "standard": "CF",
+      "micro_standard": "CF2"
+    },
+    {
+      "skill": "reverse_translation",
+      "word": "וישב",
+      "question": "Which Hebrew word means and he sat/dwelt?",
+      "choices": [
+        "וישלח",
+        "וישמע",
+        "וישב",
+        "וישמר"
+      ],
+      "correct_answer": "וישב",
+      "explanation": "וישב means 'and he sat/dwelt'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM2"
+    },
+    {
+      "skill": "mixed",
+      "word": "וישב",
+      "question": "Which choice gives both the shoresh and meaning of וישב?",
+      "choices": [
+        "שלח - and he sent",
+        "שמע - and he heard",
+        "שמר - and he guarded",
+        "ישב - and he sat/dwelt"
+      ],
+      "correct_answer": "ישב - and he sat/dwelt",
+      "explanation": "וישב has shoresh ישב and means 'and he sat/dwelt'.",
+      "difficulty": 4,
+      "standard": "CF",
+      "micro_standard": "CF1"
+    },
+    {
+      "skill": "prefix_translation",
+      "word": "וישלח",
+      "question": "What does the word וישלח mean?",
+      "choices": [
+        "and he heard",
+        "and he guarded",
+        "and he sent",
+        "and he gave"
+      ],
+      "correct_answer": "and he sent",
+      "explanation": "וישלח means 'and he sent'.",
+      "difficulty": 4,
+      "standard": "CF",
+      "micro_standard": "CF2"
+    },
+    {
+      "skill": "reverse_translation",
+      "word": "וישלח",
+      "question": "Which Hebrew word means and he sent?",
+      "choices": [
+        "וישמע",
+        "וישמר",
+        "ויתן",
+        "וישלח"
+      ],
+      "correct_answer": "וישלח",
+      "explanation": "וישלח means 'and he sent'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM2"
+    },
+    {
+      "skill": "mixed",
+      "word": "וישלח",
+      "question": "Which choice gives both the shoresh and meaning of וישלח?",
+      "choices": [
+        "שלח - and he sent",
+        "שמע - and he heard",
+        "שמר - and he guarded",
+        "נתן - and he gave"
+      ],
+      "correct_answer": "שלח - and he sent",
+      "explanation": "וישלח has shoresh שלח and means 'and he sent'.",
+      "difficulty": 4,
+      "standard": "CF",
+      "micro_standard": "CF1"
+    },
+    {
+      "skill": "prefix_translation",
+      "word": "וישמע",
+      "question": "What does the word וישמע mean?",
+      "choices": [
+        "and he guarded",
+        "and he gave",
+        "and he ate",
+        "and he heard"
+      ],
+      "correct_answer": "and he heard",
+      "explanation": "וישמע means 'and he heard'.",
+      "difficulty": 4,
+      "standard": "CF",
+      "micro_standard": "CF2"
+    },
+    {
+      "skill": "reverse_translation",
+      "word": "וישמע",
+      "question": "Which Hebrew word means and he heard?",
+      "choices": [
+        "וישמע",
+        "וישמר",
+        "ויתן",
+        "ויאכל"
+      ],
+      "correct_answer": "וישמע",
+      "explanation": "וישמע means 'and he heard'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM2"
+    },
+    {
+      "skill": "mixed",
+      "word": "וישמע",
+      "question": "Which choice gives both the shoresh and meaning of וישמע?",
+      "choices": [
+        "שמר - and he guarded",
+        "שמע - and he heard",
+        "נתן - and he gave",
+        "אכל - and he ate"
+      ],
+      "correct_answer": "שמע - and he heard",
+      "explanation": "וישמע has shoresh שמע and means 'and he heard'.",
+      "difficulty": 4,
+      "standard": "CF",
+      "micro_standard": "CF1"
+    },
+    {
+      "skill": "prefix_translation",
+      "word": "וישמר",
+      "question": "What does the word וישמר mean?",
+      "choices": [
+        "and he guarded",
+        "and he gave",
+        "and he ate",
+        "and he said"
+      ],
+      "correct_answer": "and he guarded",
+      "explanation": "וישמר means 'and he guarded'.",
+      "difficulty": 4,
+      "standard": "CF",
+      "micro_standard": "CF2"
+    },
+    {
+      "skill": "reverse_translation",
+      "word": "וישמר",
+      "question": "Which Hebrew word means and he guarded?",
+      "choices": [
+        "ויתן",
+        "וישמר",
+        "ויאכל",
+        "ויאמר"
+      ],
+      "correct_answer": "וישמר",
+      "explanation": "וישמר means 'and he guarded'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM2"
+    },
+    {
+      "skill": "mixed",
+      "word": "וישמר",
+      "question": "Which choice gives both the shoresh and meaning of וישמר?",
+      "choices": [
+        "נתן - and he gave",
+        "אכל - and he ate",
+        "שמר - and he guarded",
+        "אמר - and he said"
+      ],
+      "correct_answer": "שמר - and he guarded",
+      "explanation": "וישמר has shoresh שמר and means 'and he guarded'.",
+      "difficulty": 4,
+      "standard": "CF",
+      "micro_standard": "CF1"
+    },
+    {
+      "skill": "prefix_translation",
+      "word": "ויתן",
+      "question": "What does the word ויתן mean?",
+      "choices": [
+        "and he ate",
+        "and he gave",
+        "and he said",
+        "and he built"
+      ],
+      "correct_answer": "and he gave",
+      "explanation": "ויתן means 'and he gave'.",
+      "difficulty": 4,
+      "standard": "CF",
+      "micro_standard": "CF2"
+    },
+    {
+      "skill": "reverse_translation",
+      "word": "ויתן",
+      "question": "Which Hebrew word means and he gave?",
+      "choices": [
+        "ויאכל",
+        "ויאמר",
+        "ויתן",
+        "ויבן"
+      ],
+      "correct_answer": "ויתן",
+      "explanation": "ויתן means 'and he gave'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM2"
+    },
+    {
+      "skill": "mixed",
+      "word": "ויתן",
+      "question": "Which choice gives both the shoresh and meaning of ויתן?",
+      "choices": [
+        "אכל - and he ate",
+        "אמר - and he said",
+        "בנה - and he built",
+        "נתן - and he gave"
+      ],
+      "correct_answer": "נתן - and he gave",
+      "explanation": "ויתן has shoresh נתן and means 'and he gave'.",
+      "difficulty": 4,
+      "standard": "CF",
+      "micro_standard": "CF1"
+    },
+    {
+      "skill": "pattern",
+      "word": "ויאמר",
+      "question": "What kind of word form is ויאמר?",
+      "choices": [
+        "past action",
+        "future action",
+        "noun",
+        "description"
+      ],
+      "correct_answer": "past action",
+      "explanation": "ויאמר is a past narrative verb meaning 'and he said'.",
+      "difficulty": 4,
+      "standard": "PR",
+      "micro_standard": "PR4"
+    },
+    {
+      "skill": "phrase",
+      "word": "וילך",
+      "question": "What does וילך האיש mean?",
+      "choices": [
+        "the man went",
+        "the man said",
+        "the man saw",
+        "the man gave"
+      ],
+      "correct_answer": "the man went",
+      "explanation": "וילך = and he went, האיש = the man.",
+      "difficulty": 5,
+      "standard": "PC",
+      "micro_standard": "PC1"
+    },
+    {
+      "skill": "translation",
+      "word": "אדם",
+      "question": "What does the word אדם mean?",
+      "choices": [
+        "man",
+        "father",
+        "servant",
+        "king"
+      ],
+      "correct_answer": "man",
+      "explanation": "אדם means 'man'.",
+      "difficulty": 1,
+      "standard": "WM",
+      "micro_standard": "WM1"
+    },
+    {
+      "skill": "translation",
+      "word": "אב",
+      "question": "What does the word אב mean?",
+      "choices": [
+        "mother",
+        "father",
+        "brother",
+        "son"
+      ],
+      "correct_answer": "father",
+      "explanation": "אב means 'father'.",
+      "difficulty": 1,
+      "standard": "WM",
+      "micro_standard": "WM1"
+    },
+    {
+      "skill": "translation",
+      "word": "אם",
+      "question": "What does the word אם mean?",
+      "choices": [
+        "daughter",
+        "sister",
+        "mother",
+        "woman"
+      ],
+      "correct_answer": "mother",
+      "explanation": "אם means 'mother'.",
+      "difficulty": 1,
+      "standard": "WM",
+      "micro_standard": "WM1"
+    },
+    {
+      "skill": "translation",
+      "word": "אח",
+      "question": "What does the word אח mean?",
+      "choices": [
+        "father",
+        "son",
+        "servant",
+        "brother"
+      ],
+      "correct_answer": "brother",
+      "explanation": "אח means 'brother'.",
+      "difficulty": 1,
+      "standard": "WM",
+      "micro_standard": "WM1"
+    },
+    {
+      "skill": "translation",
+      "word": "אחות",
+      "question": "What does the word אחות mean?",
+      "choices": [
+        "sister",
+        "mother",
+        "daughter",
+        "girl"
+      ],
+      "correct_answer": "sister",
+      "explanation": "אחות means 'sister'.",
+      "difficulty": 1,
+      "standard": "WM",
+      "micro_standard": "WM1"
+    },
+    {
+      "skill": "translation",
+      "word": "נער",
+      "question": "What does the word נער mean?",
+      "choices": [
+        "man",
+        "boy",
+        "servant",
+        "priest"
+      ],
+      "correct_answer": "boy",
+      "explanation": "נער means 'boy'.",
+      "difficulty": 1,
+      "standard": "WM",
+      "micro_standard": "WM1"
+    },
+    {
+      "skill": "translation",
+      "word": "נערה",
+      "question": "What does the word נערה mean?",
+      "choices": [
+        "woman",
+        "sister",
+        "girl",
+        "maidservant"
+      ],
+      "correct_answer": "girl",
+      "explanation": "נערה means 'girl'.",
+      "difficulty": 1,
+      "standard": "WM",
+      "micro_standard": "WM1"
+    },
+    {
+      "skill": "translation",
+      "word": "עבד",
+      "question": "What does the word עבד mean?",
+      "choices": [
+        "master",
+        "priest",
+        "prophet",
+        "servant"
+      ],
+      "correct_answer": "servant",
+      "explanation": "עבד means 'servant'.",
+      "difficulty": 1,
+      "standard": "WM",
+      "micro_standard": "WM1"
+    },
+    {
+      "skill": "translation",
+      "word": "כהן",
+      "question": "What does the word כהן mean?",
+      "choices": [
+        "priest",
+        "king",
+        "prophet",
+        "servant"
+      ],
+      "correct_answer": "priest",
+      "explanation": "כהן means 'priest'.",
+      "difficulty": 1,
+      "standard": "WM",
+      "micro_standard": "WM1"
+    },
+    {
+      "skill": "translation",
+      "word": "נביא",
+      "question": "What does the word נביא mean?",
+      "choices": [
+        "priest",
+        "prophet",
+        "enemy",
+        "leader"
+      ],
+      "correct_answer": "prophet",
+      "explanation": "נביא means 'prophet'.",
+      "difficulty": 1,
+      "standard": "WM",
+      "micro_standard": "WM1"
+    },
+    {
+      "skill": "translation",
+      "word": "לחם",
+      "question": "What does the word לחם mean?",
+      "choices": [
+        "water",
+        "fire",
+        "bread",
+        "silver"
+      ],
+      "correct_answer": "bread",
+      "explanation": "לחם means 'bread'.",
+      "difficulty": 1,
+      "standard": "WM",
+      "micro_standard": "WM1"
+    },
+    {
+      "skill": "translation",
+      "word": "אש",
+      "question": "What does the word אש mean?",
+      "choices": [
+        "light",
+        "darkness",
+        "water",
+        "fire"
+      ],
+      "correct_answer": "fire",
+      "explanation": "אש means 'fire'.",
+      "difficulty": 1,
+      "standard": "WM",
+      "micro_standard": "WM1"
+    },
+    {
+      "skill": "reverse_translation",
+      "word": "אור",
+      "question": "Which Hebrew word means light?",
+      "choices": [
+        "אש",
+        "אור",
+        "חשך",
+        "שמש"
+      ],
+      "correct_answer": "אור",
+      "explanation": "אור means 'light'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM2"
+    },
+    {
+      "skill": "reverse_translation",
+      "word": "חשך",
+      "question": "Which Hebrew word means darkness?",
+      "choices": [
+        "לילה",
+        "אש",
+        "חשך",
+        "יום"
+      ],
+      "correct_answer": "חשך",
+      "explanation": "חשך means 'darkness'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM2"
+    },
+    {
+      "skill": "reverse_translation",
+      "word": "שמש",
+      "question": "Which Hebrew word means sun?",
+      "choices": [
+        "ירח",
+        "כוכב",
+        "שמים",
+        "שמש"
+      ],
+      "correct_answer": "שמש",
+      "explanation": "שמש means 'sun'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM2"
+    },
+    {
+      "skill": "reverse_translation",
+      "word": "ירח",
+      "question": "Which Hebrew word means moon?",
+      "choices": [
+        "ירח",
+        "שמש",
+        "כוכב",
+        "שמים"
+      ],
+      "correct_answer": "ירח",
+      "explanation": "ירח means 'moon'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM2"
+    },
+    {
+      "skill": "reverse_translation",
+      "word": "כוכב",
+      "question": "Which Hebrew word means star?",
+      "choices": [
+        "שמש",
+        "כוכב",
+        "אור",
+        "חשך"
+      ],
+      "correct_answer": "כוכב",
+      "explanation": "כוכב means 'star'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM2"
+    },
+    {
+      "skill": "reverse_translation",
+      "word": "שמים",
+      "question": "Which Hebrew word means heavens?",
+      "choices": [
+        "ארץ",
+        "ים",
+        "שמים",
+        "הר"
+      ],
+      "correct_answer": "שמים",
+      "explanation": "שמים means 'heavens'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM2"
+    },
+    {
+      "skill": "reverse_translation",
+      "word": "אבן",
+      "question": "Which Hebrew word means stone?",
+      "choices": [
+        "עץ",
+        "הר",
+        "שדה",
+        "אבן"
+      ],
+      "correct_answer": "אבן",
+      "explanation": "אבן means 'stone'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM2"
+    },
+    {
+      "skill": "reverse_translation",
+      "word": "דרך",
+      "question": "Which Hebrew word means road?",
+      "choices": [
+        "דרך",
+        "עיר",
+        "שער",
+        "מקום"
+      ],
+      "correct_answer": "דרך",
+      "explanation": "דרך means 'road'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM2"
+    },
+    {
+      "skill": "reverse_translation",
+      "word": "נהר",
+      "question": "Which Hebrew word means river?",
+      "choices": [
+        "ים",
+        "נהר",
+        "באר",
+        "מים"
+      ],
+      "correct_answer": "נהר",
+      "explanation": "נהר means 'river'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM2"
+    },
+    {
+      "skill": "reverse_translation",
+      "word": "מדבר",
+      "question": "Which Hebrew word means wilderness?",
+      "choices": [
+        "שדה",
+        "הר",
+        "מדבר",
+        "עיר"
+      ],
+      "correct_answer": "מדבר",
+      "explanation": "מדבר means 'wilderness'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM2"
+    },
+    {
+      "skill": "shoresh",
+      "word": "ויקרא",
+      "question": "What is the shoresh of ויקרא?",
+      "choices": [
+        "קרא",
+        "דבר",
+        "עשה",
+        "יצא"
+      ],
+      "correct_answer": "קרא",
+      "explanation": "ויקרא has shoresh קרא.",
+      "difficulty": 3,
+      "standard": "SR",
+      "micro_standard": "SR2"
+    },
+    {
+      "skill": "shoresh",
+      "word": "וידבר",
+      "question": "What is the shoresh of וידבר?",
+      "choices": [
+        "אמר",
+        "דבר",
+        "שמע",
+        "קרא"
+      ],
+      "correct_answer": "דבר",
+      "explanation": "וידבר has shoresh דבר.",
+      "difficulty": 3,
+      "standard": "SR",
+      "micro_standard": "SR2"
+    },
+    {
+      "skill": "shoresh",
+      "word": "ויעש",
+      "question": "What is the shoresh of ויעש?",
+      "choices": [
+        "בנה",
+        "שמר",
+        "עשה",
+        "נתן"
+      ],
+      "correct_answer": "עשה",
+      "explanation": "ויעש has shoresh עשה.",
+      "difficulty": 3,
+      "standard": "SR",
+      "micro_standard": "SR2"
+    },
+    {
+      "skill": "shoresh",
+      "word": "ויצא",
+      "question": "What is the shoresh of ויצא?",
+      "choices": [
+        "בא",
+        "הלך",
+        "שוב",
+        "יצא"
+      ],
+      "correct_answer": "יצא",
+      "explanation": "ויצא has shoresh יצא.",
+      "difficulty": 3,
+      "standard": "SR",
+      "micro_standard": "SR2"
+    },
+    {
+      "skill": "shoresh",
+      "word": "ויבא",
+      "question": "What is the shoresh of ויבא?",
+      "choices": [
+        "בא",
+        "יצא",
+        "הלך",
+        "עלה"
+      ],
+      "correct_answer": "בא",
+      "explanation": "ויבא has shoresh בא.",
+      "difficulty": 4,
+      "standard": "SR",
+      "micro_standard": "SR4"
+    },
+    {
+      "skill": "shoresh",
+      "word": "ויעמד",
+      "question": "What is the shoresh of ויעמד?",
+      "choices": [
+        "ישב",
+        "עמד",
+        "הלך",
+        "ירד"
+      ],
+      "correct_answer": "עמד",
+      "explanation": "ויעמד has shoresh עמד.",
+      "difficulty": 3,
+      "standard": "SR",
+      "micro_standard": "SR2"
+    },
+    {
+      "skill": "shoresh",
+      "word": "וימת",
+      "question": "What is the shoresh of וימת?",
+      "choices": [
+        "חיה",
+        "ילד",
+        "מות",
+        "שוב"
+      ],
+      "correct_answer": "מות",
+      "explanation": "וימת has shoresh מות.",
+      "difficulty": 4,
+      "standard": "SR",
+      "micro_standard": "SR4"
+    },
+    {
+      "skill": "shoresh",
+      "word": "ויחי",
+      "question": "What is the shoresh of ויחי?",
+      "choices": [
+        "מות",
+        "חיה",
+        "ילד",
+        "עמד"
+      ],
+      "correct_answer": "חיה",
+      "explanation": "ויחי has shoresh חיה.",
+      "difficulty": 4,
+      "standard": "SR",
+      "micro_standard": "SR4"
+    },
+    {
+      "skill": "shoresh",
+      "word": "וישב",
+      "question": "What is the shoresh of וישב when it means 'and he returned'?",
+      "choices": [
+        "ישב",
+        "שוב",
+        "הלך",
+        "בא"
+      ],
+      "correct_answer": "שוב",
+      "explanation": "וישב can come from שוב when it means 'and he returned'.",
+      "difficulty": 4,
+      "standard": "SR",
+      "micro_standard": "SR4"
+    },
+    {
+      "skill": "shoresh",
+      "word": "וילד",
+      "question": "What is the shoresh of וילד?",
+      "choices": [
+        "חיה",
+        "מות",
+        "עמד",
+        "ילד"
+      ],
+      "correct_answer": "ילד",
+      "explanation": "וילד has shoresh ילד.",
+      "difficulty": 4,
+      "standard": "SR",
+      "micro_standard": "SR4"
+    },
+    {
+      "skill": "prefix_translation",
+      "word": "ויקרא",
+      "question": "What does the prefix and word ויקרא mean?",
+      "choices": [
+        "and he called",
+        "he called",
+        "and he spoke",
+        "he did"
+      ],
+      "correct_answer": "and he called",
+      "explanation": "ויקרא means 'and he called'.",
+      "difficulty": 4,
+      "standard": "CF",
+      "micro_standard": "CF2"
+    },
+    {
+      "skill": "prefix_translation",
+      "word": "וידבר",
+      "question": "What does the prefix and word וידבר mean?",
+      "choices": [
+        "he spoke",
+        "and he spoke",
+        "and he called",
+        "he heard"
+      ],
+      "correct_answer": "and he spoke",
+      "explanation": "וידבר means 'and he spoke'.",
+      "difficulty": 4,
+      "standard": "CF",
+      "micro_standard": "CF2"
+    },
+    {
+      "skill": "prefix_translation",
+      "word": "ויעש",
+      "question": "What does the prefix and word ויעש mean?",
+      "choices": [
+        "he did",
+        "and he built",
+        "and he did",
+        "he gave"
+      ],
+      "correct_answer": "and he did",
+      "explanation": "ויעש means 'and he did'.",
+      "difficulty": 4,
+      "standard": "CF",
+      "micro_standard": "CF2"
+    },
+    {
+      "skill": "prefix_translation",
+      "word": "ויצא",
+      "question": "What does the prefix and word ויצא mean?",
+      "choices": [
+        "he came",
+        "he went out",
+        "and he went out",
+        "and he returned"
+      ],
+      "correct_answer": "and he went out",
+      "explanation": "ויצא means 'and he went out'.",
+      "difficulty": 4,
+      "standard": "CF",
+      "micro_standard": "CF2"
+    },
+    {
+      "skill": "prefix_translation",
+      "word": "ויבא",
+      "question": "What does the prefix and word ויבא mean?",
+      "choices": [
+        "and he came",
+        "he came",
+        "and he went out",
+        "he went up"
+      ],
+      "correct_answer": "and he came",
+      "explanation": "ויבא means 'and he came'.",
+      "difficulty": 4,
+      "standard": "CF",
+      "micro_standard": "CF2"
+    },
+    {
+      "skill": "prefix_translation",
+      "word": "ויעמד",
+      "question": "What does the prefix and word ויעמד mean?",
+      "choices": [
+        "he stood",
+        "and he sat",
+        "and he stood",
+        "he went"
+      ],
+      "correct_answer": "and he stood",
+      "explanation": "ויעמד means 'and he stood'.",
+      "difficulty": 4,
+      "standard": "CF",
+      "micro_standard": "CF2"
+    },
+    {
+      "skill": "prefix_translation",
+      "word": "וימת",
+      "question": "What does the prefix and word וימת mean?",
+      "choices": [
+        "and he lived",
+        "he died",
+        "and he died",
+        "he gave birth"
+      ],
+      "correct_answer": "and he died",
+      "explanation": "וימת means 'and he died'.",
+      "difficulty": 4,
+      "standard": "CF",
+      "micro_standard": "CF2"
+    },
+    {
+      "skill": "prefix_translation",
+      "word": "ויחי",
+      "question": "What does the prefix and word ויחי mean?",
+      "choices": [
+        "and he lived",
+        "he lived",
+        "and he died",
+        "he stood"
+      ],
+      "correct_answer": "and he lived",
+      "explanation": "ויחי means 'and he lived'.",
+      "difficulty": 4,
+      "standard": "CF",
+      "micro_standard": "CF2"
+    },
+    {
+      "skill": "translation",
+      "word": "זכר",
+      "question": "What does the word זכר mean?",
+      "choices": [
+        "remembered",
+        "knew",
+        "loved",
+        "blessed"
+      ],
+      "correct_answer": "remembered",
+      "explanation": "זכר means 'remembered'.",
+      "difficulty": 1,
+      "standard": "WM",
+      "micro_standard": "WM1"
+    },
+    {
+      "skill": "translation",
+      "word": "ידע",
+      "question": "What does the word ידע mean?",
+      "choices": [
+        "heard",
+        "knew",
+        "thought",
+        "answered"
+      ],
+      "correct_answer": "knew",
+      "explanation": "ידע means 'knew'.",
+      "difficulty": 1,
+      "standard": "WM",
+      "micro_standard": "WM1"
+    },
+    {
+      "skill": "translation",
+      "word": "אהב",
+      "question": "What does the word אהב mean?",
+      "choices": [
+        "hated",
+        "called",
+        "loved",
+        "spoke"
+      ],
+      "correct_answer": "loved",
+      "explanation": "אהב means 'loved'.",
+      "difficulty": 1,
+      "standard": "WM",
+      "micro_standard": "WM1"
+    },
+    {
+      "skill": "translation",
+      "word": "שנא",
+      "question": "What does the word שנא mean?",
+      "choices": [
+        "blessed",
+        "remembered",
+        "built",
+        "hated"
+      ],
+      "correct_answer": "hated",
+      "explanation": "שנא means 'hated'.",
+      "difficulty": 1,
+      "standard": "WM",
+      "micro_standard": "WM1"
+    },
+    {
+      "skill": "translation",
+      "word": "ברך",
+      "question": "What does the word ברך mean?",
+      "choices": [
+        "blessed",
+        "cursed",
+        "sanctified",
+        "guarded"
+      ],
+      "correct_answer": "blessed",
+      "explanation": "ברך means 'blessed'.",
+      "difficulty": 1,
+      "standard": "WM",
+      "micro_standard": "WM1"
+    },
+    {
+      "skill": "translation",
+      "word": "ענה",
+      "question": "What does the word ענה mean?",
+      "choices": [
+        "called",
+        "answered",
+        "thought",
+        "spoke"
+      ],
+      "correct_answer": "answered",
+      "explanation": "ענה means 'answered'.",
+      "difficulty": 1,
+      "standard": "WM",
+      "micro_standard": "WM1"
+    },
+    {
+      "skill": "translation",
+      "word": "חשב",
+      "question": "What does the word חשב mean?",
+      "choices": [
+        "knew",
+        "remembered",
+        "thought",
+        "opened"
+      ],
+      "correct_answer": "thought",
+      "explanation": "חשב means 'thought'.",
+      "difficulty": 1,
+      "standard": "WM",
+      "micro_standard": "WM1"
+    },
+    {
+      "skill": "translation",
+      "word": "שבר",
+      "question": "What does the word שבר mean?",
+      "choices": [
+        "closed",
+        "broke",
+        "opened",
+        "gathered"
+      ],
+      "correct_answer": "broke",
+      "explanation": "שבר means 'broke'.",
+      "difficulty": 1,
+      "standard": "WM",
+      "micro_standard": "WM1"
+    },
+    {
+      "skill": "translation",
+      "word": "שתה",
+      "question": "What does the word שתה mean?",
+      "choices": [
+        "ate",
+        "slept",
+        "drank",
+        "washed"
+      ],
+      "correct_answer": "drank",
+      "explanation": "שתה means 'drank'.",
+      "difficulty": 1,
+      "standard": "WM",
+      "micro_standard": "WM1"
+    },
+    {
+      "skill": "translation",
+      "word": "ישן",
+      "question": "What does the word ישן mean?",
+      "choices": [
+        "wore",
+        "slept",
+        "ran",
+        "fell"
+      ],
+      "correct_answer": "slept",
+      "explanation": "ישן means 'slept'.",
+      "difficulty": 1,
+      "standard": "WM",
+      "micro_standard": "WM1"
+    },
+    {
+      "skill": "reverse_translation",
+      "word": "פרי",
+      "question": "Which Hebrew word means fruit?",
+      "choices": [
+        "לחם",
+        "פרי",
+        "יין",
+        "חלב"
+      ],
+      "correct_answer": "פרי",
+      "explanation": "פרי means 'fruit'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM2"
+    },
+    {
+      "skill": "reverse_translation",
+      "word": "יין",
+      "question": "Which Hebrew word means wine?",
+      "choices": [
+        "מים",
+        "חלב",
+        "יין",
+        "לחם"
+      ],
+      "correct_answer": "יין",
+      "explanation": "יין means 'wine'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM2"
+    },
+    {
+      "skill": "reverse_translation",
+      "word": "חלב",
+      "question": "Which Hebrew word means milk?",
+      "choices": [
+        "בשר",
+        "חלב",
+        "יין",
+        "מים"
+      ],
+      "correct_answer": "חלב",
+      "explanation": "חלב means 'milk'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM2"
+    },
+    {
+      "skill": "reverse_translation",
+      "word": "ברזל",
+      "question": "Which Hebrew word means iron?",
+      "choices": [
+        "כסף",
+        "זהב",
+        "ברזל",
+        "אבן"
+      ],
+      "correct_answer": "ברזל",
+      "explanation": "ברזל means 'iron'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM2"
+    },
+    {
+      "skill": "reverse_translation",
+      "word": "שבוע",
+      "question": "Which Hebrew word means week?",
+      "choices": [
+        "יום",
+        "חדש",
+        "שנה",
+        "שבוע"
+      ],
+      "correct_answer": "שבוע",
+      "explanation": "שבוע means 'week'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM2"
+    },
+    {
+      "skill": "reverse_translation",
+      "word": "עת",
+      "question": "Which Hebrew word means time?",
+      "choices": [
+        "מקום",
+        "עת",
+        "שנה",
+        "יום"
+      ],
+      "correct_answer": "עת",
+      "explanation": "עת means 'time'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM2",
+      "source": "Genesis 8:11 (לעת ערב)"
+    },
+    {
+      "skill": "reverse_translation",
+      "word": "חיים",
+      "question": "Which Hebrew word means life?",
+      "choices": [
+        "מות",
+        "נפש",
+        "חיים",
+        "רוח"
+      ],
+      "correct_answer": "חיים",
+      "explanation": "חיים means 'life'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM5"
+    },
+    {
+      "skill": "reverse_translation",
+      "word": "מלחמה",
+      "question": "Which Hebrew word means war?",
+      "choices": [
+        "שלום",
+        "מלחמה",
+        "ברית",
+        "מצוה"
+      ],
+      "correct_answer": "מלחמה",
+      "explanation": "מלחמה means 'war'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM5"
+    },
+    {
+      "skill": "reverse_translation",
+      "word": "אהבה",
+      "question": "Which Hebrew word means love?",
+      "choices": [
+        "שנאה",
+        "ברכה",
+        "אהבה",
+        "קללה"
+      ],
+      "correct_answer": "אהבה",
+      "explanation": "אהבה means 'love'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM5"
+    },
+    {
+      "skill": "reverse_translation",
+      "word": "ברכה",
+      "question": "Which Hebrew word means blessing?",
+      "choices": [
+        "קללה",
+        "ברכה",
+        "קדש",
+        "חול"
+      ],
+      "correct_answer": "ברכה",
+      "explanation": "ברכה means 'blessing'.",
+      "difficulty": 2,
+      "standard": "WM",
+      "micro_standard": "WM5"
+    },
+    {
+      "skill": "shoresh",
+      "word": "ויזכר",
+      "question": "What is the shoresh of ויזכר?",
+      "choices": [
+        "זכר",
+        "ידע",
+        "אהב",
+        "שמר"
+      ],
+      "correct_answer": "זכר",
+      "explanation": "ויזכר has shoresh זכר.",
+      "difficulty": 3,
+      "standard": "SR",
+      "micro_standard": "SR2"
+    },
+    {
+      "skill": "shoresh",
+      "word": "וידע",
+      "question": "What is the shoresh of וידע?",
+      "choices": [
+        "שמע",
+        "ידע",
+        "חשב",
+        "ענה"
+      ],
+      "correct_answer": "ידע",
+      "explanation": "וידע has shoresh ידע.",
+      "difficulty": 3,
+      "standard": "SR",
+      "micro_standard": "SR2"
+    },
+    {
+      "skill": "shoresh",
+      "word": "ויאהב",
+      "question": "What is the shoresh of ויאהב?",
+      "choices": [
+        "שנא",
+        "ברך",
+        "אהב",
+        "קרא"
+      ],
+      "correct_answer": "אהב",
+      "explanation": "ויאהב has shoresh אהב.",
+      "difficulty": 3,
+      "standard": "SR",
+      "micro_standard": "SR2"
+    },
+    {
+      "skill": "shoresh",
+      "word": "וישנא",
+      "question": "What is the shoresh of וישנא?",
+      "choices": [
+        "אהב",
+        "שנא",
+        "קלל",
+        "ברך"
+      ],
+      "correct_answer": "שנא",
+      "explanation": "וישנא has shoresh שנא.",
+      "difficulty": 3,
+      "standard": "SR",
+      "micro_standard": "SR2"
+    },
+    {
+      "skill": "shoresh",
+      "word": "ויברך",
+      "question": "What is the shoresh of ויברך?",
+      "choices": [
+        "ברך",
+        "קלל",
+        "קדש",
+        "טהר"
+      ],
+      "correct_answer": "ברך",
+      "explanation": "ויברך has shoresh ברך.",
+      "difficulty": 3,
+      "standard": "SR",
+      "micro_standard": "SR2"
+    },
+    {
+      "skill": "shoresh",
+      "word": "ויען",
+      "question": "What is the shoresh of ויען?",
+      "choices": [
+        "קרא",
+        "ענה",
+        "דבר",
+        "חשב"
+      ],
+      "correct_answer": "ענה",
+      "explanation": "ויען has shoresh ענה.",
+      "difficulty": 3,
+      "standard": "SR",
+      "micro_standard": "SR2"
+    },
+    {
+      "skill": "shoresh",
+      "word": "ויחשב",
+      "question": "What is the shoresh of ויחשב?",
+      "choices": [
+        "ידע",
+        "זכר",
+        "חשב",
+        "דבר"
+      ],
+      "correct_answer": "חשב",
+      "explanation": "ויחשב has shoresh חשב.",
+      "difficulty": 3,
+      "standard": "SR",
+      "micro_standard": "SR2"
+    },
+    {
+      "skill": "shoresh",
+      "word": "וישבר",
+      "question": "What is the shoresh of וישבר?",
+      "choices": [
+        "פתח",
+        "סגר",
+        "שבר",
+        "לקט"
+      ],
+      "correct_answer": "שבר",
+      "explanation": "וישבר has shoresh שבר.",
+      "difficulty": 3,
+      "standard": "SR",
+      "micro_standard": "SR2"
+    },
+    {
+      "skill": "shoresh",
+      "word": "וישת",
+      "question": "What is the shoresh of וישת?",
+      "choices": [
+        "אכל",
+        "שתה",
+        "ישן",
+        "רחץ"
+      ],
+      "correct_answer": "שתה",
+      "explanation": "וישת has shoresh שתה.",
+      "difficulty": 3,
+      "standard": "SR",
+      "micro_standard": "SR2"
+    },
+    {
+      "skill": "shoresh",
+      "word": "ויפתח",
+      "question": "What is the shoresh of ויפתח?",
+      "choices": [
+        "פתח",
+        "סגר",
+        "עבר",
+        "שכן"
+      ],
+      "correct_answer": "פתח",
+      "explanation": "ויפתח has shoresh פתח.",
+      "difficulty": 3,
+      "standard": "SR",
+      "micro_standard": "SR2"
+    },
+    {
+      "skill": "prefix_translation",
+      "word": "ויזכר",
+      "question": "What does the prefix and word ויזכר mean?",
+      "choices": [
+        "and he remembered",
+        "he remembered",
+        "and he knew",
+        "he blessed"
+      ],
+      "correct_answer": "and he remembered",
+      "explanation": "ויזכר means 'and he remembered'.",
+      "difficulty": 4,
+      "standard": "CF",
+      "micro_standard": "CF2"
+    },
+    {
+      "skill": "prefix_translation",
+      "word": "וידע",
+      "question": "What does the prefix and word וידע mean?",
+      "choices": [
+        "he knew",
+        "and he knew",
+        "and he thought",
+        "he answered"
+      ],
+      "correct_answer": "and he knew",
+      "explanation": "וידע means 'and he knew'.",
+      "difficulty": 4,
+      "standard": "CF",
+      "micro_standard": "CF2"
+    },
+    {
+      "skill": "prefix_translation",
+      "word": "ויאהב",
+      "question": "What does the prefix and word ויאהב mean?",
+      "choices": [
+        "and he hated",
+        "he loved",
+        "and he loved",
+        "he called"
+      ],
+      "correct_answer": "and he loved",
+      "explanation": "ויאהב means 'and he loved'.",
+      "difficulty": 4,
+      "standard": "CF",
+      "micro_standard": "CF2"
+    },
+    {
+      "skill": "prefix_translation",
+      "word": "ויברך",
+      "question": "What does the prefix and word ויברך mean?",
+      "choices": [
+        "he blessed",
+        "and he cursed",
+        "and he blessed",
+        "he sanctified"
+      ],
+      "correct_answer": "and he blessed",
+      "explanation": "ויברך means 'and he blessed'.",
+      "difficulty": 4,
+      "standard": "CF",
+      "micro_standard": "CF2"
+    },
+    {
+      "skill": "prefix_translation",
+      "word": "ויען",
+      "question": "What does the prefix and word ויען mean?",
+      "choices": [
+        "and he answered",
+        "he answered",
+        "and he spoke",
+        "he called"
+      ],
+      "correct_answer": "and he answered",
+      "explanation": "ויען means 'and he answered'.",
+      "difficulty": 4,
+      "standard": "CF",
+      "micro_standard": "CF2"
+    },
+    {
+      "skill": "prefix_translation",
+      "word": "ויחשב",
+      "question": "What does the prefix and word ויחשב mean?",
+      "choices": [
+        "he thought",
+        "and he remembered",
+        "and he thought",
+        "he knew"
+      ],
+      "correct_answer": "and he thought",
+      "explanation": "ויחשב means 'and he thought'.",
+      "difficulty": 4,
+      "standard": "CF",
+      "micro_standard": "CF2"
+    },
+    {
+      "skill": "prefix_translation",
+      "word": "וישבר",
+      "question": "What does the prefix and word וישבר mean?",
+      "choices": [
+        "and he opened",
+        "he broke",
+        "and he broke",
+        "he closed"
+      ],
+      "correct_answer": "and he broke",
+      "explanation": "וישבר means 'and he broke'.",
+      "difficulty": 4,
+      "standard": "CF",
+      "micro_standard": "CF2"
+    },
+    {
+      "skill": "prefix_translation",
+      "word": "ויפתח",
+      "question": "What does the prefix and word ויפתח mean?",
+      "choices": [
+        "and he opened",
+        "he opened",
+        "and he closed",
+        "he passed"
+      ],
+      "correct_answer": "and he opened",
+      "explanation": "ויפתח means 'and he opened'.",
+      "difficulty": 4,
+      "standard": "CF",
+      "micro_standard": "CF2"
+    },
+    {
+      "skill": "prefix_translation",
+      "word": "ויסגר",
+      "question": "What does the prefix and word ויסגר mean?",
+      "choices": [
+        "he closed",
+        "and he opened",
+        "and he closed",
+        "he gathered"
+      ],
+      "correct_answer": "and he closed",
+      "explanation": "ויסגר means 'and he closed'.",
+      "difficulty": 4,
+      "standard": "CF",
+      "micro_standard": "CF2"
+    },
+    {
+      "skill": "prefix_translation",
+      "word": "ויעבר",
+      "question": "What does the prefix and word ויעבר mean?",
+      "choices": [
+        "and he passed",
+        "he passed",
+        "and he dwelled",
+        "he inherited"
+      ],
+      "correct_answer": "and he passed",
+      "explanation": "ויעבר means 'and he passed'.",
+      "difficulty": 4,
+      "standard": "CF",
+      "micro_standard": "CF2"
+    },
+    {
+      "skill": "semantic",
+      "word": "ו",
+      "question": "Which choice best describes the prefix ו?",
+      "choices": [
+        "and",
+        "the",
+        "from",
+        "to"
+      ],
+      "correct_answer": "and",
+      "explanation": "ו is the prefix meaning 'and'.",
+      "difficulty": 3,
+      "standard": "PR",
+      "micro_standard": "PR1"
+    },
+    {
+      "skill": "semantic",
+      "word": "ה",
+      "question": "Which choice best describes the prefix ה?",
+      "choices": [
+        "to",
+        "the",
+        "in",
+        "from"
+      ],
+      "correct_answer": "the",
+      "explanation": "ה is the prefix meaning 'the'.",
+      "difficulty": 3,
+      "standard": "PR",
+      "micro_standard": "PR1"
+    },
+    {
+      "skill": "semantic",
+      "word": "ל",
+      "question": "Which choice best describes the prefix ל?",
+      "choices": [
+        "from",
+        "in",
+        "to/for",
+        "and"
+      ],
+      "correct_answer": "to/for",
+      "explanation": "ל is the prefix meaning 'to' or 'for'.",
+      "difficulty": 3,
+      "standard": "PR",
+      "micro_standard": "PR1"
+    },
+    {
+      "skill": "semantic",
+      "word": "ב",
+      "question": "Which choice best describes the prefix ב?",
+      "choices": [
+        "in",
+        "on",
+        "because",
+        "only"
+      ],
+      "correct_answer": "in",
+      "explanation": "ב is the prefix meaning 'in'.",
+      "difficulty": 3,
+      "standard": "PR",
+      "micro_standard": "PR1"
+    },
+    {
+      "skill": "semantic",
+      "word": "מ",
+      "question": "Which choice best describes the prefix מ?",
+      "choices": [
+        "the",
+        "from",
+        "with",
+        "all"
+      ],
+      "correct_answer": "from",
+      "explanation": "מ is the prefix meaning 'from'.",
+      "difficulty": 3,
+      "standard": "PR",
+      "micro_standard": "PR1"
+    },
+    {
+      "skill": "semantic",
+      "word": "על",
+      "question": "Which word is closest in function to על?",
+      "choices": [
+        "on",
+        "to",
+        "with",
+        "because"
+      ],
+      "correct_answer": "on",
+      "explanation": "על means 'on'.",
+      "difficulty": 3,
+      "standard": "PR",
+      "micro_standard": "PR1"
+    },
+    {
+      "skill": "semantic",
+      "word": "אל",
+      "question": "Which word is closest in function to אל?",
+      "choices": [
+        "from",
+        "to",
+        "also",
+        "only"
+      ],
+      "correct_answer": "to",
+      "explanation": "אל means 'to'.",
+      "difficulty": 3,
+      "standard": "PR",
+      "micro_standard": "PR1"
+    },
+    {
+      "skill": "semantic",
+      "word": "כי",
+      "question": "Which choice best describes the word כי?",
+      "choices": [
+        "because/that",
+        "this",
+        "they",
+        "there is"
+      ],
+      "correct_answer": "because/that",
+      "explanation": "כי often means 'because' or 'that'.",
+      "difficulty": 3,
+      "standard": "PR",
+      "micro_standard": "PR1"
+    },
+    {
+      "skill": "semantic",
+      "word": "אשר",
+      "question": "Which choice best describes the word אשר?",
+      "choices": [
+        "only",
+        "that/which",
+        "also",
+        "if"
+      ],
+      "correct_answer": "that/which",
+      "explanation": "אשר means 'that' or 'which'.",
+      "difficulty": 3,
+      "standard": "PR",
+      "micro_standard": "PR1"
+    },
+    {
+      "skill": "semantic",
+      "word": "את",
+      "question": "What kind of word is את in Chumash reading?",
+      "choices": [
+        "direct object marker",
+        "verb",
+        "place noun",
+        "time word"
+      ],
+      "correct_answer": "direct object marker",
+      "explanation": "את marks the direct object.",
+      "difficulty": 3,
+      "standard": "PR",
+      "micro_standard": "PR1"
+    },
+    {
+      "skill": "suffix",
+      "standard": "PR",
+      "word": "ביתי",
+      "question": "What does ביתי mean?",
+      "choices": [
+        "my house",
+        "his house",
+        "her house",
+        "our house"
+      ],
+      "correct_answer": "my house",
+      "explanation": "י at the end means 'my'.",
+      "difficulty": 3,
+      "micro_standard": "PR2"
+    },
+    {
+      "skill": "suffix",
+      "standard": "PR",
+      "word": "ביתו",
+      "question": "What does ביתו mean?",
+      "choices": [
+        "his house",
+        "her house",
+        "their house",
+        "my house"
+      ],
+      "correct_answer": "his house",
+      "explanation": "ו at the end means 'his'.",
+      "difficulty": 3,
+      "micro_standard": "PR2"
+    },
+    {
+      "skill": "suffix",
+      "standard": "PR",
+      "word": "ביתה",
+      "question": "What does ביתה mean?",
+      "choices": [
+        "her house",
+        "his house",
+        "our house",
+        "your house"
+      ],
+      "correct_answer": "her house",
+      "explanation": "ה at the end means 'her'.",
+      "difficulty": 3,
+      "micro_standard": "PR2"
+    },
+    {
+      "skill": "suffix",
+      "standard": "PR",
+      "word": "ביתנו",
+      "question": "What does ביתנו mean?",
+      "choices": [
+        "their house",
+        "your house",
+        "our house",
+        "my house"
+      ],
+      "correct_answer": "our house",
+      "explanation": "נו at the end means 'our'.",
+      "difficulty": 3,
+      "micro_standard": "PR2"
+    },
+    {
+      "skill": "suffix",
+      "standard": "PR",
+      "word": "אבי",
+      "question": "What does אבי mean?",
+      "choices": [
+        "my father",
+        "his father",
+        "her father",
+        "our father"
+      ],
+      "correct_answer": "my father",
+      "explanation": "אב means 'father' and י means 'my'.",
+      "difficulty": 3,
+      "micro_standard": "PR2"
+    },
+    {
+      "skill": "suffix",
+      "standard": "PR",
+      "word": "עמם",
+      "question": "What does עמם mean?",
+      "choices": [
+        "their people",
+        "his people",
+        "our people",
+        "my people"
+      ],
+      "correct_answer": "their people",
+      "explanation": "הם at the end means 'their'.",
+      "difficulty": 3,
+      "micro_standard": "PR2"
+    },
+    {
+      "skill": "prefix",
+      "standard": "PR",
+      "word": "בבית",
+      "question": "What does בבית mean?",
+      "choices": [
+        "in the house",
+        "to the house",
+        "from the house",
+        "the house"
+      ],
+      "correct_answer": "in the house",
+      "explanation": "ב means 'in'.",
+      "difficulty": 4,
+      "micro_standard": "PR3"
+    },
+    {
+      "skill": "prefix",
+      "standard": "PR",
+      "word": "לבית",
+      "question": "What does לבית mean?",
+      "choices": [
+        "from a house",
+        "to a house",
+        "in a house",
+        "like a house"
+      ],
+      "correct_answer": "to a house",
+      "explanation": "ל means 'to' or 'for'.",
+      "difficulty": 4,
+      "micro_standard": "PR3"
+    },
+    {
+      "skill": "prefix",
+      "standard": "PR",
+      "word": "מבית",
+      "question": "What does מבית mean?",
+      "choices": [
+        "from a house",
+        "to a house",
+        "in a house",
+        "the house"
+      ],
+      "correct_answer": "from a house",
+      "explanation": "מ means 'from'.",
+      "difficulty": 4,
+      "micro_standard": "PR3"
+    },
+    {
+      "skill": "prefix",
+      "standard": "PR",
+      "word": "כמלך",
+      "question": "What does כמלך mean?",
+      "choices": [
+        "like a king",
+        "to a king",
+        "from a king",
+        "the king"
+      ],
+      "correct_answer": "like a king",
+      "explanation": "כ means 'like' or 'as'.",
+      "difficulty": 4,
+      "micro_standard": "PR3"
+    },
+    {
+      "skill": "prefix",
+      "standard": "PR",
+      "word": "המלך",
+      "question": "What does המלך mean?",
+      "choices": [
+        "a king",
+        "the king",
+        "to a king",
+        "from a king"
+      ],
+      "correct_answer": "the king",
+      "explanation": "ה means 'the'.",
+      "difficulty": 4,
+      "micro_standard": "PR3"
+    },
+    {
+      "skill": "prefix",
+      "standard": "PR",
+      "word": "בשדה",
+      "question": "What does בשדה mean?",
+      "choices": [
+        "in a field",
+        "to a field",
+        "from a field",
+        "the field"
+      ],
+      "correct_answer": "in a field",
+      "explanation": "ב means 'in' and שדה means 'field'.",
+      "difficulty": 4,
+      "micro_standard": "PR3"
+    },
+    {
+      "skill": "combined",
+      "standard": "CF",
+      "word": "בביתו",
+      "question": "What does בביתו mean?",
+      "choices": [
+        "in his house",
+        "his house",
+        "to his house",
+        "from his house"
+      ],
+      "correct_answer": "in his house",
+      "explanation": "ב = in, בית = house, ו = his.",
+      "difficulty": 5,
+      "micro_standard": "CF4"
+    },
+    {
+      "skill": "combined",
+      "standard": "CF",
+      "word": "לביתו",
+      "question": "What does לביתו mean?",
+      "choices": [
+        "to his house",
+        "in his house",
+        "his house",
+        "from his house"
+      ],
+      "correct_answer": "to his house",
+      "explanation": "ל = to, בית = house, ו = his.",
+      "difficulty": 5,
+      "micro_standard": "CF4"
+    },
+    {
+      "skill": "combined",
+      "standard": "CF",
+      "word": "מביתו",
+      "question": "What does מביתו mean?",
+      "choices": [
+        "from his house",
+        "to his house",
+        "in his house",
+        "his house"
+      ],
+      "correct_answer": "from his house",
+      "explanation": "מ = from, בית = house, ו = his.",
+      "difficulty": 5,
+      "micro_standard": "CF4"
+    },
+    {
+      "skill": "combined",
+      "standard": "CF",
+      "word": "בארצו",
+      "question": "What does בארצו mean?",
+      "choices": [
+        "in his land",
+        "to his land",
+        "from his land",
+        "his field"
+      ],
+      "correct_answer": "in his land",
+      "explanation": "ב = in, ארץ = land, ו = his.",
+      "difficulty": 5,
+      "micro_standard": "CF4"
+    },
+    {
+      "skill": "combined",
+      "standard": "CF",
+      "word": "בשמים",
+      "question": "What does בשמים mean?",
+      "choices": [
+        "in the heavens",
+        "from the heavens",
+        "to the heavens",
+        "like the heavens"
+      ],
+      "correct_answer": "in the heavens",
+      "explanation": "ב = in and שמים means 'heavens'.",
+      "difficulty": 5,
+      "micro_standard": "CF4"
+    },
+    {
+      "skill": "combined",
+      "standard": "CF",
+      "word": "ויקרא",
+      "question": "Which choice gives the shoresh, prefix, and meaning of ויקרא?",
+      "choices": [
+        "קרא + ו - and he called",
+        "דבר + ו - and he spoke",
+        "שמע + ו - and he heard",
+        "עשה + ו - and he did"
+      ],
+      "correct_answer": "קרא + ו - and he called",
+      "explanation": "ו = and, קרא = called.",
+      "difficulty": 4,
+      "micro_standard": "CF3"
+    },
+    {
+      "skill": "combined",
+      "standard": "CF",
+      "word": "וידבר",
+      "question": "Which choice gives the shoresh, prefix, and meaning of וידבר?",
+      "choices": [
+        "אמר + ו - and he said",
+        "דבר + ו - and he spoke",
+        "קרא + ו - and he called",
+        "ענה + ו - and he answered"
+      ],
+      "correct_answer": "דבר + ו - and he spoke",
+      "explanation": "ו = and, דבר = spoke.",
+      "difficulty": 4,
+      "micro_standard": "CF3"
+    },
+    {
+      "skill": "combined",
+      "standard": "CF",
+      "word": "ויעש",
+      "question": "Which choice gives the shoresh, prefix, and meaning of ויעש?",
+      "choices": [
+        "בנה + ו - and he built",
+        "עשה + ו - and he did",
+        "נתן + ו - and he gave",
+        "שמר + ו - and he kept"
+      ],
+      "correct_answer": "עשה + ו - and he did",
+      "explanation": "ו = and, עשה = did/made.",
+      "difficulty": 4,
+      "micro_standard": "CF3"
+    },
+    {
+      "skill": "semantic",
+      "standard": "SR",
+      "word": "מלך",
+      "question": "Which word is related to מלך?",
+      "choices": [
+        "מלכה",
+        "שדה",
+        "מים",
+        "עץ"
+      ],
+      "correct_answer": "מלכה",
+      "explanation": "מלכה is the feminine form related to king.",
+      "difficulty": 4,
+      "micro_standard": "SR5"
+    },
+    {
+      "skill": "semantic",
+      "standard": "SR",
+      "word": "מלך",
+      "question": "Which word belongs in the same family as מלך?",
+      "choices": [
+        "מלכות",
+        "נהר",
+        "לחם",
+        "אבן"
+      ],
+      "correct_answer": "מלכות",
+      "explanation": "מלכות means 'kingdom' and is related to מלך.",
+      "difficulty": 4,
+      "micro_standard": "SR5"
+    },
+    {
+      "skill": "phrase",
+      "standard": "PC",
+      "word": "ביתו",
+      "question": "What does וישב בביתו mean?",
+      "choices": [
+        "and he sat in his house",
+        "and he went to his house",
+        "and he spoke in his house",
+        "and he took his house"
+      ],
+      "correct_answer": "and he sat in his house",
+      "explanation": "וישב = and he sat/dwelt, בביתו = in his house.",
+      "difficulty": 5,
+      "micro_standard": "PC4"
+    },
+    {
+      "skill": "phrase",
+      "standard": "PC",
+      "word": "ארצו",
+      "question": "What does וילך האיש לארצו mean?",
+      "choices": [
+        "the man went to his land",
+        "the man came from his land",
+        "the king went to his house",
+        "the man sat in his land"
+      ],
+      "correct_answer": "the man went to his land",
+      "explanation": "וילך = and he went, האיש = the man, לארצו = to his land.",
+      "difficulty": 5,
+      "micro_standard": "PC4"
+    },
+    {
+      "skill": "combined",
+      "standard": "PR",
+      "word": "לעמו",
+      "question": "What does לעמו mean?",
+      "choices": [
+        "to his people",
+        "with his people",
+        "from his people",
+        "his people"
+      ],
+      "correct_answer": "to his people",
+      "explanation": "ל = to, עם = people, ו = his.",
+      "difficulty": 4,
+      "micro_standard": "PR5"
+    },
+    {
+      "skill": "combined",
+      "standard": "CF",
+      "word": "ויביאהו",
+      "question": "What does ויביאהו mean?",
+      "choices": [
+        "and he brought him",
+        "he came",
+        "he saw him",
+        "he gave him"
+      ],
+      "correct_answer": "and he brought him",
+      "explanation": "ו = and, בוא/הביא = brought, הו = him.",
+      "difficulty": 5,
+      "micro_standard": "CF4"
+    },
+    {
+      "skill": "combined",
+      "standard": "CF",
+      "word": "ויתנהו",
+      "question": "What does ויתנהו mean?",
+      "choices": [
+        "and he gave him",
+        "and he gave her",
+        "he took him",
+        "and he found him"
+      ],
+      "correct_answer": "and he gave him",
+      "explanation": "ו = and, נתן = gave, הו = him.",
+      "difficulty": 5,
+      "micro_standard": "CF4"
+    },
+    {
+      "skill": "combined",
+      "standard": "CF",
+      "word": "ויקחהו",
+      "question": "What does ויקחהו mean?",
+      "choices": [
+        "and he took him",
+        "and he took her",
+        "and he gave him",
+        "he called him"
+      ],
+      "correct_answer": "and he took him",
+      "explanation": "ו = and, לקח = took, הו = him.",
+      "difficulty": 5,
+      "micro_standard": "CF4"
+    },
+    {
+      "skill": "combined",
+      "standard": "CF",
+      "word": "ויראהו",
+      "question": "What does ויראהו mean?",
+      "choices": [
+        "and he saw him",
+        "and he saw her",
+        "and he called him",
+        "he feared him"
+      ],
+      "correct_answer": "and he saw him",
+      "explanation": "ו = and, ראה = saw, הו = him.",
+      "difficulty": 5,
+      "micro_standard": "CF4"
+    },
+    {
+      "skill": "combined",
+      "standard": "CF",
+      "word": "וישלחהו",
+      "question": "What does וישלחהו mean?",
+      "choices": [
+        "and he sent him",
+        "and he sent her",
+        "and he took him",
+        "he went with him"
+      ],
+      "correct_answer": "and he sent him",
+      "explanation": "ו = and, שלח = sent, הו = him.",
+      "difficulty": 5,
+      "micro_standard": "CF4"
+    },
+    {
+      "skill": "combined",
+      "standard": "CF",
+      "word": "בביתה",
+      "question": "What does בביתה mean?",
+      "choices": [
+        "in her house",
+        "in his house",
+        "to her house",
+        "from her house"
+      ],
+      "correct_answer": "in her house",
+      "explanation": "ב = in, בית = house, ה = her.",
+      "difficulty": 5,
+      "micro_standard": "CF4"
+    },
+    {
+      "skill": "combined",
+      "standard": "CF",
+      "word": "לביתה",
+      "question": "What does לביתה mean?",
+      "choices": [
+        "to her house",
+        "in her house",
+        "from her house",
+        "her house"
+      ],
+      "correct_answer": "to her house",
+      "explanation": "ל = to, בית = house, ה = her.",
+      "difficulty": 5,
+      "micro_standard": "CF4"
+    },
+    {
+      "skill": "combined",
+      "standard": "CF",
+      "word": "מביתה",
+      "question": "What does מביתה mean?",
+      "choices": [
+        "from her house",
+        "to her house",
+        "in her house",
+        "her house"
+      ],
+      "correct_answer": "from her house",
+      "explanation": "מ = from, בית = house, ה = her.",
+      "difficulty": 5,
+      "micro_standard": "CF4"
+    },
+    {
+      "skill": "combined",
+      "standard": "PR",
+      "word": "בידו",
+      "question": "What does בידו mean?",
+      "choices": [
+        "in his hand",
+        "to his hand",
+        "from his hand",
+        "his hand"
+      ],
+      "correct_answer": "in his hand",
+      "explanation": "ב = in, יד = hand, ו = his.",
+      "difficulty": 4,
+      "micro_standard": "PR5"
+    },
+    {
+      "skill": "combined",
+      "standard": "PR",
+      "word": "בידה",
+      "question": "What does בידה mean?",
+      "choices": [
+        "in her hand",
+        "in his hand",
+        "to her hand",
+        "from her hand"
+      ],
+      "correct_answer": "in her hand",
+      "explanation": "ב = in, יד = hand, ה = her.",
+      "difficulty": 4,
+      "micro_standard": "PR5"
+    },
+    {
+      "skill": "prefix",
+      "standard": "PR",
+      "word": "והאיש",
+      "question": "What does והאיש mean?",
+      "choices": [
+        "and the man",
+        "to the man",
+        "from the man",
+        "like the man"
+      ],
+      "correct_answer": "and the man",
+      "explanation": "ו = and, ה = the, איש = man.",
+      "difficulty": 4,
+      "micro_standard": "PR3"
+    },
+    {
+      "skill": "prefix",
+      "standard": "PR",
+      "word": "ובבית",
+      "question": "What does ובבית mean?",
+      "choices": [
+        "and in a house",
+        "and to a house",
+        "from a house",
+        "the house"
+      ],
+      "correct_answer": "and in a house",
+      "explanation": "ו = and, ב = in, בית = house.",
+      "difficulty": 4,
+      "micro_standard": "PR3"
+    },
+    {
+      "skill": "prefix",
+      "standard": "PR",
+      "word": "ומהעיר",
+      "question": "What does ומהעיר mean?",
+      "choices": [
+        "and from the city",
+        "and to the city",
+        "and in the city",
+        "the city"
+      ],
+      "correct_answer": "and from the city",
+      "explanation": "ו = and, מ = from, ה = the, עיר = city.",
+      "difficulty": 4,
+      "micro_standard": "PR3"
+    },
+    {
+      "skill": "prefix",
+      "standard": "PR",
+      "word": "ולמלך",
+      "question": "What does ולמלך mean?",
+      "choices": [
+        "and to a king",
+        "and from a king",
+        "and like a king",
+        "and a king"
+      ],
+      "correct_answer": "and to a king",
+      "explanation": "ו = and, ל = to, מלך = king.",
+      "difficulty": 4,
+      "micro_standard": "PR3"
+    },
+    {
+      "skill": "phrase",
+      "standard": "PC",
+      "word": "וירא",
+      "question": "What does וירא האיש את המלך mean?",
+      "choices": [
+        "and the man saw the king",
+        "and the king saw the man",
+        "and the man said to the king",
+        "and the man gave the king"
+      ],
+      "correct_answer": "and the man saw the king",
+      "explanation": "וירא = and he saw, האיש = the man, את marks the object, המלך = the king.",
+      "difficulty": 5,
+      "micro_standard": "PC3"
+    },
+    {
+      "skill": "phrase",
+      "standard": "PC",
+      "word": "ויקח",
+      "question": "What does ויקח האיש את הלחם mean?",
+      "choices": [
+        "and the man took the bread",
+        "and the man gave the bread",
+        "and the man ate the bread",
+        "and the man saw the bread"
+      ],
+      "correct_answer": "and the man took the bread",
+      "explanation": "ויקח = and he took, האיש = the man, הלחם = the bread.",
+      "difficulty": 5,
+      "micro_standard": "PC3"
+    },
+    {
+      "skill": "phrase",
+      "standard": "PC",
+      "word": "ויתן",
+      "question": "What does ויתן האב לבנו לחם mean?",
+      "choices": [
+        "and the father gave his son bread",
+        "and the son gave his father bread",
+        "and the father took bread",
+        "and the father saw his son"
+      ],
+      "correct_answer": "and the father gave his son bread",
+      "explanation": "ויתן = and he gave, האב = the father, לבנו = to his son, לחם = bread.",
+      "difficulty": 5,
+      "micro_standard": "PC4"
+    },
+    {
+      "skill": "phrase",
+      "standard": "PC",
+      "word": "וילך",
+      "question": "What does וילך הנער מהבית לשדה mean?",
+      "choices": [
+        "and the boy went from the house to a field",
+        "and the boy went from the field to the house",
+        "and the man went to his house",
+        "and the boy sat in the field"
+      ],
+      "correct_answer": "and the boy went from the house to a field",
+      "explanation": "וילך = and he went, מהבית = from the house, לשדה = to a field.",
+      "difficulty": 5,
+      "micro_standard": "PC4"
+    },
+    {
+      "skill": "phrase",
+      "standard": "PC",
+      "word": "וישמע",
+      "question": "What does וישמע העבד את קול אדנו mean?",
+      "choices": [
+        "and the servant heard the voice of his master",
+        "and the master heard the voice of his servant",
+        "and the servant saw his master",
+        "and the servant spoke to his master"
+      ],
+      "correct_answer": "and the servant heard the voice of his master",
+      "explanation": "וישמע = and he heard, העבד = the servant, קול אדנו = the voice of his master.",
+      "difficulty": 5,
+      "micro_standard": "PC3"
+    },
+    {
+      "skill": "combined",
+      "standard": "CF",
+      "word": "בארצם",
+      "question": "What does בארצם mean?",
+      "choices": [
+        "in their land",
+        "in his land",
+        "to their land",
+        "from their land"
+      ],
+      "correct_answer": "in their land",
+      "explanation": "ב = in, ארץ = land, ם/הם = their.",
+      "difficulty": 5,
+      "micro_standard": "CF4"
+    },
+    {
+      "skill": "phrase_structure",
+      "standard": "PS",
+      "micro_standard": "PS1",
+      "word": "בית המלך",
+      "question": "What does בית המלך mean?",
+      "choices": [
+        "the king's house",
+        "the house is king",
+        "the king went home",
+        "a house and a king"
+      ],
+      "correct_answer": "the king's house",
+      "explanation": "בית המלך means 'the house of the king'.",
+      "difficulty": 3
+    },
+    {
+      "skill": "phrase_structure",
+      "standard": "PS",
+      "micro_standard": "PS1",
+      "word": "קול הנביא",
+      "question": "What does קול הנביא mean?",
+      "choices": [
+        "the prophet's voice",
+        "the prophet called",
+        "the voice spoke",
+        "a prophet and a voice"
+      ],
+      "correct_answer": "the prophet's voice",
+      "explanation": "קול הנביא means 'the voice of the prophet'.",
+      "difficulty": 3
+    },
+    {
+      "skill": "phrase_structure",
+      "standard": "PS",
+      "micro_standard": "PS1",
+      "word": "יד האיש",
+      "question": "What does יד האיש mean?",
+      "choices": [
+        "the man's hand",
+        "the man gave",
+        "the hand went",
+        "a man in hand"
+      ],
+      "correct_answer": "the man's hand",
+      "explanation": "יד האיש means 'the hand of the man'.",
+      "difficulty": 3
+    },
+    {
+      "skill": "phrase_structure",
+      "standard": "PS",
+      "micro_standard": "PS2",
+      "word": "בשדה המלך",
+      "question": "What does בשדה המלך mean?",
+      "choices": [
+        "in the king's field",
+        "to the king's field",
+        "from the king's field",
+        "the king's field"
+      ],
+      "correct_answer": "in the king's field",
+      "explanation": "ב = in, and שדה המלך means 'the king's field'.",
+      "difficulty": 4
+    },
+    {
+      "skill": "phrase_structure",
+      "standard": "PS",
+      "micro_standard": "PS2",
+      "word": "אל העיר",
+      "question": "What does אל העיר mean?",
+      "choices": [
+        "to the city",
+        "from the city",
+        "in the city",
+        "the city"
+      ],
+      "correct_answer": "to the city",
+      "explanation": "אל means 'to' and העיר means 'the city'.",
+      "difficulty": 3
+    },
+    {
+      "skill": "phrase_structure",
+      "standard": "PS",
+      "micro_standard": "PS2",
+      "word": "מן הבית",
+      "question": "What does מן הבית mean?",
+      "choices": [
+        "from the house",
+        "to the house",
+        "in the house",
+        "the house"
+      ],
+      "correct_answer": "from the house",
+      "explanation": "מן means 'from' and הבית means 'the house'.",
+      "difficulty": 3
+    },
+    {
+      "skill": "phrase_structure",
+      "standard": "PS",
+      "micro_standard": "PS3",
+      "word": "ויאמר המלך",
+      "question": "What does ויאמר המלך mean?",
+      "choices": [
+        "and the king said",
+        "and the king saw",
+        "and the king went",
+        "the king's word"
+      ],
+      "correct_answer": "and the king said",
+      "explanation": "ויאמר = and he said, המלך = the king.",
+      "difficulty": 4
+    },
+    {
+      "skill": "phrase_structure",
+      "standard": "PS",
+      "micro_standard": "PS3",
+      "word": "וילך הנער",
+      "question": "What does וילך הנער mean?",
+      "choices": [
+        "and the youth went",
+        "and the youth said",
+        "and the youth saw",
+        "the youth's road"
+      ],
+      "correct_answer": "and the youth went",
+      "explanation": "וילך = and he went, הנער = the youth.",
+      "difficulty": 4
+    },
+    {
+      "skill": "phrase_structure",
+      "standard": "PS",
+      "micro_standard": "PS4",
+      "word": "בית אביו",
+      "question": "What does בית אביו mean?",
+      "choices": [
+        "his father's house",
+        "his father's son",
+        "my father's house",
+        "the father's city"
+      ],
+      "correct_answer": "his father's house",
+      "explanation": "בית = house, אביו = his father.",
+      "difficulty": 4
+    },
+    {
+      "skill": "phrase_structure",
+      "standard": "PS",
+      "micro_standard": "PS4",
+      "word": "קול אמו",
+      "question": "What does קול אמו mean?",
+      "choices": [
+        "his mother's voice",
+        "my mother's voice",
+        "his father's voice",
+        "the voice of the people"
+      ],
+      "correct_answer": "his mother's voice",
+      "explanation": "קול = voice, אמו = his mother.",
+      "difficulty": 4
+    },
+    {
+      "skill": "sentence_structure",
+      "standard": "SS",
+      "micro_standard": "SS1",
+      "word": "האיש הלך",
+      "question": "In האיש הלך, who is doing the action?",
+      "choices": [
+        "the man",
+        "the house",
+        "the road",
+        "the king"
+      ],
+      "correct_answer": "the man",
+      "explanation": "האיש is the subject, the one doing the action.",
+      "difficulty": 4
+    },
+    {
+      "skill": "sentence_structure",
+      "standard": "SS",
+      "micro_standard": "SS2",
+      "word": "ויקח האיש את הלחם",
+      "question": "In ויקח האיש את הלחם, what was taken?",
+      "choices": [
+        "the bread",
+        "the man",
+        "the house",
+        "the city"
+      ],
+      "correct_answer": "the bread",
+      "explanation": "את marks הלחם as the object that was taken.",
+      "difficulty": 4
+    },
+    {
+      "skill": "sentence_structure",
+      "standard": "SS",
+      "micro_standard": "SS3",
+      "word": "המלך שלח את הנביא",
+      "question": "In המלך שלח את הנביא, who sent whom?",
+      "choices": [
+        "the king sent the prophet",
+        "the prophet sent the king",
+        "the king heard the prophet",
+        "the prophet saw the king"
+      ],
+      "correct_answer": "the king sent the prophet",
+      "explanation": "המלך is the subject and את הנביא is the object.",
+      "difficulty": 4
+    },
+    {
+      "skill": "sentence_structure",
+      "standard": "SS",
+      "micro_standard": "SS4",
+      "word": "הנער ישב בבית",
+      "question": "In הנער ישב בבית, where did the youth sit?",
+      "choices": [
+        "in the house",
+        "to the house",
+        "from the house",
+        "in the field"
+      ],
+      "correct_answer": "in the house",
+      "explanation": "בבית tells where the sitting happened.",
+      "difficulty": 4
+    },
+    {
+      "skill": "sentence_structure",
+      "standard": "SS",
+      "micro_standard": "SS5",
+      "word": "וישמע העם את קול הנביא",
+      "question": "What is the structure of וישמע העם את קול הנביא?",
+      "choices": [
+        "verb + subject + object",
+        "subject + object + adjective",
+        "place + verb + subject",
+        "object + subject + place"
+      ],
+      "correct_answer": "verb + subject + object",
+      "explanation": "וישמע is the verb, העם is the subject, and את marks the object.",
+      "difficulty": 4
+    },
+    {
+      "skill": "contextual_meaning",
+      "standard": "CM",
+      "micro_standard": "CM1",
+      "word": "עלה",
+      "question": "In ויעל האיש אל ההר, what does ויעל mean?",
+      "choices": [
+        "and he went up",
+        "and he went down",
+        "and he stood",
+        "and he returned"
+      ],
+      "correct_answer": "and he went up",
+      "explanation": "The phrase אל ההר shows upward movement toward the mountain.",
+      "difficulty": 5
+    },
+    {
+      "skill": "contextual_meaning",
+      "standard": "CM",
+      "micro_standard": "CM2",
+      "word": "ראה",
+      "question": "In וירא את האיש, what does וירא mean?",
+      "choices": [
+        "and he saw",
+        "and he feared",
+        "and he called",
+        "and he gave"
+      ],
+      "correct_answer": "and he saw",
+      "explanation": "את האיש points to seeing a direct object.",
+      "difficulty": 5
+    },
+    {
+      "skill": "contextual_meaning",
+      "standard": "CM",
+      "micro_standard": "CM3",
+      "word": "שב",
+      "question": "In וישב אל ארצו, what does וישב mean?",
+      "choices": [
+        "and he returned",
+        "and he sat",
+        "and he guarded",
+        "and he heard"
+      ],
+      "correct_answer": "and he returned",
+      "explanation": "אל ארצו suggests movement back to his land, so וישב means returned.",
+      "difficulty": 5
+    },
+    {
+      "skill": "contextual_meaning",
+      "standard": "CM",
+      "micro_standard": "CM4",
+      "word": "כי",
+      "question": "In וירא כי טוב, what does כי most likely mean?",
+      "choices": [
+        "that",
+        "if",
+        "only",
+        "also"
+      ],
+      "correct_answer": "that",
+      "explanation": "After seeing, כי often introduces what was seen: 'that it was good'.",
+      "difficulty": 5
+    },
+    {
+      "skill": "contextual_meaning",
+      "standard": "CM",
+      "micro_standard": "CM5",
+      "word": "דבר",
+      "question": "In וידבר המלך אל העם, which meaning fits וידבר?",
+      "choices": [
+        "and he spoke",
+        "and he thing",
+        "and he word",
+        "and he found"
+      ],
+      "correct_answer": "and he spoke",
+      "explanation": "With אל העם, דבר is functioning as the verb 'spoke'.",
+      "difficulty": 5
+    },
+    {
+      "skill": "sentence_structure",
+      "standard": "SS",
+      "micro_standard": "SS1",
+      "word": "וילך האיש אל הבית",
+      "question": "Who is doing the action in וילך האיש אל הבית?",
+      "choices": [
+        "the man",
+        "the house",
+        "went",
+        "the king"
+      ],
+      "correct_answer": "the man",
+      "explanation": "האיש is the subject doing the action.",
+      "difficulty": 4
+    },
+    {
+      "skill": "sentence_structure",
+      "standard": "SS",
+      "micro_standard": "SS2",
+      "word": "וילך האיש אל הבית",
+      "question": "What is the action in וילך האיש אל הבית?",
+      "choices": [
+        "the man",
+        "went",
+        "the house",
+        "to"
+      ],
+      "correct_answer": "went",
+      "explanation": "וילך is the action and means 'went'.",
+      "difficulty": 4
+    },
+    {
+      "skill": "sentence_structure",
+      "standard": "SS",
+      "micro_standard": "SS3",
+      "word": "וילך האיש אל הבית",
+      "question": "Where is the man going in וילך האיש אל הבית?",
+      "choices": [
+        "to the house",
+        "from the house",
+        "in the house",
+        "the king"
+      ],
+      "correct_answer": "to the house",
+      "explanation": "אל הבית means 'to the house'.",
+      "difficulty": 4
+    },
+    {
+      "skill": "sentence_structure",
+      "standard": "SS",
+      "micro_standard": "SS4",
+      "word": "ויקם האיש וילך",
+      "question": "What happens first in ויקם האיש וילך?",
+      "choices": [
+        "the man stood up",
+        "the man went",
+        "the man walked",
+        "the man left"
+      ],
+      "correct_answer": "the man stood up",
+      "explanation": "ויקם precedes וילך.",
+      "difficulty": 4
+    },
+    {
+      "skill": "sentence_structure",
+      "standard": "SS",
+      "micro_standard": "SS5",
+      "word": "וילך האיש אל הבית",
+      "question": "What does וילך האיש אל הבית mean?",
+      "choices": [
+        "the man went to the house",
+        "the man saw the house",
+        "the house went to the man",
+        "the man gave the house"
+      ],
+      "correct_answer": "the man went to the house",
+      "explanation": "וילך = went, האיש = the man, אל הבית = to the house.",
+      "difficulty": 4
+    },
+    {
+      "skill": "sentence_structure",
+      "standard": "SS",
+      "micro_standard": "SS3",
+      "word": "לבית המלך",
+      "question": "What does לבית המלך mean?",
+      "choices": [
+        "to the king's house",
+        "in the king's house",
+        "the king's house",
+        "from the king's house"
+      ],
+      "correct_answer": "to the king's house",
+      "explanation": "ל indicates direction toward.",
+      "difficulty": 4
+    },
+    {
+      "skill": "sentence_structure",
+      "standard": "SS",
+      "micro_standard": "SS1",
+      "word": "וירא האיש את המלך",
+      "question": "Who is doing the action in וירא האיש את המלך?",
+      "choices": [
+        "the man",
+        "the king",
+        "the prophet",
+        "the son"
+      ],
+      "correct_answer": "the man",
+      "explanation": "האיש is the subject; the king is the object.",
+      "difficulty": 4
+    },
+    {
+      "skill": "sentence_structure",
+      "standard": "SS",
+      "micro_standard": "SS2",
+      "word": "וישמע המלך את הנביא",
+      "question": "What is the action in וישמע המלך את הנביא?",
+      "choices": [
+        "heard",
+        "saw",
+        "spoke",
+        "called"
+      ],
+      "correct_answer": "heard",
+      "explanation": "וישמע means 'and he heard'.",
+      "difficulty": 4
+    },
+    {
+      "skill": "sentence_structure",
+      "standard": "SS",
+      "micro_standard": "SS3",
+      "word": "וילך הנער אל העיר",
+      "question": "Where is the youth going in וילך הנער אל העיר?",
+      "choices": [
+        "to the city",
+        "in the city",
+        "from the city",
+        "into the city"
+      ],
+      "correct_answer": "to the city",
+      "explanation": "אל indicates movement toward.",
+      "difficulty": 4
+    },
+    {
+      "skill": "sentence_structure",
+      "standard": "SS",
+      "micro_standard": "SS5",
+      "word": "ויתן האב לחם לבנו",
+      "question": "What does ויתן האב לחם לבנו mean?",
+      "choices": [
+        "the father gave bread to his son",
+        "the father gave bread to the son",
+        "the son gave bread to his father",
+        "the father took bread from his son"
+      ],
+      "correct_answer": "the father gave bread to his son",
+      "explanation": "ויתן = gave, לבנו = to his son.",
+      "difficulty": 4
+    },
+    {
+      "skill": "sentence_structure",
+      "standard": "SS",
+      "micro_standard": "SS3",
+      "word": "לבית המלך",
+      "question": "Which choice shows the meaning of the prefix in לבית המלך?",
+      "choices": [
+        "to the king's house",
+        "in the king's house",
+        "from the king's house",
+        "the king's house"
+      ],
+      "correct_answer": "to the king's house",
+      "explanation": "ל indicates direction toward.",
+      "difficulty": 4
+    },
+    {
+      "skill": "sentence_structure",
+      "standard": "SS",
+      "micro_standard": "SS5",
+      "word": "בית המלך",
+      "question": "Which choice best describes בית המלך?",
+      "choices": [
+        "the king's house",
+        "in the king's house",
+        "to the king's house",
+        "from the king's house"
+      ],
+      "correct_answer": "the king's house",
+      "explanation": "בית המלך is a Chumash-style possessive phrase: 'the house of the king'.",
+      "difficulty": 4
+    },
+    {
+      "skill": "sentence_structure",
+      "standard": "SS",
+      "micro_standard": "SS1",
+      "word": "וישלח המלך את הנביא",
+      "question": "Who is doing the action in וישלח המלך את הנביא?",
+      "choices": [
+        "the king",
+        "the prophet",
+        "the servant",
+        "the man"
+      ],
+      "correct_answer": "the king",
+      "explanation": "המלך is the subject; הנביא is the object.",
+      "difficulty": 4
+    },
+    {
+      "skill": "combined_reasoning",
+      "standard": "CF",
+      "micro_standard": "CF4",
+      "question_type": "reasoning",
+      "word": "מביתו",
+      "selected_word": "מביתו",
+      "source": "בראשית כד:ז",
+      "question": "Why does מביתו mean 'from his house' instead of 'in his house'?",
+      "choices": [
+        "מ marks movement from, while ו marks his possession",
+        "מ marks location in, while ו marks his possession",
+        "מ marks direction toward, while ו marks his possession",
+        "מ marks possession, while ו marks movement from"
+      ],
+      "correct_answer": "מ marks movement from, while ו marks his possession",
+      "explanation": "מ means 'from'; ו at the end means 'his'.",
+      "difficulty": 5,
+      "grammar_layer": true,
+      "generation_group": "combined_grammar",
+      "tier": "advanced",
+      "mode": "reasoning"
+    },
+    {
+      "skill": "combined_reasoning",
+      "standard": "CF",
+      "micro_standard": "CF4",
+      "question_type": "reasoning",
+      "word": "לבנו",
+      "selected_word": "לבנו",
+      "source": "בראשית כב:ז",
+      "question": "How does לבנו show both direction and possession?",
+      "choices": [
+        "ל marks direction toward and ו marks his possession",
+        "ל marks location in and ו marks his possession",
+        "ל marks movement from and ו marks her possession",
+        "ל marks possession and ו marks direction toward"
+      ],
+      "correct_answer": "ל marks direction toward and ו marks his possession",
+      "explanation": "ל means 'to'; ו at the end means 'his'.",
+      "difficulty": 5,
+      "grammar_layer": true,
+      "generation_group": "combined_grammar",
+      "tier": "advanced",
+      "mode": "reasoning"
+    },
+    {
+      "skill": "sentence_structure",
+      "standard": "SS",
+      "micro_standard": "SS5",
+      "question_type": "reasoning",
+      "word": "וילך האיש לביתו",
+      "selected_word": "וילך האיש לביתו",
+      "source": "בראשית יב:ד",
+      "question": "Why does וילך האיש לביתו mean the man went to his house?",
+      "choices": [
+        "וילך gives the action, האיש gives the subject, and לביתו gives the destination",
+        "וילך gives the subject, האיש gives the action, and לביתו gives the object",
+        "וילך gives possession, האיש gives the destination, and לביתו gives the action",
+        "וילך gives location, האיש gives possession, and לביתו gives movement away"
+      ],
+      "correct_answer": "וילך gives the action, האיש gives the subject, and לביתו gives the destination",
+      "explanation": "וילך = went, האיש = the man, לביתו = to his house.",
+      "difficulty": 5,
+      "grammar_layer": true,
+      "generation_group": "sentence_reasoning",
+      "tier": "advanced",
+      "mode": "reasoning"
+    },
+    {
+      "skill": "sentence_structure",
+      "standard": "SS",
+      "micro_standard": "SS5",
+      "question_type": "reasoning",
+      "word": "וישב האיש בביתו",
+      "selected_word": "וישב האיש בביתו",
+      "source": "בראשית יג:יב",
+      "question": "How do the grammar clues show that וישב האיש בביתו describes location, not movement?",
+      "choices": [
+        "וישב describes staying/dwelling and בביתו marks location in his house",
+        "וישב describes leaving and בביתו marks movement from his house",
+        "וישב describes going and בביתו marks movement toward his house",
+        "וישב describes giving and בביתו marks the object being given"
+      ],
+      "correct_answer": "וישב describes staying/dwelling and בביתו marks location in his house",
+      "explanation": "וישב fits location; ב means 'in'.",
+      "difficulty": 5,
+      "grammar_layer": true,
+      "generation_group": "sentence_reasoning",
+      "tier": "advanced",
+      "mode": "reasoning"
+    },
+    {
+      "skill": "sentence_structure",
+      "standard": "SS",
+      "micro_standard": "SS5",
+      "question_type": "reasoning",
+      "word": "ויתן האב לחם לבנו",
+      "selected_word": "ויתן האב לחם לבנו",
+      "source": "בראשית א:כט",
+      "question": "How do the grammar clues show who receives the bread?",
+      "choices": [
+        "ל in לבנו marks the receiver: to his son",
+        "ו in ויתן marks the receiver: his son",
+        "ה in האב marks the receiver: the father",
+        "לחם marks the receiver because it follows the verb"
+      ],
+      "correct_answer": "ל in לבנו marks the receiver: to his son",
+      "explanation": "ל marks 'to'; לבנו means 'to his son'.",
+      "difficulty": 5,
+      "grammar_layer": true,
+      "generation_group": "sentence_reasoning",
+      "tier": "advanced",
+      "mode": "reasoning"
+    },
+    {
+      "skill": "contextual_meaning",
+      "standard": "CM",
+      "micro_standard": "CM1",
+      "question_type": "reasoning",
+      "word": "עלה",
+      "selected_word": "עלה",
+      "source": "בראשית יג:א",
+      "question": "Why does עלה best mean 'went up' in האיש עלה אל ההר?",
+      "choices": [
+        "אל ההר gives a mountain context, so movement upward fits",
+        "אל ההר shows leaving a house, so movement away fits",
+        "אל ההר shows giving to a person, so transfer fits",
+        "אל ההר shows sitting in a place, so dwelling fits"
+      ],
+      "correct_answer": "אל ההר gives a mountain context, so movement upward fits",
+      "explanation": "A mountain context supports the meaning 'went up'.",
+      "difficulty": 5,
+      "grammar_layer": true,
+      "generation_group": "context_reasoning",
+      "tier": "advanced",
+      "mode": "reasoning"
+    },
+    {
+      "skill": "contextual_meaning",
+      "standard": "CM",
+      "micro_standard": "CM1",
+      "question_type": "reasoning",
+      "word": "ירד",
+      "selected_word": "ירד",
+      "source": "שמות יט:יד",
+      "question": "Why does ירד best mean 'went down' in האיש ירד מן ההר?",
+      "choices": [
+        "מן ההר shows movement from a mountain, so downward movement fits",
+        "מן ההר shows movement toward a mountain, so upward movement fits",
+        "מן ההר shows staying on a mountain, so dwelling fits",
+        "מן ההר shows giving a mountain, so transfer fits"
+      ],
+      "correct_answer": "מן ההר shows movement from a mountain, so downward movement fits",
+      "explanation": "Coming from a mountain fits 'went down'.",
+      "difficulty": 5,
+      "grammar_layer": true,
+      "generation_group": "context_reasoning",
+      "tier": "advanced",
+      "mode": "reasoning"
+    },
+    {
+      "skill": "contextual_meaning",
+      "standard": "CM",
+      "micro_standard": "CM1",
+      "question_type": "reasoning",
+      "word": "וישב",
+      "selected_word": "וישב",
+      "source": "בראשית יג:יב",
+      "question": "Why does וישב fit better than וילך in וישב האיש בביתו?",
+      "choices": [
+        "בביתו shows location, so וישב describes staying/dwelling there",
+        "בביתו shows movement away, so וישב means he left",
+        "בביתו shows direction toward, so וישב means he went",
+        "בביתו shows giving, so וישב means he gave something"
+      ],
+      "correct_answer": "בביתו shows location, so וישב describes staying/dwelling there",
+      "explanation": "בביתו means 'in his house', which fits sitting or dwelling.",
+      "difficulty": 5,
+      "grammar_layer": true,
+      "generation_group": "context_reasoning",
+      "tier": "advanced",
+      "mode": "reasoning"
+    },
+    {
+      "skill": "contextual_meaning",
+      "standard": "CM",
+      "micro_standard": "CM1",
+      "question_type": "reasoning",
+      "word": "ויצא",
+      "selected_word": "ויצא",
+      "source": "בראשית כח:י",
+      "question": "Why does ויצא fit better than וילך in ויצא האיש מביתו?",
+      "choices": [
+        "מביתו shows movement from a place, so ויצא describes leaving",
+        "מביתו shows movement toward a place, so ויצא describes arriving",
+        "מביתו shows location in a place, so ויצא describes dwelling",
+        "מביתו shows possession only, so ויצא describes owning"
+      ],
+      "correct_answer": "מביתו shows movement from a place, so ויצא describes leaving",
+      "explanation": "מ means 'from', which fits ויצא.",
+      "difficulty": 5,
+      "grammar_layer": true,
+      "generation_group": "context_reasoning",
+      "tier": "advanced",
+      "mode": "reasoning"
+    },
+    {
+      "skill": "sentence_structure",
+      "standard": "SS",
+      "micro_standard": "SS5",
+      "question_type": "reasoning",
+      "word": "וירא הבן את אביו",
+      "selected_word": "וירא הבן את אביו",
+      "source": "בראשית כב:ז",
+      "question": "How do the grammar clues show that the son saw his father?",
+      "choices": [
+        "הבן is the subject, וירא is the action, and את אביו marks the object",
+        "אביו is the subject, וירא is the object, and הבן marks the action",
+        "את marks the subject, אביו marks the action, and הבן marks possession",
+        "וירא marks possession, הבן marks direction, and אביו marks location"
+      ],
+      "correct_answer": "הבן is the subject, וירא is the action, and את אביו marks the object",
+      "explanation": "הבן does the seeing; את אביו is what he sees.",
+      "difficulty": 5,
+      "grammar_layer": true,
+      "generation_group": "sentence_reasoning",
+      "tier": "advanced",
+      "mode": "reasoning"
+    },
+    {
+      "id": "SS5_substitution_001",
+      "question": "Which role becomes impossible if לבנו is replaced by מבנו in ויתן האב לחם לבנו?",
+      "choices": [
+        "receiver of the bread",
+        "source connected to the son",
+        "person related to the action",
+        "possessor marked by ו"
+      ],
+      "correct_answer": "receiver of the bread",
+      "explanation": "ל marks the receiver/direction; מ marks source.",
+      "difficulty": 5,
+      "tier": "advanced",
+      "mode": "reasoning",
+      "skill": "substitution",
+      "standard": "SS",
+      "micro_standard": "SS5",
+      "question_type": "substitution",
+      "word": "לבנו",
+      "selected_word": "לבנו",
+      "source": "generated grammar reasoning"
+    }
+  ]
+}

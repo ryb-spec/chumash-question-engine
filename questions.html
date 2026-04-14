@@ -1,0 +1,3836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chumash Question Bank</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; background: #f9f9f9; color: #222; }
+    h1 { text-align: center; color: #2c3e50; }
+    .subtitle { text-align: center; color: #666; margin-bottom: 20px; }
+    table { border-collapse: collapse; width: 100%; background: #fff; box-shadow: 0 1px 4px rgba(0,0,0,.1); }
+    th { background: #2c3e50; color: #fff; padding: 10px 8px; text-align: left; position: sticky; top: 0; }
+    td { padding: 8px; border-bottom: 1px solid #e0e0e0; vertical-align: top; }
+    tr:nth-child(even) { background: #f4f6f8; }
+    tr:hover { background: #eaf1fb; }
+    .hebrew { font-size: 1.3em; direction: rtl; unicode-bidi: isolate; font-weight: bold; }
+    td[dir="auto"], li, .correct-cell { unicode-bidi: plaintext; }
+    ol { margin: 0; padding-left: 18px; }
+    li.correct { color: #27ae60; font-weight: bold; }
+    .correct-cell { color: #27ae60; font-weight: bold; }
+    input#search { display: block; margin: 0 auto 16px; padding: 8px 14px; width: 340px; border: 1px solid #ccc; border-radius: 20px; font-size: 1em; }
+  </style>
+</head>
+<body>
+  <h1>&#x1F4DA; Chumash Question Bank</h1>
+  <p class="subtitle">315 questions &nbsp;&bull;&nbsp; Standards: WM &amp; CF</p>
+  <input id="search" type="text" placeholder="Search questions, words, skills..." oninput="filterTable(this.value)">
+  <table id="qtable">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Word</th>
+        <th>Skill</th>
+        <th>Question</th>
+        <th>Choices</th>
+        <th>Answer</th>
+        <th>Explanation</th>
+        <th>Difficulty</th>
+        <th>Standard</th>
+        <th>Micro</th>
+      </tr>
+    </thead>
+    <tbody>
+
+    <tr>
+      <td>1</td>
+      <td class="hebrew">ארץ</td>
+      <td>translation</td>
+      <td dir="auto">What does the word ארץ mean?</td>
+      <td><ol><li class="correct">land</li><li>house</li><li>water</li><li>king</li></ol></td>
+      <td class="correct-cell">land</td>
+      <td>ארץ means &#x27;land&#x27;.</td>
+      <td>1</td>
+      <td>WM</td>
+      <td>WM1</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td class="hebrew">ארץ</td>
+      <td>reverse_translation</td>
+      <td dir="auto">Which Hebrew word means land?</td>
+      <td><ol><li>בית</li><li class="correct">ארץ</li><li>מים</li><li>מלך</li></ol></td>
+      <td class="correct-cell">ארץ</td>
+      <td>ארץ means &#x27;land&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM2</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td class="hebrew">ארץ</td>
+      <td>semantic</td>
+      <td dir="auto">Which word is closest in meaning to ארץ?</td>
+      <td><ol><li class="correct">שדה</li><li>עיר</li><li>ים</li><li>בית</li></ol></td>
+      <td class="correct-cell">שדה</td>
+      <td>שדה (field) is closest to ארץ (land); the others are more specific or unrelated.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM4</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td class="hebrew">בית</td>
+      <td>translation</td>
+      <td dir="auto">What does the word בית mean?</td>
+      <td><ol><li>water</li><li class="correct">house</li><li>king</li><li>day</li></ol></td>
+      <td class="correct-cell">house</td>
+      <td>בית means &#x27;house&#x27;.</td>
+      <td>1</td>
+      <td>WM</td>
+      <td>WM1</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td class="hebrew">בית</td>
+      <td>reverse_translation</td>
+      <td dir="auto">Which Hebrew word means house?</td>
+      <td><ol><li>מים</li><li>מלך</li><li class="correct">בית</li><li>יום</li></ol></td>
+      <td class="correct-cell">בית</td>
+      <td>בית means &#x27;house&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM2</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td class="hebrew">בית</td>
+      <td>semantic_translation</td>
+      <td dir="auto">Which meaning is closest to the word בית?</td>
+      <td><ol><li>home</li><li>dwelling</li><li>building</li><li class="correct">house</li></ol></td>
+      <td class="correct-cell">house</td>
+      <td>בית means &#x27;house&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM4</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td class="hebrew">מים</td>
+      <td>translation</td>
+      <td dir="auto">What does the word מים mean?</td>
+      <td><ol><li>king</li><li>day</li><li class="correct">water</li><li>night</li></ol></td>
+      <td class="correct-cell">water</td>
+      <td>מים means &#x27;water&#x27;.</td>
+      <td>1</td>
+      <td>WM</td>
+      <td>WM1</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td class="hebrew">מים</td>
+      <td>reverse_translation</td>
+      <td dir="auto">Which Hebrew word means water?</td>
+      <td><ol><li>מלך</li><li>יום</li><li>לילה</li><li class="correct">מים</li></ol></td>
+      <td class="correct-cell">מים</td>
+      <td>מים means &#x27;water&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM2</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td class="hebrew">מים</td>
+      <td>semantic</td>
+      <td dir="auto">Which word does NOT belong with מים?</td>
+      <td><ol><li>ים</li><li>נהר</li><li class="correct">שדה</li><li>גשם</li></ol></td>
+      <td class="correct-cell">שדה</td>
+      <td>שדה (field) is not related to water; the others are water-related.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM4</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td class="hebrew">מלך</td>
+      <td>translation</td>
+      <td dir="auto">What does the word מלך mean?</td>
+      <td><ol><li>day</li><li>night</li><li>man</li><li class="correct">king</li></ol></td>
+      <td class="correct-cell">king</td>
+      <td>מלך means &#x27;king&#x27;.</td>
+      <td>1</td>
+      <td>WM</td>
+      <td>WM1</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td class="hebrew">מלך</td>
+      <td>reverse_translation</td>
+      <td dir="auto">Which Hebrew word means king?</td>
+      <td><ol><li class="correct">מלך</li><li>יום</li><li>לילה</li><li>איש</li></ol></td>
+      <td class="correct-cell">מלך</td>
+      <td>מלך means &#x27;king&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM2</td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td class="hebrew">מלך</td>
+      <td>semantic_translation</td>
+      <td dir="auto">Which meaning is closest to the word מלך?</td>
+      <td><ol><li>ruler</li><li class="correct">king</li><li>prince</li><li>leader</li></ol></td>
+      <td class="correct-cell">king</td>
+      <td>מלך means &#x27;king&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM4</td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td class="hebrew">יום</td>
+      <td>translation</td>
+      <td dir="auto">What does the word יום mean?</td>
+      <td><ol><li class="correct">day</li><li>night</li><li>man</li><li>woman</li></ol></td>
+      <td class="correct-cell">day</td>
+      <td>יום means &#x27;day&#x27;.</td>
+      <td>1</td>
+      <td>WM</td>
+      <td>WM1</td>
+    </tr>
+    <tr>
+      <td>14</td>
+      <td class="hebrew">יום</td>
+      <td>reverse_translation</td>
+      <td dir="auto">Which Hebrew word means day?</td>
+      <td><ol><li>לילה</li><li class="correct">יום</li><li>איש</li><li>אשה</li></ol></td>
+      <td class="correct-cell">יום</td>
+      <td>יום means &#x27;day&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM2</td>
+    </tr>
+    <tr>
+      <td>15</td>
+      <td class="hebrew">יום</td>
+      <td>semantic_translation</td>
+      <td dir="auto">Which meaning is closest to the word יום?</td>
+      <td><ol><li>morning</li><li>afternoon</li><li class="correct">day</li><li>time</li></ol></td>
+      <td class="correct-cell">day</td>
+      <td>יום means &#x27;day&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM4</td>
+    </tr>
+    <tr>
+      <td>16</td>
+      <td class="hebrew">לילה</td>
+      <td>translation</td>
+      <td dir="auto">What does the word לילה mean?</td>
+      <td><ol><li>man</li><li class="correct">night</li><li>woman</li><li>son</li></ol></td>
+      <td class="correct-cell">night</td>
+      <td>לילה means &#x27;night&#x27;.</td>
+      <td>1</td>
+      <td>WM</td>
+      <td>WM1</td>
+    </tr>
+    <tr>
+      <td>17</td>
+      <td class="hebrew">לילה</td>
+      <td>reverse_translation</td>
+      <td dir="auto">Which Hebrew word means night?</td>
+      <td><ol><li>איש</li><li>אשה</li><li class="correct">לילה</li><li>בן</li></ol></td>
+      <td class="correct-cell">לילה</td>
+      <td>לילה means &#x27;night&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM2</td>
+    </tr>
+    <tr>
+      <td>18</td>
+      <td class="hebrew">לילה</td>
+      <td>semantic_translation</td>
+      <td dir="auto">Which meaning is closest to the word לילה?</td>
+      <td><ol><li>evening</li><li>darkness</li><li>midnight</li><li class="correct">night</li></ol></td>
+      <td class="correct-cell">night</td>
+      <td>לילה means &#x27;night&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM4</td>
+    </tr>
+    <tr>
+      <td>19</td>
+      <td class="hebrew">איש</td>
+      <td>translation</td>
+      <td dir="auto">What does the word איש mean?</td>
+      <td><ol><li>woman</li><li>son</li><li class="correct">man</li><li>daughter</li></ol></td>
+      <td class="correct-cell">man</td>
+      <td>איש means &#x27;man&#x27;.</td>
+      <td>1</td>
+      <td>WM</td>
+      <td>WM1</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td class="hebrew">איש</td>
+      <td>reverse_translation</td>
+      <td dir="auto">Which Hebrew word means man?</td>
+      <td><ol><li>אשה</li><li>בן</li><li>בת</li><li class="correct">איש</li></ol></td>
+      <td class="correct-cell">איש</td>
+      <td>איש means &#x27;man&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM2</td>
+    </tr>
+    <tr>
+      <td>21</td>
+      <td class="hebrew">איש</td>
+      <td>semantic_translation</td>
+      <td dir="auto">Which meaning is closest to the word איש?</td>
+      <td><ol><li class="correct">man</li><li>person</li><li>male</li><li>individual</li></ol></td>
+      <td class="correct-cell">man</td>
+      <td>איש means &#x27;man&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM4</td>
+    </tr>
+    <tr>
+      <td>22</td>
+      <td class="hebrew">אשה</td>
+      <td>translation</td>
+      <td dir="auto">What does the word אשה mean?</td>
+      <td><ol><li>son</li><li>daughter</li><li>people</li><li class="correct">woman</li></ol></td>
+      <td class="correct-cell">woman</td>
+      <td>אשה means &#x27;woman&#x27;.</td>
+      <td>1</td>
+      <td>WM</td>
+      <td>WM1</td>
+    </tr>
+    <tr>
+      <td>23</td>
+      <td class="hebrew">אשה</td>
+      <td>reverse_translation</td>
+      <td dir="auto">Which Hebrew word means woman?</td>
+      <td><ol><li class="correct">אשה</li><li>בן</li><li>בת</li><li>עם</li></ol></td>
+      <td class="correct-cell">אשה</td>
+      <td>אשה means &#x27;woman&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM2</td>
+    </tr>
+    <tr>
+      <td>24</td>
+      <td class="hebrew">אשה</td>
+      <td>semantic_translation</td>
+      <td dir="auto">Which meaning is closest to the word אשה?</td>
+      <td><ol><li>wife</li><li class="correct">woman</li><li>female</li><li>person</li></ol></td>
+      <td class="correct-cell">woman</td>
+      <td>אשה means &#x27;woman&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM4</td>
+    </tr>
+    <tr>
+      <td>25</td>
+      <td class="hebrew">בן</td>
+      <td>translation</td>
+      <td dir="auto">What does the word בן mean?</td>
+      <td><ol><li class="correct">son</li><li>daughter</li><li>people</li><li>city</li></ol></td>
+      <td class="correct-cell">son</td>
+      <td>בן means &#x27;son&#x27;.</td>
+      <td>1</td>
+      <td>WM</td>
+      <td>WM1</td>
+    </tr>
+    <tr>
+      <td>26</td>
+      <td class="hebrew">בן</td>
+      <td>reverse_translation</td>
+      <td dir="auto">Which Hebrew word means son?</td>
+      <td><ol><li>בת</li><li class="correct">בן</li><li>עם</li><li>עיר</li></ol></td>
+      <td class="correct-cell">בן</td>
+      <td>בן means &#x27;son&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM2</td>
+    </tr>
+    <tr>
+      <td>27</td>
+      <td class="hebrew">בן</td>
+      <td>semantic_translation</td>
+      <td dir="auto">Which meaning is closest to the word בן?</td>
+      <td><ol><li>child</li><li>boy</li><li class="correct">son</li><li>descendant</li></ol></td>
+      <td class="correct-cell">son</td>
+      <td>בן means &#x27;son&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM4</td>
+    </tr>
+    <tr>
+      <td>28</td>
+      <td class="hebrew">בת</td>
+      <td>translation</td>
+      <td dir="auto">What does the word בת mean?</td>
+      <td><ol><li>people</li><li class="correct">daughter</li><li>city</li><li>field</li></ol></td>
+      <td class="correct-cell">daughter</td>
+      <td>בת means &#x27;daughter&#x27;.</td>
+      <td>1</td>
+      <td>WM</td>
+      <td>WM1</td>
+    </tr>
+    <tr>
+      <td>29</td>
+      <td class="hebrew">בת</td>
+      <td>reverse_translation</td>
+      <td dir="auto">Which Hebrew word means daughter?</td>
+      <td><ol><li>עם</li><li>עיר</li><li class="correct">בת</li><li>שדה</li></ol></td>
+      <td class="correct-cell">בת</td>
+      <td>בת means &#x27;daughter&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM2</td>
+    </tr>
+    <tr>
+      <td>30</td>
+      <td class="hebrew">בת</td>
+      <td>semantic_translation</td>
+      <td dir="auto">Which meaning is closest to the word בת?</td>
+      <td><ol><li>child</li><li>girl</li><li>descendant</li><li class="correct">daughter</li></ol></td>
+      <td class="correct-cell">daughter</td>
+      <td>בת means &#x27;daughter&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM4</td>
+    </tr>
+    <tr>
+      <td>31</td>
+      <td class="hebrew">עם</td>
+      <td>translation</td>
+      <td dir="auto">What does the word עם mean?</td>
+      <td><ol><li>city</li><li>field</li><li class="correct">people</li><li>mountain</li></ol></td>
+      <td class="correct-cell">people</td>
+      <td>עם means &#x27;people&#x27;.</td>
+      <td>1</td>
+      <td>WM</td>
+      <td>WM1</td>
+    </tr>
+    <tr>
+      <td>32</td>
+      <td class="hebrew">עם</td>
+      <td>reverse_translation</td>
+      <td dir="auto">Which Hebrew word means people?</td>
+      <td><ol><li>עיר</li><li>שדה</li><li>הר</li><li class="correct">עם</li></ol></td>
+      <td class="correct-cell">עם</td>
+      <td>עם means &#x27;people&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM2</td>
+    </tr>
+    <tr>
+      <td>33</td>
+      <td class="hebrew">עם</td>
+      <td>semantic_translation</td>
+      <td dir="auto">Which meaning is closest to the word עם?</td>
+      <td><ol><li class="correct">people</li><li>nation</li><li>group</li><li>community</li></ol></td>
+      <td class="correct-cell">people</td>
+      <td>עם means &#x27;people&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM4</td>
+    </tr>
+    <tr>
+      <td>34</td>
+      <td class="hebrew">עיר</td>
+      <td>translation</td>
+      <td dir="auto">What does the word עיר mean?</td>
+      <td><ol><li>field</li><li>mountain</li><li>sea</li><li class="correct">city</li></ol></td>
+      <td class="correct-cell">city</td>
+      <td>עיר means &#x27;city&#x27;.</td>
+      <td>1</td>
+      <td>WM</td>
+      <td>WM1</td>
+    </tr>
+    <tr>
+      <td>35</td>
+      <td class="hebrew">עיר</td>
+      <td>reverse_translation</td>
+      <td dir="auto">Which Hebrew word means city?</td>
+      <td><ol><li class="correct">עיר</li><li>שדה</li><li>הר</li><li>ים</li></ol></td>
+      <td class="correct-cell">עיר</td>
+      <td>עיר means &#x27;city&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM2</td>
+    </tr>
+    <tr>
+      <td>36</td>
+      <td class="hebrew">עיר</td>
+      <td>semantic_translation</td>
+      <td dir="auto">Which meaning is closest to the word עיר?</td>
+      <td><ol><li>town</li><li class="correct">city</li><li>village</li><li>place</li></ol></td>
+      <td class="correct-cell">city</td>
+      <td>עיר means &#x27;city&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM4</td>
+    </tr>
+    <tr>
+      <td>37</td>
+      <td class="hebrew">שדה</td>
+      <td>translation</td>
+      <td dir="auto">What does the word שדה mean?</td>
+      <td><ol><li class="correct">field</li><li>mountain</li><li>sea</li><li>tree</li></ol></td>
+      <td class="correct-cell">field</td>
+      <td>שדה means &#x27;field&#x27;.</td>
+      <td>1</td>
+      <td>WM</td>
+      <td>WM1</td>
+    </tr>
+    <tr>
+      <td>38</td>
+      <td class="hebrew">שדה</td>
+      <td>reverse_translation</td>
+      <td dir="auto">Which Hebrew word means field?</td>
+      <td><ol><li>הר</li><li class="correct">שדה</li><li>ים</li><li>עץ</li></ol></td>
+      <td class="correct-cell">שדה</td>
+      <td>שדה means &#x27;field&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM2</td>
+    </tr>
+    <tr>
+      <td>39</td>
+      <td class="hebrew">שדה</td>
+      <td>semantic_translation</td>
+      <td dir="auto">Which meaning is closest to the word שדה?</td>
+      <td><ol><li>land</li><li>farm</li><li class="correct">field</li><li>area</li></ol></td>
+      <td class="correct-cell">field</td>
+      <td>שדה means &#x27;field&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM4</td>
+    </tr>
+    <tr>
+      <td>40</td>
+      <td class="hebrew">הר</td>
+      <td>translation</td>
+      <td dir="auto">What does the word הר mean?</td>
+      <td><ol><li>sea</li><li class="correct">mountain</li><li>tree</li><li>land</li></ol></td>
+      <td class="correct-cell">mountain</td>
+      <td>הר means &#x27;mountain&#x27;.</td>
+      <td>1</td>
+      <td>WM</td>
+      <td>WM1</td>
+    </tr>
+    <tr>
+      <td>41</td>
+      <td class="hebrew">הר</td>
+      <td>reverse_translation</td>
+      <td dir="auto">Which Hebrew word means mountain?</td>
+      <td><ol><li>ים</li><li>עץ</li><li class="correct">הר</li><li>ארץ</li></ol></td>
+      <td class="correct-cell">הר</td>
+      <td>הר means &#x27;mountain&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM2</td>
+    </tr>
+    <tr>
+      <td>42</td>
+      <td class="hebrew">הר</td>
+      <td>semantic_translation</td>
+      <td dir="auto">Which meaning is closest to the word הר?</td>
+      <td><ol><li>hill</li><li>peak</li><li>ridge</li><li class="correct">mountain</li></ol></td>
+      <td class="correct-cell">mountain</td>
+      <td>הר means &#x27;mountain&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM4</td>
+    </tr>
+    <tr>
+      <td>43</td>
+      <td class="hebrew">ים</td>
+      <td>translation</td>
+      <td dir="auto">What does the word ים mean?</td>
+      <td><ol><li>tree</li><li>land</li><li class="correct">sea</li><li>house</li></ol></td>
+      <td class="correct-cell">sea</td>
+      <td>ים means &#x27;sea&#x27;.</td>
+      <td>1</td>
+      <td>WM</td>
+      <td>WM1</td>
+    </tr>
+    <tr>
+      <td>44</td>
+      <td class="hebrew">ים</td>
+      <td>reverse_translation</td>
+      <td dir="auto">Which Hebrew word means sea?</td>
+      <td><ol><li>עץ</li><li>ארץ</li><li>בית</li><li class="correct">ים</li></ol></td>
+      <td class="correct-cell">ים</td>
+      <td>ים means &#x27;sea&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM2</td>
+    </tr>
+    <tr>
+      <td>45</td>
+      <td class="hebrew">ים</td>
+      <td>semantic_translation</td>
+      <td dir="auto">Which meaning is closest to the word ים?</td>
+      <td><ol><li class="correct">sea</li><li>water</li><li>ocean</li><li>lake</li></ol></td>
+      <td class="correct-cell">sea</td>
+      <td>ים means &#x27;sea&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM4</td>
+    </tr>
+    <tr>
+      <td>46</td>
+      <td class="hebrew">עץ</td>
+      <td>translation</td>
+      <td dir="auto">What does the word עץ mean?</td>
+      <td><ol><li>land</li><li>house</li><li>water</li><li class="correct">tree</li></ol></td>
+      <td class="correct-cell">tree</td>
+      <td>עץ means &#x27;tree&#x27;.</td>
+      <td>1</td>
+      <td>WM</td>
+      <td>WM1</td>
+    </tr>
+    <tr>
+      <td>47</td>
+      <td class="hebrew">עץ</td>
+      <td>reverse_translation</td>
+      <td dir="auto">Which Hebrew word means tree?</td>
+      <td><ol><li class="correct">עץ</li><li>ארץ</li><li>בית</li><li>מים</li></ol></td>
+      <td class="correct-cell">עץ</td>
+      <td>עץ means &#x27;tree&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM2</td>
+    </tr>
+    <tr>
+      <td>48</td>
+      <td class="hebrew">עץ</td>
+      <td>semantic_translation</td>
+      <td dir="auto">Which meaning is closest to the word עץ?</td>
+      <td><ol><li>wood</li><li class="correct">tree</li><li>plant</li><li>branch</li></ol></td>
+      <td class="correct-cell">tree</td>
+      <td>עץ means &#x27;tree&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM4</td>
+    </tr>
+    <tr>
+      <td>49</td>
+      <td class="hebrew">אכל</td>
+      <td>translation</td>
+      <td dir="auto">What does the word אכל mean?</td>
+      <td><ol><li class="correct">ate</li><li>went</li><li>saw</li><li>said</li></ol></td>
+      <td class="correct-cell">ate</td>
+      <td>אכל means &#x27;ate&#x27;.</td>
+      <td>1</td>
+      <td>WM</td>
+      <td>WM1</td>
+    </tr>
+    <tr>
+      <td>50</td>
+      <td class="hebrew">אכל</td>
+      <td>reverse_translation</td>
+      <td dir="auto">Which Hebrew word means ate?</td>
+      <td><ol><li>הלך</li><li class="correct">אכל</li><li>ראה</li><li>אמר</li></ol></td>
+      <td class="correct-cell">אכל</td>
+      <td>אכל means &#x27;ate&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM2</td>
+    </tr>
+    <tr>
+      <td>51</td>
+      <td class="hebrew">אכל</td>
+      <td>shoresh_translation</td>
+      <td dir="auto">Which choice gives both the shoresh and meaning of אכל?</td>
+      <td><ol><li>הלך - went</li><li>ראה - saw</li><li class="correct">אכל - ate</li><li>אמר - said</li></ol></td>
+      <td class="correct-cell">אכל - ate</td>
+      <td>אכל has shoresh אכל and means &#x27;ate&#x27;.</td>
+      <td>4</td>
+      <td>CF</td>
+      <td>CF1</td>
+    </tr>
+    <tr>
+      <td>52</td>
+      <td class="hebrew">הלך</td>
+      <td>translation</td>
+      <td dir="auto">What does the word הלך mean?</td>
+      <td><ol><li>saw</li><li class="correct">went</li><li>said</li><li>heard</li></ol></td>
+      <td class="correct-cell">went</td>
+      <td>הלך means &#x27;went&#x27;.</td>
+      <td>1</td>
+      <td>WM</td>
+      <td>WM1</td>
+    </tr>
+    <tr>
+      <td>53</td>
+      <td class="hebrew">הלך</td>
+      <td>reverse_translation</td>
+      <td dir="auto">Which Hebrew word means went?</td>
+      <td><ol><li>ראה</li><li>אמר</li><li class="correct">הלך</li><li>שמע</li></ol></td>
+      <td class="correct-cell">הלך</td>
+      <td>הלך means &#x27;went&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM2</td>
+    </tr>
+    <tr>
+      <td>54</td>
+      <td class="hebrew">הלך</td>
+      <td>shoresh_translation</td>
+      <td dir="auto">Which choice gives both the shoresh and meaning of הלך?</td>
+      <td><ol><li>ראה - saw</li><li>אמר - said</li><li>שמע - heard</li><li class="correct">הלך - went</li></ol></td>
+      <td class="correct-cell">הלך - went</td>
+      <td>הלך has shoresh הלך and means &#x27;went&#x27;.</td>
+      <td>4</td>
+      <td>CF</td>
+      <td>CF1</td>
+    </tr>
+    <tr>
+      <td>55</td>
+      <td class="hebrew">ראה</td>
+      <td>translation</td>
+      <td dir="auto">What does the word ראה mean?</td>
+      <td><ol><li>said</li><li>heard</li><li class="correct">saw</li><li>gave</li></ol></td>
+      <td class="correct-cell">saw</td>
+      <td>ראה means &#x27;saw&#x27;.</td>
+      <td>1</td>
+      <td>WM</td>
+      <td>WM1</td>
+    </tr>
+    <tr>
+      <td>56</td>
+      <td class="hebrew">ראה</td>
+      <td>reverse_translation</td>
+      <td dir="auto">Which Hebrew word means saw?</td>
+      <td><ol><li>אמר</li><li>שמע</li><li>נתן</li><li class="correct">ראה</li></ol></td>
+      <td class="correct-cell">ראה</td>
+      <td>ראה means &#x27;saw&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM2</td>
+    </tr>
+    <tr>
+      <td>57</td>
+      <td class="hebrew">ראה</td>
+      <td>shoresh_translation</td>
+      <td dir="auto">Which choice gives both the shoresh and meaning of ראה?</td>
+      <td><ol><li class="correct">ראה - saw</li><li>אמר - said</li><li>שמע - heard</li><li>נתן - gave</li></ol></td>
+      <td class="correct-cell">ראה - saw</td>
+      <td>ראה has shoresh ראה and means &#x27;saw&#x27;.</td>
+      <td>4</td>
+      <td>CF</td>
+      <td>CF1</td>
+    </tr>
+    <tr>
+      <td>58</td>
+      <td class="hebrew">אמר</td>
+      <td>translation</td>
+      <td dir="auto">What does the word אמר mean?</td>
+      <td><ol><li>heard</li><li>gave</li><li>took</li><li class="correct">said</li></ol></td>
+      <td class="correct-cell">said</td>
+      <td>אמר means &#x27;said&#x27;.</td>
+      <td>1</td>
+      <td>WM</td>
+      <td>WM1</td>
+    </tr>
+    <tr>
+      <td>59</td>
+      <td class="hebrew">אמר</td>
+      <td>reverse_translation</td>
+      <td dir="auto">Which Hebrew word means said?</td>
+      <td><ol><li class="correct">אמר</li><li>שמע</li><li>נתן</li><li>לקח</li></ol></td>
+      <td class="correct-cell">אמר</td>
+      <td>אמר means &#x27;said&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM2</td>
+    </tr>
+    <tr>
+      <td>60</td>
+      <td class="hebrew">אמר</td>
+      <td>shoresh_translation</td>
+      <td dir="auto">Which choice gives both the shoresh and meaning of אמר?</td>
+      <td><ol><li>שמע - heard</li><li class="correct">אמר - said</li><li>נתן - gave</li><li>לקח - took</li></ol></td>
+      <td class="correct-cell">אמר - said</td>
+      <td>אמר has shoresh אמר and means &#x27;said&#x27;.</td>
+      <td>4</td>
+      <td>CF</td>
+      <td>CF1</td>
+    </tr>
+    <tr>
+      <td>61</td>
+      <td class="hebrew">שמע</td>
+      <td>translation</td>
+      <td dir="auto">What does the word שמע mean?</td>
+      <td><ol><li class="correct">heard</li><li>gave</li><li>took</li><li>built</li></ol></td>
+      <td class="correct-cell">heard</td>
+      <td>שמע means &#x27;heard&#x27;.</td>
+      <td>1</td>
+      <td>WM</td>
+      <td>WM1</td>
+    </tr>
+    <tr>
+      <td>62</td>
+      <td class="hebrew">שמע</td>
+      <td>reverse_translation</td>
+      <td dir="auto">Which Hebrew word means heard?</td>
+      <td><ol><li>נתן</li><li class="correct">שמע</li><li>לקח</li><li>בנה</li></ol></td>
+      <td class="correct-cell">שמע</td>
+      <td>שמע means &#x27;heard&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM2</td>
+    </tr>
+    <tr>
+      <td>63</td>
+      <td class="hebrew">שמע</td>
+      <td>shoresh_translation</td>
+      <td dir="auto">Which choice gives both the shoresh and meaning of שמע?</td>
+      <td><ol><li>נתן - gave</li><li>לקח - took</li><li class="correct">שמע - heard</li><li>בנה - built</li></ol></td>
+      <td class="correct-cell">שמע - heard</td>
+      <td>שמע has shoresh שמע and means &#x27;heard&#x27;.</td>
+      <td>4</td>
+      <td>CF</td>
+      <td>CF1</td>
+    </tr>
+    <tr>
+      <td>64</td>
+      <td class="hebrew">נתן</td>
+      <td>translation</td>
+      <td dir="auto">What does the word נתן mean?</td>
+      <td><ol><li>took</li><li class="correct">gave</li><li>built</li><li>guarded</li></ol></td>
+      <td class="correct-cell">gave</td>
+      <td>נתן means &#x27;gave&#x27;.</td>
+      <td>1</td>
+      <td>WM</td>
+      <td>WM1</td>
+    </tr>
+    <tr>
+      <td>65</td>
+      <td class="hebrew">נתן</td>
+      <td>reverse_translation</td>
+      <td dir="auto">Which Hebrew word means gave?</td>
+      <td><ol><li>לקח</li><li>בנה</li><li class="correct">נתן</li><li>שמר</li></ol></td>
+      <td class="correct-cell">נתן</td>
+      <td>נתן means &#x27;gave&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM2</td>
+    </tr>
+    <tr>
+      <td>66</td>
+      <td class="hebrew">נתן</td>
+      <td>shoresh_translation</td>
+      <td dir="auto">Which choice gives both the shoresh and meaning of נתן?</td>
+      <td><ol><li>לקח - took</li><li>בנה - built</li><li>שמר - guarded</li><li class="correct">נתן - gave</li></ol></td>
+      <td class="correct-cell">נתן - gave</td>
+      <td>נתן has shoresh נתן and means &#x27;gave&#x27;.</td>
+      <td>4</td>
+      <td>CF</td>
+      <td>CF1</td>
+    </tr>
+    <tr>
+      <td>67</td>
+      <td class="hebrew">לקח</td>
+      <td>translation</td>
+      <td dir="auto">What does the word לקח mean?</td>
+      <td><ol><li>built</li><li>guarded</li><li class="correct">took</li><li>found</li></ol></td>
+      <td class="correct-cell">took</td>
+      <td>לקח means &#x27;took&#x27;.</td>
+      <td>1</td>
+      <td>WM</td>
+      <td>WM1</td>
+    </tr>
+    <tr>
+      <td>68</td>
+      <td class="hebrew">לקח</td>
+      <td>reverse_translation</td>
+      <td dir="auto">Which Hebrew word means took?</td>
+      <td><ol><li>בנה</li><li>שמר</li><li>מצא</li><li class="correct">לקח</li></ol></td>
+      <td class="correct-cell">לקח</td>
+      <td>לקח means &#x27;took&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM2</td>
+    </tr>
+    <tr>
+      <td>69</td>
+      <td class="hebrew">לקח</td>
+      <td>shoresh_translation</td>
+      <td dir="auto">Which choice gives both the shoresh and meaning of לקח?</td>
+      <td><ol><li class="correct">לקח - took</li><li>בנה - built</li><li>שמר - guarded</li><li>מצא - found</li></ol></td>
+      <td class="correct-cell">לקח - took</td>
+      <td>לקח has shoresh לקח and means &#x27;took&#x27;.</td>
+      <td>4</td>
+      <td>CF</td>
+      <td>CF1</td>
+    </tr>
+    <tr>
+      <td>70</td>
+      <td class="hebrew">בנה</td>
+      <td>translation</td>
+      <td dir="auto">What does the word בנה mean?</td>
+      <td><ol><li>guarded</li><li>found</li><li>sat/dwelt</li><li class="correct">built</li></ol></td>
+      <td class="correct-cell">built</td>
+      <td>בנה means &#x27;built&#x27;.</td>
+      <td>1</td>
+      <td>WM</td>
+      <td>WM1</td>
+    </tr>
+    <tr>
+      <td>71</td>
+      <td class="hebrew">בנה</td>
+      <td>reverse_translation</td>
+      <td dir="auto">Which Hebrew word means built?</td>
+      <td><ol><li class="correct">בנה</li><li>שמר</li><li>מצא</li><li>ישב</li></ol></td>
+      <td class="correct-cell">בנה</td>
+      <td>בנה means &#x27;built&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM2</td>
+    </tr>
+    <tr>
+      <td>72</td>
+      <td class="hebrew">בנה</td>
+      <td>shoresh_translation</td>
+      <td dir="auto">Which choice gives both the shoresh and meaning of בנה?</td>
+      <td><ol><li>שמר - guarded</li><li class="correct">בנה - built</li><li>מצא - found</li><li>ישב - sat/dwelt</li></ol></td>
+      <td class="correct-cell">בנה - built</td>
+      <td>בנה has shoresh בנה and means &#x27;built&#x27;.</td>
+      <td>4</td>
+      <td>CF</td>
+      <td>CF1</td>
+    </tr>
+    <tr>
+      <td>73</td>
+      <td class="hebrew">שמר</td>
+      <td>translation</td>
+      <td dir="auto">What does the word שמר mean?</td>
+      <td><ol><li class="correct">guarded</li><li>found</li><li>sat/dwelt</li><li>went up</li></ol></td>
+      <td class="correct-cell">guarded</td>
+      <td>שמר means &#x27;guarded&#x27;.</td>
+      <td>1</td>
+      <td>WM</td>
+      <td>WM1</td>
+    </tr>
+    <tr>
+      <td>74</td>
+      <td class="hebrew">שמר</td>
+      <td>reverse_translation</td>
+      <td dir="auto">Which Hebrew word means guarded?</td>
+      <td><ol><li>מצא</li><li class="correct">שמר</li><li>ישב</li><li>עלה</li></ol></td>
+      <td class="correct-cell">שמר</td>
+      <td>שמר means &#x27;guarded&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM2</td>
+    </tr>
+    <tr>
+      <td>75</td>
+      <td class="hebrew">שמר</td>
+      <td>shoresh_translation</td>
+      <td dir="auto">Which choice gives both the shoresh and meaning of שמר?</td>
+      <td><ol><li>מצא - found</li><li>ישב - sat/dwelt</li><li class="correct">שמר - guarded</li><li>עלה - went up</li></ol></td>
+      <td class="correct-cell">שמר - guarded</td>
+      <td>שמר has shoresh שמר and means &#x27;guarded&#x27;.</td>
+      <td>4</td>
+      <td>CF</td>
+      <td>CF1</td>
+    </tr>
+    <tr>
+      <td>76</td>
+      <td class="hebrew">מצא</td>
+      <td>translation</td>
+      <td dir="auto">What does the word מצא mean?</td>
+      <td><ol><li>sat/dwelt</li><li class="correct">found</li><li>went up</li><li>went down</li></ol></td>
+      <td class="correct-cell">found</td>
+      <td>מצא means &#x27;found&#x27;.</td>
+      <td>1</td>
+      <td>WM</td>
+      <td>WM1</td>
+    </tr>
+    <tr>
+      <td>77</td>
+      <td class="hebrew">מצא</td>
+      <td>reverse_translation</td>
+      <td dir="auto">Which Hebrew word means found?</td>
+      <td><ol><li>ישב</li><li>עלה</li><li class="correct">מצא</li><li>ירד</li></ol></td>
+      <td class="correct-cell">מצא</td>
+      <td>מצא means &#x27;found&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM2</td>
+    </tr>
+    <tr>
+      <td>78</td>
+      <td class="hebrew">מצא</td>
+      <td>shoresh_translation</td>
+      <td dir="auto">Which choice gives both the shoresh and meaning of מצא?</td>
+      <td><ol><li>ישב - sat/dwelt</li><li>עלה - went up</li><li>ירד - went down</li><li class="correct">מצא - found</li></ol></td>
+      <td class="correct-cell">מצא - found</td>
+      <td>מצא has shoresh מצא and means &#x27;found&#x27;.</td>
+      <td>4</td>
+      <td>CF</td>
+      <td>CF1</td>
+    </tr>
+    <tr>
+      <td>79</td>
+      <td class="hebrew">ישב</td>
+      <td>translation</td>
+      <td dir="auto">What does the word ישב mean?</td>
+      <td><ol><li>went up</li><li>went down</li><li class="correct">sat/dwelt</li><li>sent</li></ol></td>
+      <td class="correct-cell">sat/dwelt</td>
+      <td>ישב means &#x27;sat/dwelt&#x27;.</td>
+      <td>1</td>
+      <td>WM</td>
+      <td>WM1</td>
+    </tr>
+    <tr>
+      <td>80</td>
+      <td class="hebrew">ישב</td>
+      <td>reverse_translation</td>
+      <td dir="auto">Which Hebrew word means sat/dwelt?</td>
+      <td><ol><li>עלה</li><li>ירד</li><li>שלח</li><li class="correct">ישב</li></ol></td>
+      <td class="correct-cell">ישב</td>
+      <td>ישב means &#x27;sat/dwelt&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM2</td>
+    </tr>
+    <tr>
+      <td>81</td>
+      <td class="hebrew">ישב</td>
+      <td>shoresh_translation</td>
+      <td dir="auto">Which choice gives both the shoresh and meaning of ישב?</td>
+      <td><ol><li class="correct">ישב - sat/dwelt</li><li>עלה - went up</li><li>ירד - went down</li><li>שלח - sent</li></ol></td>
+      <td class="correct-cell">ישב - sat/dwelt</td>
+      <td>ישב has shoresh ישב and means &#x27;sat/dwelt&#x27;.</td>
+      <td>4</td>
+      <td>CF</td>
+      <td>CF1</td>
+    </tr>
+    <tr>
+      <td>82</td>
+      <td class="hebrew">עלה</td>
+      <td>translation</td>
+      <td dir="auto">What does the word עלה mean?</td>
+      <td><ol><li>went down</li><li>sent</li><li>wrote</li><li class="correct">went up</li></ol></td>
+      <td class="correct-cell">went up</td>
+      <td>עלה means &#x27;went up&#x27;.</td>
+      <td>1</td>
+      <td>WM</td>
+      <td>WM1</td>
+    </tr>
+    <tr>
+      <td>83</td>
+      <td class="hebrew">עלה</td>
+      <td>reverse_translation</td>
+      <td dir="auto">Which Hebrew word means went up?</td>
+      <td><ol><li class="correct">עלה</li><li>ירד</li><li>שלח</li><li>כתב</li></ol></td>
+      <td class="correct-cell">עלה</td>
+      <td>עלה means &#x27;went up&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM2</td>
+    </tr>
+    <tr>
+      <td>84</td>
+      <td class="hebrew">עלה</td>
+      <td>shoresh_translation</td>
+      <td dir="auto">Which choice gives both the shoresh and meaning of עלה?</td>
+      <td><ol><li>ירד - went down</li><li class="correct">עלה - went up</li><li>שלח - sent</li><li>כתב - wrote</li></ol></td>
+      <td class="correct-cell">עלה - went up</td>
+      <td>עלה has shoresh עלה and means &#x27;went up&#x27;.</td>
+      <td>4</td>
+      <td>CF</td>
+      <td>CF1</td>
+    </tr>
+    <tr>
+      <td>85</td>
+      <td class="hebrew">ירד</td>
+      <td>translation</td>
+      <td dir="auto">What does the word ירד mean?</td>
+      <td><ol><li class="correct">went down</li><li>sent</li><li>wrote</li><li>ate</li></ol></td>
+      <td class="correct-cell">went down</td>
+      <td>ירד means &#x27;went down&#x27;.</td>
+      <td>1</td>
+      <td>WM</td>
+      <td>WM1</td>
+    </tr>
+    <tr>
+      <td>86</td>
+      <td class="hebrew">ירד</td>
+      <td>reverse_translation</td>
+      <td dir="auto">Which Hebrew word means went down?</td>
+      <td><ol><li>שלח</li><li class="correct">ירד</li><li>כתב</li><li>אכל</li></ol></td>
+      <td class="correct-cell">ירד</td>
+      <td>ירד means &#x27;went down&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM2</td>
+    </tr>
+    <tr>
+      <td>87</td>
+      <td class="hebrew">ירד</td>
+      <td>shoresh_translation</td>
+      <td dir="auto">Which choice gives both the shoresh and meaning of ירד?</td>
+      <td><ol><li>שלח - sent</li><li>כתב - wrote</li><li class="correct">ירד - went down</li><li>אכל - ate</li></ol></td>
+      <td class="correct-cell">ירד - went down</td>
+      <td>ירד has shoresh ירד and means &#x27;went down&#x27;.</td>
+      <td>4</td>
+      <td>CF</td>
+      <td>CF1</td>
+    </tr>
+    <tr>
+      <td>88</td>
+      <td class="hebrew">שלח</td>
+      <td>translation</td>
+      <td dir="auto">What does the word שלח mean?</td>
+      <td><ol><li>wrote</li><li class="correct">sent</li><li>ate</li><li>went</li></ol></td>
+      <td class="correct-cell">sent</td>
+      <td>שלח means &#x27;sent&#x27;.</td>
+      <td>1</td>
+      <td>WM</td>
+      <td>WM1</td>
+    </tr>
+    <tr>
+      <td>89</td>
+      <td class="hebrew">שלח</td>
+      <td>reverse_translation</td>
+      <td dir="auto">Which Hebrew word means sent?</td>
+      <td><ol><li>כתב</li><li>אכל</li><li class="correct">שלח</li><li>הלך</li></ol></td>
+      <td class="correct-cell">שלח</td>
+      <td>שלח means &#x27;sent&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM2</td>
+    </tr>
+    <tr>
+      <td>90</td>
+      <td class="hebrew">שלח</td>
+      <td>shoresh_translation</td>
+      <td dir="auto">Which choice gives both the shoresh and meaning of שלח?</td>
+      <td><ol><li>כתב - wrote</li><li>אכל - ate</li><li>הלך - went</li><li class="correct">שלח - sent</li></ol></td>
+      <td class="correct-cell">שלח - sent</td>
+      <td>שלח has shoresh שלח and means &#x27;sent&#x27;.</td>
+      <td>4</td>
+      <td>CF</td>
+      <td>CF1</td>
+    </tr>
+    <tr>
+      <td>91</td>
+      <td class="hebrew">כתב</td>
+      <td>translation</td>
+      <td dir="auto">What does the word כתב mean?</td>
+      <td><ol><li>ate</li><li>went</li><li class="correct">wrote</li><li>saw</li></ol></td>
+      <td class="correct-cell">wrote</td>
+      <td>כתב means &#x27;wrote&#x27;.</td>
+      <td>1</td>
+      <td>WM</td>
+      <td>WM1</td>
+    </tr>
+    <tr>
+      <td>92</td>
+      <td class="hebrew">כתב</td>
+      <td>reverse_translation</td>
+      <td dir="auto">Which Hebrew word means wrote?</td>
+      <td><ol><li>אכל</li><li>הלך</li><li>ראה</li><li class="correct">כתב</li></ol></td>
+      <td class="correct-cell">כתב</td>
+      <td>כתב means &#x27;wrote&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM2</td>
+    </tr>
+    <tr>
+      <td>93</td>
+      <td class="hebrew">כתב</td>
+      <td>shoresh_translation</td>
+      <td dir="auto">Which choice gives both the shoresh and meaning of כתב?</td>
+      <td><ol><li class="correct">כתב - wrote</li><li>אכל - ate</li><li>הלך - went</li><li>ראה - saw</li></ol></td>
+      <td class="correct-cell">כתב - wrote</td>
+      <td>כתב has shoresh כתב and means &#x27;wrote&#x27;.</td>
+      <td>4</td>
+      <td>CF</td>
+      <td>CF1</td>
+    </tr>
+    <tr>
+      <td>94</td>
+      <td class="hebrew">ויאכל</td>
+      <td>prefix_translation</td>
+      <td dir="auto">What does the word ויאכל mean?</td>
+      <td><ol><li class="correct">and he ate</li><li>and he said</li><li>and he built</li><li>and he went</li></ol></td>
+      <td class="correct-cell">and he ate</td>
+      <td>ויאכל means &#x27;and he ate&#x27;.</td>
+      <td>4</td>
+      <td>CF</td>
+      <td>CF2</td>
+    </tr>
+    <tr>
+      <td>95</td>
+      <td class="hebrew">ויאכל</td>
+      <td>reverse_translation</td>
+      <td dir="auto">Which Hebrew word means and he ate?</td>
+      <td><ol><li>ויאמר</li><li class="correct">ויאכל</li><li>ויבן</li><li>וילך</li></ol></td>
+      <td class="correct-cell">ויאכל</td>
+      <td>ויאכל means &#x27;and he ate&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM2</td>
+    </tr>
+    <tr>
+      <td>96</td>
+      <td class="hebrew">ויאכל</td>
+      <td>mixed</td>
+      <td dir="auto">Which choice gives both the shoresh and meaning of ויאכל?</td>
+      <td><ol><li>אמר - and he said</li><li>בנה - and he built</li><li class="correct">אכל - and he ate</li><li>הלך - and he went</li></ol></td>
+      <td class="correct-cell">אכל - and he ate</td>
+      <td>ויאכל has shoresh אכל and means &#x27;and he ate&#x27;.</td>
+      <td>4</td>
+      <td>CF</td>
+      <td>CF1</td>
+    </tr>
+    <tr>
+      <td>97</td>
+      <td class="hebrew">ויאמר</td>
+      <td>prefix_translation</td>
+      <td dir="auto">What does the word ויאמר mean?</td>
+      <td><ol><li>and he built</li><li class="correct">and he said</li><li>and he went</li><li>and he found</li></ol></td>
+      <td class="correct-cell">and he said</td>
+      <td>ויאמר means &#x27;and he said&#x27;.</td>
+      <td>4</td>
+      <td>CF</td>
+      <td>CF2</td>
+    </tr>
+    <tr>
+      <td>98</td>
+      <td class="hebrew">ויאמר</td>
+      <td>reverse_translation</td>
+      <td dir="auto">Which Hebrew word means and he said?</td>
+      <td><ol><li>ויבן</li><li>וילך</li><li class="correct">ויאמר</li><li>וימצא</li></ol></td>
+      <td class="correct-cell">ויאמר</td>
+      <td>ויאמר means &#x27;and he said&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM2</td>
+    </tr>
+    <tr>
+      <td>99</td>
+      <td class="hebrew">ויאמר</td>
+      <td>mixed</td>
+      <td dir="auto">Which choice gives both the shoresh and meaning of ויאמר?</td>
+      <td><ol><li>בנה - and he built</li><li>הלך - and he went</li><li>מצא - and he found</li><li class="correct">אמר - and he said</li></ol></td>
+      <td class="correct-cell">אמר - and he said</td>
+      <td>ויאמר has shoresh אמר and means &#x27;and he said&#x27;.</td>
+      <td>4</td>
+      <td>CF</td>
+      <td>CF1</td>
+    </tr>
+    <tr>
+      <td>100</td>
+      <td class="hebrew">ויבן</td>
+      <td>prefix_translation</td>
+      <td dir="auto">What does the word ויבן mean?</td>
+      <td><ol><li>and he went</li><li>and he found</li><li class="correct">and he built</li><li>and he went up</li></ol></td>
+      <td class="correct-cell">and he built</td>
+      <td>ויבן means &#x27;and he built&#x27;.</td>
+      <td>4</td>
+      <td>CF</td>
+      <td>CF2</td>
+    </tr>
+    <tr>
+      <td>101</td>
+      <td class="hebrew">ויבן</td>
+      <td>reverse_translation</td>
+      <td dir="auto">Which Hebrew word means and he built?</td>
+      <td><ol><li>וילך</li><li>וימצא</li><li>ויעל</li><li class="correct">ויבן</li></ol></td>
+      <td class="correct-cell">ויבן</td>
+      <td>ויבן means &#x27;and he built&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM2</td>
+    </tr>
+    <tr>
+      <td>102</td>
+      <td class="hebrew">ויבן</td>
+      <td>mixed</td>
+      <td dir="auto">Which choice gives both the shoresh and meaning of ויבן?</td>
+      <td><ol><li class="correct">בנה - and he built</li><li>הלך - and he went</li><li>מצא - and he found</li><li>עלה - and he went up</li></ol></td>
+      <td class="correct-cell">בנה - and he built</td>
+      <td>ויבן has shoresh בנה and means &#x27;and he built&#x27;.</td>
+      <td>4</td>
+      <td>CF</td>
+      <td>CF1</td>
+    </tr>
+    <tr>
+      <td>103</td>
+      <td class="hebrew">וילך</td>
+      <td>prefix_translation</td>
+      <td dir="auto">What does the word וילך mean?</td>
+      <td><ol><li>and he found</li><li>and he went up</li><li>and he took</li><li class="correct">and he went</li></ol></td>
+      <td class="correct-cell">and he went</td>
+      <td>וילך means &#x27;and he went&#x27;.</td>
+      <td>4</td>
+      <td>CF</td>
+      <td>CF2</td>
+    </tr>
+    <tr>
+      <td>104</td>
+      <td class="hebrew">וילך</td>
+      <td>reverse_translation</td>
+      <td dir="auto">Which Hebrew word means and he went?</td>
+      <td><ol><li class="correct">וילך</li><li>וימצא</li><li>ויעל</li><li>ויקח</li></ol></td>
+      <td class="correct-cell">וילך</td>
+      <td>וילך means &#x27;and he went&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM2</td>
+    </tr>
+    <tr>
+      <td>105</td>
+      <td class="hebrew">וילך</td>
+      <td>mixed</td>
+      <td dir="auto">Which choice gives both the shoresh and meaning of וילך?</td>
+      <td><ol><li>מצא - and he found</li><li class="correct">הלך - and he went</li><li>עלה - and he went up</li><li>לקח - and he took</li></ol></td>
+      <td class="correct-cell">הלך - and he went</td>
+      <td>וילך has shoresh הלך and means &#x27;and he went&#x27;.</td>
+      <td>4</td>
+      <td>CF</td>
+      <td>CF1</td>
+    </tr>
+    <tr>
+      <td>106</td>
+      <td class="hebrew">וימצא</td>
+      <td>prefix_translation</td>
+      <td dir="auto">What does the word וימצא mean?</td>
+      <td><ol><li class="correct">and he found</li><li>and he went up</li><li>and he took</li><li>and he saw</li></ol></td>
+      <td class="correct-cell">and he found</td>
+      <td>וימצא means &#x27;and he found&#x27;.</td>
+      <td>4</td>
+      <td>CF</td>
+      <td>CF2</td>
+    </tr>
+    <tr>
+      <td>107</td>
+      <td class="hebrew">וימצא</td>
+      <td>reverse_translation</td>
+      <td dir="auto">Which Hebrew word means and he found?</td>
+      <td><ol><li>ויעל</li><li class="correct">וימצא</li><li>ויקח</li><li>וירא</li></ol></td>
+      <td class="correct-cell">וימצא</td>
+      <td>וימצא means &#x27;and he found&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM2</td>
+    </tr>
+    <tr>
+      <td>108</td>
+      <td class="hebrew">וימצא</td>
+      <td>mixed</td>
+      <td dir="auto">Which choice gives both the shoresh and meaning of וימצא?</td>
+      <td><ol><li>עלה - and he went up</li><li>לקח - and he took</li><li class="correct">מצא - and he found</li><li>ראה - and he saw</li></ol></td>
+      <td class="correct-cell">מצא - and he found</td>
+      <td>וימצא has shoresh מצא and means &#x27;and he found&#x27;.</td>
+      <td>4</td>
+      <td>CF</td>
+      <td>CF1</td>
+    </tr>
+    <tr>
+      <td>109</td>
+      <td class="hebrew">ויעל</td>
+      <td>prefix_translation</td>
+      <td dir="auto">What does the word ויעל mean?</td>
+      <td><ol><li>and he took</li><li class="correct">and he went up</li><li>and he saw</li><li>and he went down</li></ol></td>
+      <td class="correct-cell">and he went up</td>
+      <td>ויעל means &#x27;and he went up&#x27;.</td>
+      <td>4</td>
+      <td>CF</td>
+      <td>CF2</td>
+    </tr>
+    <tr>
+      <td>110</td>
+      <td class="hebrew">ויעל</td>
+      <td>reverse_translation</td>
+      <td dir="auto">Which Hebrew word means and he went up?</td>
+      <td><ol><li>ויקח</li><li>וירא</li><li class="correct">ויעל</li><li>וירד</li></ol></td>
+      <td class="correct-cell">ויעל</td>
+      <td>ויעל means &#x27;and he went up&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM2</td>
+    </tr>
+    <tr>
+      <td>111</td>
+      <td class="hebrew">ויעל</td>
+      <td>mixed</td>
+      <td dir="auto">Which choice gives both the shoresh and meaning of ויעל?</td>
+      <td><ol><li>לקח - and he took</li><li>ראה - and he saw</li><li>ירד - and he went down</li><li class="correct">עלה - and he went up</li></ol></td>
+      <td class="correct-cell">עלה - and he went up</td>
+      <td>ויעל has shoresh עלה and means &#x27;and he went up&#x27;.</td>
+      <td>4</td>
+      <td>CF</td>
+      <td>CF1</td>
+    </tr>
+    <tr>
+      <td>112</td>
+      <td class="hebrew">ויקח</td>
+      <td>prefix_translation</td>
+      <td dir="auto">What does the word ויקח mean?</td>
+      <td><ol><li>and he saw</li><li>and he went down</li><li class="correct">and he took</li><li>and he sat/dwelt</li></ol></td>
+      <td class="correct-cell">and he took</td>
+      <td>ויקח means &#x27;and he took&#x27;.</td>
+      <td>4</td>
+      <td>CF</td>
+      <td>CF2</td>
+    </tr>
+    <tr>
+      <td>113</td>
+      <td class="hebrew">ויקח</td>
+      <td>reverse_translation</td>
+      <td dir="auto">Which Hebrew word means and he took?</td>
+      <td><ol><li>וירא</li><li>וירד</li><li>וישב</li><li class="correct">ויקח</li></ol></td>
+      <td class="correct-cell">ויקח</td>
+      <td>ויקח means &#x27;and he took&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM2</td>
+    </tr>
+    <tr>
+      <td>114</td>
+      <td class="hebrew">ויקח</td>
+      <td>mixed</td>
+      <td dir="auto">Which choice gives both the shoresh and meaning of ויקח?</td>
+      <td><ol><li class="correct">לקח - and he took</li><li>ראה - and he saw</li><li>ירד - and he went down</li><li>ישב - and he sat/dwelt</li></ol></td>
+      <td class="correct-cell">לקח - and he took</td>
+      <td>ויקח has shoresh לקח and means &#x27;and he took&#x27;.</td>
+      <td>4</td>
+      <td>CF</td>
+      <td>CF1</td>
+    </tr>
+    <tr>
+      <td>115</td>
+      <td class="hebrew">וירא</td>
+      <td>prefix_translation</td>
+      <td dir="auto">What does the word וירא mean?</td>
+      <td><ol><li>and he went down</li><li>and he sat/dwelt</li><li>and he sent</li><li class="correct">and he saw</li></ol></td>
+      <td class="correct-cell">and he saw</td>
+      <td>וירא means &#x27;and he saw&#x27;.</td>
+      <td>4</td>
+      <td>CF</td>
+      <td>CF2</td>
+    </tr>
+    <tr>
+      <td>116</td>
+      <td class="hebrew">וירא</td>
+      <td>reverse_translation</td>
+      <td dir="auto">Which Hebrew word means and he saw?</td>
+      <td><ol><li class="correct">וירא</li><li>וירד</li><li>וישב</li><li>וישלח</li></ol></td>
+      <td class="correct-cell">וירא</td>
+      <td>וירא means &#x27;and he saw&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM2</td>
+    </tr>
+    <tr>
+      <td>117</td>
+      <td class="hebrew">וירא</td>
+      <td>mixed</td>
+      <td dir="auto">Which choice gives both the shoresh and meaning of וירא?</td>
+      <td><ol><li>ירד - and he went down</li><li class="correct">ראה - and he saw</li><li>ישב - and he sat/dwelt</li><li>שלח - and he sent</li></ol></td>
+      <td class="correct-cell">ראה - and he saw</td>
+      <td>וירא has shoresh ראה and means &#x27;and he saw&#x27;.</td>
+      <td>4</td>
+      <td>CF</td>
+      <td>CF1</td>
+    </tr>
+    <tr>
+      <td>118</td>
+      <td class="hebrew">וירד</td>
+      <td>prefix_translation</td>
+      <td dir="auto">What does the word וירד mean?</td>
+      <td><ol><li class="correct">and he went down</li><li>and he sat/dwelt</li><li>and he sent</li><li>and he heard</li></ol></td>
+      <td class="correct-cell">and he went down</td>
+      <td>וירד means &#x27;and he went down&#x27;.</td>
+      <td>4</td>
+      <td>CF</td>
+      <td>CF2</td>
+    </tr>
+    <tr>
+      <td>119</td>
+      <td class="hebrew">וירד</td>
+      <td>reverse_translation</td>
+      <td dir="auto">Which Hebrew word means and he went down?</td>
+      <td><ol><li>וישב</li><li class="correct">וירד</li><li>וישלח</li><li>וישמע</li></ol></td>
+      <td class="correct-cell">וירד</td>
+      <td>וירד means &#x27;and he went down&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM2</td>
+    </tr>
+    <tr>
+      <td>120</td>
+      <td class="hebrew">וירד</td>
+      <td>mixed</td>
+      <td dir="auto">Which choice gives both the shoresh and meaning of וירד?</td>
+      <td><ol><li>ישב - and he sat/dwelt</li><li>שלח - and he sent</li><li class="correct">ירד - and he went down</li><li>שמע - and he heard</li></ol></td>
+      <td class="correct-cell">ירד - and he went down</td>
+      <td>וירד has shoresh ירד and means &#x27;and he went down&#x27;.</td>
+      <td>4</td>
+      <td>CF</td>
+      <td>CF1</td>
+    </tr>
+    <tr>
+      <td>121</td>
+      <td class="hebrew">וישב</td>
+      <td>prefix_translation</td>
+      <td dir="auto">What does the word וישב mean?</td>
+      <td><ol><li>and he sent</li><li class="correct">and he sat/dwelt</li><li>and he heard</li><li>and he guarded</li></ol></td>
+      <td class="correct-cell">and he sat/dwelt</td>
+      <td>וישב means &#x27;and he sat/dwelt&#x27;.</td>
+      <td>4</td>
+      <td>CF</td>
+      <td>CF2</td>
+    </tr>
+    <tr>
+      <td>122</td>
+      <td class="hebrew">וישב</td>
+      <td>reverse_translation</td>
+      <td dir="auto">Which Hebrew word means and he sat/dwelt?</td>
+      <td><ol><li>וישלח</li><li>וישמע</li><li class="correct">וישב</li><li>וישמר</li></ol></td>
+      <td class="correct-cell">וישב</td>
+      <td>וישב means &#x27;and he sat/dwelt&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM2</td>
+    </tr>
+    <tr>
+      <td>123</td>
+      <td class="hebrew">וישב</td>
+      <td>mixed</td>
+      <td dir="auto">Which choice gives both the shoresh and meaning of וישב?</td>
+      <td><ol><li>שלח - and he sent</li><li>שמע - and he heard</li><li>שמר - and he guarded</li><li class="correct">ישב - and he sat/dwelt</li></ol></td>
+      <td class="correct-cell">ישב - and he sat/dwelt</td>
+      <td>וישב has shoresh ישב and means &#x27;and he sat/dwelt&#x27;.</td>
+      <td>4</td>
+      <td>CF</td>
+      <td>CF1</td>
+    </tr>
+    <tr>
+      <td>124</td>
+      <td class="hebrew">וישלח</td>
+      <td>prefix_translation</td>
+      <td dir="auto">What does the word וישלח mean?</td>
+      <td><ol><li>and he heard</li><li>and he guarded</li><li class="correct">and he sent</li><li>and he gave</li></ol></td>
+      <td class="correct-cell">and he sent</td>
+      <td>וישלח means &#x27;and he sent&#x27;.</td>
+      <td>4</td>
+      <td>CF</td>
+      <td>CF2</td>
+    </tr>
+    <tr>
+      <td>125</td>
+      <td class="hebrew">וישלח</td>
+      <td>reverse_translation</td>
+      <td dir="auto">Which Hebrew word means and he sent?</td>
+      <td><ol><li>וישמע</li><li>וישמר</li><li>ויתן</li><li class="correct">וישלח</li></ol></td>
+      <td class="correct-cell">וישלח</td>
+      <td>וישלח means &#x27;and he sent&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM2</td>
+    </tr>
+    <tr>
+      <td>126</td>
+      <td class="hebrew">וישלח</td>
+      <td>mixed</td>
+      <td dir="auto">Which choice gives both the shoresh and meaning of וישלח?</td>
+      <td><ol><li class="correct">שלח - and he sent</li><li>שמע - and he heard</li><li>שמר - and he guarded</li><li>נתן - and he gave</li></ol></td>
+      <td class="correct-cell">שלח - and he sent</td>
+      <td>וישלח has shoresh שלח and means &#x27;and he sent&#x27;.</td>
+      <td>4</td>
+      <td>CF</td>
+      <td>CF1</td>
+    </tr>
+    <tr>
+      <td>127</td>
+      <td class="hebrew">וישמע</td>
+      <td>prefix_translation</td>
+      <td dir="auto">What does the word וישמע mean?</td>
+      <td><ol><li>and he guarded</li><li>and he gave</li><li>and he ate</li><li class="correct">and he heard</li></ol></td>
+      <td class="correct-cell">and he heard</td>
+      <td>וישמע means &#x27;and he heard&#x27;.</td>
+      <td>4</td>
+      <td>CF</td>
+      <td>CF2</td>
+    </tr>
+    <tr>
+      <td>128</td>
+      <td class="hebrew">וישמע</td>
+      <td>reverse_translation</td>
+      <td dir="auto">Which Hebrew word means and he heard?</td>
+      <td><ol><li class="correct">וישמע</li><li>וישמר</li><li>ויתן</li><li>ויאכל</li></ol></td>
+      <td class="correct-cell">וישמע</td>
+      <td>וישמע means &#x27;and he heard&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM2</td>
+    </tr>
+    <tr>
+      <td>129</td>
+      <td class="hebrew">וישמע</td>
+      <td>mixed</td>
+      <td dir="auto">Which choice gives both the shoresh and meaning of וישמע?</td>
+      <td><ol><li>שמר - and he guarded</li><li class="correct">שמע - and he heard</li><li>נתן - and he gave</li><li>אכל - and he ate</li></ol></td>
+      <td class="correct-cell">שמע - and he heard</td>
+      <td>וישמע has shoresh שמע and means &#x27;and he heard&#x27;.</td>
+      <td>4</td>
+      <td>CF</td>
+      <td>CF1</td>
+    </tr>
+    <tr>
+      <td>130</td>
+      <td class="hebrew">וישמר</td>
+      <td>prefix_translation</td>
+      <td dir="auto">What does the word וישמר mean?</td>
+      <td><ol><li class="correct">and he guarded</li><li>and he gave</li><li>and he ate</li><li>and he said</li></ol></td>
+      <td class="correct-cell">and he guarded</td>
+      <td>וישמר means &#x27;and he guarded&#x27;.</td>
+      <td>4</td>
+      <td>CF</td>
+      <td>CF2</td>
+    </tr>
+    <tr>
+      <td>131</td>
+      <td class="hebrew">וישמר</td>
+      <td>reverse_translation</td>
+      <td dir="auto">Which Hebrew word means and he guarded?</td>
+      <td><ol><li>ויתן</li><li class="correct">וישמר</li><li>ויאכל</li><li>ויאמר</li></ol></td>
+      <td class="correct-cell">וישמר</td>
+      <td>וישמר means &#x27;and he guarded&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM2</td>
+    </tr>
+    <tr>
+      <td>132</td>
+      <td class="hebrew">וישמר</td>
+      <td>mixed</td>
+      <td dir="auto">Which choice gives both the shoresh and meaning of וישמר?</td>
+      <td><ol><li>נתן - and he gave</li><li>אכל - and he ate</li><li class="correct">שמר - and he guarded</li><li>אמר - and he said</li></ol></td>
+      <td class="correct-cell">שמר - and he guarded</td>
+      <td>וישמר has shoresh שמר and means &#x27;and he guarded&#x27;.</td>
+      <td>4</td>
+      <td>CF</td>
+      <td>CF1</td>
+    </tr>
+    <tr>
+      <td>133</td>
+      <td class="hebrew">ויתן</td>
+      <td>prefix_translation</td>
+      <td dir="auto">What does the word ויתן mean?</td>
+      <td><ol><li>and he ate</li><li class="correct">and he gave</li><li>and he said</li><li>and he built</li></ol></td>
+      <td class="correct-cell">and he gave</td>
+      <td>ויתן means &#x27;and he gave&#x27;.</td>
+      <td>4</td>
+      <td>CF</td>
+      <td>CF2</td>
+    </tr>
+    <tr>
+      <td>134</td>
+      <td class="hebrew">ויתן</td>
+      <td>reverse_translation</td>
+      <td dir="auto">Which Hebrew word means and he gave?</td>
+      <td><ol><li>ויאכל</li><li>ויאמר</li><li class="correct">ויתן</li><li>ויבן</li></ol></td>
+      <td class="correct-cell">ויתן</td>
+      <td>ויתן means &#x27;and he gave&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM2</td>
+    </tr>
+    <tr>
+      <td>135</td>
+      <td class="hebrew">ויתן</td>
+      <td>mixed</td>
+      <td dir="auto">Which choice gives both the shoresh and meaning of ויתן?</td>
+      <td><ol><li>אכל - and he ate</li><li>אמר - and he said</li><li>בנה - and he built</li><li class="correct">נתן - and he gave</li></ol></td>
+      <td class="correct-cell">נתן - and he gave</td>
+      <td>ויתן has shoresh נתן and means &#x27;and he gave&#x27;.</td>
+      <td>4</td>
+      <td>CF</td>
+      <td>CF1</td>
+    </tr>
+    <tr>
+      <td>136</td>
+      <td class="hebrew">ויאמר</td>
+      <td>pattern</td>
+      <td dir="auto">What kind of word form is ויאמר?</td>
+      <td><ol><li class="correct">past action</li><li>future action</li><li>noun</li><li>description</li></ol></td>
+      <td class="correct-cell">past action</td>
+      <td>ויאמר is a past narrative verb meaning &#x27;and he said&#x27;.</td>
+      <td>4</td>
+      <td>PR</td>
+      <td>PR4</td>
+    </tr>
+    <tr>
+      <td>137</td>
+      <td class="hebrew">וילך</td>
+      <td>phrase</td>
+      <td dir="auto">What does וילך האיש mean?</td>
+      <td><ol><li class="correct">the man went</li><li>the man said</li><li>the man saw</li><li>the man gave</li></ol></td>
+      <td class="correct-cell">the man went</td>
+      <td>וילך = and he went, האיש = the man.</td>
+      <td>5</td>
+      <td>PC</td>
+      <td>PC1</td>
+    </tr>
+    <tr>
+      <td>138</td>
+      <td class="hebrew">אדם</td>
+      <td>translation</td>
+      <td dir="auto">What does the word אדם mean?</td>
+      <td><ol><li class="correct">man</li><li>father</li><li>servant</li><li>king</li></ol></td>
+      <td class="correct-cell">man</td>
+      <td>אדם means &#x27;man&#x27;.</td>
+      <td>1</td>
+      <td>WM</td>
+      <td>WM1</td>
+    </tr>
+    <tr>
+      <td>139</td>
+      <td class="hebrew">אב</td>
+      <td>translation</td>
+      <td dir="auto">What does the word אב mean?</td>
+      <td><ol><li>mother</li><li class="correct">father</li><li>brother</li><li>son</li></ol></td>
+      <td class="correct-cell">father</td>
+      <td>אב means &#x27;father&#x27;.</td>
+      <td>1</td>
+      <td>WM</td>
+      <td>WM1</td>
+    </tr>
+    <tr>
+      <td>140</td>
+      <td class="hebrew">אם</td>
+      <td>translation</td>
+      <td dir="auto">What does the word אם mean?</td>
+      <td><ol><li>daughter</li><li>sister</li><li class="correct">mother</li><li>woman</li></ol></td>
+      <td class="correct-cell">mother</td>
+      <td>אם means &#x27;mother&#x27;.</td>
+      <td>1</td>
+      <td>WM</td>
+      <td>WM1</td>
+    </tr>
+    <tr>
+      <td>141</td>
+      <td class="hebrew">אח</td>
+      <td>translation</td>
+      <td dir="auto">What does the word אח mean?</td>
+      <td><ol><li>father</li><li>son</li><li>servant</li><li class="correct">brother</li></ol></td>
+      <td class="correct-cell">brother</td>
+      <td>אח means &#x27;brother&#x27;.</td>
+      <td>1</td>
+      <td>WM</td>
+      <td>WM1</td>
+    </tr>
+    <tr>
+      <td>142</td>
+      <td class="hebrew">אחות</td>
+      <td>translation</td>
+      <td dir="auto">What does the word אחות mean?</td>
+      <td><ol><li class="correct">sister</li><li>mother</li><li>daughter</li><li>girl</li></ol></td>
+      <td class="correct-cell">sister</td>
+      <td>אחות means &#x27;sister&#x27;.</td>
+      <td>1</td>
+      <td>WM</td>
+      <td>WM1</td>
+    </tr>
+    <tr>
+      <td>143</td>
+      <td class="hebrew">נער</td>
+      <td>translation</td>
+      <td dir="auto">What does the word נער mean?</td>
+      <td><ol><li>man</li><li class="correct">boy</li><li>servant</li><li>priest</li></ol></td>
+      <td class="correct-cell">boy</td>
+      <td>נער means &#x27;boy&#x27;.</td>
+      <td>1</td>
+      <td>WM</td>
+      <td>WM1</td>
+    </tr>
+    <tr>
+      <td>144</td>
+      <td class="hebrew">נערה</td>
+      <td>translation</td>
+      <td dir="auto">What does the word נערה mean?</td>
+      <td><ol><li>woman</li><li>sister</li><li class="correct">girl</li><li>maidservant</li></ol></td>
+      <td class="correct-cell">girl</td>
+      <td>נערה means &#x27;girl&#x27;.</td>
+      <td>1</td>
+      <td>WM</td>
+      <td>WM1</td>
+    </tr>
+    <tr>
+      <td>145</td>
+      <td class="hebrew">עבד</td>
+      <td>translation</td>
+      <td dir="auto">What does the word עבד mean?</td>
+      <td><ol><li>master</li><li>priest</li><li>prophet</li><li class="correct">servant</li></ol></td>
+      <td class="correct-cell">servant</td>
+      <td>עבד means &#x27;servant&#x27;.</td>
+      <td>1</td>
+      <td>WM</td>
+      <td>WM1</td>
+    </tr>
+    <tr>
+      <td>146</td>
+      <td class="hebrew">כהן</td>
+      <td>translation</td>
+      <td dir="auto">What does the word כהן mean?</td>
+      <td><ol><li class="correct">priest</li><li>king</li><li>prophet</li><li>servant</li></ol></td>
+      <td class="correct-cell">priest</td>
+      <td>כהן means &#x27;priest&#x27;.</td>
+      <td>1</td>
+      <td>WM</td>
+      <td>WM1</td>
+    </tr>
+    <tr>
+      <td>147</td>
+      <td class="hebrew">נביא</td>
+      <td>translation</td>
+      <td dir="auto">What does the word נביא mean?</td>
+      <td><ol><li>priest</li><li class="correct">prophet</li><li>enemy</li><li>leader</li></ol></td>
+      <td class="correct-cell">prophet</td>
+      <td>נביא means &#x27;prophet&#x27;.</td>
+      <td>1</td>
+      <td>WM</td>
+      <td>WM1</td>
+    </tr>
+    <tr>
+      <td>148</td>
+      <td class="hebrew">לחם</td>
+      <td>translation</td>
+      <td dir="auto">What does the word לחם mean?</td>
+      <td><ol><li>water</li><li>fire</li><li class="correct">bread</li><li>silver</li></ol></td>
+      <td class="correct-cell">bread</td>
+      <td>לחם means &#x27;bread&#x27;.</td>
+      <td>1</td>
+      <td>WM</td>
+      <td>WM1</td>
+    </tr>
+    <tr>
+      <td>149</td>
+      <td class="hebrew">אש</td>
+      <td>translation</td>
+      <td dir="auto">What does the word אש mean?</td>
+      <td><ol><li>light</li><li>darkness</li><li>water</li><li class="correct">fire</li></ol></td>
+      <td class="correct-cell">fire</td>
+      <td>אש means &#x27;fire&#x27;.</td>
+      <td>1</td>
+      <td>WM</td>
+      <td>WM1</td>
+    </tr>
+    <tr>
+      <td>150</td>
+      <td class="hebrew">אור</td>
+      <td>reverse_translation</td>
+      <td dir="auto">Which Hebrew word means light?</td>
+      <td><ol><li>אש</li><li class="correct">אור</li><li>חשך</li><li>שמש</li></ol></td>
+      <td class="correct-cell">אור</td>
+      <td>אור means &#x27;light&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM2</td>
+    </tr>
+    <tr>
+      <td>151</td>
+      <td class="hebrew">חשך</td>
+      <td>reverse_translation</td>
+      <td dir="auto">Which Hebrew word means darkness?</td>
+      <td><ol><li>לילה</li><li>אש</li><li class="correct">חשך</li><li>יום</li></ol></td>
+      <td class="correct-cell">חשך</td>
+      <td>חשך means &#x27;darkness&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM2</td>
+    </tr>
+    <tr>
+      <td>152</td>
+      <td class="hebrew">שמש</td>
+      <td>reverse_translation</td>
+      <td dir="auto">Which Hebrew word means sun?</td>
+      <td><ol><li>ירח</li><li>כוכב</li><li>שמים</li><li class="correct">שמש</li></ol></td>
+      <td class="correct-cell">שמש</td>
+      <td>שמש means &#x27;sun&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM2</td>
+    </tr>
+    <tr>
+      <td>153</td>
+      <td class="hebrew">ירח</td>
+      <td>reverse_translation</td>
+      <td dir="auto">Which Hebrew word means moon?</td>
+      <td><ol><li class="correct">ירח</li><li>שמש</li><li>כוכב</li><li>שמים</li></ol></td>
+      <td class="correct-cell">ירח</td>
+      <td>ירח means &#x27;moon&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM2</td>
+    </tr>
+    <tr>
+      <td>154</td>
+      <td class="hebrew">כוכב</td>
+      <td>reverse_translation</td>
+      <td dir="auto">Which Hebrew word means star?</td>
+      <td><ol><li>שמש</li><li class="correct">כוכב</li><li>אור</li><li>חשך</li></ol></td>
+      <td class="correct-cell">כוכב</td>
+      <td>כוכב means &#x27;star&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM2</td>
+    </tr>
+    <tr>
+      <td>155</td>
+      <td class="hebrew">שמים</td>
+      <td>reverse_translation</td>
+      <td dir="auto">Which Hebrew word means heavens?</td>
+      <td><ol><li>ארץ</li><li>ים</li><li class="correct">שמים</li><li>הר</li></ol></td>
+      <td class="correct-cell">שמים</td>
+      <td>שמים means &#x27;heavens&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM2</td>
+    </tr>
+    <tr>
+      <td>156</td>
+      <td class="hebrew">אבן</td>
+      <td>reverse_translation</td>
+      <td dir="auto">Which Hebrew word means stone?</td>
+      <td><ol><li>עץ</li><li>הר</li><li>שדה</li><li class="correct">אבן</li></ol></td>
+      <td class="correct-cell">אבן</td>
+      <td>אבן means &#x27;stone&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM2</td>
+    </tr>
+    <tr>
+      <td>157</td>
+      <td class="hebrew">דרך</td>
+      <td>reverse_translation</td>
+      <td dir="auto">Which Hebrew word means road?</td>
+      <td><ol><li class="correct">דרך</li><li>עיר</li><li>שער</li><li>מקום</li></ol></td>
+      <td class="correct-cell">דרך</td>
+      <td>דרך means &#x27;road&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM2</td>
+    </tr>
+    <tr>
+      <td>158</td>
+      <td class="hebrew">נהר</td>
+      <td>reverse_translation</td>
+      <td dir="auto">Which Hebrew word means river?</td>
+      <td><ol><li>ים</li><li class="correct">נהר</li><li>באר</li><li>מים</li></ol></td>
+      <td class="correct-cell">נהר</td>
+      <td>נהר means &#x27;river&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM2</td>
+    </tr>
+    <tr>
+      <td>159</td>
+      <td class="hebrew">מדבר</td>
+      <td>reverse_translation</td>
+      <td dir="auto">Which Hebrew word means wilderness?</td>
+      <td><ol><li>שדה</li><li>הר</li><li class="correct">מדבר</li><li>עיר</li></ol></td>
+      <td class="correct-cell">מדבר</td>
+      <td>מדבר means &#x27;wilderness&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM2</td>
+    </tr>
+    <tr>
+      <td>160</td>
+      <td class="hebrew">ויקרא</td>
+      <td>shoresh</td>
+      <td dir="auto">What is the shoresh of ויקרא?</td>
+      <td><ol><li class="correct">קרא</li><li>דבר</li><li>עשה</li><li>יצא</li></ol></td>
+      <td class="correct-cell">קרא</td>
+      <td>ויקרא has shoresh קרא.</td>
+      <td>3</td>
+      <td>SR</td>
+      <td>SR2</td>
+    </tr>
+    <tr>
+      <td>161</td>
+      <td class="hebrew">וידבר</td>
+      <td>shoresh</td>
+      <td dir="auto">What is the shoresh of וידבר?</td>
+      <td><ol><li>אמר</li><li class="correct">דבר</li><li>שמע</li><li>קרא</li></ol></td>
+      <td class="correct-cell">דבר</td>
+      <td>וידבר has shoresh דבר.</td>
+      <td>3</td>
+      <td>SR</td>
+      <td>SR2</td>
+    </tr>
+    <tr>
+      <td>162</td>
+      <td class="hebrew">ויעש</td>
+      <td>shoresh</td>
+      <td dir="auto">What is the shoresh of ויעש?</td>
+      <td><ol><li>בנה</li><li>שמר</li><li class="correct">עשה</li><li>נתן</li></ol></td>
+      <td class="correct-cell">עשה</td>
+      <td>ויעש has shoresh עשה.</td>
+      <td>3</td>
+      <td>SR</td>
+      <td>SR2</td>
+    </tr>
+    <tr>
+      <td>163</td>
+      <td class="hebrew">ויצא</td>
+      <td>shoresh</td>
+      <td dir="auto">What is the shoresh of ויצא?</td>
+      <td><ol><li>בא</li><li>הלך</li><li>שוב</li><li class="correct">יצא</li></ol></td>
+      <td class="correct-cell">יצא</td>
+      <td>ויצא has shoresh יצא.</td>
+      <td>3</td>
+      <td>SR</td>
+      <td>SR2</td>
+    </tr>
+    <tr>
+      <td>164</td>
+      <td class="hebrew">ויבא</td>
+      <td>shoresh</td>
+      <td dir="auto">What is the shoresh of ויבא?</td>
+      <td><ol><li class="correct">בא</li><li>יצא</li><li>הלך</li><li>עלה</li></ol></td>
+      <td class="correct-cell">בא</td>
+      <td>ויבא has shoresh בא.</td>
+      <td>4</td>
+      <td>SR</td>
+      <td>SR4</td>
+    </tr>
+    <tr>
+      <td>165</td>
+      <td class="hebrew">ויעמד</td>
+      <td>shoresh</td>
+      <td dir="auto">What is the shoresh of ויעמד?</td>
+      <td><ol><li>ישב</li><li class="correct">עמד</li><li>הלך</li><li>ירד</li></ol></td>
+      <td class="correct-cell">עמד</td>
+      <td>ויעמד has shoresh עמד.</td>
+      <td>3</td>
+      <td>SR</td>
+      <td>SR2</td>
+    </tr>
+    <tr>
+      <td>166</td>
+      <td class="hebrew">וימת</td>
+      <td>shoresh</td>
+      <td dir="auto">What is the shoresh of וימת?</td>
+      <td><ol><li>חיה</li><li>ילד</li><li class="correct">מות</li><li>שוב</li></ol></td>
+      <td class="correct-cell">מות</td>
+      <td>וימת has shoresh מות.</td>
+      <td>4</td>
+      <td>SR</td>
+      <td>SR4</td>
+    </tr>
+    <tr>
+      <td>167</td>
+      <td class="hebrew">ויחי</td>
+      <td>shoresh</td>
+      <td dir="auto">What is the shoresh of ויחי?</td>
+      <td><ol><li>מות</li><li class="correct">חיה</li><li>ילד</li><li>עמד</li></ol></td>
+      <td class="correct-cell">חיה</td>
+      <td>ויחי has shoresh חיה.</td>
+      <td>4</td>
+      <td>SR</td>
+      <td>SR4</td>
+    </tr>
+    <tr>
+      <td>168</td>
+      <td class="hebrew">וישב</td>
+      <td>shoresh</td>
+      <td dir="auto">What is the shoresh of וישב when it means &#x27;and he returned&#x27;?</td>
+      <td><ol><li>ישב</li><li class="correct">שוב</li><li>הלך</li><li>בא</li></ol></td>
+      <td class="correct-cell">שוב</td>
+      <td>וישב can come from שוב when it means &#x27;and he returned&#x27;.</td>
+      <td>4</td>
+      <td>SR</td>
+      <td>SR4</td>
+    </tr>
+    <tr>
+      <td>169</td>
+      <td class="hebrew">וילד</td>
+      <td>shoresh</td>
+      <td dir="auto">What is the shoresh of וילד?</td>
+      <td><ol><li>חיה</li><li>מות</li><li>עמד</li><li class="correct">ילד</li></ol></td>
+      <td class="correct-cell">ילד</td>
+      <td>וילד has shoresh ילד.</td>
+      <td>4</td>
+      <td>SR</td>
+      <td>SR4</td>
+    </tr>
+    <tr>
+      <td>170</td>
+      <td class="hebrew">ויקרא</td>
+      <td>prefix_translation</td>
+      <td dir="auto">What does the prefix and word ויקרא mean?</td>
+      <td><ol><li class="correct">and he called</li><li>he called</li><li>and he spoke</li><li>he did</li></ol></td>
+      <td class="correct-cell">and he called</td>
+      <td>ויקרא means &#x27;and he called&#x27;.</td>
+      <td>4</td>
+      <td>CF</td>
+      <td>CF2</td>
+    </tr>
+    <tr>
+      <td>171</td>
+      <td class="hebrew">וידבר</td>
+      <td>prefix_translation</td>
+      <td dir="auto">What does the prefix and word וידבר mean?</td>
+      <td><ol><li>he spoke</li><li class="correct">and he spoke</li><li>and he called</li><li>he heard</li></ol></td>
+      <td class="correct-cell">and he spoke</td>
+      <td>וידבר means &#x27;and he spoke&#x27;.</td>
+      <td>4</td>
+      <td>CF</td>
+      <td>CF2</td>
+    </tr>
+    <tr>
+      <td>172</td>
+      <td class="hebrew">ויעש</td>
+      <td>prefix_translation</td>
+      <td dir="auto">What does the prefix and word ויעש mean?</td>
+      <td><ol><li>he did</li><li>and he built</li><li class="correct">and he did</li><li>he gave</li></ol></td>
+      <td class="correct-cell">and he did</td>
+      <td>ויעש means &#x27;and he did&#x27;.</td>
+      <td>4</td>
+      <td>CF</td>
+      <td>CF2</td>
+    </tr>
+    <tr>
+      <td>173</td>
+      <td class="hebrew">ויצא</td>
+      <td>prefix_translation</td>
+      <td dir="auto">What does the prefix and word ויצא mean?</td>
+      <td><ol><li>he came</li><li>he went out</li><li class="correct">and he went out</li><li>and he returned</li></ol></td>
+      <td class="correct-cell">and he went out</td>
+      <td>ויצא means &#x27;and he went out&#x27;.</td>
+      <td>4</td>
+      <td>CF</td>
+      <td>CF2</td>
+    </tr>
+    <tr>
+      <td>174</td>
+      <td class="hebrew">ויבא</td>
+      <td>prefix_translation</td>
+      <td dir="auto">What does the prefix and word ויבא mean?</td>
+      <td><ol><li class="correct">and he came</li><li>he came</li><li>and he went out</li><li>he went up</li></ol></td>
+      <td class="correct-cell">and he came</td>
+      <td>ויבא means &#x27;and he came&#x27;.</td>
+      <td>4</td>
+      <td>CF</td>
+      <td>CF2</td>
+    </tr>
+    <tr>
+      <td>175</td>
+      <td class="hebrew">ויעמד</td>
+      <td>prefix_translation</td>
+      <td dir="auto">What does the prefix and word ויעמד mean?</td>
+      <td><ol><li>he stood</li><li>and he sat</li><li class="correct">and he stood</li><li>he went</li></ol></td>
+      <td class="correct-cell">and he stood</td>
+      <td>ויעמד means &#x27;and he stood&#x27;.</td>
+      <td>4</td>
+      <td>CF</td>
+      <td>CF2</td>
+    </tr>
+    <tr>
+      <td>176</td>
+      <td class="hebrew">וימת</td>
+      <td>prefix_translation</td>
+      <td dir="auto">What does the prefix and word וימת mean?</td>
+      <td><ol><li>and he lived</li><li>he died</li><li class="correct">and he died</li><li>he gave birth</li></ol></td>
+      <td class="correct-cell">and he died</td>
+      <td>וימת means &#x27;and he died&#x27;.</td>
+      <td>4</td>
+      <td>CF</td>
+      <td>CF2</td>
+    </tr>
+    <tr>
+      <td>177</td>
+      <td class="hebrew">ויחי</td>
+      <td>prefix_translation</td>
+      <td dir="auto">What does the prefix and word ויחי mean?</td>
+      <td><ol><li class="correct">and he lived</li><li>he lived</li><li>and he died</li><li>he stood</li></ol></td>
+      <td class="correct-cell">and he lived</td>
+      <td>ויחי means &#x27;and he lived&#x27;.</td>
+      <td>4</td>
+      <td>CF</td>
+      <td>CF2</td>
+    </tr>
+    <tr>
+      <td>178</td>
+      <td class="hebrew">זכר</td>
+      <td>translation</td>
+      <td dir="auto">What does the word זכר mean?</td>
+      <td><ol><li class="correct">remembered</li><li>knew</li><li>loved</li><li>blessed</li></ol></td>
+      <td class="correct-cell">remembered</td>
+      <td>זכר means &#x27;remembered&#x27;.</td>
+      <td>1</td>
+      <td>WM</td>
+      <td>WM1</td>
+    </tr>
+    <tr>
+      <td>179</td>
+      <td class="hebrew">ידע</td>
+      <td>translation</td>
+      <td dir="auto">What does the word ידע mean?</td>
+      <td><ol><li>heard</li><li class="correct">knew</li><li>thought</li><li>answered</li></ol></td>
+      <td class="correct-cell">knew</td>
+      <td>ידע means &#x27;knew&#x27;.</td>
+      <td>1</td>
+      <td>WM</td>
+      <td>WM1</td>
+    </tr>
+    <tr>
+      <td>180</td>
+      <td class="hebrew">אהב</td>
+      <td>translation</td>
+      <td dir="auto">What does the word אהב mean?</td>
+      <td><ol><li>hated</li><li>called</li><li class="correct">loved</li><li>spoke</li></ol></td>
+      <td class="correct-cell">loved</td>
+      <td>אהב means &#x27;loved&#x27;.</td>
+      <td>1</td>
+      <td>WM</td>
+      <td>WM1</td>
+    </tr>
+    <tr>
+      <td>181</td>
+      <td class="hebrew">שנא</td>
+      <td>translation</td>
+      <td dir="auto">What does the word שנא mean?</td>
+      <td><ol><li>blessed</li><li>remembered</li><li>built</li><li class="correct">hated</li></ol></td>
+      <td class="correct-cell">hated</td>
+      <td>שנא means &#x27;hated&#x27;.</td>
+      <td>1</td>
+      <td>WM</td>
+      <td>WM1</td>
+    </tr>
+    <tr>
+      <td>182</td>
+      <td class="hebrew">ברך</td>
+      <td>translation</td>
+      <td dir="auto">What does the word ברך mean?</td>
+      <td><ol><li class="correct">blessed</li><li>cursed</li><li>sanctified</li><li>guarded</li></ol></td>
+      <td class="correct-cell">blessed</td>
+      <td>ברך means &#x27;blessed&#x27;.</td>
+      <td>1</td>
+      <td>WM</td>
+      <td>WM1</td>
+    </tr>
+    <tr>
+      <td>183</td>
+      <td class="hebrew">ענה</td>
+      <td>translation</td>
+      <td dir="auto">What does the word ענה mean?</td>
+      <td><ol><li>called</li><li class="correct">answered</li><li>thought</li><li>spoke</li></ol></td>
+      <td class="correct-cell">answered</td>
+      <td>ענה means &#x27;answered&#x27;.</td>
+      <td>1</td>
+      <td>WM</td>
+      <td>WM1</td>
+    </tr>
+    <tr>
+      <td>184</td>
+      <td class="hebrew">חשב</td>
+      <td>translation</td>
+      <td dir="auto">What does the word חשב mean?</td>
+      <td><ol><li>knew</li><li>remembered</li><li class="correct">thought</li><li>opened</li></ol></td>
+      <td class="correct-cell">thought</td>
+      <td>חשב means &#x27;thought&#x27;.</td>
+      <td>1</td>
+      <td>WM</td>
+      <td>WM1</td>
+    </tr>
+    <tr>
+      <td>185</td>
+      <td class="hebrew">שבר</td>
+      <td>translation</td>
+      <td dir="auto">What does the word שבר mean?</td>
+      <td><ol><li>closed</li><li class="correct">broke</li><li>opened</li><li>gathered</li></ol></td>
+      <td class="correct-cell">broke</td>
+      <td>שבר means &#x27;broke&#x27;.</td>
+      <td>1</td>
+      <td>WM</td>
+      <td>WM1</td>
+    </tr>
+    <tr>
+      <td>186</td>
+      <td class="hebrew">שתה</td>
+      <td>translation</td>
+      <td dir="auto">What does the word שתה mean?</td>
+      <td><ol><li>ate</li><li>slept</li><li class="correct">drank</li><li>washed</li></ol></td>
+      <td class="correct-cell">drank</td>
+      <td>שתה means &#x27;drank&#x27;.</td>
+      <td>1</td>
+      <td>WM</td>
+      <td>WM1</td>
+    </tr>
+    <tr>
+      <td>187</td>
+      <td class="hebrew">ישן</td>
+      <td>translation</td>
+      <td dir="auto">What does the word ישן mean?</td>
+      <td><ol><li>wore</li><li class="correct">slept</li><li>ran</li><li>fell</li></ol></td>
+      <td class="correct-cell">slept</td>
+      <td>ישן means &#x27;slept&#x27;.</td>
+      <td>1</td>
+      <td>WM</td>
+      <td>WM1</td>
+    </tr>
+    <tr>
+      <td>188</td>
+      <td class="hebrew">פרי</td>
+      <td>reverse_translation</td>
+      <td dir="auto">Which Hebrew word means fruit?</td>
+      <td><ol><li>לחם</li><li class="correct">פרי</li><li>יין</li><li>חלב</li></ol></td>
+      <td class="correct-cell">פרי</td>
+      <td>פרי means &#x27;fruit&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM2</td>
+    </tr>
+    <tr>
+      <td>189</td>
+      <td class="hebrew">יין</td>
+      <td>reverse_translation</td>
+      <td dir="auto">Which Hebrew word means wine?</td>
+      <td><ol><li>מים</li><li>חלב</li><li class="correct">יין</li><li>לחם</li></ol></td>
+      <td class="correct-cell">יין</td>
+      <td>יין means &#x27;wine&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM2</td>
+    </tr>
+    <tr>
+      <td>190</td>
+      <td class="hebrew">חלב</td>
+      <td>reverse_translation</td>
+      <td dir="auto">Which Hebrew word means milk?</td>
+      <td><ol><li>בשר</li><li class="correct">חלב</li><li>יין</li><li>מים</li></ol></td>
+      <td class="correct-cell">חלב</td>
+      <td>חלב means &#x27;milk&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM2</td>
+    </tr>
+    <tr>
+      <td>191</td>
+      <td class="hebrew">ברזל</td>
+      <td>reverse_translation</td>
+      <td dir="auto">Which Hebrew word means iron?</td>
+      <td><ol><li>כסף</li><li>זהב</li><li class="correct">ברזל</li><li>אבן</li></ol></td>
+      <td class="correct-cell">ברזל</td>
+      <td>ברזל means &#x27;iron&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM2</td>
+    </tr>
+    <tr>
+      <td>192</td>
+      <td class="hebrew">שבוע</td>
+      <td>reverse_translation</td>
+      <td dir="auto">Which Hebrew word means week?</td>
+      <td><ol><li>יום</li><li>חדש</li><li>שנה</li><li class="correct">שבוע</li></ol></td>
+      <td class="correct-cell">שבוע</td>
+      <td>שבוע means &#x27;week&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM2</td>
+    </tr>
+    <tr>
+      <td>193</td>
+      <td class="hebrew">עת</td>
+      <td>reverse_translation</td>
+      <td dir="auto">Which Hebrew word means time?</td>
+      <td><ol><li>מקום</li><li class="correct">עת</li><li>שנה</li><li>יום</li></ol></td>
+      <td class="correct-cell">עת</td>
+      <td>עת means &#x27;time&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM2</td>
+    </tr>
+    <tr>
+      <td>194</td>
+      <td class="hebrew">חיים</td>
+      <td>reverse_translation</td>
+      <td dir="auto">Which Hebrew word means life?</td>
+      <td><ol><li>מות</li><li>נפש</li><li class="correct">חיים</li><li>רוח</li></ol></td>
+      <td class="correct-cell">חיים</td>
+      <td>חיים means &#x27;life&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM5</td>
+    </tr>
+    <tr>
+      <td>195</td>
+      <td class="hebrew">מלחמה</td>
+      <td>reverse_translation</td>
+      <td dir="auto">Which Hebrew word means war?</td>
+      <td><ol><li>שלום</li><li class="correct">מלחמה</li><li>ברית</li><li>מצוה</li></ol></td>
+      <td class="correct-cell">מלחמה</td>
+      <td>מלחמה means &#x27;war&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM5</td>
+    </tr>
+    <tr>
+      <td>196</td>
+      <td class="hebrew">אהבה</td>
+      <td>reverse_translation</td>
+      <td dir="auto">Which Hebrew word means love?</td>
+      <td><ol><li>שנאה</li><li>ברכה</li><li class="correct">אהבה</li><li>קללה</li></ol></td>
+      <td class="correct-cell">אהבה</td>
+      <td>אהבה means &#x27;love&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM5</td>
+    </tr>
+    <tr>
+      <td>197</td>
+      <td class="hebrew">ברכה</td>
+      <td>reverse_translation</td>
+      <td dir="auto">Which Hebrew word means blessing?</td>
+      <td><ol><li>קללה</li><li class="correct">ברכה</li><li>קדש</li><li>חול</li></ol></td>
+      <td class="correct-cell">ברכה</td>
+      <td>ברכה means &#x27;blessing&#x27;.</td>
+      <td>2</td>
+      <td>WM</td>
+      <td>WM5</td>
+    </tr>
+    <tr>
+      <td>198</td>
+      <td class="hebrew">ויזכר</td>
+      <td>shoresh</td>
+      <td dir="auto">What is the shoresh of ויזכר?</td>
+      <td><ol><li class="correct">זכר</li><li>ידע</li><li>אהב</li><li>שמר</li></ol></td>
+      <td class="correct-cell">זכר</td>
+      <td>ויזכר has shoresh זכר.</td>
+      <td>3</td>
+      <td>SR</td>
+      <td>SR2</td>
+    </tr>
+    <tr>
+      <td>199</td>
+      <td class="hebrew">וידע</td>
+      <td>shoresh</td>
+      <td dir="auto">What is the shoresh of וידע?</td>
+      <td><ol><li>שמע</li><li class="correct">ידע</li><li>חשב</li><li>ענה</li></ol></td>
+      <td class="correct-cell">ידע</td>
+      <td>וידע has shoresh ידע.</td>
+      <td>3</td>
+      <td>SR</td>
+      <td>SR2</td>
+    </tr>
+    <tr>
+      <td>200</td>
+      <td class="hebrew">ויאהב</td>
+      <td>shoresh</td>
+      <td dir="auto">What is the shoresh of ויאהב?</td>
+      <td><ol><li>שנא</li><li>ברך</li><li class="correct">אהב</li><li>קרא</li></ol></td>
+      <td class="correct-cell">אהב</td>
+      <td>ויאהב has shoresh אהב.</td>
+      <td>3</td>
+      <td>SR</td>
+      <td>SR2</td>
+    </tr>
+    <tr>
+      <td>201</td>
+      <td class="hebrew">וישנא</td>
+      <td>shoresh</td>
+      <td dir="auto">What is the shoresh of וישנא?</td>
+      <td><ol><li>אהב</li><li class="correct">שנא</li><li>קלל</li><li>ברך</li></ol></td>
+      <td class="correct-cell">שנא</td>
+      <td>וישנא has shoresh שנא.</td>
+      <td>3</td>
+      <td>SR</td>
+      <td>SR2</td>
+    </tr>
+    <tr>
+      <td>202</td>
+      <td class="hebrew">ויברך</td>
+      <td>shoresh</td>
+      <td dir="auto">What is the shoresh of ויברך?</td>
+      <td><ol><li class="correct">ברך</li><li>קלל</li><li>קדש</li><li>טהר</li></ol></td>
+      <td class="correct-cell">ברך</td>
+      <td>ויברך has shoresh ברך.</td>
+      <td>3</td>
+      <td>SR</td>
+      <td>SR2</td>
+    </tr>
+    <tr>
+      <td>203</td>
+      <td class="hebrew">ויען</td>
+      <td>shoresh</td>
+      <td dir="auto">What is the shoresh of ויען?</td>
+      <td><ol><li>קרא</li><li class="correct">ענה</li><li>דבר</li><li>חשב</li></ol></td>
+      <td class="correct-cell">ענה</td>
+      <td>ויען has shoresh ענה.</td>
+      <td>3</td>
+      <td>SR</td>
+      <td>SR2</td>
+    </tr>
+    <tr>
+      <td>204</td>
+      <td class="hebrew">ויחשב</td>
+      <td>shoresh</td>
+      <td dir="auto">What is the shoresh of ויחשב?</td>
+      <td><ol><li>ידע</li><li>זכר</li><li class="correct">חשב</li><li>דבר</li></ol></td>
+      <td class="correct-cell">חשב</td>
+      <td>ויחשב has shoresh חשב.</td>
+      <td>3</td>
+      <td>SR</td>
+      <td>SR2</td>
+    </tr>
+    <tr>
+      <td>205</td>
+      <td class="hebrew">וישבר</td>
+      <td>shoresh</td>
+      <td dir="auto">What is the shoresh of וישבר?</td>
+      <td><ol><li>פתח</li><li>סגר</li><li class="correct">שבר</li><li>לקט</li></ol></td>
+      <td class="correct-cell">שבר</td>
+      <td>וישבר has shoresh שבר.</td>
+      <td>3</td>
+      <td>SR</td>
+      <td>SR2</td>
+    </tr>
+    <tr>
+      <td>206</td>
+      <td class="hebrew">וישת</td>
+      <td>shoresh</td>
+      <td dir="auto">What is the shoresh of וישת?</td>
+      <td><ol><li>אכל</li><li class="correct">שתה</li><li>ישן</li><li>רחץ</li></ol></td>
+      <td class="correct-cell">שתה</td>
+      <td>וישת has shoresh שתה.</td>
+      <td>3</td>
+      <td>SR</td>
+      <td>SR2</td>
+    </tr>
+    <tr>
+      <td>207</td>
+      <td class="hebrew">ויפתח</td>
+      <td>shoresh</td>
+      <td dir="auto">What is the shoresh of ויפתח?</td>
+      <td><ol><li class="correct">פתח</li><li>סגר</li><li>עבר</li><li>שכן</li></ol></td>
+      <td class="correct-cell">פתח</td>
+      <td>ויפתח has shoresh פתח.</td>
+      <td>3</td>
+      <td>SR</td>
+      <td>SR2</td>
+    </tr>
+    <tr>
+      <td>208</td>
+      <td class="hebrew">ויזכר</td>
+      <td>prefix_translation</td>
+      <td dir="auto">What does the prefix and word ויזכר mean?</td>
+      <td><ol><li class="correct">and he remembered</li><li>he remembered</li><li>and he knew</li><li>he blessed</li></ol></td>
+      <td class="correct-cell">and he remembered</td>
+      <td>ויזכר means &#x27;and he remembered&#x27;.</td>
+      <td>4</td>
+      <td>CF</td>
+      <td>CF2</td>
+    </tr>
+    <tr>
+      <td>209</td>
+      <td class="hebrew">וידע</td>
+      <td>prefix_translation</td>
+      <td dir="auto">What does the prefix and word וידע mean?</td>
+      <td><ol><li>he knew</li><li class="correct">and he knew</li><li>and he thought</li><li>he answered</li></ol></td>
+      <td class="correct-cell">and he knew</td>
+      <td>וידע means &#x27;and he knew&#x27;.</td>
+      <td>4</td>
+      <td>CF</td>
+      <td>CF2</td>
+    </tr>
+    <tr>
+      <td>210</td>
+      <td class="hebrew">ויאהב</td>
+      <td>prefix_translation</td>
+      <td dir="auto">What does the prefix and word ויאהב mean?</td>
+      <td><ol><li>and he hated</li><li>he loved</li><li class="correct">and he loved</li><li>he called</li></ol></td>
+      <td class="correct-cell">and he loved</td>
+      <td>ויאהב means &#x27;and he loved&#x27;.</td>
+      <td>4</td>
+      <td>CF</td>
+      <td>CF2</td>
+    </tr>
+    <tr>
+      <td>211</td>
+      <td class="hebrew">ויברך</td>
+      <td>prefix_translation</td>
+      <td dir="auto">What does the prefix and word ויברך mean?</td>
+      <td><ol><li>he blessed</li><li>and he cursed</li><li class="correct">and he blessed</li><li>he sanctified</li></ol></td>
+      <td class="correct-cell">and he blessed</td>
+      <td>ויברך means &#x27;and he blessed&#x27;.</td>
+      <td>4</td>
+      <td>CF</td>
+      <td>CF2</td>
+    </tr>
+    <tr>
+      <td>212</td>
+      <td class="hebrew">ויען</td>
+      <td>prefix_translation</td>
+      <td dir="auto">What does the prefix and word ויען mean?</td>
+      <td><ol><li class="correct">and he answered</li><li>he answered</li><li>and he spoke</li><li>he called</li></ol></td>
+      <td class="correct-cell">and he answered</td>
+      <td>ויען means &#x27;and he answered&#x27;.</td>
+      <td>4</td>
+      <td>CF</td>
+      <td>CF2</td>
+    </tr>
+    <tr>
+      <td>213</td>
+      <td class="hebrew">ויחשב</td>
+      <td>prefix_translation</td>
+      <td dir="auto">What does the prefix and word ויחשב mean?</td>
+      <td><ol><li>he thought</li><li>and he remembered</li><li class="correct">and he thought</li><li>he knew</li></ol></td>
+      <td class="correct-cell">and he thought</td>
+      <td>ויחשב means &#x27;and he thought&#x27;.</td>
+      <td>4</td>
+      <td>CF</td>
+      <td>CF2</td>
+    </tr>
+    <tr>
+      <td>214</td>
+      <td class="hebrew">וישבר</td>
+      <td>prefix_translation</td>
+      <td dir="auto">What does the prefix and word וישבר mean?</td>
+      <td><ol><li>and he opened</li><li>he broke</li><li class="correct">and he broke</li><li>he closed</li></ol></td>
+      <td class="correct-cell">and he broke</td>
+      <td>וישבר means &#x27;and he broke&#x27;.</td>
+      <td>4</td>
+      <td>CF</td>
+      <td>CF2</td>
+    </tr>
+    <tr>
+      <td>215</td>
+      <td class="hebrew">ויפתח</td>
+      <td>prefix_translation</td>
+      <td dir="auto">What does the prefix and word ויפתח mean?</td>
+      <td><ol><li class="correct">and he opened</li><li>he opened</li><li>and he closed</li><li>he passed</li></ol></td>
+      <td class="correct-cell">and he opened</td>
+      <td>ויפתח means &#x27;and he opened&#x27;.</td>
+      <td>4</td>
+      <td>CF</td>
+      <td>CF2</td>
+    </tr>
+    <tr>
+      <td>216</td>
+      <td class="hebrew">ויסגר</td>
+      <td>prefix_translation</td>
+      <td dir="auto">What does the prefix and word ויסגר mean?</td>
+      <td><ol><li>he closed</li><li>and he opened</li><li class="correct">and he closed</li><li>he gathered</li></ol></td>
+      <td class="correct-cell">and he closed</td>
+      <td>ויסגר means &#x27;and he closed&#x27;.</td>
+      <td>4</td>
+      <td>CF</td>
+      <td>CF2</td>
+    </tr>
+    <tr>
+      <td>217</td>
+      <td class="hebrew">ויעבר</td>
+      <td>prefix_translation</td>
+      <td dir="auto">What does the prefix and word ויעבר mean?</td>
+      <td><ol><li class="correct">and he passed</li><li>he passed</li><li>and he dwelled</li><li>he inherited</li></ol></td>
+      <td class="correct-cell">and he passed</td>
+      <td>ויעבר means &#x27;and he passed&#x27;.</td>
+      <td>4</td>
+      <td>CF</td>
+      <td>CF2</td>
+    </tr>
+    <tr>
+      <td>218</td>
+      <td class="hebrew">ו</td>
+      <td>semantic</td>
+      <td dir="auto">Which choice best describes the prefix ו?</td>
+      <td><ol><li class="correct">and</li><li>the</li><li>from</li><li>to</li></ol></td>
+      <td class="correct-cell">and</td>
+      <td>ו is the prefix meaning &#x27;and&#x27;.</td>
+      <td>3</td>
+      <td>PR</td>
+      <td>PR1</td>
+    </tr>
+    <tr>
+      <td>219</td>
+      <td class="hebrew">ה</td>
+      <td>semantic</td>
+      <td dir="auto">Which choice best describes the prefix ה?</td>
+      <td><ol><li>to</li><li class="correct">the</li><li>in</li><li>from</li></ol></td>
+      <td class="correct-cell">the</td>
+      <td>ה is the prefix meaning &#x27;the&#x27;.</td>
+      <td>3</td>
+      <td>PR</td>
+      <td>PR1</td>
+    </tr>
+    <tr>
+      <td>220</td>
+      <td class="hebrew">ל</td>
+      <td>semantic</td>
+      <td dir="auto">Which choice best describes the prefix ל?</td>
+      <td><ol><li>from</li><li>in</li><li class="correct">to/for</li><li>and</li></ol></td>
+      <td class="correct-cell">to/for</td>
+      <td>ל is the prefix meaning &#x27;to&#x27; or &#x27;for&#x27;.</td>
+      <td>3</td>
+      <td>PR</td>
+      <td>PR1</td>
+    </tr>
+    <tr>
+      <td>221</td>
+      <td class="hebrew">ב</td>
+      <td>semantic</td>
+      <td dir="auto">Which choice best describes the prefix ב?</td>
+      <td><ol><li class="correct">in</li><li>on</li><li>because</li><li>only</li></ol></td>
+      <td class="correct-cell">in</td>
+      <td>ב is the prefix meaning &#x27;in&#x27;.</td>
+      <td>3</td>
+      <td>PR</td>
+      <td>PR1</td>
+    </tr>
+    <tr>
+      <td>222</td>
+      <td class="hebrew">מ</td>
+      <td>semantic</td>
+      <td dir="auto">Which choice best describes the prefix מ?</td>
+      <td><ol><li>the</li><li class="correct">from</li><li>with</li><li>all</li></ol></td>
+      <td class="correct-cell">from</td>
+      <td>מ is the prefix meaning &#x27;from&#x27;.</td>
+      <td>3</td>
+      <td>PR</td>
+      <td>PR1</td>
+    </tr>
+    <tr>
+      <td>223</td>
+      <td class="hebrew">על</td>
+      <td>semantic</td>
+      <td dir="auto">Which word is closest in function to על?</td>
+      <td><ol><li class="correct">on</li><li>to</li><li>with</li><li>because</li></ol></td>
+      <td class="correct-cell">on</td>
+      <td>על means &#x27;on&#x27;.</td>
+      <td>3</td>
+      <td>PR</td>
+      <td>PR1</td>
+    </tr>
+    <tr>
+      <td>224</td>
+      <td class="hebrew">אל</td>
+      <td>semantic</td>
+      <td dir="auto">Which word is closest in function to אל?</td>
+      <td><ol><li>from</li><li class="correct">to</li><li>also</li><li>only</li></ol></td>
+      <td class="correct-cell">to</td>
+      <td>אל means &#x27;to&#x27;.</td>
+      <td>3</td>
+      <td>PR</td>
+      <td>PR1</td>
+    </tr>
+    <tr>
+      <td>225</td>
+      <td class="hebrew">כי</td>
+      <td>semantic</td>
+      <td dir="auto">Which choice best describes the word כי?</td>
+      <td><ol><li class="correct">because/that</li><li>this</li><li>they</li><li>there is</li></ol></td>
+      <td class="correct-cell">because/that</td>
+      <td>כי often means &#x27;because&#x27; or &#x27;that&#x27;.</td>
+      <td>3</td>
+      <td>PR</td>
+      <td>PR1</td>
+    </tr>
+    <tr>
+      <td>226</td>
+      <td class="hebrew">אשר</td>
+      <td>semantic</td>
+      <td dir="auto">Which choice best describes the word אשר?</td>
+      <td><ol><li>only</li><li class="correct">that/which</li><li>also</li><li>if</li></ol></td>
+      <td class="correct-cell">that/which</td>
+      <td>אשר means &#x27;that&#x27; or &#x27;which&#x27;.</td>
+      <td>3</td>
+      <td>PR</td>
+      <td>PR1</td>
+    </tr>
+    <tr>
+      <td>227</td>
+      <td class="hebrew">את</td>
+      <td>semantic</td>
+      <td dir="auto">What kind of word is את in Chumash reading?</td>
+      <td><ol><li class="correct">direct object marker</li><li>verb</li><li>place noun</li><li>time word</li></ol></td>
+      <td class="correct-cell">direct object marker</td>
+      <td>את marks the direct object.</td>
+      <td>3</td>
+      <td>PR</td>
+      <td>PR1</td>
+    </tr>
+    <tr>
+      <td>228</td>
+      <td class="hebrew">ביתי</td>
+      <td>suffix</td>
+      <td dir="auto">What does ביתי mean?</td>
+      <td><ol><li class="correct">my house</li><li>his house</li><li>her house</li><li>our house</li></ol></td>
+      <td class="correct-cell">my house</td>
+      <td>י at the end means &#x27;my&#x27;.</td>
+      <td>3</td>
+      <td>PR</td>
+      <td>PR2</td>
+    </tr>
+    <tr>
+      <td>229</td>
+      <td class="hebrew">ביתו</td>
+      <td>suffix</td>
+      <td dir="auto">What does ביתו mean?</td>
+      <td><ol><li class="correct">his house</li><li>her house</li><li>their house</li><li>my house</li></ol></td>
+      <td class="correct-cell">his house</td>
+      <td>ו at the end means &#x27;his&#x27;.</td>
+      <td>3</td>
+      <td>PR</td>
+      <td>PR2</td>
+    </tr>
+    <tr>
+      <td>230</td>
+      <td class="hebrew">ביתה</td>
+      <td>suffix</td>
+      <td dir="auto">What does ביתה mean?</td>
+      <td><ol><li class="correct">her house</li><li>his house</li><li>our house</li><li>your house</li></ol></td>
+      <td class="correct-cell">her house</td>
+      <td>ה at the end means &#x27;her&#x27;.</td>
+      <td>3</td>
+      <td>PR</td>
+      <td>PR2</td>
+    </tr>
+    <tr>
+      <td>231</td>
+      <td class="hebrew">ביתנו</td>
+      <td>suffix</td>
+      <td dir="auto">What does ביתנו mean?</td>
+      <td><ol><li>their house</li><li>your house</li><li class="correct">our house</li><li>my house</li></ol></td>
+      <td class="correct-cell">our house</td>
+      <td>נו at the end means &#x27;our&#x27;.</td>
+      <td>3</td>
+      <td>PR</td>
+      <td>PR2</td>
+    </tr>
+    <tr>
+      <td>232</td>
+      <td class="hebrew">אבי</td>
+      <td>suffix</td>
+      <td dir="auto">What does אבי mean?</td>
+      <td><ol><li class="correct">my father</li><li>his father</li><li>her father</li><li>our father</li></ol></td>
+      <td class="correct-cell">my father</td>
+      <td>אב means &#x27;father&#x27; and י means &#x27;my&#x27;.</td>
+      <td>3</td>
+      <td>PR</td>
+      <td>PR2</td>
+    </tr>
+    <tr>
+      <td>233</td>
+      <td class="hebrew">עמם</td>
+      <td>suffix</td>
+      <td dir="auto">What does עמם mean?</td>
+      <td><ol><li class="correct">their people</li><li>his people</li><li>our people</li><li>my people</li></ol></td>
+      <td class="correct-cell">their people</td>
+      <td>הם at the end means &#x27;their&#x27;.</td>
+      <td>3</td>
+      <td>PR</td>
+      <td>PR2</td>
+    </tr>
+    <tr>
+      <td>234</td>
+      <td class="hebrew">בבית</td>
+      <td>prefix</td>
+      <td dir="auto">What does בבית mean?</td>
+      <td><ol><li class="correct">in the house</li><li>to the house</li><li>from the house</li><li>the house</li></ol></td>
+      <td class="correct-cell">in the house</td>
+      <td>ב means &#x27;in&#x27;.</td>
+      <td>4</td>
+      <td>PR</td>
+      <td>PR3</td>
+    </tr>
+    <tr>
+      <td>235</td>
+      <td class="hebrew">לבית</td>
+      <td>prefix</td>
+      <td dir="auto">What does לבית mean?</td>
+      <td><ol><li>from a house</li><li class="correct">to a house</li><li>in a house</li><li>like a house</li></ol></td>
+      <td class="correct-cell">to a house</td>
+      <td>ל means &#x27;to&#x27; or &#x27;for&#x27;.</td>
+      <td>4</td>
+      <td>PR</td>
+      <td>PR3</td>
+    </tr>
+    <tr>
+      <td>236</td>
+      <td class="hebrew">מבית</td>
+      <td>prefix</td>
+      <td dir="auto">What does מבית mean?</td>
+      <td><ol><li class="correct">from a house</li><li>to a house</li><li>in a house</li><li>the house</li></ol></td>
+      <td class="correct-cell">from a house</td>
+      <td>מ means &#x27;from&#x27;.</td>
+      <td>4</td>
+      <td>PR</td>
+      <td>PR3</td>
+    </tr>
+    <tr>
+      <td>237</td>
+      <td class="hebrew">כמלך</td>
+      <td>prefix</td>
+      <td dir="auto">What does כמלך mean?</td>
+      <td><ol><li class="correct">like a king</li><li>to a king</li><li>from a king</li><li>the king</li></ol></td>
+      <td class="correct-cell">like a king</td>
+      <td>כ means &#x27;like&#x27; or &#x27;as&#x27;.</td>
+      <td>4</td>
+      <td>PR</td>
+      <td>PR3</td>
+    </tr>
+    <tr>
+      <td>238</td>
+      <td class="hebrew">המלך</td>
+      <td>prefix</td>
+      <td dir="auto">What does המלך mean?</td>
+      <td><ol><li>a king</li><li class="correct">the king</li><li>to a king</li><li>from a king</li></ol></td>
+      <td class="correct-cell">the king</td>
+      <td>ה means &#x27;the&#x27;.</td>
+      <td>4</td>
+      <td>PR</td>
+      <td>PR3</td>
+    </tr>
+    <tr>
+      <td>239</td>
+      <td class="hebrew">בשדה</td>
+      <td>prefix</td>
+      <td dir="auto">What does בשדה mean?</td>
+      <td><ol><li class="correct">in a field</li><li>to a field</li><li>from a field</li><li>the field</li></ol></td>
+      <td class="correct-cell">in a field</td>
+      <td>ב means &#x27;in&#x27; and שדה means &#x27;field&#x27;.</td>
+      <td>4</td>
+      <td>PR</td>
+      <td>PR3</td>
+    </tr>
+    <tr>
+      <td>240</td>
+      <td class="hebrew">בביתו</td>
+      <td>combined</td>
+      <td dir="auto">What does בביתו mean?</td>
+      <td><ol><li class="correct">in his house</li><li>his house</li><li>to his house</li><li>from his house</li></ol></td>
+      <td class="correct-cell">in his house</td>
+      <td>ב = in, בית = house, ו = his.</td>
+      <td>5</td>
+      <td>CF</td>
+      <td>CF4</td>
+    </tr>
+    <tr>
+      <td>241</td>
+      <td class="hebrew">לביתו</td>
+      <td>combined</td>
+      <td dir="auto">What does לביתו mean?</td>
+      <td><ol><li class="correct">to his house</li><li>in his house</li><li>his house</li><li>from his house</li></ol></td>
+      <td class="correct-cell">to his house</td>
+      <td>ל = to, בית = house, ו = his.</td>
+      <td>5</td>
+      <td>CF</td>
+      <td>CF4</td>
+    </tr>
+    <tr>
+      <td>242</td>
+      <td class="hebrew">מביתו</td>
+      <td>combined</td>
+      <td dir="auto">What does מביתו mean?</td>
+      <td><ol><li class="correct">from his house</li><li>to his house</li><li>in his house</li><li>his house</li></ol></td>
+      <td class="correct-cell">from his house</td>
+      <td>מ = from, בית = house, ו = his.</td>
+      <td>5</td>
+      <td>CF</td>
+      <td>CF4</td>
+    </tr>
+    <tr>
+      <td>243</td>
+      <td class="hebrew">בארצו</td>
+      <td>combined</td>
+      <td dir="auto">What does בארצו mean?</td>
+      <td><ol><li class="correct">in his land</li><li>to his land</li><li>from his land</li><li>his field</li></ol></td>
+      <td class="correct-cell">in his land</td>
+      <td>ב = in, ארץ = land, ו = his.</td>
+      <td>5</td>
+      <td>CF</td>
+      <td>CF4</td>
+    </tr>
+    <tr>
+      <td>244</td>
+      <td class="hebrew">בשמים</td>
+      <td>combined</td>
+      <td dir="auto">What does בשמים mean?</td>
+      <td><ol><li class="correct">in the heavens</li><li>from the heavens</li><li>to the heavens</li><li>like the heavens</li></ol></td>
+      <td class="correct-cell">in the heavens</td>
+      <td>ב = in and שמים means &#x27;heavens&#x27;.</td>
+      <td>5</td>
+      <td>CF</td>
+      <td>CF4</td>
+    </tr>
+    <tr>
+      <td>245</td>
+      <td class="hebrew">ויקרא</td>
+      <td>combined</td>
+      <td dir="auto">Which choice gives the shoresh, prefix, and meaning of ויקרא?</td>
+      <td><ol><li class="correct">קרא + ו - and he called</li><li>דבר + ו - and he spoke</li><li>שמע + ו - and he heard</li><li>עשה + ו - and he did</li></ol></td>
+      <td class="correct-cell">קרא + ו - and he called</td>
+      <td>ו = and, קרא = called.</td>
+      <td>4</td>
+      <td>CF</td>
+      <td>CF3</td>
+    </tr>
+    <tr>
+      <td>246</td>
+      <td class="hebrew">וידבר</td>
+      <td>combined</td>
+      <td dir="auto">Which choice gives the shoresh, prefix, and meaning of וידבר?</td>
+      <td><ol><li>אמר + ו - and he said</li><li class="correct">דבר + ו - and he spoke</li><li>קרא + ו - and he called</li><li>ענה + ו - and he answered</li></ol></td>
+      <td class="correct-cell">דבר + ו - and he spoke</td>
+      <td>ו = and, דבר = spoke.</td>
+      <td>4</td>
+      <td>CF</td>
+      <td>CF3</td>
+    </tr>
+    <tr>
+      <td>247</td>
+      <td class="hebrew">ויעש</td>
+      <td>combined</td>
+      <td dir="auto">Which choice gives the shoresh, prefix, and meaning of ויעש?</td>
+      <td><ol><li>בנה + ו - and he built</li><li class="correct">עשה + ו - and he did</li><li>נתן + ו - and he gave</li><li>שמר + ו - and he kept</li></ol></td>
+      <td class="correct-cell">עשה + ו - and he did</td>
+      <td>ו = and, עשה = did/made.</td>
+      <td>4</td>
+      <td>CF</td>
+      <td>CF3</td>
+    </tr>
+    <tr>
+      <td>248</td>
+      <td class="hebrew">מלך</td>
+      <td>semantic</td>
+      <td dir="auto">Which word is related to מלך?</td>
+      <td><ol><li class="correct">מלכה</li><li>שדה</li><li>מים</li><li>עץ</li></ol></td>
+      <td class="correct-cell">מלכה</td>
+      <td>מלכה is the feminine form related to king.</td>
+      <td>4</td>
+      <td>SR</td>
+      <td>SR5</td>
+    </tr>
+    <tr>
+      <td>249</td>
+      <td class="hebrew">מלך</td>
+      <td>semantic</td>
+      <td dir="auto">Which word belongs in the same family as מלך?</td>
+      <td><ol><li class="correct">מלכות</li><li>נהר</li><li>לחם</li><li>אבן</li></ol></td>
+      <td class="correct-cell">מלכות</td>
+      <td>מלכות means &#x27;kingdom&#x27; and is related to מלך.</td>
+      <td>4</td>
+      <td>SR</td>
+      <td>SR5</td>
+    </tr>
+    <tr>
+      <td>250</td>
+      <td class="hebrew">ביתו</td>
+      <td>phrase</td>
+      <td dir="auto">What does וישב בביתו mean?</td>
+      <td><ol><li class="correct">and he sat in his house</li><li>and he went to his house</li><li>and he spoke in his house</li><li>and he took his house</li></ol></td>
+      <td class="correct-cell">and he sat in his house</td>
+      <td>וישב = and he sat/dwelt, בביתו = in his house.</td>
+      <td>5</td>
+      <td>PC</td>
+      <td>PC4</td>
+    </tr>
+    <tr>
+      <td>251</td>
+      <td class="hebrew">ארצו</td>
+      <td>phrase</td>
+      <td dir="auto">What does וילך האיש לארצו mean?</td>
+      <td><ol><li class="correct">the man went to his land</li><li>the man came from his land</li><li>the king went to his house</li><li>the man sat in his land</li></ol></td>
+      <td class="correct-cell">the man went to his land</td>
+      <td>וילך = and he went, האיש = the man, לארצו = to his land.</td>
+      <td>5</td>
+      <td>PC</td>
+      <td>PC4</td>
+    </tr>
+    <tr>
+      <td>252</td>
+      <td class="hebrew">לעמו</td>
+      <td>combined</td>
+      <td dir="auto">What does לעמו mean?</td>
+      <td><ol><li class="correct">to his people</li><li>with his people</li><li>from his people</li><li>his people</li></ol></td>
+      <td class="correct-cell">to his people</td>
+      <td>ל = to, עם = people, ו = his.</td>
+      <td>4</td>
+      <td>PR</td>
+      <td>PR5</td>
+    </tr>
+    <tr>
+      <td>253</td>
+      <td class="hebrew">ויביאהו</td>
+      <td>combined</td>
+      <td dir="auto">What does ויביאהו mean?</td>
+      <td><ol><li class="correct">and he brought him</li><li>he came</li><li>he saw him</li><li>he gave him</li></ol></td>
+      <td class="correct-cell">and he brought him</td>
+      <td>ו = and, בוא/הביא = brought, הו = him.</td>
+      <td>5</td>
+      <td>CF</td>
+      <td>CF4</td>
+    </tr>
+    <tr>
+      <td>254</td>
+      <td class="hebrew">ויתנהו</td>
+      <td>combined</td>
+      <td dir="auto">What does ויתנהו mean?</td>
+      <td><ol><li class="correct">and he gave him</li><li>and he gave her</li><li>he took him</li><li>and he found him</li></ol></td>
+      <td class="correct-cell">and he gave him</td>
+      <td>ו = and, נתן = gave, הו = him.</td>
+      <td>5</td>
+      <td>CF</td>
+      <td>CF4</td>
+    </tr>
+    <tr>
+      <td>255</td>
+      <td class="hebrew">ויקחהו</td>
+      <td>combined</td>
+      <td dir="auto">What does ויקחהו mean?</td>
+      <td><ol><li class="correct">and he took him</li><li>and he took her</li><li>and he gave him</li><li>he called him</li></ol></td>
+      <td class="correct-cell">and he took him</td>
+      <td>ו = and, לקח = took, הו = him.</td>
+      <td>5</td>
+      <td>CF</td>
+      <td>CF4</td>
+    </tr>
+    <tr>
+      <td>256</td>
+      <td class="hebrew">ויראהו</td>
+      <td>combined</td>
+      <td dir="auto">What does ויראהו mean?</td>
+      <td><ol><li class="correct">and he saw him</li><li>and he saw her</li><li>and he called him</li><li>he feared him</li></ol></td>
+      <td class="correct-cell">and he saw him</td>
+      <td>ו = and, ראה = saw, הו = him.</td>
+      <td>5</td>
+      <td>CF</td>
+      <td>CF4</td>
+    </tr>
+    <tr>
+      <td>257</td>
+      <td class="hebrew">וישלחהו</td>
+      <td>combined</td>
+      <td dir="auto">What does וישלחהו mean?</td>
+      <td><ol><li class="correct">and he sent him</li><li>and he sent her</li><li>and he took him</li><li>he went with him</li></ol></td>
+      <td class="correct-cell">and he sent him</td>
+      <td>ו = and, שלח = sent, הו = him.</td>
+      <td>5</td>
+      <td>CF</td>
+      <td>CF4</td>
+    </tr>
+    <tr>
+      <td>258</td>
+      <td class="hebrew">בביתה</td>
+      <td>combined</td>
+      <td dir="auto">What does בביתה mean?</td>
+      <td><ol><li class="correct">in her house</li><li>in his house</li><li>to her house</li><li>from her house</li></ol></td>
+      <td class="correct-cell">in her house</td>
+      <td>ב = in, בית = house, ה = her.</td>
+      <td>5</td>
+      <td>CF</td>
+      <td>CF4</td>
+    </tr>
+    <tr>
+      <td>259</td>
+      <td class="hebrew">לביתה</td>
+      <td>combined</td>
+      <td dir="auto">What does לביתה mean?</td>
+      <td><ol><li class="correct">to her house</li><li>in her house</li><li>from her house</li><li>her house</li></ol></td>
+      <td class="correct-cell">to her house</td>
+      <td>ל = to, בית = house, ה = her.</td>
+      <td>5</td>
+      <td>CF</td>
+      <td>CF4</td>
+    </tr>
+    <tr>
+      <td>260</td>
+      <td class="hebrew">מביתה</td>
+      <td>combined</td>
+      <td dir="auto">What does מביתה mean?</td>
+      <td><ol><li class="correct">from her house</li><li>to her house</li><li>in her house</li><li>her house</li></ol></td>
+      <td class="correct-cell">from her house</td>
+      <td>מ = from, בית = house, ה = her.</td>
+      <td>5</td>
+      <td>CF</td>
+      <td>CF4</td>
+    </tr>
+    <tr>
+      <td>261</td>
+      <td class="hebrew">בידו</td>
+      <td>combined</td>
+      <td dir="auto">What does בידו mean?</td>
+      <td><ol><li class="correct">in his hand</li><li>to his hand</li><li>from his hand</li><li>his hand</li></ol></td>
+      <td class="correct-cell">in his hand</td>
+      <td>ב = in, יד = hand, ו = his.</td>
+      <td>4</td>
+      <td>PR</td>
+      <td>PR5</td>
+    </tr>
+    <tr>
+      <td>262</td>
+      <td class="hebrew">בידה</td>
+      <td>combined</td>
+      <td dir="auto">What does בידה mean?</td>
+      <td><ol><li class="correct">in her hand</li><li>in his hand</li><li>to her hand</li><li>from her hand</li></ol></td>
+      <td class="correct-cell">in her hand</td>
+      <td>ב = in, יד = hand, ה = her.</td>
+      <td>4</td>
+      <td>PR</td>
+      <td>PR5</td>
+    </tr>
+    <tr>
+      <td>263</td>
+      <td class="hebrew">והאיש</td>
+      <td>prefix</td>
+      <td dir="auto">What does והאיש mean?</td>
+      <td><ol><li class="correct">and the man</li><li>to the man</li><li>from the man</li><li>like the man</li></ol></td>
+      <td class="correct-cell">and the man</td>
+      <td>ו = and, ה = the, איש = man.</td>
+      <td>4</td>
+      <td>PR</td>
+      <td>PR3</td>
+    </tr>
+    <tr>
+      <td>264</td>
+      <td class="hebrew">ובבית</td>
+      <td>prefix</td>
+      <td dir="auto">What does ובבית mean?</td>
+      <td><ol><li class="correct">and in a house</li><li>and to a house</li><li>from a house</li><li>the house</li></ol></td>
+      <td class="correct-cell">and in a house</td>
+      <td>ו = and, ב = in, בית = house.</td>
+      <td>4</td>
+      <td>PR</td>
+      <td>PR3</td>
+    </tr>
+    <tr>
+      <td>265</td>
+      <td class="hebrew">ומהעיר</td>
+      <td>prefix</td>
+      <td dir="auto">What does ומהעיר mean?</td>
+      <td><ol><li class="correct">and from the city</li><li>and to the city</li><li>and in the city</li><li>the city</li></ol></td>
+      <td class="correct-cell">and from the city</td>
+      <td>ו = and, מ = from, ה = the, עיר = city.</td>
+      <td>4</td>
+      <td>PR</td>
+      <td>PR3</td>
+    </tr>
+    <tr>
+      <td>266</td>
+      <td class="hebrew">ולמלך</td>
+      <td>prefix</td>
+      <td dir="auto">What does ולמלך mean?</td>
+      <td><ol><li class="correct">and to a king</li><li>and from a king</li><li>and like a king</li><li>and a king</li></ol></td>
+      <td class="correct-cell">and to a king</td>
+      <td>ו = and, ל = to, מלך = king.</td>
+      <td>4</td>
+      <td>PR</td>
+      <td>PR3</td>
+    </tr>
+    <tr>
+      <td>267</td>
+      <td class="hebrew">וירא</td>
+      <td>phrase</td>
+      <td dir="auto">What does וירא האיש את המלך mean?</td>
+      <td><ol><li class="correct">and the man saw the king</li><li>and the king saw the man</li><li>and the man said to the king</li><li>and the man gave the king</li></ol></td>
+      <td class="correct-cell">and the man saw the king</td>
+      <td>וירא = and he saw, האיש = the man, את marks the object, המלך = the king.</td>
+      <td>5</td>
+      <td>PC</td>
+      <td>PC3</td>
+    </tr>
+    <tr>
+      <td>268</td>
+      <td class="hebrew">ויקח</td>
+      <td>phrase</td>
+      <td dir="auto">What does ויקח האיש את הלחם mean?</td>
+      <td><ol><li class="correct">and the man took the bread</li><li>and the man gave the bread</li><li>and the man ate the bread</li><li>and the man saw the bread</li></ol></td>
+      <td class="correct-cell">and the man took the bread</td>
+      <td>ויקח = and he took, האיש = the man, הלחם = the bread.</td>
+      <td>5</td>
+      <td>PC</td>
+      <td>PC3</td>
+    </tr>
+    <tr>
+      <td>269</td>
+      <td class="hebrew">ויתן</td>
+      <td>phrase</td>
+      <td dir="auto">What does ויתן האב לבנו לחם mean?</td>
+      <td><ol><li class="correct">and the father gave his son bread</li><li>and the son gave his father bread</li><li>and the father took bread</li><li>and the father saw his son</li></ol></td>
+      <td class="correct-cell">and the father gave his son bread</td>
+      <td>ויתן = and he gave, האב = the father, לבנו = to his son, לחם = bread.</td>
+      <td>5</td>
+      <td>PC</td>
+      <td>PC4</td>
+    </tr>
+    <tr>
+      <td>270</td>
+      <td class="hebrew">וילך</td>
+      <td>phrase</td>
+      <td dir="auto">What does וילך הנער מהבית לשדה mean?</td>
+      <td><ol><li class="correct">and the boy went from the house to a field</li><li>and the boy went from the field to the house</li><li>and the man went to his house</li><li>and the boy sat in the field</li></ol></td>
+      <td class="correct-cell">and the boy went from the house to a field</td>
+      <td>וילך = and he went, מהבית = from the house, לשדה = to a field.</td>
+      <td>5</td>
+      <td>PC</td>
+      <td>PC4</td>
+    </tr>
+    <tr>
+      <td>271</td>
+      <td class="hebrew">וישמע</td>
+      <td>phrase</td>
+      <td dir="auto">What does וישמע העבד את קול אדנו mean?</td>
+      <td><ol><li class="correct">and the servant heard the voice of his master</li><li>and the master heard the voice of his servant</li><li>and the servant saw his master</li><li>and the servant spoke to his master</li></ol></td>
+      <td class="correct-cell">and the servant heard the voice of his master</td>
+      <td>וישמע = and he heard, העבד = the servant, קול אדנו = the voice of his master.</td>
+      <td>5</td>
+      <td>PC</td>
+      <td>PC3</td>
+    </tr>
+    <tr>
+      <td>272</td>
+      <td class="hebrew">בארצם</td>
+      <td>combined</td>
+      <td dir="auto">What does בארצם mean?</td>
+      <td><ol><li class="correct">in their land</li><li>in his land</li><li>to their land</li><li>from their land</li></ol></td>
+      <td class="correct-cell">in their land</td>
+      <td>ב = in, ארץ = land, ם/הם = their.</td>
+      <td>5</td>
+      <td>CF</td>
+      <td>CF4</td>
+    </tr>
+    <tr>
+      <td>273</td>
+      <td class="hebrew">בית המלך</td>
+      <td>phrase_structure</td>
+      <td dir="auto">What does בית המלך mean?</td>
+      <td><ol><li class="correct">the king&#x27;s house</li><li>the house is king</li><li>the king went home</li><li>a house and a king</li></ol></td>
+      <td class="correct-cell">the king&#x27;s house</td>
+      <td>בית המלך means &#x27;the house of the king&#x27;.</td>
+      <td>3</td>
+      <td>PS</td>
+      <td>PS1</td>
+    </tr>
+    <tr>
+      <td>274</td>
+      <td class="hebrew">קול הנביא</td>
+      <td>phrase_structure</td>
+      <td dir="auto">What does קול הנביא mean?</td>
+      <td><ol><li class="correct">the prophet&#x27;s voice</li><li>the prophet called</li><li>the voice spoke</li><li>a prophet and a voice</li></ol></td>
+      <td class="correct-cell">the prophet&#x27;s voice</td>
+      <td>קול הנביא means &#x27;the voice of the prophet&#x27;.</td>
+      <td>3</td>
+      <td>PS</td>
+      <td>PS1</td>
+    </tr>
+    <tr>
+      <td>275</td>
+      <td class="hebrew">יד האיש</td>
+      <td>phrase_structure</td>
+      <td dir="auto">What does יד האיש mean?</td>
+      <td><ol><li class="correct">the man&#x27;s hand</li><li>the man gave</li><li>the hand went</li><li>a man in hand</li></ol></td>
+      <td class="correct-cell">the man&#x27;s hand</td>
+      <td>יד האיש means &#x27;the hand of the man&#x27;.</td>
+      <td>3</td>
+      <td>PS</td>
+      <td>PS1</td>
+    </tr>
+    <tr>
+      <td>276</td>
+      <td class="hebrew">בשדה המלך</td>
+      <td>phrase_structure</td>
+      <td dir="auto">What does בשדה המלך mean?</td>
+      <td><ol><li class="correct">in the king&#x27;s field</li><li>to the king&#x27;s field</li><li>from the king&#x27;s field</li><li>the king&#x27;s field</li></ol></td>
+      <td class="correct-cell">in the king&#x27;s field</td>
+      <td>ב = in, and שדה המלך means &#x27;the king&#x27;s field&#x27;.</td>
+      <td>4</td>
+      <td>PS</td>
+      <td>PS2</td>
+    </tr>
+    <tr>
+      <td>277</td>
+      <td class="hebrew">אל העיר</td>
+      <td>phrase_structure</td>
+      <td dir="auto">What does אל העיר mean?</td>
+      <td><ol><li class="correct">to the city</li><li>from the city</li><li>in the city</li><li>the city</li></ol></td>
+      <td class="correct-cell">to the city</td>
+      <td>אל means &#x27;to&#x27; and העיר means &#x27;the city&#x27;.</td>
+      <td>3</td>
+      <td>PS</td>
+      <td>PS2</td>
+    </tr>
+    <tr>
+      <td>278</td>
+      <td class="hebrew">מן הבית</td>
+      <td>phrase_structure</td>
+      <td dir="auto">What does מן הבית mean?</td>
+      <td><ol><li class="correct">from the house</li><li>to the house</li><li>in the house</li><li>the house</li></ol></td>
+      <td class="correct-cell">from the house</td>
+      <td>מן means &#x27;from&#x27; and הבית means &#x27;the house&#x27;.</td>
+      <td>3</td>
+      <td>PS</td>
+      <td>PS2</td>
+    </tr>
+    <tr>
+      <td>279</td>
+      <td class="hebrew">ויאמר המלך</td>
+      <td>phrase_structure</td>
+      <td dir="auto">What does ויאמר המלך mean?</td>
+      <td><ol><li class="correct">and the king said</li><li>and the king saw</li><li>and the king went</li><li>the king&#x27;s word</li></ol></td>
+      <td class="correct-cell">and the king said</td>
+      <td>ויאמר = and he said, המלך = the king.</td>
+      <td>4</td>
+      <td>PS</td>
+      <td>PS3</td>
+    </tr>
+    <tr>
+      <td>280</td>
+      <td class="hebrew">וילך הנער</td>
+      <td>phrase_structure</td>
+      <td dir="auto">What does וילך הנער mean?</td>
+      <td><ol><li class="correct">and the youth went</li><li>and the youth said</li><li>and the youth saw</li><li>the youth&#x27;s road</li></ol></td>
+      <td class="correct-cell">and the youth went</td>
+      <td>וילך = and he went, הנער = the youth.</td>
+      <td>4</td>
+      <td>PS</td>
+      <td>PS3</td>
+    </tr>
+    <tr>
+      <td>281</td>
+      <td class="hebrew">בית אביו</td>
+      <td>phrase_structure</td>
+      <td dir="auto">What does בית אביו mean?</td>
+      <td><ol><li class="correct">his father&#x27;s house</li><li>his father&#x27;s son</li><li>my father&#x27;s house</li><li>the father&#x27;s city</li></ol></td>
+      <td class="correct-cell">his father&#x27;s house</td>
+      <td>בית = house, אביו = his father.</td>
+      <td>4</td>
+      <td>PS</td>
+      <td>PS4</td>
+    </tr>
+    <tr>
+      <td>282</td>
+      <td class="hebrew">קול אמו</td>
+      <td>phrase_structure</td>
+      <td dir="auto">What does קול אמו mean?</td>
+      <td><ol><li class="correct">his mother&#x27;s voice</li><li>my mother&#x27;s voice</li><li>his father&#x27;s voice</li><li>the voice of the people</li></ol></td>
+      <td class="correct-cell">his mother&#x27;s voice</td>
+      <td>קול = voice, אמו = his mother.</td>
+      <td>4</td>
+      <td>PS</td>
+      <td>PS4</td>
+    </tr>
+    <tr>
+      <td>283</td>
+      <td class="hebrew">האיש הלך</td>
+      <td>sentence_structure</td>
+      <td dir="auto">In האיש הלך, who is doing the action?</td>
+      <td><ol><li class="correct">the man</li><li>the house</li><li>the road</li><li>the king</li></ol></td>
+      <td class="correct-cell">the man</td>
+      <td>האיש is the subject, the one doing the action.</td>
+      <td>4</td>
+      <td>SS</td>
+      <td>SS1</td>
+    </tr>
+    <tr>
+      <td>284</td>
+      <td class="hebrew">ויקח האיש את הלחם</td>
+      <td>sentence_structure</td>
+      <td dir="auto">In ויקח האיש את הלחם, what was taken?</td>
+      <td><ol><li class="correct">the bread</li><li>the man</li><li>the house</li><li>the city</li></ol></td>
+      <td class="correct-cell">the bread</td>
+      <td>את marks הלחם as the object that was taken.</td>
+      <td>4</td>
+      <td>SS</td>
+      <td>SS2</td>
+    </tr>
+    <tr>
+      <td>285</td>
+      <td class="hebrew">המלך שלח את הנביא</td>
+      <td>sentence_structure</td>
+      <td dir="auto">In המלך שלח את הנביא, who sent whom?</td>
+      <td><ol><li class="correct">the king sent the prophet</li><li>the prophet sent the king</li><li>the king heard the prophet</li><li>the prophet saw the king</li></ol></td>
+      <td class="correct-cell">the king sent the prophet</td>
+      <td>המלך is the subject and את הנביא is the object.</td>
+      <td>4</td>
+      <td>SS</td>
+      <td>SS3</td>
+    </tr>
+    <tr>
+      <td>286</td>
+      <td class="hebrew">הנער ישב בבית</td>
+      <td>sentence_structure</td>
+      <td dir="auto">In הנער ישב בבית, where did the youth sit?</td>
+      <td><ol><li class="correct">in the house</li><li>to the house</li><li>from the house</li><li>in the field</li></ol></td>
+      <td class="correct-cell">in the house</td>
+      <td>בבית tells where the sitting happened.</td>
+      <td>4</td>
+      <td>SS</td>
+      <td>SS4</td>
+    </tr>
+    <tr>
+      <td>287</td>
+      <td class="hebrew">וישמע העם את קול הנביא</td>
+      <td>sentence_structure</td>
+      <td dir="auto">What is the structure of וישמע העם את קול הנביא?</td>
+      <td><ol><li class="correct">verb + subject + object</li><li>subject + object + adjective</li><li>place + verb + subject</li><li>object + subject + place</li></ol></td>
+      <td class="correct-cell">verb + subject + object</td>
+      <td>וישמע is the verb, העם is the subject, and את marks the object.</td>
+      <td>4</td>
+      <td>SS</td>
+      <td>SS5</td>
+    </tr>
+    <tr>
+      <td>288</td>
+      <td class="hebrew">עלה</td>
+      <td>contextual_meaning</td>
+      <td dir="auto">In ויעל האיש אל ההר, what does ויעל mean?</td>
+      <td><ol><li class="correct">and he went up</li><li>and he went down</li><li>and he stood</li><li>and he returned</li></ol></td>
+      <td class="correct-cell">and he went up</td>
+      <td>The phrase אל ההר shows upward movement toward the mountain.</td>
+      <td>5</td>
+      <td>CM</td>
+      <td>CM1</td>
+    </tr>
+    <tr>
+      <td>289</td>
+      <td class="hebrew">ראה</td>
+      <td>contextual_meaning</td>
+      <td dir="auto">In וירא את האיש, what does וירא mean?</td>
+      <td><ol><li class="correct">and he saw</li><li>and he feared</li><li>and he called</li><li>and he gave</li></ol></td>
+      <td class="correct-cell">and he saw</td>
+      <td>את האיש points to seeing a direct object.</td>
+      <td>5</td>
+      <td>CM</td>
+      <td>CM2</td>
+    </tr>
+    <tr>
+      <td>290</td>
+      <td class="hebrew">שב</td>
+      <td>contextual_meaning</td>
+      <td dir="auto">In וישב אל ארצו, what does וישב mean?</td>
+      <td><ol><li class="correct">and he returned</li><li>and he sat</li><li>and he guarded</li><li>and he heard</li></ol></td>
+      <td class="correct-cell">and he returned</td>
+      <td>אל ארצו suggests movement back to his land, so וישב means returned.</td>
+      <td>5</td>
+      <td>CM</td>
+      <td>CM3</td>
+    </tr>
+    <tr>
+      <td>291</td>
+      <td class="hebrew">כי</td>
+      <td>contextual_meaning</td>
+      <td dir="auto">In וירא כי טוב, what does כי most likely mean?</td>
+      <td><ol><li class="correct">that</li><li>if</li><li>only</li><li>also</li></ol></td>
+      <td class="correct-cell">that</td>
+      <td>After seeing, כי often introduces what was seen: &#x27;that it was good&#x27;.</td>
+      <td>5</td>
+      <td>CM</td>
+      <td>CM4</td>
+    </tr>
+    <tr>
+      <td>292</td>
+      <td class="hebrew">דבר</td>
+      <td>contextual_meaning</td>
+      <td dir="auto">In וידבר המלך אל העם, which meaning fits וידבר?</td>
+      <td><ol><li class="correct">and he spoke</li><li>and he thing</li><li>and he word</li><li>and he found</li></ol></td>
+      <td class="correct-cell">and he spoke</td>
+      <td>With אל העם, דבר is functioning as the verb &#x27;spoke&#x27;.</td>
+      <td>5</td>
+      <td>CM</td>
+      <td>CM5</td>
+    </tr>
+    <tr>
+      <td>293</td>
+      <td class="hebrew">וילך האיש אל הבית</td>
+      <td>sentence_structure</td>
+      <td dir="auto">Who is doing the action in וילך האיש אל הבית?</td>
+      <td><ol><li class="correct">the man</li><li>the house</li><li>went</li><li>the king</li></ol></td>
+      <td class="correct-cell">the man</td>
+      <td>האיש is the subject doing the action.</td>
+      <td>4</td>
+      <td>SS</td>
+      <td>SS1</td>
+    </tr>
+    <tr>
+      <td>294</td>
+      <td class="hebrew">וילך האיש אל הבית</td>
+      <td>sentence_structure</td>
+      <td dir="auto">What is the action in וילך האיש אל הבית?</td>
+      <td><ol><li>the man</li><li class="correct">went</li><li>the house</li><li>to</li></ol></td>
+      <td class="correct-cell">went</td>
+      <td>וילך is the action and means &#x27;went&#x27;.</td>
+      <td>4</td>
+      <td>SS</td>
+      <td>SS2</td>
+    </tr>
+    <tr>
+      <td>295</td>
+      <td class="hebrew">וילך האיש אל הבית</td>
+      <td>sentence_structure</td>
+      <td dir="auto">Where is the man going in וילך האיש אל הבית?</td>
+      <td><ol><li class="correct">to the house</li><li>from the house</li><li>in the house</li><li>the king</li></ol></td>
+      <td class="correct-cell">to the house</td>
+      <td>אל הבית means &#x27;to the house&#x27;.</td>
+      <td>4</td>
+      <td>SS</td>
+      <td>SS3</td>
+    </tr>
+    <tr>
+      <td>296</td>
+      <td class="hebrew">ויקם האיש וילך</td>
+      <td>sentence_structure</td>
+      <td dir="auto">What happens first in ויקם האיש וילך?</td>
+      <td><ol><li class="correct">the man stood up</li><li>the man went</li><li>the man walked</li><li>the man left</li></ol></td>
+      <td class="correct-cell">the man stood up</td>
+      <td>ויקם precedes וילך.</td>
+      <td>4</td>
+      <td>SS</td>
+      <td>SS4</td>
+    </tr>
+    <tr>
+      <td>297</td>
+      <td class="hebrew">וילך האיש אל הבית</td>
+      <td>sentence_structure</td>
+      <td dir="auto">What does וילך האיש אל הבית mean?</td>
+      <td><ol><li class="correct">the man went to the house</li><li>the man saw the house</li><li>the house went to the man</li><li>the man gave the house</li></ol></td>
+      <td class="correct-cell">the man went to the house</td>
+      <td>וילך = went, האיש = the man, אל הבית = to the house.</td>
+      <td>4</td>
+      <td>SS</td>
+      <td>SS5</td>
+    </tr>
+    <tr>
+      <td>298</td>
+      <td class="hebrew">לבית המלך</td>
+      <td>sentence_structure</td>
+      <td dir="auto">What does לבית המלך mean?</td>
+      <td><ol><li class="correct">to the king&#x27;s house</li><li>in the king&#x27;s house</li><li>the king&#x27;s house</li><li>from the king&#x27;s house</li></ol></td>
+      <td class="correct-cell">to the king&#x27;s house</td>
+      <td>ל indicates direction toward.</td>
+      <td>4</td>
+      <td>SS</td>
+      <td>SS3</td>
+    </tr>
+    <tr>
+      <td>299</td>
+      <td class="hebrew">וירא האיש את המלך</td>
+      <td>sentence_structure</td>
+      <td dir="auto">Who is doing the action in וירא האיש את המלך?</td>
+      <td><ol><li class="correct">the man</li><li>the king</li><li>the prophet</li><li>the son</li></ol></td>
+      <td class="correct-cell">the man</td>
+      <td>האיש is the subject; the king is the object.</td>
+      <td>4</td>
+      <td>SS</td>
+      <td>SS1</td>
+    </tr>
+    <tr>
+      <td>300</td>
+      <td class="hebrew">וישמע המלך את הנביא</td>
+      <td>sentence_structure</td>
+      <td dir="auto">What is the action in וישמע המלך את הנביא?</td>
+      <td><ol><li class="correct">heard</li><li>saw</li><li>spoke</li><li>called</li></ol></td>
+      <td class="correct-cell">heard</td>
+      <td>וישמע means &#x27;and he heard&#x27;.</td>
+      <td>4</td>
+      <td>SS</td>
+      <td>SS2</td>
+    </tr>
+    <tr>
+      <td>301</td>
+      <td class="hebrew">וילך הנער אל העיר</td>
+      <td>sentence_structure</td>
+      <td dir="auto">Where is the youth going in וילך הנער אל העיר?</td>
+      <td><ol><li class="correct">to the city</li><li>in the city</li><li>from the city</li><li>into the city</li></ol></td>
+      <td class="correct-cell">to the city</td>
+      <td>אל indicates movement toward.</td>
+      <td>4</td>
+      <td>SS</td>
+      <td>SS3</td>
+    </tr>
+    <tr>
+      <td>302</td>
+      <td class="hebrew">ויתן האב לחם לבנו</td>
+      <td>sentence_structure</td>
+      <td dir="auto">What does ויתן האב לחם לבנו mean?</td>
+      <td><ol><li class="correct">the father gave bread to his son</li><li>the father gave bread to the son</li><li>the son gave bread to his father</li><li>the father took bread from his son</li></ol></td>
+      <td class="correct-cell">the father gave bread to his son</td>
+      <td>ויתן = gave, לבנו = to his son.</td>
+      <td>4</td>
+      <td>SS</td>
+      <td>SS5</td>
+    </tr>
+    <tr>
+      <td>303</td>
+      <td class="hebrew">לבית המלך</td>
+      <td>sentence_structure</td>
+      <td dir="auto">Which choice shows the meaning of the prefix in לבית המלך?</td>
+      <td><ol><li class="correct">to the king&#x27;s house</li><li>in the king&#x27;s house</li><li>from the king&#x27;s house</li><li>the king&#x27;s house</li></ol></td>
+      <td class="correct-cell">to the king&#x27;s house</td>
+      <td>ל indicates direction toward.</td>
+      <td>4</td>
+      <td>SS</td>
+      <td>SS3</td>
+    </tr>
+    <tr>
+      <td>304</td>
+      <td class="hebrew">בית המלך</td>
+      <td>sentence_structure</td>
+      <td dir="auto">Which choice best describes בית המלך?</td>
+      <td><ol><li class="correct">the king&#x27;s house</li><li>in the king&#x27;s house</li><li>to the king&#x27;s house</li><li>from the king&#x27;s house</li></ol></td>
+      <td class="correct-cell">the king&#x27;s house</td>
+      <td>בית המלך is a Chumash-style possessive phrase: &#x27;the house of the king&#x27;.</td>
+      <td>4</td>
+      <td>SS</td>
+      <td>SS5</td>
+    </tr>
+    <tr>
+      <td>305</td>
+      <td class="hebrew">וישלח המלך את הנביא</td>
+      <td>sentence_structure</td>
+      <td dir="auto">Who is doing the action in וישלח המלך את הנביא?</td>
+      <td><ol><li class="correct">the king</li><li>the prophet</li><li>the servant</li><li>the man</li></ol></td>
+      <td class="correct-cell">the king</td>
+      <td>המלך is the subject; הנביא is the object.</td>
+      <td>4</td>
+      <td>SS</td>
+      <td>SS1</td>
+    </tr>
+    <tr>
+      <td>306</td>
+      <td class="hebrew">מביתו</td>
+      <td>combined_reasoning</td>
+      <td dir="auto">Why does מביתו mean &#x27;from his house&#x27; instead of &#x27;in his house&#x27;?</td>
+      <td><ol><li class="correct">מ marks movement from, while ו marks his possession</li><li>מ marks location in, while ו marks his possession</li><li>מ marks direction toward, while ו marks his possession</li><li>מ marks possession, while ו marks movement from</li></ol></td>
+      <td class="correct-cell">מ marks movement from, while ו marks his possession</td>
+      <td>מ means &#x27;from&#x27;; ו at the end means &#x27;his&#x27;.</td>
+      <td>5</td>
+      <td>CF</td>
+      <td>CF4</td>
+    </tr>
+    <tr>
+      <td>307</td>
+      <td class="hebrew">לבנו</td>
+      <td>combined_reasoning</td>
+      <td dir="auto">How does לבנו show both direction and possession?</td>
+      <td><ol><li class="correct">ל marks direction toward and ו marks his possession</li><li>ל marks location in and ו marks his possession</li><li>ל marks movement from and ו marks her possession</li><li>ל marks possession and ו marks direction toward</li></ol></td>
+      <td class="correct-cell">ל marks direction toward and ו marks his possession</td>
+      <td>ל means &#x27;to&#x27;; ו at the end means &#x27;his&#x27;.</td>
+      <td>5</td>
+      <td>CF</td>
+      <td>CF4</td>
+    </tr>
+    <tr>
+      <td>308</td>
+      <td class="hebrew">וילך האיש לביתו</td>
+      <td>sentence_structure</td>
+      <td dir="auto">Why does וילך האיש לביתו mean the man went to his house?</td>
+      <td><ol><li class="correct">וילך gives the action, האיש gives the subject, and לביתו gives the destination</li><li>וילך gives the subject, האיש gives the action, and לביתו gives the object</li><li>וילך gives possession, האיש gives the destination, and לביתו gives the action</li><li>וילך gives location, האיש gives possession, and לביתו gives movement away</li></ol></td>
+      <td class="correct-cell">וילך gives the action, האיש gives the subject, and לביתו gives the destination</td>
+      <td>וילך = went, האיש = the man, לביתו = to his house.</td>
+      <td>5</td>
+      <td>SS</td>
+      <td>SS5</td>
+    </tr>
+    <tr>
+      <td>309</td>
+      <td class="hebrew">וישב האיש בביתו</td>
+      <td>sentence_structure</td>
+      <td dir="auto">How do the grammar clues show that וישב האיש בביתו describes location, not movement?</td>
+      <td><ol><li class="correct">וישב describes staying/dwelling and בביתו marks location in his house</li><li>וישב describes leaving and בביתו marks movement from his house</li><li>וישב describes going and בביתו marks movement toward his house</li><li>וישב describes giving and בביתו marks the object being given</li></ol></td>
+      <td class="correct-cell">וישב describes staying/dwelling and בביתו marks location in his house</td>
+      <td>וישב fits location; ב means &#x27;in&#x27;.</td>
+      <td>5</td>
+      <td>SS</td>
+      <td>SS5</td>
+    </tr>
+    <tr>
+      <td>310</td>
+      <td class="hebrew">ויתן האב לחם לבנו</td>
+      <td>sentence_structure</td>
+      <td dir="auto">How do the grammar clues show who receives the bread?</td>
+      <td><ol><li class="correct">ל in לבנו marks the receiver: to his son</li><li>ו in ויתן marks the receiver: his son</li><li>ה in האב marks the receiver: the father</li><li>לחם marks the receiver because it follows the verb</li></ol></td>
+      <td class="correct-cell">ל in לבנו marks the receiver: to his son</td>
+      <td>ל marks &#x27;to&#x27;; לבנו means &#x27;to his son&#x27;.</td>
+      <td>5</td>
+      <td>SS</td>
+      <td>SS5</td>
+    </tr>
+    <tr>
+      <td>311</td>
+      <td class="hebrew">עלה</td>
+      <td>contextual_meaning</td>
+      <td dir="auto">Why does עלה best mean &#x27;went up&#x27; in האיש עלה אל ההר?</td>
+      <td><ol><li class="correct">אל ההר gives a mountain context, so movement upward fits</li><li>אל ההר shows leaving a house, so movement away fits</li><li>אל ההר shows giving to a person, so transfer fits</li><li>אל ההר shows sitting in a place, so dwelling fits</li></ol></td>
+      <td class="correct-cell">אל ההר gives a mountain context, so movement upward fits</td>
+      <td>A mountain context supports the meaning &#x27;went up&#x27;.</td>
+      <td>5</td>
+      <td>CM</td>
+      <td>CM1</td>
+    </tr>
+    <tr>
+      <td>312</td>
+      <td class="hebrew">ירד</td>
+      <td>contextual_meaning</td>
+      <td dir="auto">Why does ירד best mean &#x27;went down&#x27; in האיש ירד מן ההר?</td>
+      <td><ol><li class="correct">מן ההר shows movement from a mountain, so downward movement fits</li><li>מן ההר shows movement toward a mountain, so upward movement fits</li><li>מן ההר shows staying on a mountain, so dwelling fits</li><li>מן ההר shows giving a mountain, so transfer fits</li></ol></td>
+      <td class="correct-cell">מן ההר shows movement from a mountain, so downward movement fits</td>
+      <td>Coming from a mountain fits &#x27;went down&#x27;.</td>
+      <td>5</td>
+      <td>CM</td>
+      <td>CM1</td>
+    </tr>
+    <tr>
+      <td>313</td>
+      <td class="hebrew">וישב</td>
+      <td>contextual_meaning</td>
+      <td dir="auto">Why does וישב fit better than וילך in וישב האיש בביתו?</td>
+      <td><ol><li class="correct">בביתו shows location, so וישב describes staying/dwelling there</li><li>בביתו shows movement away, so וישב means he left</li><li>בביתו shows direction toward, so וישב means he went</li><li>בביתו shows giving, so וישב means he gave something</li></ol></td>
+      <td class="correct-cell">בביתו shows location, so וישב describes staying/dwelling there</td>
+      <td>בביתו means &#x27;in his house&#x27;, which fits sitting or dwelling.</td>
+      <td>5</td>
+      <td>CM</td>
+      <td>CM1</td>
+    </tr>
+    <tr>
+      <td>314</td>
+      <td class="hebrew">ויצא</td>
+      <td>contextual_meaning</td>
+      <td dir="auto">Why does ויצא fit better than וילך in ויצא האיש מביתו?</td>
+      <td><ol><li class="correct">מביתו shows movement from a place, so ויצא describes leaving</li><li>מביתו shows movement toward a place, so ויצא describes arriving</li><li>מביתו shows location in a place, so ויצא describes dwelling</li><li>מביתו shows possession only, so ויצא describes owning</li></ol></td>
+      <td class="correct-cell">מביתו shows movement from a place, so ויצא describes leaving</td>
+      <td>מ means &#x27;from&#x27;, which fits ויצא.</td>
+      <td>5</td>
+      <td>CM</td>
+      <td>CM1</td>
+    </tr>
+    <tr>
+      <td>315</td>
+      <td class="hebrew">וירא הבן את אביו</td>
+      <td>sentence_structure</td>
+      <td dir="auto">How do the grammar clues show that the son saw his father?</td>
+      <td><ol><li class="correct">הבן is the subject, וירא is the action, and את אביו marks the object</li><li>אביו is the subject, וירא is the object, and הבן marks the action</li><li>את marks the subject, אביו marks the action, and הבן marks possession</li><li>וירא marks possession, הבן marks direction, and אביו marks location</li></ol></td>
+      <td class="correct-cell">הבן is the subject, וירא is the action, and את אביו marks the object</td>
+      <td>הבן does the seeing; את אביו is what he sees.</td>
+      <td>5</td>
+      <td>SS</td>
+      <td>SS5</td>
+    </tr>
+    </tbody>
+  </table>
+  <script>
+    function filterTable(val) {
+      const lower = val.toLowerCase();
+      document.querySelectorAll('#qtable tbody tr').forEach(row => {
+        row.style.display = row.textContent.toLowerCase().includes(lower) ? '' : 'none';
+      });
+    }
+  </script>
+</body>
+</html>
