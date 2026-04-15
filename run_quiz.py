@@ -1004,7 +1004,52 @@ while True:
     current_skill = progress["current_skill"]
     if args.pasuk and not args.pasuk_flow and generate_skill_question is not None:
         try:
-            questions = [generate_skill_question(current_skill, args.pasuk)]
+    valid_question = None
+
+    for _ in range(10):
+        q = generate_skill_question(current_skill, args.pasuk)
+
+        feature = q.get("skill")
+
+        # 🔴 Block too many prefix questions overall
+        if feature == "prefix":
+            prefix_value = q.get("prefix") or q.get("target_prefix")
+
+            # Initialize tracking if needed
+            if "recent_prefix_values" not in progress:
+                progress["recent_prefix_values"] = []
+            if "recent_features" not in progress:
+                progress["recent_features"] = []
+
+            # 🚫 Limit same prefix (like ו)
+            if prefix_value and progress["recent_prefix_values"].count(prefix_value) >= 2:
+                continue
+
+            # 🚫 Limit prefix questions overall
+            if progress["recent_features"][-5:].count("prefix") >= 2:
+                continue
+
+        # ✅ If passed all checks → accept
+        valid_question = q
+        break
+
+    # Fallback if nothing found
+    if not valid_question:
+        valid_question = q
+
+    questions = [valid_question]
+
+    # 🔵 Update tracking AFTER selection
+    feature = valid_question.get("skill")
+
+    progress.setdefault("recent_features", []).append(feature)
+    progress["recent_features"] = progress["recent_features"][-10:]
+
+    if feature == "prefix":
+        prefix_value = valid_question.get("prefix") or valid_question.get("target_prefix")
+        if prefix_value:
+            progress.setdefault("recent_prefix_values", []).append(prefix_value)
+            progress["recent_prefix_values"] = progress["recent_prefix_values"][-10:]
         except Exception as error:
             print(f"\nCould not generate a question for skill '{current_skill}': {error}")
             break
