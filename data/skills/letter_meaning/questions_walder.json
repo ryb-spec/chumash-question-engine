@@ -1,0 +1,101 @@
+[
+  {
+    "id": "lm_001",
+    "skill_group": "letter_meaning",
+    "skill": "identify_suffix_meaning",
+    "word": "אָחִיךָ",
+    "question": "Which letter means 'your'?",
+    "choices": ["א", "ך", "ח", "י"],
+    "correct": "ך",
+    "difficulty": 1,
+    "source": "walder_packet"
+  },
+  {
+    "id": "lm_002",
+    "skill_group": "letter_meaning",
+    "skill": "identify_prefix_meaning",
+    "word": "בְּבֵית",
+    "question": "Which letter means 'in'?",
+    "choices": ["ב", "י", "ת", "ה"],
+    "correct": "ב",
+    "difficulty": 1,
+    "source": "walder_packet"
+  },
+  {
+    "id": "lm_003",
+    "skill_group": "letter_meaning",
+    "skill": "identify_prefix_meaning",
+    "word": "לְמֶלֶךְ",
+    "question": "Which letter means 'to'?",
+    "choices": ["מ", "ך", "ל", "ה"],
+    "correct": "ל",
+    "difficulty": 1,
+    "source": "walder_packet"
+  },
+  {
+    "id": "lm_004",
+    "skill_group": "letter_meaning",
+    "skill": "identify_suffix_meaning",
+    "word": "בְּנוֹ",
+    "question": "Which letter means 'his'?",
+    "choices": ["ב", "נ", "ו", "י"],
+    "correct": "ו",
+    "difficulty": 1,
+    "source": "walder_packet"
+  },
+  {
+    "id": "lm_005",
+    "skill_group": "letter_meaning",
+    "skill": "identify_pronoun_suffix",
+    "word": "בֵּיתוֹ",
+    "question": "Which ending means 'his'?",
+    "choices": ["ו", "י", "ך", "ם"],
+    "correct": "ו",
+    "difficulty": 1,
+    "source": "walder_packet"
+  },
+  {
+    "id": "lm_006",
+    "skill_group": "letter_meaning",
+    "skill": "identify_verb_marker",
+    "word": "וַיֵּלֶךְ",
+    "question": "Which letter means 'and'?",
+    "choices": ["ו", "י", "ל", "ך"],
+    "correct": "ו",
+    "difficulty": 1,
+    "source": "walder_packet"
+  },
+  {
+    "id": "lm_007",
+    "skill_group": "letter_meaning",
+    "skill": "identify_verb_marker",
+    "word": "וַיֹּאמֶר",
+    "question": "Which letter starts the action?",
+    "choices": ["ו", "א", "מ", "ר"],
+    "correct": "ו",
+    "difficulty": 2,
+    "source": "walder_packet"
+  },
+  {
+    "id": "lm_008",
+    "skill_group": "letter_meaning",
+    "skill": "segment_word_parts",
+    "word": "מִבֵּיתוֹ",
+    "question": "Which part means 'from'?",
+    "choices": ["מ", "בית", "ו", "י"],
+    "correct": "מ",
+    "difficulty": 2,
+    "source": "walder_packet"
+  },
+  {
+    "id": "lm_009",
+    "skill_group": "letter_meaning",
+    "skill": "segment_word_parts",
+    "word": "לִבְנוֹ",
+    "question": "Which part means 'to'?",
+    "choices": ["ל", "בן", "ו", "נ"],
+    "correct": "ל",
+    "difficulty": 2,
+    "source": "walder_packet"
+  }
+]

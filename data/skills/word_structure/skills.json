@@ -1,0 +1,8 @@
+[
+  {"skill": "identify_tense"},
+  {"skill": "identify_prefix_future"},
+  {"skill": "identify_suffix_past"},
+  {"skill": "identify_present_pattern"},
+  {"skill": "convert_future_to_command"},
+  {"skill": "match_pronoun_to_verb"}
+]

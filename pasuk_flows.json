@@ -1,0 +1,385 @@
+{
+  "flows": [
+    {
+      "pasuk": "וילך אברם אל הארץ",
+      "source": "בראשית יב:א",
+      "goal": "Understand movement toward the land through word, phrase, sentence, and context clues.",
+      "steps": [
+        {
+          "step": 1,
+          "skill": "translation",
+          "standard": "WM",
+          "micro_standard": "WM1",
+          "question_type": "word_meaning",
+          "word": "וילך",
+          "selected_word": "וילך",
+          "source": "בראשית יב:א",
+          "question": "What does וילך mean in וילך אברם אל הארץ?",
+          "choices": [
+            "went",
+            "saw",
+            "gave",
+            "took"
+          ],
+          "correct_answer": "went",
+          "explanation": "וילך means 'and he went'.",
+          "difficulty": 1
+        },
+        {
+          "step": 2,
+          "skill": "prefix_translation",
+          "standard": "PR",
+          "micro_standard": "PR1",
+          "question_type": "prefix_meaning",
+          "word": "אל",
+          "selected_word": "אל",
+          "source": "בראשית יב:א",
+          "question": "What does אל mean in אל הארץ?",
+          "choices": [
+            "to",
+            "from",
+            "in",
+            "on"
+          ],
+          "correct_answer": "to",
+          "explanation": "אל means 'to' and shows direction toward.",
+          "difficulty": 2
+        },
+        {
+          "step": 3,
+          "skill": "phrase_structure",
+          "standard": "PS",
+          "micro_standard": "PS3",
+          "question_type": "phrase_prefix",
+          "word": "אל הארץ",
+          "selected_word": "אל הארץ",
+          "source": "בראשית יב:א",
+          "question": "What does אל הארץ mean?",
+          "choices": [
+            "to the land",
+            "in the land",
+            "from the land",
+            "the land"
+          ],
+          "correct_answer": "to the land",
+          "explanation": "אל = to, הארץ = the land.",
+          "difficulty": 3
+        },
+        {
+          "step": 4,
+          "skill": "sentence_structure",
+          "standard": "SS",
+          "micro_standard": "SS1",
+          "question_type": "subject",
+          "word": "וילך אברם אל הארץ",
+          "selected_word": "וילך אברם אל הארץ",
+          "source": "בראשית יב:א",
+          "question": "Who is doing the action in וילך אברם אל הארץ?",
+          "choices": [
+            "Avram",
+            "the land",
+            "the king",
+            "the servant"
+          ],
+          "correct_answer": "Avram",
+          "explanation": "אברם is the subject doing the action.",
+          "difficulty": 4
+        },
+        {
+          "step": 5,
+          "skill": "contextual_meaning",
+          "standard": "CM",
+          "micro_standard": "CM1",
+          "question_type": "context_reasoning",
+          "word": "וילך",
+          "selected_word": "וילך",
+          "source": "בראשית יב:א",
+          "question": "Why does וילך fit the phrase אל הארץ?",
+          "choices": [
+            "אל הארץ gives a destination, so וילך describes movement toward it",
+            "אל הארץ gives an object, so וילך describes giving it",
+            "אל הארץ gives a speaker, so וילך describes saying something",
+            "אל הארץ gives a location inside, so וילך describes sitting there"
+          ],
+          "correct_answer": "אל הארץ gives a destination, so וילך describes movement toward it",
+          "explanation": "וילך is movement, and אל הארץ shows the place he is moving toward.",
+          "difficulty": 5
+        },
+        {
+          "step": 6,
+          "skill": "sentence_structure",
+          "standard": "SS",
+          "micro_standard": "SS5",
+          "question_type": "sequence_flow",
+          "word": "וילך אברם אל הארץ",
+          "selected_word": "וילך אברם אל הארץ",
+          "source": "בראשית יב:א",
+          "question": "How does the pasuk flow from action to destination?",
+          "choices": [
+            "וילך gives the action, אברם gives the subject, and אל הארץ gives the destination",
+            "וילך gives the destination, אברם gives the place, and אל הארץ gives the action",
+            "וילך gives the object, אברם gives the destination, and אל הארץ gives the subject",
+            "וילך gives possession, אברם gives the object, and אל הארץ gives the speaker"
+          ],
+          "correct_answer": "וילך gives the action, אברם gives the subject, and אל הארץ gives the destination",
+          "explanation": "The sentence moves from action to subject to destination.",
+          "difficulty": 5
+        }
+      ]
+    },
+    {
+      "pasuk": "וירא האיש את המלך",
+      "source": "תרגול מבוסס מילים מן החומש",
+      "goal": "Understand subject, action, and object in a simple Chumash-style sentence.",
+      "steps": [
+        {
+          "step": 1,
+          "skill": "translation",
+          "standard": "WM",
+          "micro_standard": "WM1",
+          "question_type": "word_meaning",
+          "word": "וירא",
+          "selected_word": "וירא",
+          "source": "תרגול מבוסס מילים מן החומש",
+          "question": "What does וירא mean in וירא האיש את המלך?",
+          "choices": [
+            "saw",
+            "heard",
+            "went",
+            "gave"
+          ],
+          "correct_answer": "saw",
+          "explanation": "וירא means 'and he saw'.",
+          "difficulty": 1
+        },
+        {
+          "step": 2,
+          "skill": "translation",
+          "standard": "WM",
+          "micro_standard": "WM1",
+          "question_type": "word_meaning",
+          "word": "מלך",
+          "selected_word": "מלך",
+          "source": "תרגול מבוסס מילים מן החומש",
+          "question": "What does מלך mean?",
+          "choices": [
+            "king",
+            "man",
+            "servant",
+            "prophet"
+          ],
+          "correct_answer": "king",
+          "explanation": "מלך means 'king'.",
+          "difficulty": 1
+        },
+        {
+          "step": 3,
+          "skill": "sentence_structure",
+          "standard": "SS",
+          "micro_standard": "SS1",
+          "question_type": "subject",
+          "word": "וירא האיש את המלך",
+          "selected_word": "וירא האיש את המלך",
+          "source": "תרגול מבוסס מילים מן החומש",
+          "question": "Who is doing the action in וירא האיש את המלך?",
+          "choices": [
+            "the man",
+            "the king",
+            "the servant",
+            "the prophet"
+          ],
+          "correct_answer": "the man",
+          "explanation": "האיש is the subject doing the seeing.",
+          "difficulty": 3
+        },
+        {
+          "step": 4,
+          "skill": "sentence_structure",
+          "standard": "SS",
+          "micro_standard": "SS3",
+          "question_type": "object_marker",
+          "word": "את המלך",
+          "selected_word": "את המלך",
+          "source": "תרגול מבוסס מילים מן החומש",
+          "question": "What does את המלך show in this sentence?",
+          "choices": [
+            "the king is the object being seen",
+            "the king is doing the seeing",
+            "the man is the object being seen",
+            "the man is going to the king"
+          ],
+          "correct_answer": "the king is the object being seen",
+          "explanation": "את marks the object; המלך is what the man saw.",
+          "difficulty": 4
+        },
+        {
+          "step": 5,
+          "skill": "sentence_structure",
+          "standard": "SS",
+          "micro_standard": "SS5",
+          "question_type": "sentence_meaning",
+          "word": "וירא האיש את המלך",
+          "selected_word": "וירא האיש את המלך",
+          "source": "תרגול מבוסס מילים מן החומש",
+          "question": "What does וירא האיש את המלך mean?",
+          "choices": [
+            "the man saw the king",
+            "the king saw the man",
+            "the man heard the king",
+            "the king gave to the man"
+          ],
+          "correct_answer": "the man saw the king",
+          "explanation": "וירא = saw, האיש = the man, את המלך = the king as object.",
+          "difficulty": 4
+        },
+        {
+          "step": 6,
+          "skill": "sentence_structure",
+          "standard": "SS",
+          "micro_standard": "SS5",
+          "question_type": "sequence_flow",
+          "word": "וירא האיש את המלך",
+          "selected_word": "וירא האיש את המלך",
+          "source": "תרגול מבוסס מילים מן החומש",
+          "question": "How do the grammar clues show that the man saw the king, not that the king saw the man?",
+          "choices": [
+            "האיש is the subject after the verb, and את המלך marks the object",
+            "המלך is first in the sentence, so the king is the subject",
+            "את marks the subject, so המלך does the action",
+            "וירא marks possession, so the king belongs to the man"
+          ],
+          "correct_answer": "האיש is the subject after the verb, and את המלך marks the object",
+          "explanation": "The subject is האיש, and את points to המלך as the object.",
+          "difficulty": 5
+        }
+      ]
+    },
+    {
+      "pasuk": "ויתן האב לחם לבנו",
+      "source": "תרגול מבוסס מילים מן החומש",
+      "goal": "Understand giving, object, receiver, and suffix meaning in a short sentence.",
+      "steps": [
+        {
+          "step": 1,
+          "skill": "translation",
+          "standard": "WM",
+          "micro_standard": "WM1",
+          "question_type": "word_meaning",
+          "word": "ויתן",
+          "selected_word": "ויתן",
+          "source": "תרגול מבוסס מילים מן החומש",
+          "question": "What does ויתן mean?",
+          "choices": [
+            "gave",
+            "took",
+            "saw",
+            "went"
+          ],
+          "correct_answer": "gave",
+          "explanation": "ויתן means 'and he gave'.",
+          "difficulty": 1
+        },
+        {
+          "step": 2,
+          "skill": "suffix_translation",
+          "standard": "PR",
+          "micro_standard": "PR4",
+          "question_type": "suffix_application",
+          "word": "לבנו",
+          "selected_word": "לבנו",
+          "source": "תרגול מבוסס מילים מן החומש",
+          "question": "What does לבנו mean?",
+          "choices": [
+            "to his son",
+            "his son",
+            "from his son",
+            "to the son"
+          ],
+          "correct_answer": "to his son",
+          "explanation": "ל = to, בן = son, ו = his.",
+          "difficulty": 3
+        },
+        {
+          "step": 3,
+          "skill": "sentence_structure",
+          "standard": "SS",
+          "micro_standard": "SS1",
+          "question_type": "subject",
+          "word": "ויתן האב לחם לבנו",
+          "selected_word": "ויתן האב לחם לבנו",
+          "source": "תרגול מבוסס מילים מן החומש",
+          "question": "Who is doing the action in ויתן האב לחם לבנו?",
+          "choices": [
+            "the father",
+            "the son",
+            "the bread",
+            "the servant"
+          ],
+          "correct_answer": "the father",
+          "explanation": "האב is the subject doing the giving.",
+          "difficulty": 3
+        },
+        {
+          "step": 4,
+          "skill": "sentence_structure",
+          "standard": "SS",
+          "micro_standard": "SS3",
+          "question_type": "receiver",
+          "word": "לבנו",
+          "selected_word": "לבנו",
+          "source": "תרגול מבוסס מילים מן החומש",
+          "question": "Who receives the bread in ויתן האב לחם לבנו?",
+          "choices": [
+            "his son",
+            "the father",
+            "the bread",
+            "the man"
+          ],
+          "correct_answer": "his son",
+          "explanation": "לבנו means 'to his son', so the son receives the bread.",
+          "difficulty": 4
+        },
+        {
+          "step": 5,
+          "skill": "sentence_structure",
+          "standard": "SS",
+          "micro_standard": "SS5",
+          "question_type": "sentence_meaning",
+          "word": "ויתן האב לחם לבנו",
+          "selected_word": "ויתן האב לחם לבנו",
+          "source": "תרגול מבוסס מילים מן החומש",
+          "question": "What does ויתן האב לחם לבנו mean?",
+          "choices": [
+            "the father gave bread to his son",
+            "the son gave bread to his father",
+            "the father took bread from his son",
+            "the son saw his father's bread"
+          ],
+          "correct_answer": "the father gave bread to his son",
+          "explanation": "ויתן = gave, האב = the father, לחם = bread, לבנו = to his son.",
+          "difficulty": 4
+        },
+        {
+          "step": 6,
+          "skill": "sentence_structure",
+          "standard": "SS",
+          "micro_standard": "SS5",
+          "question_type": "sequence_flow",
+          "word": "ויתן האב לחם לבנו",
+          "selected_word": "ויתן האב לחם לבנו",
+          "source": "תרגול מבוסס מילים מן החומש",
+          "question": "How do the grammar clues show the flow of giving in ויתן האב לחם לבנו?",
+          "choices": [
+            "ויתן gives the action, האב gives the giver, לחם gives the thing, and לבנו gives the receiver",
+            "ויתן gives the receiver, האב gives the thing, לחם gives the giver, and לבנו gives the action",
+            "ויתן gives the thing, האב gives the receiver, לחם gives the action, and לבנו gives the giver",
+            "ויתן gives the place, האב gives the movement, לחם gives possession, and לבנו gives the object marker"
+          ],
+          "correct_answer": "ויתן gives the action, האב gives the giver, לחם gives the thing, and לבנו gives the receiver",
+          "explanation": "The sentence flows from action to giver to object to receiver.",
+          "difficulty": 5
+        }
+      ]
+    }
+  ]
+}

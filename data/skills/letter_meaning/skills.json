@@ -1,0 +1,7 @@
+[
+  {"skill": "identify_prefix_meaning"},
+  {"skill": "identify_suffix_meaning"},
+  {"skill": "identify_pronoun_suffix"},
+  {"skill": "identify_verb_marker"},
+  {"skill": "segment_word_parts"}
+]

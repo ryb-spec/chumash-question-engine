@@ -1,0 +1,7 @@
+__pycache__/
+.vscode/
+*.log
+*.err.log
+progress.json
+progress.json.txt
+skill_progress.json

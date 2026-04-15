@@ -1,0 +1,112 @@
+[
+  {
+    "id": "ws_001",
+    "skill_group": "word_structure",
+    "skill": "identify_tense",
+    "word": "יֹאמַר",
+    "question": "What tense is this verb?",
+    "choices": ["future", "past", "present", "command"],
+    "correct": "future",
+    "difficulty": 2,
+    "source": "binyan_kal"
+  },
+  {
+    "id": "ws_002",
+    "skill_group": "word_structure",
+    "skill": "identify_tense",
+    "word": "אָמַר",
+    "question": "What tense is this verb?",
+    "choices": ["past", "future", "present", "command"],
+    "correct": "past",
+    "difficulty": 2,
+    "source": "binyan_kal"
+  },
+  {
+    "id": "ws_003",
+    "skill_group": "word_structure",
+    "skill": "identify_prefix_future",
+    "word": "תִּשְׁמֹר",
+    "question": "Which letter marks future tense?",
+    "choices": ["ת", "ש", "מ", "ר"],
+    "correct": "ת",
+    "difficulty": 2,
+    "source": "binyan_kal"
+  },
+  {
+    "id": "ws_004",
+    "skill_group": "word_structure",
+    "skill": "identify_prefix_future",
+    "word": "יִשְׁמֹר",
+    "question": "Which letter marks future tense?",
+    "choices": ["י", "ש", "מ", "ר"],
+    "correct": "י",
+    "difficulty": 2,
+    "source": "binyan_kal"
+  },
+  {
+    "id": "ws_005",
+    "skill_group": "word_structure",
+    "skill": "identify_suffix_past",
+    "word": "שָׁמַרְתָּ",
+    "question": "Which ending marks 'you'?",
+    "choices": ["תָּ", "שָׁ", "מַ", "ר"],
+    "correct": "תָּ",
+    "difficulty": 3,
+    "source": "binyan_kal"
+  },
+  {
+    "id": "ws_006",
+    "skill_group": "word_structure",
+    "skill": "identify_suffix_past",
+    "word": "שָׁמַרְתִּי",
+    "question": "Which ending marks 'I'?",
+    "choices": ["תִּי", "שָׁ", "מַ", "ר"],
+    "correct": "תִּי",
+    "difficulty": 3,
+    "source": "binyan_kal"
+  },
+  {
+    "id": "ws_007",
+    "skill_group": "word_structure",
+    "skill": "identify_present_pattern",
+    "word": "שׁוֹמֵר",
+    "question": "What pattern is this verb?",
+    "choices": ["present", "past", "future", "command"],
+    "correct": "present",
+    "difficulty": 3,
+    "source": "binyan_kal"
+  },
+  {
+    "id": "ws_008",
+    "skill_group": "word_structure",
+    "skill": "convert_future_to_command",
+    "word": "תִּשְׁמֹר",
+    "question": "What is the command form?",
+    "choices": ["שְׁמֹר", "יִשְׁמֹר", "שָׁמַר", "שׁוֹמֵר"],
+    "correct": "שְׁמֹר",
+    "difficulty": 4,
+    "source": "binyan_kal"
+  },
+  {
+    "id": "ws_009",
+    "skill_group": "word_structure",
+    "skill": "match_pronoun_to_verb",
+    "word": "אֶשְׁמֹר",
+    "question": "Who is doing the verb?",
+    "choices": ["I", "you", "he", "they"],
+    "correct": "I",
+    "difficulty": 3,
+    "source": "binyan_kal"
+  },
+  {
+    "id": "ws_010",
+    "skill_group": "word_structure",
+    "skill": "match_pronoun_to_verb",
+    "word": "יִשְׁמֹר",
+    "question": "Who is doing the verb?",
+    "choices": ["he", "I", "you", "they"],
+    "correct": "he",
+    "difficulty": 3,
+    "source": "binyan_kal"
+  }
+]

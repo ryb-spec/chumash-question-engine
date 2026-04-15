@@ -1,0 +1,405 @@
+{
+  "flows": [
+    {
+      "mode": "pasuk_flow",
+      "pasuk": "וילך האיש מביתו אל העיר",
+      "source": "generated",
+      "questions": [
+        {
+          "step": 1,
+          "skill": "translation",
+          "standard": "WM",
+          "micro_standard": "WM1",
+          "question_type": "word_meaning",
+          "word": "וילך",
+          "selected_word": "וילך",
+          "question": "Which meaning best matches וילך in וילך האיש מביתו אל העיר?",
+          "choices": [
+            "came",
+            "saw/understood",
+            "and he went",
+            "went"
+          ],
+          "correct_answer": "and he went",
+          "explanation": "וילך means 'and he went'.",
+          "difficulty": 2,
+          "source": "generated pasuk flow"
+        },
+        {
+          "step": 2,
+          "skill": "prefix_suffix",
+          "standard": "PR",
+          "micro_standard": "PR5",
+          "question_type": "prefix_suffix",
+          "word": "מביתו",
+          "selected_word": "מביתו",
+          "question": "Which grammar clue in מביתו matters for reading וילך האיש מביתו אל העיר?",
+          "choices": [
+            "מ = in, בית = house, ו = his",
+            "מ = and, בית = action, ו = plural",
+            "מ = from, בית = house, ו = her",
+            "מ = from, בית = house, ו = his"
+          ],
+          "correct_answer": "מ = from, בית = house, ו = his",
+          "explanation": "מביתו is read as 'from his house'.",
+          "difficulty": 3,
+          "source": "generated pasuk flow"
+        },
+        {
+          "step": 3,
+          "skill": "phrase",
+          "standard": "PS",
+          "micro_standard": "PS4",
+          "question_type": "phrase_meaning",
+          "word": "מביתו אל העיר",
+          "selected_word": "מביתו אל העיר",
+          "question": "What does the phrase unit מביתו אל העיר mean in וילך האיש מביתו אל העיר?",
+          "choices": [
+            "from his house to the man",
+            "from the city to his house",
+            "from his house to the city",
+            "from his house in the city"
+          ],
+          "correct_answer": "from his house to the city",
+          "explanation": "מביתו אל העיר functions as a combined phrase unit in the pasuk.",
+          "difficulty": 4,
+          "source": "generated pasuk flow"
+        },
+        {
+          "step": 4,
+          "skill": "role_clarity",
+          "standard": "SS",
+          "micro_standard": "SS3",
+          "question_type": "role_clarity",
+          "word": "מביתו",
+          "selected_word": "מביתו",
+          "question": "What role does מביתו play in וילך האיש מביתו אל העיר?",
+          "choices": [
+            "starting point",
+            "subject",
+            "destination",
+            "object being given"
+          ],
+          "correct_answer": "starting point",
+          "explanation": "מביתו gives where the movement starts.",
+          "difficulty": 4,
+          "source": "generated pasuk flow"
+        },
+        {
+          "step": 5,
+          "skill": "contextual_meaning",
+          "standard": "CM",
+          "micro_standard": "CM1",
+          "question_type": "context_meaning",
+          "word": "וילך",
+          "selected_word": "וילך",
+          "question": "Why does the context support 'and he went' for וילך in וילך האיש מביתו אל העיר?",
+          "choices": [
+            "saw/understood",
+            "went",
+            "and he went",
+            "came"
+          ],
+          "correct_answer": "and he went",
+          "explanation": "The surrounding words make 'and he went' the best reading of וילך.",
+          "difficulty": 4,
+          "source": "generated pasuk flow"
+        },
+        {
+          "step": 6,
+          "skill": "flow",
+          "standard": "SS",
+          "micro_standard": "SS5",
+          "question_type": "flow_dependency",
+          "word": "וילך האיש מביתו אל העיר",
+          "selected_word": "וילך האיש מביתו אל העיר",
+          "question": "What must be understood before the destination makes sense in וילך האיש מביתו אל העיר?",
+          "choices": [
+            "מביתו must be read as the starting point before אל העיר can be read as the destination",
+            "אל העיר must be read as the starting point before מביתו can be read as the destination",
+            "מביתו gives possession, while אל העיר alone gives the full movement",
+            "האיש must be read as the destination before וילך gives the action"
+          ],
+          "correct_answer": "מביתו must be read as the starting point before אל העיר can be read as the destination",
+          "explanation": "The flow depends on reading source and destination together.",
+          "difficulty": 5,
+          "source": "generated pasuk flow"
+        },
+        {
+          "step": 7,
+          "skill": "substitution",
+          "standard": "CM",
+          "micro_standard": "CM1",
+          "question_type": "substitution",
+          "word": "מביתו",
+          "selected_word": "מביתו",
+          "question": "Which meaning becomes impossible if מביתו is replaced by בביתו in וילך האיש מביתו אל העיר?",
+          "choices": [
+            "movement toward the destination would no longer be possible",
+            "movement away from that place would no longer be possible",
+            "possession by the same person would no longer be possible",
+            "the source clue would turn into a location-inside clue"
+          ],
+          "correct_answer": "movement away from that place would no longer be possible",
+          "explanation": "Changing one grammar clue changes how the phrase or sentence functions.",
+          "difficulty": 5,
+          "source": "generated pasuk flow"
+        },
+        {
+          "step": 8,
+          "skill": "reasoning",
+          "standard": "CM",
+          "micro_standard": "CM1",
+          "question_type": "reasoning",
+          "word": "וילך האיש מביתו אל העיר",
+          "selected_word": "וילך האיש מביתו אל העיר",
+          "question": "Which explanation is MOST complete for וילך האיש מביתו אל העיר?",
+          "choices": [
+            "וילך gives the action and האיש gives the subject, but the direction is only implied",
+            "וילך gives the action, האיש gives the subject, מביתו gives the source, and אל העיר gives the destination",
+            "מביתו gives the destination and אל העיר gives the starting point",
+            "וילך means gave, and העיר is the object being given"
+          ],
+          "correct_answer": "וילך gives the action, האיש gives the subject, מביתו gives the source, and אל העיר gives the destination",
+          "explanation": "The strongest answer accounts for the action, roles, and grammar clues together.",
+          "difficulty": 5,
+          "source": "generated pasuk flow"
+        }
+      ]
+    },
+    {
+      "mode": "pasuk_flow",
+      "pasuk": "ויתן האב לחם לבנו",
+      "source": "generated",
+      "questions": [
+        {
+          "step": 1,
+          "skill": "translation",
+          "standard": "WM",
+          "micro_standard": "WM1",
+          "question_type": "word_meaning",
+          "word": "ויתן",
+          "selected_word": "ויתן",
+          "question": "What action does ויתן describe in ויתן האב לחם לבנו?",
+          "choices": [
+            "went",
+            "took",
+            "and he gave",
+            "gave"
+          ],
+          "correct_answer": "and he gave",
+          "explanation": "ויתן means 'and he gave'.",
+          "difficulty": 2,
+          "source": "generated pasuk flow"
+        },
+        {
+          "step": 2,
+          "skill": "prefix_suffix",
+          "standard": "PR",
+          "micro_standard": "PR5",
+          "question_type": "prefix_suffix",
+          "word": "לבנו",
+          "selected_word": "לבנו",
+          "question": "Which grammar clue in לבנו matters for reading ויתן האב לחם לבנו?",
+          "choices": [
+            "ל = and, בן = action, ו = plural",
+            "ל = to, בן = son, ו = her",
+            "ל = in, בן = son, ו = his",
+            "ל = to, בן = son, ו = his"
+          ],
+          "correct_answer": "ל = to, בן = son, ו = his",
+          "explanation": "לבנו is read as 'to his son'.",
+          "difficulty": 3,
+          "source": "generated pasuk flow"
+        },
+        {
+          "step": 3,
+          "skill": "phrase",
+          "standard": "PS",
+          "micro_standard": "PS4",
+          "question_type": "phrase_meaning",
+          "word": "לחם לבנו",
+          "selected_word": "לחם לבנו",
+          "question": "What does the phrase unit לחם לבנו mean in ויתן האב לחם לבנו?",
+          "choices": [
+            "bread with his son",
+            "bread from his son",
+            "bread to the father",
+            "bread to his son"
+          ],
+          "correct_answer": "bread to his son",
+          "explanation": "לחם לבנו functions as a combined phrase unit in the pasuk.",
+          "difficulty": 4,
+          "source": "generated pasuk flow"
+        },
+        {
+          "step": 4,
+          "skill": "role_clarity",
+          "standard": "SS",
+          "micro_standard": "SS3",
+          "question_type": "role_clarity",
+          "word": "לבנו",
+          "selected_word": "לבנו",
+          "question": "What role does לבנו play in ויתן האב לחם לבנו?",
+          "choices": [
+            "main action",
+            "object",
+            "subject",
+            "receiver"
+          ],
+          "correct_answer": "receiver",
+          "explanation": "לבנו marks who receives or is directed toward the action.",
+          "difficulty": 4,
+          "source": "generated pasuk flow"
+        },
+        {
+          "step": 5,
+          "skill": "contextual_meaning",
+          "standard": "CM",
+          "micro_standard": "CM1",
+          "question_type": "context_meaning",
+          "word": "ויתן",
+          "selected_word": "ויתן",
+          "question": "Why does the context support 'and he gave' for ויתן in ויתן האב לחם לבנו?",
+          "choices": [
+            "gave",
+            "and he gave",
+            "went",
+            "took"
+          ],
+          "correct_answer": "and he gave",
+          "explanation": "The surrounding words make 'and he gave' the best reading of ויתן.",
+          "difficulty": 4,
+          "source": "generated pasuk flow"
+        },
+        {
+          "step": 6,
+          "skill": "flow",
+          "standard": "SS",
+          "micro_standard": "SS5",
+          "question_type": "flow_dependency",
+          "word": "ויתן האב לחם לבנו",
+          "selected_word": "ויתן האב לחם לבנו",
+          "question": "Which clue creates the dependency between object and receiver in ויתן האב לחם לבנו?",
+          "choices": [
+            "לבנו must be read as the object before לחם can mark the receiver",
+            "האב must be read as the receiver before לחם gives the object",
+            "ויתן shows transfer, but לבנו only shows possession and not receiver",
+            "לחם must be read as the object before לבנו can mark the receiver"
+          ],
+          "correct_answer": "לחם must be read as the object before לבנו can mark the receiver",
+          "explanation": "The flow depends on distinguishing the object from the receiver.",
+          "difficulty": 5,
+          "source": "generated pasuk flow"
+        },
+        {
+          "step": 7,
+          "skill": "substitution",
+          "standard": "CM",
+          "micro_standard": "CM1",
+          "question_type": "substitution",
+          "word": "לבנו",
+          "selected_word": "לבנו",
+          "question": "What new meaning is introduced if לבנו is replaced by מבנו in ויתן האב לחם לבנו?",
+          "choices": [
+            "the receiver clue would become a source clue",
+            "movement toward that person would become stronger",
+            "possession by that person would become the main meaning",
+            "movement away from that person would be introduced"
+          ],
+          "correct_answer": "movement away from that person would be introduced",
+          "explanation": "Changing one grammar clue changes how the phrase or sentence functions.",
+          "difficulty": 5,
+          "source": "generated pasuk flow"
+        },
+        {
+          "step": 8,
+          "skill": "reasoning",
+          "standard": "CM",
+          "micro_standard": "CM1",
+          "question_type": "reasoning",
+          "word": "ויתן האב לחם לבנו",
+          "selected_word": "ויתן האב לחם לבנו",
+          "question": "Which clue is MOST important for understanding who receives the action in ויתן האב לחם לבנו?",
+          "choices": [
+            "לבנו gives the object, and לחם gives the receiver",
+            "ויתן means went, and לבנו gives the destination city",
+            "ויתן gives the action, האב gives the giver, לחם gives the object, and לבנו gives the receiver",
+            "ויתן gives the action and האב gives the giver, but the receiver is not marked"
+          ],
+          "correct_answer": "ויתן gives the action, האב gives the giver, לחם gives the object, and לבנו gives the receiver",
+          "explanation": "The strongest answer accounts for the action, roles, and grammar clues together.",
+          "difficulty": 5,
+          "source": "generated pasuk flow"
+        }
+      ]
+    },
+    {
+      "mode": "multi_pasuk_flow",
+      "pasuk": "וילך האיש מביתו אל העיר / ויתן האב לחם לבנו / וישב האיש בביתו",
+      "source": "generated multi-pasuk",
+      "questions": [
+        {
+          "step": 1,
+          "skill": "multi_pasuk_flow",
+          "standard": "SS",
+          "micro_standard": "SS4",
+          "question_type": "multi_pasuk_sequence",
+          "word": "וילך האיש מביתו אל העיר / ויתן האב לחם לבנו / וישב האיש בביתו",
+          "selected_word": "וילך האיש מביתו אל העיר / ויתן האב לחם לבנו / וישב האיש בביתו",
+          "question": "Which sequence best follows the multi-pasuk flow?",
+          "choices": [
+            "both actions happen at the same time because both begin with ו",
+            "there is no action in either pasuk",
+            "first וילך happens, then ויתן happens",
+            "first ויתן happens, then וילך happens"
+          ],
+          "correct_answer": "first וילך happens, then ויתן happens",
+          "explanation": "The order of the pesukim controls the sequence of actions.",
+          "difficulty": 4,
+          "source": "generated pasuk flow"
+        },
+        {
+          "step": 2,
+          "skill": "multi_pasuk_flow",
+          "standard": "CM",
+          "micro_standard": "CM1",
+          "question_type": "multi_pasuk_dependency",
+          "word": "וילך האיש מביתו אל העיר / ויתן האב לחם לבנו / וישב האיש בביתו",
+          "selected_word": "וילך האיש מביתו אל העיר / ויתן האב לחם לבנו / וישב האיש בביתו",
+          "question": "Which explanation best shows dependency across the pesukim?",
+          "choices": [
+            "the receiver phrase explains where the earlier movement began",
+            "the movement phrase sets location or direction before the later action is understood",
+            "the later action changes the earlier subject into an object",
+            "the two pesukim are unrelated because they share no grammar"
+          ],
+          "correct_answer": "the movement phrase sets location or direction before the later action is understood",
+          "explanation": "A multi-pasuk flow asks how one action prepares the next.",
+          "difficulty": 5,
+          "source": "generated pasuk flow"
+        },
+        {
+          "step": 3,
+          "skill": "multi_pasuk_flow",
+          "standard": "CM",
+          "micro_standard": "CM1",
+          "question_type": "multi_pasuk_substitution",
+          "word": "מביתו",
+          "selected_word": "מביתו",
+          "question": "What would change across the flow if מביתו were replaced by בביתו?",
+          "choices": [
+            "only the spelling would change, but the flow would stay identical",
+            "all words would become nouns",
+            "the subject would become the receiver in every pasuk",
+            "the first pasuk would shift from leaving a place to being in a place"
+          ],
+          "correct_answer": "the first pasuk would shift from leaving a place to being in a place",
+          "explanation": "A substitution can change how one pasuk connects to the next.",
+          "difficulty": 5,
+          "source": "generated pasuk flow"
+        }
+      ]
+    }
+  ]
+}
