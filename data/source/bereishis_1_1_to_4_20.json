@@ -1,0 +1,27 @@
+{
+  "metadata": {
+    "title": "Bereishis source text",
+    "range": "1:1-4:20",
+    "format": "sefer,perek,pasuk,text"
+  },
+  "pesukim": [
+    {
+      "sefer": "Bereishis",
+      "perek": 1,
+      "pasuk": 1,
+      "text": "בְּרֵאשִׁית בָּרָא אֱלֹקִים אֵת הַשָּׁמַיִם וְאֵת הָאָרֶץ"
+    },
+    {
+      "sefer": "Bereishis",
+      "perek": 1,
+      "pasuk": 2,
+      "text": "וְהָאָרֶץ הָיְתָה תֹהוּ וָבֹהוּ וְחֹשֶׁךְ עַל פְּנֵי תְהוֹם וְרוּחַ אֱלֹקִים מְרַחֶפֶת עַל פְּנֵי הַמָּיִם"
+    },
+    {
+      "sefer": "Bereishis",
+      "perek": 1,
+      "pasuk": 3,
+      "text": "וַיֹּאמֶר אֱלֹקִים יְהִי אוֹר וַיְהִי אוֹר"
+    }
+  ]
+}
