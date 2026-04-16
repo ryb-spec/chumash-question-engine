@@ -1002,13 +1002,12 @@ session_stats = {
 
 while True:
     current_skill = progress["current_skill"]
-    if args.pasuk and not args.pasuk_flow and generate_skill_question is not None:
-        try:
-   if args.pasuk and not args.pasuk_flow and generate_skill_question is not None:
+   
+if args.pasuk and not args.pasuk_flow and generate_skill_question is not None:
     try:
         valid_question = None
 
-        # Initialize tracking (only once)
+        # Initialize tracking
         progress.setdefault("recent_features", [])
         progress.setdefault("recent_prefix_values", [])
         progress.setdefault("recent_suffix_values", [])
@@ -1017,49 +1016,36 @@ while True:
             q = generate_skill_question(current_skill, args.pasuk)
             feature = q.get("skill")
 
-            # ========================
             # 🔴 PREFIX CONTROL
-            # ========================
             if feature == "prefix":
                 prefix_value = q.get("prefix") or q.get("target_prefix")
 
-                # Limit same prefix (like ו)
                 if prefix_value and progress["recent_prefix_values"].count(prefix_value) >= 2:
                     continue
 
-                # Limit prefix questions overall
                 if progress["recent_features"][-5:].count("prefix") >= 2:
                     continue
 
-            # ========================
             # 🔴 SUFFIX CONTROL
-            # ========================
             if feature == "suffix":
                 suffix_value = q.get("suffix") or q.get("target_suffix")
 
-                # Limit same suffix (like ו)
                 if suffix_value and progress["recent_suffix_values"].count(suffix_value) >= 2:
                     continue
 
-                # Limit suffix questions overall
                 if progress["recent_features"][-5:].count("suffix") >= 2:
                     continue
 
-            # ========================
-            # ✅ ACCEPT QUESTION
-            # ========================
+            # ✅ ACCEPT
             valid_question = q
             break
 
-        # Fallback if all attempts failed
         if not valid_question:
             valid_question = q
 
         questions = [valid_question]
 
-        # ========================
-        # 🔵 TRACK AFTER SELECTION
-        # ========================
+        # 🔵 TRACK
         feature = valid_question.get("skill")
 
         progress["recent_features"].append(feature)
@@ -1080,53 +1066,6 @@ while True:
     except Exception as error:
         print(f"\nCould not generate a question for skill '{current_skill}': {error}")
         break
-if feature == "suffix":
-    suffix_value = q.get("suffix") or q.get("target_suffix")
-
-    if "recent_suffix_values" not in progress:
-        progress["recent_suffix_values"] = []
-
-    # 🚫 Limit same suffix (like ו)
-    if suffix_value and progress["recent_suffix_values"].count(suffix_value) >= 2:
-        continue
-
-    # 🚫 Limit suffix questions overall
-    if progress["recent_features"][-5:].count("suffix") >= 2:
-        continue
-
-        # ✅ If passed all checks → accept
-        valid_question = q
-        break
-        # 🔵 Track feature usage
-feature = valid_question.get("skill")
-
-if "recent_features" not in progress:
-    progress["recent_features"] = []
-
-progress["recent_features"].append(feature)
-progress["recent_features"] = progress["recent_features"][-10:]
-
-    # Fallback if nothing found
-    if not valid_question:
-        valid_question = q
-
-    questions = [valid_question]
-
-    # 🔵 Update tracking AFTER selection
-    feature = valid_question.get("skill")
-
-    progress.setdefault("recent_features", []).append(feature)
-    progress["recent_features"] = progress["recent_features"][-10:]
-
-    if feature == "prefix":
-        prefix_value = valid_question.get("prefix") or valid_question.get("target_prefix")
-        if prefix_value:
-            progress.setdefault("recent_prefix_values", []).append(prefix_value)
-            progress["recent_prefix_values"] = progress["recent_prefix_values"][-10:]
-        except Exception as error:
-            print(f"\nCould not generate a question for skill '{current_skill}': {error}")
-            break
-
     if args.test:
         max_difficulty = "test"
         allowed_questions = filter_questions_for_test_mode(
