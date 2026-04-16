@@ -1002,70 +1002,77 @@ session_stats = {
 
 while True:
     current_skill = progress["current_skill"]
-   
-if args.pasuk and not args.pasuk_flow and generate_skill_question is not None:
-    try:
-        valid_question = None
 
-        # Initialize tracking
-        progress.setdefault("recent_features", [])
-        progress.setdefault("recent_prefix_values", [])
-        progress.setdefault("recent_suffix_values", [])
+    # =========================
+    # 🔧 PASUK-BASED GENERATION
+    # =========================
+    if args.pasuk and not args.pasuk_flow and generate_skill_question is not None:
+        try:
+            valid_question = None
 
-        for _ in range(10):
-            q = generate_skill_question(current_skill, args.pasuk)
-            feature = q.get("skill")
+            # Initialize tracking
+            progress.setdefault("recent_features", [])
+            progress.setdefault("recent_prefix_values", [])
+            progress.setdefault("recent_suffix_values", [])
 
-            # 🔴 PREFIX CONTROL
+            for _ in range(10):
+                q = generate_skill_question(current_skill, args.pasuk)
+                feature = q.get("skill")
+
+                # 🔴 PREFIX CONTROL
+                if feature == "prefix":
+                    prefix_value = q.get("prefix") or q.get("target_prefix")
+
+                    if prefix_value and progress["recent_prefix_values"].count(prefix_value) >= 2:
+                        continue
+
+                    if progress["recent_features"][-5:].count("prefix") >= 2:
+                        continue
+
+                # 🔴 SUFFIX CONTROL
+                if feature == "suffix":
+                    suffix_value = q.get("suffix") or q.get("target_suffix")
+
+                    if suffix_value and progress["recent_suffix_values"].count(suffix_value) >= 2:
+                        continue
+
+                    if progress["recent_features"][-5:].count("suffix") >= 2:
+                        continue
+
+                # ✅ ACCEPT
+                valid_question = q
+                break
+
+            if not valid_question:
+                valid_question = q
+
+            questions = [valid_question]
+
+            # 🔵 TRACK
+            feature = valid_question.get("skill")
+
+            progress["recent_features"].append(feature)
+            progress["recent_features"] = progress["recent_features"][-10:]
+
             if feature == "prefix":
-                prefix_value = q.get("prefix") or q.get("target_prefix")
+                prefix_value = valid_question.get("prefix") or valid_question.get("target_prefix")
+                if prefix_value:
+                    progress["recent_prefix_values"].append(prefix_value)
+                    progress["recent_prefix_values"] = progress["recent_prefix_values"][-10:]
 
-                if prefix_value and progress["recent_prefix_values"].count(prefix_value) >= 2:
-                    continue
-
-                if progress["recent_features"][-5:].count("prefix") >= 2:
-                    continue
-
-            # 🔴 SUFFIX CONTROL
             if feature == "suffix":
-                suffix_value = q.get("suffix") or q.get("target_suffix")
+                suffix_value = valid_question.get("suffix") or valid_question.get("target_suffix")
+                if suffix_value:
+                    progress["recent_suffix_values"].append(suffix_value)
+                    progress["recent_suffix_values"] = progress["recent_suffix_values"][-10:]
 
-                if suffix_value and progress["recent_suffix_values"].count(suffix_value) >= 2:
-                    continue
-
-                if progress["recent_features"][-5:].count("suffix") >= 2:
-                    continue
-
-            # ✅ ACCEPT
-            valid_question = q
+        except Exception as error:
+            print(f"\nCould not generate a question for skill '{current_skill}': {error}")
             break
 
-        if not valid_question:
-            valid_question = q
-
-        questions = [valid_question]
-
-        # 🔵 TRACK
-        feature = valid_question.get("skill")
-
-        progress["recent_features"].append(feature)
-        progress["recent_features"] = progress["recent_features"][-10:]
-
-        if feature == "prefix":
-            prefix_value = valid_question.get("prefix") or valid_question.get("target_prefix")
-            if prefix_value:
-                progress["recent_prefix_values"].append(prefix_value)
-                progress["recent_prefix_values"] = progress["recent_prefix_values"][-10:]
-
-        if feature == "suffix":
-            suffix_value = valid_question.get("suffix") or valid_question.get("target_suffix")
-            if suffix_value:
-                progress["recent_suffix_values"].append(suffix_value)
-                progress["recent_suffix_values"] = progress["recent_suffix_values"][-10:]
-
-    except Exception as error:
-        print(f"\nCould not generate a question for skill '{current_skill}': {error}")
-        break
+    # =========================
+    # 🧪 TEST MODE
+    # =========================
     if args.test:
         max_difficulty = "test"
         allowed_questions = filter_questions_for_test_mode(
@@ -1081,22 +1088,17 @@ if args.pasuk and not args.pasuk_flow and generate_skill_question is not None:
         ]
     else:
         max_difficulty = get_max_difficulty(progress, session_stats)
-        # Normal mode now scores the full bank instead of filtering to
-        # difficulty <= unlocked level. Hard limits like Level 5 ratio and
-        # recent word repetition are handled inside select_question_by_score.
         allowed_questions = questions
 
     if not allowed_questions:
         print("\nNo questions match the current filters.")
         break
 
-    selected_pool_standard = None
+    # =========================
+    # 🎯 QUESTION SELECTION
+    # =========================
     if args.test:
-        question_pool = allowed_questions
-        available_words = {q["word"] for q in question_pool}
-        selected_word = choose_word(progress, available_words, last_word)
-        filtered_questions = [q for q in question_pool if q["word"] == selected_word]
-        question = random.choice(filtered_questions)
+        question = random.choice(allowed_questions)
         target_difficulty = "test"
     else:
         question, target_difficulty, current_skill = select_question_by_score(
@@ -1111,51 +1113,17 @@ if args.pasuk and not args.pasuk_flow and generate_skill_question is not None:
             last_word,
             word_bank_metadata,
         )
+
         if question is None:
             print("\nNo questions match the current filters.")
             break
-        selected_word = question["word"]
 
+    selected_word = question["word"]
     selected_standard = question["standard"]
     selected_micro_standard = question["micro_standard"]
-    next_skill = get_next_skill(current_skill)
 
-    print(f"\nWord focus: {display_text(selected_word)} (Score: {progress['words'][selected_word]})")
-    print(f"Current skill: {current_skill}")
-    print(f"Next skill: {next_skill}")
-    print(f"Standard focus: {selected_standard} (Score: {progress['standards'][selected_standard]})")
-    print(f"Micro-standard focus: {selected_micro_standard} (Score: {progress['micro_standards'][selected_micro_standard]})")
-    if args.test:
-        print("Mode: test")
-        if args.standard:
-            print(f"Test standard: {args.standard}")
-        if args.min_difficulty:
-            print(f"Test minimum difficulty: {args.min_difficulty}")
-        if args.max_difficulty:
-            print(f"Test maximum difficulty: {args.max_difficulty}")
-    else:
-        print(f"Max difficulty unlocked: {max_difficulty}")
-        print(f"Target difficulty: {target_difficulty}")
-        print(f"Current focus skill: {current_skill}")
-        print(f"PS levels unlocked: {', '.join(get_allowed_ps_micro_standards(progress))}")
-        ss_levels = get_allowed_ss_micro_standards(progress, session_stats)
-        print(f"SS levels unlocked: {', '.join(ss_levels) if ss_levels else 'locked'}")
-        print(
-            "Session accuracy: "
-            f"{session_stats['correct']}/{session_stats['answered']} "
-            f"({get_session_accuracy(session_stats) * 100:.0f}%)"
-        )
-        print(f"Correct streak: {session_stats['consecutive_correct']}")
-        print(f"WM correct this session: {session_stats['wm_correct']}")
-        if session_stats["consecutive_correct"] >= CHALLENGE_STREAK:
-            print("Challenge spike: active")
-        print(
-            "Level 5 session use: "
-            f"{session_stats['level5_answered']}/{session_stats['answered']} "
-            f"(normal unlock after {MIN_QUESTIONS_BEFORE_LEVEL5} answered; early unlock after "
-            f"{EARLY_LEVEL5_CORRECT} correct at 80%; max 20%)"
-        )
-    print_question_debug(question, word_bank_metadata)
+    print(f"\nWord focus: {display_text(selected_word)}")
+    print(f"Skill: {current_skill}")
     print(f"Difficulty: {question['difficulty']}")
     print("\nQuestion:")
     print(display_text(question["question"]))
@@ -1192,50 +1160,10 @@ if args.pasuk and not args.pasuk_flow and generate_skill_question is not None:
     if is_correct:
         session_stats["correct"] += 1
         session_stats["consecutive_correct"] += 1
-        if selected_standard == "WM":
-            session_stats["wm_correct"] += 1
     else:
         session_stats["consecutive_correct"] = 0
 
-    if question.get("difficulty") == 5:
-        session_stats["level5_answered"] += 1
-
-    skill = question.get("skill", selected_standard)
-    skill_state = update_skill_progress(
-        skill,
-        is_correct,
-        None if is_correct else get_error_type(skill),
-    )
-    if skill == progress.get("current_skill") and skill_state["mastered"]:
-        progress["current_skill"] = get_next_skill(skill)
-        print(f"Skill mastered: {skill}")
-        print(f"Next skill unlocked: {progress['current_skill']}")
-    elif check_mastery(skill):
-        print(f"Skill mastered: {skill}")
-
-    # Keep score between 0-100
-    progress["words"][selected_word] = max(0, min(100, progress["words"][selected_word]))
-    progress["standards"][selected_standard] = max(0, min(100, progress["standards"][selected_standard]))
-    progress["micro_standards"][selected_micro_standard] = max(
-        0, min(100, progress["micro_standards"][selected_micro_standard])
-    )
-    last_word = selected_word
-    recent_standards.append(selected_standard)
-    recent_standards = recent_standards[-3:]
-    recent_words.append(selected_word)
-    recent_words = recent_words[-RECENT_WORD_WINDOW:]
-    recent_groups.append(get_question_group(question, word_bank_metadata))
-    recent_groups = recent_groups[-5:]
-    recent_skills.append(question.get("skill", "unknown"))
-    recent_skills = recent_skills[-5:]
-    recent_questions.append(get_question_id(question))
-    recent_questions = recent_questions[-10:]
-
-    print(f"\nNew Score for {display_text(selected_word)}: {progress['words'][selected_word]}")
-    print(f"New Score for {selected_standard}: {progress['standards'][selected_standard]}")
-    print(f"New Score for {selected_micro_standard}: {progress['micro_standards'][selected_micro_standard]}")
     print(f"Explanation: {display_text(question['explanation'])}")
-
 # Save progress AFTER loop ends
 with open("progress.json", "w", encoding="utf-8") as f:
     json.dump(progress, f, indent=2, ensure_ascii=False)
