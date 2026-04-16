@@ -1028,6 +1028,20 @@ while True:
             # 🚫 Limit prefix questions overall
             if progress["recent_features"][-5:].count("prefix") >= 2:
                 continue
+                # 🔴 Block too many suffix questions
+if feature == "suffix":
+    suffix_value = q.get("suffix") or q.get("target_suffix")
+
+    if "recent_suffix_values" not in progress:
+        progress["recent_suffix_values"] = []
+
+    # 🚫 Limit same suffix (like ו)
+    if suffix_value and progress["recent_suffix_values"].count(suffix_value) >= 2:
+        continue
+
+    # 🚫 Limit suffix questions overall
+    if progress["recent_features"][-5:].count("suffix") >= 2:
+        continue
 
         # ✅ If passed all checks → accept
         valid_question = q
