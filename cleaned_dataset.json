@@ -1,0 +1,1304 @@
+{
+  "dataset": [
+    {
+      "word": "אב",
+      "question_count": 1,
+      "standards": [
+        "WM"
+      ]
+    },
+    {
+      "word": "אבי",
+      "question_count": 1,
+      "standards": [
+        "PR"
+      ]
+    },
+    {
+      "word": "אבן",
+      "question_count": 1,
+      "standards": [
+        "WM"
+      ]
+    },
+    {
+      "word": "אדם",
+      "question_count": 1,
+      "standards": [
+        "WM"
+      ]
+    },
+    {
+      "word": "אהב",
+      "question_count": 1,
+      "standards": [
+        "WM"
+      ]
+    },
+    {
+      "word": "אהבה",
+      "question_count": 1,
+      "standards": [
+        "WM"
+      ]
+    },
+    {
+      "word": "אור",
+      "question_count": 1,
+      "standards": [
+        "WM"
+      ]
+    },
+    {
+      "word": "אח",
+      "question_count": 1,
+      "standards": [
+        "WM"
+      ]
+    },
+    {
+      "word": "אחות",
+      "question_count": 1,
+      "standards": [
+        "WM"
+      ]
+    },
+    {
+      "word": "איש",
+      "question_count": 3,
+      "standards": [
+        "WM"
+      ]
+    },
+    {
+      "word": "אכל",
+      "question_count": 3,
+      "standards": [
+        "CF",
+        "WM"
+      ]
+    },
+    {
+      "word": "אל",
+      "question_count": 1,
+      "standards": [
+        "PR"
+      ]
+    },
+    {
+      "word": "אל העיר",
+      "question_count": 1,
+      "standards": [
+        "PS"
+      ]
+    },
+    {
+      "word": "אם",
+      "question_count": 1,
+      "standards": [
+        "WM"
+      ]
+    },
+    {
+      "word": "אמר",
+      "question_count": 3,
+      "standards": [
+        "CF",
+        "WM"
+      ]
+    },
+    {
+      "word": "ארץ",
+      "question_count": 3,
+      "standards": [
+        "WM"
+      ]
+    },
+    {
+      "word": "ארצו",
+      "question_count": 1,
+      "standards": [
+        "PC"
+      ]
+    },
+    {
+      "word": "אש",
+      "question_count": 1,
+      "standards": [
+        "WM"
+      ]
+    },
+    {
+      "word": "אשה",
+      "question_count": 3,
+      "standards": [
+        "WM"
+      ]
+    },
+    {
+      "word": "אשר",
+      "question_count": 1,
+      "standards": [
+        "PR"
+      ]
+    },
+    {
+      "word": "את",
+      "question_count": 1,
+      "standards": [
+        "PR"
+      ]
+    },
+    {
+      "word": "ב",
+      "question_count": 1,
+      "standards": [
+        "PR"
+      ]
+    },
+    {
+      "word": "בארצו",
+      "question_count": 1,
+      "standards": [
+        "CF"
+      ]
+    },
+    {
+      "word": "בארצם",
+      "question_count": 1,
+      "standards": [
+        "CF"
+      ]
+    },
+    {
+      "word": "בבית",
+      "question_count": 1,
+      "standards": [
+        "PR"
+      ]
+    },
+    {
+      "word": "בביתה",
+      "question_count": 1,
+      "standards": [
+        "CF"
+      ]
+    },
+    {
+      "word": "בביתו",
+      "question_count": 1,
+      "standards": [
+        "CF"
+      ]
+    },
+    {
+      "word": "בידה",
+      "question_count": 1,
+      "standards": [
+        "PR"
+      ]
+    },
+    {
+      "word": "בידו",
+      "question_count": 1,
+      "standards": [
+        "PR"
+      ]
+    },
+    {
+      "word": "בית",
+      "question_count": 3,
+      "standards": [
+        "WM"
+      ]
+    },
+    {
+      "word": "בית אביו",
+      "question_count": 1,
+      "standards": [
+        "PS"
+      ]
+    },
+    {
+      "word": "בית המלך",
+      "question_count": 2,
+      "standards": [
+        "PS",
+        "SS"
+      ]
+    },
+    {
+      "word": "ביתה",
+      "question_count": 1,
+      "standards": [
+        "PR"
+      ]
+    },
+    {
+      "word": "ביתו",
+      "question_count": 2,
+      "standards": [
+        "PC",
+        "PR"
+      ]
+    },
+    {
+      "word": "ביתי",
+      "question_count": 1,
+      "standards": [
+        "PR"
+      ]
+    },
+    {
+      "word": "ביתנו",
+      "question_count": 1,
+      "standards": [
+        "PR"
+      ]
+    },
+    {
+      "word": "בן",
+      "question_count": 3,
+      "standards": [
+        "WM"
+      ]
+    },
+    {
+      "word": "בנה",
+      "question_count": 3,
+      "standards": [
+        "CF",
+        "WM"
+      ]
+    },
+    {
+      "word": "ברזל",
+      "question_count": 1,
+      "standards": [
+        "WM"
+      ]
+    },
+    {
+      "word": "ברך",
+      "question_count": 1,
+      "standards": [
+        "WM"
+      ]
+    },
+    {
+      "word": "ברכה",
+      "question_count": 1,
+      "standards": [
+        "WM"
+      ]
+    },
+    {
+      "word": "בשדה",
+      "question_count": 1,
+      "standards": [
+        "PR"
+      ]
+    },
+    {
+      "word": "בשדה המלך",
+      "question_count": 1,
+      "standards": [
+        "PS"
+      ]
+    },
+    {
+      "word": "בשמים",
+      "question_count": 1,
+      "standards": [
+        "CF"
+      ]
+    },
+    {
+      "word": "בת",
+      "question_count": 3,
+      "standards": [
+        "WM"
+      ]
+    },
+    {
+      "word": "דבר",
+      "question_count": 1,
+      "standards": [
+        "CM"
+      ]
+    },
+    {
+      "word": "דרך",
+      "question_count": 1,
+      "standards": [
+        "WM"
+      ]
+    },
+    {
+      "word": "ה",
+      "question_count": 1,
+      "standards": [
+        "PR"
+      ]
+    },
+    {
+      "word": "האיש הלך",
+      "question_count": 1,
+      "standards": [
+        "SS"
+      ]
+    },
+    {
+      "word": "הלך",
+      "question_count": 3,
+      "standards": [
+        "CF",
+        "WM"
+      ]
+    },
+    {
+      "word": "המלך",
+      "question_count": 1,
+      "standards": [
+        "PR"
+      ]
+    },
+    {
+      "word": "המלך שלח את הנביא",
+      "question_count": 1,
+      "standards": [
+        "SS"
+      ]
+    },
+    {
+      "word": "הנער ישב בבית",
+      "question_count": 1,
+      "standards": [
+        "SS"
+      ]
+    },
+    {
+      "word": "הר",
+      "question_count": 3,
+      "standards": [
+        "WM"
+      ]
+    },
+    {
+      "word": "ו",
+      "question_count": 1,
+      "standards": [
+        "PR"
+      ]
+    },
+    {
+      "word": "ובבית",
+      "question_count": 1,
+      "standards": [
+        "PR"
+      ]
+    },
+    {
+      "word": "והאיש",
+      "question_count": 1,
+      "standards": [
+        "PR"
+      ]
+    },
+    {
+      "word": "ויאהב",
+      "question_count": 2,
+      "standards": [
+        "CF",
+        "SR"
+      ]
+    },
+    {
+      "word": "ויאכל",
+      "question_count": 3,
+      "standards": [
+        "CF",
+        "WM"
+      ]
+    },
+    {
+      "word": "ויאמר",
+      "question_count": 4,
+      "standards": [
+        "CF",
+        "PR",
+        "WM"
+      ]
+    },
+    {
+      "word": "ויאמר המלך",
+      "question_count": 1,
+      "standards": [
+        "PS"
+      ]
+    },
+    {
+      "word": "ויבא",
+      "question_count": 2,
+      "standards": [
+        "CF",
+        "SR"
+      ]
+    },
+    {
+      "word": "ויביאהו",
+      "question_count": 1,
+      "standards": [
+        "CF"
+      ]
+    },
+    {
+      "word": "ויבן",
+      "question_count": 3,
+      "standards": [
+        "CF",
+        "WM"
+      ]
+    },
+    {
+      "word": "ויברך",
+      "question_count": 2,
+      "standards": [
+        "CF",
+        "SR"
+      ]
+    },
+    {
+      "word": "וידבר",
+      "question_count": 3,
+      "standards": [
+        "CF",
+        "SR"
+      ]
+    },
+    {
+      "word": "וידע",
+      "question_count": 2,
+      "standards": [
+        "CF",
+        "SR"
+      ]
+    },
+    {
+      "word": "ויזכר",
+      "question_count": 2,
+      "standards": [
+        "CF",
+        "SR"
+      ]
+    },
+    {
+      "word": "ויחי",
+      "question_count": 2,
+      "standards": [
+        "CF",
+        "SR"
+      ]
+    },
+    {
+      "word": "ויחשב",
+      "question_count": 2,
+      "standards": [
+        "CF",
+        "SR"
+      ]
+    },
+    {
+      "word": "וילד",
+      "question_count": 1,
+      "standards": [
+        "SR"
+      ]
+    },
+    {
+      "word": "וילך",
+      "question_count": 5,
+      "standards": [
+        "CF",
+        "PC",
+        "WM"
+      ]
+    },
+    {
+      "word": "וילך האיש אל הבית",
+      "question_count": 4,
+      "standards": [
+        "SS"
+      ]
+    },
+    {
+      "word": "וילך הנער",
+      "question_count": 1,
+      "standards": [
+        "PS"
+      ]
+    },
+    {
+      "word": "וילך הנער אל העיר",
+      "question_count": 1,
+      "standards": [
+        "SS"
+      ]
+    },
+    {
+      "word": "וימצא",
+      "question_count": 3,
+      "standards": [
+        "CF",
+        "WM"
+      ]
+    },
+    {
+      "word": "וימת",
+      "question_count": 2,
+      "standards": [
+        "CF",
+        "SR"
+      ]
+    },
+    {
+      "word": "ויסגר",
+      "question_count": 1,
+      "standards": [
+        "CF"
+      ]
+    },
+    {
+      "word": "ויעבר",
+      "question_count": 1,
+      "standards": [
+        "CF"
+      ]
+    },
+    {
+      "word": "ויעל",
+      "question_count": 3,
+      "standards": [
+        "CF",
+        "WM"
+      ]
+    },
+    {
+      "word": "ויעמד",
+      "question_count": 2,
+      "standards": [
+        "CF",
+        "SR"
+      ]
+    },
+    {
+      "word": "ויען",
+      "question_count": 2,
+      "standards": [
+        "CF",
+        "SR"
+      ]
+    },
+    {
+      "word": "ויעש",
+      "question_count": 3,
+      "standards": [
+        "CF",
+        "SR"
+      ]
+    },
+    {
+      "word": "ויפתח",
+      "question_count": 2,
+      "standards": [
+        "CF",
+        "SR"
+      ]
+    },
+    {
+      "word": "ויצא",
+      "question_count": 2,
+      "standards": [
+        "CF",
+        "SR"
+      ]
+    },
+    {
+      "word": "ויקח",
+      "question_count": 4,
+      "standards": [
+        "CF",
+        "PC",
+        "WM"
+      ]
+    },
+    {
+      "word": "ויקח האיש את הלחם",
+      "question_count": 1,
+      "standards": [
+        "SS"
+      ]
+    },
+    {
+      "word": "ויקחהו",
+      "question_count": 1,
+      "standards": [
+        "CF"
+      ]
+    },
+    {
+      "word": "ויקם האיש וילך",
+      "question_count": 1,
+      "standards": [
+        "SS"
+      ]
+    },
+    {
+      "word": "ויקרא",
+      "question_count": 3,
+      "standards": [
+        "CF",
+        "SR"
+      ]
+    },
+    {
+      "word": "וירא",
+      "question_count": 4,
+      "standards": [
+        "CF",
+        "PC",
+        "WM"
+      ]
+    },
+    {
+      "word": "וירא האיש את המלך",
+      "question_count": 1,
+      "standards": [
+        "SS"
+      ]
+    },
+    {
+      "word": "ויראהו",
+      "question_count": 1,
+      "standards": [
+        "CF"
+      ]
+    },
+    {
+      "word": "וירד",
+      "question_count": 3,
+      "standards": [
+        "CF",
+        "WM"
+      ]
+    },
+    {
+      "word": "וישב",
+      "question_count": 4,
+      "standards": [
+        "CF",
+        "SR",
+        "WM"
+      ]
+    },
+    {
+      "word": "וישבר",
+      "question_count": 2,
+      "standards": [
+        "CF",
+        "SR"
+      ]
+    },
+    {
+      "word": "וישלח",
+      "question_count": 3,
+      "standards": [
+        "CF",
+        "WM"
+      ]
+    },
+    {
+      "word": "וישלח המלך את הנביא",
+      "question_count": 1,
+      "standards": [
+        "SS"
+      ]
+    },
+    {
+      "word": "וישלחהו",
+      "question_count": 1,
+      "standards": [
+        "CF"
+      ]
+    },
+    {
+      "word": "וישמע",
+      "question_count": 4,
+      "standards": [
+        "CF",
+        "PC",
+        "WM"
+      ]
+    },
+    {
+      "word": "וישמע המלך את הנביא",
+      "question_count": 1,
+      "standards": [
+        "SS"
+      ]
+    },
+    {
+      "word": "וישמע העם את קול הנביא",
+      "question_count": 1,
+      "standards": [
+        "SS"
+      ]
+    },
+    {
+      "word": "וישמר",
+      "question_count": 3,
+      "standards": [
+        "CF",
+        "WM"
+      ]
+    },
+    {
+      "word": "וישנא",
+      "question_count": 1,
+      "standards": [
+        "SR"
+      ]
+    },
+    {
+      "word": "וישת",
+      "question_count": 1,
+      "standards": [
+        "SR"
+      ]
+    },
+    {
+      "word": "ויתן",
+      "question_count": 4,
+      "standards": [
+        "CF",
+        "PC",
+        "WM"
+      ]
+    },
+    {
+      "word": "ויתן האב לחם לבנו",
+      "question_count": 1,
+      "standards": [
+        "SS"
+      ]
+    },
+    {
+      "word": "ויתנהו",
+      "question_count": 1,
+      "standards": [
+        "CF"
+      ]
+    },
+    {
+      "word": "ולמלך",
+      "question_count": 1,
+      "standards": [
+        "PR"
+      ]
+    },
+    {
+      "word": "ומהעיר",
+      "question_count": 1,
+      "standards": [
+        "PR"
+      ]
+    },
+    {
+      "word": "זכר",
+      "question_count": 1,
+      "standards": [
+        "WM"
+      ]
+    },
+    {
+      "word": "חיים",
+      "question_count": 1,
+      "standards": [
+        "WM"
+      ]
+    },
+    {
+      "word": "חלב",
+      "question_count": 1,
+      "standards": [
+        "WM"
+      ]
+    },
+    {
+      "word": "חשב",
+      "question_count": 1,
+      "standards": [
+        "WM"
+      ]
+    },
+    {
+      "word": "חשך",
+      "question_count": 1,
+      "standards": [
+        "WM"
+      ]
+    },
+    {
+      "word": "יד האיש",
+      "question_count": 1,
+      "standards": [
+        "PS"
+      ]
+    },
+    {
+      "word": "ידע",
+      "question_count": 1,
+      "standards": [
+        "WM"
+      ]
+    },
+    {
+      "word": "יום",
+      "question_count": 3,
+      "standards": [
+        "WM"
+      ]
+    },
+    {
+      "word": "יין",
+      "question_count": 1,
+      "standards": [
+        "WM"
+      ]
+    },
+    {
+      "word": "ים",
+      "question_count": 3,
+      "standards": [
+        "WM"
+      ]
+    },
+    {
+      "word": "ירד",
+      "question_count": 3,
+      "standards": [
+        "CF",
+        "WM"
+      ]
+    },
+    {
+      "word": "ירח",
+      "question_count": 1,
+      "standards": [
+        "WM"
+      ]
+    },
+    {
+      "word": "ישב",
+      "question_count": 3,
+      "standards": [
+        "CF",
+        "WM"
+      ]
+    },
+    {
+      "word": "ישן",
+      "question_count": 1,
+      "standards": [
+        "WM"
+      ]
+    },
+    {
+      "word": "כהן",
+      "question_count": 1,
+      "standards": [
+        "WM"
+      ]
+    },
+    {
+      "word": "כוכב",
+      "question_count": 1,
+      "standards": [
+        "WM"
+      ]
+    },
+    {
+      "word": "כי",
+      "question_count": 2,
+      "standards": [
+        "CM",
+        "PR"
+      ]
+    },
+    {
+      "word": "כמלך",
+      "question_count": 1,
+      "standards": [
+        "PR"
+      ]
+    },
+    {
+      "word": "כתב",
+      "question_count": 3,
+      "standards": [
+        "CF",
+        "WM"
+      ]
+    },
+    {
+      "word": "ל",
+      "question_count": 1,
+      "standards": [
+        "PR"
+      ]
+    },
+    {
+      "word": "לבית",
+      "question_count": 1,
+      "standards": [
+        "PR"
+      ]
+    },
+    {
+      "word": "לבית המלך",
+      "question_count": 2,
+      "standards": [
+        "SS"
+      ]
+    },
+    {
+      "word": "לביתה",
+      "question_count": 1,
+      "standards": [
+        "CF"
+      ]
+    },
+    {
+      "word": "לביתו",
+      "question_count": 1,
+      "standards": [
+        "CF"
+      ]
+    },
+    {
+      "word": "לחם",
+      "question_count": 1,
+      "standards": [
+        "WM"
+      ]
+    },
+    {
+      "word": "לילה",
+      "question_count": 3,
+      "standards": [
+        "WM"
+      ]
+    },
+    {
+      "word": "לעמו",
+      "question_count": 1,
+      "standards": [
+        "PR"
+      ]
+    },
+    {
+      "word": "לקח",
+      "question_count": 3,
+      "standards": [
+        "CF",
+        "WM"
+      ]
+    },
+    {
+      "word": "מ",
+      "question_count": 1,
+      "standards": [
+        "PR"
+      ]
+    },
+    {
+      "word": "מבית",
+      "question_count": 1,
+      "standards": [
+        "PR"
+      ]
+    },
+    {
+      "word": "מביתה",
+      "question_count": 1,
+      "standards": [
+        "CF"
+      ]
+    },
+    {
+      "word": "מביתו",
+      "question_count": 1,
+      "standards": [
+        "CF"
+      ]
+    },
+    {
+      "word": "מדבר",
+      "question_count": 1,
+      "standards": [
+        "WM"
+      ]
+    },
+    {
+      "word": "מים",
+      "question_count": 3,
+      "standards": [
+        "WM"
+      ]
+    },
+    {
+      "word": "מלחמה",
+      "question_count": 1,
+      "standards": [
+        "WM"
+      ]
+    },
+    {
+      "word": "מלך",
+      "question_count": 5,
+      "standards": [
+        "SR",
+        "WM"
+      ]
+    },
+    {
+      "word": "מן הבית",
+      "question_count": 1,
+      "standards": [
+        "PS"
+      ]
+    },
+    {
+      "word": "מצא",
+      "question_count": 3,
+      "standards": [
+        "CF",
+        "WM"
+      ]
+    },
+    {
+      "word": "נביא",
+      "question_count": 1,
+      "standards": [
+        "WM"
+      ]
+    },
+    {
+      "word": "נהר",
+      "question_count": 1,
+      "standards": [
+        "WM"
+      ]
+    },
+    {
+      "word": "נער",
+      "question_count": 1,
+      "standards": [
+        "WM"
+      ]
+    },
+    {
+      "word": "נערה",
+      "question_count": 1,
+      "standards": [
+        "WM"
+      ]
+    },
+    {
+      "word": "נתן",
+      "question_count": 3,
+      "standards": [
+        "CF",
+        "WM"
+      ]
+    },
+    {
+      "word": "עבד",
+      "question_count": 1,
+      "standards": [
+        "WM"
+      ]
+    },
+    {
+      "word": "עיר",
+      "question_count": 3,
+      "standards": [
+        "WM"
+      ]
+    },
+    {
+      "word": "על",
+      "question_count": 1,
+      "standards": [
+        "PR"
+      ]
+    },
+    {
+      "word": "עלה",
+      "question_count": 4,
+      "standards": [
+        "CF",
+        "CM",
+        "WM"
+      ]
+    },
+    {
+      "word": "עם",
+      "question_count": 3,
+      "standards": [
+        "WM"
+      ]
+    },
+    {
+      "word": "עמם",
+      "question_count": 1,
+      "standards": [
+        "PR"
+      ]
+    },
+    {
+      "word": "ענה",
+      "question_count": 1,
+      "standards": [
+        "WM"
+      ]
+    },
+    {
+      "word": "עץ",
+      "question_count": 3,
+      "standards": [
+        "WM"
+      ]
+    },
+    {
+      "word": "עת",
+      "question_count": 1,
+      "standards": [
+        "WM"
+      ],
+      "sources": [
+        "Genesis 8:11 (לעת ערב)"
+      ]
+    },
+    {
+      "word": "פרי",
+      "question_count": 1,
+      "standards": [
+        "WM"
+      ]
+    },
+    {
+      "word": "קול אמו",
+      "question_count": 1,
+      "standards": [
+        "PS"
+      ]
+    },
+    {
+      "word": "קול הנביא",
+      "question_count": 1,
+      "standards": [
+        "PS"
+      ]
+    },
+    {
+      "word": "ראה",
+      "question_count": 4,
+      "standards": [
+        "CF",
+        "CM",
+        "WM"
+      ]
+    },
+    {
+      "word": "שב",
+      "question_count": 1,
+      "standards": [
+        "CM"
+      ]
+    },
+    {
+      "word": "שבוע",
+      "question_count": 1,
+      "standards": [
+        "WM"
+      ]
+    },
+    {
+      "word": "שבר",
+      "question_count": 1,
+      "standards": [
+        "WM"
+      ]
+    },
+    {
+      "word": "שדה",
+      "question_count": 3,
+      "standards": [
+        "WM"
+      ]
+    },
+    {
+      "word": "שלח",
+      "question_count": 3,
+      "standards": [
+        "CF",
+        "WM"
+      ]
+    },
+    {
+      "word": "שמים",
+      "question_count": 1,
+      "standards": [
+        "WM"
+      ]
+    },
+    {
+      "word": "שמע",
+      "question_count": 3,
+      "standards": [
+        "CF",
+        "WM"
+      ]
+    },
+    {
+      "word": "שמר",
+      "question_count": 3,
+      "standards": [
+        "CF",
+        "WM"
+      ]
+    },
+    {
+      "word": "שמש",
+      "question_count": 1,
+      "standards": [
+        "WM"
+      ]
+    },
+    {
+      "word": "שנא",
+      "question_count": 1,
+      "standards": [
+        "WM"
+      ]
+    },
+    {
+      "word": "שתה",
+      "question_count": 1,
+      "standards": [
+        "WM"
+      ]
+    }
+  ]
+}

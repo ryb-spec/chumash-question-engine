@@ -6,6 +6,10 @@ PROGRESS_PATH = Path("skill_progress.json")
 MASTERY_WINDOW = 12
 MASTERY_ACCURACY = 0.85
 MASTERY_STREAK = 5
+WORD_EXPOSURE_KEY = "word_exposure"
+WORD_MASTERY_MIN_SEEN = 5
+WORD_MASTERY_ACCURACY = 0.80
+WORD_MASTERY_STREAK = 2
 
 
 def load_skill_progress():
@@ -31,6 +35,15 @@ def default_skill_state():
         "challenge_streak": 0,
         "last_12_results": [],
         "error_counts": {},
+        "mastered": False,
+    }
+
+
+def default_word_state():
+    return {
+        "seen": 0,
+        "correct": 0,
+        "recent_streak": 0,
         "mastered": False,
     }
 
@@ -111,6 +124,28 @@ def update_skill_progress(skill, is_correct, error_type=None):
     }
 
 
+def update_word_progress(word, is_correct):
+    progress = load_skill_progress()
+    word_progress = progress.setdefault(WORD_EXPOSURE_KEY, {})
+    word_state = word_progress.setdefault(word, default_word_state())
+
+    word_state.setdefault("seen", 0)
+    word_state.setdefault("correct", 0)
+    word_state.setdefault("recent_streak", 0)
+    word_state.setdefault("mastered", False)
+
+    word_state["seen"] += 1
+    if is_correct:
+        word_state["correct"] += 1
+        word_state["recent_streak"] += 1
+    else:
+        word_state["recent_streak"] = 0
+
+    word_state["mastered"] = check_word_mastery(word, progress)
+    save_skill_progress(progress)
+    return word_state
+
+
 def check_mastery(skill, progress=None):
     progress = progress or load_skill_progress()
     skill_state = progress.get(skill)
@@ -125,4 +160,21 @@ def check_mastery(skill, progress=None):
     return (
         accuracy >= MASTERY_ACCURACY
         and skill_state.get("current_streak", 0) >= MASTERY_STREAK
+    )
+
+
+def check_word_mastery(word, progress=None):
+    progress = progress or load_skill_progress()
+    word_state = progress.get(WORD_EXPOSURE_KEY, {}).get(word)
+    if not word_state:
+        return False
+
+    seen = word_state.get("seen", 0)
+    if seen < WORD_MASTERY_MIN_SEEN:
+        return False
+
+    accuracy = word_state.get("correct", 0) / seen
+    return (
+        accuracy >= WORD_MASTERY_ACCURACY
+        and word_state.get("recent_streak", 0) >= WORD_MASTERY_STREAK
     )

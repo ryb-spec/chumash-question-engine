@@ -1,0 +1,24 @@
+{
+  "metadata": {
+    "title": "Local Authority Notes",
+    "version": "0.1",
+    "notes": "Stores local review guidance. Metzudah may be used as final human review authority outside runtime, but this app does not scrape or call external sources."
+  },
+  "notes": [
+    {
+      "scope": "runtime",
+      "policy": "local_only",
+      "detail": "Quiz generation must use stored local JSON data only."
+    },
+    {
+      "scope": "translation_review",
+      "policy": "human_review_required",
+      "detail": "Context translations can be revised after human review; runtime reads approved local records."
+    },
+    {
+      "scope": "starter_dataset",
+      "policy": "limited_scope",
+      "detail": "This starter seed intentionally covers only Bereishis 1:1 through Bereishis 1:3."
+    }
+  ]
+}

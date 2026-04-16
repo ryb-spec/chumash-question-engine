@@ -1,0 +1,24 @@
+[
+  {
+    "id": "SS5_substitution_001",
+    "question": "Which role becomes impossible if לבנו is replaced by מבנו in ויתן האב לחם לבנו?",
+    "choices": [
+      "receiver of the bread",
+      "source connected to the son",
+      "person related to the action",
+      "possessor marked by ו"
+    ],
+    "correct_answer": "receiver of the bread",
+    "explanation": "ל marks the receiver/direction; מ marks source.",
+    "difficulty": 5,
+    "tier": "advanced",
+    "mode": "reasoning",
+    "skill": "substitution",
+    "standard": "SS",
+    "micro_standard": "SS5",
+    "question_type": "substitution",
+    "word": "לבנו",
+    "selected_word": "לבנו",
+    "source": "generated grammar reasoning"
+  }
+]
