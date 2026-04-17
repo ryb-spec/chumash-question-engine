@@ -27,6 +27,12 @@ def _special_case_shoresh_fallback(candidate):
         "ותוצא": "יצא",
         "יקרא": "קרא",
         "ויקראו": "קרא",
+        # Keep these grouped verb bridges explicit until generated candidates
+        # carry enough tense/root metadata to normalize them safely.
+        "ויתן": "נתן",
+        "ישרצו": "שרץ",
+        "יעופף": "עוף",
+        "והיו": "היה",
     }
     prefix_forms = _simple_prefix_forms(candidate)
     suffix_forms = _simple_suffix_forms(candidate)
@@ -34,6 +40,8 @@ def _special_case_shoresh_fallback(candidate):
         ("למים", ("ל",), ("ם",)): "מים",
         ("מימי", ("מ",), ("י",)): "מים",
         ("מימיו", ("מ",), ("יו",)): "מים",
+        ("להאיר", ("ל",), ()): "אור",
+        ("ולהבדיל", ("ו", "ל"), ()): "בדל",
     }
     for field in ("surface", "lemma", "normalized"):
         value = candidate.get(field)
@@ -97,6 +105,8 @@ def _strip_simple_prefixes_from_lemma(candidate):
     # Narrow stacked-prefix cleanup: some generated candidates only record the
     # leading inseparable prefix and leave a following article in the core.
     if stripped_forms and stripped_forms[-1] in {"ל", "ב", "כ", "מ"} and stripped.startswith("ה") and len(stripped) >= 4:
+        stripped = stripped[1:]
+    if stripped_forms and stripped_forms[-1] == "ו" and stripped.startswith("ה") and len(stripped) >= 5:
         stripped = stripped[1:]
 
     return stripped if _looks_like_hebrew_lemma(stripped) else None

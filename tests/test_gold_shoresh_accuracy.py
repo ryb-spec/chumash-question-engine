@@ -18,6 +18,8 @@ def load_gold():
         {"word": "יצא", "shoresh": "יצא"},
         {"word": "יקרא", "shoresh": "קרא"},
         {"word": "ויקראו", "shoresh": "קרא"},
+        {"word": "ויעש", "shoresh": "עשה"},
+        {"word": "ויתן", "shoresh": "נתן"},
         # nouns
         {"word": "מים", "shoresh": "מים"},
         {"word": "ארץ", "shoresh": "ארץ"},
@@ -30,6 +32,9 @@ def load_gold():
         {"word": "פרי", "shoresh": "פרי"},
         {"word": "דשא", "shoresh": "דשא"},
         {"word": "מין", "shoresh": "מין"},
+        {"word": "שרץ", "shoresh": "שרץ"},
+        {"word": "נפש", "shoresh": "נפש"},
+        {"word": "חיה", "shoresh": "חיה"},
         # known-risk verb forms
         {"word": "ויהי", "shoresh": "היה"},
         {"word": "וירא", "shoresh": "ראה"},
@@ -37,6 +42,12 @@ def load_gold():
         {"word": "ותראה", "shoresh": "ראה"},
         {"word": "תדשא", "shoresh": "דשא"},
         {"word": "ותוצא", "shoresh": "יצא"},
+        # tense-sensitive forms
+        {"word": "ישרצו", "shoresh": "שרץ"},
+        {"word": "יעופף", "shoresh": "עוף"},
+        {"word": "והיו", "shoresh": "היה"},
+        {"word": "להאיר", "shoresh": "אור"},
+        {"word": "ולהבדיל", "shoresh": "בדל"},
     ]
 
 

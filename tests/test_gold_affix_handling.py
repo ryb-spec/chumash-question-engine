@@ -22,6 +22,12 @@ def load_gold():
         {"word": "לזרע", "shoresh": "זרע"},
         {"word": "לדשא", "shoresh": "דשא"},
         {"word": "כדשא", "shoresh": "דשא"},
+        {"word": "למאורות", "shoresh": "מאורות"},
+        {"word": "ברקיע", "shoresh": "רקיע"},
+        {"word": "ולמועדים", "shoresh": "מועדים"},
+        {"word": "ולימים", "shoresh": "ימים"},
+        {"word": "ושנים", "shoresh": "שנים"},
+        {"word": "והמאורות", "shoresh": "מאורות"},
         # prefix+suffix
         {"word": "במים", "shoresh": "מים"},
         {"word": "למינו", "shoresh": "מין"},
@@ -34,6 +40,7 @@ def load_gold():
         {"word": "לזרעו", "shoresh": "זרע"},
         {"word": "למינהו", "shoresh": "מין"},
         {"word": "מזרעו", "shoresh": "זרע"},
+        {"word": "ולמינהו", "shoresh": "מין"},
     ]
 
 
