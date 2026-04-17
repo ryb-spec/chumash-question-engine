@@ -1,32 +1,55 @@
+"""Supported Chumash assessment runtime.
+
+This Streamlit app is the supported student-facing runtime for the project.
+It uses the active local parsed dataset and shared generator logic.
+"""
+
 import json
 import hashlib
+import os
 import random
 import re
+from datetime import datetime, timezone
 from html import escape
 from pathlib import Path
 
 import streamlit as st
+import streamlit.components.v1 as components
 
-from skill_tracker import update_skill_progress, update_word_progress
+from adaptive_engine import (
+    build_selection_preferences,
+    candidate_weight,
+    evaluate_skill_progression,
+)
+from question_ui import build_feedback_context, build_learning_context
+from assessment_scope import (
+    ACTIVE_ASSESSMENT_SCOPE,
+    SUPPORTED_PRACTICE_TYPES,
+    active_pesukim_records,
+    active_pasuk_texts,
+    active_scope_summary,
+    data_path,
+    repo_path,
+)
+from progress_store import load_progress_state, record_answer, save_progress_state
 
 try:
     from pasuk_flow_generator import analyze_pasuk as analyze_generator_pasuk
+    from pasuk_flow_generator import generate_pasuk_flow
     from pasuk_flow_generator import generate_question as generate_skill_question
     from pasuk_flow_generator import update_word_skill_score
 except ImportError:
     analyze_generator_pasuk = None
+    generate_pasuk_flow = None
     generate_skill_question = None
     update_word_skill_score = None
 
 
-BASE_DIR = Path(__file__).parent
-QUESTIONS_PATH = BASE_DIR / "questions.json"
-PROGRESS_PATH = BASE_DIR / "progress.json"
-SKILL_PROGRESS_PATH = BASE_DIR / "skill_progress.json"
-PASUK_FLOWS_PATH = BASE_DIR / "pasuk_flows.json"
-PASUK_FLOW_QUESTIONS_PATH = BASE_DIR / "pasuk_flow_questions.json"
-WORD_BANK_PATH = BASE_DIR / "data" / "word_bank.json"
-LEGACY_WORD_BANK_PATH = BASE_DIR / "word_bank.json"
+BASE_DIR = repo_path()
+PROGRESS_PATH = repo_path("progress.json")
+SKILL_PROGRESS_PATH = repo_path("skill_progress.json")
+WORD_BANK_PATH = data_path("word_bank.json")
+ATTEMPT_LOG_PATH = data_path("attempt_log.jsonl")
 
 MODES = ["Adaptive", "WM", "PR", "CF", "PS", "SS", "CM", "Pasuk Flow"]
 ADAPTIVE_STANDARDS = ["WM", "SR", "PR", "CF", "PC", "PS", "SS", "CM"]
@@ -218,8 +241,7 @@ def load_json(path, default):
 
 
 def save_progress(progress):
-    with PROGRESS_PATH.open("w", encoding="utf-8") as file:
-        json.dump(progress, file, indent=2, ensure_ascii=False)
+    return save_progress_state(progress)
 
 
 def reset_assessment_state():
@@ -238,31 +260,35 @@ def reset_assessment_state():
     st.session_state.recent_questions = []
     st.session_state.recent_features = []
     st.session_state.recent_prefixes = []
+    st.session_state.adaptive_status_message = ""
+    st.session_state.adaptive_status_reason = ""
+    st.session_state.adaptive_status_level = "info"
+    st.session_state.pending_adaptive_context = {}
     st.rerun()
 
 
 @st.cache_data
-def load_questions():
-    data = load_json(QUESTIONS_PATH, {"questions": []})
-    return data.get("questions", [])
-
-
-@st.cache_data
 def load_pasuk_flows():
+    if generate_pasuk_flow is None:
+        return []
+
     flows = []
-    for path in [PASUK_FLOW_QUESTIONS_PATH, PASUK_FLOWS_PATH]:
-        data = load_json(path, {"flows": []})
-        flows.extend(data.get("flows", []))
+    for index, pasuk in enumerate(active_pasuk_texts(), 1):
+        try:
+            flow = generate_pasuk_flow(pasuk)
+        except ValueError:
+            continue
+        flow["source"] = f"{ACTIVE_ASSESSMENT_SCOPE}:{index}"
+        flows.append(flow)
     return flows
 
 
 @st.cache_data
 def load_word_bank_metadata():
     metadata = {}
-    for path in [LEGACY_WORD_BANK_PATH, WORD_BANK_PATH]:
-        data = load_json(path, {"words": []})
-        for entry in adapt_word_bank_metadata(data):
-            add_word_metadata(metadata, entry)
+    data = load_json(WORD_BANK_PATH, {"words": []})
+    for entry in adapt_word_bank_metadata(data):
+        add_word_metadata(metadata, entry)
     return metadata
 
 
@@ -377,38 +403,8 @@ def add_word_metadata(metadata, entry):
         metadata.setdefault(normalized, entry)
 
 
-def load_legacy_word_bank_metadata():
-    data = load_json(LEGACY_WORD_BANK_PATH, {"words": []})
-    metadata = {}
-    for entry in data.get("words", []):
-        metadata.setdefault(entry["word"], entry)
-    return metadata
-
-
 def load_progress():
-    return load_json(
-        PROGRESS_PATH,
-        {"words": {}, "standards": {}, "micro_standards": {}, "xp": {}},
-    )
-
-
-def ensure_progress_keys(progress, questions):
-    progress.setdefault("words", {})
-    progress.setdefault("standards", {})
-    progress.setdefault("micro_standards", {})
-    progress.setdefault("xp", {})
-    progress.setdefault("current_skill", SKILL_ORDER[0])
-    progress.setdefault("prefix_level", 1)
-
-    for standard in ADAPTIVE_STANDARDS:
-        progress["standards"].setdefault(standard, 0)
-        progress["xp"].setdefault(standard, 0)
-
-    for question in questions:
-        progress["words"].setdefault(question["word"], 0)
-        progress["standards"].setdefault(question["standard"], 0)
-        progress["micro_standards"].setdefault(question["micro_standard"], 0)
-        progress["xp"].setdefault(question["standard"], 0)
+    return load_progress_state()
 
 
 def get_skill_level(xp):
@@ -429,6 +425,16 @@ def get_next_skill(current_skill):
         return current_skill
 
     return SKILL_ORDER[index + 1]
+
+
+def get_next_skill_by_steps(current_skill, steps=1):
+    try:
+        index = SKILL_ORDER.index(current_skill)
+    except ValueError:
+        return SKILL_ORDER[0]
+
+    target_index = min(len(SKILL_ORDER) - 1, index + max(0, steps))
+    return SKILL_ORDER[target_index]
 
 
 def skill_path_label(skill):
@@ -571,10 +577,78 @@ def get_pasukh_text(question, flow=None):
     return question.get("pasuk") or question.get("selected_word") or question.get("word", "")
 
 
+def get_active_pasuk_ref(pasuk_text):
+    for record in active_pesukim_records():
+        if record.get("text") != pasuk_text:
+            continue
+        ref = record.get("ref", {})
+        if not ref:
+            return record.get("pasuk_id", "unknown")
+        return f"{ref.get('sefer')} {ref.get('perek')}:{ref.get('pasuk')}"
+    return "not in active parsed dataset"
+
+
 def get_source_label(question, flow=None):
     if flow is not None:
         return flow.get("source", "generated")
     return question.get("source") or question.get("standard") or "generated"
+
+
+def diagnostics_enabled():
+    if os.environ.get("CHUMASH_ASSESSMENT_DEBUG", "").lower() in {"1", "true", "yes", "on"}:
+        return True
+
+    try:
+        value = st.query_params.get("assessment_debug", "")
+    except Exception:
+        value = ""
+    if isinstance(value, list):
+        value = value[0] if value else ""
+    return str(value).lower() in {"1", "true", "yes", "on"}
+
+
+def question_pipeline_source(question, flow=None):
+    if flow is not None:
+        return "generated flow from active parsed dataset"
+    return question.get("_assessment_source", "generated from active parsed dataset")
+
+
+def question_cache_status(question, flow=None):
+    if flow is not None:
+        return "flow list uses Streamlit cache after first build"
+    return question.get(
+        "_cache_status",
+        "eligible pasuk pool may be cached; question regenerated for current request",
+    )
+
+
+def diagnostic_payload(question=None, flow=None, mode="unknown"):
+    pasuk = get_pasukh_text(question or {}, flow)
+    scope = active_scope_summary()
+    return {
+        "active_scope": scope["scope"],
+        "active_range": {
+            "first": scope["first_ref"],
+            "last": scope["last_ref"],
+            "pesukim_count": scope["pesukim_count"],
+        },
+        "mode": mode,
+        "current_pasuk_ref": get_active_pasuk_ref(pasuk) if pasuk else "none",
+        "current_question_type": (question or {}).get("question_type")
+        or (question or {}).get("skill")
+        or "none",
+        "question_source": question_pipeline_source(question or {}, flow),
+        "cache_status": question_cache_status(question or {}, flow),
+        "question_in_active_dataset": pasuk in set(active_pasuk_texts()) if pasuk else False,
+    }
+
+
+def render_assessment_diagnostics(question=None, flow=None, mode="unknown"):
+    if not diagnostics_enabled():
+        return
+
+    with st.sidebar.expander("Assessment Diagnostics", expanded=False):
+        st.json(diagnostic_payload(question, flow, mode))
 
 
 def split_pasuk_phrases(text, words_per_phrase=4):
@@ -614,10 +688,133 @@ def question_key(question, prefix):
     return hashlib.sha1(raw.encode("utf-8")).hexdigest()[:12]
 
 
+def render_enter_key_handler(handler_key, action_labels):
+    labels = [label for label in action_labels if label]
+    if not labels:
+        return
+
+    script = f"""
+    <script>
+    (function() {{
+        const handlerId = {json.dumps(handler_key)};
+        const labels = {json.dumps(labels)};
+        const root = window.parent.document;
+        const registry = window.parent.__assessmentEnterHandlers || (window.parent.__assessmentEnterHandlers = {{}});
+
+        if (registry[handlerId]) {{
+            root.removeEventListener('keydown', registry[handlerId], true);
+        }}
+
+        const isVisible = (element) => !!(element && element.offsetParent !== null);
+        const isAllowedTarget = (element) => {{
+            if (!element) return true;
+            const tag = (element.tagName || '').toLowerCase();
+            if (tag === 'textarea') return false;
+            if (tag === 'input') {{
+                const inputType = (element.type || '').toLowerCase();
+                return !['text', 'search', 'email', 'url', 'password', 'number'].includes(inputType);
+            }}
+            return true;
+        }};
+
+        const handler = (event) => {{
+            if (event.key !== 'Enter' || event.shiftKey || event.ctrlKey || event.metaKey || event.altKey) return;
+            if (!isAllowedTarget(root.activeElement)) return;
+
+            const buttons = Array.from(root.querySelectorAll('button[kind="primary"], button[data-testid="baseButton-primary"]'));
+            const target = buttons.find((button) => {{
+                const label = (button.innerText || button.textContent || '').trim();
+                return !button.disabled && isVisible(button) && labels.includes(label);
+            }});
+            if (!target) return;
+
+            event.preventDefault();
+            target.click();
+        }};
+
+        registry[handlerId] = handler;
+        root.addEventListener('keydown', handler, true);
+    }})();
+    </script>
+    """
+    components.html(script, height=0, width=0)
+
+
 def highlight_focus(text, focus):
     if not text:
         return ""
     return highlight_display_text(text, focus)
+
+
+COMPACT_CONTEXT_QUESTION_TYPES = {
+    "word_meaning",
+    "translation",
+    "shoresh",
+    "prefix",
+    "suffix",
+    "prefix_suffix",
+    "verb_tense",
+}
+
+FULL_CONTEXT_QUESTION_TYPES = {
+    "subject_identification",
+    "phrase_meaning",
+    "phrase_translation",
+    "flow",
+    "flow_dependency",
+    "role_clarity",
+}
+
+
+def question_type_key(question):
+    return question.get("question_type") or question.get("skill") or ""
+
+
+def uses_compact_pasuk_context(question, flow=None):
+    if flow is not None:
+        return False
+    key = question_type_key(question)
+    if key in FULL_CONTEXT_QUESTION_TYPES:
+        return False
+    if key in COMPACT_CONTEXT_QUESTION_TYPES:
+        return True
+    if key.startswith("prefix_level_"):
+        return True
+    return False
+
+
+def local_context_snippet(pasuk, focus, radius=2):
+    tokens = menukad_text(pasuk).split()
+    focus_text = menukad_text(focus)
+    if not tokens or not focus_text:
+        return ""
+
+    focus_tokens = focus_text.split()
+    if not focus_tokens:
+        return ""
+
+    match_index = None
+    match_length = len(focus_tokens)
+    for index in range(0, len(tokens) - match_length + 1):
+        if tokens[index:index + match_length] == focus_tokens:
+            match_index = index
+            break
+
+    if match_index is None and focus_text in tokens:
+        match_index = tokens.index(focus_text)
+        match_length = 1
+
+    if match_index is None:
+        return ""
+
+    start = max(0, match_index - radius)
+    end = min(len(tokens), match_index + match_length + radius)
+    snippet = " ".join(tokens[start:end])
+    if start > 0:
+        snippet = "... " + snippet
+    if end < len(tokens):
+        snippet += " ..."
+    return snippet
 
 
 def get_word_entry(question):
@@ -637,46 +834,6 @@ def get_word_entry(question):
             return word_bank_metadata[normalized_token]
 
     return None
-
-
-def _legacy_render_learning_header(question, progress, flow=None):
-    standard = question.get("standard", "unknown")
-    score = progress["standards"].get(standard, 0)
-    xp = progress["xp"].get(standard, 0)
-    level = get_skill_level(xp)
-    skill_state = st.session_state.get("last_skill_state")
-    mastery_score = skill_state["score"] if skill_state else score
-    if flow is not None:
-        steps = flow.get("questions") or flow.get("steps", [])
-        step_index = st.session_state.flow_step + 1
-        progress_value = step_index / max(1, len(steps))
-        progress_text = f"You're {int(progress_value * 100)}% through this pasuk."
-    else:
-        progress_value = mastery_score / 100
-        progress_text = f"You're building {plain_skill(question).lower()}."
-
-    with st.container():
-        st.markdown("<div class='top-card'>", unsafe_allow_html=True)
-        col1, col2 = st.columns([1.1, 1.7])
-        with col1:
-            st.markdown(f"<div class='eyebrow'>Focus</div>", unsafe_allow_html=True)
-            st.markdown(f"<div class='focus-title'>{plain_skill(question)}</div>", unsafe_allow_html=True)
-        with col2:
-            st.markdown(f"<div class='eyebrow'>Think about</div>", unsafe_allow_html=True)
-            st.markdown(f"<div class='think-text'>{thinking_tip(question)}</div>", unsafe_allow_html=True)
-        st.progress(progress_value)
-        st.markdown(
-            f"<div class='progress-text'>{progress_text} Mastery: {mastery_score}/100. "
-            f"Practice level {level}. {next_goal_message(mastery_score)}</div>",
-            unsafe_allow_html=True,
-        )
-        if skill_state:
-            st.caption(f"🔥 Streak: {skill_state['current_streak']}")
-            if mastery_score >= 90:
-                st.info("You're in the mastery zone. Stay sharp.")
-            elif mastery_score >= 80:
-                st.info("You're close to mastery.")
-        st.markdown("</div>", unsafe_allow_html=True)
 
 
 def render_learning_header(question, progress, flow=None):
@@ -699,6 +856,18 @@ def render_learning_header(question, progress, flow=None):
         step_text = f"Practice level {level}"
 
     source = get_source_label(question, flow)
+    practice_type = "Pasuk Flow" if flow is not None else st.session_state.get("practice_type", "Learn Mode")
+    current_skill = progress.get("current_skill", question.get("skill", standard))
+    current_skill_label = skill_path_label(current_skill)
+    next_skill_label = skill_path_label(get_next_skill(current_skill))
+    header_context = build_learning_context(
+        practice_type=practice_type,
+        skill_label=plain_skill(question),
+        current_skill_label=current_skill_label,
+        next_skill_label=next_skill_label,
+        source_label=source,
+        focus_tip=thinking_tip(question),
+    )
     st.markdown(
         f"""
         <section class="learning-header">
@@ -708,7 +877,17 @@ def render_learning_header(question, progress, flow=None):
                     <span>{escape(step_text)}</span>
                 </div>
                 <h1>{escape(plain_skill(question))}</h1>
-                <p>{escape(thinking_tip(question))}</p>
+                <p>{escape(header_context['what_to_focus_on'])}</p>
+                <div class="guidance-grid">
+                    <div class="guidance-card">
+                        <span>Why This Question</span>
+                        <p>{escape(header_context['why_this_question'])}</p>
+                    </div>
+                    <div class="guidance-card">
+                        <span>What Happens Next</span>
+                        <p>{escape(header_context['what_happens_next'])}</p>
+                    </div>
+                </div>
             </div>
             <div class="mastery-panel">
                 <span class="section-label">Mastery</span>
@@ -738,15 +917,52 @@ def render_pasukh_panel(question, flow=None):
         return
 
     source = get_source_label(question, flow)
+    compact_context = uses_compact_pasuk_context(question, flow)
     st.markdown(
         f"""
         <div class="section-heading">
-            <span>Read The Pasuk</span>
+            <span>{'Focus Word' if compact_context else 'Read The Pasuk'}</span>
             <small>{escape(source)}</small>
         </div>
         """,
         unsafe_allow_html=True,
     )
+
+    if compact_context and focus:
+        snippet = local_context_snippet(pasuk, focus)
+        st.markdown(
+            f"""
+            <section class="compact-context">
+                <div class="target-word" dir="rtl" lang="he">{mixed_text_html(focus)}</div>
+                <div class="context-snippet" dir="rtl" lang="he">
+                    {highlight_display_text(snippet, focus) if snippet else ''}
+                </div>
+            </section>
+            """,
+            unsafe_allow_html=True,
+        )
+        with st.expander("Show full pasuk"):
+            if st.session_state.get("pasuk_view_mode") == "Break into phrases":
+                lines = []
+                for index, phrase in enumerate(split_pasuk_phrases(pasuk), start=1):
+                    lines.append(
+                        f"""
+                        <div class="phrase-line">
+                            <span class="phrase-number">{index}</span>
+                            <span class="phrase-text" dir="rtl" lang="he">{highlight_display_text(phrase, focus)}</span>
+                        </div>
+                        """
+                    )
+                st.markdown(
+                    f"<section class='pasuk-box phrase-box compact-full-pasuk' dir='rtl' lang='he'>{''.join(lines)}</section>",
+                    unsafe_allow_html=True,
+                )
+            else:
+                st.markdown(
+                    rtl_hebrew_html(pasuk, focus, "pasuk-box compact-full-pasuk"),
+                    unsafe_allow_html=True,
+                )
+        return
 
     if st.session_state.get("pasuk_view_mode") == "Break into phrases":
         lines = []
@@ -785,82 +1001,6 @@ def render_grammar_clues(question):
         st.markdown(mixed_text_html(" | ".join(clues)), unsafe_allow_html=True)
 
 
-def get_question_pool(mode, questions, progress):
-    if mode == "Adaptive":
-        available = [
-            question
-            for question in questions
-            if question.get("standard") in ADAPTIVE_STANDARDS
-        ]
-        if not available:
-            return []
-
-        available_standards = {question["standard"] for question in available}
-        weakest_standard = min(
-            available_standards,
-            key=lambda standard: progress["standards"].get(standard, 0),
-        )
-        return [
-            question
-            for question in available
-            if question["standard"] == weakest_standard
-        ]
-
-    return [
-        question
-        for question in questions
-        if question.get("standard") == mode
-    ]
-
-
-def filter_questions_by_session_limits(questions):
-    questions_answered = st.session_state.questions_answered
-    level5_answered = st.session_state.level5_answered
-    allow_level5_by_count = questions_answered >= MIN_QUESTIONS_BEFORE_LEVEL5
-    allow_level5_by_ratio = (
-        (level5_answered + 1) / (questions_answered + 1)
-        <= MAX_LEVEL5_SESSION_RATIO
-    )
-
-    if allow_level5_by_count and allow_level5_by_ratio:
-        return questions
-
-    return [question for question in questions if question.get("difficulty") != 5]
-
-
-def choose_question(mode, questions, progress):
-    pool = get_question_pool(mode, questions, progress)
-    pool = filter_questions_by_session_limits(pool)
-    if not pool:
-        return None
-    return random.choice(pool)
-
-
-def update_progress(progress, question, is_correct):
-    amount = 10 if is_correct else -10
-    xp_gain = 15 if is_correct else 3
-    word = question["word"]
-    standard = question["standard"]
-    micro_standard = question["micro_standard"]
-
-    progress["words"].setdefault(word, 0)
-    progress["standards"].setdefault(standard, 0)
-    progress["micro_standards"].setdefault(micro_standard, 0)
-
-    progress["words"][word] = max(0, min(100, progress["words"].get(word, 0) + amount))
-    progress["standards"][standard] = max(
-        0,
-        min(100, progress["standards"].get(standard, 0) + amount),
-    )
-    progress["micro_standards"][micro_standard] = max(
-        0,
-        min(100, progress["micro_standards"].get(micro_standard, 0) + amount),
-    )
-    progress.setdefault("xp", {})
-    progress["xp"][standard] = progress["xp"].get(standard, 0) + xp_gain
-    save_progress(progress)
-
-
 def reset_for_new_question():
     st.session_state.current_question = None
     st.session_state.answered = False
@@ -875,6 +1015,53 @@ def set_question(question):
     st.session_state.last_skill_state = None
 
 
+def set_adaptive_status(decision):
+    decision = decision or {}
+    st.session_state.adaptive_status_message = decision.get("message", "")
+    st.session_state.adaptive_status_reason = decision.get("reason", "")
+    route = decision.get("route", "")
+    if route in {"advance", "fast_pass", "double_fast_pass"}:
+        level = "success"
+    elif route == "reteach_same_skill":
+        level = "warning"
+    else:
+        level = "info"
+    st.session_state.adaptive_status_level = level
+    st.session_state.pending_adaptive_context = decision
+
+
+def consume_adaptive_context():
+    context = dict(st.session_state.get("pending_adaptive_context") or {})
+    st.session_state.pending_adaptive_context = {}
+    return context
+
+
+def append_attempt_log(question, choice, is_correct):
+    pasuk_text = question.get("pasuk")
+    record = {
+        "timestamp_utc": datetime.now(timezone.utc).isoformat(),
+        "word": question.get("word"),
+        "selected_word": question.get("selected_word"),
+        "skill": question.get("skill"),
+        "question_type": question.get("question_type"),
+        "standard": question.get("standard"),
+        "is_correct": is_correct,
+        "expected_answer": question.get("correct_answer"),
+        "user_answer": choice,
+        "pasuk_ref": get_active_pasuk_ref(pasuk_text) if pasuk_text else None,
+        "source": question.get("source"),
+    }
+
+    try:
+        ATTEMPT_LOG_PATH.parent.mkdir(parents=True, exist_ok=True)
+        with ATTEMPT_LOG_PATH.open("a", encoding="utf-8") as handle:
+            handle.write(json.dumps(record, ensure_ascii=False) + "\n")
+    except Exception:
+        # Logging is best-effort only; assessment flow should continue even if
+        # the local attempt log is unavailable or unwritable.
+        return
+
+
 def handle_answer(choice, question, progress):
     if st.session_state.answered:
         return
@@ -885,15 +1072,20 @@ def handle_answer(choice, question, progress):
     if question.get("difficulty") == 5:
         st.session_state.level5_answered += 1
     is_correct = choice == question["correct_answer"]
-    update_progress(progress, question, is_correct)
-    st.session_state.last_skill_state = update_skill_progress(
-        question.get("skill", question.get("standard", "unknown")),
+    append_attempt_log(question, choice, is_correct)
+    progress_result = record_answer(
+        progress,
+        question,
         is_correct,
         None if is_correct else get_error_type(question.get("skill")),
     )
+    answered_skill = question.get("skill", question.get("standard", "unknown"))
+    full_skill_state = dict(progress.get("skills", {}).get(answered_skill, {}))
+    if progress_result.get("skill_state", {}).get("point_change"):
+        full_skill_state["point_change"] = progress_result["skill_state"]["point_change"]
+    st.session_state.last_skill_state = full_skill_state
     asked_token = question.get("selected_word") or question.get("word")
     if asked_token:
-        update_word_progress(asked_token, is_correct)
         if update_word_skill_score is not None:
             update_word_skill_score(
                 asked_token,
@@ -901,7 +1093,6 @@ def handle_answer(choice, question, progress):
                 is_correct,
                 progress,
             )
-            save_progress(progress)
     if asked_token:
         st.session_state.asked_tokens.append(asked_token)
         if (
@@ -920,18 +1111,93 @@ def handle_answer(choice, question, progress):
     if (
         st.session_state.get("practice_type") == "Learn Mode"
         and answered_skill == progress.get("current_skill")
-        and st.session_state.last_skill_state["mastered"]
     ):
-        next_skill = get_next_skill(answered_skill)
-        progress["current_skill"] = next_skill
-        save_progress(progress)
-        st.session_state.asked_tokens = []
-        st.session_state.asked_question_ids = []
-        st.session_state.asked_pasuks = []
-        st.session_state.unlocked_skill_message = (
-            f"{skill_path_label(answered_skill)} mastered. "
-            f"Next skill: {skill_path_label(next_skill)}."
+        current_skill = progress.get("current_skill")
+        next_skill_label = skill_path_label(get_next_skill(current_skill))
+        decision = evaluate_skill_progression(
+            current_skill=current_skill,
+            answered_skill=answered_skill,
+            skill_state=st.session_state.last_skill_state,
+            is_correct=is_correct,
+            skill_order=SKILL_ORDER,
+            skill_label=skill_path_label(current_skill),
+            next_skill_label=next_skill_label,
         )
+        decision.update(build_selection_preferences(decision, question))
+        set_adaptive_status(decision)
+        progress.setdefault("adaptive_state", {}).setdefault("history", []).append(decision)
+        progress["adaptive_state"]["history"] = progress["adaptive_state"]["history"][-20:]
+        progress["adaptive_state"]["last_decision"] = decision
+
+        target_skill = decision.get("target_skill", current_skill)
+        if target_skill != current_skill:
+            progress["current_skill"] = target_skill
+            st.session_state.asked_tokens = []
+            st.session_state.asked_question_ids = []
+            st.session_state.asked_pasuks = []
+        st.session_state.unlocked_skill_message = ""
+
+    save_progress(progress)
+
+
+def last_answer_was_correct(question):
+    return st.session_state.selected_answer == question["correct_answer"]
+
+
+def build_followup_question(progress, question):
+    if generate_skill_question is None:
+        return None
+
+    skill = question.get("skill") or progress.get("current_skill")
+    pasuk = question.get("pasuk") or get_pasukh_text(question)
+    current_word = question.get("selected_word") or question.get("word")
+    asked_tokens = list(get_generation_history(skill))
+    if current_word:
+        asked_tokens.append(current_word)
+
+    prefix_level = progress.get("prefix_level", 1)
+    recent_question_formats = get_recent_question_formats()
+    recent_prefixes = get_recent_prefixes()
+
+    candidate_sources = []
+    if pasuk and analyze_generator_pasuk is not None:
+        try:
+            candidate_sources.append((pasuk, analyze_generator_pasuk(pasuk)))
+        except Exception:
+            pass
+    if pasuk:
+        candidate_sources.append((pasuk, pasuk))
+
+    for pasuk_text, candidate_source in candidate_sources:
+        try:
+            followup = generate_skill_question(
+                skill,
+                candidate_source,
+                asked_tokens=asked_tokens,
+                prefix_level=prefix_level,
+                recent_question_formats=recent_question_formats,
+                recent_prefixes=recent_prefixes,
+            )
+        except Exception:
+            continue
+        if followup is None or followup.get("status") == "skipped":
+            continue
+        next_word = followup.get("selected_word") or followup.get("word")
+        if next_word == current_word and followup.get("question") == question.get("question"):
+            continue
+        followup.setdefault("pasuk", pasuk_text)
+        followup["_assessment_source"] = "targeted follow-up from active parsed dataset"
+        followup["_cache_status"] = "targeted follow-up regenerated after the current error"
+        record_selected_pasuk(followup["pasuk"])
+        record_question_feature(followup)
+        record_question_prefix(followup)
+        return followup
+
+    fallback = generate_practice_question(skill)
+    if fallback:
+        fallback["_assessment_source"] = "fallback follow-up from active parsed dataset"
+        fallback["_cache_status"] = "fallback follow-up regenerated after the current error"
+    return fallback
 
 
 def render_debug(question):
@@ -966,56 +1232,6 @@ def render_debug(question):
     )
 
 
-def _legacy_render_question(question, progress, button_prefix, flow=None):
-    render_learning_header(question, progress, flow)
-    with st.container():
-        render_pasukh_panel(question, flow)
-        render_debug(question)
-        st.markdown(
-            f"<div class='question-card'><div class='section-label'>Question</div>"
-            f"<div class='question-text'>{mixed_text_html(question['question'])}</div></div>",
-            unsafe_allow_html=True,
-        )
-
-    st.markdown("<div class='section-label answer-label'>Choose an answer</div>", unsafe_allow_html=True)
-    for index, choice in enumerate(question["choices"]):
-        label = OPTION_LABELS[index]
-        button_type = "primary" if st.session_state.selected_answer == choice else "secondary"
-        st.button(
-            f"{label}. {menukad_text(choice)}",
-            key=f"{button_prefix}_{index}_{choice}",
-            use_container_width=True,
-            disabled=st.session_state.answered,
-            type=button_type,
-            on_click=handle_answer,
-            args=(choice, question, progress),
-        )
-
-    if st.session_state.answered:
-        skill_state = st.session_state.get("last_skill_state") or {}
-        point_change = skill_state.get("point_change", "")
-        st.markdown("<div class='feedback-card'>", unsafe_allow_html=True)
-        if st.session_state.selected_answer == question["correct_answer"]:
-            st.success(f"Correct! {point_change}")
-            st.caption(menukad_text(question["explanation"]))
-        else:
-            st.error(f"Incorrect. {point_change}")
-            st.caption(f"Answer: {menukad_text(question['correct_answer'])}")
-            st.caption(menukad_text(question["explanation"]))
-
-        if skill_state:
-            st.progress(skill_state["score"] / 100)
-            st.write(f"Mastery: {skill_state['score']}/100")
-            st.write(f"🔥 Streak: {skill_state['current_streak']}")
-            if skill_state["score"] >= 90:
-                st.info("You're in the mastery zone. Stay sharp.")
-            elif skill_state["score"] >= 80:
-                st.info("You're close to mastery.")
-
-        render_grammar_clues(question)
-        st.markdown("</div>", unsafe_allow_html=True)
-
-
 def answer_choice_label(choice, index):
     return f"{OPTION_LABELS[index]}. {menukad_text(choice)}"
 
@@ -1023,34 +1239,72 @@ def answer_choice_label(choice, index):
 def render_feedback(question):
     skill_state = st.session_state.get("last_skill_state") or {}
     point_change = skill_state.get("point_change", "")
-    is_correct = st.session_state.selected_answer == question["correct_answer"]
+    is_correct = last_answer_was_correct(question)
     status_class = "correct" if is_correct else "incorrect"
-    title = "Correct" if is_correct else "Not Quite"
     selected = st.session_state.selected_answer or ""
-    correct = question["correct_answer"]
+    practice_type = st.session_state.get("practice_type", "Learn Mode")
+    progress = load_progress()
+    skill_label = plain_skill(question)
+    next_skill_label = skill_path_label(get_next_skill(progress.get("current_skill", question.get("skill", ""))))
+    feedback = build_feedback_context(
+        question=question,
+        selected_answer=selected,
+        is_correct=is_correct,
+        clue_text=clue_sentence(question),
+        practice_type=practice_type,
+        skill_label=skill_label,
+        next_skill_label=next_skill_label,
+    )
+    adaptive_message = st.session_state.get("adaptive_status_message", "")
+    if practice_type == "Learn Mode" and adaptive_message:
+        feedback["what_comes_next"] = adaptive_message
 
     st.markdown(
         f"""
         <section class="feedback-panel {status_class}">
             <div class="feedback-status">
-                <strong>{title}</strong>
+                <strong>{feedback['title']}</strong>
                 <span>{escape(str(point_change))}</span>
             </div>
             <div class="feedback-line">
                 <span>Your answer</span>
-                <b>{mixed_text_html(selected)}</b>
+                <b>{mixed_text_html(feedback['selected_answer'])}</b>
             </div>
             <div class="feedback-line">
                 <span>Correct answer</span>
-                <b>{mixed_text_html(correct)}</b>
+                <b>{mixed_text_html(feedback['correct_answer'])}</b>
+            </div>
+            <div class="feedback-explanation">
+                <span>Why</span>
+                <div>{mixed_text_html(feedback['explanation'])}</div>
+            </div>
+            <div class="feedback-detail-grid">
+                <div class="feedback-detail">
+                    <span>Clue That Mattered</span>
+                    <div>{mixed_text_html(feedback['clue_that_mattered'])}</div>
+                </div>
+                <div class="feedback-detail">
+                    <span>What Comes Next</span>
+                    <div>{mixed_text_html(feedback['what_comes_next'])}</div>
+                </div>
             </div>
         </section>
         """,
         unsafe_allow_html=True,
     )
 
-    with st.expander("Why this answer works", expanded=True):
-        st.markdown(mixed_text_html(question.get("explanation", "")), unsafe_allow_html=True)
+    if feedback["likely_confusion"]:
+        st.markdown(
+            f"""
+            <section class="reteach-panel">
+                <span>Likely Confusion</span>
+                <div>{mixed_text_html(feedback['likely_confusion'])}</div>
+            </section>
+            """,
+            unsafe_allow_html=True,
+        )
+
+    with st.expander("More detail", expanded=False):
         render_grammar_clues(question)
 
     if skill_state:
@@ -1109,34 +1363,45 @@ def render_question(question, progress, button_prefix, flow=None):
         ):
             handle_answer(selected_choice, question, progress)
             st.rerun()
+        render_enter_key_handler(f"{button_prefix}_enter_check_{key}", ["Check Answer"])
 
     if st.session_state.answered:
         render_feedback(question)
 
 
-def render_standard_mode(mode, questions, progress):
-    if st.session_state.current_question is None:
-        set_question(choose_question(mode, questions, progress))
-
-    question = st.session_state.current_question
-    if question is None:
-        st.warning(
-            "No practice questions are ready for this choice yet. Try Recommended Practice, "
-            "Guided Pasuk Practice, or choose another learning area."
-        )
-        return
-
-    render_question(question, progress, f"question_{mode}")
-
-    if st.session_state.answered:
-        if st.button("Next Question", type="primary"):
-            set_question(choose_question(mode, questions, progress))
-            st.rerun()
-
-
 def get_system_pasuks():
-    flow_pasuks = [flow["pasuk"] for flow in load_pasuk_flows() if flow.get("pasuk")]
-    return list(dict.fromkeys(flow_pasuks + SYSTEM_PESUKIM))
+    return list(active_pasuk_texts())
+
+
+@st.cache_data
+def get_skill_ready_pasuks(skill):
+    if generate_skill_question is None:
+        return []
+
+    ready = []
+    for pasuk in active_pasuk_texts():
+        try:
+            question = generate_skill_question(
+                skill,
+                (
+                    analyze_generator_pasuk(pasuk)
+                    if analyze_generator_pasuk is not None
+                    else pasuk
+                ),
+            )
+        except Exception:
+            continue
+        if question is None or question.get("status") == "skipped":
+            continue
+        ready.append(
+            {
+                "pasuk": pasuk,
+                "word": question.get("selected_word") or question.get("word"),
+                "feature": get_question_feature(question),
+                "prefix": get_question_prefix(question),
+            }
+        )
+    return ready
 
 
 def select_system_pasuk(skill):
@@ -1144,18 +1409,7 @@ def select_system_pasuk(skill):
         return None
 
     recent_pesukim = st.session_state.setdefault("recent_pesukim", [])
-    candidates = []
-    for pasuk in get_system_pasuks():
-        try:
-            analyzed_pasuk = (
-                analyze_generator_pasuk(pasuk)
-                if analyze_generator_pasuk is not None
-                else pasuk
-            )
-            generate_skill_question(skill, analyzed_pasuk)
-        except Exception:
-            continue
-        candidates.append(pasuk)
+    candidates = [row["pasuk"] for row in get_skill_ready_pasuks(skill)]
 
     if not candidates:
         return None
@@ -1184,48 +1438,52 @@ def select_system_pasuk(skill):
     return unused[0]
 
 
-def choose_weighted_pasuk_question(candidates, recent_pesukim, recent_words):
-    new_pasuks = [
-        item
-        for item in candidates
-        if item["pasuk"] not in recent_pesukim[-5:]
-    ]
-    new_words = [
-        item
-        for item in candidates
-        if (item["word"] or "") not in recent_words[-5:]
-    ]
+def choose_weighted_pasuk_question(candidates, recent_pesukim, recent_words, progress=None, adaptive_context=None):
+    scored = []
+    for item in candidates:
+        score = candidate_weight(
+            item,
+            progress or {},
+            recent_pesukim,
+            recent_words,
+            adaptive_context=adaptive_context,
+        )
+        scored.append((score, item))
 
-    roll = random.random()
-    if roll < 0.5 and new_pasuks:
-        return random.choice(new_pasuks)
-    if roll < 0.8 and new_words:
-        return random.choice(new_words)
-
-    seen = [
-        item
-        for item in candidates
-        if item not in new_pasuks and item not in new_words
-    ]
-    return random.choice(seen or new_words or new_pasuks or candidates)
+    scored.sort(key=lambda pair: pair[0], reverse=True)
+    top_band = [item for score, item in scored[: min(3, len(scored))]]
+    return random.choice(top_band or candidates)
 
 
-def select_pasuk_first_question(skill):
+def select_pasuk_first_question(skill, progress=None, adaptive_context=None):
     if generate_skill_question is None:
         return None
 
     recent_pesukim = st.session_state.setdefault("recent_pesukim", [])
     recent_words = st.session_state.setdefault("asked_tokens", [])
-    pasuk_pool = get_system_pasuks()
+    ready_rows = get_skill_ready_pasuks(skill)
+    if not ready_rows:
+        return None
+    pasuk_pool = [row["pasuk"] for row in ready_rows]
     recent_pasuk_window = recent_pesukim[-5:]
     preferred_pasuks = [
         pasuk for pasuk in pasuk_pool if pasuk not in recent_pasuk_window
     ]
+    progress = progress or load_progress()
+    adaptive_context = adaptive_context or {}
+    generation_history = get_generation_history(skill)
+    prefix_level = progress.get("prefix_level", 1)
+    recent_question_formats = get_recent_question_formats()
+    recent_prefixes = get_recent_prefixes()
+    preferred_pasuk = adaptive_context.get("preferred_pasuk")
 
     attempts = 0
     candidate_rows = []
     fallback_rows = []
-    search_pool = preferred_pasuks or pasuk_pool
+    if adaptive_context.get("selection_mode") == "reteach" and preferred_pasuk:
+        search_pool = [pasuk for pasuk in pasuk_pool if pasuk == preferred_pasuk] or (preferred_pasuks or pasuk_pool)
+    else:
+        search_pool = preferred_pasuks or pasuk_pool
 
     while attempts < 10 and not candidate_rows:
         attempts += 1
@@ -1238,12 +1496,14 @@ def select_pasuk_first_question(skill):
                         if analyze_generator_pasuk is not None
                         else pasuk
                     ),
-                    asked_tokens=get_generation_history(skill),
-                    prefix_level=load_progress().get("prefix_level", 1),
-                    recent_question_formats=get_recent_question_formats(),
-                    recent_prefixes=get_recent_prefixes(),
+                    asked_tokens=generation_history,
+                    prefix_level=prefix_level,
+                    recent_question_formats=recent_question_formats,
+                    recent_prefixes=recent_prefixes,
                 )
             except Exception:
+                continue
+            if question is None or question.get("status") == "skipped":
                 continue
 
             word = question.get("selected_word") or question.get("word")
@@ -1279,9 +1539,13 @@ def select_pasuk_first_question(skill):
         candidate_rows,
         recent_pesukim,
         recent_words,
+        progress=progress,
+        adaptive_context=adaptive_context,
     )
     question = selected["question"]
     question.setdefault("pasuk", selected["pasuk"])
+    question["_assessment_source"] = "generated skill question from active parsed dataset"
+    question["_cache_status"] = "eligible pasuk pool cached; question regenerated"
     record_selected_pasuk(selected["pasuk"])
     record_question_feature(question)
     record_question_prefix(question)
@@ -1289,10 +1553,12 @@ def select_pasuk_first_question(skill):
 
 
 def record_selected_pasuk(pasuk):
-    st.session_state.asked_pasuks.append(pasuk)
-    st.session_state.asked_pasuks = st.session_state.asked_pasuks[-10:]
-    st.session_state.recent_pesukim.append(pasuk)
-    st.session_state.recent_pesukim = st.session_state.recent_pesukim[-10:]
+    asked_pasuks = st.session_state.setdefault("asked_pasuks", [])
+    asked_pasuks.append(pasuk)
+    st.session_state.asked_pasuks = asked_pasuks[-10:]
+    recent_pesukim = st.session_state.setdefault("recent_pesukim", [])
+    recent_pesukim.append(pasuk)
+    st.session_state.recent_pesukim = recent_pesukim[-10:]
 
 
 def get_generation_history(skill):
@@ -1371,11 +1637,16 @@ def record_question_feature(question):
 
 
 def generate_mastery_question(progress):
-    return select_pasuk_first_question(progress["current_skill"])
+    adaptive_context = consume_adaptive_context()
+    return select_pasuk_first_question(
+        progress["current_skill"],
+        progress=progress,
+        adaptive_context=adaptive_context,
+    )
 
 
 def generate_practice_question(skill):
-    return select_pasuk_first_question(skill)
+    return select_pasuk_first_question(skill, progress=load_progress())
 
 
 def render_mastery_mode(progress):
@@ -1391,7 +1662,21 @@ def render_mastery_mode(progress):
         st.warning("No mastery question is ready yet.")
         return
 
+    render_assessment_diagnostics(question, mode="Learn Mode")
     render_question(question, progress, f"mastery_{progress['current_skill']}")
+
+    adaptive_message = st.session_state.get("adaptive_status_message")
+    adaptive_reason = st.session_state.get("adaptive_status_reason")
+    adaptive_level = st.session_state.get("adaptive_status_level", "info")
+    if adaptive_message:
+        if adaptive_level == "success":
+            st.success(adaptive_message)
+        elif adaptive_level == "warning":
+            st.warning(adaptive_message)
+        else:
+            st.info(adaptive_message)
+        if adaptive_reason:
+            st.caption(f"Why this path: {adaptive_reason}.")
 
     if st.session_state.get("unlocked_skill_message"):
         st.success(st.session_state.unlocked_skill_message)
@@ -1399,15 +1684,40 @@ def render_mastery_mode(progress):
         st.caption(st.session_state.feature_fallback_message)
 
     if st.session_state.answered:
-        if st.button("Next Question", type="primary"):
-            st.session_state.unlocked_skill_message = ""
-            st.session_state.feature_fallback_message = ""
-            try:
-                set_question(generate_mastery_question(progress))
-            except Exception as error:
-                st.warning(f"No question is ready for this skill and pasuk yet: {error}")
-                return
-            st.rerun()
+        if last_answer_was_correct(question):
+            if st.button("Next Question", type="primary", use_container_width=True, key="next_mastery"):
+                st.session_state.unlocked_skill_message = ""
+                st.session_state.feature_fallback_message = ""
+                try:
+                    set_question(generate_mastery_question(progress))
+                except Exception as error:
+                    st.warning(f"No question is ready for this skill and pasuk yet: {error}")
+                    return
+                st.rerun()
+            render_enter_key_handler("enter_next_mastery", ["Next Question"])
+        else:
+            primary, secondary = st.columns([2, 1])
+            with primary:
+                if st.button("Try One Like This", type="primary", use_container_width=True, key="retry_mastery_like_this"):
+                    st.session_state.unlocked_skill_message = ""
+                    st.session_state.feature_fallback_message = ""
+                    followup = build_followup_question(progress, question)
+                    if followup is None:
+                        st.warning("No close follow-up is ready yet. Continuing with the normal path.")
+                        followup = generate_mastery_question(progress)
+                    set_question(followup)
+                    st.rerun()
+            with secondary:
+                if st.button("Continue", use_container_width=True, key="continue_mastery_after_error"):
+                    st.session_state.unlocked_skill_message = ""
+                    st.session_state.feature_fallback_message = ""
+                    try:
+                        set_question(generate_mastery_question(progress))
+                    except Exception as error:
+                        st.warning(f"No question is ready for this skill and pasuk yet: {error}")
+                        return
+                    st.rerun()
+            render_enter_key_handler("enter_retry_mastery", ["Try One Like This", "Continue"])
 
 
 def render_skill_practice_mode(progress, skill):
@@ -1423,15 +1733,34 @@ def render_skill_practice_mode(progress, skill):
         st.warning("No practice question is ready yet.")
         return
 
+    render_assessment_diagnostics(question, mode="Practice Mode")
     render_question(question, progress, f"practice_{skill}")
     if st.session_state.get("feature_fallback_message"):
         st.caption(st.session_state.feature_fallback_message)
 
     if st.session_state.answered:
-        if st.button("Next Question", type="primary"):
-            st.session_state.feature_fallback_message = ""
-            set_question(generate_practice_question(skill))
-            st.rerun()
+        if last_answer_was_correct(question):
+            if st.button("Next Question", type="primary", use_container_width=True, key=f"next_practice_{skill}"):
+                st.session_state.feature_fallback_message = ""
+                set_question(generate_practice_question(skill))
+                st.rerun()
+            render_enter_key_handler(f"enter_next_practice_{skill}", ["Next Question"])
+        else:
+            primary, secondary = st.columns([2, 1])
+            with primary:
+                if st.button("Try One Like This", type="primary", use_container_width=True, key=f"retry_practice_like_this_{skill}"):
+                    st.session_state.feature_fallback_message = ""
+                    followup = build_followup_question(progress, question)
+                    if followup is None:
+                        followup = generate_practice_question(skill)
+                    set_question(followup)
+                    st.rerun()
+            with secondary:
+                if st.button("Continue", use_container_width=True, key=f"continue_practice_after_error_{skill}"):
+                    st.session_state.feature_fallback_message = ""
+                    set_question(generate_practice_question(skill))
+                    st.rerun()
+            render_enter_key_handler(f"enter_retry_practice_{skill}", ["Try One Like This", "Continue"])
 
 
 def render_flow_overview(flow, active_step):
@@ -1481,10 +1810,10 @@ def render_pasuk_flow(progress):
         )
         return
 
-    flow_labels = [
-        f"{flow.get('source', 'unknown')} - {flow['pasuk']}"
-        for flow in flows
-    ]
+    flow_labels = []
+    for flow in flows:
+        pasuk_ref = get_active_pasuk_ref(flow.get("pasuk", ""))
+        flow_labels.append(f"{pasuk_ref} - Guided pasuk")
     selected_label = st.sidebar.selectbox("Pasuk", flow_labels)
     flow = flows[flow_labels.index(selected_label)]
 
@@ -1500,23 +1829,26 @@ def render_pasuk_flow(progress):
     step_index = st.session_state.flow_step
     question = steps[step_index]
 
+    render_assessment_diagnostics(question, flow, "Pasuk Flow")
     render_flow_overview(flow, step_index)
     render_question(question, progress, f"flow_{step_index}", flow)
 
     if st.session_state.answered:
         if step_index + 1 < len(steps):
-            if st.button("Next Step", type="primary"):
+            if st.button("Next Step", type="primary", use_container_width=True, key=f"next_flow_step_{step_index}"):
                 st.session_state.flow_step += 1
                 st.session_state.answered = False
                 st.session_state.selected_answer = None
                 st.rerun()
+            render_enter_key_handler(f"enter_next_flow_{step_index}", ["Next Step"])
         else:
             st.success("Pasuk flow complete.")
-            if st.button("Restart Flow"):
+            if st.button("Restart Flow", type="primary", use_container_width=True, key="restart_flow"):
                 st.session_state.flow_step = 0
                 st.session_state.answered = False
                 st.session_state.selected_answer = None
                 st.rerun()
+            render_enter_key_handler("enter_restart_flow", ["Restart Flow"])
 
 
 def init_session_state():
@@ -1541,6 +1873,10 @@ def init_session_state():
     st.session_state.setdefault("practice_type", "Learn Mode")
     st.session_state.setdefault("practice_skill", SKILL_ORDER[0])
     st.session_state.setdefault("unlocked_skill_message", "")
+    st.session_state.setdefault("adaptive_status_message", "")
+    st.session_state.setdefault("adaptive_status_reason", "")
+    st.session_state.setdefault("adaptive_status_level", "info")
+    st.session_state.setdefault("pending_adaptive_context", {})
     st.session_state.setdefault("show_nekudos", True)
     st.session_state.setdefault("pasuk_view_mode", "Full pasuk view")
 
@@ -1662,6 +1998,7 @@ def apply_global_styles():
         .learning-header,
         .question-card,
         .pasuk-box,
+        .compact-context,
         .flow-overview,
         .feedback-panel {
             border: 1px solid var(--line);
@@ -1726,6 +2063,38 @@ def apply_global_styles():
             color: var(--muted);
             line-height: 1.35;
         }
+        .guidance-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+            margin-top: 14px;
+        }
+        .guidance-card,
+        .feedback-detail,
+        .reteach-panel {
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            background: #ffffff;
+            padding: 12px 14px;
+        }
+        .guidance-card span,
+        .feedback-detail span,
+        .reteach-panel span {
+            display: block;
+            color: var(--muted);
+            font-size: 0.8rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+        .guidance-card p,
+        .feedback-detail div,
+        .reteach-panel div {
+            margin: 0;
+            line-height: 1.5;
+            font-size: 0.98rem;
+            font-weight: 650;
+        }
         .section-label,
         .section-heading span {
             color: var(--muted);
@@ -1753,6 +2122,36 @@ def apply_global_styles():
             line-height: 2.05;
             overflow-wrap: anywhere;
             unicode-bidi: plaintext;
+        }
+        .compact-context {
+            margin: 0 0 12px 0;
+            padding: 20px 22px;
+            background: #fbfdfc;
+            text-align: center;
+        }
+        .target-word {
+            direction: rtl;
+            font-family: "Noto Sans Hebrew", "SBL Hebrew", "Ezra SIL", "Taamey David CLM", "Times New Roman", serif;
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1.35;
+            letter-spacing: 0;
+            unicode-bidi: plaintext;
+        }
+        .context-snippet {
+            margin-top: 8px;
+            color: var(--muted);
+            font-family: "Noto Sans Hebrew", "SBL Hebrew", "Ezra SIL", "Taamey David CLM", "Times New Roman", serif;
+            font-size: 1.45rem;
+            font-weight: 600;
+            line-height: 1.7;
+            letter-spacing: 0;
+            unicode-bidi: plaintext;
+        }
+        .compact-full-pasuk {
+            margin-bottom: 8px;
+            font-size: 1.7rem;
+            padding: 18px 20px;
         }
         .hebrew-block,
         .hebrew-text,
@@ -1836,9 +2235,10 @@ def apply_global_styles():
             unicode-bidi: plaintext;
         }
         div.stButton > button {
-            min-height: 52px;
+            min-height: 60px;
             border-radius: 8px;
             font-weight: 800;
+            font-size: 1.02rem;
             letter-spacing: 0;
         }
         div.stButton > button[kind="primary"] {
@@ -1847,7 +2247,7 @@ def apply_global_styles():
         }
         .feedback-panel {
             margin-top: 18px;
-            padding: 18px;
+            padding: 22px;
             border-left-width: 5px;
         }
         .feedback-panel.correct {
@@ -1860,21 +2260,54 @@ def apply_global_styles():
         }
         .feedback-status {
             justify-content: space-between;
-            margin-bottom: 12px;
+            margin-bottom: 14px;
         }
         .feedback-status strong {
-            font-size: 1.35rem;
+            font-size: 1.65rem;
         }
         .feedback-line {
             display: grid;
             grid-template-columns: 140px minmax(0, 1fr);
             gap: 12px;
-            padding: 8px 0;
+            padding: 10px 0;
             border-top: 1px solid rgba(25, 33, 31, 0.08);
         }
         .feedback-line span {
             color: var(--muted);
             font-weight: 700;
+        }
+        .feedback-line b {
+            font-size: 1.1rem;
+            line-height: 1.55;
+        }
+        .feedback-explanation {
+            display: grid;
+            grid-template-columns: 140px minmax(0, 1fr);
+            gap: 12px;
+            padding: 14px 0 4px 0;
+            border-top: 1px solid rgba(25, 33, 31, 0.08);
+        }
+        .feedback-explanation span {
+            color: var(--muted);
+            font-weight: 800;
+        }
+        .feedback-explanation div {
+            font-size: 1.12rem;
+            font-weight: 700;
+            line-height: 1.65;
+        }
+        .feedback-detail-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+            padding-top: 14px;
+            border-top: 1px solid rgba(25, 33, 31, 0.08);
+            margin-top: 8px;
+        }
+        .reteach-panel {
+            margin-top: 12px;
+            background: #fff9ed;
+            border-color: rgba(180, 35, 24, 0.18);
         }
         .flow-overview {
             padding: 18px;
@@ -1940,6 +2373,16 @@ def apply_global_styles():
                 font-size: 2rem;
                 padding: 20px;
                 line-height: 2.15;
+            }
+            .target-word {
+                font-size: 2.35rem;
+            }
+            .context-snippet {
+                font-size: 1.2rem;
+            }
+            .compact-full-pasuk {
+                font-size: 1.35rem;
+                padding: 14px 16px;
             }
             .phrase-box {
                 font-size: 1.65rem;
@@ -2134,6 +2577,10 @@ def main():
             .question-text {
                 font-size: 1.3rem;
             }
+            .guidance-grid,
+            .feedback-detail-grid {
+                grid-template-columns: 1fr;
+            }
         }
         </style>
         """,
@@ -2141,9 +2588,7 @@ def main():
     )
     apply_global_styles()
 
-    questions = load_questions()
     progress = load_progress()
-    ensure_progress_keys(progress, questions)
 
     st.markdown(
         """
@@ -2166,7 +2611,7 @@ def main():
     if st.sidebar.button("Restart Assessment", type="secondary"):
         reset_assessment_state()
 
-    practice_options = ["Learn Mode", "Practice Mode", "Pasuk Flow"]
+    practice_options = list(SUPPORTED_PRACTICE_TYPES)
     current_practice_type = (
         st.session_state.practice_type
         if st.session_state.practice_type in practice_options

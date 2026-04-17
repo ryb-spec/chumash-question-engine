@@ -1,12 +1,20 @@
+"""Legacy preview question generator.
+
+This script builds static preview artifacts from the legacy root word bank.
+It is not the supported runtime; the supported app runtime is
+``streamlit_app.py`` using the active parsed dataset.
+"""
+
 import argparse
 import json
 import random
 from pathlib import Path
 
+from assessment_scope import LEGACY_ROOT_WORD_BANK_PATH, repo_path
 
-BASE_DIR = Path(__file__).parent
-WORD_BANK_PATH = BASE_DIR / "word_bank.json"
-OUTPUT_PATH = BASE_DIR / "generated_questions_preview.json"
+BASE_DIR = repo_path()
+WORD_BANK_PATH = LEGACY_ROOT_WORD_BANK_PATH
+OUTPUT_PATH = repo_path("generated_questions_preview.json")
 
 
 def load_word_bank():

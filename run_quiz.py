@@ -1,8 +1,16 @@
+"""Legacy CLI wrapper for local/dev quiz experimentation.
+
+The supported product runtime is the Streamlit app in ``streamlit_app.py``.
+This module remains for compatibility and developer inspection, but it is not
+the primary student-facing runtime.
+"""
+
 import argparse
 import json
 import random
 import re
 import sys
+from pathlib import Path
 
 try:
     from pasuk_flow_generator import (
@@ -23,6 +31,14 @@ except ImportError:
     load_word_bank = None
     update_word_skill_score = None
 
+from assessment_scope import (
+    LEGACY_PASUK_FLOWS_PATH,
+    LEGACY_PASUK_FLOW_PREVIEW_PATH,
+    LEGACY_QUESTIONS_PATH,
+    LEGACY_ROOT_WORD_BANK_PATH,
+    repo_path,
+)
+from progress_store import load_progress_state, save_progress_state
 from skill_tracker import check_mastery, update_skill_progress, update_word_progress
 
 STANDARDS = ["WM", "SR", "PR", "CF", "PC", "PS", "SS", "CM"]
@@ -157,7 +173,7 @@ def load_word_bank_metadata():
             pass
 
     try:
-        with open("word_bank.json", "r", encoding="utf-8") as file:
+        with LEGACY_ROOT_WORD_BANK_PATH.open("r", encoding="utf-8") as file:
             data = json.load(file)
     except FileNotFoundError:
         return {}
@@ -934,9 +950,9 @@ def filter_questions_for_test_mode(
 
 def load_pasuk_flow(source=None, pasuk=None):
     flows = []
-    for filename in ["pasuk_flow_questions.json", "pasuk_flows.json"]:
+    for filename in [LEGACY_PASUK_FLOW_PREVIEW_PATH, LEGACY_PASUK_FLOWS_PATH]:
         try:
-            with open(filename, "r", encoding="utf-8") as file:
+            with filename.open("r", encoding="utf-8") as file:
                 data = json.load(file)
         except FileNotFoundError:
             continue
@@ -1033,15 +1049,16 @@ def ask_question(question, progress):
         skill,
         is_correct,
         None if is_correct else get_error_type(skill),
+        progress=progress,
     )
-    update_word_progress(selected_word, is_correct)
+    update_word_progress(selected_word, is_correct, progress=progress)
     if update_word_skill_score is not None:
         update_word_skill_score(selected_word, skill, is_correct, progress)
     if skill == progress.get("current_skill") and skill_state["mastered"]:
         progress["current_skill"] = get_next_skill(skill)
         print(f"Skill mastered: {skill}")
         print(f"Next skill unlocked: {progress['current_skill']}")
-    elif check_mastery(skill):
+    elif check_mastery(skill, progress):
         print(f"Skill mastered: {skill}")
 
     progress["words"][selected_word] = max(0, min(100, progress["words"][selected_word]))
@@ -1212,19 +1229,16 @@ def run_pasuk_flow(progress, source=None, pasuk=None, flow=None):
 
 # Load questions
 args = parse_args()
+print(LEGACY_RUNTIME_NOTICE, file=sys.stderr)
 word_bank_metadata = load_word_bank_metadata()
 
-with open("questions.json", "r", encoding="utf-8") as file:
+with LEGACY_QUESTIONS_PATH.open("r", encoding="utf-8") as file:
     data = json.load(file)
 
 questions = data["questions"]
 
 # Load progress
-try:
-    with open("progress.json", "r", encoding="utf-8") as file:
-        progress = json.load(file)
-except FileNotFoundError:
-    progress = {"words": {}, "standards": {}}
+progress = load_progress_state()
 
 progress.setdefault("words", {})
 progress.setdefault("standards", {})
@@ -1267,8 +1281,7 @@ for standard in STANDARDS:
 
 if args.pasuk_flow:
     run_pasuk_flow(progress, args.source, args.pasuk)
-    with open("progress.json", "w", encoding="utf-8") as f:
-        json.dump(progress, f, indent=2, ensure_ascii=False)
+    save_progress_state(progress)
     sys.exit()
 
 last_word = None
@@ -1510,15 +1523,16 @@ while True:
         skill,
         is_correct,
         None if is_correct else get_error_type(skill),
+        progress=progress,
     )
-    update_word_progress(selected_word, is_correct)
+    update_word_progress(selected_word, is_correct, progress=progress)
     if update_word_skill_score is not None:
         update_word_skill_score(selected_word, skill, is_correct, progress)
     if skill == progress.get("current_skill") and skill_state["mastered"]:
         progress["current_skill"] = get_next_skill(skill)
         print(f"Skill mastered: {skill}")
         print(f"Next skill unlocked: {progress['current_skill']}")
-    elif check_mastery(skill):
+    elif check_mastery(skill, progress):
         print(f"Skill mastered: {skill}")
 
     # Keep score between 0-100
@@ -1545,5 +1559,9 @@ while True:
     print(f"Explanation: {display_text(question['explanation'])}")
 
 # Save progress AFTER loop ends
-with open("progress.json", "w", encoding="utf-8") as f:
-    json.dump(progress, f, indent=2, ensure_ascii=False)
+save_progress_state(progress)
+BASE_DIR = repo_path()
+LEGACY_RUNTIME_NOTICE = (
+    "Legacy CLI runtime: run_quiz.py is kept for compatibility/dev use. "
+    "The supported app runtime is: streamlit run streamlit_app.py"
+)

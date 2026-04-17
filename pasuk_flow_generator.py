@@ -1,14 +1,41 @@
+"""Shared question-generation engine.
+
+This module powers the supported Streamlit runtime from the active parsed
+dataset. It still contains a few preview/export helpers for local developer
+work, but those helpers are not the supported student-facing runtime.
+"""
+
 import json
 import random
 import hashlib
+from functools import lru_cache
 from pathlib import Path
 
+from assessment_scope import (
+    ACTIVE_ASSESSMENT_SCOPE,
+    ACTIVE_WORD_BANK_PATH,
+    active_pasuk_texts,
+    data_path,
+    repo_path,
+    resolve_repo_path,
+)
+from torah_parser.candidate_generator import (
+    apply_prefix_metadata as parser_apply_prefix_metadata,
+    apply_suffix_metadata as parser_apply_suffix_metadata,
+    detect_verb_tense as parser_detect_verb_tense,
+    extract_prefix as parser_extract_prefix,
+    extract_suffix as parser_extract_suffix,
+    generate_candidate_analyses as parser_generate_candidate_analyses,
+    prefix_has_known_base as parser_prefix_has_known_base,
+    suffix_has_known_base as parser_suffix_has_known_base,
+)
+from torah_parser.normalize import normalize_form as parser_normalize_form
+from torah_parser.tokenize import tokenize_pasuk as parser_tokenize_pasuk
 
-WORD_BANK_PATH = Path("data/word_bank.json")
-LEGACY_WORD_BANK_PATH = Path("word_bank.json")
-OUTPUT_PATH = Path("pasuk_flow_questions.json")
-LETTER_MEANING_QUESTIONS_PATH = Path("data/skills/letter_meaning/questions_walder.json")
-WORD_STRUCTURE_QUESTIONS_PATH = Path("data/skills/word_structure/questions.json")
+WORD_BANK_PATH = ACTIVE_WORD_BANK_PATH
+OUTPUT_PATH = repo_path("pasuk_flow_questions.json")
+LETTER_MEANING_QUESTIONS_PATH = data_path("skills", "letter_meaning", "questions_walder.json")
+WORD_STRUCTURE_QUESTIONS_PATH = data_path("skills", "word_structure", "questions.json")
 NORMALIZED_ALIAS_KEY = "__normalized_alias__"
 
 EXAMPLE_PESUKIM = [
@@ -55,7 +82,7 @@ _ALL_PESUKIM = list(dict.fromkeys(EXAMPLE_PESUKIM + EXAMPLE_MULTI_PESUKIM + [
     "קוֹל דּוֹדִי דּוֹפֵק פִּתְחִי לִי אֲחֹתִי",
 ]))
 
-CHUMASH_PESUKIM = _ALL_PESUKIM[:24]
+CHUMASH_PESUKIM = list(active_pasuk_texts())
 OTHER_PESUKIM = _ALL_PESUKIM[24:]
 PESUKIM = CHUMASH_PESUKIM
 
@@ -81,8 +108,8 @@ CONTROLLED_TENSE_CHOICES = [
     "future",
     "past",
     "present",
+    "infinitive",
     "command",
-    "not a verb",
 ]
 
 SKILLS = [
@@ -256,11 +283,7 @@ SUFFIX_MEANINGS = {
 def normalize_hebrew_key(text):
     if not isinstance(text, str):
         return text
-    return "".join(
-        char
-        for char in text
-        if not "\u0591" <= char <= "\u05c7"
-    )
+    return parser_normalize_form(text)
 
 
 def old_word_type(part_of_speech):
@@ -361,6 +384,7 @@ def adapt_word_bank_analysis(surface, analysis, analysis_index=0):
     return add_legacy_word_bank_aliases(entry)
 
 
+@lru_cache(maxsize=4)
 def load_word_bank_entries(path):
     if not path.exists():
         return []
@@ -502,9 +526,9 @@ def merge_normalized_alias(by_word, normalized, entry):
                 alias[key] = entry[key]
 
 
+@lru_cache(maxsize=1)
 def load_word_bank():
     entries = []
-    entries.extend(load_word_bank_entries(LEGACY_WORD_BANK_PATH))
     entries.extend(load_word_bank_entries(WORD_BANK_PATH))
 
     by_word = {}
@@ -526,7 +550,7 @@ def load_word_bank():
 
 
 def load_json(path):
-    return json.loads(Path(path).read_text(encoding="utf-8"))
+    return json.loads(resolve_repo_path(path).read_text(encoding="utf-8"))
 
 
 def load_letter_meaning_questions():
@@ -626,15 +650,19 @@ def generate_diagnostic_questions():
 
 
 def tokenize_pasuk(pasuk):
-    return pasuk.replace("\u05be", " ").split()
+    return parser_tokenize_pasuk(pasuk)
 
 
 def analyze_word(word):
+    analyses = parser_generate_candidate_analyses(word)
+    primary = analyses[0] if analyses else {}
     return {
         "word": word,
-        "prefix": extract_prefix(word),
-        "suffix": extract_suffix(word),
-        "is_verb": is_verb(word),
+        "prefix": parser_extract_prefix(word),
+        "suffix": parser_extract_suffix(word),
+        "is_verb": primary.get("part_of_speech") == "verb",
+        "tense": primary.get("tense"),
+        "analyses": analyses,
     }
 
 
@@ -710,57 +738,25 @@ def add_words_from_pasuk(pasuk, progress=None):
     return WORD_BANK
 
 
-def extract_prefix(word):
-    if not word:
-        return None
-
-    plain_word = "".join(
-        char
-        for char in word
-        if not "\u0591" <= char <= "\u05c7"
-    )
-    prefixes = ["\u05d5", "\u05d1", "\u05dc", "\u05db", "\u05de", "\u05d4"]
-
-    for prefix in prefixes:
-        if not plain_word.startswith(prefix) or len(plain_word) <= 3:
-            continue
-
-        remainder = plain_word[1:]
-        if len(remainder) < 2:
-            continue
-        if remainder[0] == prefix:
-            continue
-
-        return prefix
-
-    return None
+def extract_prefix(word, word_bank=None):
+    return parser_extract_prefix(word, word_bank)
 
 
 def prefix_has_known_base(word, prefix, word_bank):
-    if not prefix or not word_bank:
-        return False
-
-    base = word[len(prefix):] if prefix else word
-    return base in word_bank
+    return parser_prefix_has_known_base(word, prefix, word_bank)
 
 
 def apply_prefix_metadata(word, entry, word_bank=None):
-    prefix = extract_prefix(word)
-    if prefix is None:
-        entry["prefix"] = ""
-        entry["prefix_meaning"] = ""
-        return entry
-
-    entry["prefix"] = prefix
-    entry["prefix_meaning"] = PREFIX_MEANINGS[prefix]
-    return entry
+    return parser_apply_prefix_metadata(word, entry, word_bank)
 
 
 def is_prefix_candidate(entry, token, word_bank=None):
-    prefix = extract_prefix(token)
+    prefix = extract_prefix(token, word_bank)
     if not prefix:
         return False
     if entry.get("prefix") and entry.get("prefix") != prefix:
+        return False
+    if entry_type(entry) != "verb" and word_bank is not None and not prefix_has_known_base(token, prefix, word_bank):
         return False
     return True
 
@@ -769,87 +765,38 @@ def detect_prefix(token, word_bank):
     if len(token) < 2:
         return None
 
-    prefix = extract_prefix(token)
+    prefix = extract_prefix(token, word_bank)
     if prefix is None:
         return None
 
-    base_word = token[len(prefix):]
-    if base_word not in word_bank:
+    normalized_token = normalize_hebrew_key(token)
+    base_normalized = normalized_token[len(prefix):]
+    base_word = resolve_surface_for_normalized(word_bank, base_normalized)
+    if not base_word:
         return None
 
-    entry = dict(word_bank[base_word])
+    source_entry = word_bank[base_word] if base_word in word_bank else word_bank.get(base_normalized)
+    entry = resolve_word_bank_lookup(base_word, source_entry)
     entry["word"] = token
     entry["prefix"] = prefix
     entry["base_word"] = base_word
     entry["prefix_meaning"] = PREFIX_MEANINGS[prefix]
-    entry["translation"] = f"{PREFIX_MEANINGS[prefix]} {word_bank[base_word]['translation']}"
+    entry["translation"] = f"{PREFIX_MEANINGS[prefix]} {entry['translation']}"
     apply_prefix_metadata(entry["word"], entry, word_bank)
     apply_suffix_metadata(entry["word"], entry, word_bank)
     return {"token": token, "entry": entry, "base": base_word}
 
 
 def extract_suffix(word):
-    if word.endswith("\u05db\u05b6\u05dd"):
-        return "\u05db\u05b6\u05dd"
-    if word.endswith("\u05db\u05b6\u05df"):
-        return "\u05db\u05b6\u05df"
-    if word.endswith("\u05db\u05dd"):
-        return "\u05db\u05dd"
-    if word.endswith("\u05db\u05df"):
-        return "\u05db\u05df"
-    if word.endswith("\u05e0\u05d5"):
-        return "\u05e0\u05d5"
-    if word.endswith("\u05d9\u05d5"):
-        return "\u05d9\u05d5"
-    if word.endswith("\u05da\u05b8"):
-        return "\u05da\u05b8"
-    if word.endswith("\u05da\u05b0"):
-        return "\u05da\u05b0"
-    if word.endswith("\u05da"):
-        return "\u05da"
-    if word.endswith("\u05dd"):
-        return "\u05dd"
-    if word.endswith("\u05df"):
-        return "\u05df"
-    if word.endswith("\u05d4"):
-        return "\u05d4"
-    if word.endswith("\u05d5"):
-        return "\u05d5"
-    if word.endswith("\u05d9"):
-        return "\u05d9"
-    return None
+    return parser_extract_suffix(word)
 
 
 def suffix_has_known_base(word, suffix, word_bank):
-    if not word_bank:
-        return False
-
-    base = word[:-len(suffix)] if suffix else word
-    if base in word_bank:
-        return True
-
-    prefix = extract_prefix(base)
-    if prefix and base[len(prefix):] in word_bank:
-        return True
-
-    return False
+    return parser_suffix_has_known_base(word, suffix, word_bank)
 
 
 def apply_suffix_metadata(word, entry, word_bank=None):
-    suffix = extract_suffix(word)
-    if suffix is None:
-        return entry
-
-    already_marked = bool(entry.get("suffix")) or entry.get("type") == "suffix_form"
-    if already_marked and entry.get("suffix") in SUFFIX_MEANINGS:
-        suffix = entry["suffix"]
-
-    if not already_marked and not suffix_has_known_base(word, suffix, word_bank):
-        return entry
-
-    entry["suffix"] = suffix
-    entry["suffix_meaning"] = SUFFIX_MEANINGS[suffix]
-    return entry
+    return parser_apply_suffix_metadata(word, entry, word_bank)
 
 
 def with_suffix_metadata(item, word_bank=None):
@@ -867,11 +814,11 @@ def is_suffix_candidate(entry, token, word_bank=None):
     suffix = entry.get("suffix") or extract_suffix(token)
     if not suffix:
         return False
-    return bool(entry.get("suffix")) or entry.get("type") == "suffix_form" or suffix_has_known_base(
-        token,
-        suffix,
-        word_bank,
-    )
+    if entry.get("type") == "suffix_form":
+        return True
+    if word_bank is None:
+        return False
+    return suffix_has_known_base(token, suffix, word_bank)
 
 
 def normalize_token(token, word_bank):
@@ -886,12 +833,15 @@ def normalize_token(token, word_bank):
         if entry.get("prefix"):
             entry.setdefault("base_word", token)
         else:
-            prefix = extract_prefix(token)
+            prefix = extract_prefix(token, word_bank)
             if prefix and prefix_has_known_base(token, prefix, word_bank):
-                possible_base = token[len(prefix):]
+                possible_base = resolve_surface_for_normalized(
+                    word_bank,
+                    normalize_hebrew_key(token)[len(prefix):],
+                )
                 entry.setdefault(
                     "base_word",
-                    possible_base if possible_base in word_bank else token,
+                    possible_base or token,
                 )
                 apply_prefix_metadata(token, entry, word_bank)
             else:
@@ -924,18 +874,53 @@ def resolve_word_bank_lookup(token, entry):
     return resolved
 
 
+def resolve_surface_for_normalized(word_bank, normalized_key):
+    if not normalized_key:
+        return None
+    direct = word_bank.get(normalized_key)
+    if isinstance(direct, dict) and not direct.get(NORMALIZED_ALIAS_KEY):
+        return direct.get("word") or normalized_key
+    if isinstance(direct, dict) and direct.get(NORMALIZED_ALIAS_KEY):
+        entries = direct.get("entries") or []
+        if len(entries) == 1:
+            return entries[0].get("word")
+
+    for entry in word_bank.values():
+        if not isinstance(entry, dict) or entry.get(NORMALIZED_ALIAS_KEY):
+            continue
+        if entry.get("normalized") == normalized_key:
+            return entry.get("word")
+    return None
+
+
 def basic_analyzed_item(word, word_bank=None):
-    basic = analyze_word(word)
+    analyses = parser_generate_candidate_analyses(word)
+    primary = analyses[0] if analyses else {}
     entry = {
         "word": word,
-        "translation": word,
-        "type": "verb" if basic["is_verb"] else "unknown",
-        "group": "unknown",
-        "shoresh": word,
-        "prefix": basic["prefix"] or "",
-        "prefix_meaning": PREFIX_MEANINGS.get(basic["prefix"], ""),
-        "suffix": basic["suffix"] or "",
-        "suffix_meaning": SUFFIX_MEANINGS.get(basic["suffix"], ""),
+        "normalized": primary.get("normalized") or normalize_hebrew_key(word),
+        "translation": primary.get("translation_context") or primary.get("translation_literal") or word,
+        "translation_literal": primary.get("translation_literal") or word,
+        "translation_context": primary.get("translation_context") or word,
+        "type": old_word_type(primary.get("part_of_speech")),
+        "part_of_speech": primary.get("part_of_speech"),
+        "group": primary.get("group", "unknown"),
+        "shoresh": primary.get("shoresh"),
+        "lemma": primary.get("lemma"),
+        "binyan": primary.get("binyan"),
+        "tense": primary.get("tense"),
+        "person": primary.get("person"),
+        "number": primary.get("number"),
+        "gender": primary.get("gender"),
+        "semantic_group": primary.get("semantic_group", "unknown"),
+        "role_hint": primary.get("role_hint", "unknown"),
+        "entity_type": primary.get("entity_type", "unknown"),
+        "prefixes": list(primary.get("prefixes") or []),
+        "suffixes": list(primary.get("suffixes") or []),
+        "prefix": first_morpheme_value(primary.get("prefixes") or [], "form"),
+        "prefix_meaning": first_morpheme_value(primary.get("prefixes") or [], "translation"),
+        "suffix": first_morpheme_value(primary.get("suffixes") or [], "form"),
+        "suffix_meaning": first_morpheme_value(primary.get("suffixes") or [], "translation"),
         "base_word": word,
     }
     apply_prefix_metadata(word, entry, word_bank)
@@ -955,7 +940,7 @@ def structured_word_to_item(word_data, word_bank=None):
 
     item = basic_analyzed_item(word, word_bank)
     entry = item["entry"]
-    detected_prefix = extract_prefix(word)
+    detected_prefix = extract_prefix(word, word_bank)
     if word_data.get("prefix") and word_data["prefix"] == detected_prefix:
         entry["prefix"] = detected_prefix
         entry["prefix_meaning"] = PREFIX_MEANINGS.get(detected_prefix, "")
@@ -984,6 +969,19 @@ def normalize_analyzed_pasuk(analyzed_words, word_bank=None):
         for word_data in analyzed_words
     ]
     return [item for item in items if item is not None]
+
+
+def prebuilt_analyzed_pasuk(analyzed_words):
+    items = []
+    for item in analyzed_words or []:
+        if not isinstance(item, dict):
+            continue
+        if "entry" in item and "token" in item:
+            items.append(item)
+            continue
+        normalized = normalize_analyzed_pasuk([item], word_bank=None)
+        items.extend(normalized)
+    return items
 
 
 def structured_word_bank_items(predicate, word_bank=None, pasuk_text=None, progress=None):
@@ -1016,7 +1014,7 @@ def skill_applicable(word_data, skill):
     if not word:
         return False
 
-    prefix = extract_prefix(word)
+    prefix = extract_prefix(word, None)
     suffix = word_data.get("suffix") or extract_suffix(word)
     is_word_verb = bool(word_data.get("is_verb")) or is_verb(word)
 
@@ -1025,7 +1023,7 @@ def skill_applicable(word_data, skill):
     if skill in {"suffix", "identify_suffix_meaning", "identify_pronoun_suffix", "identify_suffix_past"}:
         return bool(suffix)
     if skill in {"verb_tense", "identify_tense", "identify_verb_marker"}:
-        return is_word_verb and confident_verb_tense(word_data, word) is not None
+        return is_word_verb and runtime_tense_label(word_data, word) is not None
     if skill == "segment_word_parts":
         return bool(prefix or suffix)
     if skill in {"part_of_speech", "shoresh"}:
@@ -1180,6 +1178,74 @@ def quiz_eligible(entry, token, question_type):
     return instructional_value(entry, question_type) in {"high", "medium"}
 
 
+def entry_type(entry):
+    if (entry or {}).get("type"):
+        return entry.get("type")
+    return old_word_type((entry or {}).get("part_of_speech"))
+
+
+def semantic_group(entry):
+    return (entry or {}).get("semantic_group") or "unknown"
+
+
+def role_hint(entry):
+    return (entry or {}).get("role_hint") or "unknown"
+
+
+def entity_type(entry):
+    return (entry or {}).get("entity_type") or "unknown"
+
+
+def is_subject_candidate_entry(entry):
+    return (
+        role_hint(entry) == "subject_candidate"
+        and semantic_group(entry) in {"person", "divine", "animal"}
+    )
+
+
+def is_person_like_entry(entry):
+    return semantic_group(entry) in {"person", "divine", "animal"}
+
+
+def is_object_candidate_entry(entry, token, word_bank=None):
+    if entity_type(entry) == "grammatical_particle":
+        return False
+    if role_hint(entry) == "object_candidate":
+        return True
+    return (
+        entry_type(entry) == "noun"
+        and semantic_group(entry) in {"object", "cosmic_entity", "place"}
+        and not is_prefix_candidate(entry, token, word_bank)
+    )
+
+
+def runtime_tense_label(entry, token):
+    explicit = (entry or {}).get("tense")
+    if explicit in CONTROLLED_TENSE_CHOICES:
+        return explicit
+    return confident_verb_tense(entry, token)
+
+
+def skip_question_payload(skill, pasuk, reason, *, source="generated skill question", details=None):
+    payload = {
+        "status": "skipped",
+        "skipped": True,
+        "supported": False,
+        "skill": skill,
+        "question_type": skill,
+        "pasuk": pasuk,
+        "reason": reason,
+        "source": source,
+    }
+    if details:
+        payload["details"] = details
+    return payload
+
+
+def is_skip_payload(payload):
+    return isinstance(payload, dict) and payload.get("status") == "skipped"
+
+
 def strip_surface_family_prefixes(value):
     text = normalize_hebrew_key(value or "")
     if len(text) > 3 and text.startswith("\u05d5"):
@@ -1291,7 +1357,7 @@ def translation_distractors(correct, target_entry, by_group, word_bank=None):
     )
 
 
-def quiz_ready(entry, token, question_type):
+def quiz_ready(entry, token, question_type, word_bank=None):
     if question_type == "translation":
         return quiz_eligible(entry, token, "word_meaning")
     if question_type == "shoresh":
@@ -1299,7 +1365,7 @@ def quiz_ready(entry, token, question_type):
     if question_type == "verb_tense":
         return quiz_eligible(entry, token, "verb_tense")
     if question_type == "prefix_suffix":
-        prefix = extract_prefix(token) or entry.get("prefix")
+        prefix = extract_prefix(token, word_bank) or entry.get("prefix")
         suffix = entry.get("suffix")
         return bool(
             (prefix and PREFIX_MEANINGS.get(prefix))
@@ -1307,17 +1373,16 @@ def quiz_ready(entry, token, question_type):
         )
     if question_type == "subject_identification":
         return (
-            entry.get("role_hint") == "subject_candidate"
-            and entry.get("semantic_group") in {"person", "divine"}
+            is_subject_candidate_entry(entry)
             and quiz_eligible(entry, token, "subject_identification")
         )
     return True
 
 
-def first_ready(analyzed, question_type):
+def first_ready(analyzed, question_type, word_bank=None):
     return find_first(
         analyzed,
-        lambda entry, token: quiz_ready(entry, token, question_type),
+        lambda entry, token: quiz_ready(entry, token, question_type, word_bank),
     )
 
 
@@ -1359,8 +1424,8 @@ def format_translation(items, mode=TRANSLATION_LITERAL):
     if len(items) >= 2:
         first, second = items[0], items[1]
         if (
-            first["entry"].get("type") == "verb"
-            and second["entry"].get("group") == "people"
+            entry_type(first["entry"]) == "verb"
+            and is_subject_candidate_entry(second["entry"])
         ):
             translated = naturalize_subject_action(describe(first), describe(second))
             rest = [describe(item) for item in items[2:]]
@@ -1511,7 +1576,7 @@ def make_question(
 
 
 def get_verb(analyzed):
-    return find_first(analyzed, lambda entry, _token: entry.get("type") == "verb") or analyzed[0]
+    return find_first(analyzed, lambda entry, _token: entry_type(entry) == "verb")
 
 
 def get_prefixed_word(analyzed):
@@ -1524,21 +1589,15 @@ def get_suffixed_word(analyzed, word_bank=None):
 
 
 def get_translatable_word(analyzed):
-    return (
-        find_first(analyzed, lambda entry, _token: bool(entry.get("translation")))
-        or analyzed[0]
-    )
+    return find_first(analyzed, lambda entry, token: usable_translation(entry, token) is not None)
 
 
 def get_part_of_speech_word(analyzed):
-    return (
-        find_first(analyzed, lambda entry, _token: entry.get("type") in {"verb", "noun"})
-        or analyzed[0]
-    )
+    return find_first(analyzed, lambda entry, _token: entry_type(entry) in {"verb", "noun"})
 
 
 def infer_tense(entry, token):
-    return confident_verb_tense(entry, token)
+    return runtime_tense_label(entry, token)
 
 
 def choice_pool(values, correct, fallback):
@@ -1572,78 +1631,37 @@ def strip_hebrew_marks(word):
 
 
 def detect_verb_tense(word):
-    w = strip_hebrew_marks(word)
-
-    if w.endswith("\u05ea\u05d9"):
-        return "past"
-    if w.endswith("\u05ea"):
-        return "past"
-    if w.endswith("\u05ea\u05dd") or w.endswith("\u05ea\u05df"):
-        return "past"
-    if w.endswith("\u05e0\u05d5"):
-        return "past"
-    if w.endswith("\u05d5") and len(w) > 3:
-        return "past"
-
-    if w.startswith(("\u05d9", "\u05ea", "\u05d0", "\u05e0")):
-        if len(w) >= 3:
-            return "future"
-
-    if len(w) <= 4 and not w.startswith(("\u05d9", "\u05ea", "\u05d0", "\u05e0", "\u05d5")):
-        return "command"
-
-    if w.startswith("\u05d5") and len(w) > 3:
-        second = w[1]
-        if second in ["\u05d9", "\u05ea"]:
-            return "past"
-
-    return None
+    return parser_detect_verb_tense(word)
 
 
 def is_verb(word):
-    plain = strip_hebrew_marks(word)
-    if plain.startswith(("\u05d9", "\u05ea", "\u05d0", "\u05e0")):
-        return True
-    if plain.endswith(("\u05ea\u05d9", "\u05ea", "\u05e0\u05d5", "\u05d5")):
-        return True
-    if plain.startswith("\u05d5") and len(plain) > 3 and plain[1] in ["\u05d9", "\u05ea"]:
-        return True
-    if len(plain) >= 3:
-        return True
-    return False
+    analyses = parser_generate_candidate_analyses(word)
+    return any(
+        analysis.get("part_of_speech") == "verb"
+        and analysis.get("confidence") != "generated_alternate"
+        for analysis in analyses
+    )
 
 
 def confident_verb_tense(entry, token):
-    if not is_verb(token):
-        return None
-
-    tense = detect_verb_tense(token)
-    if tense is None:
-        return None
-
     entry = entry or {}
-    entry_type = entry.get("type")
-    if entry_type and entry_type not in {"verb", "unknown"}:
+    explicit = entry.get("tense")
+    if explicit:
+        return explicit
+
+    current_type = entry_type(entry)
+    if current_type and current_type not in {"verb", "unknown"}:
         return None
 
-    plain = strip_hebrew_marks(token)
-    is_basic_guess = (
-        entry_type == "verb"
-        and entry.get("group") == "unknown"
-        and entry.get("translation") == token
-    )
-    if tense == "command" and entry.get("tense") != "command":
-        return None
-    if tense == "past" and is_basic_guess:
-        if plain.endswith("\u05d5"):
-            return None
-        if plain.endswith("\u05ea") and not plain.endswith(("\u05ea\u05d9", "\u05ea\u05dd", "\u05ea\u05df")):
-            return None
-
-    if tense == "past" and plain.endswith("\u05d5") and entry_type != "verb":
-        return None
-
-    return tense
+    for analysis in parser_generate_candidate_analyses(token):
+        if analysis.get("part_of_speech") != "verb":
+            continue
+        if analysis.get("confidence") == "generated_alternate":
+            continue
+        tense = analysis.get("tense")
+        if tense:
+            return tense
+    return None
 
 
 def pick_word_for_skill(words=None, skill=None, progress=None):
@@ -1768,6 +1786,7 @@ def skill_question_payload(skill, target, question_text, choices, correct_answer
         "standard": metadata["standard"],
         "micro_standard": metadata["micro_standard"],
         "difficulty": metadata["difficulty"],
+        "question_type": skill,
         "word": target["token"],
         "selected_word": target["token"],
         "explanation": explanation,
@@ -1831,6 +1850,7 @@ def generate_question(
     recent_question_formats=None,
     recent_prefixes=None,
     progress=None,
+    analyzed_override=None,
 ):
     if pasuk is None or (isinstance(pasuk, (list, tuple)) and not is_structured_pasuk(pasuk)):
         pasuk_pool = list(pasuk or CHUMASH_PESUKIM)
@@ -1852,7 +1872,11 @@ def generate_question(
                     recent_question_formats=recent_question_formats,
                     recent_prefixes=recent_prefixes,
                     progress=progress,
+                    analyzed_override=None,
                 )
+                if is_skip_payload(question):
+                    last_error = ValueError(question.get("reason", f"{skill} skipped"))
+                    continue
                 question.setdefault("pasuk", selected_pasuk)
                 return question
             except ValueError as error:
@@ -1871,10 +1895,16 @@ def generate_question(
         "convert_future_to_command",
         "match_pronoun_to_verb",
     }:
-        return generate_word_structure_question(skill=skill, asked_question_ids=asked_tokens)
+        raise ValueError(
+            f"{skill} is not quiz-ready in the active parsed dataset scope: "
+            f"{ACTIVE_ASSESSMENT_SCOPE}"
+        )
 
     word_bank, by_group = load_word_bank()
-    if is_structured_pasuk(pasuk):
+    if analyzed_override is not None:
+        pasuk_text = pasuk or structured_pasuk_text(analyzed_override)
+        analyzed = prebuilt_analyzed_pasuk(analyzed_override)
+    elif is_structured_pasuk(pasuk):
         pasuk_text = structured_pasuk_text(pasuk)
         analyzed = normalize_analyzed_pasuk(pasuk, word_bank)
     else:
@@ -1926,18 +1956,8 @@ def generate_question(
         return choices
 
     def same_group_translation_choices(target_entry, correct):
-        same_group = [
-            entry.get("translation")
-            for entry in by_group.get(target_entry.get("group"), [])
-            if entry.get("translation") != correct
-        ]
-        same_type = [
-            entry.get("translation")
-            for entry in word_bank.values()
-            if entry.get("type") == target_entry.get("type")
-            and entry.get("translation") != correct
-        ]
-        return clean_choices(correct, same_group + same_type)
+        distractors = translation_distractors(correct, target_entry, by_group, word_bank)
+        return clean_choices(correct, distractors)
 
     def pasuk_word_choices(correct_token):
         return clean_choices(
@@ -1953,39 +1973,15 @@ def generate_question(
         return direct_text
 
     def choose_target(predicate, fallback=None):
-        candidates = structured_word_bank_items(
-            predicate,
-            word_bank=word_bank,
-            pasuk_text=pasuk_text,
-            progress=progress,
-        )
-        if not candidates:
-            candidates = [item for item in analyzed if predicate(item["entry"], item["token"])]
+        candidates = [item for item in analyzed if predicate(item["entry"], item["token"])]
         if not candidates and fallback is not None:
             target = fallback()
-            if target is not None:
-                target.setdefault(
-                    "source_pasuk",
-                    find_pasuk_for_word(
-                        target["token"],
-                        fallback=pasuk_text,
-                        progress=progress,
-                    ),
-                )
+            if target is not None and predicate(target["entry"], target["token"]):
+                target.setdefault("source_pasuk", pasuk_text)
                 remember_selected_word(progress, target["token"], target["entry"])
             return target
         if not candidates:
-            target = analyzed[0]
-            target.setdefault(
-                "source_pasuk",
-                find_pasuk_for_word(
-                    target["token"],
-                    fallback=pasuk_text,
-                    progress=progress,
-                ),
-            )
-            remember_selected_word(progress, target["token"], target["entry"])
-            return target
+            return None
 
         unused = [item for item in candidates if item["token"] not in asked_set]
         pool = unused or candidates
@@ -1995,14 +1991,7 @@ def generate_question(
             progress,
         )
         target = next((item for item in pool if item["token"] == selected_word), pool[0])
-        target.setdefault(
-            "source_pasuk",
-            find_pasuk_for_word(
-                target["token"],
-                fallback=pasuk_text,
-                progress=progress,
-            ),
-        )
+        target.setdefault("source_pasuk", pasuk_text)
         remember_selected_word(progress, target["token"], target["entry"])
         return target
 
@@ -2018,18 +2007,11 @@ def generate_question(
 
     def build_prefix_level_question():
         recent_prefixes_window = list(recent_prefixes or [])[-5:]
-        prefix_candidates = structured_word_bank_items(
-            lambda entry, token: is_prefix_candidate(entry, token, word_bank),
-            word_bank=word_bank,
-            pasuk_text=pasuk_text,
-            progress=progress,
-        )
-        if not prefix_candidates:
-            prefix_candidates = [
-                item
-                for item in analyzed
-                if is_prefix_candidate(item["entry"], item["token"], word_bank)
-            ]
+        prefix_candidates = [
+            item
+            for item in analyzed
+            if is_prefix_candidate(item["entry"], item["token"], word_bank)
+        ]
         available_prefix_candidates = [
             item
             for item in prefix_candidates
@@ -2053,15 +2035,8 @@ def generate_question(
             )
 
         if target is None:
-            raise ValueError("No usable prefixed word found in this pasuk.")
-        target.setdefault(
-            "source_pasuk",
-            find_pasuk_for_word(
-                target["token"],
-                fallback=pasuk_text,
-                progress=progress,
-            ),
-        )
+            return skip_question_payload(skill, pasuk_text, "No usable prefixed word found in this pasuk.")
+        target.setdefault("source_pasuk", pasuk_text)
         remember_selected_word(progress, target["token"], target["entry"])
 
         level, question_format = choose_prefix_question_level(
@@ -2069,7 +2044,7 @@ def generate_question(
             recent_question_formats,
         )
         apply_prefix_metadata(target["token"], target["entry"], word_bank)
-        prefix = extract_prefix(target["token"])
+        prefix = extract_prefix(target["token"], word_bank)
         prefix_meaning = PREFIX_MEANINGS.get(prefix)
         base_word = target["entry"].get("base_word") or target.get("base") or target["token"]
         word_meaning = target["entry"].get("translation")
@@ -2150,9 +2125,9 @@ def generate_question(
 
     if skill == "identify_suffix_meaning":
         target = choose_target(lambda entry, token: is_suffix_candidate(entry, token, word_bank))
-        target = with_suffix_metadata(target, word_bank)
         if target is None:
-            raise ValueError("No suffixed word found in this pasuk.")
+            return skip_question_payload(skill, pasuk_text, "No suffixed word found in this pasuk.")
+        target = with_suffix_metadata(target, word_bank)
         suffix = target["entry"].get("suffix")
         correct = SUFFIX_MEANINGS.get(suffix)
         return grammar_choice_payload(
@@ -2165,9 +2140,9 @@ def generate_question(
 
     if skill == "identify_pronoun_suffix":
         target = choose_target(lambda entry, token: is_suffix_candidate(entry, token, word_bank))
-        target = with_suffix_metadata(target, word_bank)
         if target is None:
-            raise ValueError("No pronoun suffix found in this pasuk.")
+            return skip_question_payload(skill, pasuk_text, "No pronoun suffix found in this pasuk.")
+        target = with_suffix_metadata(target, word_bank)
         suffix = target["entry"].get("suffix")
         correct = SUFFIX_MEANINGS.get(suffix)
         return grammar_choice_payload(
@@ -2180,12 +2155,12 @@ def generate_question(
 
     if skill == "identify_verb_marker":
         target = choose_target(
-            lambda entry, token: entry.get("type") == "verb" and is_prefix_candidate(entry, token, word_bank)
+            lambda entry, token: entry_type(entry) == "verb" and is_prefix_candidate(entry, token, word_bank)
         )
         if target is None:
-            raise ValueError("No prefixed verb found in this pasuk.")
+            return skip_question_payload(skill, pasuk_text, "No prefixed verb found in this pasuk.")
         apply_prefix_metadata(target["token"], target["entry"], word_bank)
-        prefix = extract_prefix(target["token"])
+        prefix = extract_prefix(target["token"], word_bank)
         correct = PREFIX_MEANINGS.get(prefix)
         return grammar_choice_payload(
             target,
@@ -2200,10 +2175,10 @@ def generate_question(
             lambda entry, token: bool(is_prefix_candidate(entry, token, word_bank) or is_suffix_candidate(entry, token, word_bank)),
         )
         if target is None:
-            raise ValueError("No word with a prefix or suffix found in this pasuk.")
+            return skip_question_payload(skill, pasuk_text, "No word with a prefix or suffix found in this pasuk.")
         target = with_suffix_metadata(target, word_bank)
         apply_prefix_metadata(target["token"], target["entry"], word_bank)
-        prefix = extract_prefix(target["token"])
+        prefix = extract_prefix(target["token"], word_bank)
         suffix = target["entry"].get("suffix")
         if prefix:
             correct = prefix
@@ -2223,9 +2198,10 @@ def generate_question(
         return clean_choices(
             correct,
             [
-                entry["translation"]
-                for entry in by_group.get("people", [])
-                if entry.get("translation") != correct
+                usable_translation(entry, entry.get("word"))
+                for entry in word_bank_entries(word_bank, source_derived_only=True)
+                if is_person_like_entry(entry)
+                and usable_translation(entry, entry.get("word")) != correct
             ],
         )
 
@@ -2233,10 +2209,10 @@ def generate_question(
         return clean_choices(
             correct,
             [
-                entry["translation"]
+                usable_translation(entry, entry.get("word"))
                 for entry in word_bank.values()
-                if entry.get("type") == "noun"
-                and entry.get("translation") != correct
+                if entry_type(entry) == "noun"
+                and usable_translation(entry, entry.get("word")) != correct
             ],
         )
 
@@ -2303,9 +2279,11 @@ def generate_question(
 
     if skill == "shoresh":
         target = choose_target(
-            lambda entry, _token: entry.get("type") == "verb",
+            lambda entry, _token: entry_type(entry) == "verb" and bool(entry.get("shoresh")),
             lambda: get_verb(analyzed),
         )
+        if target is None:
+            return skip_question_payload(skill, pasuk_text, "No supported shoresh target found in this pasuk.")
         correct = target["entry"].get("shoresh", target["token"])
         if mode == "selection":
             return finish(skill_question_payload(
@@ -2383,7 +2361,7 @@ def generate_question(
             if target is None:
                 raise ValueError("No usable prefixed word found in this pasuk.")
             apply_prefix_metadata(target["token"], target["entry"], word_bank)
-            prefix = extract_prefix(target["token"])
+            prefix = extract_prefix(target["token"], word_bank)
             correct = PREFIX_MEANINGS.get(prefix, "")
             return finish(skill_question_payload(
                 skill,
@@ -2430,11 +2408,13 @@ def generate_question(
 
     if skill in {"verb_tense", "identify_tense"}:
         target = choose_target(
-            lambda entry, token: confident_verb_tense(entry, token) is not None,
+            lambda entry, token: runtime_tense_label(entry, token) is not None,
         )
+        if target is None:
+            return skip_question_payload(skill, pasuk_text, "No confidently classified verb tense found in this pasuk.")
         correct = infer_tense(target["entry"], target["token"])
         if correct is None:
-            raise ValueError("No confidently classified verb tense found in this pasuk.")
+            return skip_question_payload(skill, pasuk_text, "No confidently classified verb tense found in this pasuk.")
         if mode == "selection":
             return finish(skill_question_payload(
                 skill,
@@ -2444,7 +2424,10 @@ def generate_question(
                 target["token"],
                 f"{target['token']} shows {correct} tense.",
             ))
-        choices = clean_choices(correct, ["past", "future", "command", "not a verb"])
+        choices = clean_choices(
+            correct,
+            [label for label in CONTROLLED_TENSE_CHOICES if label != correct] + ["not a verb"],
+        )
         return skill_question_payload(
             skill,
             target,
@@ -2460,40 +2443,45 @@ def generate_question(
 
     if skill == "part_of_speech":
         target = choose_target(
-            lambda entry, _token: entry.get("type") in {"verb", "noun"},
+            lambda entry, _token: entry_type(entry) in {"verb", "noun"},
             lambda: get_part_of_speech_word(analyzed),
         )
-        correct = target["entry"].get("type", "unknown")
-        student_correct = "action" if correct == "verb" else "person/thing"
+        if target is None:
+            return skip_question_payload(skill, pasuk_text, "No noun or verb target found in this pasuk.")
+        correct = entry_type(target["entry"])
         if mode == "selection":
             return finish(skill_question_payload(
                 skill,
                 target,
-                f"Which word is an {student_correct}?",
+                f"Which word is a {correct}?",
                 pasuk_word_choices(target["token"]),
                 target["token"],
-                f"{target['token']} is a {student_correct}.",
+                f"{target['token']} is a {correct}.",
             ))
-        choices = ["person/thing", "action"]
+        choices = clean_choices(correct, ["noun", "verb", "particle", "prep"])
         return skill_question_payload(
             skill,
             target,
             prompt(
-                f"Is {target['token']} a person/thing or an action?",
-                f"Is {target['token']} a person/thing or an action?",
+                f"What part of speech is {target['token']}?",
+                f"What part of speech is {target['token']}?",
                 "",
             ),
             choices,
-            student_correct,
-            f"{target['token']} is an {student_correct}.",
+            correct,
+            f"{target['token']} is a {correct}.",
         )
 
     if skill == "subject_identification":
         target = choose_target(
-            lambda entry, _token: entry.get("group") == "people",
+            lambda entry, _token: is_subject_candidate_entry(entry),
             lambda: get_subject(analyzed),
         )
-        correct = target["entry"]["translation"]
+        if target is None:
+            return skip_question_payload(skill, pasuk_text, "No subject candidate is supported by this pasuk.")
+        correct = usable_translation(target["entry"], target["token"])
+        if correct is None:
+            return skip_question_payload(skill, pasuk_text, "No usable subject translation is available for this pasuk.")
         if mode == "selection":
             return finish(skill_question_payload(
                 skill,
@@ -2523,21 +2511,24 @@ def generate_question(
             or get_direct_object(analyzed)
             or find_first(
                 analyzed,
-                lambda entry, _token: entry.get("type") == "noun"
-                and entry.get("group") != "people"
-                and not is_prefix_candidate(entry, _token, word_bank),
+                lambda entry, token: entry_type(entry) == "noun"
+                and not is_person_like_entry(entry)
+                and is_object_candidate_entry(entry, token, word_bank),
             )
         )
         if target is None:
-            raise ValueError("No object found in this pasuk.")
+            return skip_question_payload(skill, pasuk_text, "No supported object target found in this pasuk.")
+        target.setdefault("source_pasuk", pasuk_text)
         remember_selected_word(progress, target["token"], target["entry"])
 
-        is_person_object = target["entry"].get("group") == "people"
+        is_person_object = is_person_like_entry(target["entry"])
         correct = (
-            strip_relation(target["entry"]["translation"])
+            strip_relation(usable_translation(target["entry"], target["token"]) or "")
             if is_person_object or is_suffix_candidate(target["entry"], target["token"], word_bank)
-            else target["entry"]["translation"]
+            else usable_translation(target["entry"], target["token"])
         )
+        if not correct:
+            return skip_question_payload(skill, pasuk_text, "No usable object translation is available for this pasuk.")
         choices = (
             people_translation_choices(correct)
             if is_person_object
@@ -2559,14 +2550,16 @@ def generate_question(
 
     if skill == "preposition_meaning":
         target = choose_target(
-            lambda entry, _token: entry.get("type") == "prep"
+            lambda entry, _token: entry_type(entry) == "prep"
             or (
                 is_prefix_candidate(entry, _token, word_bank)
-                and extract_prefix(_token) in {"\u05d1", "\u05dc", "\u05de"}
+                and extract_prefix(_token, word_bank) in {"\u05d1", "\u05dc", "\u05de"}
             ),
         )
+        if target is None:
+            return skip_question_payload(skill, pasuk_text, "No supported preposition target found in this pasuk.")
         apply_prefix_metadata(target["token"], target["entry"], word_bank)
-        prefix = extract_prefix(target["token"]) or target["entry"].get("prefix", "")
+        prefix = extract_prefix(target["token"], word_bank) or target["entry"].get("prefix", "")
         correct = PREFIX_MEANINGS.get(prefix) or target["entry"].get("translation")
         display_word = prefix or target["token"]
         choices = clean_choices(correct, ["to", "from", "in", "on"])
@@ -2591,7 +2584,7 @@ def generate_question(
             choices = clean_choices(phrase, distractors)
             return finish(skill_question_payload(
                 skill,
-                {"token": phrase, "entry": {"translation": correct}},
+                {"token": phrase, "entry": {"translation": correct}, "source_pasuk": pasuk_text},
                 "Which phrase has this meaning?",
                 choices,
                 phrase,
@@ -2600,7 +2593,7 @@ def generate_question(
         choices = clean_choices(correct, candidates)
         return skill_question_payload(
             skill,
-            {"token": phrase, "entry": {"translation": correct}},
+            {"token": phrase, "entry": {"translation": correct}, "source_pasuk": pasuk_text},
             prompt(
                 "What does this phrase mean?",
                 "What does this phrase mean?",
@@ -2612,10 +2605,12 @@ def generate_question(
         )
 
     target = choose_target(
-        lambda entry, _token: bool(entry.get("translation")),
+        lambda entry, token: usable_translation(entry, token) is not None,
         lambda: get_translatable_word(analyzed),
     )
-    correct = target["entry"]["translation"]
+    if target is None:
+        return skip_question_payload(skill, pasuk_text, "No usable translation target found in this pasuk.")
+    correct = usable_translation(target["entry"], target["token"])
     if mode == "selection":
         question = finish(skill_question_payload(
             skill,
@@ -2645,22 +2640,19 @@ def generate_question(
 
 def get_subject(analyzed):
     verb = get_verb(analyzed)
+    if verb is None:
+        return None
     verb_index = analyzed.index(verb)
     return (
         find_after(
             analyzed,
             verb_index,
-            lambda entry, _token: entry.get("role_hint") == "subject_candidate"
-            and entry.get("semantic_group") in {"person", "divine"},
+            lambda entry, _token: is_subject_candidate_entry(entry),
         )
         or find_first(
             analyzed,
-            lambda entry, _token: entry.get("role_hint") == "subject_candidate"
-            and entry.get("semantic_group") in {"person", "divine"},
+            lambda entry, _token: is_subject_candidate_entry(entry),
         )
-        or find_after(analyzed, verb_index, lambda entry, _token: entry.get("group") == "people")
-        or find_first(analyzed, lambda entry, _token: entry.get("group") == "people")
-        or analyzed[0]
     )
 
 
@@ -2684,7 +2676,7 @@ def get_destination(analyzed):
     obj = find_after(
         analyzed,
         marker_index,
-        lambda entry, _token: entry.get("group") in {"place", "people"},
+        lambda entry, _token: semantic_group(entry) in {"place", "person", "divine", "animal"},
     )
     return marker, obj
 
@@ -2692,7 +2684,7 @@ def get_destination(analyzed):
 def get_direct_object(analyzed):
     return find_first(
         analyzed,
-        lambda entry, token: entry.get("group") in {"object", "place"}
+        lambda entry, token: is_object_candidate_entry(entry, token)
         and not is_prefix_candidate(entry, token),
     )
 
@@ -2703,10 +2695,9 @@ def get_prefixed_or_suffixed(analyzed, word_bank=None):
         or find_first(
             analyzed,
             lambda entry, token: (is_prefix_candidate(entry, token, word_bank) or is_suffix_candidate(entry, token, word_bank))
-            and entry.get("type") != "verb",
+            and entry_type(entry) != "verb",
         )
         or find_first(analyzed, lambda entry, token: is_prefix_candidate(entry, token, word_bank) or is_suffix_candidate(entry, token, word_bank))
-        or analyzed[0]
     )
     return with_suffix_metadata(target, word_bank)
 
@@ -2714,7 +2705,12 @@ def get_prefixed_or_suffixed(analyzed, word_bank=None):
 def build_translation_question(step, pasuk, analyzed, by_group, word_bank=None):
     target = first_ready(analyzed, "translation")
     if target is None:
-        raise ValueError("No quiz-ready translation target found in this pasuk.")
+        return skip_question_payload(
+            "translation",
+            pasuk,
+            "No quiz-ready translation target found in this pasuk.",
+            source="generated pasuk flow",
+        )
     entry = target["entry"]
     correct = usable_translation(entry, target["token"])
     distractors = translation_distractors(correct, entry, by_group, word_bank)
@@ -2740,10 +2736,17 @@ def build_translation_question(step, pasuk, analyzed, by_group, word_bank=None):
 
 
 def build_pr_question(step, pasuk, analyzed, word_bank=None):
-    target = first_ready(analyzed, "prefix_suffix") or get_prefixed_or_suffixed(analyzed, word_bank)
+    target = first_ready(analyzed, "prefix_suffix", word_bank) or get_prefixed_or_suffixed(analyzed, word_bank)
+    if target is None:
+        return skip_question_payload(
+            "prefix_suffix",
+            pasuk,
+            "No quiz-ready prefix or suffix target found in this pasuk.",
+            source="generated pasuk flow",
+        )
     entry = target["entry"]
     apply_prefix_metadata(target["token"], entry, word_bank)
-    prefix = extract_prefix(target["token"]) or entry.get("prefix", "")
+    prefix = extract_prefix(target["token"], word_bank) or entry.get("prefix", "")
     suffix = entry.get("suffix", "")
     prefix_meaning = PREFIX_MEANINGS.get(prefix, entry.get("prefix_meaning", ""))
     suffix_meaning = SUFFIX_MEANINGS.get(suffix, entry.get("suffix_meaning", ""))
@@ -2870,8 +2873,20 @@ def build_phrase_question(step, pasuk, analyzed, recent_phrases=None):
 def build_subject_question(step, pasuk, analyzed, by_group, word_bank=None):
     subject = first_ready(analyzed, "subject_identification")
     if subject is None:
-        raise ValueError("No quiz-ready subject found in this pasuk.")
+        return skip_question_payload(
+            "subject_identification",
+            pasuk,
+            "No quiz-ready subject found in this pasuk.",
+            source="generated pasuk flow",
+        )
     correct = usable_translation(subject["entry"], subject["token"])
+    if correct is None:
+        return skip_question_payload(
+            "subject_identification",
+            pasuk,
+            "No usable subject translation found in this pasuk.",
+            source="generated pasuk flow",
+        )
     distractor_entries = [
         item["entry"]
         for item in analyzed
@@ -2885,7 +2900,8 @@ def build_subject_question(step, pasuk, analyzed, by_group, word_bank=None):
     )
     distractor_entries.extend(
         entry
-        for entry in by_group.get("people", [])
+        for entry in word_bank_entries(word_bank, source_derived_only=True)
+        if is_person_like_entry(entry)
     )
     distractors = filtered_translation_values(
         distractor_entries,
@@ -2940,7 +2956,12 @@ def phrase_choice_fallbacks(analyzed, phrase_items, correct):
 def build_shoresh_question(step, pasuk, analyzed, word_bank=None):
     target = first_ready(analyzed, "shoresh")
     if target is None:
-        raise ValueError("No quiz-ready shoresh target found in this pasuk.")
+        return skip_question_payload(
+            "shoresh",
+            pasuk,
+            "No quiz-ready shoresh target found in this pasuk.",
+            source="generated pasuk flow",
+        )
     correct = target["entry"].get("shoresh")
     distractors = [
         shoresh
@@ -2971,8 +2992,20 @@ def build_shoresh_question(step, pasuk, analyzed, word_bank=None):
 def build_tense_question(step, pasuk, analyzed):
     target = first_ready(analyzed, "verb_tense")
     if target is None:
-        raise ValueError("No quiz-ready verb tense target found in this pasuk.")
-    correct = target["entry"].get("tense")
+        return skip_question_payload(
+            "verb_tense",
+            pasuk,
+            "No quiz-ready verb tense target found in this pasuk.",
+            source="generated pasuk flow",
+        )
+    correct = runtime_tense_label(target["entry"], target["token"])
+    if correct is None:
+        return skip_question_payload(
+            "verb_tense",
+            pasuk,
+            "No runtime verb tense label found in this pasuk.",
+            source="generated pasuk flow",
+        )
     choices = build_choices(
         correct,
         [item for item in CONTROLLED_TENSE_CHOICES if item != correct],
@@ -3167,9 +3200,13 @@ def build_reasoning_question(step, pasuk, analyzed):
     )
 
 
-def generate_pasuk_flow(pasuk: str, asked_question_types=None, recent_phrases=None):
+def generate_pasuk_flow(pasuk: str, asked_question_types=None, recent_phrases=None, analyzed_override=None):
     word_bank, by_group = load_word_bank()
-    analyzed = analyze_pasuk(pasuk, word_bank)
+    analyzed = (
+        prebuilt_analyzed_pasuk(analyzed_override)
+        if analyzed_override is not None
+        else analyze_pasuk(pasuk, word_bank)
+    )
     used_types = set(asked_question_types or [])
 
     builders = [
@@ -3193,11 +3230,18 @@ def generate_pasuk_flow(pasuk: str, asked_question_types=None, recent_phrases=No
         active_builders = builders
     questions = []
     errors = []
+    skipped = []
     for kind, builder in active_builders:
         try:
-            questions.append(builder(len(questions) + 1))
+            result = builder(len(questions) + 1)
         except ValueError as error:
             errors.append(f"{kind}: {error}")
+            continue
+        if is_skip_payload(result):
+            skipped.append(result)
+            errors.append(f"{kind}: {result.get('reason')}")
+            continue
+        questions.append(result)
         if len(questions) >= 4:
             break
     if len(questions) < 3 and active_builders is not builders:
@@ -3205,9 +3249,15 @@ def generate_pasuk_flow(pasuk: str, asked_question_types=None, recent_phrases=No
             if kind in {question.get("question_type") for question in questions}:
                 continue
             try:
-                questions.append(builder(len(questions) + 1))
+                result = builder(len(questions) + 1)
             except ValueError as error:
                 errors.append(f"{kind}: {error}")
+                continue
+            if is_skip_payload(result):
+                skipped.append(result)
+                errors.append(f"{kind}: {result.get('reason')}")
+                continue
+            questions.append(result)
             if len(questions) >= 3:
                 break
     if len(questions) < 3:
@@ -3224,6 +3274,8 @@ def generate_pasuk_flow(pasuk: str, asked_question_types=None, recent_phrases=No
         "source": "generated",
         "questions": questions,
     }
+    if skipped:
+        flow["skipped"] = skipped
     validate_flow(flow)
     return flow
 
@@ -3374,6 +3426,10 @@ def validate_flow(flow, allow_short=False):
 
 
 def write_examples(pesukim=None):
+    """Write preview flow artifacts for local inspection.
+
+    This is a developer helper, not the supported runtime path.
+    """
     pesukim = pesukim or EXAMPLE_PESUKIM
     flows = [generate_pasuk_flow(pasuk) for pasuk in pesukim]
     flows.append(generate_multi_pasuk_flow(EXAMPLE_MULTI_PESUKIM))

@@ -6,26 +6,26 @@ from .normalize import undotted_form
 
 
 PREFIX_TRANSLATIONS = {
-    "ו": ("conjunction", "and"),
-    "ב": ("preposition_b", "in / with"),
-    "ל": ("preposition_l", "to / for"),
-    "כ": ("preposition_k", "like / as"),
-    "מ": ("preposition_m", "from"),
-    "ה": ("definite_article", "the"),
-    "ש": ("relative", "that / which"),
+    "\u05d5": ("conjunction", "and"),
+    "\u05d1": ("preposition_b", "in / with"),
+    "\u05dc": ("preposition_l", "to / for"),
+    "\u05db": ("preposition_k", "like / as"),
+    "\u05de": ("preposition_m", "from"),
+    "\u05d4": ("definite_article", "the"),
+    "\u05e9": ("relative", "that / which"),
 }
 
 PRONOMINAL_SUFFIX_TRANSLATIONS = {
-    "י": "my",
-    "ך": "your",
-    "ו": "his",
-    "ה": "her",
-    "נו": "our",
-    "כם": "your (m plural)",
-    "כן": "your (f plural)",
-    "ם": "their",
-    "ן": "their",
-    "יו": "his",
+    "\u05d9": "my",
+    "\u05da": "your",
+    "\u05d5": "his",
+    "\u05d4": "her",
+    "\u05e0\u05d5": "our",
+    "\u05db\u05dd": "your (m plural)",
+    "\u05db\u05df": "your (f plural)",
+    "\u05dd": "their",
+    "\u05df": "their",
+    "\u05d9\u05d5": "his",
 }
 
 
@@ -38,7 +38,7 @@ def detect_vav_consecutive(word):
     plain = undotted_form(surface)
     if len(plain) <= 3:
         return None
-    if surface.startswith(("וַי", "וַת")):
+    if surface.startswith(("\u05d5\u05b7\u05d9", "\u05d5\u05b7\u05ea")) and plain[1:2] in {"\u05d9", "\u05ea"}:
         return "vav_consecutive_past"
     return None
 
@@ -52,7 +52,7 @@ def narrative_verb_features(word):
         "tense": tense,
         "prefixes": [
             {
-                "form": "ו",
+                "form": "\u05d5",
                 "type": "verb_prefix_vav_consecutive",
                 "translation": "and",
             }
@@ -62,7 +62,13 @@ def narrative_verb_features(word):
 
 def common_possessive_suffix(word):
     plain = undotted_form(word)
-    for suffix in ["כם", "כן", "נו", "יו", "ך", "ם", "ן", "ה", "ו", "י"]:
+    if detect_vav_consecutive(word):
+        return None
+    if plain.startswith(("\u05d9", "\u05ea", "\u05d0", "\u05e0")) and len(plain) >= 4:
+        return None
+    for suffix in ["\u05db\u05dd", "\u05db\u05df", "\u05e0\u05d5", "\u05d9\u05d5", "\u05da", "\u05dd", "\u05df", "\u05d4", "\u05d5", "\u05d9"]:
+        if len(suffix) == 1 and len(plain) <= len(suffix) + 2:
+            continue
         if plain.endswith(suffix) and len(plain) > len(suffix) + 1:
             return {
                 "form": suffix,

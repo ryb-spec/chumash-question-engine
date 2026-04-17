@@ -352,6 +352,26 @@ def extract_inseparable_prefixes(word):
     return prefixes
 
 
+def extract_prefix(word, word_bank=None):
+    features = verb_features(word)
+    if features:
+        for prefix in features.get("prefixes", []):
+            form = prefix.get("form")
+            if form in PREFIX_TRANSLATIONS:
+                return form
+
+    for prefix in extract_inseparable_prefixes(word):
+        form = prefix.get("form")
+        if form == "ש":
+            continue
+        if word_bank is not None and not prefix_has_known_base(word, form, word_bank):
+            continue
+        if form in PREFIX_TRANSLATIONS:
+            return form
+
+    return None
+
+
 def verb_prefixes(word, tense):
     plain = undotted_form(word)
     prefixes = []
@@ -376,6 +396,97 @@ def verb_prefixes(word, tense):
             }
         )
     return prefixes
+
+
+def extract_suffix(word):
+    if detect_verb_tense(word):
+        return None
+    suffix = common_possessive_suffix(word)
+    return suffix.get("form") if suffix else None
+
+
+def _word_bank_contains(word_bank, surface):
+    if not word_bank or not surface:
+        return False
+    if surface in word_bank:
+        return True
+    normalized = normalize_form(surface)
+    if normalized in word_bank:
+        return True
+    for entry in word_bank.values():
+        if not isinstance(entry, dict):
+            continue
+        if entry.get("normalized") == normalized:
+            return True
+    return False
+
+
+def prefix_has_known_base(word, prefix, word_bank):
+    if not prefix or not word_bank:
+        return False
+    normalized = normalize_form(word)
+    if not normalized.startswith(prefix):
+        return False
+    base = normalized[len(prefix):]
+    return _word_bank_contains(word_bank, base)
+
+
+def suffix_has_known_base(word, suffix, word_bank):
+    if not suffix or not word_bank:
+        return False
+    plain = undotted_form(word)
+    if not plain.endswith(suffix):
+        return False
+    base = plain[:-len(suffix)]
+    if _word_bank_contains(word_bank, base):
+        return True
+    prefix = extract_prefix(base, word_bank)
+    if prefix and base.startswith(prefix):
+        return _word_bank_contains(word_bank, base[len(prefix):])
+    return False
+
+
+def apply_prefix_metadata(word, entry, word_bank=None):
+    prefix = extract_prefix(word, word_bank)
+    if not prefix:
+        entry["prefix"] = ""
+        entry["prefix_meaning"] = ""
+        return entry
+
+    prefix_type, translation = PREFIX_TRANSLATIONS[prefix]
+    if word_bank is not None and not prefix_has_known_base(word, prefix, word_bank) and prefix != "\u05d5":
+        entry["prefix"] = ""
+        entry["prefix_meaning"] = ""
+        return entry
+
+    entry["prefix"] = prefix
+    entry["prefix_meaning"] = translation
+    entry.setdefault("prefixes", [])
+    if not any(item.get("form") == prefix for item in entry["prefixes"]):
+        entry["prefixes"] = [{"form": prefix, "type": prefix_type, "translation": translation}] + list(entry["prefixes"])
+    return entry
+
+
+def apply_suffix_metadata(word, entry, word_bank=None):
+    suffix = entry.get("suffix") or extract_suffix(word)
+    if not suffix:
+        entry.setdefault("suffix", "")
+        entry.setdefault("suffix_meaning", "")
+        return entry
+    if word_bank is not None and not suffix_has_known_base(word, suffix, word_bank):
+        return entry
+
+    translation = common_possessive_suffix(word) or {}
+    entry["suffix"] = suffix
+    entry["suffix_meaning"] = translation.get("translation", entry.get("suffix_meaning", ""))
+    entry.setdefault("suffixes", [])
+    if not any(item.get("form") == suffix for item in entry["suffixes"]):
+        entry["suffixes"] = list(entry["suffixes"]) + [{
+            "form": suffix,
+            "type": "pronominal_suffix",
+            "translation": entry["suffix_meaning"],
+        }]
+    return entry
 
 
 def detect_verb_tense(word):
@@ -488,6 +599,8 @@ def generate_candidate_analyses(token):
     if features:
         candidate.update(features)
     candidate.update(semantic_features(token, candidate.get("part_of_speech")))
+    apply_prefix_metadata(token, candidate)
+    apply_suffix_metadata(token, candidate)
     primary = apply_torah_overrides(candidate)
     analyses = [primary]
     if primary.get("part_of_speech") == "verb":

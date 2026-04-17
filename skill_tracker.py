@@ -13,16 +13,15 @@ WORD_MASTERY_STREAK = 2
 
 
 def load_skill_progress():
-    if not PROGRESS_PATH.exists():
-        return {}
+    from progress_store import load_progress_state
 
-    with PROGRESS_PATH.open("r", encoding="utf-8") as file:
-        return json.load(file)
+    return load_progress_state()
 
 
 def save_skill_progress(progress):
-    with PROGRESS_PATH.open("w", encoding="utf-8") as file:
-        json.dump(progress, file, indent=2, ensure_ascii=False)
+    from progress_store import save_progress_state
+
+    save_progress_state(progress)
 
 
 def default_skill_state():
@@ -67,9 +66,21 @@ def clamp_score(score):
     return max(0, min(100, score))
 
 
-def update_skill_progress(skill, is_correct, error_type=None):
-    progress = load_skill_progress()
-    skill_state = progress.setdefault(skill, default_skill_state())
+def _skills_container(progress):
+    if progress is None:
+        return {}
+    return progress.setdefault("skills", {})
+
+
+def _word_exposure_container(progress):
+    if progress is None:
+        return {}
+    return progress.setdefault(WORD_EXPOSURE_KEY, {})
+
+
+def update_skill_progress_in_state(progress, skill, is_correct, error_type=None):
+    skill_progress = _skills_container(progress)
+    skill_state = skill_progress.setdefault(skill, default_skill_state())
     skill_state.setdefault("score", 0)
     skill_state.setdefault("best_streak", skill_state.get("current_streak", 0))
     skill_state.setdefault("challenge_streak", 0)
@@ -112,8 +123,12 @@ def update_skill_progress(skill, is_correct, error_type=None):
     skill_state["last_12_results"] = skill_state["last_12_results"][-MASTERY_WINDOW:]
     skill_state["mastered"] = check_mastery(skill, progress)
     skill_state["last_point_change"] = f"{point_change:+d}"
-
-    save_skill_progress(progress)
+    recent_window = skill_state["last_12_results"][-5:]
+    recent_accuracy = (
+        sum(1 for item in recent_window if item) / len(recent_window)
+        if recent_window
+        else 0.0
+    )
     return {
         "score": skill_state["score"],
         "current_streak": skill_state["current_streak"],
@@ -121,12 +136,13 @@ def update_skill_progress(skill, is_correct, error_type=None):
         "mastered": skill_state["mastered"],
         "point_change": skill_state["last_point_change"],
         "error_counts": skill_state["error_counts"],
+        "recent_accuracy": recent_accuracy,
+        "recent_window_size": len(recent_window),
     }
 
 
-def update_word_progress(word, is_correct):
-    progress = load_skill_progress()
-    word_progress = progress.setdefault(WORD_EXPOSURE_KEY, {})
+def update_word_progress_in_state(progress, word, is_correct):
+    word_progress = _word_exposure_container(progress)
     word_state = word_progress.setdefault(word, default_word_state())
 
     word_state.setdefault("seen", 0)
@@ -142,13 +158,36 @@ def update_word_progress(word, is_correct):
         word_state["recent_streak"] = 0
 
     word_state["mastered"] = check_word_mastery(word, progress)
-    save_skill_progress(progress)
     return word_state
+
+
+def update_skill_progress(skill, is_correct, error_type=None, progress=None):
+    if progress is None:
+        from progress_store import load_progress_state, save_progress_state
+
+        progress = load_progress_state()
+        result = update_skill_progress_in_state(progress, skill, is_correct, error_type)
+        save_progress_state(progress)
+        return result
+
+    return update_skill_progress_in_state(progress, skill, is_correct, error_type)
+
+
+def update_word_progress(word, is_correct, progress=None):
+    if progress is None:
+        from progress_store import load_progress_state, save_progress_state
+
+        progress = load_progress_state()
+        result = update_word_progress_in_state(progress, word, is_correct)
+        save_progress_state(progress)
+        return result
+
+    return update_word_progress_in_state(progress, word, is_correct)
 
 
 def check_mastery(skill, progress=None):
     progress = progress or load_skill_progress()
-    skill_state = progress.get(skill)
+    skill_state = progress.get("skills", {}).get(skill, progress.get(skill))
     if not skill_state:
         return False
 
@@ -178,3 +217,17 @@ def check_word_mastery(word, progress=None):
         accuracy >= WORD_MASTERY_ACCURACY
         and word_state.get("recent_streak", 0) >= WORD_MASTERY_STREAK
     )
+
+
+def recent_skill_accuracy(skill_state, window=5):
+    recent_results = list((skill_state or {}).get("last_12_results", []))[-window:]
+    if not recent_results:
+        return 0.0
+    return sum(1 for item in recent_results if item) / len(recent_results)
+
+
+def dominant_error_type(skill_state):
+    error_counts = dict((skill_state or {}).get("error_counts", {}))
+    if not error_counts:
+        return ""
+    return max(error_counts, key=error_counts.get)

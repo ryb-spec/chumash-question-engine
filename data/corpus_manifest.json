@@ -1,0 +1,111 @@
+{
+  "metadata": {
+    "title": "Chumash Corpus Manifest",
+    "version": "0.1",
+    "status_values": [
+      "experimental",
+      "parsed",
+      "reviewed",
+      "active_candidate",
+      "active"
+    ],
+    "notes": "Registry for source corpora, parsed corpora, and runtime scopes. The data/ root files remain the current blessed runtime layer."
+  },
+  "source_corpora": [
+    {
+      "corpus_id": "source_bereishis_1_1_to_1_20_local",
+      "type": "source_corpus",
+      "sefer": "Bereishis",
+      "range": {
+        "start": {
+          "perek": 1,
+          "pasuk": 1
+        },
+        "end": {
+          "perek": 1,
+          "pasuk": 20
+        }
+      },
+      "pesukim_count": 20,
+      "source_files": [
+        "data/source/bereishis_1_1_to_4_20.json"
+      ],
+      "parsed_files": {},
+      "status": "experimental",
+      "declared_source_range": "1:1-4:20",
+      "notes": [
+        "Current local source file backing the active parsed dataset.",
+        "Not yet fully reproducible for the active 20-pasuk state."
+      ]
+    }
+  ],
+  "parsed_corpora": [
+    {
+      "corpus_id": "parsed_bereishis_1_1_to_1_20_root",
+      "type": "parsed_corpus",
+      "sefer": "Bereishis",
+      "range": {
+        "start": {
+          "perek": 1,
+          "pasuk": 1
+        },
+        "end": {
+          "perek": 1,
+          "pasuk": 20
+        }
+      },
+      "pesukim_count": 20,
+      "source_files": [
+        "data/source/bereishis_1_1_to_4_20.json"
+      ],
+      "parsed_files": {
+        "pesukim": "data/pesukim_100.json",
+        "word_bank": "data/word_bank.json",
+        "word_occurrences": "data/word_occurrences.json",
+        "translation_reviews": "data/translation_reviews.json"
+      },
+      "status": "active_candidate",
+      "storage_layer": "data_root",
+      "notes": [
+        "Current blessed parsed runtime layer stored in data/ root.",
+        "Contains reviewed and parsed-only enrichment used by the active app."
+      ]
+    }
+  ],
+  "scopes": [
+    {
+      "scope_id": "local_parsed_bereishis_1_1_to_1_20",
+      "type": "runtime_scope",
+      "sefer": "Bereishis",
+      "range": {
+        "start": {
+          "perek": 1,
+          "pasuk": 1
+        },
+        "end": {
+          "perek": 1,
+          "pasuk": 20
+        }
+      },
+      "pesukim_count": 20,
+      "source_corpus_id": "source_bereishis_1_1_to_1_20_local",
+      "parsed_corpus_id": "parsed_bereishis_1_1_to_1_20_root",
+      "source_files": [
+        "data/source/bereishis_1_1_to_4_20.json"
+      ],
+      "parsed_files": {
+        "pesukim": "data/pesukim_100.json",
+        "word_bank": "data/word_bank.json",
+        "word_occurrences": "data/word_occurrences.json",
+        "translation_reviews": "data/translation_reviews.json"
+      },
+      "status": "active",
+      "supported_runtime": true,
+      "notes": [
+        "Current supported Streamlit runtime scope.",
+        "Backward-compatible with existing data/ root runtime paths."
+      ]
+    }
+  ],
+  "future_scopes": []
+}

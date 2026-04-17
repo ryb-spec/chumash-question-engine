@@ -1,12 +1,23 @@
 """Conservative pasuk tokenization."""
 
-from .normalize import normalize_form, preserve_surface_text
+from .normalize import (
+    normalize_form,
+    preserve_surface_text,
+    punctuation_cleaned,
+    strip_boundary_punctuation,
+)
 
 
 def tokenize_pasuk(text):
     if not isinstance(text, str):
         return []
-    return text.replace("\u05be", " ").split()
+    cleaned = punctuation_cleaned(text)
+    tokens = []
+    for raw in preserve_surface_text(cleaned).split():
+        token = strip_boundary_punctuation(raw)
+        if token:
+            tokens.append(token)
+    return tokens
 
 
 def tokenize_pasuk_record(pasuk_record):

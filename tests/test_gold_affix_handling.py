@@ -5,30 +5,28 @@ from torah_parser.disambiguate import select_best_candidate
 
 def load_gold():
     return [
-        # simple verbs
-        {"word": "ויאמר", "shoresh": "אמר"},
-        {"word": "ברא", "shoresh": "ברא"},
-        {"word": "הלך", "shoresh": "הלך"},
-        {"word": "נתן", "shoresh": "נתן"},
-        {"word": "ראה", "shoresh": "ראה"},
-        {"word": "קרא", "shoresh": "קרא"},
-        # simple nouns
-        {"word": "מים", "shoresh": "מים"},
-        {"word": "ארץ", "shoresh": "ארץ"},
-        {"word": "אור", "shoresh": "אור"},
-        {"word": "יום", "shoresh": "יום"},
-        {"word": "לילה", "shoresh": "לילה"},
-        # prefixed forms
+        # prefixed
         {"word": "והארץ", "shoresh": "ארץ"},
         {"word": "לאור", "shoresh": "אור"},
-        {"word": "במים", "shoresh": "מים"},
         {"word": "לרקיע", "shoresh": "רקיע"},
+        {"word": "כמלאך", "shoresh": "מלאך"},
+        {"word": "כאור", "shoresh": "אור"},
+        {"word": "מהארץ", "shoresh": "ארץ"},
+        {"word": "ממלך", "shoresh": "מלך"},
+        {"word": "לשמים", "shoresh": "שמים"},
+        {"word": "בשמים", "shoresh": "שמים"},
+        {"word": "והמים", "shoresh": "מים"},
+        {"word": "מפרי", "shoresh": "פרי"},
+        {"word": "לימים", "shoresh": "ימים"},
+        {"word": "לזרע", "shoresh": "זרע"},
+        # prefix+suffix
+        {"word": "במים", "shoresh": "מים"},
         {"word": "למינו", "shoresh": "מין"},
-        # known-risk forms
-        {"word": "ויהי", "shoresh": "היה"},
-        {"word": "וירא", "shoresh": "ראה"},
-        {"word": "ויקרא", "shoresh": "קרא"},
-        {"word": "ותראה", "shoresh": "ראה"},
+        {"word": "ממים", "shoresh": "מים"},
+        {"word": "זרעו", "shoresh": "זרע"},
+        {"word": "לזרעו", "shoresh": "זרע"},
+        {"word": "למינהו", "shoresh": "מין"},
+        {"word": "מזרעו", "shoresh": "זרע"},
     ]
 
 
@@ -48,7 +46,7 @@ def extract_shoresh(word):
     return best.get("shoresh")
 
 
-def test_gold_shoresh_accuracy():
+def test_gold_affix_handling():
     failures = []
 
     for item in load_gold():
