@@ -63,6 +63,13 @@ def load_gold():
         {"word": "תראינה", "shoresh": "ראה"},
         {"word": "תצאנה", "shoresh": "יצא"},
         {"word": "תהיינה", "shoresh": "היה"},
+        # future / imperfect feminine-singular drill forms
+        {"word": "תאמרי", "shoresh": "אמר"},
+        {"word": "תראי", "shoresh": "ראה"},
+        {"word": "תצאי", "shoresh": "יצא"},
+        {"word": "תהיי", "shoresh": "היה"},
+        {"word": "תקראי", "shoresh": "קרא"},
+        {"word": "תתני", "shoresh": "נתן"},
         # common Bereishis root relatives
         {"word": "ויאמרו", "shoresh": "אמר"},
         {"word": "ויראו", "shoresh": "ראה"},
@@ -112,6 +119,8 @@ def load_gold():
         # curriculum-shaped lexical nouns
         {"word": "מקוה", "shoresh": "מקוה"},
         {"word": "מקומות", "shoresh": "מקומות"},
+        {"word": "מינים", "shoresh": "מינים"},
+        {"word": "מראים", "shoresh": "מראים"},
         # known-risk verb forms
         {"word": "ויהי", "shoresh": "היה"},
         {"word": "וירא", "shoresh": "ראה"},

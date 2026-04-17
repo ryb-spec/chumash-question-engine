@@ -72,6 +72,12 @@ def load_gold():
         {"word": "במראהו", "shoresh": "מראה"},
         {"word": "ולמקומות", "shoresh": "מקומות"},
         {"word": "במקומות", "shoresh": "מקומות"},
+        # repeated trouble-word relatives / next affix stress points
+        {"word": "ולמקומו", "shoresh": "מקום"},
+        {"word": "ולמימיו", "shoresh": "מים"},
+        {"word": "כמקנהו", "shoresh": "מקנה"},
+        {"word": "ולמבולו", "shoresh": "מבול"},
+        {"word": "כמראהו", "shoresh": "מראה"},
         # prefix+suffix
         {"word": "במים", "shoresh": "מים"},
         {"word": "למינו", "shoresh": "מין"},

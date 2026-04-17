@@ -76,6 +76,12 @@ def _special_case_shoresh_fallback(candidate):
         "תראינה": "ראה",
         "תצאנה": "יצא",
         "תהיינה": "היה",
+        "תאמרי": "אמר",
+        "תראי": "ראה",
+        "תצאי": "יצא",
+        "תהיי": "היה",
+        "תקראי": "קרא",
+        "תתני": "נתן",
     }
     prefix_forms = _simple_prefix_forms(candidate)
     suffix_forms = _simple_suffix_forms(candidate)
@@ -110,6 +116,8 @@ def _special_case_shoresh_fallback(candidate):
         ("מקוה", ("מ",), ("ה",)): "מקוה",
         ("מקומות", ("מ",), ()): "מקומות",
         ("מראות", ("מ",), ()): "מראות",
+        ("מינים", ("מ",), ("ם",)): "מינים",
+        ("מראים", ("מ",), ("ם",)): "מראים",
         ("מאכלים", ("מ",), ("ם",)): "מאכלים",
         ("מוצא", ("מ",), ()): "מוצא",
         ("מבוא", ("מ",), ()): "מבוא",
@@ -143,6 +151,9 @@ def _special_case_shoresh_fallback(candidate):
         ("במקוהו", ("ב",), ("ו",)): "מקוה",
         ("ולמראהו", ("ו", "ל"), ("ו",)): "מראה",
         ("במראהו", ("ב",), ("ו",)): "מראה",
+        ("ולמימיו", ("ו", "ל"), ("יו",)): "מים",
+        ("כמקנהו", ("כ",), ("ו",)): "מקנה",
+        ("כמראהו", ("כ",), ("ו",)): "מראה",
         # Narrow verb bridges for common Bereishis relatives where generated
         # candidates currently misread the plural-ending ו as a noun suffix.
         ("ויאמרו", ("ו",), ("ו",)): "אמר",
