@@ -1,6 +1,6 @@
 # Chumash Engine Daily Review
 
-- Generated at (UTC): 2026-04-17T15:27:53.979651+00:00
+- Generated at (UTC): 2026-04-17T15:57:07.244676+00:00
 
 ## Test Status
 
@@ -11,19 +11,20 @@
 
 ## Gold Accuracy Status
 
-- Gold shoresh suite: failed
-- Gold affix suite: failed
+- Gold shoresh suite: passed
+- Gold affix suite: passed
 
 ## Nightly Insights
 
 ## Summary
 
-- Total attempts: 106
-- Total incorrect: 40
+- Total attempts: 118
+- Total incorrect: 44
 
 ## Most Missed Words
 
 - `למינו`: 11
+- `לָאוֹר`: 6
 - `מים`: 4
 - `במים`: 4
 - `ויקרא`: 4
@@ -32,11 +33,10 @@
 - `והארץ`: 2
 - `ויאמר`: 2
 - `לאור`: 2
-- `לָאוֹר`: 2
 
 ## Most Missed Skills
 
-- `identify_prefix_meaning`: 17
+- `identify_prefix_meaning`: 21
 - `identify_suffix_meaning`: 13
 - `verb_tense`: 4
 - `translation`: 4
@@ -52,7 +52,7 @@
 
 ## Most Missed Standards
 
-- `PR`: 30
+- `PR`: 34
 - `CF`: 4
 - `WM`: 4
 - `SR`: 2
@@ -60,6 +60,7 @@
 ## Words Missed 3+ Times
 
 - `למינו`: 11
+- `לָאוֹר`: 6
 - `מים`: 4
 - `במים`: 4
 - `ויקרא`: 4
@@ -72,10 +73,8 @@
 ## Recommended Next Actions
 
 - Investigate any failing gold suites.
-- Investigate gold shoresh coverage gaps.
-- Investigate gold affix handling gaps.
 - Review prefix meaning questions.
-- Add more gold cases for למינו, מים, במים, and related forms.
+- Add more gold cases for למינו, לָאוֹר, מים, and related forms.
 - Add more prefix-focused review items in the next practice cycle.
 - Revisit standard PR with a short targeted review set.
 - Prioritize noun suffix fallback fixes.

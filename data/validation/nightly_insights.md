@@ -2,12 +2,13 @@
 
 ## Summary
 
-- Total attempts: 106
-- Total incorrect: 40
+- Total attempts: 127
+- Total incorrect: 47
 
 ## Most Missed Words
 
 - `למינו`: 11
+- `לָאוֹר`: 9
 - `מים`: 4
 - `במים`: 4
 - `ויקרא`: 4
@@ -16,11 +17,10 @@
 - `והארץ`: 2
 - `ויאמר`: 2
 - `לאור`: 2
-- `לָאוֹר`: 2
 
 ## Most Missed Skills
 
-- `identify_prefix_meaning`: 17
+- `identify_prefix_meaning`: 24
 - `identify_suffix_meaning`: 13
 - `verb_tense`: 4
 - `translation`: 4
@@ -36,7 +36,7 @@
 
 ## Most Missed Standards
 
-- `PR`: 30
+- `PR`: 37
 - `CF`: 4
 - `WM`: 4
 - `SR`: 2
@@ -44,6 +44,7 @@
 ## Words Missed 3+ Times
 
 - `למינו`: 11
+- `לָאוֹר`: 9
 - `מים`: 4
 - `במים`: 4
 - `ויקרא`: 4
@@ -52,7 +53,7 @@
 ## Suggested Review Targets
 
 - Review prefix meaning questions.
-- Add more gold cases for למינו, מים, במים, and related forms.
+- Add more gold cases for למינו, לָאוֹר, מים, and related forms.
 - Add more prefix-focused review items in the next practice cycle.
 - Revisit standard PR with a short targeted review set.
 

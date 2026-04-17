@@ -33,6 +33,10 @@ def _special_case_shoresh_fallback(candidate):
         "ישרצו": "שרץ",
         "יעופף": "עוף",
         "והיו": "היה",
+        "הוציא": "יצא",
+        "והוציא": "יצא",
+        "אהיה": "היה",
+        "יתן": "נתן",
     }
     prefix_forms = _simple_prefix_forms(candidate)
     suffix_forms = _simple_suffix_forms(candidate)
@@ -40,8 +44,16 @@ def _special_case_shoresh_fallback(candidate):
         ("למים", ("ל",), ("ם",)): "מים",
         ("מימי", ("מ",), ("י",)): "מים",
         ("מימיו", ("מ",), ("יו",)): "מים",
+        ("ובמימיו", ("ו", "ב"), ("יו",)): "מים",
+        ("למימיו", ("ל",), ("יו",)): "מים",
+        ("כמימיו", ("כ",), ("יו",)): "מים",
         ("להאיר", ("ל",), ()): "אור",
         ("ולהבדיל", ("ו", "ל"), ()): "בדל",
+        # Narrow noun/article bridges: these generated candidates already show
+        # the attached affixes, but the lexical noun core is still explicit.
+        ("הכוכבים", ("ה",), ("ם",)): "כוכבים",
+        ("ולמאורות", ("ו",), ()): "מאורות",
+        ("ולמאורות", ("ו", "ל"), ()): "מאורות",
     }
     for field in ("surface", "lemma", "normalized"):
         value = candidate.get(field)

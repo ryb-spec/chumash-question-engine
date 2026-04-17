@@ -20,6 +20,10 @@ def load_gold():
         {"word": "ויקראו", "shoresh": "קרא"},
         {"word": "ויעש", "shoresh": "עשה"},
         {"word": "ויתן", "shoresh": "נתן"},
+        # additional verb families
+        {"word": "הוציא", "shoresh": "יצא"},
+        {"word": "והוציא", "shoresh": "יצא"},
+        {"word": "אהיה", "shoresh": "היה"},
         # nouns
         {"word": "מים", "shoresh": "מים"},
         {"word": "ארץ", "shoresh": "ארץ"},
@@ -35,6 +39,9 @@ def load_gold():
         {"word": "שרץ", "shoresh": "שרץ"},
         {"word": "נפש", "shoresh": "נפש"},
         {"word": "חיה", "shoresh": "חיה"},
+        # irregular lexical items
+        {"word": "אותם", "shoresh": "אותם"},
+        {"word": "הכוכבים", "shoresh": "כוכבים"},
         # known-risk verb forms
         {"word": "ויהי", "shoresh": "היה"},
         {"word": "וירא", "shoresh": "ראה"},
@@ -48,6 +55,7 @@ def load_gold():
         {"word": "והיו", "shoresh": "היה"},
         {"word": "להאיר", "shoresh": "אור"},
         {"word": "ולהבדיל", "shoresh": "בדל"},
+        {"word": "יתן", "shoresh": "נתן"},
     ]
 
 
