@@ -36,6 +36,11 @@ def load_gold():
         {"word": "תהיה", "shoresh": "היה"},
         {"word": "תתן", "shoresh": "נתן"},
         {"word": "תבדיל", "shoresh": "בדל"},
+        {"word": "תוציאו", "shoresh": "יצא"},
+        {"word": "יראו", "shoresh": "ראה"},
+        {"word": "יתנו", "shoresh": "נתן"},
+        {"word": "תבדילו", "shoresh": "בדל"},
+        {"word": "יוציאם", "shoresh": "יצא"},
         # nouns
         {"word": "מים", "shoresh": "מים"},
         {"word": "ארץ", "shoresh": "ארץ"},
@@ -64,6 +69,11 @@ def load_gold():
         {"word": "מועד", "shoresh": "מועד"},
         {"word": "מבול", "shoresh": "מבול"},
         {"word": "מאכל", "shoresh": "מאכל"},
+        {"word": "מראות", "shoresh": "מראות"},
+        {"word": "מאכלים", "shoresh": "מאכלים"},
+        {"word": "מוצא", "shoresh": "מוצא"},
+        {"word": "מבוא", "shoresh": "מבוא"},
+        {"word": "מעמד", "shoresh": "מעמד"},
         # known-risk verb forms
         {"word": "ויהי", "shoresh": "היה"},
         {"word": "וירא", "shoresh": "ראה"},
@@ -83,6 +93,8 @@ def load_gold():
         {"word": "להבדיל", "shoresh": "בדל"},
         {"word": "יוציאו", "shoresh": "יצא"},
         {"word": "תהיו", "shoresh": "היה"},
+        {"word": "תראו", "shoresh": "ראה"},
+        {"word": "תאירו", "shoresh": "אור"},
     ]
 
 
