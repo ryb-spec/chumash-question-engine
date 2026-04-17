@@ -41,6 +41,8 @@ def load_gold():
         {"word": "ולאותות", "shoresh": "אותות"},
         {"word": "ולמאור", "shoresh": "מאור"},
         {"word": "ובמקום", "shoresh": "מקום"},
+        {"word": "ולמועד", "shoresh": "מועד"},
+        {"word": "במועד", "shoresh": "מועד"},
         # prefix+suffix
         {"word": "במים", "shoresh": "מים"},
         {"word": "למינו", "shoresh": "מין"},
@@ -58,6 +60,10 @@ def load_gold():
         {"word": "כזרעו", "shoresh": "זרע"},
         {"word": "ובמינהו", "shoresh": "מין"},
         {"word": "כמינהו", "shoresh": "מין"},
+        {"word": "ובמקומו", "shoresh": "מקום"},
+        {"word": "למקומו", "shoresh": "מקום"},
+        {"word": "כמקומו", "shoresh": "מקום"},
+        {"word": "ולמועדהו", "shoresh": "מועד"},
         # additional stacked prefix+suffix noun forms
         {"word": "ובמימיו", "shoresh": "מים"},
         {"word": "למימיו", "shoresh": "מים"},
@@ -65,6 +71,7 @@ def load_gold():
         {"word": "ולמאורות", "shoresh": "מאורות"},
         {"word": "ולזרעו", "shoresh": "זרע"},
         {"word": "ובמועדהו", "shoresh": "מועד"},
+        {"word": "ובמאורו", "shoresh": "מאור"},
     ]
 
 
