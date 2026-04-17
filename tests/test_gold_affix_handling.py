@@ -28,12 +28,17 @@ def load_gold():
         {"word": "ולימים", "shoresh": "ימים"},
         {"word": "ושנים", "shoresh": "שנים"},
         {"word": "והמאורות", "shoresh": "מאורות"},
+        {"word": "ובמאורות", "shoresh": "מאורות"},
+        {"word": "ולכוכבים", "shoresh": "כוכבים"},
+        {"word": "בכוכבים", "shoresh": "כוכבים"},
         # repeated trouble words and related noun forms
         {"word": "לאותות", "shoresh": "אותות"},
         {"word": "לכוכבים", "shoresh": "כוכבים"},
         {"word": "מהכוכבים", "shoresh": "כוכבים"},
         {"word": "במועדים", "shoresh": "מועדים"},
         {"word": "לזרעים", "shoresh": "זרעים"},
+        {"word": "ובמועדים", "shoresh": "מועדים"},
+        {"word": "ולאותות", "shoresh": "אותות"},
         # prefix+suffix
         {"word": "במים", "shoresh": "מים"},
         {"word": "למינו", "shoresh": "מין"},
@@ -47,11 +52,14 @@ def load_gold():
         {"word": "למינהו", "shoresh": "מין"},
         {"word": "מזרעו", "shoresh": "זרע"},
         {"word": "ולמינהו", "shoresh": "מין"},
+        {"word": "ובזרעו", "shoresh": "זרע"},
+        {"word": "כזרעו", "shoresh": "זרע"},
         # additional stacked prefix+suffix noun forms
         {"word": "ובמימיו", "shoresh": "מים"},
         {"word": "למימיו", "shoresh": "מים"},
         {"word": "כמימיו", "shoresh": "מים"},
         {"word": "ולמאורות", "shoresh": "מאורות"},
+        {"word": "ולזרעו", "shoresh": "זרע"},
     ]
 
 

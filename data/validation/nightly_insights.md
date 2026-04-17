@@ -2,13 +2,13 @@
 
 ## Summary
 
-- Total attempts: 127
-- Total incorrect: 47
+- Total attempts: 133
+- Total incorrect: 49
 
 ## Most Missed Words
 
 - `למינו`: 11
-- `לָאוֹר`: 9
+- `לָאוֹר`: 11
 - `מים`: 4
 - `במים`: 4
 - `ויקרא`: 4
@@ -20,7 +20,7 @@
 
 ## Most Missed Skills
 
-- `identify_prefix_meaning`: 24
+- `identify_prefix_meaning`: 26
 - `identify_suffix_meaning`: 13
 - `verb_tense`: 4
 - `translation`: 4
@@ -36,7 +36,7 @@
 
 ## Most Missed Standards
 
-- `PR`: 37
+- `PR`: 39
 - `CF`: 4
 - `WM`: 4
 - `SR`: 2
@@ -44,7 +44,7 @@
 ## Words Missed 3+ Times
 
 - `למינו`: 11
-- `לָאוֹר`: 9
+- `לָאוֹר`: 11
 - `מים`: 4
 - `במים`: 4
 - `ויקרא`: 4

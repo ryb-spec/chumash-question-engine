@@ -37,6 +37,10 @@ def _special_case_shoresh_fallback(candidate):
         "והוציא": "יצא",
         "אהיה": "היה",
         "יתן": "נתן",
+        "יהיה": "היה",
+        "יראה": "ראה",
+        "יאיר": "אור",
+        "יהיו": "היה",
     }
     prefix_forms = _simple_prefix_forms(candidate)
     suffix_forms = _simple_suffix_forms(candidate)
@@ -52,6 +56,14 @@ def _special_case_shoresh_fallback(candidate):
         # Narrow noun/article bridges: these generated candidates already show
         # the attached affixes, but the lexical noun core is still explicit.
         ("הכוכבים", ("ה",), ("ם",)): "כוכבים",
+        ("כוכבים", ("כ",), ("ם",)): "כוכבים",
+        ("מאורות", ("מ",), ()): "מאורות",
+        ("מועדים", ("מ",), ("ם",)): "מועדים",
+        ("למשלת", ("ל",), ()): "ממשלה",
+        ("ובמאורות", ("ו",), ()): "מאורות",
+        ("ובמאורות", ("ו", "ב"), ()): "מאורות",
+        ("ולאותות", ("ו",), ()): "אותות",
+        ("ולאותות", ("ו", "ל"), ()): "אותות",
         ("ולמאורות", ("ו",), ()): "מאורות",
         ("ולמאורות", ("ו", "ל"), ()): "מאורות",
     }

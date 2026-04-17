@@ -24,6 +24,10 @@ def load_gold():
         {"word": "הוציא", "shoresh": "יצא"},
         {"word": "והוציא", "shoresh": "יצא"},
         {"word": "אהיה", "shoresh": "היה"},
+        {"word": "יהיה", "shoresh": "היה"},
+        {"word": "ויבדל", "shoresh": "בדל"},
+        {"word": "יראה", "shoresh": "ראה"},
+        {"word": "יאיר", "shoresh": "אור"},
         # nouns
         {"word": "מים", "shoresh": "מים"},
         {"word": "ארץ", "shoresh": "ארץ"},
@@ -42,6 +46,10 @@ def load_gold():
         # irregular lexical items
         {"word": "אותם", "shoresh": "אותם"},
         {"word": "הכוכבים", "shoresh": "כוכבים"},
+        {"word": "כוכבים", "shoresh": "כוכבים"},
+        {"word": "מאורות", "shoresh": "מאורות"},
+        {"word": "מועדים", "shoresh": "מועדים"},
+        {"word": "אותות", "shoresh": "אותות"},
         # known-risk verb forms
         {"word": "ויהי", "shoresh": "היה"},
         {"word": "וירא", "shoresh": "ראה"},
@@ -53,9 +61,11 @@ def load_gold():
         {"word": "ישרצו", "shoresh": "שרץ"},
         {"word": "יעופף", "shoresh": "עוף"},
         {"word": "והיו", "shoresh": "היה"},
+        {"word": "יהיו", "shoresh": "היה"},
         {"word": "להאיר", "shoresh": "אור"},
         {"word": "ולהבדיל", "shoresh": "בדל"},
         {"word": "יתן", "shoresh": "נתן"},
+        {"word": "למשלת", "shoresh": "ממשלה"},
     ]
 
 
