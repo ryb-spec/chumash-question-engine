@@ -70,6 +70,15 @@ def load_gold():
         {"word": "תהיי", "shoresh": "היה"},
         {"word": "תקראי", "shoresh": "קרא"},
         {"word": "תתני", "shoresh": "נתן"},
+        # newly active scope: Bereishis 1:21-1:30 common roots
+        {"word": "וַיִּבְרָא", "shoresh": "ברא"},
+        {"word": "וַיְבָרֶךְ", "shoresh": "ברך"},
+        {"word": "תּוֹצֵא", "shoresh": "יצא"},
+        {"word": "וַיַּעַשׂ", "shoresh": "עשה"},
+        {"word": "נַעֲשֶׂה", "shoresh": "עשה"},
+        {"word": "יִרְדּוּ", "shoresh": "ירד"},
+        {"word": "נָתַתִּי", "shoresh": "נתן"},
+        {"word": "שָׁרְצוּ", "shoresh": "שרץ"},
         # common Bereishis root relatives
         {"word": "ויאמרו", "shoresh": "אמר"},
         {"word": "ויראו", "shoresh": "ראה"},

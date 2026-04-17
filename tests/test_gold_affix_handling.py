@@ -78,6 +78,16 @@ def load_gold():
         {"word": "כמקנהו", "shoresh": "מקנה"},
         {"word": "ולמבולו", "shoresh": "מבול"},
         {"word": "כמראהו", "shoresh": "מראה"},
+        # newly active scope: Bereishis 1:21-1:30 prefixed and suffixed nouns
+        {"word": "לְמִינֵהֶם", "shoresh": "מין"},
+        {"word": "לְמִינֵהוּ", "shoresh": "מין"},
+        {"word": "בַּיַּמִּים", "shoresh": "ימים"},
+        {"word": "וְהָעוֹף", "shoresh": "עוף"},
+        {"word": "בִּדְגַת", "shoresh": "דגה"},
+        {"word": "בְּצַלְמֵנוּ", "shoresh": "צלם"},
+        {"word": "כִּדְמוּתֵנוּ", "shoresh": "דמות"},
+        {"word": "וּבְעוֹף", "shoresh": "עוף"},
+        {"word": "וּבִדְגַת", "shoresh": "דגה"},
         # prefix+suffix
         {"word": "במים", "shoresh": "מים"},
         {"word": "למינו", "shoresh": "מין"},

@@ -82,6 +82,14 @@ def _special_case_shoresh_fallback(candidate):
         "תהיי": "היה",
         "תקראי": "קרא",
         "תתני": "נתן",
+        # Newly active Bereishis 1:21-1:30 verb bridges: keep these explicit
+        # until generated candidates carry enough root metadata to normalize
+        # the forms more generally.
+        "וַיִּבְרָא": "ברא",
+        "וַיְבָרֶךְ": "ברך",
+        "תּוֹצֵא": "יצא",
+        "נַעֲשֶׂה": "עשה",
+        "נָתַתִּי": "נתן",
     }
     prefix_forms = _simple_prefix_forms(candidate)
     suffix_forms = _simple_suffix_forms(candidate)
@@ -154,6 +162,15 @@ def _special_case_shoresh_fallback(candidate):
         ("ולמימיו", ("ו", "ל"), ("יו",)): "מים",
         ("כמקנהו", ("כ",), ("ו",)): "מקנה",
         ("כמראהו", ("כ",), ("ו",)): "מראה",
+        # Newly active Bereishis 1:21-1:30 noun/affix bridges: the candidate
+        # metadata already exposes the attached prefixes/suffixes, and the
+        # lexical noun core is clear enough to normalize explicitly here.
+        ("למינהם", ("ל",), ("הם",)): "מין",
+        ("למינהם", ("ל",), ("ם",)): "מין",
+        ("בדגת", ("ב",), ()): "דגה",
+        ("ובדגת", ("ו", "ב"), ()): "דגה",
+        ("בצלמנו", ("ב",), ()): "צלם",
+        ("כדמותנו", ("כ",), ()): "דמות",
         # Narrow verb bridges for common Bereishis relatives where generated
         # candidates currently misread the plural-ending ו as a noun suffix.
         ("ויאמרו", ("ו",), ("ו",)): "אמר",
