@@ -72,6 +72,10 @@ def _special_case_shoresh_fallback(candidate):
         "יקראו": "קרא",
         "יבדלו": "בדל",
         "תקראו": "קרא",
+        "תאמרנה": "אמר",
+        "תראינה": "ראה",
+        "תצאנה": "יצא",
+        "תהיינה": "היה",
     }
     prefix_forms = _simple_prefix_forms(candidate)
     suffix_forms = _simple_suffix_forms(candidate)
@@ -131,6 +135,18 @@ def _special_case_shoresh_fallback(candidate):
         ("ולמנורתו", ("ו", "ל"), ("ו",)): "מנורה",
         ("במקנהו", ("ב",), ("ו",)): "מקנה",
         ("במצבתו", ("ב",), ("ו",)): "מצבה",
+        # Narrow stacked noun bridges: keep these explicit where the affix
+        # metadata is already present and the lexical noun target is known.
+        ("ולמקומות", ("ו",), ()): "מקומות",
+        ("ולמקומות", ("ו", "ל"), ()): "מקומות",
+        ("ולמקוהו", ("ו", "ל"), ("ו",)): "מקוה",
+        ("במקוהו", ("ב",), ("ו",)): "מקוה",
+        ("ולמראהו", ("ו", "ל"), ("ו",)): "מראה",
+        ("במראהו", ("ב",), ("ו",)): "מראה",
+        # Narrow verb bridges for common Bereishis relatives where generated
+        # candidates currently misread the plural-ending ו as a noun suffix.
+        ("ויאמרו", ("ו",), ("ו",)): "אמר",
+        ("ויראו", ("ו",), ("ו",)): "ראה",
     }
     for field in ("surface", "lemma", "normalized"):
         value = candidate.get(field)

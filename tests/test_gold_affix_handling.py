@@ -66,6 +66,12 @@ def load_gold():
         {"word": "במראה", "shoresh": "מראה"},
         {"word": "ולמבול", "shoresh": "מבול"},
         {"word": "במבול", "shoresh": "מבול"},
+        {"word": "ולמקוהו", "shoresh": "מקוה"},
+        {"word": "במקוהו", "shoresh": "מקוה"},
+        {"word": "ולמראהו", "shoresh": "מראה"},
+        {"word": "במראהו", "shoresh": "מראה"},
+        {"word": "ולמקומות", "shoresh": "מקומות"},
+        {"word": "במקומות", "shoresh": "מקומות"},
         # prefix+suffix
         {"word": "במים", "shoresh": "מים"},
         {"word": "למינו", "shoresh": "מין"},

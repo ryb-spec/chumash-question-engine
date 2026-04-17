@@ -58,6 +58,14 @@ def load_gold():
         {"word": "יקראו", "shoresh": "קרא"},
         {"word": "יבדלו", "shoresh": "בדל"},
         {"word": "תקראו", "shoresh": "קרא"},
+        # future / imperfect plural-style variants
+        {"word": "תאמרנה", "shoresh": "אמר"},
+        {"word": "תראינה", "shoresh": "ראה"},
+        {"word": "תצאנה", "shoresh": "יצא"},
+        {"word": "תהיינה", "shoresh": "היה"},
+        # common Bereishis root relatives
+        {"word": "ויאמרו", "shoresh": "אמר"},
+        {"word": "ויראו", "shoresh": "ראה"},
         # nouns
         {"word": "מים", "shoresh": "מים"},
         {"word": "ארץ", "shoresh": "ארץ"},
