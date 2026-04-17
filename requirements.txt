@@ -1,4 +1,5 @@
 streamlit
 pytest
+pytest-json-report
 pandas
 numpy

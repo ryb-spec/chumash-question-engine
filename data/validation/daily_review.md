@@ -1,4 +1,20 @@
-# Nightly Insights
+# Chumash Engine Daily Review
+
+- Generated at (UTC): 2026-04-17T15:27:53.979651+00:00
+
+## Test Status
+
+- Total tests: 69
+- Passed: 67
+- Failed: 2
+- Errors: 0
+
+## Gold Accuracy Status
+
+- Gold shoresh suite: failed
+- Gold affix suite: failed
+
+## Nightly Insights
 
 ## Summary
 
@@ -49,15 +65,19 @@
 - `ויקרא`: 4
 - `תדשא`: 3
 
-## Suggested Review Targets
+## Gold Failures to Review
 
+- No gold-failure summary is available yet.
+
+## Recommended Next Actions
+
+- Investigate any failing gold suites.
+- Investigate gold shoresh coverage gaps.
+- Investigate gold affix handling gaps.
 - Review prefix meaning questions.
 - Add more gold cases for למינו, מים, במים, and related forms.
 - Add more prefix-focused review items in the next practice cycle.
 - Revisit standard PR with a short targeted review set.
-
-## Recommended Next Actions
-
 - Prioritize noun suffix fallback fixes.
 - Tighten prefix handling and add more prefix review coverage.
 - Add reteach practice for PR-standard items.
@@ -65,6 +85,8 @@
 - Review suffix-bearing noun forms that are still being over-literalized.
 - Review prefix meaning distractors and reteach sequencing.
 
-## Gold Failures to Review
+## Review With ChatGPT
 
-- No gold-failure summary is available yet.
+- "Review this daily report and suggest the next 5 highest-impact parser improvements."
+- "Which skills need reteach based on this report?"
+- "Suggest 10 new gold-standard Hebrew cases based on the repeated trouble words."

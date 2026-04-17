@@ -16,6 +16,8 @@ def load_gold():
         {"word": "עשה", "shoresh": "עשה"},
         {"word": "היה", "shoresh": "היה"},
         {"word": "יצא", "shoresh": "יצא"},
+        {"word": "יקרא", "shoresh": "קרא"},
+        {"word": "ויקראו", "shoresh": "קרא"},
         # nouns
         {"word": "מים", "shoresh": "מים"},
         {"word": "ארץ", "shoresh": "ארץ"},
@@ -26,6 +28,8 @@ def load_gold():
         {"word": "רקיע", "shoresh": "רקיע"},
         {"word": "זרע", "shoresh": "זרע"},
         {"word": "פרי", "shoresh": "פרי"},
+        {"word": "דשא", "shoresh": "דשא"},
+        {"word": "מין", "shoresh": "מין"},
         # known-risk verb forms
         {"word": "ויהי", "shoresh": "היה"},
         {"word": "וירא", "shoresh": "ראה"},

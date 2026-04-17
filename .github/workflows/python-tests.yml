@@ -23,13 +23,23 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Run tests
-        run: python -m pytest
+        run: python -m pytest --json-report --json-report-file=data/validation/pytest_report.json
+
+      - name: Write test summary
+        run: python scripts/write_test_summary.py
 
       - name: Generate nightly insights
         run: python scripts/generate_insights.py
 
-      - name: Upload nightly insights artifact
+      - name: Generate daily review
+        run: python scripts/generate_daily_review.py
+
+      - name: Upload validation artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: nightly-insights
-          path: data/validation/nightly_insights.md
+          name: validation-artifacts
+          path: |
+            data/validation/pytest_report.json
+            data/validation/test_summary.json
+            data/validation/nightly_insights.md
+            data/validation/daily_review.md

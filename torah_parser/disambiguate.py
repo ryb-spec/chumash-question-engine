@@ -7,15 +7,38 @@ def _looks_like_hebrew_lemma(value):
     return any("\u0590" <= char <= "\u05ff" for char in value)
 
 
+def _simple_prefix_forms(candidate):
+    prefixes = candidate.get("prefixes") or []
+    forms = []
+    for prefix in prefixes:
+        if not isinstance(prefix, dict):
+            continue
+        form = prefix.get("form")
+        if isinstance(form, str) and form:
+            forms.append(form)
+    return forms
+
+
 def _special_case_shoresh_fallback(candidate):
     # Keep this tiny and explicit: some current gold forms need a narrow bridge
     # until the parser emits better verb metadata for them.
     special_cases = {
         "תדשא": "דשא",
         "ותוצא": "יצא",
+        "יקרא": "קרא",
+        "ויקראו": "קרא",
+    }
+    prefix_forms = _simple_prefix_forms(candidate)
+    suffix_forms = _simple_suffix_forms(candidate)
+    metadata_cases = {
+        ("למים", ("ל",), ("ם",)): "מים",
+        ("מימי", ("מ",), ("י",)): "מים",
+        ("מימיו", ("מ",), ("יו",)): "מים",
     }
     for field in ("surface", "lemma", "normalized"):
         value = candidate.get(field)
+        if (value, tuple(prefix_forms), tuple(suffix_forms)) in metadata_cases:
+            return metadata_cases[(value, tuple(prefix_forms), tuple(suffix_forms))]
         if value in special_cases:
             return special_cases[value]
     return None
@@ -37,7 +60,7 @@ def _allow_l_prefix_with_plural_noun_shape(stripped, suffix_forms):
     # Narrow allowance for forms like לשמים / לימים: the generated candidate
     # may tag final ם as a suffix even when the lexical noun core clearly ends
     # in ים. We only allow this for simple ל-prefix cases.
-    return suffix_forms == ["ם"] and isinstance(stripped, str) and len(stripped) >= 4 and stripped.endswith("ים")
+    return suffix_forms == ["ם"] and isinstance(stripped, str) and len(stripped) >= 3 and stripped.endswith("ים")
 
 
 def _strip_simple_prefixes_from_lemma(candidate):
