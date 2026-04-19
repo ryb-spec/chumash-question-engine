@@ -1,0 +1,378 @@
+{
+  "meta": {
+    "purpose": "Starter high-frequency lexicon policy and seed entries based on the Zekelman appendix frequency study for Bereishis.",
+    "source": "Free-Resource-Packet-_-Appendix-to-Zekelman-Standards-ec8tdp.pdf",
+    "study_summary": {
+      "book": "Bereishis",
+      "total_words_excluding_pronouns": 16258,
+      "basic_word_forms": 1545,
+      "singletons_percent": 40.2,
+      "under_five_occurrences_percent": 69.7,
+      "words_20_plus_count": 146,
+      "coverage_20_plus_percent": 70.7,
+      "words_10_plus_count": 270,
+      "coverage_10_plus_percent": 80.8,
+      "words_5_plus_count": 468,
+      "coverage_5_plus_percent": 88.9
+    },
+    "instructional_policy": [
+      "Drill the 270 high-frequency words to mastery.",
+      "Use contextual clues more heavily for low-frequency vocabulary.",
+      "Hold students responsible for mastered high-frequency words when they reappear in new pesukim.",
+      "Review and re-drill encountered high-frequency words periodically."
+    ]
+  },
+  "priority_tiers": [
+    {
+      "tier_id": "A",
+      "label": "ultra_high_frequency",
+      "rule": "20+ occurrences and/or explicitly high instructional priority"
+    },
+    {
+      "tier_id": "B",
+      "label": "high_frequency",
+      "rule": "10-19 occurrences"
+    },
+    {
+      "tier_id": "C",
+      "label": "supporting_frequency",
+      "rule": "5-9 occurrences"
+    },
+    {
+      "tier_id": "D",
+      "label": "contextual_only",
+      "rule": "below 5 occurrences; teach mainly via context"
+    }
+  ],
+  "seed_entries": [
+    {
+      "hebrew": "אָמַר",
+      "frequency": 609,
+      "tier": "A",
+      "category": "verb",
+      "gloss": [
+        "said",
+        "say"
+      ],
+      "notes": "Most repeated basic form in the study."
+    },
+    {
+      "hebrew": "בֵּן",
+      "frequency": 479,
+      "tier": "A",
+      "category": "noun",
+      "gloss": [
+        "son"
+      ],
+      "notes": "High-value family-relation noun."
+    },
+    {
+      "hebrew": "אֶל",
+      "frequency": 454,
+      "tier": "A",
+      "category": "preposition",
+      "gloss": [
+        "to",
+        "toward"
+      ],
+      "notes": "Core preposition; crucial for parsing."
+    },
+    {
+      "hebrew": "אֲשֶׁר",
+      "frequency": 414,
+      "tier": "A",
+      "category": "particle",
+      "gloss": [
+        "that",
+        "which"
+      ],
+      "notes": "High-value function word."
+    },
+    {
+      "hebrew": "הָיָה",
+      "frequency": 313,
+      "tier": "A",
+      "category": "verb",
+      "gloss": [
+        "was",
+        "became"
+      ],
+      "notes": "Key tense and narrative marker."
+    },
+    {
+      "hebrew": "אֶרֶץ",
+      "frequency": 306,
+      "tier": "A",
+      "category": "noun",
+      "gloss": [
+        "land",
+        "earth"
+      ],
+      "notes": "Core Bereishis noun."
+    },
+    {
+      "hebrew": "בּוֹא / בָּא",
+      "frequency": 118,
+      "tier": "A",
+      "category": "verb",
+      "gloss": [
+        "come",
+        "enter"
+      ],
+      "notes": "Use lemma family grouping."
+    },
+    {
+      "hebrew": "בַּיִת",
+      "frequency": 120,
+      "tier": "A",
+      "category": "noun",
+      "gloss": [
+        "house"
+      ],
+      "notes": "Important for סמיכות and possession patterns."
+    },
+    {
+      "hebrew": "הָלַךְ",
+      "frequency": 187,
+      "tier": "A",
+      "category": "verb",
+      "gloss": [
+        "went",
+        "walked"
+      ],
+      "notes": "Core weak-root family."
+    },
+    {
+      "hebrew": "אַח",
+      "frequency": 181,
+      "tier": "A",
+      "category": "noun",
+      "gloss": [
+        "brother"
+      ],
+      "notes": "Frequently appears with suffixes."
+    },
+    {
+      "hebrew": "אִישׁ",
+      "frequency": 159,
+      "tier": "A",
+      "category": "noun",
+      "gloss": [
+        "man"
+      ],
+      "notes": "Core subject noun."
+    },
+    {
+      "hebrew": "אִשָּׁה",
+      "frequency": 153,
+      "tier": "A",
+      "category": "noun",
+      "gloss": [
+        "woman",
+        "wife"
+      ],
+      "notes": "Gender agreement anchor."
+    },
+    {
+      "hebrew": "הוּא",
+      "frequency": 123,
+      "tier": "A",
+      "category": "pronoun",
+      "gloss": [
+        "he"
+      ],
+      "notes": "Subjective pronoun priority."
+    },
+    {
+      "hebrew": "בְּרָכָה",
+      "frequency": 81,
+      "tier": "A",
+      "category": "noun",
+      "gloss": [
+        "blessing"
+      ],
+      "notes": "Useful noun-pattern anchor."
+    },
+    {
+      "hebrew": "אֵין",
+      "frequency": 37,
+      "tier": "A",
+      "category": "particle",
+      "gloss": [
+        "there is not",
+        "is not"
+      ],
+      "notes": "High-value comprehension trigger."
+    },
+    {
+      "hebrew": "אַל",
+      "frequency": 93,
+      "tier": "A",
+      "category": "particle",
+      "gloss": [
+        "do not",
+        "no"
+      ],
+      "notes": "Negative particle."
+    },
+    {
+      "hebrew": "גַּם",
+      "frequency": 94,
+      "tier": "A",
+      "category": "particle",
+      "gloss": [
+        "also"
+      ],
+      "notes": "Useful discourse marker."
+    },
+    {
+      "hebrew": "דַּבֵּר / דָּבָר",
+      "frequency": 95,
+      "tier": "A",
+      "category": "lemma_family",
+      "gloss": [
+        "speak",
+        "thing",
+        "word"
+      ],
+      "notes": "Disambiguate noun vs verb family."
+    },
+    {
+      "hebrew": "יָדַע",
+      "frequency": null,
+      "tier": "A",
+      "category": "verb",
+      "gloss": [
+        "knew",
+        "know"
+      ],
+      "notes": "Explicitly cited as 51+ occurrence example in the appendix study summary."
+    },
+    {
+      "hebrew": "כִּי",
+      "frequency": null,
+      "tier": "A",
+      "category": "particle",
+      "gloss": [
+        "because",
+        "that",
+        "when"
+      ],
+      "notes": "Explicitly cited as 51+ occurrence example in the appendix study summary."
+    },
+    {
+      "hebrew": "אַב",
+      "frequency": 91,
+      "tier": "A",
+      "category": "noun",
+      "gloss": [
+        "father"
+      ],
+      "notes": "Family-relation priority noun."
+    },
+    {
+      "hebrew": "אָדָם",
+      "frequency": 55,
+      "tier": "A",
+      "category": "noun",
+      "gloss": [
+        "man",
+        "person"
+      ],
+      "notes": "Core noun."
+    },
+    {
+      "hebrew": "אֵם",
+      "frequency": 26,
+      "tier": "A",
+      "category": "noun",
+      "gloss": [
+        "mother"
+      ],
+      "notes": "Important family-relation noun."
+    },
+    {
+      "hebrew": "אִם",
+      "frequency": 76,
+      "tier": "A",
+      "category": "particle",
+      "gloss": [
+        "if"
+      ],
+      "notes": "High-value conditional particle."
+    },
+    {
+      "hebrew": "אַתָּה",
+      "frequency": 79,
+      "tier": "A",
+      "category": "pronoun",
+      "gloss": [
+        "you (m.sg.)"
+      ],
+      "notes": "Critical for person detection."
+    },
+    {
+      "hebrew": "אַתֶּם",
+      "frequency": 55,
+      "tier": "A",
+      "category": "pronoun",
+      "gloss": [
+        "you (m.pl.)"
+      ],
+      "notes": "Critical for person detection."
+    },
+    {
+      "hebrew": "בֵּין",
+      "frequency": 76,
+      "tier": "A",
+      "category": "preposition",
+      "gloss": [
+        "between"
+      ],
+      "notes": "Core spatial relation."
+    },
+    {
+      "hebrew": "כָּל",
+      "frequency": null,
+      "tier": "A",
+      "category": "noun/quantifier",
+      "gloss": [
+        "all",
+        "every"
+      ],
+      "notes": "Appears in the high-frequency list; should be treated as a quantifier-family anchor."
+    },
+    {
+      "hebrew": "לֹא",
+      "frequency": null,
+      "tier": "A",
+      "category": "particle",
+      "gloss": [
+        "not"
+      ],
+      "notes": "Core negative particle."
+    },
+    {
+      "hebrew": "לָקַח",
+      "frequency": null,
+      "tier": "A",
+      "category": "verb",
+      "gloss": [
+        "took"
+      ],
+      "notes": "Core irregular weak-root family."
+    }
+  ],
+  "recommended_engine_fields": [
+    "lemma_family_id",
+    "surface_form",
+    "glosses",
+    "frequency_tier",
+    "frequency_raw",
+    "part_of_speech",
+    "teaching_policy",
+    "mastery_priority",
+    "example_pesukim",
+    "review_status"
+  ]
+}

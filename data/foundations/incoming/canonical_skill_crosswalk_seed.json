@@ -1,0 +1,1061 @@
+{
+  "meta": {
+    "project": "Chumash Question Engine",
+    "purpose": "Canonical crosswalk linking Zekelman, JSAT, L'havin, current engine skills, and proposed system layers.",
+    "source_priority": [
+      "Zekelman Standards 2.5 and Appendix = canonical truth",
+      "L'havin = compact micro-skill tagging layer",
+      "JSAT Standards + Decoding Guide + Sample Test = benchmark and assessment layer",
+      "Current engine skill files = implementation status only"
+    ],
+    "sources": {
+      "zekelman_standards_2025": "Zekelman-Chumash-Standards-2025_4.pdf",
+      "zekelman_appendix_2014": "Free-Resource-Packet-_-Appendix-to-Zekelman-Standards-ec8tdp.pdf",
+      "deployment_guide": "Deployment-Guide.pdf",
+      "jsat_standards": "JSAT-Level-8-Standards.pdf",
+      "jsat_decoding_guide": "JSAT-L8-Chumash-Skills-All.pdf",
+      "jsat_sample_test": "JSAT-Level-8-Sample-Test.pdf",
+      "lhavin_skill_sheet": "Lhavin_skills_updated_2025-1.pdf",
+      "poster_pack": "Curriculum Prefix.pdf",
+      "current_engine_repo": "chumash-question-engine-main (3).zip"
+    },
+    "engine_status_meanings": {
+      "mapped-current": "Skill already has a close analogue in the current engine.",
+      "mapped-partial": "Skill exists indirectly or through a narrower implementation.",
+      "recommended-next": "Skill is a strong next candidate for implementation.",
+      "future": "Skill belongs in the longer-term roadmap."
+    }
+  },
+  "skills": [
+    {
+      "canonical_skill_id": "WORD.NUMBER_CLASSIFY",
+      "display_name": "Classify word as singular/plural",
+      "domain": "Vocabulary and Language Skills",
+      "subdomain": "Parts of speech / morphology",
+      "description": "Identify whether a noun, pronoun, or adjective is singular or plural.",
+      "zekelman_refs": [
+        "3.04-3.07"
+      ],
+      "zekelman_appendix_refs": [
+        "Hebrew Terms Appendix: יחיד/יחידה/רבים/רבות"
+      ],
+      "jsat_refs": [
+        "JSAT Std 03a",
+        "Sample Test items 93"
+      ],
+      "lhavin_refs": [
+        "1.1"
+      ],
+      "current_engine_skills": [],
+      "engine_status": "recommended-next",
+      "system_layer": "canonical_truth",
+      "notes": "High utility for early parsing and distractor generation."
+    },
+    {
+      "canonical_skill_id": "WORD.GENDER_CLASSIFY",
+      "display_name": "Classify word as masculine/feminine",
+      "domain": "Vocabulary and Language Skills",
+      "subdomain": "Parts of speech / morphology",
+      "description": "Identify whether a singular or plural noun, pronoun, adjective, or number is masculine or feminine.",
+      "zekelman_refs": [
+        "3.04-3.07"
+      ],
+      "zekelman_appendix_refs": [
+        "Hebrew Terms Appendix: זכר/נקבה"
+      ],
+      "jsat_refs": [
+        "JSAT Std 03b",
+        "JSAT Std 03c",
+        "JSAT Std 03d"
+      ],
+      "lhavin_refs": [
+        "1.1",
+        "7.3"
+      ],
+      "current_engine_skills": [],
+      "engine_status": "recommended-next",
+      "system_layer": "canonical_truth",
+      "notes": ""
+    },
+    {
+      "canonical_skill_id": "WORD.PART_OF_SPEECH_BASIC",
+      "display_name": "Differentiate noun vs. verb",
+      "domain": "Vocabulary and Language Skills",
+      "subdomain": "Parts of speech",
+      "description": "Distinguish between שמות עצם and פעלים in context.",
+      "zekelman_refs": [
+        "3.04-3.07"
+      ],
+      "zekelman_appendix_refs": [
+        "Hebrew Terms Appendix: שם עצם, פועל"
+      ],
+      "jsat_refs": [
+        "JSAT Chumash Skills domain (implicit)"
+      ],
+      "lhavin_refs": [
+        "1.2"
+      ],
+      "current_engine_skills": [],
+      "engine_status": "recommended-next",
+      "system_layer": "canonical_truth",
+      "notes": ""
+    },
+    {
+      "canonical_skill_id": "WORD.PARTS.SEGMENT",
+      "display_name": "Segment word into prefix / root / suffix / infix",
+      "domain": "Vocabulary and Language Skills",
+      "subdomain": "Word structure",
+      "description": "Break a word into added letters and core root letters.",
+      "zekelman_refs": [
+        "3.02",
+        "3.04-3.07"
+      ],
+      "zekelman_appendix_refs": [],
+      "jsat_refs": [
+        "Decoding Guide Std 01 note on prefixes/suffixes/infixes"
+      ],
+      "lhavin_refs": [],
+      "current_engine_skills": [
+        "segment_word_parts"
+      ],
+      "engine_status": "mapped-current",
+      "system_layer": "canonical_truth",
+      "notes": ""
+    },
+    {
+      "canonical_skill_id": "ROOT.CONCEPT",
+      "display_name": "Know that a shoresh generally has three letters",
+      "domain": "Vocabulary and Language Skills",
+      "subdomain": "Vocabulary / roots",
+      "description": "Foundational shoresh concept used by the parser and review tools.",
+      "zekelman_refs": [
+        "3.02"
+      ],
+      "zekelman_appendix_refs": [
+        "Hebrew Terms Appendix: שורש"
+      ],
+      "jsat_refs": [
+        "JSAT Std 01 (implied)"
+      ],
+      "lhavin_refs": [
+        "2.1"
+      ],
+      "current_engine_skills": [],
+      "engine_status": "future",
+      "system_layer": "canonical_truth",
+      "notes": ""
+    },
+    {
+      "canonical_skill_id": "ROOT.IDENTIFY",
+      "display_name": "Identify the shoresh of a word",
+      "domain": "Vocabulary and Language Skills",
+      "subdomain": "Vocabulary / roots",
+      "description": "Identify a three-letter shoresh when all root letters are present.",
+      "zekelman_refs": [
+        "3.02"
+      ],
+      "zekelman_appendix_refs": [
+        "Hebrew Terms Appendix: שורש"
+      ],
+      "jsat_refs": [
+        "JSAT Std 01",
+        "Sample Test item 81"
+      ],
+      "lhavin_refs": [
+        "2.2"
+      ],
+      "current_engine_skills": [],
+      "engine_status": "recommended-next",
+      "system_layer": "canonical_truth",
+      "notes": ""
+    },
+    {
+      "canonical_skill_id": "ROOT.IDENTIFY_DROPPED",
+      "display_name": "Identify the shoresh when one root letter drops",
+      "domain": "Vocabulary and Language Skills",
+      "subdomain": "Vocabulary / roots",
+      "description": "Recover weak roots or dropped letters in common Hebrew patterns.",
+      "zekelman_refs": [
+        "3.02"
+      ],
+      "zekelman_appendix_refs": [
+        "Hebrew Terms Appendix: שורש"
+      ],
+      "jsat_refs": [
+        "JSAT Std 02",
+        "Sample Test item 88"
+      ],
+      "lhavin_refs": [
+        "2.3"
+      ],
+      "current_engine_skills": [],
+      "engine_status": "recommended-next",
+      "system_layer": "canonical_truth",
+      "notes": ""
+    },
+    {
+      "canonical_skill_id": "PREFIX.BASIC_PREPOSITIONS",
+      "display_name": "Translate common prefixes before nouns",
+      "domain": "Vocabulary and Language Skills",
+      "subdomain": "Prepositions and prefixes",
+      "description": "Translate the common prefix letters that attach to nouns, especially ב/ל/כ/מ/ו/ה/ש.",
+      "zekelman_refs": [
+        "3.06"
+      ],
+      "zekelman_appendix_refs": [
+        "Hebrew Terms Appendix: ו החיבור, ה' הידיעה"
+      ],
+      "jsat_refs": [
+        "JSAT Std 06",
+        "Sample Test item 95"
+      ],
+      "lhavin_refs": [
+        "1.3",
+        "3.1"
+      ],
+      "current_engine_skills": [
+        "identify_prefix_meaning"
+      ],
+      "engine_status": "mapped-current",
+      "system_layer": "canonical_truth",
+      "notes": ""
+    },
+    {
+      "canonical_skill_id": "PREFIX.CONTRACTED",
+      "display_name": "Translate combined or contracted prefixes",
+      "domain": "Vocabulary and Language Skills",
+      "subdomain": "Prepositions and prefixes",
+      "description": "Translate forms like בַּ + noun, וְהָאִישׁ, and similar contracted prefixes.",
+      "zekelman_refs": [
+        "3.06"
+      ],
+      "zekelman_appendix_refs": [
+        "Conventions Appendix: דרך הקריאה וההגיה"
+      ],
+      "jsat_refs": [
+        "JSAT Std 07",
+        "Sample Test item 85"
+      ],
+      "lhavin_refs": [
+        "3.1"
+      ],
+      "current_engine_skills": [],
+      "engine_status": "recommended-next",
+      "system_layer": "canonical_truth",
+      "notes": ""
+    },
+    {
+      "canonical_skill_id": "PREFIX.OTIYOT_EITAN",
+      "display_name": "Recognize אותיות איתן as tense/person markers",
+      "domain": "Vocabulary and Language Skills",
+      "subdomain": "Verb prefixes",
+      "description": "Use אותיות איתן to identify future-tense patterns and related verb forms.",
+      "zekelman_refs": [
+        "3.04-3.07"
+      ],
+      "zekelman_appendix_refs": [
+        "Hebrew Terms Appendix: אותיות איתן"
+      ],
+      "jsat_refs": [
+        "JSAT Std 14",
+        "Decoding Guide Std 14"
+      ],
+      "lhavin_refs": [
+        "3.2"
+      ],
+      "current_engine_skills": [
+        "identify_prefix_future"
+      ],
+      "engine_status": "mapped-partial",
+      "system_layer": "canonical_truth",
+      "notes": ""
+    },
+    {
+      "canonical_skill_id": "PREFIX.VAV_TYPES",
+      "display_name": "Differentiate ו' החיבור and ו' ההיפוך",
+      "domain": "Vocabulary and Language Skills",
+      "subdomain": "Verb prefixes",
+      "description": "Recognize whether ו changes tense or simply joins words.",
+      "zekelman_refs": [
+        "3.06",
+        "3.08-3.09"
+      ],
+      "zekelman_appendix_refs": [
+        "Hebrew Terms Appendix: ו החיבור, ו' ההיפוך"
+      ],
+      "jsat_refs": [
+        "JSAT Std 15a",
+        "JSAT Std 15b"
+      ],
+      "lhavin_refs": [
+        "3.3"
+      ],
+      "current_engine_skills": [],
+      "engine_status": "recommended-next",
+      "system_layer": "canonical_truth",
+      "notes": ""
+    },
+    {
+      "canonical_skill_id": "PREFIX.VAV_TENSE_SHIFT",
+      "display_name": "Identify how ו' ההיפוך changes tense",
+      "domain": "Vocabulary and Language Skills",
+      "subdomain": "Verb prefixes",
+      "description": "Track both directions of tense shift caused by ו' ההיפוך.",
+      "zekelman_refs": [
+        "3.08-3.09"
+      ],
+      "zekelman_appendix_refs": [
+        "Hebrew Terms Appendix: ו' ההיפוך"
+      ],
+      "jsat_refs": [
+        "JSAT Std 15a",
+        "JSAT Std 15b",
+        "Sample Test item 92"
+      ],
+      "lhavin_refs": [
+        "3.4"
+      ],
+      "current_engine_skills": [],
+      "engine_status": "recommended-next",
+      "system_layer": "canonical_truth",
+      "notes": ""
+    },
+    {
+      "canonical_skill_id": "PREFIX.HEI_HASHEILAH",
+      "display_name": "Distinguish ה' השאלה from other ה forms",
+      "domain": "Vocabulary and Language Skills",
+      "subdomain": "Particles",
+      "description": "Tell whether a leading ה is interrogative, definite article, or part of the root/pattern.",
+      "zekelman_refs": [
+        "3.06"
+      ],
+      "zekelman_appendix_refs": [
+        "Hebrew Terms Appendix: ה' הידיעה"
+      ],
+      "jsat_refs": [
+        "JSAT Chumash Skills domain (implicit)"
+      ],
+      "lhavin_refs": [
+        "3.5"
+      ],
+      "current_engine_skills": [],
+      "engine_status": "future",
+      "system_layer": "canonical_truth",
+      "notes": ""
+    },
+    {
+      "canonical_skill_id": "PREFIX.HEI_HAMEGAMAH",
+      "display_name": "Recognize ה\"א המגמה",
+      "domain": "Vocabulary and Language Skills",
+      "subdomain": "Direction markers",
+      "description": "Recognize the locale heh indicating motion toward a place.",
+      "zekelman_refs": [
+        "3.06"
+      ],
+      "zekelman_appendix_refs": [],
+      "jsat_refs": [
+        "JSAT Std 08",
+        "Sample Test item 91"
+      ],
+      "lhavin_refs": [],
+      "current_engine_skills": [],
+      "engine_status": "recommended-next",
+      "system_layer": "canonical_truth",
+      "notes": ""
+    },
+    {
+      "canonical_skill_id": "SUFFIX.CONCEPT",
+      "display_name": "Know the concept of suffixes",
+      "domain": "Vocabulary and Language Skills",
+      "subdomain": "Suffixes",
+      "description": "Understand that suffixes can mark person, possession, or object relationships.",
+      "zekelman_refs": [
+        "3.05",
+        "3.06",
+        "3.08-3.09"
+      ],
+      "zekelman_appendix_refs": [],
+      "jsat_refs": [
+        "Decoding Guide note set"
+      ],
+      "lhavin_refs": [
+        "4.1"
+      ],
+      "current_engine_skills": [],
+      "engine_status": "future",
+      "system_layer": "canonical_truth",
+      "notes": ""
+    },
+    {
+      "canonical_skill_id": "SUFFIX.FIRST_PERSON",
+      "display_name": "Translate common first-person suffixes",
+      "domain": "Vocabulary and Language Skills",
+      "subdomain": "Suffixes and pronouns",
+      "description": "Translate me/my/we/our suffix patterns.",
+      "zekelman_refs": [
+        "3.05",
+        "3.06"
+      ],
+      "zekelman_appendix_refs": [],
+      "jsat_refs": [
+        "JSAT Std 11a",
+        "JSAT Std 11b",
+        "JSAT Std 12"
+      ],
+      "lhavin_refs": [
+        "4.2"
+      ],
+      "current_engine_skills": [
+        "identify_suffix_meaning"
+      ],
+      "engine_status": "mapped-partial",
+      "system_layer": "canonical_truth",
+      "notes": ""
+    },
+    {
+      "canonical_skill_id": "SUFFIX.SECOND_PERSON",
+      "display_name": "Translate common second-person suffixes",
+      "domain": "Vocabulary and Language Skills",
+      "subdomain": "Suffixes and pronouns",
+      "description": "Translate you/your suffix patterns across gender and number.",
+      "zekelman_refs": [
+        "3.05",
+        "3.06"
+      ],
+      "zekelman_appendix_refs": [],
+      "jsat_refs": [
+        "JSAT Std 11a",
+        "JSAT Std 11b",
+        "JSAT Std 12"
+      ],
+      "lhavin_refs": [
+        "4.3"
+      ],
+      "current_engine_skills": [
+        "identify_suffix_meaning"
+      ],
+      "engine_status": "mapped-partial",
+      "system_layer": "canonical_truth",
+      "notes": ""
+    },
+    {
+      "canonical_skill_id": "SUFFIX.THIRD_PERSON",
+      "display_name": "Translate common third-person suffixes",
+      "domain": "Vocabulary and Language Skills",
+      "subdomain": "Suffixes and pronouns",
+      "description": "Translate his/her/their suffix patterns across noun and preposition forms.",
+      "zekelman_refs": [
+        "3.05",
+        "3.06"
+      ],
+      "zekelman_appendix_refs": [],
+      "jsat_refs": [
+        "JSAT Std 11a",
+        "JSAT Std 11b",
+        "JSAT Std 12",
+        "JSAT Std 19"
+      ],
+      "lhavin_refs": [
+        "4.4"
+      ],
+      "current_engine_skills": [
+        "identify_pronoun_suffix"
+      ],
+      "engine_status": "mapped-partial",
+      "system_layer": "canonical_truth",
+      "notes": ""
+    },
+    {
+      "canonical_skill_id": "SUFFIX.HOMOPHONE_DISAMBIGUATE",
+      "display_name": "Differentiate similar-looking suffixes",
+      "domain": "Vocabulary and Language Skills",
+      "subdomain": "Suffix disambiguation",
+      "description": "Disambiguate suffixes that look similar but differ by person, gender, or function.",
+      "zekelman_refs": [
+        "3.05",
+        "3.06"
+      ],
+      "zekelman_appendix_refs": [],
+      "jsat_refs": [
+        "JSAT suffix family (implicit)"
+      ],
+      "lhavin_refs": [
+        "4.5"
+      ],
+      "current_engine_skills": [],
+      "engine_status": "future",
+      "system_layer": "canonical_truth",
+      "notes": ""
+    },
+    {
+      "canonical_skill_id": "SUFFIX.KINUY",
+      "display_name": "Translate pronominal suffixes on prepositions and verbs",
+      "domain": "Vocabulary and Language Skills",
+      "subdomain": "Pronominal suffixes",
+      "description": "Translate forms such as בו/ממני/עלינו and verb-attached object suffixes.",
+      "zekelman_refs": [
+        "3.05",
+        "3.06",
+        "3.08-3.09"
+      ],
+      "zekelman_appendix_refs": [],
+      "jsat_refs": [
+        "JSAT Std 12",
+        "JSAT Std 19"
+      ],
+      "lhavin_refs": [
+        "4.6"
+      ],
+      "current_engine_skills": [
+        "identify_pronoun_suffix"
+      ],
+      "engine_status": "mapped-current",
+      "system_layer": "canonical_truth",
+      "notes": ""
+    },
+    {
+      "canonical_skill_id": "SUFFIX.SMICHUT_POSSESSION",
+      "display_name": "Translate possession through suffixes and סמיכות",
+      "domain": "Vocabulary and Language Skills",
+      "subdomain": "Possession structures",
+      "description": "Handle possession in singular and plural noun forms and in סמיכות expressions.",
+      "zekelman_refs": [
+        "3.05",
+        "3.08-3.09"
+      ],
+      "zekelman_appendix_refs": [
+        "Hebrew Terms Appendix: סמיכות"
+      ],
+      "jsat_refs": [
+        "JSAT Std 09",
+        "JSAT Std 10",
+        "Sample Test items 90,99"
+      ],
+      "lhavin_refs": [
+        "4.7"
+      ],
+      "current_engine_skills": [],
+      "engine_status": "recommended-next",
+      "system_layer": "canonical_truth",
+      "notes": ""
+    },
+    {
+      "canonical_skill_id": "PRONOUN.DEMONSTRATIVE",
+      "display_name": "Use forms of זה/זאת/אלה",
+      "domain": "Vocabulary and Language Skills",
+      "subdomain": "Pronouns",
+      "description": "Recognize and use demonstrative pronouns correctly.",
+      "zekelman_refs": [
+        "3.05"
+      ],
+      "zekelman_appendix_refs": [
+        "Hebrew Terms Appendix: זה/זאת/אלה/אלו"
+      ],
+      "jsat_refs": [
+        "JSAT pronoun family (implicit)"
+      ],
+      "lhavin_refs": [
+        "1.5"
+      ],
+      "current_engine_skills": [],
+      "engine_status": "future",
+      "system_layer": "canonical_truth",
+      "notes": ""
+    },
+    {
+      "canonical_skill_id": "PRONOUN.SUBJECT_OBJECT_MATCH",
+      "display_name": "Match pronoun form to grammatical function",
+      "domain": "Vocabulary and Language Skills",
+      "subdomain": "Pronouns",
+      "description": "Differentiate subjective, objective, demonstrative, and possessive pronoun roles.",
+      "zekelman_refs": [
+        "3.05"
+      ],
+      "zekelman_appendix_refs": [
+        "Hebrew Terms Appendix: גוף ראשון, גוף שני, גוף שלישי"
+      ],
+      "jsat_refs": [
+        "JSAT Std 19",
+        "Sample Test item 89"
+      ],
+      "lhavin_refs": [],
+      "current_engine_skills": [
+        "match_pronoun_to_verb"
+      ],
+      "engine_status": "mapped-partial",
+      "system_layer": "canonical_truth",
+      "notes": ""
+    },
+    {
+      "canonical_skill_id": "VERB.TENSE.PAST",
+      "display_name": "Identify and translate past tense verbs",
+      "domain": "Vocabulary and Language Skills",
+      "subdomain": "Verb tense",
+      "description": "Identify and translate עבר forms in בנין קל / פעל.",
+      "zekelman_refs": [
+        "3.04-3.07"
+      ],
+      "zekelman_appendix_refs": [
+        "Hebrew Terms Appendix: עבר"
+      ],
+      "jsat_refs": [
+        "JSAT Std 13",
+        "Sample Test item 100"
+      ],
+      "lhavin_refs": [
+        "5.1"
+      ],
+      "current_engine_skills": [
+        "identify_tense",
+        "identify_suffix_past"
+      ],
+      "engine_status": "mapped-current",
+      "system_layer": "canonical_truth",
+      "notes": ""
+    },
+    {
+      "canonical_skill_id": "VERB.TENSE.PRESENT",
+      "display_name": "Identify and translate present tense verbs",
+      "domain": "Vocabulary and Language Skills",
+      "subdomain": "Verb tense",
+      "description": "Identify and translate הווה forms, including participle-style present tense.",
+      "zekelman_refs": [
+        "3.04-3.07"
+      ],
+      "zekelman_appendix_refs": [
+        "Hebrew Terms Appendix: הווה"
+      ],
+      "jsat_refs": [
+        "JSAT Std 16",
+        "Sample Test item 84"
+      ],
+      "lhavin_refs": [
+        "5.2"
+      ],
+      "current_engine_skills": [
+        "identify_tense",
+        "identify_present_pattern"
+      ],
+      "engine_status": "mapped-current",
+      "system_layer": "canonical_truth",
+      "notes": ""
+    },
+    {
+      "canonical_skill_id": "VERB.TENSE.FUTURE",
+      "display_name": "Identify and translate future tense verbs",
+      "domain": "Vocabulary and Language Skills",
+      "subdomain": "Verb tense",
+      "description": "Identify and translate עתיד forms in בנין קל / פעל.",
+      "zekelman_refs": [
+        "3.04-3.07"
+      ],
+      "zekelman_appendix_refs": [
+        "Hebrew Terms Appendix: עתיד"
+      ],
+      "jsat_refs": [
+        "JSAT Std 14",
+        "Sample Test item 98"
+      ],
+      "lhavin_refs": [
+        "5.3"
+      ],
+      "current_engine_skills": [
+        "identify_tense",
+        "identify_prefix_future"
+      ],
+      "engine_status": "mapped-current",
+      "system_layer": "canonical_truth",
+      "notes": ""
+    },
+    {
+      "canonical_skill_id": "VERB.COMMAND",
+      "display_name": "Recognize and translate command forms",
+      "domain": "Vocabulary and Language Skills",
+      "subdomain": "Verb mood",
+      "description": "Recognize צווי forms and relate them to future-tense patterns when useful.",
+      "zekelman_refs": [
+        "3.04-3.07"
+      ],
+      "zekelman_appendix_refs": [],
+      "jsat_refs": [
+        "JSAT Std 17",
+        "Sample Test item 87"
+      ],
+      "lhavin_refs": [
+        "6.1"
+      ],
+      "current_engine_skills": [
+        "convert_future_to_command"
+      ],
+      "engine_status": "mapped-current",
+      "system_layer": "canonical_truth",
+      "notes": ""
+    },
+    {
+      "canonical_skill_id": "VERB.INFINITIVE",
+      "display_name": "Recognize and translate infinitives",
+      "domain": "Vocabulary and Language Skills",
+      "subdomain": "Verb non-finite forms",
+      "description": "Translate מקור forms such as לדעת / ללכת.",
+      "zekelman_refs": [
+        "3.04-3.07"
+      ],
+      "zekelman_appendix_refs": [
+        "Hebrew Terms Appendix: מקור"
+      ],
+      "jsat_refs": [
+        "JSAT Std 18"
+      ],
+      "lhavin_refs": [],
+      "current_engine_skills": [],
+      "engine_status": "recommended-next",
+      "system_layer": "canonical_truth",
+      "notes": ""
+    },
+    {
+      "canonical_skill_id": "VERB.SUBJECT_OBJECT",
+      "display_name": "Identify subject and object in a פסוק",
+      "domain": "Passage Comprehension",
+      "subdomain": "Clause roles",
+      "description": "Determine who is doing the action and who receives the action in context.",
+      "zekelman_refs": [
+        "3.08-3.09",
+        "4.01-4.02"
+      ],
+      "zekelman_appendix_refs": [],
+      "jsat_refs": [
+        "JSAT Std 19",
+        "Sample Test items 89,96"
+      ],
+      "lhavin_refs": [],
+      "current_engine_skills": [],
+      "engine_status": "recommended-next",
+      "system_layer": "canonical_truth",
+      "notes": ""
+    },
+    {
+      "canonical_skill_id": "VERB.MARKER",
+      "display_name": "Identify which letter is doing grammatical work",
+      "domain": "Vocabulary and Language Skills",
+      "subdomain": "Verb morphology",
+      "description": "Spot the meaningful grammatical marker in a word before asking for full translation.",
+      "zekelman_refs": [
+        "3.04-3.07"
+      ],
+      "zekelman_appendix_refs": [],
+      "jsat_refs": [
+        "Decoding Guide pattern language"
+      ],
+      "lhavin_refs": [],
+      "current_engine_skills": [
+        "identify_verb_marker"
+      ],
+      "engine_status": "mapped-current",
+      "system_layer": "canonical_truth",
+      "notes": ""
+    },
+    {
+      "canonical_skill_id": "NUMBER.HEBREW_TRANSLATE",
+      "display_name": "Translate Hebrew numbers",
+      "domain": "Text Referencing Skills",
+      "subdomain": "Numeracy",
+      "description": "Translate numbers from 1 upward and understand how they function in text.",
+      "zekelman_refs": [
+        "1.07",
+        "3.04-3.07"
+      ],
+      "zekelman_appendix_refs": [],
+      "jsat_refs": [
+        "JSAT Std 14",
+        "Sample Test item 98"
+      ],
+      "lhavin_refs": [
+        "7.3"
+      ],
+      "current_engine_skills": [],
+      "engine_status": "recommended-next",
+      "system_layer": "canonical_truth",
+      "notes": ""
+    },
+    {
+      "canonical_skill_id": "NUMBER.GENDER",
+      "display_name": "Identify whether a Hebrew number is masculine or feminine",
+      "domain": "Text Referencing Skills",
+      "subdomain": "Numeracy",
+      "description": "Determine numeric gender for agreement and translation.",
+      "zekelman_refs": [
+        "1.07",
+        "3.04-3.07"
+      ],
+      "zekelman_appendix_refs": [],
+      "jsat_refs": [
+        "JSAT Std 03d"
+      ],
+      "lhavin_refs": [
+        "7.3"
+      ],
+      "current_engine_skills": [],
+      "engine_status": "recommended-next",
+      "system_layer": "canonical_truth",
+      "notes": ""
+    },
+    {
+      "canonical_skill_id": "REFERENCE.PASUK_LOCATE",
+      "display_name": "Locate a pasuk in Chumash by ספר/פרק/פסוק",
+      "domain": "Text Referencing Skills",
+      "subdomain": "Navigation",
+      "description": "Navigate Chumash references accurately.",
+      "zekelman_refs": [
+        "1.08",
+        "1.09",
+        "1.10"
+      ],
+      "zekelman_appendix_refs": [],
+      "jsat_refs": [
+        "JSAT Std 28"
+      ],
+      "lhavin_refs": [
+        "7.1"
+      ],
+      "current_engine_skills": [],
+      "engine_status": "future",
+      "system_layer": "canonical_truth",
+      "notes": ""
+    },
+    {
+      "canonical_skill_id": "REFERENCE.GEMATRIA",
+      "display_name": "Map Hebrew letters to gematria values",
+      "domain": "Text Referencing Skills",
+      "subdomain": "Navigation / numeracy",
+      "description": "Correlate Hebrew letters and numbers for reference-finding.",
+      "zekelman_refs": [
+        "1.07"
+      ],
+      "zekelman_appendix_refs": [],
+      "jsat_refs": [
+        "JSAT related numeric work (implicit)"
+      ],
+      "lhavin_refs": [
+        "7.2"
+      ],
+      "current_engine_skills": [],
+      "engine_status": "future",
+      "system_layer": "canonical_truth",
+      "notes": ""
+    },
+    {
+      "canonical_skill_id": "TRANSLITERATION.HEBREW_EQUIVALENTS",
+      "display_name": "Match regular Hebrew script to transliterated/alternate forms",
+      "domain": "Text Referencing Skills",
+      "subdomain": "Orthography",
+      "description": "Handle the transliteration-equivalent skill used in JSAT and review packets.",
+      "zekelman_refs": [
+        "1.03-1.05"
+      ],
+      "zekelman_appendix_refs": [],
+      "jsat_refs": [
+        "JSAT Std 27",
+        "Sample Test item 86"
+      ],
+      "lhavin_refs": [],
+      "current_engine_skills": [],
+      "engine_status": "future",
+      "system_layer": "benchmark",
+      "notes": ""
+    },
+    {
+      "canonical_skill_id": "RASHI.SCRIPT",
+      "display_name": "Recognize Rashi script",
+      "domain": "Rashi Skills",
+      "subdomain": "Reading and language skills",
+      "description": "Recognize all Rashi letters and match them to regular Hebrew script.",
+      "zekelman_refs": [
+        "5.01"
+      ],
+      "zekelman_appendix_refs": [
+        "Appendix: Rashi abbreviations and vocabulary lists"
+      ],
+      "jsat_refs": [
+        "JSAT Std 24"
+      ],
+      "lhavin_refs": [
+        "8.1"
+      ],
+      "current_engine_skills": [],
+      "engine_status": "recommended-next",
+      "system_layer": "canonical_truth",
+      "notes": ""
+    },
+    {
+      "canonical_skill_id": "RASHI.TOOLS",
+      "display_name": "Identify dibbur hamatchil and basic Rashi tools",
+      "domain": "Rashi Skills",
+      "subdomain": "Reading and language skills",
+      "description": "Identify דיבור המתחיל, common abbreviations, and basic tool language in Rashi.",
+      "zekelman_refs": [
+        "5.02",
+        "5.03",
+        "5.04"
+      ],
+      "zekelman_appendix_refs": [
+        "Appendix: Rashi abbreviations and vocabulary"
+      ],
+      "jsat_refs": [
+        "JSAT Std 25",
+        "JSAT Std 26"
+      ],
+      "lhavin_refs": [
+        "8.2"
+      ],
+      "current_engine_skills": [],
+      "engine_status": "recommended-next",
+      "system_layer": "canonical_truth",
+      "notes": ""
+    },
+    {
+      "canonical_skill_id": "TAAMIM.PASUK_PARSE",
+      "display_name": "Parse a פסוק according to טעמי המקרא",
+      "domain": "Conventions / Text Reading",
+      "subdomain": "Ta'amei haMikra",
+      "description": "Use taamim to segment and interpret a pasuk.",
+      "zekelman_refs": [
+        "1.05"
+      ],
+      "zekelman_appendix_refs": [
+        "Appendix: Ta’amei HaMikrah chart"
+      ],
+      "jsat_refs": [
+        "JSAT taamim not explicit",
+        "L'havin 9.1"
+      ],
+      "lhavin_refs": [
+        "9.1"
+      ],
+      "current_engine_skills": [],
+      "engine_status": "future",
+      "system_layer": "canonical_truth",
+      "notes": ""
+    },
+    {
+      "canonical_skill_id": "COMP.CONTEXT_TRANSLATION",
+      "display_name": "Choose the correct translation using context clues",
+      "domain": "Passage Comprehension",
+      "subdomain": "Understanding the text",
+      "description": "Use context to select the best translation for a Hebrew word or phrase.",
+      "zekelman_refs": [
+        "4.01-4.02"
+      ],
+      "zekelman_appendix_refs": [
+        "High-frequency vocabulary guidance recommends contextual understanding for low-frequency words"
+      ],
+      "jsat_refs": [
+        "JSAT Std 20",
+        "Sample Test item 97"
+      ],
+      "lhavin_refs": [],
+      "current_engine_skills": [],
+      "engine_status": "recommended-next",
+      "system_layer": "benchmark",
+      "notes": ""
+    },
+    {
+      "canonical_skill_id": "COMP.LASHON_HAPASUK",
+      "display_name": "Answer text questions using לשון הפסוק",
+      "domain": "Passage Comprehension",
+      "subdomain": "Understanding the text",
+      "description": "Answer direct text questions by locating and using the pasuk's own language.",
+      "zekelman_refs": [
+        "4.01-4.02"
+      ],
+      "zekelman_appendix_refs": [],
+      "jsat_refs": [
+        "JSAT Std 21",
+        "Sample Test item 82"
+      ],
+      "lhavin_refs": [],
+      "current_engine_skills": [],
+      "engine_status": "future",
+      "system_layer": "benchmark",
+      "notes": ""
+    },
+    {
+      "canonical_skill_id": "COMP.UNSEEN_PASUK",
+      "display_name": "Comprehend a pasuk not previously learned",
+      "domain": "Passage Comprehension",
+      "subdomain": "Transfer / independent reading",
+      "description": "Decode and understand an unseen pasuk with limited support.",
+      "zekelman_refs": [
+        "4.08"
+      ],
+      "zekelman_appendix_refs": [],
+      "jsat_refs": [
+        "JSAT Std 22"
+      ],
+      "lhavin_refs": [],
+      "current_engine_skills": [],
+      "engine_status": "future",
+      "system_layer": "benchmark",
+      "notes": ""
+    },
+    {
+      "canonical_skill_id": "COMP.HASHKAFA_APPLICATION",
+      "display_name": "Apply Chumash or Rashi to real-life hashkafa",
+      "domain": "Passage Comprehension",
+      "subdomain": "Transfer / application",
+      "description": "Move from text to life application without losing fidelity to the text.",
+      "zekelman_refs": [
+        "1.02",
+        "4.08"
+      ],
+      "zekelman_appendix_refs": [],
+      "jsat_refs": [
+        "JSAT Std 23"
+      ],
+      "lhavin_refs": [],
+      "current_engine_skills": [],
+      "engine_status": "future",
+      "system_layer": "benchmark",
+      "notes": ""
+    },
+    {
+      "canonical_skill_id": "READING.FINAL_PATAH",
+      "display_name": "Pronounce final פתח גנובה correctly",
+      "domain": "Conventions / Text Reading",
+      "subdomain": "Pronunciation",
+      "description": "Pronounce words like כֹּחַ correctly when the final patach is not stressed like English.",
+      "zekelman_refs": [
+        "1.05",
+        "3.10"
+      ],
+      "zekelman_appendix_refs": [],
+      "jsat_refs": [
+        "JSAT Std 29"
+      ],
+      "lhavin_refs": [],
+      "current_engine_skills": [],
+      "engine_status": "future",
+      "system_layer": "benchmark",
+      "notes": ""
+    },
+    {
+      "canonical_skill_id": "REFERENCE.ALIYOT",
+      "display_name": "Identify aliyot and what they are used for",
+      "domain": "Text Referencing Skills",
+      "subdomain": "Navigation",
+      "description": "Recognize aliyah divisions in Chumash and their practical classroom/laining use.",
+      "zekelman_refs": [
+        "1.06",
+        "1.10"
+      ],
+      "zekelman_appendix_refs": [],
+      "jsat_refs": [
+        "JSAT Std 30"
+      ],
+      "lhavin_refs": [],
+      "current_engine_skills": [],
+      "engine_status": "future",
+      "system_layer": "benchmark",
+      "notes": ""
+    }
+  ]
+}
