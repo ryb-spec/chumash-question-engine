@@ -1,4 +1,5 @@
 import unittest
+from pathlib import Path
 
 from assessment_scope import repo_path
 from foundation_resources import (
@@ -73,6 +74,17 @@ class FoundationResourcesTests(unittest.TestCase):
         self.assertEqual(
             validate_all_foundation_resources(),
             {resource_name: [] for resource_name in EXPECTED_RESOURCE_NAMES},
+        )
+
+    def test_seed_package_readme_marks_itself_as_guidance_not_runtime_truth(self):
+        readme = Path("docs/chumash_foundations_package_seed.md").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn("preserved seed-package guide", readme)
+        self.assertIn("skill_catalog.py", readme)
+        self.assertNotIn(
+            "Adopt `canonical_skill_crosswalk_seed.json` as the first pass of `skill_catalog.json`.",
+            readme,
         )
 
 

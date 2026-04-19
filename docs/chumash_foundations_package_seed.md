@@ -2,6 +2,11 @@
 
 This package translates the uploaded standards/curriculum files into system-ready seed artifacts.
 
+Note: this document is a preserved seed-package guide. The current runtime skill
+catalog lives in `skill_catalog.py`, not in a `skill_catalog.json` file. Treat
+the steps below as integration guidance, not as a description of current
+student-facing runtime truth.
+
 ## Files
 - `canonical_skill_crosswalk_seed.json`
   - Canonical skill ontology linking Zekelman, JSAT, L'havin, and current engine skills.
@@ -17,7 +22,7 @@ This package translates the uploaded standards/curriculum files into system-read
   - Teacher/admin workflow based on the Deployment Guide.
 
 ## How to use these
-1. Adopt `canonical_skill_crosswalk_seed.json` as the first pass of `skill_catalog.json`.
+1. Adopt `canonical_skill_crosswalk_seed.json` as a first-pass input for canonical alignment in `skill_catalog.py`.
 2. Normalize your runtime skill labels against the canonical ids.
 3. Use `assessment_blueprint_seed.json` to define question-family balance and interim assessment reports.
 4. Use `grammar_paradigms_seed.json` to power hint panels, pre-teach playlists, and rescue cards.
