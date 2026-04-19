@@ -1,26 +1,27 @@
 import streamlit as st
 
 from question_ui import build_feedback_context
+from runtime.presentation import get_next_skill, plain_skill, skill_path_label
+from runtime.runtime_support import last_answer_was_correct, mixed_text_html
+from ui.question_support import clue_sentence, render_grammar_clues
 
 
 def render_feedback(question, progress):
-    import streamlit_app as app
-
     skill_state = st.session_state.get("last_skill_state") or {}
     point_change = skill_state.get("point_change", "")
-    is_correct = app.last_answer_was_correct(question)
+    is_correct = last_answer_was_correct(question)
     status_class = "correct" if is_correct else "incorrect"
     selected = st.session_state.selected_answer or ""
     practice_type = st.session_state.get("practice_type", "Learn Mode")
-    skill_label = app.plain_skill(question)
+    skill_label = plain_skill(question)
     feedback = build_feedback_context(
         question=question,
         selected_answer=selected,
         is_correct=is_correct,
-        clue_text=app.clue_sentence(question),
+        clue_text=clue_sentence(question),
         practice_type=practice_type,
         skill_label=skill_label,
-        next_skill_label=app.skill_path_label(app.get_next_skill(progress.get("current_skill", question.get("skill", "")))),
+        next_skill_label=skill_path_label(get_next_skill(progress.get("current_skill", question.get("skill", "")))),
     )
     short_clue = feedback["grammar_feedback"] or feedback["clue_that_mattered"]
     short_explanation = feedback["explanation"]
@@ -34,24 +35,24 @@ def render_feedback(question, progress):
         <section class="feedback-panel {status_class}">
             <div class="feedback-status">
                 <strong>{feedback['title']}</strong>
-                <span>{app.escape(str(point_change))}</span>
+                <span>{point_change}</span>
             </div>
             <div class="feedback-line">
                 <span>Your answer</span>
-                <b>{app.mixed_text_html(feedback['selected_answer'])}</b>
+                <b>{mixed_text_html(feedback['selected_answer'])}</b>
             </div>
             <div class="feedback-line">
                 <span>Correct answer</span>
-                <b>{app.mixed_text_html(feedback['correct_answer'])}</b>
+                <b>{mixed_text_html(feedback['correct_answer'])}</b>
             </div>
             <div class="section-label feedback-heading">Grammar</div>
             <div class="feedback-line feedback-clue">
                 <span>Clue</span>
-                <div>{app.mixed_text_html(short_clue)}</div>
+                <div>{mixed_text_html(short_clue)}</div>
             </div>
             <div class="feedback-line feedback-note">
                 <span>Why</span>
-                <div>{app.mixed_text_html(short_explanation)}</div>
+                <div>{mixed_text_html(short_explanation)}</div>
             </div>
         </section>
         """,
@@ -66,7 +67,7 @@ def render_feedback(question, progress):
                     <section class="feedback-detail-grid">
                         <div class="feedback-detail">
                             <span>Clue That Mattered</span>
-                            <div>{app.mixed_text_html(feedback['clue_that_mattered'])}</div>
+                            <div>{mixed_text_html(feedback['clue_that_mattered'])}</div>
                         </div>
                     </section>
                     """,
@@ -78,7 +79,7 @@ def render_feedback(question, progress):
                     <section class="feedback-detail-grid">
                         <div class="feedback-detail">
                             <span>More Detail</span>
-                            <div>{app.mixed_text_html(feedback['explanation'])}</div>
+                            <div>{mixed_text_html(feedback['explanation'])}</div>
                         </div>
                     </section>
                     """,
@@ -89,7 +90,7 @@ def render_feedback(question, progress):
                     f"""
                     <section class="reteach-panel">
                         <span>Likely Confusion</span>
-                        <div>{app.mixed_text_html(feedback['likely_confusion'])}</div>
+                        <div>{mixed_text_html(feedback['likely_confusion'])}</div>
                     </section>
                     """,
                     unsafe_allow_html=True,
@@ -99,13 +100,13 @@ def render_feedback(question, progress):
                 <section class="feedback-detail-grid">
                     <div class="feedback-detail">
                         <span>Word</span>
-                        <div>{app.mixed_text_html(question.get('selected_word') or question.get('word') or '')}</div>
+                        <div>{mixed_text_html(question.get('selected_word') or question.get('word') or '')}</div>
                     </div>
                 </section>
                 """,
                 unsafe_allow_html=True,
             )
-            app.render_grammar_clues(question)
+            render_grammar_clues(question)
 
     if skill_state:
         st.caption(f"Mastery {skill_state['score']}/100 | Streak {skill_state['current_streak']}")

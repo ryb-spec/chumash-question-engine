@@ -5,6 +5,8 @@ from pathlib import Path
 
 import streamlit as st
 
+import runtime.question_flow as question_flow
+import runtime.session_state as session_state
 import streamlit_app
 from assessment_scope import active_pesukim_records
 from pasuk_flow_generator import generate_pasuk_flow, generate_question, is_placeholder_translation
@@ -186,12 +188,12 @@ class ActiveRuntimeQualityTests(unittest.TestCase):
             "choices": ["created", "in the beginning", "earth", "light"],
         }
 
-        with patch.object(streamlit_app, "analyze_generator_pasuk", return_value=[{"word": "בְּרֵאשִׁית"}]), \
-             patch.object(streamlit_app, "generate_skill_question", return_value=stale_followup), \
-             patch.object(streamlit_app, "generate_practice_question", return_value=dict(fallback_question)), \
-             patch.object(streamlit_app, "record_selected_pasuk"), \
-             patch.object(streamlit_app, "record_question_feature"), \
-             patch.object(streamlit_app, "record_question_prefix"):
+        with patch.object(question_flow, "analyze_generator_pasuk", return_value=[{"word": "בְּרֵאשִׁית"}]), \
+             patch.object(question_flow, "generate_skill_question", return_value=stale_followup), \
+             patch.object(question_flow, "generate_practice_question", return_value=dict(fallback_question)), \
+             patch.object(session_state, "record_selected_pasuk"), \
+             patch.object(session_state, "record_question_feature"), \
+             patch.object(session_state, "record_question_prefix"):
             result = streamlit_app.build_followup_question(progress, question)
 
         self.assertEqual(result["selected_word"], "בָּרָא")
@@ -220,11 +222,11 @@ class ActiveRuntimeQualityTests(unittest.TestCase):
         st.session_state.recent_features = ["prefix", "translation", "prefix", "verb", "suffix"]
         st.session_state.recent_prefixes = ["ל", "ל"]
 
-        with patch.object(streamlit_app, "get_skill_ready_pasuks", return_value=ready_rows), \
-             patch.object(streamlit_app, "generate_skill_question", return_value=dict(blocked_prefix_question)), \
-             patch.object(streamlit_app, "record_selected_pasuk"), \
-             patch.object(streamlit_app, "record_question_feature"), \
-             patch.object(streamlit_app, "record_question_prefix"):
+        with patch.object(question_flow, "get_skill_ready_pasuks", return_value=ready_rows), \
+             patch.object(question_flow, "generate_skill_question", return_value=dict(blocked_prefix_question)), \
+             patch.object(session_state, "record_selected_pasuk"), \
+             patch.object(session_state, "record_question_feature"), \
+             patch.object(session_state, "record_question_prefix"):
             result = streamlit_app.select_pasuk_first_question("prefix", progress={"prefix_level": 1})
 
         self.assertEqual(result["selected_word"], "לָאוֹר")

@@ -1,6 +1,8 @@
 import streamlit as st
 
+from runtime.presentation import SKILL_ORDER
 from runtime.question_flow import remember_recent_question
+from runtime.runtime_support import diagnostics_enabled
 
 
 def reset_for_new_question():
@@ -138,8 +140,6 @@ def record_question_feature(question):
 
 
 def init_session_state():
-    import streamlit_app as app
-
     st.session_state.setdefault("mode", "Adaptive")
     st.session_state.setdefault("current_question", None)
     st.session_state.setdefault("answered", False)
@@ -160,7 +160,7 @@ def init_session_state():
     st.session_state.setdefault("recent_prefixes", [])
     st.session_state.setdefault("feature_fallback_message", "")
     st.session_state.setdefault("practice_type", "Learn Mode")
-    st.session_state.setdefault("practice_skill", app.SKILL_ORDER[0])
+    st.session_state.setdefault("practice_skill", SKILL_ORDER[0])
     st.session_state.setdefault("unlocked_skill_message", "")
     st.session_state.setdefault("adaptive_status_message", "")
     st.session_state.setdefault("adaptive_status_reason", "")
@@ -168,5 +168,5 @@ def init_session_state():
     st.session_state.setdefault("pending_adaptive_context", {})
     st.session_state.setdefault("show_nekudos", True)
     st.session_state.setdefault("pasuk_view_mode", "Full pasuk view")
-    st.session_state.setdefault("developer_debug_mode", app.diagnostics_enabled())
+    st.session_state.setdefault("developer_debug_mode", diagnostics_enabled())
     st.session_state.setdefault("last_answer_submitted_at", None)

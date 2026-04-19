@@ -2,6 +2,7 @@ import unittest
 from unittest.mock import patch
 
 from engine import flow_builder, question_builders, skill_logic, token_analysis
+import runtime.question_flow as question_flow
 from runtime.question_flow import build_followup_question
 
 
@@ -10,12 +11,12 @@ class EngineModuleTests(unittest.TestCase):
         with patch.object(
             token_analysis,
             "parser_tokenize_pasuk",
-            return_value=["וַיֹּאמֶר", "אֱלֹקִים"],
+            return_value=["וַיֹּאמֶר", "אֱלֹקִים"],
         ) as mocked:
             tokens = token_analysis.tokenize_pasuk("ignored")
 
         mocked.assert_called_once_with("ignored")
-        self.assertEqual(tokens, ["וַיֹּאמֶר", "אֱלֹקִים"])
+        self.assertEqual(tokens, ["וַיֹּאמֶר", "אֱלֹקִים"])
 
     def test_token_analysis_uses_parser_candidate_generation(self):
         with patch.object(
@@ -30,14 +31,14 @@ class EngineModuleTests(unittest.TestCase):
                 }
             ],
         ) as mocked:
-            analysis = token_analysis.analyze_word("בָּרָא")
+            analysis = token_analysis.analyze_word("בָּרָא")
 
-        mocked.assert_called_once_with("בָּרָא")
+        mocked.assert_called_once_with("בָּרָא")
         self.assertTrue(analysis["is_verb"])
         self.assertEqual(analysis["tense"], "past")
 
     def test_question_builder_stays_on_requested_pasuk(self):
-        pasuk = "וַיֹּאמֶר אֱלֹקִים יְהִי אוֹר וַיְהִי אוֹר"
+        pasuk = "וַיֹּאמֶר אֱלֹקִים יְהִי אוֹר וַיְהִי אוֹר"
         question = question_builders.generate_question("translation", pasuk)
 
         self.assertEqual(question.get("pasuk"), pasuk)
@@ -70,7 +71,7 @@ class EngineModuleTests(unittest.TestCase):
         self.assertEqual(suffix_reason, "")
 
     def test_flow_builder_suppresses_duplicate_prompts(self):
-        flow = flow_builder.generate_pasuk_flow("וַיְהִי עֶרֶב וַיְהִי בֹקֶר יוֹם שְׁלִישִׁי")
+        flow = flow_builder.generate_pasuk_flow("וַיְהִי עֶרֶב וַיְהִי בֹקֶר יוֹם שְׁלִישִׁי")
         prompts = [item["question"] for item in flow["questions"]]
 
         self.assertEqual(len(prompts), len(set(prompts)))
@@ -92,12 +93,12 @@ class FollowupFallbackModuleTests(unittest.TestCase):
 
         question = {
             "skill": "translation",
-            "question": "What does בָּרָא mean?",
-            "selected_word": "בָּרָא",
-            "word": "בָּרָא",
+            "question": "What does בָּרָא mean?",
+            "selected_word": "בָּרָא",
+            "word": "בָּרָא",
             "correct_answer": "created",
             "choices": ["created", "light", "earth", "water"],
-            "pasuk": "בְּרֵאשִׁית בָּרָא אֱלֹקִים",
+            "pasuk": "בְּרֵאשִׁית בָּרָא אֱלֹקִים",
         }
         repeated = dict(question)
         repeated["_assessment_source"] = "targeted"
@@ -108,14 +109,14 @@ class FollowupFallbackModuleTests(unittest.TestCase):
             "word": "אֱלֹקִים",
             "correct_answer": "God",
             "choices": ["God", "created", "light", "water"],
-            "pasuk": "בְּרֵאשִׁית בָּרָא אֱלֹקִים",
+            "pasuk": "בְּרֵאשִׁית בָּרָא אֱלֹקִים",
         }
 
         st.session_state.recent_questions = [streamlit_app.question_signature(question)]
 
-        with patch.object(streamlit_app, "analyze_generator_pasuk", return_value="בְּרֵאשִׁית בָּרָא אֱלֹקִים"), \
-             patch.object(streamlit_app, "generate_skill_question", return_value=dict(repeated)), \
-             patch.object(streamlit_app, "generate_practice_question", return_value=dict(fallback)):
+        with patch.object(question_flow, "analyze_generator_pasuk", return_value="בְּרֵאשִׁית בָּרָא אֱלֹקִים"), \
+             patch.object(question_flow, "generate_skill_question", return_value=dict(repeated)), \
+             patch.object(question_flow, "generate_practice_question", return_value=dict(fallback)):
             result = build_followup_question({"current_skill": "translation"}, question)
 
         self.assertEqual(result["_assessment_source"], "fallback follow-up from active parsed dataset")

@@ -5,7 +5,17 @@ from time import perf_counter
 import streamlit as st
 
 from adaptive_engine import candidate_weight
-from assessment_scope import active_scope_summary
+from assessment_scope import active_pasuk_texts, active_scope_summary
+from progress_store import load_progress_state
+from runtime.runtime_support import (
+    analyze_generator_pasuk,
+    generate_skill_question,
+    get_active_pasuk_ref,
+    get_pasukh_text,
+    load_progress,
+    question_pipeline_source,
+)
+from torah_parser.word_bank_adapter import normalize_hebrew_key
 
 
 DEBUG_REJECTION_LABELS = {
@@ -100,9 +110,7 @@ def increment_debug_rejection_count(counts, code, amount=1):
 def _signature_text(value):
     if not value:
         return ""
-    import streamlit_app as app
-
-    text = app.normalize_hebrew_key(str(value))
+    text = normalize_hebrew_key(str(value))
     text = re.sub(r"\s+", " ", text).strip()
     return text.lower()
 
@@ -120,14 +128,13 @@ def question_prompt_family(question):
 def question_signature(question):
     question = question or {}
     pasuk = question.get("pasuk") or ""
-    import streamlit_app as app
 
     return {
         "skill": question.get("skill") or question.get("question_type") or "",
         "target_word": _signature_text(question.get("selected_word") or question.get("word") or ""),
         "prompt_family": question_prompt_family(question),
         "correct_answer": _signature_text(question.get("correct_answer") or ""),
-        "source_pasuk": _signature_text(app.get_active_pasuk_ref(pasuk) if pasuk else ""),
+        "source_pasuk": _signature_text(get_active_pasuk_ref(pasuk) if pasuk else ""),
     }
 
 
@@ -333,8 +340,6 @@ def finalize_transition_debug(question, transition_path, transition_reason=""):
 
 
 def build_quiz_debug_payload(question, progress=None, flow=None):
-    import streamlit_app as app
-
     question = question or {}
     trace = question.get("_debug_trace") or {}
     transition_reason = (
@@ -346,7 +351,7 @@ def build_quiz_debug_payload(question, progress=None, flow=None):
     if not filter_reasons and trace.get("candidate_filtered"):
         filter_reasons = ["A candidate question was filtered before selection."]
     rejection_counts = summarize_debug_rejection_counts(trace.get("rejection_counts") or {})
-    pasuk = app.get_pasukh_text(question or {}, flow)
+    pasuk = get_pasukh_text(question or {}, flow)
     scope = active_scope_summary()
 
     return {
@@ -357,9 +362,9 @@ def build_quiz_debug_payload(question, progress=None, flow=None):
             "pesukim_count": scope["pesukim_count"],
         },
         "mode": current_routing_mode(flow),
-        "current_pasuk_ref": app.get_active_pasuk_ref(pasuk) if pasuk else "none",
+        "current_pasuk_ref": get_active_pasuk_ref(pasuk) if pasuk else "none",
         "current_question_type": question.get("question_type") or question.get("skill") or "none",
-        "current_question_source": app.question_pipeline_source(question, flow),
+        "current_question_source": question_pipeline_source(question, flow),
         "current_skill": question.get("skill") or (progress or {}).get("current_skill") or "unknown",
         "target_word": question.get("selected_word") or question.get("word") or "",
         "routing_mode": current_routing_mode(flow),
@@ -379,7 +384,6 @@ def build_quiz_debug_payload(question, progress=None, flow=None):
 
 
 def build_followup_question(progress, question):
-    import streamlit_app as app
     from runtime.session_state import (
         get_generation_history,
         get_recent_prefixes,
@@ -389,12 +393,12 @@ def build_followup_question(progress, question):
         record_selected_pasuk,
     )
 
-    if app.generate_skill_question is None:
+    if generate_skill_question is None:
         return None
 
     started_at = perf_counter()
     skill = question.get("skill") or progress.get("current_skill")
-    pasuk = question.get("pasuk") or app.get_pasukh_text(question)
+    pasuk = question.get("pasuk") or get_pasukh_text(question)
     current_word = question.get("selected_word") or question.get("word")
     asked_tokens = list(get_generation_history(skill))
     if current_word:
@@ -407,9 +411,9 @@ def build_followup_question(progress, question):
     allow_recent_reuse = is_explicit_reteach_mode(st.session_state.get("pending_adaptive_context"))
 
     candidate_sources = []
-    if pasuk and app.analyze_generator_pasuk is not None:
+    if pasuk and analyze_generator_pasuk is not None:
         try:
-            candidate_sources.append((pasuk, app.analyze_generator_pasuk(pasuk)))
+            candidate_sources.append((pasuk, analyze_generator_pasuk(pasuk)))
         except Exception:
             pass
     if pasuk:
@@ -420,7 +424,7 @@ def build_followup_question(progress, question):
     rejection_counts = {}
     for pasuk_text, candidate_source in candidate_sources:
         try:
-            followup = app.generate_skill_question(
+            followup = generate_skill_question(
                 skill,
                 candidate_source,
                 asked_tokens=asked_tokens,
@@ -480,7 +484,7 @@ def build_followup_question(progress, question):
             followup_generation_ms=round((perf_counter() - started_at) * 1000, 1),
         )
 
-    fallback = app.generate_practice_question(skill, progress)
+    fallback = generate_practice_question(skill, progress)
     if fallback:
         fallback["_assessment_source"] = "fallback follow-up from active parsed dataset"
         fallback["_cache_status"] = "fallback follow-up regenerated after the current error"
@@ -536,8 +540,40 @@ def choose_weighted_pasuk_question(
     return selected
 
 
+@st.cache_data
+def get_skill_ready_pasuks(skill):
+    from runtime.session_state import get_question_feature, get_question_prefix
+
+    if generate_skill_question is None:
+        return []
+
+    ready = []
+    for pasuk in active_pasuk_texts():
+        try:
+            question = generate_skill_question(
+                skill,
+                (
+                    analyze_generator_pasuk(pasuk)
+                    if analyze_generator_pasuk is not None
+                    else pasuk
+                ),
+            )
+        except Exception:
+            continue
+        if question is None or question.get("status") == "skipped":
+            continue
+        ready.append(
+            {
+                "pasuk": pasuk,
+                "word": question.get("selected_word") or question.get("word"),
+                "feature": get_question_feature(question),
+                "prefix": get_question_prefix(question),
+            }
+        )
+    return ready
+
+
 def select_pasuk_first_question(skill, progress=None, adaptive_context=None):
-    import streamlit_app as app
     from runtime.session_state import (
         feature_is_blocked,
         get_generation_history,
@@ -551,18 +587,18 @@ def select_pasuk_first_question(skill, progress=None, adaptive_context=None):
         record_selected_pasuk,
     )
 
-    if app.generate_skill_question is None:
+    if generate_skill_question is None:
         return None
 
     recent_pesukim = st.session_state.setdefault("recent_pesukim", [])
     recent_words = st.session_state.setdefault("asked_tokens", [])
-    ready_rows = app.get_skill_ready_pasuks(skill)
+    ready_rows = get_skill_ready_pasuks(skill)
     if not ready_rows:
         return None
     pasuk_pool = [row["pasuk"] for row in ready_rows]
     recent_pasuk_window = recent_pesukim[-5:]
     preferred_pasuks = [pasuk for pasuk in pasuk_pool if pasuk not in recent_pasuk_window]
-    progress = progress or app.load_progress()
+    progress = progress or load_progress()
     adaptive_context = adaptive_context or {}
     generation_history = get_generation_history(skill)
     recent_questions = list(st.session_state.setdefault("recent_questions", []))
@@ -587,11 +623,11 @@ def select_pasuk_first_question(skill, progress=None, adaptive_context=None):
         attempts += 1
         for pasuk in search_pool:
             try:
-                question = app.generate_skill_question(
+                question = generate_skill_question(
                     skill,
                     (
-                        app.analyze_generator_pasuk(pasuk)
-                        if app.analyze_generator_pasuk is not None
+                        analyze_generator_pasuk(pasuk)
+                        if analyze_generator_pasuk is not None
                         else pasuk
                     ),
                     asked_tokens=generation_history,
@@ -710,10 +746,8 @@ def generate_mastery_question(progress):
 
 
 def generate_practice_question(skill, progress=None):
-    import streamlit_app as app
-
     question, elapsed_ms = timed_question_generation(
-        lambda: select_pasuk_first_question(skill, progress=progress or app.load_progress())
+        lambda: select_pasuk_first_question(skill, progress=progress or load_progress_state())
     )
     return attach_debug_trace(
         question,

@@ -3,6 +3,8 @@ from unittest.mock import patch
 
 import streamlit as st
 
+import runtime.question_flow as question_flow
+import runtime.session_state as session_state
 import streamlit_app
 
 
@@ -149,12 +151,12 @@ class StreamlitDebugInstrumentationTests(unittest.TestCase):
             "choices": ["created", "in the beginning", "earth", "light"],
         }
 
-        with patch.object(streamlit_app, "analyze_generator_pasuk", return_value=[{"word": "\u05d1\u05bc\u05b0\u05e8\u05b5\u05d0\u05e9\u05c1\u05b4\u05d9\u05ea"}]), \
-             patch.object(streamlit_app, "generate_skill_question", return_value=stale_followup), \
-             patch.object(streamlit_app, "generate_practice_question", return_value=dict(fallback_question)), \
-             patch.object(streamlit_app, "record_selected_pasuk"), \
-             patch.object(streamlit_app, "record_question_feature"), \
-             patch.object(streamlit_app, "record_question_prefix"):
+        with patch.object(question_flow, "analyze_generator_pasuk", return_value=[{"word": "\u05d1\u05bc\u05b0\u05e8\u05b5\u05d0\u05e9\u05c1\u05b4\u05d9\u05ea"}]), \
+             patch.object(question_flow, "generate_skill_question", return_value=stale_followup), \
+             patch.object(question_flow, "generate_practice_question", return_value=dict(fallback_question)), \
+             patch.object(session_state, "record_selected_pasuk"), \
+             patch.object(session_state, "record_question_feature"), \
+             patch.object(session_state, "record_question_prefix"):
             result = streamlit_app.build_followup_question(progress, question)
 
         trace = result.get("_debug_trace") or {}

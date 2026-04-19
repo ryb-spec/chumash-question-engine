@@ -1,14 +1,31 @@
+from html import escape
+
 import streamlit as st
+
+from runtime.presentation import QUESTION_TYPE_NAMES, skill_path_label
+from runtime.question_flow import (
+    build_followup_question,
+    finalize_transition_debug,
+    generate_mastery_question,
+    generate_practice_question,
+)
+from runtime.runtime_support import (
+    get_active_pasuk_ref,
+    last_answer_was_correct,
+    load_pasuk_flows,
+    mixed_text_html,
+    render_assessment_diagnostics,
+)
+from runtime.session_state import set_question, transition_to_question
+from ui.render_question import render_enter_key_handler, render_question
 
 
 def render_mastery_mode(progress):
-    import streamlit_app as app
-
     if st.session_state.current_question is None:
         try:
-            app.set_question(
-                app.finalize_transition_debug(
-                    app.generate_mastery_question(progress),
+            set_question(
+                finalize_transition_debug(
+                    generate_mastery_question(progress),
                     "initial_load",
                 )
             )
@@ -27,8 +44,8 @@ def render_mastery_mode(progress):
     unlocked_message = st.session_state.get("unlocked_skill_message")
     fallback_message = st.session_state.get("feature_fallback_message")
 
-    app.render_assessment_diagnostics(question, mode="Learn Mode")
-    app.render_question(question, progress, f"mastery_{progress['current_skill']}")
+    render_assessment_diagnostics(question, mode="Learn Mode")
+    render_question(question, progress, f"mastery_{progress['current_skill']}")
 
     if not st.session_state.answered:
         if adaptive_message:
@@ -48,31 +65,31 @@ def render_mastery_mode(progress):
             st.caption(fallback_message)
 
     if st.session_state.answered:
-        if app.last_answer_was_correct(question):
+        if last_answer_was_correct(question):
             if st.button("Next Question", type="primary", use_container_width=True, key="next_mastery"):
                 try:
-                    next_question = app.generate_mastery_question(progress)
+                    next_question = generate_mastery_question(progress)
                 except Exception as error:
                     st.warning(f"No question is ready for this skill and pasuk yet: {error}")
                     return
-                app.transition_to_question(
-                    app.finalize_transition_debug(
+                transition_to_question(
+                    finalize_transition_debug(
                         next_question,
                         "next_question",
                         adaptive_reason,
                     )
                 )
-            app.render_enter_key_handler("enter_next_mastery", ["Next Question"])
+            render_enter_key_handler("enter_next_mastery", ["Next Question"])
         else:
             primary, secondary = st.columns([2, 1])
             with primary:
                 if st.button("Try One Like This", type="primary", use_container_width=True, key="retry_mastery_like_this"):
-                    followup = app.build_followup_question(progress, question)
+                    followup = build_followup_question(progress, question)
                     if followup is None:
                         st.warning("No close follow-up is ready yet. Continuing with the normal path.")
-                        followup = app.generate_mastery_question(progress)
-                    app.transition_to_question(
-                        app.finalize_transition_debug(
+                        followup = generate_mastery_question(progress)
+                    transition_to_question(
+                        finalize_transition_debug(
                             followup,
                             (followup.get("_debug_trace") or {}).get("transition_path", "follow-up"),
                             (followup.get("_debug_trace") or {}).get("transition_reason", ""),
@@ -81,18 +98,18 @@ def render_mastery_mode(progress):
             with secondary:
                 if st.button("Continue", use_container_width=True, key="continue_mastery_after_error"):
                     try:
-                        next_question = app.generate_mastery_question(progress)
+                        next_question = generate_mastery_question(progress)
                     except Exception as error:
                         st.warning(f"No question is ready for this skill and pasuk yet: {error}")
                         return
-                    app.transition_to_question(
-                        app.finalize_transition_debug(
+                    transition_to_question(
+                        finalize_transition_debug(
                             next_question,
                             "retry_continue",
                             adaptive_reason,
                         )
                     )
-            app.render_enter_key_handler("enter_retry_mastery", ["Try One Like This", "Continue"])
+            render_enter_key_handler("enter_retry_mastery", ["Try One Like This", "Continue"])
 
         if adaptive_message:
             st.caption(adaptive_message)
@@ -105,13 +122,11 @@ def render_mastery_mode(progress):
 
 
 def render_skill_practice_mode(progress, skill):
-    import streamlit_app as app
-
     if st.session_state.current_question is None:
         try:
-            app.set_question(
-                app.finalize_transition_debug(
-                    app.generate_practice_question(skill),
+            set_question(
+                finalize_transition_debug(
+                    generate_practice_question(skill),
                     "initial_load",
                 )
             )
@@ -125,30 +140,30 @@ def render_skill_practice_mode(progress, skill):
         return
 
     fallback_message = st.session_state.get("feature_fallback_message")
-    app.render_assessment_diagnostics(question, mode="Practice Mode")
-    app.render_question(question, progress, f"practice_{skill}")
+    render_assessment_diagnostics(question, mode="Practice Mode")
+    render_question(question, progress, f"practice_{skill}")
     if not st.session_state.answered and fallback_message:
         st.caption(fallback_message)
 
     if st.session_state.answered:
-        if app.last_answer_was_correct(question):
+        if last_answer_was_correct(question):
             if st.button("Next Question", type="primary", use_container_width=True, key=f"next_practice_{skill}"):
-                app.transition_to_question(
-                    app.finalize_transition_debug(
-                        app.generate_practice_question(skill, progress),
+                transition_to_question(
+                    finalize_transition_debug(
+                        generate_practice_question(skill, progress),
                         "next_question",
                     )
                 )
-            app.render_enter_key_handler(f"enter_next_practice_{skill}", ["Next Question"])
+            render_enter_key_handler(f"enter_next_practice_{skill}", ["Next Question"])
         else:
             primary, secondary = st.columns([2, 1])
             with primary:
                 if st.button("Try One Like This", type="primary", use_container_width=True, key=f"retry_practice_like_this_{skill}"):
-                    followup = app.build_followup_question(progress, question)
+                    followup = build_followup_question(progress, question)
                     if followup is None:
-                        followup = app.generate_practice_question(skill, progress)
-                    app.transition_to_question(
-                        app.finalize_transition_debug(
+                        followup = generate_practice_question(skill, progress)
+                    transition_to_question(
+                        finalize_transition_debug(
                             followup,
                             (followup.get("_debug_trace") or {}).get("transition_path", "follow-up"),
                             (followup.get("_debug_trace") or {}).get("transition_reason", ""),
@@ -156,21 +171,19 @@ def render_skill_practice_mode(progress, skill):
                     )
             with secondary:
                 if st.button("Continue", use_container_width=True, key=f"continue_practice_after_error_{skill}"):
-                    app.transition_to_question(
-                        app.finalize_transition_debug(
-                            app.generate_practice_question(skill, progress),
+                    transition_to_question(
+                        finalize_transition_debug(
+                            generate_practice_question(skill, progress),
                             "retry_continue",
                         )
                     )
-            app.render_enter_key_handler(f"enter_retry_practice_{skill}", ["Try One Like This", "Continue"])
+            render_enter_key_handler(f"enter_retry_practice_{skill}", ["Try One Like This", "Continue"])
 
         if fallback_message:
             st.caption(fallback_message)
 
 
 def render_flow_overview(flow, active_step):
-    import streamlit_app as app
-
     steps = flow.get("questions") or flow.get("steps", [])
     if not steps:
         return
@@ -178,9 +191,9 @@ def render_flow_overview(flow, active_step):
     rows = []
     for index, step in enumerate(steps):
         status = "complete" if index < active_step else "active" if index == active_step else "upcoming"
-        title = app.QUESTION_TYPE_NAMES.get(
+        title = QUESTION_TYPE_NAMES.get(
             step.get("question_type"),
-            app.skill_path_label(step.get("skill", f"Step {index + 1}")),
+            skill_path_label(step.get("skill", f"Step {index + 1}")),
         )
         focus = step.get("selected_word") or step.get("word") or ""
         rows.append(
@@ -188,8 +201,8 @@ def render_flow_overview(flow, active_step):
             <div class="flow-row {status}">
                 <div class="flow-index">{index + 1}</div>
                 <div>
-                    <strong>{app.escape(title)}</strong>
-                    <span dir="rtl" lang="he">{app.mixed_text_html(focus)}</span>
+                    <strong>{escape(title)}</strong>
+                    <span dir="rtl" lang="he">{mixed_text_html(focus)}</span>
                 </div>
             </div>
             """
@@ -210,9 +223,7 @@ def render_flow_overview(flow, active_step):
 
 
 def render_pasuk_flow(progress):
-    import streamlit_app as app
-
-    flows = app.load_pasuk_flows()
+    flows = load_pasuk_flows()
     if not flows:
         st.warning(
             "No guided Pasuk practice is ready yet. Add a flow, then come back here to walk through it step by step."
@@ -221,7 +232,7 @@ def render_pasuk_flow(progress):
 
     flow_labels = []
     for flow in flows:
-        pasuk_ref = app.get_active_pasuk_ref(flow.get("pasuk", ""))
+        pasuk_ref = get_active_pasuk_ref(flow.get("pasuk", ""))
         flow_labels.append(f"{pasuk_ref} - Guided pasuk")
     selected_label = st.sidebar.selectbox("Pasuk", flow_labels)
     flow = flows[flow_labels.index(selected_label)]
@@ -238,8 +249,8 @@ def render_pasuk_flow(progress):
     step_index = st.session_state.flow_step
     question = steps[step_index]
 
-    app.render_assessment_diagnostics(question, flow, "Pasuk Flow")
-    app.render_question(question, progress, f"flow_{step_index}", flow)
+    render_assessment_diagnostics(question, flow, "Pasuk Flow")
+    render_question(question, progress, f"flow_{step_index}", flow)
     with st.expander("Pasuk Flow Steps", expanded=False):
         render_flow_overview(flow, step_index)
 
@@ -250,7 +261,7 @@ def render_pasuk_flow(progress):
                 st.session_state.answered = False
                 st.session_state.selected_answer = None
                 st.rerun()
-            app.render_enter_key_handler(f"enter_next_flow_{step_index}", ["Next Step"])
+            render_enter_key_handler(f"enter_next_flow_{step_index}", ["Next Step"])
         else:
             st.success("Pasuk flow complete.")
             if st.button("Restart Flow", type="primary", use_container_width=True, key="restart_flow"):
@@ -258,4 +269,4 @@ def render_pasuk_flow(progress):
                 st.session_state.answered = False
                 st.session_state.selected_answer = None
                 st.rerun()
-            app.render_enter_key_handler("enter_restart_flow", ["Restart Flow"])
+            render_enter_key_handler("enter_restart_flow", ["Restart Flow"])

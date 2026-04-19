@@ -5,6 +5,8 @@ from unittest.mock import patch
 import streamlit as st
 
 import pasuk_flow_generator
+import runtime.question_flow as question_flow
+import runtime.session_state as session_state
 import streamlit_app
 
 
@@ -37,7 +39,7 @@ class StreamlitQuizExperienceTests(unittest.TestCase):
             "prefix": "ל",
             "prefix_meaning": "to / for",
             "explanation": "Prefix: ל. Here it means 'to / for'.",
-            "pasuk": "וַיַּבְדֵּל אֱלֹקִים בֵּין הָאוֹר וּבֵין הַחֹשֶׁךְ",
+            "pasuk": "וַיַּבְדֵּל אֱלֹקִים בֵּין הָאוֹר וּבֵין הַחֹשֶׁךְ",
         }
 
     def test_learning_header_omits_old_explanatory_panels(self):
@@ -151,34 +153,34 @@ class StreamlitQuizExperienceTests(unittest.TestCase):
         progress = {"current_skill": "translation", "prefix_level": 1}
         question = {
             "skill": "translation",
-            "pasuk": "בְּרֵאשִׁית בָּרָא אֱלֹקִים",
-            "selected_word": "בְּרֵאשִׁית",
-            "question": "What does בְּרֵאשִׁית mean?",
+            "pasuk": "בְּרֵאשִׁית בָּרָא אֱלֹקִים",
+            "selected_word": "בְּרֵאשִׁית",
+            "question": "What does בְּרֵאשִׁית mean?",
         }
         stale_followup = {
             "skill": "translation",
-            "question": "What does בְּרֵאשִׁית mean?",
-            "selected_word": "בְּרֵאשִׁית",
+            "question": "What does בְּרֵאשִׁית mean?",
+            "selected_word": "בְּרֵאשִׁית",
             "correct_answer": "in the beginning",
             "choices": ["in the beginning", "created", "God", "earth"],
         }
         fallback_question = {
             "skill": "translation",
-            "question": "What does בָּרָא mean?",
-            "selected_word": "בָּרָא",
+            "question": "What does בָּרָא mean?",
+            "selected_word": "בָּרָא",
             "correct_answer": "created",
             "choices": ["created", "in the beginning", "earth", "light"],
         }
 
-        with patch.object(streamlit_app, "analyze_generator_pasuk", return_value=[{"word": "בְּרֵאשִׁית"}]), \
-             patch.object(streamlit_app, "generate_skill_question", return_value=stale_followup), \
-             patch.object(streamlit_app, "generate_practice_question", return_value=dict(fallback_question)), \
-             patch.object(streamlit_app, "record_selected_pasuk"), \
-             patch.object(streamlit_app, "record_question_feature"), \
-             patch.object(streamlit_app, "record_question_prefix"):
+        with patch.object(question_flow, "analyze_generator_pasuk", return_value=[{"word": "בְּרֵאשִׁית"}]), \
+             patch.object(question_flow, "generate_skill_question", return_value=stale_followup), \
+             patch.object(question_flow, "generate_practice_question", return_value=dict(fallback_question)), \
+             patch.object(session_state, "record_selected_pasuk"), \
+             patch.object(session_state, "record_question_feature"), \
+             patch.object(session_state, "record_question_prefix"):
             result = streamlit_app.build_followup_question(progress, question)
 
-        self.assertEqual(result["selected_word"], "בָּרָא")
+        self.assertEqual(result["selected_word"], "בָּרָא")
         self.assertNotEqual(result["question"], question["question"])
 
 

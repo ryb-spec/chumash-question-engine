@@ -3,6 +3,8 @@ from unittest.mock import patch
 
 import streamlit as st
 
+import runtime.question_flow as question_flow
+import runtime.session_state as session_state
 import streamlit_app
 from assessment_scope import ACTIVE_ASSESSMENT_SCOPE, active_pesukim_records
 from pasuk_flow_generator import generate_pasuk_flow
@@ -15,6 +17,7 @@ def reset_runtime_state():
         streamlit_app.get_skill_ready_pasuks,
     ):
         cached.clear()
+    question_flow.get_skill_ready_pasuks.clear()
     streamlit_app.init_session_state()
 
 
@@ -64,37 +67,37 @@ class StreamlitRuntimeCharacterizationTests(unittest.TestCase):
         progress = {"current_skill": "translation", "prefix_level": 1}
         question = {
             "skill": "translation",
-            "pasuk": "בְּרֵאשִׁית בָּרָא אֱלֹקִים",
-            "selected_word": "בְּרֵאשִׁית",
-            "question": "What does בְּרֵאשִׁית mean?",
+            "pasuk": "בְּרֵאשִׁית בָּרָא אֱלֹקִים",
+            "selected_word": "בְּרֵאשִׁית",
+            "question": "What does בְּרֵאשִׁית mean?",
         }
         stale_followup = {
             "skill": "translation",
-            "question": "What does בְּרֵאשִׁית mean?",
-            "selected_word": "בְּרֵאשִׁית",
+            "question": "What does בְּרֵאשִׁית mean?",
+            "selected_word": "בְּרֵאשִׁית",
             "correct_answer": "in the beginning",
             "choices": ["in the beginning", "created", "God", "earth"],
         }
         fallback_question = {
             "skill": "translation",
-            "question": "What does בָּרָא mean?",
-            "selected_word": "בָּרָא",
+            "question": "What does בָּרָא mean?",
+            "selected_word": "בָּרָא",
             "pasuk": question["pasuk"],
             "correct_answer": "created",
             "choices": ["created", "in the beginning", "earth", "light"],
         }
 
-        with patch.object(streamlit_app, "analyze_generator_pasuk", return_value=[{"word": "בְּרֵאשִׁית"}]), \
-             patch.object(streamlit_app, "generate_skill_question", return_value=stale_followup), \
-             patch.object(streamlit_app, "generate_practice_question", return_value=dict(fallback_question)), \
-             patch.object(streamlit_app, "record_selected_pasuk"), \
-             patch.object(streamlit_app, "record_question_feature"), \
-             patch.object(streamlit_app, "record_question_prefix"):
+        with patch.object(question_flow, "analyze_generator_pasuk", return_value=[{"word": "בְּרֵאשִׁית"}]), \
+             patch.object(question_flow, "generate_skill_question", return_value=stale_followup), \
+             patch.object(question_flow, "generate_practice_question", return_value=dict(fallback_question)), \
+             patch.object(session_state, "record_selected_pasuk"), \
+             patch.object(session_state, "record_question_feature"), \
+             patch.object(session_state, "record_question_prefix"):
             result = streamlit_app.build_followup_question(progress, question)
 
         self.assertEqual(result["pasuk"], question["pasuk"])
         self.assertNotEqual(result["question"], question["question"])
-        self.assertEqual(result["selected_word"], "בָּרָא")
+        self.assertEqual(result["selected_word"], "בָּרָא")
         self.assertEqual(result["_assessment_source"], "fallback follow-up from active parsed dataset")
 
     def test_generate_mastery_question_respects_reteach_preferred_pasuk(self):
@@ -110,8 +113,8 @@ class StreamlitRuntimeCharacterizationTests(unittest.TestCase):
             preferred_pasuk: {
                 "skill": "translation",
                 "question_type": "translation",
-                "question": "What does בְּרֵאשִׁית mean?",
-                "selected_word": "בְּרֵאשִׁית",
+                "question": "What does בְּרֵאשִׁית mean?",
+                "selected_word": "בְּרֵאשִׁית",
                 "correct_answer": "in the beginning",
                 "choices": ["in the beginning", "created", "God", "earth"],
                 "pasuk": preferred_pasuk,
@@ -119,8 +122,8 @@ class StreamlitRuntimeCharacterizationTests(unittest.TestCase):
             other_pasuk: {
                 "skill": "translation",
                 "question_type": "translation",
-                "question": "What does בָּרָא mean?",
-                "selected_word": "בָּרָא",
+                "question": "What does בָּרָא mean?",
+                "selected_word": "בָּרָא",
                 "correct_answer": "created",
                 "choices": ["created", "in the beginning", "God", "earth"],
                 "pasuk": other_pasuk,
@@ -130,12 +133,12 @@ class StreamlitRuntimeCharacterizationTests(unittest.TestCase):
         def fake_generate_skill_question(skill, candidate_source, **kwargs):
             return dict(question_by_pasuk[candidate_source])
 
-        with patch.object(streamlit_app, "get_skill_ready_pasuks", return_value=[{"pasuk": preferred_pasuk}, {"pasuk": other_pasuk}]), \
-             patch.object(streamlit_app, "analyze_generator_pasuk", side_effect=lambda pasuk: pasuk), \
-             patch.object(streamlit_app, "generate_skill_question", side_effect=fake_generate_skill_question), \
-             patch.object(streamlit_app, "record_selected_pasuk"), \
-             patch.object(streamlit_app, "record_question_feature"), \
-             patch.object(streamlit_app, "record_question_prefix"):
+        with patch.object(question_flow, "get_skill_ready_pasuks", return_value=[{"pasuk": preferred_pasuk}, {"pasuk": other_pasuk}]), \
+             patch.object(question_flow, "analyze_generator_pasuk", side_effect=lambda pasuk: pasuk), \
+             patch.object(question_flow, "generate_skill_question", side_effect=fake_generate_skill_question), \
+             patch.object(session_state, "record_selected_pasuk"), \
+             patch.object(session_state, "record_question_feature"), \
+             patch.object(session_state, "record_question_prefix"):
             result = streamlit_app.generate_mastery_question({"current_skill": "translation", "prefix_level": 1})
 
         self.assertEqual(result["pasuk"], preferred_pasuk)
@@ -145,12 +148,12 @@ class StreamlitRuntimeCharacterizationTests(unittest.TestCase):
         question = {
             "skill": "translation",
             "question_type": "translation",
-            "question": "What does בָּרָא mean?",
-            "selected_word": "בָּרָא",
+            "question": "What does בָּרָא mean?",
+            "selected_word": "בָּרָא",
             "correct_answer": "created",
             "choices": ["created", "light", "earth", "water"],
             "difficulty": 1,
-            "pasuk": "בְּרֵאשִׁית בָּרָא אֱלֹקִים",
+            "pasuk": "בְּרֵאשִׁית בָּרָא אֱלֹקִים",
         }
         next_question = {
             "skill": "translation",
@@ -159,7 +162,7 @@ class StreamlitRuntimeCharacterizationTests(unittest.TestCase):
             "selected_word": "אֱלֹקִים",
             "correct_answer": "God",
             "choices": ["God", "created", "heavens", "earth"],
-            "pasuk": "בְּרֵאשִׁית בָּרָא אֱלֹקִים",
+            "pasuk": "בְּרֵאשִׁית בָּרָא אֱלֹקִים",
         }
         progress = {"current_skill": "translation", "skills": {"translation": {}}, "adaptive_state": {}}
         st.session_state.practice_type = "Practice Mode"

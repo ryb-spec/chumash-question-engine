@@ -1,17 +1,36 @@
 import hashlib
 import json
+from html import escape
 
 import streamlit as st
 import streamlit.components.v1 as components
 
 from question_ui import build_learning_context
+from runtime.presentation import (
+    QUESTION_TYPE_NAMES,
+    get_next_skill,
+    get_skill_level,
+    learning_goal,
+    plain_skill,
+    skill_path_label,
+    thinking_tip,
+)
 from runtime.question_flow import build_quiz_debug_payload, display_context_policy
+from runtime.runtime_support import (
+    OPTION_LABELS,
+    developer_debug_enabled,
+    get_pasukh_text,
+    get_source_label,
+    handle_answer,
+    load_word_bank_metadata,
+    menukad_text,
+    mixed_text_html,
+    rtl_hebrew_html,
+)
 
 
 def split_pasuk_phrases(text, words_per_phrase=4):
-    import streamlit_app as app
-
-    words = app.menukad_text(text).split()
+    words = menukad_text(text).split()
     if len(words) <= words_per_phrase:
         return [" ".join(words)] if words else []
 
@@ -22,11 +41,9 @@ def split_pasuk_phrases(text, words_per_phrase=4):
 
 
 def highlight_display_text(text, focus):
-    import streamlit_app as app
-
-    safe_text = app.escape(app.menukad_text(text))
+    safe_text = escape(menukad_text(text))
     if focus:
-        safe_focus = app.escape(app.menukad_text(focus))
+        safe_focus = escape(menukad_text(focus))
         safe_text = safe_text.replace(
             safe_focus,
             f"<mark>{safe_focus}</mark>",
@@ -116,10 +133,8 @@ def uses_compact_pasuk_context(question, flow=None):
 
 
 def local_context_snippet(pasuk, focus, radius=2):
-    import streamlit_app as app
-
-    tokens = app.menukad_text(pasuk).split()
-    focus_text = app.menukad_text(focus)
+    tokens = menukad_text(pasuk).split()
+    focus_text = menukad_text(focus)
     if not tokens or not focus_text:
         return ""
 
@@ -152,20 +167,20 @@ def local_context_snippet(pasuk, focus, radius=2):
 
 
 def get_word_entry(question):
-    import streamlit_app as app
-
-    word_bank_metadata = app.load_word_bank_metadata()
+    word_bank_metadata = load_word_bank_metadata()
     selected_word = question.get("selected_word") or question.get("word", "")
     if selected_word in word_bank_metadata:
         return word_bank_metadata[selected_word]
-    normalized_selected = app.normalize_hebrew_key(selected_word)
+    from torah_parser.word_bank_adapter import normalize_hebrew_key
+
+    normalized_selected = normalize_hebrew_key(selected_word)
     if normalized_selected in word_bank_metadata:
         return word_bank_metadata[normalized_selected]
 
     for token in selected_word.split():
         if token in word_bank_metadata:
             return word_bank_metadata[token]
-        normalized_token = app.normalize_hebrew_key(token)
+        normalized_token = normalize_hebrew_key(token)
         if normalized_token in word_bank_metadata:
             return word_bank_metadata[normalized_token]
 
@@ -173,9 +188,7 @@ def get_word_entry(question):
 
 
 def render_quiz_debug_panel(question, progress=None, flow=None):
-    import streamlit_app as app
-
-    if not app.developer_debug_enabled():
+    if not developer_debug_enabled():
         return
 
     debug = build_quiz_debug_payload(question, progress=progress, flow=flow)
@@ -225,9 +238,7 @@ def render_quiz_debug_panel(question, progress=None, flow=None):
 
 
 def render_debug(question):
-    import streamlit_app as app
-
-    word_bank_metadata = app.load_word_bank_metadata()
+    word_bank_metadata = load_word_bank_metadata()
     selected_word = question.get("selected_word") or question.get("word", "")
     word_entry = word_bank_metadata.get(selected_word)
 
@@ -249,9 +260,9 @@ def render_debug(question):
     st.markdown(
         f"""
         <div class="learning-chips">
-            <span>{app.escape(app.learning_goal(question))}</span>
-            <span>Level {app.escape(str(difficulty))}</span>
-            <span dir="rtl" lang="he">{app.mixed_text_html(selected_word)}</span>
+            <span>{escape(learning_goal(question))}</span>
+            <span>Level {escape(str(difficulty))}</span>
+            <span dir="rtl" lang="he">{mixed_text_html(selected_word)}</span>
         </div>
         """,
         unsafe_allow_html=True,
@@ -259,12 +270,10 @@ def render_debug(question):
 
 
 def render_learning_header(question, progress, flow=None):
-    import streamlit_app as app
-
     standard = question.get("standard", "unknown")
     score = progress["standards"].get(standard, 0)
     xp = progress["xp"].get(standard, 0)
-    level = app.get_skill_level(xp)
+    level = get_skill_level(xp)
     skill_state = st.session_state.get("last_skill_state")
     mastery_score = skill_state["score"] if skill_state else score
 
@@ -276,32 +285,32 @@ def render_learning_header(question, progress, flow=None):
         step_text = f"Step {step_index} of {len(steps)}"
     else:
         progress_value = mastery_score / 100
-        progress_text = f"You're building {app.plain_skill(question).lower()}."
+        progress_text = f"You're building {plain_skill(question).lower()}."
         step_text = f"Practice level {level}"
 
-    source = app.get_source_label(question, flow)
+    source = get_source_label(question, flow)
     practice_type = "Pasuk Flow" if flow is not None else st.session_state.get("practice_type", "Learn Mode")
     current_skill = progress.get("current_skill", question.get("skill", standard))
-    next_skill_label = app.skill_path_label(app.get_next_skill(current_skill))
+    next_skill_label = skill_path_label(get_next_skill(current_skill))
     header_context = build_learning_context(
         practice_type=practice_type,
-        skill_label=app.plain_skill(question),
-        current_skill_label=app.skill_path_label(current_skill),
+        skill_label=plain_skill(question),
+        current_skill_label=skill_path_label(current_skill),
         next_skill_label=next_skill_label,
         source_label=source,
-        focus_tip=app.thinking_tip(question),
+        focus_tip=thinking_tip(question),
     )
     st.markdown(
         f"""
         <section class="learning-header">
             <div class="meta-row quiz-meta-row">
-                <span>{app.escape(source)}</span>
-                <span>{app.escape(step_text)}</span>
-                <span>{app.escape(app.plain_skill(question))}</span>
-                <span class="mastery-chip">Mastery {app.escape(str(mastery_score))}/100</span>
+                <span>{escape(source)}</span>
+                <span>{escape(step_text)}</span>
+                <span>{escape(plain_skill(question))}</span>
+                <span class="mastery-chip">Mastery {escape(str(mastery_score))}/100</span>
             </div>
-            <p class="focus-line">{app.escape(header_context['what_to_focus_on'])}</p>
-            <small class="progress-note">{app.escape(progress_text)}</small>
+            <p class="focus-line">{escape(header_context['what_to_focus_on'])}</p>
+            <small class="progress-note">{escape(progress_text)}</small>
         </section>
         """,
         unsafe_allow_html=True,
@@ -310,23 +319,21 @@ def render_learning_header(question, progress, flow=None):
 
 
 def render_pasukh_panel(question, flow=None):
-    import streamlit_app as app
-
     if question.get("hide_pasuk"):
         return
 
-    pasuk = app.get_pasukh_text(question, flow)
+    pasuk = get_pasukh_text(question, flow)
     focus = "" if question.get("hide_focus_word") else question.get("selected_word") or question.get("word", "")
     if not pasuk:
         return
 
-    source = app.get_source_label(question, flow)
+    source = get_source_label(question, flow)
     compact_context = uses_compact_pasuk_context(question, flow)
     st.markdown(
         f"""
         <div class="section-heading">
             <span>{'Focus Word' if compact_context else 'Read The Pasuk'}</span>
-            <small>{app.escape(source)}</small>
+            <small>{escape(source)}</small>
         </div>
         """,
         unsafe_allow_html=True,
@@ -337,7 +344,7 @@ def render_pasukh_panel(question, flow=None):
         st.markdown(
             f"""
             <section class="compact-context">
-                <div class="target-word" dir="rtl" lang="he">{app.mixed_text_html(focus)}</div>
+                <div class="target-word" dir="rtl" lang="he">{mixed_text_html(focus)}</div>
                 <div class="context-snippet" dir="rtl" lang="he">
                     {highlight_display_text(snippet, focus) if snippet else ''}
                 </div>
@@ -363,7 +370,7 @@ def render_pasukh_panel(question, flow=None):
                 )
             else:
                 st.markdown(
-                    app.rtl_hebrew_html(pasuk, focus, "pasuk-box compact-full-pasuk"),
+                    rtl_hebrew_html(pasuk, focus, "pasuk-box compact-full-pasuk"),
                     unsafe_allow_html=True,
                 )
         return
@@ -384,12 +391,10 @@ def render_pasukh_panel(question, flow=None):
             unsafe_allow_html=True,
         )
     else:
-        st.markdown(app.rtl_hebrew_html(pasuk, focus, "pasuk-box"), unsafe_allow_html=True)
+        st.markdown(rtl_hebrew_html(pasuk, focus, "pasuk-box"), unsafe_allow_html=True)
 
 
 def render_grammar_clues(question):
-    import streamlit_app as app
-
     entry = get_word_entry(question)
     clues = []
     if entry:
@@ -404,17 +409,15 @@ def render_grammar_clues(question):
 
     if clues:
         st.markdown("**Key clues:**")
-        st.markdown(app.mixed_text_html(" | ".join(clues)), unsafe_allow_html=True)
+        st.markdown(mixed_text_html(" | ".join(clues)), unsafe_allow_html=True)
 
 
 def answer_choice_label(choice, index):
-    import streamlit_app as app
-
-    return f"{app.OPTION_LABELS[index]}. {app.menukad_text(choice)}"
+    return f"{OPTION_LABELS[index]}. {menukad_text(choice)}"
 
 
 def render_question(question, progress, button_prefix, flow=None):
-    import streamlit_app as app
+    from ui.render_feedback import render_feedback
 
     render_learning_header(question, progress, flow)
     with st.container():
@@ -424,7 +427,7 @@ def render_question(question, progress, button_prefix, flow=None):
             f"""
             <section class="question-card">
                 <div class="section-label">Question</div>
-                <div class="question-text">{app.mixed_text_html(question['question'])}</div>
+                <div class="question-text">{mixed_text_html(question['question'])}</div>
             </section>
             """,
             unsafe_allow_html=True,
@@ -444,7 +447,7 @@ def render_question(question, progress, button_prefix, flow=None):
         choices,
         key=f"{button_prefix}_choice_{key}",
         index=None,
-        format_func=lambda choice: label_by_choice.get(choice, app.menukad_text(choice)),
+        format_func=lambda choice: label_by_choice.get(choice, menukad_text(choice)),
         disabled=st.session_state.answered,
         label_visibility="collapsed",
     )
@@ -457,9 +460,9 @@ def render_question(question, progress, button_prefix, flow=None):
             disabled=selected_choice is None,
             use_container_width=True,
         ):
-            app.handle_answer(selected_choice, question, progress)
+            handle_answer(selected_choice, question, progress)
             st.rerun()
         render_enter_key_handler(f"{button_prefix}_enter_check_{key}", ["Check Answer"])
 
     if st.session_state.answered:
-        app.render_feedback(question, progress)
+        render_feedback(question, progress)
