@@ -19,6 +19,12 @@ MODE_LABELS = {
     "Pasuk Flow": "Guided Pasuk Practice",
 }
 
+ERROR_TYPE_BY_SKILL = {
+    "identify_prefix_meaning": "prefix_error",
+    "identify_suffix_meaning": "suffix_error",
+    "identify_verb_marker": "verb_marker_error",
+}
+
 SKILL_ORDER = skill_ids_in_runtime_order()
 
 SKILL_NAMES = {
@@ -65,11 +71,14 @@ def skill_path_label(skill):
 
 def get_error_type(skill):
     skill = resolve_skill_id(skill) or skill
-    return {
-        "identify_prefix_meaning": "prefix_error",
-        "identify_suffix_meaning": "suffix_error",
-        "identify_verb_marker": "verb_marker_error",
-    }.get(skill)
+    return ERROR_TYPE_BY_SKILL.get(skill)
+
+
+def dominant_error_type(skill_state):
+    error_counts = dict((skill_state or {}).get("error_counts", {}))
+    if not error_counts:
+        return ""
+    return max(error_counts, key=error_counts.get)
 
 
 def next_goal_message(score):

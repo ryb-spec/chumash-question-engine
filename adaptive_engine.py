@@ -1,6 +1,7 @@
 """Focused adaptive mastery helpers for the supported Streamlit runtime."""
 
 from skill_catalog import next_skill_id, resolve_skill_id
+from runtime.presentation import dominant_error_type
 
 RECENT_DECISION_WINDOW = 5
 RETEACH_WINDOW = 4
@@ -17,15 +18,6 @@ def recent_accuracy(skill_state, window=RECENT_DECISION_WINDOW):
     if not results:
         return 0.0
     return sum(1 for item in results if item) / len(results)
-
-
-def dominant_error_type(skill_state):
-    error_counts = dict((skill_state or {}).get("error_counts", {}))
-    if not error_counts:
-        return ""
-    return max(error_counts, key=error_counts.get)
-
-
 def next_skill_in_order(current_skill, skill_order, steps=1):
     if not skill_order:
         return next_skill_id(current_skill, steps)

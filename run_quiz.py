@@ -9,6 +9,7 @@ from assessment_scope import (
     LEGACY_PASUK_FLOWS_PATH,
     LEGACY_QUESTIONS_PATH,
 )
+from runtime.presentation import get_error_type
 
 try:
     from pasuk_flow_generator import generate_pasuk_flow, generate_question as generate_skill_question
@@ -393,16 +394,6 @@ def get_next_skill(current_skill):
         return current_skill
 
     return SKILL_ORDER[index + 1]
-
-
-def get_error_type(skill):
-    return {
-        "identify_prefix_meaning": "prefix_error",
-        "identify_suffix_meaning": "suffix_error",
-        "identify_verb_marker": "verb_marker_error",
-    }.get(skill)
-
-
 def get_current_focus_skill(progress):
     return progress.get("current_skill", SKILL_ORDER[0])
 

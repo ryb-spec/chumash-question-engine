@@ -1,6 +1,7 @@
 import json
 from pathlib import Path
 
+from runtime.presentation import dominant_error_type
 from skill_catalog import resolve_skill_id
 
 
@@ -228,10 +229,3 @@ def recent_skill_accuracy(skill_state, window=5):
     if not recent_results:
         return 0.0
     return sum(1 for item in recent_results if item) / len(recent_results)
-
-
-def dominant_error_type(skill_state):
-    error_counts = dict((skill_state or {}).get("error_counts", {}))
-    if not error_counts:
-        return ""
-    return max(error_counts, key=error_counts.get)
