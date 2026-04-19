@@ -1,7 +1,9 @@
 import json
 import html as h
 
-with open('questions.json', encoding='utf-8') as f:
+from assessment_scope import LEGACY_QUESTIONS_HTML_PATH, LEGACY_QUESTIONS_PATH
+
+with LEGACY_QUESTIONS_PATH.open(encoding='utf-8') as f:
     data = json.load(f)
 
 questions = data['questions']
@@ -84,7 +86,7 @@ html_content = f"""<!DOCTYPE html>
 </body>
 </html>"""
 
-with open('questions.html', 'w', encoding='utf-8') as f:
+with LEGACY_QUESTIONS_HTML_PATH.open('w', encoding='utf-8') as f:
     f.write(html_content)
 
 print(f'Generated questions.html with {len(questions)} questions.')

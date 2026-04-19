@@ -3,17 +3,17 @@
     "title": "Chumash Corpus Manifest",
     "version": "0.1",
     "status_values": [
-      "experimental",
-      "parsed",
-      "reviewed",
+      "source",
+      "staged",
+      "review_needed",
       "active_candidate",
       "active"
     ],
-    "notes": "Registry for source corpora, parsed corpora, and runtime scopes. The data/ root files remain the current blessed runtime layer."
+    "notes": "Registry for source corpora, parsed corpora, and runtime scopes. Lifecycle states are source -> staged -> review_needed -> active_candidate -> active. The data/ root files remain the current blessed runtime layer."
   },
   "source_corpora": [
     {
-      "corpus_id": "source_bereishis_1_1_to_1_20_local",
+      "corpus_id": "source_bereishis_1_1_to_2_9_local",
       "type": "source_corpus",
       "sefer": "Bereishis",
       "range": {
@@ -22,26 +22,27 @@
           "pasuk": 1
         },
         "end": {
-          "perek": 1,
-          "pasuk": 20
+          "perek": 2,
+          "pasuk": 9
         }
       },
-      "pesukim_count": 20,
+      "pesukim_count": 40,
       "source_files": [
-        "data/source/bereishis_1_1_to_4_20.json"
+        "data/source/bereishis_1_1_to_4_20.json",
+        "data/source/bereishis_1_31_to_2_9.json"
       ],
       "parsed_files": {},
-      "status": "experimental",
-      "declared_source_range": "1:1-4:20",
+      "status": "source",
+      "declared_source_range": "1:1-2:9",
       "notes": [
-        "Current local source file backing the active parsed dataset.",
-        "Not yet fully reproducible for the active 20-pasuk state."
+        "Current local source files backing the active parsed dataset.",
+        "Current local source corpus spans Bereishis 1:1 through 2:9."
       ]
     }
   ],
   "parsed_corpora": [
     {
-      "corpus_id": "parsed_bereishis_1_1_to_1_20_root",
+      "corpus_id": "parsed_bereishis_1_1_to_2_9_root",
       "type": "parsed_corpus",
       "sefer": "Bereishis",
       "range": {
@@ -50,13 +51,14 @@
           "pasuk": 1
         },
         "end": {
-          "perek": 1,
-          "pasuk": 20
+          "perek": 2,
+          "pasuk": 9
         }
       },
-      "pesukim_count": 20,
+      "pesukim_count": 40,
       "source_files": [
-        "data/source/bereishis_1_1_to_4_20.json"
+        "data/source/bereishis_1_1_to_4_20.json",
+        "data/source/bereishis_1_31_to_2_9.json"
       ],
       "parsed_files": {
         "pesukim": "data/pesukim_100.json",
@@ -64,7 +66,7 @@
         "word_occurrences": "data/word_occurrences.json",
         "translation_reviews": "data/translation_reviews.json"
       },
-      "status": "active_candidate",
+      "status": "active",
       "storage_layer": "data_root",
       "notes": [
         "Current blessed parsed runtime layer stored in data/ root.",
@@ -74,7 +76,7 @@
   ],
   "scopes": [
     {
-      "scope_id": "local_parsed_bereishis_1_1_to_1_20",
+      "scope_id": "local_parsed_bereishis_1_1_to_2_9",
       "type": "runtime_scope",
       "sefer": "Bereishis",
       "range": {
@@ -83,15 +85,16 @@
           "pasuk": 1
         },
         "end": {
-          "perek": 1,
-          "pasuk": 20
+          "perek": 2,
+          "pasuk": 9
         }
       },
-      "pesukim_count": 20,
-      "source_corpus_id": "source_bereishis_1_1_to_1_20_local",
-      "parsed_corpus_id": "parsed_bereishis_1_1_to_1_20_root",
+      "pesukim_count": 40,
+      "source_corpus_id": "source_bereishis_1_1_to_2_9_local",
+      "parsed_corpus_id": "parsed_bereishis_1_1_to_2_9_root",
       "source_files": [
-        "data/source/bereishis_1_1_to_4_20.json"
+        "data/source/bereishis_1_1_to_4_20.json",
+        "data/source/bereishis_1_31_to_2_9.json"
       ],
       "parsed_files": {
         "pesukim": "data/pesukim_100.json",

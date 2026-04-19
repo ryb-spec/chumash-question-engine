@@ -1,0 +1,110 @@
+{
+  "meta": {
+    "purpose": "Teacher/admin workflow seed aligned to the Deployment Guide and system analytics.",
+    "source": "Deployment-Guide.pdf"
+  },
+  "readiness_criteria": [
+    "Administrative Functionality",
+    "Instructional Leadership",
+    "School Culture of Ongoing Staff Learning and Collaboration",
+    "School Culture of Change and Improvement",
+    "Instructional Rounds"
+  ],
+  "deployment_cycle": [
+    {
+      "step": 1,
+      "name": "Select your focus",
+      "timing": "Before you begin"
+    },
+    {
+      "step": 2,
+      "name": "Create your school calendar",
+      "timing": "Before you begin"
+    },
+    {
+      "step": 3,
+      "name": "Professional development: introducing the standards",
+      "timing": "Spring or summer"
+    },
+    {
+      "step": 4,
+      "name": "Professional development: introducing DDI",
+      "timing": "Spring or summer"
+    },
+    {
+      "step": 5,
+      "name": "Curriculum mapping",
+      "timing": "Spring or summer"
+    },
+    {
+      "step": 6,
+      "name": "Create interim assessment #1",
+      "timing": "Spring or summer"
+    },
+    {
+      "step": 7,
+      "name": "Administer interim assessment #1",
+      "timing": "6-8 weeks into school year"
+    },
+    {
+      "step": 8,
+      "name": "Chart and review assessment results",
+      "timing": "1-2 days after assessment"
+    },
+    {
+      "step": 9,
+      "name": "Analysis meetings",
+      "timing": "2-3 days after assessment"
+    },
+    {
+      "step": 10,
+      "name": "Action plans",
+      "timing": "During and after analysis"
+    },
+    {
+      "step": 11,
+      "name": "Follow up",
+      "timing": "1-2 weeks later"
+    },
+    {
+      "step": 12,
+      "name": "Repeat steps 6-11",
+      "timing": "Remainder of school year"
+    },
+    {
+      "step": 13,
+      "name": "Professional development",
+      "timing": "After interim assessments"
+    },
+    {
+      "step": 14,
+      "name": "Summative assessment",
+      "timing": "2 weeks before end of year"
+    },
+    {
+      "step": 15,
+      "name": "Get ready for next year",
+      "timing": "Before you begin again"
+    }
+  ],
+  "system_outputs_to_support_teachers": {
+    "before_assessment": [
+      "skill playlists by upcoming standard",
+      "coverage map by pasuk / parsha / skill",
+      "missing-skill warnings"
+    ],
+    "after_assessment": [
+      "student mastery report by canonical skill",
+      "class heatmap by skill and token family",
+      "top confusions and weak distractors",
+      "recommended reteach groups",
+      "unreviewed-content flags"
+    ],
+    "action_plan_templates": [
+      "reteach exact skill with pre-teach cards",
+      "move student from token-level to phrase-level drill",
+      "assign unseen-pasuk transfer only after threshold mastery",
+      "pause corpus promotion when review thresholds fail"
+    ]
+  }
+}

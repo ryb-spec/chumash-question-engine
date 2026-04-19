@@ -40,9 +40,33 @@ class CorpusManifestTests(unittest.TestCase):
 
         self.assertEqual(active_scope["sefer"], "Bereishis")
         self.assertEqual(active_scope["range"]["start"], {"perek": 1, "pasuk": 1})
-        self.assertEqual(active_scope["range"]["end"], {"perek": 1, "pasuk": 20})
-        self.assertEqual(active_scope["pesukim_count"], 20)
+        self.assertEqual(active_scope["range"]["end"], {"perek": 2, "pasuk": 9})
+        self.assertEqual(active_scope["pesukim_count"], 40)
         self.assertEqual(active_scope["status"], "active")
+
+    def test_source_corpus_metadata_matches_expanded_local_source_boundary(self):
+        source_corpus = assessment_scope.corpus_source_corpora()[0]
+
+        self.assertEqual(source_corpus["corpus_id"], "source_bereishis_1_1_to_2_9_local")
+        self.assertEqual(source_corpus["status"], "source")
+        self.assertEqual(source_corpus["range"]["start"], {"perek": 1, "pasuk": 1})
+        self.assertEqual(source_corpus["range"]["end"], {"perek": 2, "pasuk": 9})
+        self.assertEqual(source_corpus["pesukim_count"], 40)
+        self.assertEqual(
+            source_corpus["source_files"],
+            [
+                "data/source/bereishis_1_1_to_4_20.json",
+                "data/source/bereishis_1_31_to_2_9.json",
+            ],
+        )
+        self.assertEqual(source_corpus["declared_source_range"], "1:1-2:9")
+
+    def test_legacy_status_aliases_normalize_to_canonical_lifecycle_states(self):
+        self.assertEqual(assessment_scope.normalize_corpus_status("experimental"), "source")
+        self.assertEqual(assessment_scope.normalize_corpus_status("parsed"), "staged")
+        self.assertEqual(assessment_scope.normalize_corpus_status("reviewed"), "review_needed")
+        self.assertEqual(assessment_scope.normalize_corpus_status("active_candidate"), "active_candidate")
+        self.assertEqual(assessment_scope.normalize_corpus_status("active"), "active")
 
     def test_active_runtime_contract_still_points_to_valid_active_scope(self):
         contract = assessment_scope.active_runtime_contract()

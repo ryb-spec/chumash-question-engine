@@ -1,0 +1,83 @@
+{
+  "metadata": {
+    "title": "Chumash Foundations Resource Manifest",
+    "version": "0.1",
+    "layer_values": [
+      "canonical",
+      "benchmark",
+      "paradigm",
+      "lexicon",
+      "teacher_ops"
+    ],
+    "status_values": [
+      "validated_seed"
+    ],
+    "notes": [
+      "These resources are versioned foundation seeds for standards alignment, analytics, paradigms, lexicon policy, and teacher operations.",
+      "They are loadable and validated, but they are not auto-promoted into the student-facing runtime.",
+      "Current student-facing source of truth remains the supported Streamlit runtime plus the active parsed dataset and runtime skill catalog."
+    ]
+  },
+  "resources": [
+    {
+      "resource_name": "canonical_skill_crosswalk_json",
+      "version": "seed.v1",
+      "layer": "canonical",
+      "format": "json",
+      "path": "data/standards/crosswalks/canonical_skill_crosswalk.seed.v1.json",
+      "source": "data/foundations/incoming/canonical_skill_crosswalk_seed.json",
+      "status": "validated_seed",
+      "intended_use": "Reference crosswalk between external standards frameworks and current engine skills; future input to catalog alignment, not current runtime source of truth."
+    },
+    {
+      "resource_name": "canonical_skill_crosswalk_csv",
+      "version": "seed.v1",
+      "layer": "canonical",
+      "format": "csv",
+      "path": "data/standards/crosswalks/canonical_skill_crosswalk.seed.v1.csv",
+      "source": "data/foundations/incoming/canonical_skill_crosswalk_seed.csv",
+      "status": "validated_seed",
+      "intended_use": "Spreadsheet-friendly companion export for the canonical skill crosswalk."
+    },
+    {
+      "resource_name": "assessment_blueprint",
+      "version": "seed.v1",
+      "layer": "benchmark",
+      "format": "json",
+      "path": "data/benchmarks/jsat/assessment_blueprint.seed.v1.json",
+      "source": "data/foundations/incoming/assessment_blueprint_seed.json",
+      "status": "validated_seed",
+      "intended_use": "Benchmark-informed blueprint for question archetypes, weighting, and DDI-aligned reporting; not wired into runtime selection yet."
+    },
+    {
+      "resource_name": "grammar_paradigms",
+      "version": "seed.v1",
+      "layer": "paradigm",
+      "format": "json",
+      "path": "data/paradigms/grammar/grammar_paradigms.seed.v1.json",
+      "source": "data/foundations/incoming/grammar_paradigms_seed.json",
+      "status": "validated_seed",
+      "intended_use": "Pronoun and verb paradigm seed data for future hinting, reteach, and diagnostic tools."
+    },
+    {
+      "resource_name": "high_frequency_lexicon",
+      "version": "seed.v1",
+      "layer": "lexicon",
+      "format": "json",
+      "path": "data/lexicon/high_frequency/high_frequency_lexicon.seed.v1.json",
+      "source": "data/foundations/incoming/high_frequency_lexicon_seed.json",
+      "status": "validated_seed",
+      "intended_use": "High-frequency lexicon policy and starter entries for future mastery prioritization and analytics."
+    },
+    {
+      "resource_name": "teacher_ops_workflow",
+      "version": "seed.v1",
+      "layer": "teacher_ops",
+      "format": "json",
+      "path": "data/teacher_ops/teacher_ops_workflow.seed.v1.json",
+      "source": "data/foundations/incoming/teacher_ops_workflow_seed.json",
+      "status": "validated_seed",
+      "intended_use": "Teacher/admin workflow reference for dashboards, readiness reporting, and action-plan tooling; not student-facing."
+    }
+  ]
+}

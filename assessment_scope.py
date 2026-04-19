@@ -6,6 +6,7 @@ of the active assessment scope.
 """
 
 import json
+from copy import deepcopy
 from functools import lru_cache
 from pathlib import Path
 
@@ -31,16 +32,41 @@ def resolve_repo_path(path_like):
 
 CORPUS_MANIFEST_PATH = data_path("corpus_manifest.json")
 CORPUS_STATUS_VALUES = (
-    "experimental",
-    "parsed",
-    "reviewed",
+    "source",
+    "staged",
+    "review_needed",
     "active_candidate",
     "active",
 )
+LEGACY_CORPUS_STATUS_ALIASES = {
+    "experimental": "source",
+    "parsed": "staged",
+    "reviewed": "review_needed",
+}
+
+
+def normalize_corpus_status(status):
+    if status is None:
+        return None
+    return LEGACY_CORPUS_STATUS_ALIASES.get(status, status)
+
+
+def _canonicalize_manifest(manifest):
+    canonical = deepcopy(manifest or {})
+    metadata = canonical.setdefault("metadata", {})
+    metadata["status_values"] = list(CORPUS_STATUS_VALUES)
+    for collection_name in ("source_corpora", "parsed_corpora", "scopes", "future_scopes"):
+        for item in canonical.get(collection_name, []):
+            if isinstance(item, dict):
+                item["status"] = normalize_corpus_status(item.get("status"))
+    return canonical
 
 
 def _default_corpus_manifest():
-    source_file = "data/source/bereishis_1_1_to_4_20.json"
+    source_files = [
+        "data/source/bereishis_1_1_to_4_20.json",
+        "data/source/bereishis_1_31_to_2_9.json",
+    ]
     parsed_files = {
         "pesukim": "data/pesukim_100.json",
         "word_bank": "data/word_bank.json",
@@ -54,42 +80,44 @@ def _default_corpus_manifest():
             "status_values": list(CORPUS_STATUS_VALUES),
             "notes": (
                 "Registry for source corpora, parsed corpora, and runtime scopes. "
-                "The data/ root files remain the current blessed runtime layer."
+                "Lifecycle states are source -> staged -> review_needed -> "
+                "active_candidate -> active. The data/ root files remain the "
+                "current blessed runtime layer."
             ),
         },
         "source_corpora": [
             {
-                "corpus_id": "source_bereishis_1_1_to_1_20_local",
+                "corpus_id": "source_bereishis_1_1_to_2_9_local",
                 "type": "source_corpus",
                 "sefer": "Bereishis",
                 "range": {
                     "start": {"perek": 1, "pasuk": 1},
-                    "end": {"perek": 1, "pasuk": 20},
+                    "end": {"perek": 2, "pasuk": 9},
                 },
-                "pesukim_count": 20,
-                "source_files": [source_file],
+                "pesukim_count": 40,
+                "source_files": list(source_files),
                 "parsed_files": {},
-                "status": "experimental",
-                "declared_source_range": "1:1-4:20",
+                "status": "source",
+                "declared_source_range": "1:1-2:9",
                 "notes": [
                     "Current local source file backing the active parsed dataset.",
-                    "Not yet fully reproducible for the active 20-pasuk state.",
+                    "Current local source corpus spans Bereishis 1:1 through 2:9.",
                 ],
             }
         ],
         "parsed_corpora": [
             {
-                "corpus_id": "parsed_bereishis_1_1_to_1_20_root",
+                "corpus_id": "parsed_bereishis_1_1_to_2_9_root",
                 "type": "parsed_corpus",
                 "sefer": "Bereishis",
                 "range": {
                     "start": {"perek": 1, "pasuk": 1},
-                    "end": {"perek": 1, "pasuk": 20},
+                    "end": {"perek": 2, "pasuk": 9},
                 },
-                "pesukim_count": 20,
-                "source_files": [source_file],
+                "pesukim_count": 40,
+                "source_files": list(source_files),
                 "parsed_files": dict(parsed_files),
-                "status": "active_candidate",
+                "status": "active",
                 "storage_layer": "data_root",
                 "notes": [
                     "Current blessed parsed runtime layer stored in data/ root.",
@@ -99,17 +127,17 @@ def _default_corpus_manifest():
         ],
         "scopes": [
             {
-                "scope_id": "local_parsed_bereishis_1_1_to_1_20",
+                "scope_id": "local_parsed_bereishis_1_1_to_2_9",
                 "type": "runtime_scope",
                 "sefer": "Bereishis",
                 "range": {
                     "start": {"perek": 1, "pasuk": 1},
-                    "end": {"perek": 1, "pasuk": 20},
+                    "end": {"perek": 2, "pasuk": 9},
                 },
-                "pesukim_count": 20,
-                "source_corpus_id": "source_bereishis_1_1_to_1_20_local",
-                "parsed_corpus_id": "parsed_bereishis_1_1_to_1_20_root",
-                "source_files": [source_file],
+                "pesukim_count": 40,
+                "source_corpus_id": "source_bereishis_1_1_to_2_9_local",
+                "parsed_corpus_id": "parsed_bereishis_1_1_to_2_9_root",
+                "source_files": list(source_files),
                 "parsed_files": dict(parsed_files),
                 "status": "active",
                 "supported_runtime": True,
@@ -126,9 +154,9 @@ def _default_corpus_manifest():
 @lru_cache(maxsize=1)
 def load_corpus_manifest():
     if not CORPUS_MANIFEST_PATH.exists():
-        return _default_corpus_manifest()
+        return _canonicalize_manifest(_default_corpus_manifest())
     with CORPUS_MANIFEST_PATH.open("r", encoding="utf-8") as file:
-        return json.load(file)
+        return _canonicalize_manifest(json.load(file))
 
 
 def corpus_manifest_metadata():
@@ -182,7 +210,7 @@ _MANIFEST_ACTIVE_SCOPE = _resolve_manifest_active_scope()
 
 ACTIVE_ASSESSMENT_SCOPE = _MANIFEST_ACTIVE_SCOPE.get(
     "scope_id",
-    "local_parsed_bereishis_1_1_to_1_20",
+    "local_parsed_bereishis_1_1_to_2_9",
 )
 
 _ACTIVE_PARSED_FILES = _MANIFEST_ACTIVE_SCOPE.get("parsed_files", {})
@@ -200,10 +228,19 @@ ACTIVE_TRANSLATION_REVIEWS_PATH = resolve_repo_path(
     _ACTIVE_PARSED_FILES.get("translation_reviews", "data/translation_reviews.json")
 )
 
-LEGACY_QUESTIONS_PATH = repo_path("questions.json")
+PREVIEW_ARTIFACTS_DIR = repo_path("artifacts", "preview")
+LEGACY_DIR = repo_path("legacy")
+
+LEGACY_GENERATED_QUESTIONS_PREVIEW_PATH = PREVIEW_ARTIFACTS_DIR / "generated_questions_preview.json"
+LEGACY_GRAMMAR_QUESTIONS_PREVIEW_PATH = PREVIEW_ARTIFACTS_DIR / "grammar_questions_preview.json"
+LEGACY_QUESTIONS_PATH = PREVIEW_ARTIFACTS_DIR / "questions.json"
+LEGACY_QUESTIONS_HTML_PATH = PREVIEW_ARTIFACTS_DIR / "questions.html"
+LEGACY_ENHANCED_QUIZ_HTML_PATH = PREVIEW_ARTIFACTS_DIR / "enhanced_quiz.html"
+LEGACY_PREVIEW_INDEX_PATH = PREVIEW_ARTIFACTS_DIR / "index.html"
 LEGACY_ROOT_WORD_BANK_PATH = repo_path("word_bank.json")
-LEGACY_PASUK_FLOW_PREVIEW_PATH = repo_path("pasuk_flow_questions.json")
-LEGACY_PASUK_FLOWS_PATH = repo_path("pasuk_flows.json")
+LEGACY_PASUK_FLOW_PREVIEW_PATH = PREVIEW_ARTIFACTS_DIR / "pasuk_flow_questions.json"
+LEGACY_PASUK_FLOWS_PATH = PREVIEW_ARTIFACTS_DIR / "pasuk_flows.json"
+LEGACY_GOOGLE_DOCS_EXPORT_PATH = LEGACY_DIR / "chumash_question_bank_google_docs_export.html"
 
 ACTIVE_DATASET_PATHS = {
     "pesukim": ACTIVE_PARSED_PESUKIM_PATH,

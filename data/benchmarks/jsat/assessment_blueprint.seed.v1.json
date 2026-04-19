@@ -1,0 +1,305 @@
+{
+  "meta": {
+    "purpose": "Benchmark-informed assessment blueprint for the Chumash mastery engine.",
+    "benchmark_source": "JSAT Level 8 Standards and Sample Test",
+    "teacher_ops_source": "Deployment Guide",
+    "notes": [
+      "JSAT uses 150 equally weighted MCQs across nine core sections plus an optional Mishnah/Gemara section.",
+      "Deployment Guide recommends interim assessment every 6-8 weeks, then charting, analysis meetings, action plans, and follow-up."
+    ]
+  },
+  "external_benchmark": {
+    "jsat_section_weights": [
+      {
+        "section": "Chumash Skills",
+        "questions": 35,
+        "weight_percent": 23
+      },
+      {
+        "section": "Chumash Vocabulary",
+        "questions": 10,
+        "weight_percent": 7
+      },
+      {
+        "section": "Chumash Knowledge",
+        "questions": 30,
+        "weight_percent": 20
+      },
+      {
+        "section": "Navi Knowledge",
+        "questions": 15,
+        "weight_percent": 10
+      },
+      {
+        "section": "Dinim/Yediot Klaliot",
+        "questions": 20,
+        "weight_percent": 13
+      },
+      {
+        "section": "Hebrew Language",
+        "questions": 25,
+        "weight_percent": 17
+      },
+      {
+        "section": "Tephilla",
+        "questions": 6,
+        "weight_percent": 4
+      },
+      {
+        "section": "Torah Sheb’al Peh",
+        "questions": 3,
+        "weight_percent": 2
+      },
+      {
+        "section": "Critical Thinking",
+        "questions": 6,
+        "weight_percent": 4
+      }
+    ],
+    "relevant_jsat_focus_for_this_system": [
+      "Chumash Skills",
+      "Chumash Vocabulary",
+      "Chumash Knowledge",
+      "Hebrew Language",
+      "Critical Thinking"
+    ]
+  },
+  "recommended_local_blueprint": {
+    "mvp_focus": [
+      {
+        "bucket": "Decoding / morphology",
+        "target_percent": 35,
+        "canonical_skills": [
+          "ROOT.IDENTIFY",
+          "ROOT.IDENTIFY_DROPPED",
+          "PREFIX.BASIC_PREPOSITIONS",
+          "PREFIX.CONTRACTED",
+          "SUFFIX.FIRST_PERSON",
+          "SUFFIX.SECOND_PERSON",
+          "SUFFIX.THIRD_PERSON",
+          "VERB.TENSE.PAST",
+          "VERB.TENSE.PRESENT",
+          "VERB.TENSE.FUTURE",
+          "VERB.COMMAND"
+        ]
+      },
+      {
+        "bucket": "Vocabulary / high-frequency lexicon",
+        "target_percent": 20,
+        "canonical_skills": [
+          "COMP.CONTEXT_TRANSLATION",
+          "NUMBER.HEBREW_TRANSLATE"
+        ]
+      },
+      {
+        "bucket": "Syntax and clause roles",
+        "target_percent": 15,
+        "canonical_skills": [
+          "VERB.SUBJECT_OBJECT",
+          "SUFFIX.SMICHUT_POSSESSION",
+          "PRONOUN.SUBJECT_OBJECT_MATCH"
+        ]
+      },
+      {
+        "bucket": "Pasuk comprehension",
+        "target_percent": 20,
+        "canonical_skills": [
+          "COMP.CONTEXT_TRANSLATION",
+          "COMP.LASHON_HAPASUK",
+          "COMP.UNSEEN_PASUK"
+        ]
+      },
+      {
+        "bucket": "Rashi and text tools",
+        "target_percent": 5,
+        "canonical_skills": [
+          "RASHI.SCRIPT",
+          "RASHI.TOOLS"
+        ]
+      },
+      {
+        "bucket": "Navigation / conventions",
+        "target_percent": 5,
+        "canonical_skills": [
+          "REFERENCE.PASUK_LOCATE",
+          "TAAMIM.PASUK_PARSE"
+        ]
+      }
+    ],
+    "question_archetypes": [
+      {
+        "archetype_id": "mcq_root_visible",
+        "prompt": "What is the shoresh of this word?",
+        "skills": [
+          "ROOT.IDENTIFY"
+        ],
+        "evidence": "single-token morphological decoding"
+      },
+      {
+        "archetype_id": "mcq_root_missing_letter",
+        "prompt": "What is the shoresh, even though one letter dropped?",
+        "skills": [
+          "ROOT.IDENTIFY_DROPPED"
+        ],
+        "evidence": "weak-root pattern recognition"
+      },
+      {
+        "archetype_id": "mcq_prefix_meaning",
+        "prompt": "What does this prefix mean here?",
+        "skills": [
+          "PREFIX.BASIC_PREPOSITIONS",
+          "PREFIX.CONTRACTED"
+        ],
+        "evidence": "prefix decoding"
+      },
+      {
+        "archetype_id": "mcq_suffix_possession",
+        "prompt": "Whose ___ is this suffix indicating?",
+        "skills": [
+          "SUFFIX.FIRST_PERSON",
+          "SUFFIX.SECOND_PERSON",
+          "SUFFIX.THIRD_PERSON"
+        ],
+        "evidence": "possession decoding"
+      },
+      {
+        "archetype_id": "mcq_vav_shift",
+        "prompt": "Does the vav here join or flip the tense?",
+        "skills": [
+          "PREFIX.VAV_TYPES",
+          "PREFIX.VAV_TENSE_SHIFT"
+        ],
+        "evidence": "syntax and tense awareness"
+      },
+      {
+        "archetype_id": "mcq_tense",
+        "prompt": "What tense is this verb?",
+        "skills": [
+          "VERB.TENSE.PAST",
+          "VERB.TENSE.PRESENT",
+          "VERB.TENSE.FUTURE"
+        ],
+        "evidence": "verb-form recognition"
+      },
+      {
+        "archetype_id": "mcq_command",
+        "prompt": "Is this a command form?",
+        "skills": [
+          "VERB.COMMAND"
+        ],
+        "evidence": "mood recognition"
+      },
+      {
+        "archetype_id": "mcq_smichut",
+        "prompt": "What is the best translation of these two words in סמיכות?",
+        "skills": [
+          "SUFFIX.SMICHUT_POSSESSION"
+        ],
+        "evidence": "phrase-level syntax"
+      },
+      {
+        "archetype_id": "mcq_context_translation",
+        "prompt": "Which translation fits this word in this pasuk?",
+        "skills": [
+          "COMP.CONTEXT_TRANSLATION"
+        ],
+        "evidence": "context-sensitive meaning"
+      },
+      {
+        "archetype_id": "mcq_subject_object",
+        "prompt": "Who is doing the action, and who receives it?",
+        "skills": [
+          "VERB.SUBJECT_OBJECT"
+        ],
+        "evidence": "clause-role comprehension"
+      },
+      {
+        "archetype_id": "mcq_lashon_hapasuk",
+        "prompt": "Which answer matches the pasuk’s own wording?",
+        "skills": [
+          "COMP.LASHON_HAPASUK"
+        ],
+        "evidence": "direct text retrieval"
+      },
+      {
+        "archetype_id": "short_unseen_pasuk",
+        "prompt": "Decode and answer one question on an unseen pasuk.",
+        "skills": [
+          "COMP.UNSEEN_PASUK"
+        ],
+        "evidence": "independent transfer"
+      },
+      {
+        "archetype_id": "mcq_rashi_script",
+        "prompt": "Which regular Hebrew letter/word matches this Rashi text?",
+        "skills": [
+          "RASHI.SCRIPT"
+        ],
+        "evidence": "script recognition"
+      },
+      {
+        "archetype_id": "mcq_rashi_tool",
+        "prompt": "Which part here is the dibbur hamatchil / abbreviation?",
+        "skills": [
+          "RASHI.TOOLS"
+        ],
+        "evidence": "commentary navigation"
+      }
+    ],
+    "difficulty_bands": [
+      {
+        "band": "A",
+        "label": "micro-skill recognition",
+        "examples": [
+          "single word, one rule, no context pressure"
+        ]
+      },
+      {
+        "band": "B",
+        "label": "guided decoding",
+        "examples": [
+          "single word in short phrase, small context cue"
+        ]
+      },
+      {
+        "band": "C",
+        "label": "phrase comprehension",
+        "examples": [
+          "two-word syntax, סמיכות, possession, or subject/object"
+        ]
+      },
+      {
+        "band": "D",
+        "label": "pasuk comprehension",
+        "examples": [
+          "context-sensitive translation in full pasuk"
+        ]
+      },
+      {
+        "band": "E",
+        "label": "independent transfer",
+        "examples": [
+          "unseen pasuk or mixed-skill diagnostic"
+        ]
+      }
+    ]
+  },
+  "teacher_ops_alignment": {
+    "ddi_cycle": [
+      "Create curriculum map / skill playlists before teaching",
+      "Administer interim assessment every 6-8 weeks",
+      "Chart and review results within 1-2 days",
+      "Hold analysis meetings within 2-3 days",
+      "Create action plans during and after analysis",
+      "Follow up 1-2 weeks later",
+      "Repeat cycle through the year"
+    ],
+    "system_outputs_needed": [
+      "skill mastery snapshots",
+      "error clusters by skill/token/pasuk",
+      "reteach group suggestions",
+      "question family quality flags",
+      "promotion-readiness reports for new content"
+    ]
+  }
+}

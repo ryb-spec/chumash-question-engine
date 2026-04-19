@@ -1,5 +1,7 @@
 import json
 
+from assessment_scope import LEGACY_QUESTIONS_PATH
+
 # Hebrew words dictionary with their nikud versions
 hebrew_words_with_nikud = {
     "ארץ": "אָרֶץ",
@@ -30,7 +32,7 @@ hebrew_words_with_nikud = {
 }
 
 # Load questions
-with open('questions.json', 'r', encoding='utf-8') as f:
+with LEGACY_QUESTIONS_PATH.open('r', encoding='utf-8') as f:
     data = json.load(f)
 
 # Update all questions with nikud
@@ -42,7 +44,7 @@ for question in data.get('questions', []):
         question['word_with_nikud'] = word
 
 # Save updated questions
-with open('questions.json', 'w', encoding='utf-8') as f:
+with LEGACY_QUESTIONS_PATH.open('w', encoding='utf-8') as f:
     json.dump(data, f, ensure_ascii=False, indent=2)
 
 print(f"✅ Updated {len(data.get('questions', []))} questions with nikud!")

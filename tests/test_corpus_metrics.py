@@ -47,6 +47,11 @@ class CorpusMetricsTests(unittest.TestCase):
         self.assertGreater(metrics["structural_summary"]["token_count"], 0)
         self.assertIn(metrics["readiness_recommendation"], {"not_ready", "review_needed", "active_candidate"})
         self.assertEqual(metrics["scope_under_evaluation"]["sefer"], "Bereishis")
+        self.assertEqual(metrics["scope_under_evaluation"]["bundle_status"], "staged")
+        self.assertEqual(
+            metrics["lifecycle"]["promotion_gate"],
+            "only active_candidate bundles may be promoted into the active runtime",
+        )
 
     def test_per_skill_support_metrics_behave_sensibly_on_sample_bundle(self):
         bundle = build_parsed_corpus_artifacts(SAMPLE_SOURCE_CORPUS)

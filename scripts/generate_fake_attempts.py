@@ -5,6 +5,7 @@ import random
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
+from skill_catalog import skill_standard
 
 BASE_DIR = Path(__file__).resolve().parents[1]
 ATTEMPT_LOG_PATH = BASE_DIR / "data" / "attempt_log.jsonl"
@@ -111,7 +112,7 @@ QUESTION_TYPES = [
     {
         "skill": "shoresh",
         "question_type": "shoresh",
-        "standard": "SR",
+        "standard": skill_standard("shoresh"),
         "accuracy": 0.84,
         "expected": lambda row: shoresh_answer(row["word"]),
         "wrong": lambda row, expected: expected[:-1] if len(expected) > 2 else row["word"],
@@ -119,7 +120,7 @@ QUESTION_TYPES = [
     {
         "skill": "translation",
         "question_type": "word_meaning",
-        "standard": "WM",
+        "standard": skill_standard("translation"),
         "accuracy": 0.72,
         "expected": lambda row: translation_answer(row["word"]),
         "wrong": lambda row, expected: wrong_translation(row["word"], expected),
@@ -127,7 +128,7 @@ QUESTION_TYPES = [
     {
         "skill": "verb_tense",
         "question_type": "verb_tense",
-        "standard": "CF",
+        "standard": skill_standard("verb_tense"),
         "accuracy": 0.67,
         "expected": lambda row: tense_answer(row["word"]),
         "wrong": lambda row, expected: wrong_tense(expected),
@@ -135,7 +136,7 @@ QUESTION_TYPES = [
     {
         "skill": "identify_prefix_meaning",
         "question_type": "prefix",
-        "standard": "PR",
+        "standard": skill_standard("identify_prefix_meaning"),
         "accuracy": 0.45,
         "expected": lambda row: prefix_answer(row["word"]),
         "wrong": lambda row, expected: wrong_prefix(expected),
@@ -143,7 +144,7 @@ QUESTION_TYPES = [
     {
         "skill": "identify_suffix_meaning",
         "question_type": "suffix",
-        "standard": "PR",
+        "standard": skill_standard("identify_suffix_meaning"),
         "accuracy": 0.38,
         "expected": lambda row: suffix_answer(row["word"]),
         "wrong": lambda row, expected: wrong_suffix(expected),

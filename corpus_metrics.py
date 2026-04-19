@@ -2,16 +2,20 @@
 
 import json
 
-from assessment_scope import ACTIVE_ASSESSMENT_SCOPE, resolve_repo_path
+from assessment_scope import (
+    ACTIVE_ASSESSMENT_SCOPE,
+    normalize_corpus_status,
+    resolve_repo_path,
+)
 from pasuk_flow_generator import (
     SKILLS,
     generate_pasuk_flow,
     generate_question,
     is_placeholder_translation,
     is_skip_payload,
-    old_word_type,
     usable_translation,
 )
+from torah_parser.word_bank_adapter import adapt_word_analysis
 
 
 READINESS_THRESHOLDS = {
@@ -60,36 +64,20 @@ def load_staged_corpus_bundle(bundle_or_dir):
 def parsed_token_record_to_item(token_record):
     analysis = dict(token_record.get("selected_analysis") or {})
     token = token_record.get("surface", "")
-    part_of_speech = analysis.get("part_of_speech")
-    entry = {
-        "word": token,
-        "normalized": token_record.get("normalized") or analysis.get("normalized"),
-        "translation": analysis.get("translation_context") or analysis.get("translation_literal") or token,
-        "translation_literal": analysis.get("translation_literal") or token,
-        "translation_context": analysis.get("translation_context") or token,
-        "type": old_word_type(part_of_speech),
-        "part_of_speech": part_of_speech,
-        "group": analysis.get("group", "unknown"),
-        "shoresh": analysis.get("shoresh"),
-        "lemma": analysis.get("lemma"),
-        "binyan": analysis.get("binyan"),
-        "tense": analysis.get("tense"),
-        "person": analysis.get("person"),
-        "number": analysis.get("number"),
-        "gender": analysis.get("gender"),
-        "semantic_group": analysis.get("semantic_group", "unknown"),
-        "role_hint": analysis.get("role_hint", "unknown"),
-        "entity_type": analysis.get("entity_type", "unknown"),
-        "prefixes": list(analysis.get("prefixes") or []),
-        "suffixes": list(analysis.get("suffixes") or []),
-        "prefix": (analysis.get("prefixes") or [{}])[0].get("form", "") if analysis.get("prefixes") else "",
-        "prefix_meaning": (analysis.get("prefixes") or [{}])[0].get("translation", "") if analysis.get("prefixes") else "",
-        "suffix": (analysis.get("suffixes") or [{}])[0].get("form", "") if analysis.get("suffixes") else "",
-        "suffix_meaning": (analysis.get("suffixes") or [{}])[0].get("translation", "") if analysis.get("suffixes") else "",
-        "base_word": analysis.get("lemma") or token,
-        "confidence": analysis.get("confidence"),
-        "instructional_value": analysis.get("instructional_value"),
-    }
+    analysis.setdefault("normalized", token_record.get("normalized") or analysis.get("normalized"))
+    analysis.setdefault("translation_literal", token)
+    analysis.setdefault("translation_context", token)
+    entry = adapt_word_analysis(
+        token,
+        analysis,
+        defaults={
+            "group": "unknown",
+            "semantic_group": "unknown",
+            "role_hint": "unknown",
+            "entity_type": "unknown",
+            "base_word": analysis.get("lemma") or token,
+        },
+    )
     return {
         "token": token,
         "entry": entry,
@@ -155,7 +143,7 @@ def skill_support_summary(parsed_pesukim):
                     pasuk_text,
                     analyzed_override=analyzed,
                 )
-            except ValueError:
+            except (ValueError, IndexError):
                 question = None
             if question and not is_skip_payload(question):
                 supported += 1
@@ -178,7 +166,7 @@ def generation_summary(bundle):
         for skill in EVALUATED_SKILLS:
             try:
                 question = generate_question(skill, pasuk_text, analyzed_override=analyzed)
-            except ValueError:
+            except (ValueError, IndexError):
                 continue
             if question and not is_skip_payload(question):
                 has_question = True
@@ -188,7 +176,7 @@ def generation_summary(bundle):
 
         try:
             flow = generate_pasuk_flow(pasuk_text, analyzed_override=analyzed)
-        except ValueError:
+        except (ValueError, IndexError):
             flow = None
         if flow and len(flow.get("questions", [])) >= 3:
             flow_ready += 1
@@ -229,11 +217,14 @@ def readiness_recommendation(metrics):
 def evaluate_staged_corpus_readiness(bundle_or_dir):
     bundle = load_staged_corpus_bundle(bundle_or_dir)
     parsed_pesukim = bundle.get("parsed_pesukim", {}).get("parsed_pesukim", [])
+    bundle_status = normalize_corpus_status(
+        bundle.get("metadata", {}).get("status")
+        or bundle.get("parsed_pesukim", {}).get("metadata", {}).get("status")
+    ) or "staged"
     metrics = {
         "scope_under_evaluation": {
             "active_runtime_scope_unchanged": ACTIVE_ASSESSMENT_SCOPE,
-            "bundle_status": bundle.get("metadata", {}).get("status")
-            or bundle.get("parsed_pesukim", {}).get("metadata", {}).get("status"),
+            "bundle_status": bundle_status,
             "sefer": bundle.get("parsed_pesukim", {}).get("metadata", {}).get("sefer"),
             "range": bundle.get("parsed_pesukim", {}).get("metadata", {}).get("range"),
         },
@@ -245,4 +236,9 @@ def evaluate_staged_corpus_readiness(bundle_or_dir):
         "excluded_skills": sorted(NON_RUNTIME_SKILLS),
     }
     metrics["readiness_recommendation"] = readiness_recommendation(metrics)
+    metrics["lifecycle"] = {
+        "bundle_state": bundle_status,
+        "promotion_gate": "only active_candidate bundles may be promoted into the active runtime",
+        "next_recommended_state": metrics["readiness_recommendation"],
+    }
     return metrics

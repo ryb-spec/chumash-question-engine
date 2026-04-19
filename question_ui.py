@@ -61,6 +61,41 @@ def likely_confusion_text(question):
     return "A nearby clue likely mattered more than the first answer that felt familiar."
 
 
+def _skill_specific_feedback(question):
+    skill = question.get("skill") or ""
+    question_type = question.get("question_type") or ""
+    token = question.get("selected_word") or question.get("word") or "this word"
+    prefix = question.get("prefix") or ""
+    prefix_meaning = question.get("prefix_meaning") or ""
+    suffix = question.get("suffix") or ""
+    suffix_meaning = question.get("suffix_meaning") or ""
+    shoresh = question.get("shoresh") or question.get("correct_answer") or ""
+
+    if "prefix" in skill or "prefix" in question_type:
+        if prefix and prefix_meaning:
+            return f"Prefix: {prefix}. Here it means '{prefix_meaning}'."
+        if prefix:
+            return f"Prefix: {prefix}."
+
+    if "suffix" in skill or "suffix" in question_type:
+        if suffix and suffix_meaning:
+            return f"Ending: {suffix}. Here it signals '{suffix_meaning}'."
+        if suffix:
+            return f"Ending: {suffix}."
+
+    if skill == "shoresh" or question_type == "shoresh":
+        if shoresh and token and shoresh != token:
+            return f"Shoresh: {shoresh}. Read past the added letters in {token}."
+        if shoresh:
+            return f"Shoresh: {shoresh}."
+
+    if question_type == "verb_tense" or skill in {"verb_tense", "identify_tense", "identify_verb_marker"}:
+        clue = question.get("explanation") or ""
+        return clue or "Watch the verb form; the marker shows the tense."
+
+    return question.get("explanation") or ""
+
+
 def build_followup_plan(*, practice_type, is_correct, skill_label, next_skill_label=None):
     if practice_type == "Pasuk Flow":
         return {
@@ -105,20 +140,13 @@ def build_feedback_context(
     skill_label,
     next_skill_label=None,
 ):
-    followup = build_followup_plan(
-        practice_type=practice_type,
-        is_correct=is_correct,
-        skill_label=skill_label,
-        next_skill_label=next_skill_label,
-    )
     context = {
         "title": "Correct" if is_correct else "Incorrect",
-        "clue_that_mattered": clue_text or "The strongest clue in the question mattered most here.",
-        "likely_confusion": "" if is_correct else likely_confusion_text(question),
-        "what_comes_next": followup["summary"],
-        "followup": followup,
+        "grammar_feedback": _skill_specific_feedback(question),
         "selected_answer": selected_answer or "",
         "correct_answer": question.get("correct_answer", ""),
         "explanation": question.get("explanation", ""),
+        "clue_that_mattered": clue_text or "",
+        "likely_confusion": "" if is_correct else likely_confusion_text(question),
     }
     return context

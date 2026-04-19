@@ -2,9 +2,11 @@ import json
 import sys
 from pathlib import Path
 
+from assessment_scope import LEGACY_GRAMMAR_QUESTIONS_PREVIEW_PATH
+
 
 WORD_BANK_PATH = Path("word_bank.json")
-OUTPUT_PATH = Path("grammar_questions_preview.json")
+OUTPUT_PATH = LEGACY_GRAMMAR_QUESTIONS_PREVIEW_PATH
 
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")

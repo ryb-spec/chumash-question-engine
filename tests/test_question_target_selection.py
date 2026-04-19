@@ -4,7 +4,7 @@ from assessment_scope import (
     active_pasuk_text_set,
     active_pasuk_texts,
 )
-from pasuk_flow_generator import generate_question
+from pasuk_flow_generator import generate_question, tokenize_pasuk
 
 
 TARGETED_SKILLS = [
@@ -21,7 +21,7 @@ TARGETED_SKILLS = [
 class QuestionTargetSelectionTests(unittest.TestCase):
     def test_generated_targets_come_from_current_pasuk(self):
         for pasuk in active_pasuk_texts():
-            pasuk_tokens = pasuk.split()
+            pasuk_tokens = tokenize_pasuk(pasuk)
             for skill in TARGETED_SKILLS:
                 question = generate_question(skill, pasuk)
                 if question.get("status") == "skipped":

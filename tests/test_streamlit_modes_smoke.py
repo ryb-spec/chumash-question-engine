@@ -40,7 +40,7 @@ class StreamlitModesSmokeTests(unittest.TestCase):
 
         flows = streamlit_app.load_pasuk_flows()
 
-        self.assertEqual(len(flows), 20)
+        self.assertEqual(len(flows), 40)
         self.assertTrue(all(flow["pasuk"] in active_pasuk_text_set() for flow in flows))
         self.assertTrue(
             all(

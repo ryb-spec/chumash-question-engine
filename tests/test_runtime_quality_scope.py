@@ -1,11 +1,13 @@
 import unittest
 from unittest.mock import patch
+import json
+from pathlib import Path
 
 import streamlit as st
 
 import streamlit_app
 from assessment_scope import active_pesukim_records
-from pasuk_flow_generator import generate_pasuk_flow, is_placeholder_translation
+from pasuk_flow_generator import generate_pasuk_flow, generate_question, is_placeholder_translation
 
 
 def newly_active_scope_pesukim():
@@ -14,6 +16,21 @@ def newly_active_scope_pesukim():
         for record in active_pesukim_records()
         if record.get("ref", {}).get("perek") == 1
         and 21 <= record.get("ref", {}).get("pasuk", 0) <= 30
+    ]
+
+
+def promoted_scope_pesukim():
+    return [
+        record["text"]
+        for record in active_pesukim_records()
+        if (
+            record.get("ref", {}).get("perek") == 1
+            and record.get("ref", {}).get("pasuk", 0) == 31
+        )
+        or (
+            record.get("ref", {}).get("perek") == 2
+            and 1 <= record.get("ref", {}).get("pasuk", 0) <= 9
+        )
     ]
 
 
@@ -68,6 +85,83 @@ class ActiveRuntimeQualityTests(unittest.TestCase):
                     ),
                     f"Placeholder distractor found for {token} in {pasuk}",
                 )
+
+    def test_promoted_scope_translation_like_questions_avoid_placeholder_answers(self):
+        translation_like_types = {
+            "translation",
+            "phrase_meaning",
+            "phrase_translation",
+            "subject_identification",
+        }
+
+        for pasuk in promoted_scope_pesukim():
+            flow = generate_pasuk_flow(pasuk)
+            self.assertGreaterEqual(len(flow.get("questions", [])), 3)
+            for question in flow.get("questions", []):
+                if question.get("question_type") not in translation_like_types:
+                    continue
+
+                token = question.get("selected_word") or question.get("word")
+                self.assertFalse(
+                    is_placeholder_translation(question.get("correct_answer"), token),
+                    f"Weak promoted-scope translation output for {token} in {pasuk}",
+                )
+                self.assertEqual(len(question.get("choices", [])), 4)
+                self.assertEqual(len(set(question.get("choices", []))), 4)
+                self.assertFalse(
+                    any(
+                        is_placeholder_translation(choice, token)
+                        for choice in question.get("choices", [])
+                    ),
+                    f"Placeholder promoted-scope distractor found for {token} in {pasuk}",
+                )
+
+    def test_promoted_scope_phrase_questions_translate_cleanly_or_skip_honestly(self):
+        supported = 0
+        for pasuk in promoted_scope_pesukim():
+            question = generate_question("phrase_translation", pasuk)
+            if question.get("status") == "skipped":
+                self.assertEqual(
+                    question.get("reason"),
+                    "No quiz-ready phrase target found in this pasuk.",
+                )
+                continue
+
+            supported += 1
+            answer = question.get("correct_answer", "")
+            token = question.get("selected_word") or question.get("word")
+            self.assertFalse(
+                is_placeholder_translation(answer, token),
+                f"Weak promoted-scope phrase answer for {token} in {pasuk}",
+            )
+            self.assertNotIn("God and ", answer)
+            self.assertNotIn("the LORD and ", answer)
+            self.assertNotIn("God making", answer)
+            self.assertNotIn("the LORD God making", answer)
+
+        self.assertGreaterEqual(supported, 8)
+
+    def test_promoted_scope_translation_reviews_remain_needs_review(self):
+        reviews = json.loads(
+            Path("data/translation_reviews.json").read_text(encoding="utf-8")
+        )["reviews"]
+        promoted_pasuks = {
+            "bereishis_1_31",
+            "bereishis_2_4",
+            "bereishis_2_7",
+            "bereishis_2_8",
+            "bereishis_2_9",
+        }
+        enriched = [
+            review
+            for review in reviews
+            if review.get("pasuk_id") in promoted_pasuks
+            and review.get("authority_source") == "local_data_enrichment"
+        ]
+
+        self.assertTrue(enriched)
+        self.assertTrue(all(review.get("review_status") == "needs_review" for review in enriched))
+        self.assertTrue(all(review.get("approved_context") is None for review in enriched))
 
     def test_build_followup_question_falls_back_when_same_question_repeats(self):
         progress = {"current_skill": "translation", "prefix_level": 1}

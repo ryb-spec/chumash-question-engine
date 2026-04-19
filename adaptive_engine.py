@@ -1,5 +1,7 @@
 """Focused adaptive mastery helpers for the supported Streamlit runtime."""
 
+from skill_catalog import next_skill_id, resolve_skill_id
+
 RECENT_DECISION_WINDOW = 5
 RETEACH_WINDOW = 4
 FAST_PASS_WINDOW = 5
@@ -26,7 +28,9 @@ def dominant_error_type(skill_state):
 
 def next_skill_in_order(current_skill, skill_order, steps=1):
     if not skill_order:
-        return current_skill
+        return next_skill_id(current_skill, steps)
+    current_skill = resolve_skill_id(current_skill) or current_skill
+    skill_order = [resolve_skill_id(skill) or skill for skill in skill_order]
     try:
         index = skill_order.index(current_skill)
     except ValueError:

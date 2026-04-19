@@ -1,8 +1,10 @@
 import json
 from pathlib import Path
 
+from assessment_scope import LEGACY_QUESTIONS_PATH
 
-QUESTIONS_PATH = Path("questions.json")
+
+QUESTIONS_PATH = LEGACY_QUESTIONS_PATH
 NEW_QUESTIONS_PATH = Path("new_questions.json")
 
 DEFAULTS = {

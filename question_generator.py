@@ -10,11 +10,15 @@ import json
 import random
 from pathlib import Path
 
-from assessment_scope import LEGACY_ROOT_WORD_BANK_PATH, repo_path
+from assessment_scope import (
+    LEGACY_GENERATED_QUESTIONS_PREVIEW_PATH,
+    LEGACY_ROOT_WORD_BANK_PATH,
+    repo_path,
+)
 
 BASE_DIR = repo_path()
 WORD_BANK_PATH = LEGACY_ROOT_WORD_BANK_PATH
-OUTPUT_PATH = repo_path("generated_questions_preview.json")
+OUTPUT_PATH = LEGACY_GENERATED_QUESTIONS_PREVIEW_PATH
 
 
 def load_word_bank():

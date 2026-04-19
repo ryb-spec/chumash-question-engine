@@ -1,10 +1,10 @@
 import copy
 import json
-from pathlib import Path
 
+from assessment_scope import LEGACY_GRAMMAR_QUESTIONS_PREVIEW_PATH, LEGACY_QUESTIONS_PATH
 
-SOURCE_PATH = Path("grammar_questions_preview.json")
-TARGET_PATH = Path("questions.json")
+SOURCE_PATH = LEGACY_GRAMMAR_QUESTIONS_PREVIEW_PATH
+TARGET_PATH = LEGACY_QUESTIONS_PATH
 
 WANTED_QUESTIONS = [
     "Why does מביתו mean 'from his house' instead of 'in his house'?",

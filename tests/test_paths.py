@@ -10,6 +10,22 @@ import streamlit_app
 
 
 class PathResolutionTests(unittest.TestCase):
+    def test_legacy_preview_artifacts_live_outside_repo_root(self):
+        self.assertEqual(
+            assessment_scope.LEGACY_QUESTIONS_PATH,
+            assessment_scope.PREVIEW_ARTIFACTS_DIR / "questions.json",
+        )
+        self.assertEqual(
+            assessment_scope.LEGACY_PASUK_FLOW_PREVIEW_PATH,
+            assessment_scope.PREVIEW_ARTIFACTS_DIR / "pasuk_flow_questions.json",
+        )
+        self.assertTrue(assessment_scope.LEGACY_QUESTIONS_PATH.is_absolute())
+        self.assertTrue(assessment_scope.LEGACY_PASUK_FLOW_PREVIEW_PATH.is_absolute())
+        self.assertTrue(assessment_scope.LEGACY_QUESTIONS_PATH.exists())
+        self.assertTrue(assessment_scope.LEGACY_PASUK_FLOW_PREVIEW_PATH.exists())
+        self.assertFalse(assessment_scope.repo_path("questions.json").exists())
+        self.assertFalse(assessment_scope.repo_path("pasuk_flow_questions.json").exists())
+
     def test_active_runtime_data_resolution_works_from_non_repo_cwd(self):
         original_cwd = Path.cwd()
         try:
@@ -20,8 +36,8 @@ class PathResolutionTests(unittest.TestCase):
             pesukim = assessment_scope.load_active_pesukim_data()
             flows = streamlit_app.load_pasuk_flows()
 
-            self.assertEqual(len(pesukim.get("pesukim", [])), 20)
-            self.assertEqual(len(flows), 20)
+            self.assertEqual(len(pesukim.get("pesukim", [])), 40)
+            self.assertEqual(len(flows), 40)
         finally:
             os.chdir(original_cwd)
 

@@ -1,6 +1,8 @@
 import json
 from pathlib import Path
 
+from skill_catalog import resolve_skill_id
+
 
 PROGRESS_PATH = Path("skill_progress.json")
 MASTERY_WINDOW = 12
@@ -79,6 +81,7 @@ def _word_exposure_container(progress):
 
 
 def update_skill_progress_in_state(progress, skill, is_correct, error_type=None):
+    skill = resolve_skill_id(skill) or skill
     skill_progress = _skills_container(progress)
     skill_state = skill_progress.setdefault(skill, default_skill_state())
     skill_state.setdefault("score", 0)
@@ -186,6 +189,7 @@ def update_word_progress(word, is_correct, progress=None):
 
 
 def check_mastery(skill, progress=None):
+    skill = resolve_skill_id(skill) or skill
     progress = progress or load_skill_progress()
     skill_state = progress.get("skills", {}).get(skill, progress.get(skill))
     if not skill_state:

@@ -1,0 +1,410 @@
+{
+  "meta": {
+    "purpose": "Pre-teach and rescue-layer paradigm data derived from the uploaded poster pack and aligned to core decoding needs.",
+    "source": "Curriculum Prefix.pdf",
+    "notes": [
+      "Use these as quick-reference panels, micro-drill tables, or intervention cards.",
+      "Verb paradigm uses ש.מ.ר. as the model root because the poster set uses a simple guard/watch example."
+    ]
+  },
+  "subject_pronouns": {
+    "singular": [
+      {
+        "person": "1",
+        "gender": "common",
+        "hebrew": "אֲנִי",
+        "english": "I"
+      },
+      {
+        "person": "2",
+        "gender": "masculine",
+        "hebrew": "אַתָּה",
+        "english": "you"
+      },
+      {
+        "person": "2",
+        "gender": "feminine",
+        "hebrew": "אַתְּ",
+        "english": "you"
+      },
+      {
+        "person": "3",
+        "gender": "masculine",
+        "hebrew": "הוּא",
+        "english": "he"
+      },
+      {
+        "person": "3",
+        "gender": "feminine",
+        "hebrew": "הִיא",
+        "english": "she"
+      }
+    ],
+    "plural": [
+      {
+        "person": "1",
+        "gender": "common",
+        "hebrew": "אֲנַחְנוּ",
+        "english": "we"
+      },
+      {
+        "person": "2",
+        "gender": "masculine",
+        "hebrew": "אַתֶּם",
+        "english": "you"
+      },
+      {
+        "person": "2",
+        "gender": "feminine",
+        "hebrew": "אַתֶּן",
+        "english": "you"
+      },
+      {
+        "person": "3",
+        "gender": "masculine",
+        "hebrew": "הֵם",
+        "english": "they"
+      },
+      {
+        "person": "3",
+        "gender": "feminine",
+        "hebrew": "הֵן",
+        "english": "they"
+      }
+    ]
+  },
+  "object_pronouns": {
+    "singular": [
+      {
+        "person": "1",
+        "gender": "common",
+        "hebrew": "אוֹתִי",
+        "english": "me"
+      },
+      {
+        "person": "2",
+        "gender": "masculine",
+        "hebrew": "אוֹתְךָ",
+        "english": "you"
+      },
+      {
+        "person": "2",
+        "gender": "feminine",
+        "hebrew": "אוֹתָךְ",
+        "english": "you"
+      },
+      {
+        "person": "3",
+        "gender": "masculine",
+        "hebrew": "אוֹתוֹ",
+        "english": "him / it"
+      },
+      {
+        "person": "3",
+        "gender": "feminine",
+        "hebrew": "אוֹתָהּ",
+        "english": "her / it"
+      }
+    ],
+    "plural": [
+      {
+        "person": "1",
+        "gender": "common",
+        "hebrew": "אוֹתָנוּ",
+        "english": "us"
+      },
+      {
+        "person": "2",
+        "gender": "masculine",
+        "hebrew": "אֶתְכֶם",
+        "english": "you"
+      },
+      {
+        "person": "2",
+        "gender": "feminine",
+        "hebrew": "אֶתְכֶן",
+        "english": "you"
+      },
+      {
+        "person": "3",
+        "gender": "masculine",
+        "hebrew": "אוֹתָם",
+        "english": "them"
+      },
+      {
+        "person": "3",
+        "gender": "feminine",
+        "hebrew": "אוֹתָן",
+        "english": "them"
+      }
+    ]
+  },
+  "possessive_pronouns": {
+    "singular": [
+      {
+        "person": "1",
+        "gender": "common",
+        "hebrew": "שֶׁלִּי",
+        "english": "mine"
+      },
+      {
+        "person": "2",
+        "gender": "masculine",
+        "hebrew": "שֶׁלְּךָ",
+        "english": "yours"
+      },
+      {
+        "person": "2",
+        "gender": "feminine",
+        "hebrew": "שֶׁלָּךְ",
+        "english": "yours"
+      },
+      {
+        "person": "3",
+        "gender": "masculine",
+        "hebrew": "שֶׁלּוֹ",
+        "english": "his"
+      },
+      {
+        "person": "3",
+        "gender": "feminine",
+        "hebrew": "שֶׁלָּהּ",
+        "english": "hers"
+      }
+    ],
+    "plural": [
+      {
+        "person": "1",
+        "gender": "common",
+        "hebrew": "שֶׁלָּנוּ",
+        "english": "ours"
+      },
+      {
+        "person": "2",
+        "gender": "masculine",
+        "hebrew": "שֶׁלָּכֶם",
+        "english": "yours"
+      },
+      {
+        "person": "2",
+        "gender": "feminine",
+        "hebrew": "שֶׁלָּכֶן",
+        "english": "yours"
+      },
+      {
+        "person": "3",
+        "gender": "masculine",
+        "hebrew": "שֶׁלָּהֶם",
+        "english": "theirs"
+      },
+      {
+        "person": "3",
+        "gender": "feminine",
+        "hebrew": "שֶׁלָּהֶן",
+        "english": "theirs"
+      }
+    ]
+  },
+  "verb_paradigm_example": {
+    "root": "ש.מ.ר",
+    "gloss": "watch / guard",
+    "past": {
+      "singular": [
+        {
+          "person": "1",
+          "gender": "common",
+          "hebrew": "שָׁמַרְתִּי",
+          "english": "I watched"
+        },
+        {
+          "person": "2",
+          "gender": "masculine",
+          "hebrew": "שָׁמַרְתָּ",
+          "english": "you watched"
+        },
+        {
+          "person": "2",
+          "gender": "feminine",
+          "hebrew": "שָׁמַרְתְּ",
+          "english": "you watched"
+        },
+        {
+          "person": "3",
+          "gender": "masculine",
+          "hebrew": "שָׁמַר",
+          "english": "he watched"
+        },
+        {
+          "person": "3",
+          "gender": "feminine",
+          "hebrew": "שָׁמְרָה",
+          "english": "she watched"
+        }
+      ],
+      "plural": [
+        {
+          "person": "1",
+          "gender": "common",
+          "hebrew": "שָׁמַרְנוּ",
+          "english": "we watched"
+        },
+        {
+          "person": "2",
+          "gender": "masculine",
+          "hebrew": "שְׁמַרְתֶּם",
+          "english": "you watched"
+        },
+        {
+          "person": "2",
+          "gender": "feminine",
+          "hebrew": "שְׁמַרְתֶּן",
+          "english": "you watched"
+        },
+        {
+          "person": "3",
+          "gender": "masculine",
+          "hebrew": "שָׁמְרוּ",
+          "english": "they watched"
+        },
+        {
+          "person": "3",
+          "gender": "feminine",
+          "hebrew": "שָׁמְרוּ",
+          "english": "they watched"
+        }
+      ]
+    },
+    "present": {
+      "singular": [
+        {
+          "person": "3",
+          "gender": "masculine",
+          "hebrew": "שׁוֹמֵר",
+          "english": "he is watching"
+        },
+        {
+          "person": "3",
+          "gender": "feminine",
+          "hebrew": "שׁוֹמֶרֶת",
+          "english": "she is watching"
+        }
+      ],
+      "plural": [
+        {
+          "person": "3",
+          "gender": "masculine",
+          "hebrew": "שׁוֹמְרִים",
+          "english": "they are watching"
+        },
+        {
+          "person": "3",
+          "gender": "feminine",
+          "hebrew": "שׁוֹמְרוֹת",
+          "english": "they are watching"
+        }
+      ]
+    },
+    "future": {
+      "singular": [
+        {
+          "person": "1",
+          "gender": "common",
+          "hebrew": "אֶשְׁמֹר",
+          "english": "I will watch"
+        },
+        {
+          "person": "2",
+          "gender": "masculine",
+          "hebrew": "תִּשְׁמֹר",
+          "english": "you will watch"
+        },
+        {
+          "person": "2",
+          "gender": "feminine",
+          "hebrew": "תִּשְׁמְרִי",
+          "english": "you will watch"
+        },
+        {
+          "person": "3",
+          "gender": "masculine",
+          "hebrew": "יִשְׁמֹר",
+          "english": "he will watch"
+        },
+        {
+          "person": "3",
+          "gender": "feminine",
+          "hebrew": "תִּשְׁמֹר",
+          "english": "she will watch"
+        }
+      ],
+      "plural": [
+        {
+          "person": "1",
+          "gender": "common",
+          "hebrew": "נִשְׁמֹר",
+          "english": "we will watch"
+        },
+        {
+          "person": "2",
+          "gender": "masculine",
+          "hebrew": "תִּשְׁמְרוּ",
+          "english": "you will watch"
+        },
+        {
+          "person": "2",
+          "gender": "feminine",
+          "hebrew": "תִּשְׁמֹרְנָה",
+          "english": "you will watch"
+        },
+        {
+          "person": "3",
+          "gender": "masculine",
+          "hebrew": "יִשְׁמְרוּ",
+          "english": "they will watch"
+        },
+        {
+          "person": "3",
+          "gender": "feminine",
+          "hebrew": "תִּשְׁמֹרְנָה",
+          "english": "they will watch"
+        }
+      ]
+    },
+    "command": {
+      "singular": [
+        {
+          "person": "2",
+          "gender": "masculine",
+          "hebrew": "שְׁמֹר",
+          "english": "watch!"
+        },
+        {
+          "person": "2",
+          "gender": "feminine",
+          "hebrew": "שִׁמְרִי",
+          "english": "watch!"
+        }
+      ],
+      "plural": [
+        {
+          "person": "2",
+          "gender": "masculine",
+          "hebrew": "שִׁמְרוּ",
+          "english": "watch!"
+        },
+        {
+          "person": "2",
+          "gender": "feminine",
+          "hebrew": "שְׁמֹרְנָה",
+          "english": "watch!"
+        }
+      ]
+    }
+  },
+  "instructional_uses": [
+    "Pre-teach playlist cards",
+    "On-demand hint panels in Pasuk Flow",
+    "Targeted reteach after repeated person/gender/number errors",
+    "Diagnostic anchors for pronoun and verb-agreement confusions"
+  ]
+}

@@ -282,6 +282,38 @@ def load_source_corpus(path):
     return load_json(path, {"metadata": {}, "pesukim": []})
 
 
+def merge_source_corpora(source_corpora):
+    corpora = [corpus for corpus in (source_corpora or []) if corpus]
+    if not corpora:
+        return {"metadata": {}, "pesukim": []}
+
+    records = []
+    for corpus in corpora:
+        records.extend(corpus.get("pesukim", []))
+
+    if not records:
+        metadata = dict(corpora[0].get("metadata", {}))
+        return {"metadata": metadata, "pesukim": []}
+
+    first = records[0]
+    last = records[-1]
+    first_metadata = corpora[0].get("metadata", {})
+    return {
+        "metadata": {
+            "title": first_metadata.get("title"),
+            "range": f"{first.get('perek')}:{first.get('pasuk')}-{last.get('perek')}:{last.get('pasuk')}",
+            "format": first_metadata.get("format"),
+        },
+        "pesukim": records,
+    }
+
+
+def load_source_corpora(paths):
+    path_list = list(paths or [])
+    corpora = [load_source_corpus(path) for path in path_list]
+    return merge_source_corpora(corpora)
+
+
 def build_staged_corpus_from_source(
     source_path,
     output_dir=None,

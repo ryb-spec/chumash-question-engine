@@ -56,6 +56,7 @@ class CorpusReadinessTests(unittest.TestCase):
             metrics["scope_under_evaluation"]["active_runtime_scope_unchanged"],
             original_scope,
         )
+        self.assertEqual(metrics["scope_under_evaluation"]["bundle_status"], "staged")
 
 
 if __name__ == "__main__":

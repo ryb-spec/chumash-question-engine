@@ -2,6 +2,7 @@ import json
 from pathlib import Path
 
 from assessment_scope import repo_path
+from skill_catalog import adaptive_standard_ids, resolve_skill_id, skill_ids_in_runtime_order
 from skill_tracker import (
     update_skill_progress_in_state,
     update_word_progress_in_state,
@@ -11,8 +12,8 @@ from skill_tracker import (
 UNIFIED_PROGRESS_PATH = repo_path("progress.json")
 LEGACY_SKILL_PROGRESS_PATH = repo_path("skill_progress.json")
 SCHEMA_VERSION = 2
-DEFAULT_STANDARDS = ("WM", "SR", "PR", "CF", "PC", "PS", "SS", "CM")
-DEFAULT_CURRENT_SKILL = "identify_prefix_meaning"
+DEFAULT_STANDARDS = tuple(adaptive_standard_ids())
+DEFAULT_CURRENT_SKILL = skill_ids_in_runtime_order()[0]
 
 
 def load_json(path):
@@ -91,13 +92,16 @@ def ensure_progress_state(progress):
     state["standards"] = standards
     state["xp"] = xp
 
-    state["current_skill"] = state.get("current_skill") or DEFAULT_CURRENT_SKILL
+    state["current_skill"] = resolve_skill_id(state.get("current_skill")) or state.get("current_skill") or DEFAULT_CURRENT_SKILL
     state["prefix_level"] = state.get("prefix_level", 1) or 1
 
-    state["skills"] = {
-        skill: _normalized_skill_state(skill_state)
-        for skill, skill_state in dict(state.get("skills", {})).items()
-    }
+    normalized_skills = {}
+    for skill, skill_state in dict(state.get("skills", {})).items():
+        canonical_skill = resolve_skill_id(skill) or skill
+        merged_state = dict(normalized_skills.get(canonical_skill, {}))
+        merged_state.update(skill_state or {})
+        normalized_skills[canonical_skill] = _normalized_skill_state(merged_state)
+    state["skills"] = normalized_skills
     state["word_exposure"] = {
         word: _normalized_word_state(word_state)
         for word, word_state in dict(state.get("word_exposure", {})).items()

@@ -4,6 +4,12 @@ import random
 import re
 import sys
 
+from assessment_scope import (
+    LEGACY_PASUK_FLOW_PREVIEW_PATH,
+    LEGACY_PASUK_FLOWS_PATH,
+    LEGACY_QUESTIONS_PATH,
+)
+
 try:
     from pasuk_flow_generator import generate_pasuk_flow, generate_question as generate_skill_question
 except ImportError:
@@ -686,7 +692,7 @@ def filter_questions_for_test_mode(
 
 def load_pasuk_flow(source=None, pasuk=None):
     flows = []
-    for filename in ["pasuk_flow_questions.json", "pasuk_flows.json"]:
+    for filename in [LEGACY_PASUK_FLOW_PREVIEW_PATH, LEGACY_PASUK_FLOWS_PATH]:
         try:
             with open(filename, "r", encoding="utf-8") as file:
                 data = json.load(file)
@@ -950,7 +956,7 @@ def run_pasuk_flow(progress, source=None, pasuk=None, flow=None):
 args = parse_args()
 word_bank_metadata = load_word_bank_metadata()
 
-with open("questions.json", "r", encoding="utf-8") as file:
+with open(LEGACY_QUESTIONS_PATH, "r", encoding="utf-8") as file:
     data = json.load(file)
 
 questions = data["questions"]

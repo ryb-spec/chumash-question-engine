@@ -1,0 +1,1498 @@
+{
+  "report_version": 1,
+  "scope_summary": {
+    "scope": "local_parsed_bereishis_1_1_to_2_9",
+    "sefer": "Bereishis",
+    "range": {
+      "start": {
+        "perek": 1,
+        "pasuk": 1
+      },
+      "end": {
+        "perek": 2,
+        "pasuk": 9
+      }
+    },
+    "status": "active",
+    "pesukim_count": 40,
+    "first_ref": {
+      "pasuk_id": "bereishis_1_1",
+      "sefer": "Bereishis",
+      "perek": 1,
+      "pasuk": 1
+    },
+    "last_ref": {
+      "pasuk_id": "bereishis_2_9",
+      "sefer": "Bereishis",
+      "perek": 2,
+      "pasuk": 9
+    },
+    "paths": {
+      "pesukim": "C:\\Users\\ybassman\\Documents\\GitHub\\chumash-question-engine\\data\\pesukim_100.json",
+      "word_bank": "C:\\Users\\ybassman\\Documents\\GitHub\\chumash-question-engine\\data\\word_bank.json",
+      "word_occurrences": "C:\\Users\\ybassman\\Documents\\GitHub\\chumash-question-engine\\data\\word_occurrences.json",
+      "translation_reviews": "C:\\Users\\ybassman\\Documents\\GitHub\\chumash-question-engine\\data\\translation_reviews.json"
+    }
+  },
+  "analysis_errors": [],
+  "skills": [
+    {
+      "skill": "prefix",
+      "title": "Prefix",
+      "total_candidates_seen": 290,
+      "valid_candidates": 255,
+      "invalid_candidates": 35,
+      "valid_percent": 87.9,
+      "invalid_by_reason": [
+        {
+          "reason": "multiple_prefixes",
+          "count": 21
+        },
+        {
+          "reason": "no_clear_prefix",
+          "count": 14
+        }
+      ],
+      "most_common_blocked_forms": [
+        {
+          "form": "הָאֲדָמָה",
+          "count": 5
+        },
+        {
+          "form": "וְהָאָרֶץ",
+          "count": 3
+        },
+        {
+          "form": "וְהָיוּ",
+          "count": 2
+        },
+        {
+          "form": "וּבְעוֹף",
+          "count": 2
+        },
+        {
+          "form": "וּמִלְאוּ",
+          "count": 2
+        },
+        {
+          "form": "יִהְיֶה",
+          "count": 2
+        },
+        {
+          "form": "וְאֵד",
+          "count": 1
+        },
+        {
+          "form": "וְהִנֵּה",
+          "count": 1
+        },
+        {
+          "form": "וְהִשְׁקָה",
+          "count": 1
+        },
+        {
+          "form": "וְהָעוֹף",
+          "count": 1
+        }
+      ],
+      "forms_without_safe_candidate_paths": [
+        {
+          "form": "הָאֲדָמָה",
+          "count": 5
+        },
+        {
+          "form": "וְהָאָרֶץ",
+          "count": 3
+        },
+        {
+          "form": "וְהָיוּ",
+          "count": 2
+        },
+        {
+          "form": "וּבְעוֹף",
+          "count": 2
+        },
+        {
+          "form": "וּמִלְאוּ",
+          "count": 2
+        },
+        {
+          "form": "יִהְיֶה",
+          "count": 2
+        },
+        {
+          "form": "וְאֵד",
+          "count": 1
+        },
+        {
+          "form": "וְהִנֵּה",
+          "count": 1
+        },
+        {
+          "form": "וְהִשְׁקָה",
+          "count": 1
+        },
+        {
+          "form": "וְהָעוֹף",
+          "count": 1
+        },
+        {
+          "form": "וְכִבְשֻׁהָ",
+          "count": 1
+        },
+        {
+          "form": "וְלִמְשֹׁל",
+          "count": 1
+        },
+        {
+          "form": "וְלַחֹשֶׁךְ",
+          "count": 1
+        },
+        {
+          "form": "וְשָׁנִים",
+          "count": 1
+        },
+        {
+          "form": "וּבַבְּהֵמָה",
+          "count": 1
+        },
+        {
+          "form": "וּבַלַּיְלָה",
+          "count": 1
+        },
+        {
+          "form": "וּלְהַבְדִּיל",
+          "count": 1
+        },
+        {
+          "form": "וּלְיָמִים",
+          "count": 1
+        },
+        {
+          "form": "וּלְמִקְוֵה",
+          "count": 1
+        },
+        {
+          "form": "וּלְמוֹעֲדִים",
+          "count": 1
+        },
+        {
+          "form": "יְעוֹפֵף",
+          "count": 1
+        },
+        {
+          "form": "יִצְמָח",
+          "count": 1
+        },
+        {
+          "form": "יִקָּווּ",
+          "count": 1
+        },
+        {
+          "form": "יִשְׁרְצוּ",
+          "count": 1
+        },
+        {
+          "form": "תְהוֹם",
+          "count": 1
+        }
+      ],
+      "pesukim_with_no_safe_candidate_paths": [],
+      "sample_pesukim_with_no_safe_candidate_paths": []
+    },
+    {
+      "skill": "suffix",
+      "title": "Suffix",
+      "total_candidates_seen": 121,
+      "valid_candidates": 87,
+      "invalid_candidates": 34,
+      "valid_percent": 71.9,
+      "invalid_by_reason": [
+        {
+          "reason": "no_clear_suffix",
+          "count": 20
+        },
+        {
+          "reason": "compound_morphology",
+          "count": 13
+        },
+        {
+          "reason": "context_dependent_suffix",
+          "count": 1
+        }
+      ],
+      "most_common_blocked_forms": [
+        {
+          "form": "הָאֲדָמָה",
+          "count": 5
+        },
+        {
+          "form": "הָאָדָם",
+          "count": 4
+        },
+        {
+          "form": "הַשָּׁמַיִם",
+          "count": 2
+        },
+        {
+          "form": "וְהָיוּ",
+          "count": 2
+        },
+        {
+          "form": "וּמִלְאוּ",
+          "count": 2
+        },
+        {
+          "form": "בְּהִבָּרְאָם",
+          "count": 1
+        },
+        {
+          "form": "בְּיוֹם",
+          "count": 1
+        },
+        {
+          "form": "בְּעֵדֶן",
+          "count": 1
+        },
+        {
+          "form": "בְּתוֹךְ",
+          "count": 1
+        },
+        {
+          "form": "הַחַיִּים",
+          "count": 1
+        }
+      ],
+      "forms_without_safe_candidate_paths": [
+        {
+          "form": "הָאֲדָמָה",
+          "count": 5
+        },
+        {
+          "form": "הָאָדָם",
+          "count": 4
+        },
+        {
+          "form": "הַשָּׁמַיִם",
+          "count": 2
+        },
+        {
+          "form": "וְהָיוּ",
+          "count": 2
+        },
+        {
+          "form": "וּמִלְאוּ",
+          "count": 2
+        },
+        {
+          "form": "בְּהִבָּרְאָם",
+          "count": 1
+        },
+        {
+          "form": "בְּיוֹם",
+          "count": 1
+        },
+        {
+          "form": "בְּעֵדֶן",
+          "count": 1
+        },
+        {
+          "form": "בְּתוֹךְ",
+          "count": 1
+        },
+        {
+          "form": "הַחַיִּים",
+          "count": 1
+        },
+        {
+          "form": "וְהִנֵּה",
+          "count": 1
+        },
+        {
+          "form": "וְהִשְׁקָה",
+          "count": 1
+        },
+        {
+          "form": "וְכִבְשֻׁהָ",
+          "count": 1
+        },
+        {
+          "form": "וְלַחֹשֶׁךְ",
+          "count": 1
+        },
+        {
+          "form": "וְשָׁמָיִם",
+          "count": 1
+        },
+        {
+          "form": "וְשָׁנִים",
+          "count": 1
+        },
+        {
+          "form": "וּבַבְּהֵמָה",
+          "count": 1
+        },
+        {
+          "form": "וּבַלַּיְלָה",
+          "count": 1
+        },
+        {
+          "form": "וּלְיָמִים",
+          "count": 1
+        },
+        {
+          "form": "וּלְמִקְוֵה",
+          "count": 1
+        },
+        {
+          "form": "וּלְמוֹעֲדִים",
+          "count": 1
+        },
+        {
+          "form": "חַיִּים",
+          "count": 1
+        },
+        {
+          "form": "לְמַרְאֶה",
+          "count": 1
+        },
+        {
+          "form": "מִקֶּדֶם",
+          "count": 1
+        }
+      ],
+      "pesukim_with_no_safe_candidate_paths": [
+        "Bereishis 1:3",
+        "Bereishis 2:4",
+        "Bereishis 2:6",
+        "Bereishis 2:8",
+        "Bereishis 2:9"
+      ],
+      "sample_pesukim_with_no_safe_candidate_paths": [
+        "Bereishis 1:3",
+        "Bereishis 2:4",
+        "Bereishis 2:6",
+        "Bereishis 2:8",
+        "Bereishis 2:9"
+      ]
+    },
+    {
+      "skill": "shoresh",
+      "title": "Shoresh",
+      "total_candidates_seen": 87,
+      "valid_candidates": 62,
+      "invalid_candidates": 25,
+      "valid_percent": 71.3,
+      "invalid_by_reason": [
+        {
+          "reason": "no_clear_shoresh",
+          "count": 24
+        },
+        {
+          "reason": "compound_morphology",
+          "count": 1
+        }
+      ],
+      "most_common_blocked_forms": [
+        {
+          "form": "הָרֹמֶשֶׂת",
+          "count": 2
+        },
+        {
+          "form": "וַיִּבְרָא",
+          "count": 2
+        },
+        {
+          "form": "יִהְיֶה",
+          "count": 2
+        },
+        {
+          "form": "לְמֶמְשֶׁלֶת",
+          "count": 2
+        },
+        {
+          "form": "בְּהִבָּרְאָם",
+          "count": 1
+        },
+        {
+          "form": "בְּצַלְמֵנוּ",
+          "count": 1
+        },
+        {
+          "form": "בְּרֵאשִׁית",
+          "count": 1
+        },
+        {
+          "form": "הַמְּאֹרֹת",
+          "count": 1
+        },
+        {
+          "form": "וַיְקַדֵּשׁ",
+          "count": 1
+        },
+        {
+          "form": "וַיִּשְׁבֹּת",
+          "count": 1
+        }
+      ],
+      "forms_without_safe_candidate_paths": [
+        {
+          "form": "הָרֹמֶשֶׂת",
+          "count": 2
+        },
+        {
+          "form": "וַיִּבְרָא",
+          "count": 2
+        },
+        {
+          "form": "יִהְיֶה",
+          "count": 2
+        },
+        {
+          "form": "לְמֶמְשֶׁלֶת",
+          "count": 2
+        },
+        {
+          "form": "בְּהִבָּרְאָם",
+          "count": 1
+        },
+        {
+          "form": "בְּצַלְמֵנוּ",
+          "count": 1
+        },
+        {
+          "form": "בְּרֵאשִׁית",
+          "count": 1
+        },
+        {
+          "form": "הַמְּאֹרֹת",
+          "count": 1
+        },
+        {
+          "form": "וַיְקַדֵּשׁ",
+          "count": 1
+        },
+        {
+          "form": "וַיִּשְׁבֹּת",
+          "count": 1
+        },
+        {
+          "form": "וַיִּתֵּן",
+          "count": 1
+        },
+        {
+          "form": "וַתּוֹצֵא",
+          "count": 1
+        },
+        {
+          "form": "יְעוֹפֵף",
+          "count": 1
+        },
+        {
+          "form": "יִצְמָח",
+          "count": 1
+        },
+        {
+          "form": "יִשְׁרְצוּ",
+          "count": 1
+        },
+        {
+          "form": "כִּדְמוּתֵנוּ",
+          "count": 1
+        },
+        {
+          "form": "לְמִינוֹ",
+          "count": 1
+        },
+        {
+          "form": "לִמְאוֹרֹת",
+          "count": 1
+        },
+        {
+          "form": "לַעֲשׂוֹת",
+          "count": 1
+        },
+        {
+          "form": "מְרַחֶפֶת",
+          "count": 1
+        },
+        {
+          "form": "תְהוֹם",
+          "count": 1
+        }
+      ],
+      "pesukim_with_no_safe_candidate_paths": [
+        "Bereishis 1:1",
+        "Bereishis 1:2",
+        "Bereishis 1:17",
+        "Bereishis 1:27",
+        "Bereishis 2:5"
+      ],
+      "sample_pesukim_with_no_safe_candidate_paths": [
+        "Bereishis 1:1",
+        "Bereishis 1:2",
+        "Bereishis 1:17",
+        "Bereishis 1:27",
+        "Bereishis 2:5"
+      ]
+    },
+    {
+      "skill": "tense",
+      "title": "Tense",
+      "total_candidates_seen": 87,
+      "valid_candidates": 86,
+      "invalid_candidates": 1,
+      "valid_percent": 98.9,
+      "invalid_by_reason": [
+        {
+          "reason": "compound_morphology",
+          "count": 1
+        }
+      ],
+      "most_common_blocked_forms": [
+        {
+          "form": "בְּהִבָּרְאָם",
+          "count": 1
+        }
+      ],
+      "forms_without_safe_candidate_paths": [
+        {
+          "form": "בְּהִבָּרְאָם",
+          "count": 1
+        }
+      ],
+      "pesukim_with_no_safe_candidate_paths": [],
+      "sample_pesukim_with_no_safe_candidate_paths": []
+    },
+    {
+      "skill": "translation",
+      "title": "Translation / Context",
+      "total_candidates_seen": 559,
+      "valid_candidates": 175,
+      "invalid_candidates": 384,
+      "valid_percent": 31.3,
+      "invalid_by_reason": [
+        {
+          "reason": "placeholder_translation",
+          "count": 324
+        },
+        {
+          "reason": "grammatical_particle",
+          "count": 60
+        }
+      ],
+      "most_common_blocked_forms": [
+        {
+          "form": "אֶת",
+          "count": 17
+        },
+        {
+          "form": "עַל",
+          "count": 12
+        },
+        {
+          "form": "אֲשֶׁר",
+          "count": 8
+        },
+        {
+          "form": "טוֹב",
+          "count": 8
+        },
+        {
+          "form": "יוֹם",
+          "count": 8
+        },
+        {
+          "form": "הַמַּיִם",
+          "count": 7
+        },
+        {
+          "form": "בֹקֶר",
+          "count": 6
+        },
+        {
+          "form": "כֵן",
+          "count": 6
+        },
+        {
+          "form": "כִּי",
+          "count": 6
+        },
+        {
+          "form": "כָּל",
+          "count": 6
+        }
+      ],
+      "forms_without_safe_candidate_paths": [
+        {
+          "form": "אֶת",
+          "count": 17
+        },
+        {
+          "form": "עַל",
+          "count": 12
+        },
+        {
+          "form": "אֲשֶׁר",
+          "count": 8
+        },
+        {
+          "form": "טוֹב",
+          "count": 8
+        },
+        {
+          "form": "יוֹם",
+          "count": 8
+        },
+        {
+          "form": "הַמַּיִם",
+          "count": 7
+        },
+        {
+          "form": "בֹקֶר",
+          "count": 6
+        },
+        {
+          "form": "כֵן",
+          "count": 6
+        },
+        {
+          "form": "כִּי",
+          "count": 6
+        },
+        {
+          "form": "כָּל",
+          "count": 6
+        },
+        {
+          "form": "עֶרֶב",
+          "count": 6
+        },
+        {
+          "form": "אֲשֶׁר",
+          "count": 5
+        },
+        {
+          "form": "בֵּין",
+          "count": 5
+        },
+        {
+          "form": "הַשָּׁמַיִם",
+          "count": 5
+        },
+        {
+          "form": "וְאֵת",
+          "count": 5
+        },
+        {
+          "form": "וּבֵין",
+          "count": 4
+        },
+        {
+          "form": "חַיָּה",
+          "count": 4
+        },
+        {
+          "form": "לְמִינֵהוּ",
+          "count": 4
+        },
+        {
+          "form": "לְמִינָהּ",
+          "count": 4
+        },
+        {
+          "form": "נֶפֶשׁ",
+          "count": 4
+        },
+        {
+          "form": "עֵשֶׂב",
+          "count": 4
+        },
+        {
+          "form": "פְּנֵי",
+          "count": 4
+        },
+        {
+          "form": "בִּרְקִיעַ",
+          "count": 3
+        },
+        {
+          "form": "בָּרָא",
+          "count": 3
+        },
+        {
+          "form": "בוֹ",
+          "count": 3
+        },
+        {
+          "form": "הַשְּׁבִיעִי",
+          "count": 3
+        },
+        {
+          "form": "הָאוֹר",
+          "count": 3
+        },
+        {
+          "form": "וְאֶת",
+          "count": 3
+        },
+        {
+          "form": "וְעֵץ",
+          "count": 3
+        },
+        {
+          "form": "וּבְכָל",
+          "count": 3
+        },
+        {
+          "form": "זֶרַע",
+          "count": 3
+        },
+        {
+          "form": "יְהִי",
+          "count": 3
+        },
+        {
+          "form": "לָרָקִיעַ",
+          "count": 3
+        },
+        {
+          "form": "מְלַאכְתּוֹ",
+          "count": 3
+        },
+        {
+          "form": "מִן",
+          "count": 3
+        },
+        {
+          "form": "עָשָׂה",
+          "count": 3
+        },
+        {
+          "form": "פְּרִי",
+          "count": 3
+        },
+        {
+          "form": "אֶחָד",
+          "count": 2
+        },
+        {
+          "form": "אֹתוֹ",
+          "count": 2
+        },
+        {
+          "form": "אוֹר",
+          "count": 2
+        },
+        {
+          "form": "בַּיּוֹם",
+          "count": 2
+        },
+        {
+          "form": "בּוֹ",
+          "count": 2
+        },
+        {
+          "form": "דֶּשֶׁא",
+          "count": 2
+        },
+        {
+          "form": "הַגְּדֹלִים",
+          "count": 2
+        },
+        {
+          "form": "הַחֹשֶׁךְ",
+          "count": 2
+        },
+        {
+          "form": "הַיָּם",
+          "count": 2
+        },
+        {
+          "form": "הַיּוֹם",
+          "count": 2
+        },
+        {
+          "form": "הַלָּיְלָה",
+          "count": 2
+        },
+        {
+          "form": "הַמָּאוֹר",
+          "count": 2
+        },
+        {
+          "form": "הַמָּיִם",
+          "count": 2
+        },
+        {
+          "form": "הַשָּׂדֶה",
+          "count": 2
+        },
+        {
+          "form": "הַשָּׁמַיִם",
+          "count": 2
+        },
+        {
+          "form": "הַשָּׁמָיִם",
+          "count": 2
+        },
+        {
+          "form": "הָרֹמֶשֶׂת",
+          "count": 2
+        },
+        {
+          "form": "וְהָיוּ",
+          "count": 2
+        },
+        {
+          "form": "וְכׇל",
+          "count": 2
+        },
+        {
+          "form": "וַיִּבְרָא",
+          "count": 2
+        },
+        {
+          "form": "וּבְעוֹף",
+          "count": 2
+        },
+        {
+          "form": "וּלְכָל",
+          "count": 2
+        },
+        {
+          "form": "וּמִלְאוּ",
+          "count": 2
+        },
+        {
+          "form": "וּרְבוּ",
+          "count": 2
+        },
+        {
+          "form": "זַרְעוֹ",
+          "count": 2
+        },
+        {
+          "form": "זֹרֵעַ",
+          "count": 2
+        },
+        {
+          "form": "חַיַּת",
+          "count": 2
+        },
+        {
+          "form": "טֶרֶם",
+          "count": 2
+        },
+        {
+          "form": "יִהְיֶה",
+          "count": 2
+        },
+        {
+          "form": "כִּי",
+          "count": 2
+        },
+        {
+          "form": "לְאָכְלָה",
+          "count": 2
+        },
+        {
+          "form": "לְהָאִיר",
+          "count": 2
+        },
+        {
+          "form": "לְמֶמְשֶׁלֶת",
+          "count": 2
+        },
+        {
+          "form": "לָכֶם",
+          "count": 2
+        },
+        {
+          "form": "מִכָּל",
+          "count": 2
+        },
+        {
+          "form": "מִתַּחַת",
+          "count": 2
+        },
+        {
+          "form": "מַזְרִיעַ",
+          "count": 2
+        },
+        {
+          "form": "עֹשֶׂה",
+          "count": 2
+        },
+        {
+          "form": "עוֹף",
+          "count": 2
+        },
+        {
+          "form": "פְּרוּ",
+          "count": 2
+        },
+        {
+          "form": "קָרָא",
+          "count": 2
+        },
+        {
+          "form": "אֵת",
+          "count": 1
+        },
+        {
+          "form": "אֶל",
+          "count": 1
+        },
+        {
+          "form": "אַיִן",
+          "count": 1
+        },
+        {
+          "form": "אָדָם",
+          "count": 1
+        },
+        {
+          "form": "בְּאַפָּיו",
+          "count": 1
+        },
+        {
+          "form": "בְּתוֹךְ",
+          "count": 1
+        },
+        {
+          "form": "בִדְגַת",
+          "count": 1
+        },
+        {
+          "form": "בָּרָא",
+          "count": 1
+        },
+        {
+          "form": "בָאָרֶץ",
+          "count": 1
+        },
+        {
+          "form": "בְּהֵמָה",
+          "count": 1
+        },
+        {
+          "form": "בְּצֶלֶם",
+          "count": 1
+        },
+        {
+          "form": "בְּצַלְמֵנוּ",
+          "count": 1
+        },
+        {
+          "form": "בְּצַלְמוֹ",
+          "count": 1
+        },
+        {
+          "form": "בְּרֵאשִׁית",
+          "count": 1
+        },
+        {
+          "form": "בְּתוֹךְ",
+          "count": 1
+        },
+        {
+          "form": "בִּדְגַת",
+          "count": 1
+        },
+        {
+          "form": "בַּיַּמִּים",
+          "count": 1
+        },
+        {
+          "form": "בַּיּוֹם",
+          "count": 1
+        },
+        {
+          "form": "בָּאָרֶץ",
+          "count": 1
+        },
+        {
+          "form": "הִמְטִיר",
+          "count": 1
+        },
+        {
+          "form": "הִנֵּה",
+          "count": 1
+        },
+        {
+          "form": "הַבְּהֵמָה",
+          "count": 1
+        },
+        {
+          "form": "הַגָּדֹל",
+          "count": 1
+        },
+        {
+          "form": "הַחַיָּה",
+          "count": 1
+        },
+        {
+          "form": "הַיַּבָּשָׁה",
+          "count": 1
+        },
+        {
+          "form": "הַכּוֹכָבִים",
+          "count": 1
+        },
+        {
+          "form": "הַמְּאֹרֹת",
+          "count": 1
+        },
+        {
+          "form": "הַקָּטֹן",
+          "count": 1
+        },
+        {
+          "form": "הַשִּׁשִּׁי",
+          "count": 1
+        },
+        {
+          "form": "הַתַּנִּינִם",
+          "count": 1
+        },
+        {
+          "form": "הָיְתָה",
+          "count": 1
+        },
+        {
+          "form": "הָעֵץ",
+          "count": 1
+        },
+        {
+          "form": "הָרֶמֶשׂ",
+          "count": 1
+        },
+        {
+          "form": "הָרָקִיעַ",
+          "count": 1
+        },
+        {
+          "form": "הָרֹמֵשׂ",
+          "count": 1
+        },
+        {
+          "form": "וְאָדָם",
+          "count": 1
+        },
+        {
+          "form": "וְהִנֵּה",
+          "count": 1
+        },
+        {
+          "form": "וְהָעוֹף",
+          "count": 1
+        },
+        {
+          "form": "וְחַיְתוֹ",
+          "count": 1
+        },
+        {
+          "form": "וְחֹשֶׁךְ",
+          "count": 1
+        },
+        {
+          "form": "וְיִרְדּוּ",
+          "count": 1
+        },
+        {
+          "form": "וְכִבְשֻׁהָ",
+          "count": 1
+        },
+        {
+          "form": "וְכֹל",
+          "count": 1
+        },
+        {
+          "form": "וְלִמְשֹׁל",
+          "count": 1
+        },
+        {
+          "form": "וְלַחֹשֶׁךְ",
+          "count": 1
+        },
+        {
+          "form": "וְעוֹף",
+          "count": 1
+        },
+        {
+          "form": "וְרוּחַ",
+          "count": 1
+        },
+        {
+          "form": "וְשָׁנִים",
+          "count": 1
+        },
+        {
+          "form": "וַיְקַדֵּשׁ",
+          "count": 1
+        },
+        {
+          "form": "וַיִּשְׁבֹּת",
+          "count": 1
+        },
+        {
+          "form": "וַיִּתֵּן",
+          "count": 1
+        },
+        {
+          "form": "וַתּוֹצֵא",
+          "count": 1
+        },
+        {
+          "form": "וָבֹהוּ",
+          "count": 1
+        },
+        {
+          "form": "וָרֶמֶשׂ",
+          "count": 1
+        },
+        {
+          "form": "וּבַבְּהֵמָה",
+          "count": 1
+        },
+        {
+          "form": "וּבַלַּיְלָה",
+          "count": 1
+        },
+        {
+          "form": "וּלְהַבְדִּיל",
+          "count": 1
+        },
+        {
+          "form": "וּלְיָמִים",
+          "count": 1
+        },
+        {
+          "form": "וּלְכֹל",
+          "count": 1
+        },
+        {
+          "form": "וּלְמִקְוֵה",
+          "count": 1
+        },
+        {
+          "form": "וּלְמוֹעֲדִים",
+          "count": 1
+        },
+        {
+          "form": "וּנְקֵבָה",
+          "count": 1
+        },
+        {
+          "form": "וּרְדוּ",
+          "count": 1
+        },
+        {
+          "form": "זָכָר",
+          "count": 1
+        },
+        {
+          "form": "זָרַע",
+          "count": 1
+        },
+        {
+          "form": "חֲמִישִׁי",
+          "count": 1
+        },
+        {
+          "form": "יְעוֹפֵף",
+          "count": 1
+        },
+        {
+          "form": "יִצְמָח",
+          "count": 1
+        },
+        {
+          "form": "יִרֶב",
+          "count": 1
+        },
+        {
+          "form": "יִשְׁרְצוּ",
+          "count": 1
+        },
+        {
+          "form": "יֶרֶק",
+          "count": 1
+        },
+        {
+          "form": "יַמִּים",
+          "count": 1
+        },
+        {
+          "form": "כָל",
+          "count": 1
+        },
+        {
+          "form": "כִּדְמוּתֵנוּ",
+          "count": 1
+        },
+        {
+          "form": "כָּנָף",
+          "count": 1
+        },
+        {
+          "form": "לְאֹתֹת",
+          "count": 1
+        },
+        {
+          "form": "לְהַבְדִּיל",
+          "count": 1
+        },
+        {
+          "form": "לְמִינֵהֶם",
+          "count": 1
+        },
+        {
+          "form": "לְמִינוֹ",
+          "count": 1
+        },
+        {
+          "form": "לְנֶפֶשׁ",
+          "count": 1
+        },
+        {
+          "form": "לִמְאוֹרֹת",
+          "count": 1
+        },
+        {
+          "form": "לֵאמֹר",
+          "count": 1
+        },
+        {
+          "form": "לַיַּבָּשָׁה",
+          "count": 1
+        },
+        {
+          "form": "לַעֲבֹד",
+          "count": 1
+        },
+        {
+          "form": "לַעֲשׂוֹת",
+          "count": 1
+        },
+        {
+          "form": "לָאוֹר",
+          "count": 1
+        },
+        {
+          "form": "לָהֶם",
+          "count": 1
+        },
+        {
+          "form": "לָיְלָה",
+          "count": 1
+        },
+        {
+          "form": "לָמָיִם",
+          "count": 1
+        },
+        {
+          "form": "לֹא",
+          "count": 1
+        },
+        {
+          "form": "מְאֹד",
+          "count": 1
+        },
+        {
+          "form": "מְאֹרֹת",
+          "count": 1
+        },
+        {
+          "form": "מְרַחֶפֶת",
+          "count": 1
+        },
+        {
+          "form": "מֵעַל",
+          "count": 1
+        },
+        {
+          "form": "מַבְדִּיל",
+          "count": 1
+        },
+        {
+          "form": "מַיִם",
+          "count": 1
+        },
+        {
+          "form": "מָקוֹם",
+          "count": 1
+        },
+        {
+          "form": "נַעֲשֶׂה",
+          "count": 1
+        },
+        {
+          "form": "נָתַתִּי",
+          "count": 1
+        },
+        {
+          "form": "עֵשֶׂב",
+          "count": 1
+        },
+        {
+          "form": "פְרִי",
+          "count": 1
+        },
+        {
+          "form": "צְבָאָם",
+          "count": 1
+        },
+        {
+          "form": "רְבִיעִי",
+          "count": 1
+        },
+        {
+          "form": "רְקִיעַ",
+          "count": 1
+        },
+        {
+          "form": "רֶמֶשׂ",
+          "count": 1
+        },
+        {
+          "form": "רָקִיעַ",
+          "count": 1
+        },
+        {
+          "form": "רוֹמֵשׂ",
+          "count": 1
+        },
+        {
+          "form": "שִׂיחַ",
+          "count": 1
+        },
+        {
+          "form": "שָׁבַת",
+          "count": 1
+        },
+        {
+          "form": "שְׁלִישִׁי",
+          "count": 1
+        },
+        {
+          "form": "שְׁנֵי",
+          "count": 1
+        },
+        {
+          "form": "שֵׁנִי",
+          "count": 1
+        },
+        {
+          "form": "שֶׁרֶץ",
+          "count": 1
+        },
+        {
+          "form": "שָׁמָיִם",
+          "count": 1
+        },
+        {
+          "form": "שָׁרְצוּ",
+          "count": 1
+        },
+        {
+          "form": "תְהוֹם",
+          "count": 1
+        },
+        {
+          "form": "תֹהוּ",
+          "count": 1
+        },
+        {
+          "form": "תַּדְשֵׁא",
+          "count": 1
+        },
+        {
+          "form": "תּוֹצֵא",
+          "count": 1
+        }
+      ],
+      "pesukim_with_no_safe_candidate_paths": [],
+      "sample_pesukim_with_no_safe_candidate_paths": []
+    }
+  ],
+  "overall": {
+    "top_rejection_reasons": [
+      {
+        "reason": "placeholder_translation",
+        "count": 324
+      },
+      {
+        "reason": "grammatical_particle",
+        "count": 60
+      },
+      {
+        "reason": "no_clear_shoresh",
+        "count": 24
+      },
+      {
+        "reason": "multiple_prefixes",
+        "count": 21
+      },
+      {
+        "reason": "no_clear_suffix",
+        "count": 20
+      },
+      {
+        "reason": "compound_morphology",
+        "count": 15
+      },
+      {
+        "reason": "no_clear_prefix",
+        "count": 14
+      },
+      {
+        "reason": "context_dependent_suffix",
+        "count": 1
+      }
+    ],
+    "most_common_blocked_forms": [
+      {
+        "form": "אֶת",
+        "count": 17
+      },
+      {
+        "form": "עַל",
+        "count": 12
+      },
+      {
+        "form": "הָאֲדָמָה",
+        "count": 10
+      },
+      {
+        "form": "אֲשֶׁר",
+        "count": 8
+      },
+      {
+        "form": "טוֹב",
+        "count": 8
+      },
+      {
+        "form": "יוֹם",
+        "count": 8
+      },
+      {
+        "form": "הַמַּיִם",
+        "count": 7
+      },
+      {
+        "form": "בֹקֶר",
+        "count": 6
+      },
+      {
+        "form": "וְהָיוּ",
+        "count": 6
+      },
+      {
+        "form": "וּמִלְאוּ",
+        "count": 6
+      }
+    ]
+  }
+}

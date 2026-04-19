@@ -2,6 +2,8 @@
 
 This module evaluates the next contiguous source block after the current active
 runtime scope. Promotion is explicit and guarded by staged-build readiness.
+Only ``active_candidate`` chunks may be promoted; ``review_needed`` chunks
+remain out of the active runtime until a later explicit step.
 """
 
 import json
@@ -12,10 +14,15 @@ from assessment_scope import (
     CORPUS_MANIFEST_PATH,
     load_corpus_manifest,
     manifest_active_scope_metadata,
+    normalize_corpus_status,
     resolve_repo_path,
 )
 from corpus_metrics import evaluate_staged_corpus_readiness
-from torah_parser.export_bank import build_parsed_corpus_artifacts, load_source_corpus
+from torah_parser.export_bank import (
+    build_parsed_corpus_artifacts,
+    load_source_corpus,
+    load_source_corpora,
+)
 
 
 DEFAULT_NEXT_BLOCK_SIZE = 10
@@ -33,16 +40,47 @@ def _make_scope_id(sefer, start_ref, end_ref):
     )
 
 
-def primary_source_path_for_active_scope(manifest=None):
-    scope = manifest_active_scope_metadata() if manifest is None else next(
+def source_corpus_actual_summary(source_corpus):
+    records = list((source_corpus or {}).get("pesukim", []))
+    if not records:
+        return {
+            "pesukim_count": 0,
+            "range": {
+                "start": {"sefer": None, "perek": None, "pasuk": None},
+                "end": {"sefer": None, "perek": None, "pasuk": None},
+            },
+        }
+    first = records[0]
+    last = records[-1]
+    return {
+        "pesukim_count": len(records),
+        "range": {
+            "start": {"sefer": first.get("sefer"), "perek": first.get("perek"), "pasuk": first.get("pasuk")},
+            "end": {"sefer": last.get("sefer"), "perek": last.get("perek"), "pasuk": last.get("pasuk")},
+        },
+    }
+
+
+def _active_scope_from_manifest(manifest):
+    return next(
         (
             scope for scope in manifest.get("scopes", [])
             if scope.get("status") == "active" and scope.get("supported_runtime")
         ),
         {},
     )
-    source_files = scope.get("source_files") or []
-    return resolve_repo_path(source_files[0]) if source_files else None
+
+
+def source_paths_for_active_scope(manifest=None):
+    manifest = manifest or load_corpus_manifest()
+    scope = manifest_active_scope_metadata() if manifest is None else _active_scope_from_manifest(manifest)
+    source_corpus_id = scope.get("source_corpus_id")
+    source_corpus = next(
+        (row for row in manifest.get("source_corpora", []) if row.get("corpus_id") == source_corpus_id),
+        {},
+    )
+    source_files = source_corpus.get("source_files") or scope.get("source_files") or []
+    return [resolve_repo_path(path) for path in source_files]
 
 
 def find_next_source_block(source_corpus, active_scope=None, block_size=DEFAULT_NEXT_BLOCK_SIZE):
@@ -92,21 +130,45 @@ def find_next_source_block(source_corpus, active_scope=None, block_size=DEFAULT_
 
 
 def evaluate_next_source_block(source_path=None, block_size=DEFAULT_NEXT_BLOCK_SIZE):
+    manifest = load_corpus_manifest()
     active_scope = manifest_active_scope_metadata()
-    source_path = resolve_repo_path(source_path) if source_path else primary_source_path_for_active_scope()
-    source_corpus = load_source_corpus(source_path)
+    if source_path is None:
+        source_paths = source_paths_for_active_scope(manifest)
+    elif isinstance(source_path, (list, tuple)):
+        source_paths = [resolve_repo_path(path) for path in source_path]
+    else:
+        source_paths = [resolve_repo_path(source_path)]
+
+    source_corpus = load_source_corpora(source_paths) if len(source_paths) > 1 else load_source_corpus(source_paths[0])
+    source_summary = source_corpus_actual_summary(source_corpus)
     next_block = find_next_source_block(source_corpus, active_scope=active_scope, block_size=block_size)
 
     result = {
         "current_active_scope": active_scope.get("scope_id"),
         "current_active_range": active_scope.get("range"),
-        "source_path": str(source_path) if source_path else None,
+        "source_path": str(source_paths[0]) if source_paths else None,
+        "source_paths": [str(path) for path in source_paths],
+        "source_declared_range": source_corpus.get("metadata", {}).get("range"),
+        "source_actual_range": source_summary["range"],
+        "source_pesukim_count": source_summary["pesukim_count"],
         "next_block": next_block,
         "promoted": False,
     }
     if next_block.get("status") != "found":
+        actual_end = (source_summary.get("range") or {}).get("end", {})
+        active_end = (active_scope.get("range") or {}).get("end", {})
         result["status"] = next_block.get("status")
-        result["reason"] = next_block.get("reason")
+        if (
+            next_block.get("status") == "no_next_block"
+            and active_scope.get("sefer") == actual_end.get("sefer")
+            and active_end.get("perek") == actual_end.get("perek")
+            and active_end.get("pasuk") == actual_end.get("pasuk")
+        ):
+            result["reason"] = (
+                "The local source corpus ends at the current active scope, so no next contiguous block is available."
+            )
+        else:
+            result["reason"] = next_block.get("reason")
         return result
 
     chunk_corpus = {
@@ -125,8 +187,8 @@ def evaluate_next_source_block(source_path=None, block_size=DEFAULT_NEXT_BLOCK_S
     staged = build_parsed_corpus_artifacts(
         chunk_corpus,
         corpus_id=corpus_id,
-        status="parsed",
-        source_files=[Path(source_path).as_posix()],
+        status="staged",
+        source_files=[Path(path).as_posix() for path in source_paths],
     )
     readiness = evaluate_staged_corpus_readiness(staged)
     result.update(
@@ -141,7 +203,7 @@ def evaluate_next_source_block(source_path=None, block_size=DEFAULT_NEXT_BLOCK_S
 
 def apply_promotion_to_manifest(manifest, evaluation):
     readiness = evaluation.get("readiness", {})
-    if readiness.get("readiness_recommendation") != "active_candidate":
+    if normalize_corpus_status(readiness.get("readiness_recommendation")) != "active_candidate":
         raise ValueError("Cannot promote a chunk that is not an active_candidate.")
 
     manifest = deepcopy(manifest)
@@ -154,6 +216,7 @@ def apply_promotion_to_manifest(manifest, evaluation):
     new_end = next_block["range"]["end"]
     new_count = active_scope.get("pesukim_count", 0) + next_block.get("pesukim_count", 0)
     new_scope_id = _make_scope_id(active_scope.get("sefer"), new_start, new_end)
+    new_source_files = list(evaluation.get("source_paths") or active_scope.get("source_files") or [])
 
     active_scope["scope_id"] = new_scope_id
     active_scope["range"]["end"] = {
@@ -161,6 +224,8 @@ def apply_promotion_to_manifest(manifest, evaluation):
         "pasuk": new_end.get("pasuk"),
     }
     active_scope["pesukim_count"] = new_count
+    if new_source_files:
+        active_scope["source_files"] = new_source_files
 
     for parsed_corpus in manifest.get("parsed_corpora", []):
         if parsed_corpus.get("corpus_id") == active_scope.get("parsed_corpus_id"):
@@ -170,6 +235,8 @@ def apply_promotion_to_manifest(manifest, evaluation):
             }
             parsed_corpus["pesukim_count"] = new_count
             parsed_corpus["status"] = "active"
+            if new_source_files:
+                parsed_corpus["source_files"] = new_source_files
 
     for source_corpus in manifest.get("source_corpora", []):
         if source_corpus.get("corpus_id") == active_scope.get("source_corpus_id"):
@@ -178,6 +245,8 @@ def apply_promotion_to_manifest(manifest, evaluation):
                 "pasuk": new_end.get("pasuk"),
             }
             source_corpus["pesukim_count"] = new_count
+            if new_source_files:
+                source_corpus["source_files"] = new_source_files
 
     return manifest
 
@@ -185,7 +254,7 @@ def apply_promotion_to_manifest(manifest, evaluation):
 def promote_next_source_block_if_ready(source_path=None, block_size=DEFAULT_NEXT_BLOCK_SIZE, manifest_path=CORPUS_MANIFEST_PATH):
     evaluation = evaluate_next_source_block(source_path=source_path, block_size=block_size)
     readiness = evaluation.get("readiness", {})
-    if readiness.get("readiness_recommendation") != "active_candidate":
+    if normalize_corpus_status(readiness.get("readiness_recommendation")) != "active_candidate":
         evaluation["manifest_updated"] = False
         return evaluation
 

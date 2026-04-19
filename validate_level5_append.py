@@ -1,6 +1,8 @@
 import json
 from pathlib import Path
 
+from assessment_scope import LEGACY_QUESTIONS_PATH
+
 
 WANTED_QUESTIONS = [
     "Why does מביתו mean 'from his house' instead of 'in his house'?",
@@ -21,7 +23,7 @@ def get_questions(path):
     return data["questions"] if isinstance(data, dict) else data
 
 
-questions = get_questions("questions.json")
+questions = get_questions(LEGACY_QUESTIONS_PATH)
 by_text = {question.get("question"): question for question in questions}
 selected = [by_text[text] for text in WANTED_QUESTIONS]
 serialized = [

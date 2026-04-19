@@ -5,23 +5,18 @@ It uses the active local parsed dataset and shared generator logic.
 """
 
 import json
-import hashlib
 import os
-import random
 import re
 from datetime import datetime, timezone
 from html import escape
-from pathlib import Path
+from time import perf_counter
 
 import streamlit as st
-import streamlit.components.v1 as components
 
 from adaptive_engine import (
     build_selection_preferences,
-    candidate_weight,
     evaluate_skill_progression,
 )
-from question_ui import build_feedback_context, build_learning_context
 from assessment_scope import (
     ACTIVE_ASSESSMENT_SCOPE,
     SUPPORTED_PRACTICE_TYPES,
@@ -32,6 +27,92 @@ from assessment_scope import (
     repo_path,
 )
 from progress_store import load_progress_state, record_answer, save_progress_state
+from runtime.mode_handlers import (
+    render_flow_overview,
+    render_mastery_mode,
+    render_pasuk_flow,
+    render_skill_practice_mode,
+)
+from runtime.question_flow import (
+    attach_debug_trace,
+    build_followup_question,
+    build_quiz_debug_payload,
+    candidate_quality_breakdown,
+    choice_similarity,
+    current_routing_mode,
+    distractor_separation_score,
+    display_context_policy,
+    finalize_transition_debug,
+    generate_mastery_question,
+    generate_practice_question,
+    increment_debug_rejection_count,
+    is_explicit_reteach_mode,
+    progress_source_label,
+    question_prompt_family,
+    question_signature,
+    recent_question_repeat_reason,
+    recent_question_signature_key,
+    skip_reason_codes,
+    summarize_debug_rejection_counts,
+    timed_question_generation,
+    answer_to_next_ready_ms,
+    choose_weighted_pasuk_question,
+    select_pasuk_first_question,
+)
+from runtime.session_state import (
+    clear_transient_quiz_messages,
+    consume_adaptive_context,
+    feature_is_blocked,
+    get_generation_history,
+    get_question_feature,
+    get_question_prefix,
+    get_recent_prefixes,
+    get_recent_question_formats,
+    init_session_state,
+    prefix_is_blocked,
+    record_question_feature,
+    record_question_prefix,
+    record_selected_pasuk,
+    reset_for_new_question,
+    set_adaptive_status,
+    set_question,
+    transition_to_question,
+)
+from skill_catalog import (
+    ADAPTIVE_STANDARD_IDS,
+    MICRO_STANDARD_LABELS,
+    STANDARD_LABELS,
+    next_skill_id,
+    resolve_skill_id,
+    skill_display_label,
+    skill_ids_in_runtime_order,
+    micro_standard_display_label,
+    standard_display_label,
+)
+from torah_parser.word_bank_adapter import (
+    adapt_word_bank_data,
+    build_word_bank_metadata_index,
+    normalize_hebrew_key,
+)
+from ui.render_feedback import render_feedback
+from ui.render_question import (
+    answer_choice_label,
+    get_word_entry,
+    highlight_display_text,
+    highlight_focus,
+    local_context_snippet,
+    question_key,
+    question_type_key,
+    render_debug,
+    render_enter_key_handler,
+    render_grammar_clues,
+    render_learning_header,
+    render_pasukh_panel,
+    render_question,
+    render_quiz_debug_panel,
+    split_pasuk_phrases,
+    uses_compact_pasuk_context,
+)
 
 try:
     from pasuk_flow_generator import analyze_pasuk as analyze_generator_pasuk
@@ -52,30 +133,8 @@ WORD_BANK_PATH = data_path("word_bank.json")
 ATTEMPT_LOG_PATH = data_path("attempt_log.jsonl")
 
 MODES = ["Adaptive", "WM", "PR", "CF", "PS", "SS", "CM", "Pasuk Flow"]
-ADAPTIVE_STANDARDS = ["WM", "SR", "PR", "CF", "PC", "PS", "SS", "CM"]
-SKILL_ORDER = [
-    "identify_prefix_meaning",
-    "identify_suffix_meaning",
-    "identify_pronoun_suffix",
-    "identify_verb_marker",
-    "segment_word_parts",
-    "identify_tense",
-    "identify_prefix_future",
-    "identify_suffix_past",
-    "identify_present_pattern",
-    "convert_future_to_command",
-    "match_pronoun_to_verb",
-    "part_of_speech",
-    "shoresh",
-    "prefix",
-    "suffix",
-    "translation",
-    "verb_tense",
-    "subject_identification",
-    "object_identification",
-    "preposition_meaning",
-    "phrase_translation",
-]
+ADAPTIVE_STANDARDS = list(ADAPTIVE_STANDARD_IDS)
+SKILL_ORDER = skill_ids_in_runtime_order()
 SYSTEM_PESUKIM = [
     "וילך האיש מביתו אל העיר",
     "ויתן האב לחם לבנו",
@@ -154,40 +213,17 @@ MENUKAD_FALLBACK = {
     "על": "עַל",
 }
 
-SKILL_NAMES = {
+MODE_LABELS = {
     "Adaptive": "Recommended Practice",
-    "WM": "Understanding words",
-    "SR": "Finding the root of a word",
-    "PR": "How words are built",
-    "PS": "How words are built",
-    "SS": "Who is doing what",
-    "CM": "Understanding meaning from context",
-    "CF": "How the sentence works",
-    "PC": "Reading short phrases",
     "FLOW": "What happens in order",
     "Level 5": "Hard explanation questions",
     "Pasuk Flow": "Guided Pasuk Practice",
-    "identify_prefix_meaning": "How words are built",
-    "identify_suffix_meaning": "How words are built",
-    "identify_pronoun_suffix": "How words are built",
-    "identify_verb_marker": "How words are built",
-    "segment_word_parts": "How words are built",
-    "identify_tense": "How verbs are built",
-    "identify_prefix_future": "How verbs are built",
-    "identify_suffix_past": "How verbs are built",
-    "identify_present_pattern": "How verbs are built",
-    "convert_future_to_command": "How verbs are built",
-    "match_pronoun_to_verb": "How verbs are built",
-    "part_of_speech": "Parts of speech",
-    "shoresh": "Finding the root",
-    "prefix": "Prefixes",
-    "suffix": "Suffixes",
-    "translation": "Word meaning",
-    "verb_tense": "Verb tense",
-    "subject_identification": "Who is doing the action",
-    "object_identification": "What the action happens to",
-    "preposition_meaning": "Small direction words",
-    "phrase_translation": "Phrase meaning",
+}
+
+SKILL_NAMES = {
+    **MODE_LABELS,
+    **STANDARD_LABELS,
+    **{skill_id: skill_display_label(skill_id) for skill_id in SKILL_ORDER},
 }
 
 QUESTION_TYPE_NAMES = {
@@ -202,34 +238,7 @@ QUESTION_TYPE_NAMES = {
     "word_meaning": "Understanding words",
 }
 
-MICRO_STANDARD_NAMES = {
-    "WM1": "Match a Hebrew word to its meaning",
-    "WM2": "Recognize the Hebrew word from English",
-    "WM3": "Group related meanings",
-    "WM4": "Tell close meanings apart",
-    "WM5": "Understand abstract words",
-    "PR1": "Recognize a prefix",
-    "PR2": "Recognize an ending",
-    "PR3": "Combine prefix and word",
-    "PR4": "Combine word and ending",
-    "PR5": "Read the whole word form",
-    "PS1": "Find the subject in a phrase",
-    "PS2": "Find the action in a phrase",
-    "PS3": "Read a prefix inside a phrase",
-    "PS4": "Understand a phrase unit",
-    "PS5": "Put phrase clues together",
-    "SS1": "Find who is doing the action",
-    "SS2": "Find the main action",
-    "SS3": "Identify each word's role",
-    "SS4": "Follow the order of events",
-    "SS5": "Explain how the sentence works",
-    "CM1": "Use context to choose the meaning",
-    "CF1": "Connect root and meaning",
-    "CF2": "Connect prefix and meaning",
-    "CF3": "Put root, prefix, and meaning together",
-    "CF4": "Decode several clues at once",
-    "CF5": "Explain a complex form",
-}
+MICRO_STANDARD_NAMES = dict(MICRO_STANDARD_LABELS)
 
 
 def load_json(path, default):
@@ -258,6 +267,8 @@ def reset_assessment_state():
     st.session_state.recent_pesukim = []
     st.session_state.recent_phrases = []
     st.session_state.recent_questions = []
+    st.session_state.developer_debug_mode = diagnostics_enabled()
+    st.session_state.last_answer_submitted_at = None
     st.session_state.recent_features = []
     st.session_state.recent_prefixes = []
     st.session_state.adaptive_status_message = ""
@@ -285,122 +296,8 @@ def load_pasuk_flows():
 
 @st.cache_data
 def load_word_bank_metadata():
-    metadata = {}
     data = load_json(WORD_BANK_PATH, {"words": []})
-    for entry in adapt_word_bank_metadata(data):
-        add_word_metadata(metadata, entry)
-    return metadata
-
-
-def normalize_hebrew_key(text):
-    if not isinstance(text, str):
-        return text
-    return HEBREW_MARK_RE.sub("", text)
-
-
-def old_word_type(part_of_speech):
-    return {
-        "proper_noun": "noun",
-        "preposition": "prep",
-    }.get(part_of_speech, part_of_speech or "unknown")
-
-
-def first_morpheme_value(items, key, default=""):
-    if not items:
-        return default
-    first = items[0] or {}
-    return first.get(key, default)
-
-
-def adapt_word_analysis(surface, analysis, analysis_index=0):
-    prefixes = analysis.get("prefixes") or []
-    suffixes = analysis.get("suffixes") or []
-    word = analysis.get("surface") or surface
-    translation_literal = analysis.get("translation_literal") or analysis.get("translation")
-    translation_context = analysis.get("translation_context") or analysis.get("context_translation")
-    adapted = {
-        "word": word,
-        "Word": word,
-        "surface": word,
-        "menukad": word,
-        "normalized": analysis.get("normalized") or normalize_hebrew_key(word),
-        "lemma": analysis.get("lemma"),
-        "shoresh": analysis.get("shoresh"),
-        "Shoresh": analysis.get("shoresh"),
-        "type": old_word_type(analysis.get("part_of_speech")),
-        "part_of_speech": analysis.get("part_of_speech"),
-        "translation": translation_context or translation_literal or word,
-        "translation_literal": translation_literal,
-        "translation_context": translation_context,
-        "context_translation": translation_context,
-        "base_translation": translation_literal,
-        "prefixes": prefixes,
-        "suffixes": suffixes,
-        "prefix": first_morpheme_value(prefixes, "form"),
-        "prefix_meaning": first_morpheme_value(prefixes, "translation"),
-        "suffix": first_morpheme_value(suffixes, "form"),
-        "suffix_meaning": first_morpheme_value(suffixes, "translation"),
-        "binyan": analysis.get("binyan"),
-        "tense": analysis.get("tense"),
-        "person": analysis.get("person"),
-        "number": analysis.get("number"),
-        "gender": analysis.get("gender"),
-        "source_refs": analysis.get("source_refs", []),
-        "analysis_index": analysis_index,
-    }
-    adapted["analyses"] = [dict(adapted)]
-    return adapted
-
-
-def adapt_word_bank_metadata(data):
-    words = data.get("words", [])
-    if isinstance(words, list):
-        entries = []
-        for entry in words:
-            adapted = dict(entry)
-            adapted.setdefault("word", adapted.get("Word"))
-            adapted.setdefault("Word", adapted.get("word"))
-            adapted.setdefault("surface", adapted.get("word"))
-            adapted.setdefault("menukad", adapted.get("surface") or adapted.get("word"))
-            adapted.setdefault("normalized", normalize_hebrew_key(adapted.get("word", "")))
-            adapted.setdefault("Shoresh", adapted.get("shoresh"))
-            adapted.setdefault("type", old_word_type(adapted.get("part_of_speech")))
-            adapted.setdefault("translation_literal", adapted.get("translation"))
-            adapted.setdefault("translation_context", adapted.get("context_translation"))
-            adapted.setdefault(
-                "translation",
-                adapted.get("translation_context") or adapted.get("translation_literal") or adapted.get("word"),
-            )
-            adapted.setdefault("context_translation", adapted.get("translation_context"))
-            adapted.setdefault("base_translation", adapted.get("translation_literal"))
-            adapted.setdefault("prefixes", [])
-            adapted.setdefault("suffixes", [])
-            adapted.setdefault("analyses", [dict(adapted)])
-            entries.append(adapted)
-        return entries
-
-    entries = []
-    for surface, analyses in words.items():
-        for index, analysis in enumerate(analyses):
-            entries.append(adapt_word_analysis(surface, analysis, index))
-    return entries
-
-
-def add_word_metadata(metadata, entry):
-    word = entry.get("word")
-    if not word:
-        return
-    if word in metadata:
-        existing = metadata[word]
-        existing.setdefault("analyses", [existing])
-        existing["analyses"].extend(entry.get("analyses", [entry]))
-        existing.update(entry)
-    else:
-        metadata[word] = entry
-
-    normalized = entry.get("normalized")
-    if normalized:
-        metadata.setdefault(normalized, entry)
+    return build_word_bank_metadata_index(adapt_word_bank_data(data))
 
 
 def load_progress():
@@ -416,32 +313,20 @@ def get_skill_xp_progress(xp):
 
 
 def get_next_skill(current_skill):
-    try:
-        index = SKILL_ORDER.index(current_skill)
-    except ValueError:
-        return SKILL_ORDER[0]
-
-    if index + 1 >= len(SKILL_ORDER):
-        return current_skill
-
-    return SKILL_ORDER[index + 1]
+    return next_skill_id(current_skill, 1)
 
 
 def get_next_skill_by_steps(current_skill, steps=1):
-    try:
-        index = SKILL_ORDER.index(current_skill)
-    except ValueError:
-        return SKILL_ORDER[0]
-
-    target_index = min(len(SKILL_ORDER) - 1, index + max(0, steps))
-    return SKILL_ORDER[target_index]
+    return next_skill_id(current_skill, steps)
 
 
 def skill_path_label(skill):
-    return SKILL_NAMES.get(skill, skill.replace("_", " ").title())
+    canonical_skill = resolve_skill_id(skill) or skill
+    return SKILL_NAMES.get(canonical_skill, canonical_skill.replace("_", " ").title())
 
 
 def get_error_type(skill):
+    skill = resolve_skill_id(skill) or skill
     return {
         "identify_prefix_meaning": "prefix_error",
         "identify_suffix_meaning": "suffix_error",
@@ -509,21 +394,21 @@ def next_goal_message(score):
 
 def plain_skill(question_or_mode):
     if isinstance(question_or_mode, str):
+        canonical = resolve_skill_id(question_or_mode)
+        if canonical:
+            return skill_path_label(canonical)
         return SKILL_NAMES.get(question_or_mode, question_or_mode)
 
     question_type = question_or_mode.get("question_type")
     if question_type in QUESTION_TYPE_NAMES:
         return QUESTION_TYPE_NAMES[question_type]
-    return SKILL_NAMES.get(question_or_mode.get("standard"), "Chumash Reading")
+    return standard_display_label(question_or_mode.get("standard"), "Chumash Reading")
 
 
 def learning_goal(question):
     if question.get("skill"):
         return skill_path_label(question["skill"])
-    return MICRO_STANDARD_NAMES.get(
-        question.get("micro_standard"),
-        plain_skill(question),
-    )
+    return micro_standard_display_label(question.get("micro_standard"), plain_skill(question))
 
 
 def thinking_tip(question):
@@ -607,6 +492,12 @@ def diagnostics_enabled():
     return str(value).lower() in {"1", "true", "yes", "on"}
 
 
+def developer_debug_enabled():
+    if not diagnostics_enabled():
+        return False
+    return bool(st.session_state.get("developer_debug_mode", True))
+
+
 def question_pipeline_source(question, flow=None):
     if flow is not None:
         return "generated flow from active parsed dataset"
@@ -648,392 +539,12 @@ def render_assessment_diagnostics(question=None, flow=None, mode="unknown"):
         return
 
     with st.sidebar.expander("Assessment Diagnostics", expanded=False):
+        st.session_state.developer_debug_mode = st.checkbox(
+            "Developer debug panel",
+            value=st.session_state.get("developer_debug_mode", True),
+            help="Show hidden quiz instrumentation for generation and transition paths.",
+        )
         st.json(diagnostic_payload(question, flow, mode))
-
-
-def split_pasuk_phrases(text, words_per_phrase=4):
-    words = menukad_text(text).split()
-    if len(words) <= words_per_phrase:
-        return [" ".join(words)] if words else []
-
-    phrases = []
-    for index in range(0, len(words), words_per_phrase):
-        phrases.append(" ".join(words[index:index + words_per_phrase]))
-    return phrases
-
-
-def highlight_display_text(text, focus):
-    safe_text = escape(menukad_text(text))
-    if focus:
-        safe_focus = escape(menukad_text(focus))
-        safe_text = safe_text.replace(
-            safe_focus,
-            f"<mark>{safe_focus}</mark>",
-            1,
-        )
-    return safe_text
-
-
-def question_key(question, prefix):
-    raw = "|".join(
-        str(part)
-        for part in [
-            prefix,
-            question.get("id", ""),
-            question.get("question", ""),
-            question.get("selected_word", ""),
-            question.get("correct_answer", ""),
-        ]
-    )
-    return hashlib.sha1(raw.encode("utf-8")).hexdigest()[:12]
-
-
-def render_enter_key_handler(handler_key, action_labels):
-    labels = [label for label in action_labels if label]
-    if not labels:
-        return
-
-    script = f"""
-    <script>
-    (function() {{
-        const handlerId = {json.dumps(handler_key)};
-        const labels = {json.dumps(labels)};
-        const root = window.parent.document;
-        const registry = window.parent.__assessmentEnterHandlers || (window.parent.__assessmentEnterHandlers = {{}});
-
-        if (registry[handlerId]) {{
-            root.removeEventListener('keydown', registry[handlerId], true);
-        }}
-
-        const isVisible = (element) => !!(element && element.offsetParent !== null);
-        const isAllowedTarget = (element) => {{
-            if (!element) return true;
-            const tag = (element.tagName || '').toLowerCase();
-            if (tag === 'textarea') return false;
-            if (tag === 'input') {{
-                const inputType = (element.type || '').toLowerCase();
-                return !['text', 'search', 'email', 'url', 'password', 'number'].includes(inputType);
-            }}
-            return true;
-        }};
-
-        const handler = (event) => {{
-            if (event.key !== 'Enter' || event.shiftKey || event.ctrlKey || event.metaKey || event.altKey) return;
-            if (!isAllowedTarget(root.activeElement)) return;
-
-            const buttons = Array.from(root.querySelectorAll('button[kind="primary"], button[data-testid="baseButton-primary"]'));
-            const target = buttons.find((button) => {{
-                const label = (button.innerText || button.textContent || '').trim();
-                return !button.disabled && isVisible(button) && labels.includes(label);
-            }});
-            if (!target) return;
-
-            event.preventDefault();
-            target.click();
-        }};
-
-        registry[handlerId] = handler;
-        root.addEventListener('keydown', handler, true);
-    }})();
-    </script>
-    """
-    components.html(script, height=0, width=0)
-
-
-def highlight_focus(text, focus):
-    if not text:
-        return ""
-    return highlight_display_text(text, focus)
-
-
-COMPACT_CONTEXT_QUESTION_TYPES = {
-    "word_meaning",
-    "translation",
-    "shoresh",
-    "prefix",
-    "suffix",
-    "prefix_suffix",
-    "verb_tense",
-}
-
-FULL_CONTEXT_QUESTION_TYPES = {
-    "subject_identification",
-    "phrase_meaning",
-    "phrase_translation",
-    "flow",
-    "flow_dependency",
-    "role_clarity",
-}
-
-
-def question_type_key(question):
-    return question.get("question_type") or question.get("skill") or ""
-
-
-def uses_compact_pasuk_context(question, flow=None):
-    if flow is not None:
-        return False
-    key = question_type_key(question)
-    if key in FULL_CONTEXT_QUESTION_TYPES:
-        return False
-    if key in COMPACT_CONTEXT_QUESTION_TYPES:
-        return True
-    if key.startswith("prefix_level_"):
-        return True
-    return False
-
-
-def local_context_snippet(pasuk, focus, radius=2):
-    tokens = menukad_text(pasuk).split()
-    focus_text = menukad_text(focus)
-    if not tokens or not focus_text:
-        return ""
-
-    focus_tokens = focus_text.split()
-    if not focus_tokens:
-        return ""
-
-    match_index = None
-    match_length = len(focus_tokens)
-    for index in range(0, len(tokens) - match_length + 1):
-        if tokens[index:index + match_length] == focus_tokens:
-            match_index = index
-            break
-
-    if match_index is None and focus_text in tokens:
-        match_index = tokens.index(focus_text)
-        match_length = 1
-
-    if match_index is None:
-        return ""
-
-    start = max(0, match_index - radius)
-    end = min(len(tokens), match_index + match_length + radius)
-    snippet = " ".join(tokens[start:end])
-    if start > 0:
-        snippet = "... " + snippet
-    if end < len(tokens):
-        snippet += " ..."
-    return snippet
-
-
-def get_word_entry(question):
-    word_bank_metadata = load_word_bank_metadata()
-    selected_word = question.get("selected_word") or question.get("word", "")
-    if selected_word in word_bank_metadata:
-        return word_bank_metadata[selected_word]
-    normalized_selected = normalize_hebrew_key(selected_word)
-    if normalized_selected in word_bank_metadata:
-        return word_bank_metadata[normalized_selected]
-
-    for token in selected_word.split():
-        if token in word_bank_metadata:
-            return word_bank_metadata[token]
-        normalized_token = normalize_hebrew_key(token)
-        if normalized_token in word_bank_metadata:
-            return word_bank_metadata[normalized_token]
-
-    return None
-
-
-def render_learning_header(question, progress, flow=None):
-    standard = question.get("standard", "unknown")
-    score = progress["standards"].get(standard, 0)
-    xp = progress["xp"].get(standard, 0)
-    level = get_skill_level(xp)
-    skill_state = st.session_state.get("last_skill_state")
-    mastery_score = skill_state["score"] if skill_state else score
-
-    if flow is not None:
-        steps = flow.get("questions") or flow.get("steps", [])
-        step_index = st.session_state.flow_step + 1
-        progress_value = step_index / max(1, len(steps))
-        progress_text = f"You're {int(progress_value * 100)}% through this pasuk."
-        step_text = f"Step {step_index} of {len(steps)}"
-    else:
-        progress_value = mastery_score / 100
-        progress_text = f"You're building {plain_skill(question).lower()}."
-        step_text = f"Practice level {level}"
-
-    source = get_source_label(question, flow)
-    practice_type = "Pasuk Flow" if flow is not None else st.session_state.get("practice_type", "Learn Mode")
-    current_skill = progress.get("current_skill", question.get("skill", standard))
-    current_skill_label = skill_path_label(current_skill)
-    next_skill_label = skill_path_label(get_next_skill(current_skill))
-    header_context = build_learning_context(
-        practice_type=practice_type,
-        skill_label=plain_skill(question),
-        current_skill_label=current_skill_label,
-        next_skill_label=next_skill_label,
-        source_label=source,
-        focus_tip=thinking_tip(question),
-    )
-    st.markdown(
-        f"""
-        <section class="learning-header">
-            <div>
-                <div class="meta-row">
-                    <span>{escape(source)}</span>
-                    <span>{escape(step_text)}</span>
-                </div>
-                <h1>{escape(plain_skill(question))}</h1>
-                <p>{escape(header_context['what_to_focus_on'])}</p>
-                <div class="guidance-grid">
-                    <div class="guidance-card">
-                        <span>Why This Question</span>
-                        <p>{escape(header_context['why_this_question'])}</p>
-                    </div>
-                    <div class="guidance-card">
-                        <span>What Happens Next</span>
-                        <p>{escape(header_context['what_happens_next'])}</p>
-                    </div>
-                </div>
-            </div>
-            <div class="mastery-panel">
-                <span class="section-label">Mastery</span>
-                <strong>{mastery_score}/100</strong>
-                <small>{escape(progress_text)} {escape(next_goal_message(mastery_score))}</small>
-            </div>
-        </section>
-        """,
-        unsafe_allow_html=True,
-    )
-    st.progress(progress_value)
-
-    if skill_state:
-        if mastery_score >= 90:
-            st.info("You're in the mastery zone. Stay sharp.")
-        elif mastery_score >= 80:
-            st.info("You're close to mastery.")
-
-
-def render_pasukh_panel(question, flow=None):
-    if question.get("hide_pasuk"):
-        return
-
-    pasuk = get_pasukh_text(question, flow)
-    focus = "" if question.get("hide_focus_word") else question.get("selected_word") or question.get("word", "")
-    if not pasuk:
-        return
-
-    source = get_source_label(question, flow)
-    compact_context = uses_compact_pasuk_context(question, flow)
-    st.markdown(
-        f"""
-        <div class="section-heading">
-            <span>{'Focus Word' if compact_context else 'Read The Pasuk'}</span>
-            <small>{escape(source)}</small>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
-
-    if compact_context and focus:
-        snippet = local_context_snippet(pasuk, focus)
-        st.markdown(
-            f"""
-            <section class="compact-context">
-                <div class="target-word" dir="rtl" lang="he">{mixed_text_html(focus)}</div>
-                <div class="context-snippet" dir="rtl" lang="he">
-                    {highlight_display_text(snippet, focus) if snippet else ''}
-                </div>
-            </section>
-            """,
-            unsafe_allow_html=True,
-        )
-        with st.expander("Show full pasuk"):
-            if st.session_state.get("pasuk_view_mode") == "Break into phrases":
-                lines = []
-                for index, phrase in enumerate(split_pasuk_phrases(pasuk), start=1):
-                    lines.append(
-                        f"""
-                        <div class="phrase-line">
-                            <span class="phrase-number">{index}</span>
-                            <span class="phrase-text" dir="rtl" lang="he">{highlight_display_text(phrase, focus)}</span>
-                        </div>
-                        """
-                    )
-                st.markdown(
-                    f"<section class='pasuk-box phrase-box compact-full-pasuk' dir='rtl' lang='he'>{''.join(lines)}</section>",
-                    unsafe_allow_html=True,
-                )
-            else:
-                st.markdown(
-                    rtl_hebrew_html(pasuk, focus, "pasuk-box compact-full-pasuk"),
-                    unsafe_allow_html=True,
-                )
-        return
-
-    if st.session_state.get("pasuk_view_mode") == "Break into phrases":
-        lines = []
-        for index, phrase in enumerate(split_pasuk_phrases(pasuk), start=1):
-            lines.append(
-                f"""
-                <div class="phrase-line">
-                    <span class="phrase-number">{index}</span>
-                    <span class="phrase-text" dir="rtl" lang="he">{highlight_display_text(phrase, focus)}</span>
-                </div>
-                """
-            )
-        st.markdown(
-            f"<section class='pasuk-box phrase-box' dir='rtl' lang='he'>{''.join(lines)}</section>",
-            unsafe_allow_html=True,
-        )
-    else:
-        st.markdown(rtl_hebrew_html(pasuk, focus, "pasuk-box"), unsafe_allow_html=True)
-
-
-def render_grammar_clues(question):
-    entry = get_word_entry(question)
-    clues = []
-    if entry:
-        if entry.get("prefix"):
-            clues.append(f"{entry['prefix']} = {entry.get('prefix_meaning', '')}")
-        if entry.get("shoresh"):
-            clues.append(f"root clue: {entry['shoresh']}")
-        if entry.get("suffix"):
-            clues.append(f"{entry['suffix']} = {entry.get('suffix_meaning', '')}")
-        if entry.get("tense"):
-            clues.append(f"time clue: {entry['tense']}")
-
-    if clues:
-        st.markdown("**Key clues:**")
-        st.markdown(mixed_text_html(" | ".join(clues)), unsafe_allow_html=True)
-
-
-def reset_for_new_question():
-    st.session_state.current_question = None
-    st.session_state.answered = False
-    st.session_state.selected_answer = None
-    st.session_state.last_skill_state = None
-
-
-def set_question(question):
-    st.session_state.current_question = question
-    st.session_state.answered = False
-    st.session_state.selected_answer = None
-    st.session_state.last_skill_state = None
-
-
-def set_adaptive_status(decision):
-    decision = decision or {}
-    st.session_state.adaptive_status_message = decision.get("message", "")
-    st.session_state.adaptive_status_reason = decision.get("reason", "")
-    route = decision.get("route", "")
-    if route in {"advance", "fast_pass", "double_fast_pass"}:
-        level = "success"
-    elif route == "reteach_same_skill":
-        level = "warning"
-    else:
-        level = "info"
-    st.session_state.adaptive_status_level = level
-    st.session_state.pending_adaptive_context = decision
-
-
-def consume_adaptive_context():
-    context = dict(st.session_state.get("pending_adaptive_context") or {})
-    st.session_state.pending_adaptive_context = {}
-    return context
 
 
 def append_attempt_log(question, choice, is_correct):
@@ -1066,6 +577,7 @@ def handle_answer(choice, question, progress):
     if st.session_state.answered:
         return
 
+    st.session_state.last_answer_submitted_at = perf_counter()
     st.session_state.answered = True
     st.session_state.selected_answer = choice
     st.session_state.questions_answered += 1
@@ -1144,231 +656,6 @@ def last_answer_was_correct(question):
     return st.session_state.selected_answer == question["correct_answer"]
 
 
-def build_followup_question(progress, question):
-    if generate_skill_question is None:
-        return None
-
-    skill = question.get("skill") or progress.get("current_skill")
-    pasuk = question.get("pasuk") or get_pasukh_text(question)
-    current_word = question.get("selected_word") or question.get("word")
-    asked_tokens = list(get_generation_history(skill))
-    if current_word:
-        asked_tokens.append(current_word)
-
-    prefix_level = progress.get("prefix_level", 1)
-    recent_question_formats = get_recent_question_formats()
-    recent_prefixes = get_recent_prefixes()
-
-    candidate_sources = []
-    if pasuk and analyze_generator_pasuk is not None:
-        try:
-            candidate_sources.append((pasuk, analyze_generator_pasuk(pasuk)))
-        except Exception:
-            pass
-    if pasuk:
-        candidate_sources.append((pasuk, pasuk))
-
-    for pasuk_text, candidate_source in candidate_sources:
-        try:
-            followup = generate_skill_question(
-                skill,
-                candidate_source,
-                asked_tokens=asked_tokens,
-                prefix_level=prefix_level,
-                recent_question_formats=recent_question_formats,
-                recent_prefixes=recent_prefixes,
-            )
-        except Exception:
-            continue
-        if followup is None or followup.get("status") == "skipped":
-            continue
-        next_word = followup.get("selected_word") or followup.get("word")
-        if next_word == current_word and followup.get("question") == question.get("question"):
-            continue
-        followup.setdefault("pasuk", pasuk_text)
-        followup["_assessment_source"] = "targeted follow-up from active parsed dataset"
-        followup["_cache_status"] = "targeted follow-up regenerated after the current error"
-        record_selected_pasuk(followup["pasuk"])
-        record_question_feature(followup)
-        record_question_prefix(followup)
-        return followup
-
-    fallback = generate_practice_question(skill)
-    if fallback:
-        fallback["_assessment_source"] = "fallback follow-up from active parsed dataset"
-        fallback["_cache_status"] = "fallback follow-up regenerated after the current error"
-    return fallback
-
-
-def render_debug(question):
-    word_bank_metadata = load_word_bank_metadata()
-    selected_word = question.get("selected_word") or question.get("word", "")
-    word_entry = word_bank_metadata.get(selected_word)
-
-    if word_entry is None:
-        for token in selected_word.split():
-            if token in word_bank_metadata:
-                word_entry = word_bank_metadata[token]
-                break
-
-    group = question.get("generation_group")
-    if group is None and word_entry is not None:
-        group = word_entry.get("group")
-
-    difficulty = question.get("difficulty")
-    if difficulty is None and word_entry is not None:
-        difficulty = word_entry.get("difficulty")
-
-    difficulty = difficulty or question.get("difficulty", 1)
-    st.markdown(
-        f"""
-        <div class="learning-chips">
-            <span>{escape(learning_goal(question))}</span>
-            <span>Level {escape(str(difficulty))}</span>
-            <span dir="rtl" lang="he">{mixed_text_html(selected_word)}</span>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
-
-
-def answer_choice_label(choice, index):
-    return f"{OPTION_LABELS[index]}. {menukad_text(choice)}"
-
-
-def render_feedback(question):
-    skill_state = st.session_state.get("last_skill_state") or {}
-    point_change = skill_state.get("point_change", "")
-    is_correct = last_answer_was_correct(question)
-    status_class = "correct" if is_correct else "incorrect"
-    selected = st.session_state.selected_answer or ""
-    practice_type = st.session_state.get("practice_type", "Learn Mode")
-    progress = load_progress()
-    skill_label = plain_skill(question)
-    next_skill_label = skill_path_label(get_next_skill(progress.get("current_skill", question.get("skill", ""))))
-    feedback = build_feedback_context(
-        question=question,
-        selected_answer=selected,
-        is_correct=is_correct,
-        clue_text=clue_sentence(question),
-        practice_type=practice_type,
-        skill_label=skill_label,
-        next_skill_label=next_skill_label,
-    )
-    adaptive_message = st.session_state.get("adaptive_status_message", "")
-    if practice_type == "Learn Mode" and adaptive_message:
-        feedback["what_comes_next"] = adaptive_message
-
-    st.markdown(
-        f"""
-        <section class="feedback-panel {status_class}">
-            <div class="feedback-status">
-                <strong>{feedback['title']}</strong>
-                <span>{escape(str(point_change))}</span>
-            </div>
-            <div class="feedback-line">
-                <span>Your answer</span>
-                <b>{mixed_text_html(feedback['selected_answer'])}</b>
-            </div>
-            <div class="feedback-line">
-                <span>Correct answer</span>
-                <b>{mixed_text_html(feedback['correct_answer'])}</b>
-            </div>
-            <div class="feedback-explanation">
-                <span>Why</span>
-                <div>{mixed_text_html(feedback['explanation'])}</div>
-            </div>
-            <div class="feedback-detail-grid">
-                <div class="feedback-detail">
-                    <span>Clue That Mattered</span>
-                    <div>{mixed_text_html(feedback['clue_that_mattered'])}</div>
-                </div>
-                <div class="feedback-detail">
-                    <span>What Comes Next</span>
-                    <div>{mixed_text_html(feedback['what_comes_next'])}</div>
-                </div>
-            </div>
-        </section>
-        """,
-        unsafe_allow_html=True,
-    )
-
-    if feedback["likely_confusion"]:
-        st.markdown(
-            f"""
-            <section class="reteach-panel">
-                <span>Likely Confusion</span>
-                <div>{mixed_text_html(feedback['likely_confusion'])}</div>
-            </section>
-            """,
-            unsafe_allow_html=True,
-        )
-
-    with st.expander("More detail", expanded=False):
-        render_grammar_clues(question)
-
-    if skill_state:
-        st.progress(skill_state["score"] / 100)
-        st.markdown(
-            f"""
-            <div class="learning-chips">
-                <span>Mastery {skill_state['score']}/100</span>
-                <span>Streak {skill_state['current_streak']}</span>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-
-
-def render_question(question, progress, button_prefix, flow=None):
-    render_learning_header(question, progress, flow)
-    with st.container():
-        render_pasukh_panel(question, flow)
-        render_debug(question)
-        st.markdown(
-            f"""
-            <section class="question-card">
-                <div class="section-label">Question</div>
-                <div class="question-text">{mixed_text_html(question['question'])}</div>
-            </section>
-            """,
-            unsafe_allow_html=True,
-        )
-
-    key = question_key(question, button_prefix)
-    choices = question["choices"]
-    label_by_choice = {
-        choice: answer_choice_label(choice, index)
-        for index, choice in enumerate(choices)
-    }
-
-    st.markdown("<div class='section-label answer-label'>Choose An Answer</div>", unsafe_allow_html=True)
-    selected_choice = st.radio(
-        "Choose an answer",
-        choices,
-        key=f"{button_prefix}_choice_{key}",
-        index=None,
-        format_func=lambda choice: label_by_choice.get(choice, menukad_text(choice)),
-        disabled=st.session_state.answered,
-        label_visibility="collapsed",
-    )
-
-    if not st.session_state.answered:
-        if st.button(
-            "Check Answer",
-            key=f"{button_prefix}_check_{key}",
-            type="primary",
-            disabled=selected_choice is None,
-            use_container_width=True,
-        ):
-            handle_answer(selected_choice, question, progress)
-            st.rerun()
-        render_enter_key_handler(f"{button_prefix}_enter_check_{key}", ["Check Answer"])
-
-    if st.session_state.answered:
-        render_feedback(question)
-
-
 def get_system_pasuks():
     return list(active_pasuk_texts())
 
@@ -1436,449 +723,6 @@ def select_system_pasuk(skill):
         unused = candidates
 
     return unused[0]
-
-
-def choose_weighted_pasuk_question(candidates, recent_pesukim, recent_words, progress=None, adaptive_context=None):
-    scored = []
-    for item in candidates:
-        score = candidate_weight(
-            item,
-            progress or {},
-            recent_pesukim,
-            recent_words,
-            adaptive_context=adaptive_context,
-        )
-        scored.append((score, item))
-
-    scored.sort(key=lambda pair: pair[0], reverse=True)
-    top_band = [item for score, item in scored[: min(3, len(scored))]]
-    return random.choice(top_band or candidates)
-
-
-def select_pasuk_first_question(skill, progress=None, adaptive_context=None):
-    if generate_skill_question is None:
-        return None
-
-    recent_pesukim = st.session_state.setdefault("recent_pesukim", [])
-    recent_words = st.session_state.setdefault("asked_tokens", [])
-    ready_rows = get_skill_ready_pasuks(skill)
-    if not ready_rows:
-        return None
-    pasuk_pool = [row["pasuk"] for row in ready_rows]
-    recent_pasuk_window = recent_pesukim[-5:]
-    preferred_pasuks = [
-        pasuk for pasuk in pasuk_pool if pasuk not in recent_pasuk_window
-    ]
-    progress = progress or load_progress()
-    adaptive_context = adaptive_context or {}
-    generation_history = get_generation_history(skill)
-    prefix_level = progress.get("prefix_level", 1)
-    recent_question_formats = get_recent_question_formats()
-    recent_prefixes = get_recent_prefixes()
-    preferred_pasuk = adaptive_context.get("preferred_pasuk")
-
-    attempts = 0
-    candidate_rows = []
-    fallback_rows = []
-    if adaptive_context.get("selection_mode") == "reteach" and preferred_pasuk:
-        search_pool = [pasuk for pasuk in pasuk_pool if pasuk == preferred_pasuk] or (preferred_pasuks or pasuk_pool)
-    else:
-        search_pool = preferred_pasuks or pasuk_pool
-
-    while attempts < 10 and not candidate_rows:
-        attempts += 1
-        for pasuk in search_pool:
-            try:
-                question = generate_skill_question(
-                    skill,
-                    (
-                        analyze_generator_pasuk(pasuk)
-                        if analyze_generator_pasuk is not None
-                        else pasuk
-                    ),
-                    asked_tokens=generation_history,
-                    prefix_level=prefix_level,
-                    recent_question_formats=recent_question_formats,
-                    recent_prefixes=recent_prefixes,
-                )
-            except Exception:
-                continue
-            if question is None or question.get("status") == "skipped":
-                continue
-
-            word = question.get("selected_word") or question.get("word")
-            feature = get_question_feature(question)
-            prefix = get_question_prefix(question)
-            row = {
-                "pasuk": question.get("pasuk", pasuk),
-                "question": question,
-                "word": word,
-                "feature": feature,
-                "prefix": prefix,
-            }
-            if feature == "prefix" and prefix_is_blocked(prefix):
-                fallback_rows.append(row)
-                continue
-            if feature_is_blocked(feature):
-                fallback_rows.append(row)
-                continue
-            candidate_rows.append(row)
-
-        if not candidate_rows and search_pool is not pasuk_pool:
-            search_pool = pasuk_pool
-
-    if not candidate_rows:
-        if not fallback_rows:
-            return None
-        st.session_state.feature_fallback_message = (
-            "Feature repetition fallback used after 10 attempts."
-        )
-        candidate_rows = fallback_rows
-
-    selected = choose_weighted_pasuk_question(
-        candidate_rows,
-        recent_pesukim,
-        recent_words,
-        progress=progress,
-        adaptive_context=adaptive_context,
-    )
-    question = selected["question"]
-    question.setdefault("pasuk", selected["pasuk"])
-    question["_assessment_source"] = "generated skill question from active parsed dataset"
-    question["_cache_status"] = "eligible pasuk pool cached; question regenerated"
-    record_selected_pasuk(selected["pasuk"])
-    record_question_feature(question)
-    record_question_prefix(question)
-    return question
-
-
-def record_selected_pasuk(pasuk):
-    asked_pasuks = st.session_state.setdefault("asked_pasuks", [])
-    asked_pasuks.append(pasuk)
-    st.session_state.asked_pasuks = asked_pasuks[-10:]
-    recent_pesukim = st.session_state.setdefault("recent_pesukim", [])
-    recent_pesukim.append(pasuk)
-    st.session_state.recent_pesukim = recent_pesukim[-10:]
-
-
-def get_generation_history(skill):
-    if skill == "phrase_translation":
-        return st.session_state.recent_phrases[-5:] + st.session_state.asked_tokens[-5:]
-    if skill.startswith(("identify_", "segment_", "convert_", "match_")):
-        return st.session_state.asked_question_ids
-    return st.session_state.asked_tokens
-
-
-def get_recent_question_formats():
-    return st.session_state.setdefault("recent_question_formats", [])[-3:]
-
-
-def get_recent_prefixes():
-    return st.session_state.setdefault("recent_prefixes", [])[-5:]
-
-
-def get_question_prefix(question):
-    if question.get("prefix"):
-        return question["prefix"]
-    if get_question_feature(question) != "prefix":
-        return ""
-    word = question.get("selected_word") or question.get("word") or ""
-    if word and word[0] in {"ו", "ב", "ל", "מ", "כ", "ה", "ש"}:
-        return word[0]
-    return ""
-
-
-def prefix_is_blocked(prefix):
-    if not prefix:
-        return False
-    return get_recent_prefixes().count(prefix) >= 2
-
-
-def record_question_prefix(question):
-    prefix = get_question_prefix(question)
-    if not prefix:
-        return
-    st.session_state.recent_prefixes.append(prefix)
-    st.session_state.recent_prefixes = st.session_state.recent_prefixes[-10:]
-
-
-def get_question_feature(question):
-    skill = question.get("skill", "")
-    question_type = question.get("question_type", "")
-    standard = question.get("standard", "")
-
-    if "prefix" in skill or "prefix" in question_type:
-        return "prefix"
-    if "suffix" in skill or "suffix" in question_type:
-        return "suffix"
-    if skill in {"translation", "phrase_translation"} or "meaning" in question_type:
-        return "translation"
-    if skill in {"verb_tense", "identify_tense", "identify_verb_marker"}:
-        return "verb"
-    if skill == "part_of_speech":
-        return "part_of_speech"
-    if standard == "SR":
-        return "verb"
-    return skill or standard or "unknown"
-
-
-def feature_is_blocked(feature):
-    recent_features = st.session_state.setdefault("recent_features", [])
-    controlled_features = {"prefix", "translation", "verb", "suffix", "part_of_speech"}
-    if feature not in controlled_features:
-        return False
-    return recent_features[-5:].count(feature) >= 2
-
-
-def record_question_feature(question):
-    feature = get_question_feature(question)
-    st.session_state.recent_features.append(feature)
-    st.session_state.recent_features = st.session_state.recent_features[-10:]
-
-
-def generate_mastery_question(progress):
-    adaptive_context = consume_adaptive_context()
-    return select_pasuk_first_question(
-        progress["current_skill"],
-        progress=progress,
-        adaptive_context=adaptive_context,
-    )
-
-
-def generate_practice_question(skill):
-    return select_pasuk_first_question(skill, progress=load_progress())
-
-
-def render_mastery_mode(progress):
-    if st.session_state.current_question is None:
-        try:
-            set_question(generate_mastery_question(progress))
-        except Exception as error:
-            st.warning(f"No question is ready for this skill and pasuk yet: {error}")
-            return
-
-    question = st.session_state.current_question
-    if question is None:
-        st.warning("No mastery question is ready yet.")
-        return
-
-    render_assessment_diagnostics(question, mode="Learn Mode")
-    render_question(question, progress, f"mastery_{progress['current_skill']}")
-
-    adaptive_message = st.session_state.get("adaptive_status_message")
-    adaptive_reason = st.session_state.get("adaptive_status_reason")
-    adaptive_level = st.session_state.get("adaptive_status_level", "info")
-    if adaptive_message:
-        if adaptive_level == "success":
-            st.success(adaptive_message)
-        elif adaptive_level == "warning":
-            st.warning(adaptive_message)
-        else:
-            st.info(adaptive_message)
-        if adaptive_reason:
-            st.caption(f"Why this path: {adaptive_reason}.")
-
-    if st.session_state.get("unlocked_skill_message"):
-        st.success(st.session_state.unlocked_skill_message)
-    if st.session_state.get("feature_fallback_message"):
-        st.caption(st.session_state.feature_fallback_message)
-
-    if st.session_state.answered:
-        if last_answer_was_correct(question):
-            if st.button("Next Question", type="primary", use_container_width=True, key="next_mastery"):
-                st.session_state.unlocked_skill_message = ""
-                st.session_state.feature_fallback_message = ""
-                try:
-                    set_question(generate_mastery_question(progress))
-                except Exception as error:
-                    st.warning(f"No question is ready for this skill and pasuk yet: {error}")
-                    return
-                st.rerun()
-            render_enter_key_handler("enter_next_mastery", ["Next Question"])
-        else:
-            primary, secondary = st.columns([2, 1])
-            with primary:
-                if st.button("Try One Like This", type="primary", use_container_width=True, key="retry_mastery_like_this"):
-                    st.session_state.unlocked_skill_message = ""
-                    st.session_state.feature_fallback_message = ""
-                    followup = build_followup_question(progress, question)
-                    if followup is None:
-                        st.warning("No close follow-up is ready yet. Continuing with the normal path.")
-                        followup = generate_mastery_question(progress)
-                    set_question(followup)
-                    st.rerun()
-            with secondary:
-                if st.button("Continue", use_container_width=True, key="continue_mastery_after_error"):
-                    st.session_state.unlocked_skill_message = ""
-                    st.session_state.feature_fallback_message = ""
-                    try:
-                        set_question(generate_mastery_question(progress))
-                    except Exception as error:
-                        st.warning(f"No question is ready for this skill and pasuk yet: {error}")
-                        return
-                    st.rerun()
-            render_enter_key_handler("enter_retry_mastery", ["Try One Like This", "Continue"])
-
-
-def render_skill_practice_mode(progress, skill):
-    if st.session_state.current_question is None:
-        try:
-            set_question(generate_practice_question(skill))
-        except Exception as error:
-            st.warning(f"No question is ready for this skill and pasuk yet: {error}")
-            return
-
-    question = st.session_state.current_question
-    if question is None:
-        st.warning("No practice question is ready yet.")
-        return
-
-    render_assessment_diagnostics(question, mode="Practice Mode")
-    render_question(question, progress, f"practice_{skill}")
-    if st.session_state.get("feature_fallback_message"):
-        st.caption(st.session_state.feature_fallback_message)
-
-    if st.session_state.answered:
-        if last_answer_was_correct(question):
-            if st.button("Next Question", type="primary", use_container_width=True, key=f"next_practice_{skill}"):
-                st.session_state.feature_fallback_message = ""
-                set_question(generate_practice_question(skill))
-                st.rerun()
-            render_enter_key_handler(f"enter_next_practice_{skill}", ["Next Question"])
-        else:
-            primary, secondary = st.columns([2, 1])
-            with primary:
-                if st.button("Try One Like This", type="primary", use_container_width=True, key=f"retry_practice_like_this_{skill}"):
-                    st.session_state.feature_fallback_message = ""
-                    followup = build_followup_question(progress, question)
-                    if followup is None:
-                        followup = generate_practice_question(skill)
-                    set_question(followup)
-                    st.rerun()
-            with secondary:
-                if st.button("Continue", use_container_width=True, key=f"continue_practice_after_error_{skill}"):
-                    st.session_state.feature_fallback_message = ""
-                    set_question(generate_practice_question(skill))
-                    st.rerun()
-            render_enter_key_handler(f"enter_retry_practice_{skill}", ["Try One Like This", "Continue"])
-
-
-def render_flow_overview(flow, active_step):
-    steps = flow.get("questions") or flow.get("steps", [])
-    if not steps:
-        return
-
-    rows = []
-    for index, step in enumerate(steps):
-        status = "complete" if index < active_step else "active" if index == active_step else "upcoming"
-        title = QUESTION_TYPE_NAMES.get(
-            step.get("question_type"),
-            skill_path_label(step.get("skill", f"Step {index + 1}")),
-        )
-        focus = step.get("selected_word") or step.get("word") or ""
-        rows.append(
-            f"""
-            <div class="flow-row {status}">
-                <div class="flow-index">{index + 1}</div>
-                <div>
-                    <strong>{escape(title)}</strong>
-                    <span dir="rtl" lang="he">{mixed_text_html(focus)}</span>
-                </div>
-            </div>
-            """
-        )
-
-    st.markdown(
-        f"""
-        <section class="flow-overview">
-            <div class="section-heading">
-                <span>Pasuk Flow</span>
-                <small>{active_step + 1}/{len(steps)}</small>
-            </div>
-            <div class="flow-grid">{''.join(rows)}</div>
-        </section>
-        """,
-        unsafe_allow_html=True,
-    )
-
-
-def render_pasuk_flow(progress):
-    flows = load_pasuk_flows()
-    if not flows:
-        st.warning(
-            "No guided Pasuk practice is ready yet. Add a flow, then come back here to walk through it step by step."
-        )
-        return
-
-    flow_labels = []
-    for flow in flows:
-        pasuk_ref = get_active_pasuk_ref(flow.get("pasuk", ""))
-        flow_labels.append(f"{pasuk_ref} - Guided pasuk")
-    selected_label = st.sidebar.selectbox("Pasuk", flow_labels)
-    flow = flows[flow_labels.index(selected_label)]
-
-    st.caption(f"Source: {flow.get('source', 'unknown')}")
-
-    if st.session_state.flow_label != selected_label:
-        st.session_state.flow_label = selected_label
-        st.session_state.flow_step = 0
-        st.session_state.answered = False
-        st.session_state.selected_answer = None
-
-    steps = flow.get("questions") or flow.get("steps", [])
-    step_index = st.session_state.flow_step
-    question = steps[step_index]
-
-    render_assessment_diagnostics(question, flow, "Pasuk Flow")
-    render_flow_overview(flow, step_index)
-    render_question(question, progress, f"flow_{step_index}", flow)
-
-    if st.session_state.answered:
-        if step_index + 1 < len(steps):
-            if st.button("Next Step", type="primary", use_container_width=True, key=f"next_flow_step_{step_index}"):
-                st.session_state.flow_step += 1
-                st.session_state.answered = False
-                st.session_state.selected_answer = None
-                st.rerun()
-            render_enter_key_handler(f"enter_next_flow_{step_index}", ["Next Step"])
-        else:
-            st.success("Pasuk flow complete.")
-            if st.button("Restart Flow", type="primary", use_container_width=True, key="restart_flow"):
-                st.session_state.flow_step = 0
-                st.session_state.answered = False
-                st.session_state.selected_answer = None
-                st.rerun()
-            render_enter_key_handler("enter_restart_flow", ["Restart Flow"])
-
-
-def init_session_state():
-    st.session_state.setdefault("mode", "Adaptive")
-    st.session_state.setdefault("current_question", None)
-    st.session_state.setdefault("answered", False)
-    st.session_state.setdefault("selected_answer", None)
-    st.session_state.setdefault("flow_step", 0)
-    st.session_state.setdefault("flow_label", "")
-    st.session_state.setdefault("questions_answered", 0)
-    st.session_state.setdefault("level5_answered", 0)
-    st.session_state.setdefault("last_skill_state", None)
-    st.session_state.setdefault("asked_tokens", [])
-    st.session_state.setdefault("asked_question_ids", [])
-    st.session_state.setdefault("asked_pasuks", [])
-    st.session_state.setdefault("recent_pesukim", [])
-    st.session_state.setdefault("recent_phrases", [])
-    st.session_state.setdefault("recent_question_formats", [])
-    st.session_state.setdefault("recent_features", [])
-    st.session_state.setdefault("recent_prefixes", [])
-    st.session_state.setdefault("feature_fallback_message", "")
-    st.session_state.setdefault("practice_type", "Learn Mode")
-    st.session_state.setdefault("practice_skill", SKILL_ORDER[0])
-    st.session_state.setdefault("unlocked_skill_message", "")
-    st.session_state.setdefault("adaptive_status_message", "")
-    st.session_state.setdefault("adaptive_status_reason", "")
-    st.session_state.setdefault("adaptive_status_level", "info")
-    st.session_state.setdefault("pending_adaptive_context", {})
-    st.session_state.setdefault("show_nekudos", True)
-    st.session_state.setdefault("pasuk_view_mode", "Full pasuk view")
 
 
 def get_strengths(progress):
@@ -1971,9 +815,9 @@ def apply_global_styles():
             color: var(--ink);
         }
         .block-container {
-            max-width: 1120px;
-            padding-top: 1.25rem;
-            padding-bottom: 3rem;
+            max-width: 980px;
+            padding-top: 0.35rem;
+            padding-bottom: 2rem;
         }
         h1 {
             letter-spacing: 0 !important;
@@ -1981,19 +825,14 @@ def apply_global_styles():
         .app-title {
             display: flex;
             justify-content: space-between;
-            align-items: flex-end;
-            gap: 18px;
-            margin: 4px 0 22px 0;
+            align-items: center;
+            gap: 12px;
+            margin: 0 0 4px 0;
         }
         .app-title h1 {
             margin: 0 !important;
-            font-size: 2.2rem !important;
+            font-size: 1.65rem !important;
             text-align: left;
-        }
-        .app-title p {
-            color: var(--muted);
-            margin: 4px 0 0 0;
-            font-size: 1rem;
         }
         .learning-header,
         .question-card,
@@ -2004,25 +843,24 @@ def apply_global_styles():
             border: 1px solid var(--line);
             border-radius: 8px;
             background: var(--surface);
-            box-shadow: 0 14px 40px rgba(28, 45, 40, 0.07);
+            box-shadow: 0 4px 16px rgba(28, 45, 40, 0.05);
         }
         .learning-header {
             display: grid;
-            grid-template-columns: minmax(0, 1fr) 220px;
-            gap: 22px;
-            align-items: stretch;
-            padding: 24px;
-            margin-bottom: 14px;
+            gap: 4px;
+            padding: 8px 12px;
+            margin-bottom: 4px;
         }
-        .learning-header h1 {
-            text-align: left;
-            font-size: 1.95rem !important;
-            margin: 8px 0 8px 0 !important;
-        }
-        .learning-header p {
+        .focus-line {
             color: var(--muted);
-            font-size: 1.03rem;
-            line-height: 1.55;
+            font-size: 0.86rem;
+            line-height: 1.28;
+            margin: 0;
+        }
+        .progress-note {
+            color: var(--muted);
+            font-size: 0.74rem;
+            line-height: 1.2;
             margin: 0;
         }
         .meta-row,
@@ -2030,7 +868,7 @@ def apply_global_styles():
         .feedback-status {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
+            gap: 6px;
             align-items: center;
         }
         .meta-row span,
@@ -2039,45 +877,30 @@ def apply_global_styles():
             background: var(--wash);
             border-radius: 999px;
             color: var(--muted);
-            font-size: 0.82rem;
+            font-size: 0.74rem;
             font-weight: 700;
-            padding: 5px 10px;
+            padding: 3px 8px;
         }
-        .mastery-panel {
-            border-left: 4px solid var(--accent);
-            background: var(--accent-soft);
-            border-radius: 8px;
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            gap: 4px;
+        .quiz-meta-row {
+            margin-bottom: 0;
         }
-        .mastery-panel strong {
+        .mastery-chip {
+            border-color: rgba(33, 116, 90, 0.18) !important;
+            background: var(--accent-soft) !important;
             color: var(--accent);
-            font-size: 2rem;
-            line-height: 1;
+            font-weight: 800;
         }
-        .mastery-panel small,
         .section-heading small {
             color: var(--muted);
             line-height: 1.35;
         }
-        .guidance-grid {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 10px;
-            margin-top: 14px;
-        }
-        .guidance-card,
         .feedback-detail,
         .reteach-panel {
             border: 1px solid var(--line);
             border-radius: 8px;
             background: #ffffff;
-            padding: 12px 14px;
+            padding: 10px 12px;
         }
-        .guidance-card span,
         .feedback-detail span,
         .reteach-panel span {
             display: block;
@@ -2085,20 +908,19 @@ def apply_global_styles():
             font-size: 0.8rem;
             font-weight: 800;
             text-transform: uppercase;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
-        .guidance-card p,
         .feedback-detail div,
         .reteach-panel div {
             margin: 0;
-            line-height: 1.5;
-            font-size: 0.98rem;
+            line-height: 1.35;
+            font-size: 0.92rem;
             font-weight: 650;
         }
         .section-label,
         .section-heading span {
             color: var(--muted);
-            font-size: 0.78rem;
+            font-size: 0.72rem;
             font-weight: 800;
             letter-spacing: 0;
             text-transform: uppercase;
@@ -2106,52 +928,52 @@ def apply_global_styles():
         .section-heading {
             display: flex;
             justify-content: space-between;
-            gap: 16px;
+            gap: 10px;
             align-items: center;
-            margin: 22px 0 8px 0;
+            margin: 6px 0 3px 0;
         }
         .pasuk-box {
-            padding: 28px 32px;
-            margin: 0 0 22px 0;
+            padding: 18px 20px;
+            margin: 0 0 6px 0;
             background: #fbfdfc;
             direction: rtl;
             text-align: center;
             font-family: "Noto Sans Hebrew", "SBL Hebrew", "Ezra SIL", "Taamey David CLM", "Times New Roman", serif;
-            font-size: 2.6rem;
+            font-size: 2.15rem;
             font-weight: 700;
-            line-height: 2.05;
+            line-height: 1.72;
             overflow-wrap: anywhere;
             unicode-bidi: plaintext;
         }
         .compact-context {
-            margin: 0 0 12px 0;
-            padding: 20px 22px;
+            margin: 0 0 4px 0;
+            padding: 8px 10px;
             background: #fbfdfc;
             text-align: center;
         }
         .target-word {
             direction: rtl;
             font-family: "Noto Sans Hebrew", "SBL Hebrew", "Ezra SIL", "Taamey David CLM", "Times New Roman", serif;
-            font-size: 3rem;
+            font-size: 1.95rem;
             font-weight: 800;
-            line-height: 1.35;
+            line-height: 1.18;
             letter-spacing: 0;
             unicode-bidi: plaintext;
         }
         .context-snippet {
-            margin-top: 8px;
+            margin-top: 2px;
             color: var(--muted);
             font-family: "Noto Sans Hebrew", "SBL Hebrew", "Ezra SIL", "Taamey David CLM", "Times New Roman", serif;
-            font-size: 1.45rem;
+            font-size: 0.98rem;
             font-weight: 600;
-            line-height: 1.7;
+            line-height: 1.28;
             letter-spacing: 0;
             unicode-bidi: plaintext;
         }
         .compact-full-pasuk {
-            margin-bottom: 8px;
-            font-size: 1.7rem;
-            padding: 18px 20px;
+            margin-bottom: 4px;
+            font-size: 1.35rem;
+            padding: 12px 14px;
         }
         .hebrew-block,
         .hebrew-text,
@@ -2169,19 +991,19 @@ def apply_global_styles():
         }
         .phrase-box {
             display: grid;
-            gap: 10px;
+            gap: 6px;
             text-align: right;
-            font-size: 2.1rem;
+            font-size: 1.7rem;
         }
         .phrase-line {
             display: grid;
             grid-template-columns: 42px minmax(0, 1fr);
-            gap: 14px;
+            gap: 10px;
             align-items: center;
             direction: ltr;
             border: 1px solid var(--line);
             border-radius: 8px;
-            padding: 10px 14px;
+            padding: 8px 10px;
             background: #ffffff;
         }
         .phrase-number,
@@ -2197,29 +1019,29 @@ def apply_global_styles():
             font-weight: 800;
         }
         .question-card {
-            padding: 22px 24px;
-            margin: 14px 0 20px 0;
+            padding: 12px 14px;
+            margin: 4px 0 6px 0;
         }
         .question-text {
-            margin-top: 8px;
-            font-size: 1.48rem;
-            font-weight: 800;
-            line-height: 1.6;
+            margin-top: 2px;
+            font-size: 1.54rem;
+            font-weight: 850;
+            line-height: 1.28;
         }
         .answer-label {
-            margin-top: 18px;
-            margin-bottom: 8px;
+            margin-top: 4px;
+            margin-bottom: 4px;
         }
         div[data-testid="stRadio"] [role="radiogroup"] {
             display: grid;
-            gap: 10px;
+            gap: 6px;
         }
         div[data-testid="stRadio"] label {
             border: 1px solid var(--line);
             border-radius: 8px;
-            padding: 14px 16px;
+            padding: 8px 10px;
             background: #ffffff;
-            min-height: 58px;
+            min-height: 44px;
             align-items: center;
             transition: border-color 120ms ease, background-color 120ms ease, transform 120ms ease;
         }
@@ -2229,25 +1051,31 @@ def apply_global_styles():
             transform: translateY(-1px);
         }
         div[data-testid="stRadio"] label p {
-            font-size: 1.06rem;
+            font-size: 0.96rem;
             font-weight: 650;
-            line-height: 1.55;
+            line-height: 1.28;
             unicode-bidi: plaintext;
         }
+        div[data-testid="stRadio"] {
+            margin-bottom: 2px;
+        }
         div.stButton > button {
-            min-height: 60px;
+            min-height: 44px;
             border-radius: 8px;
             font-weight: 800;
-            font-size: 1.02rem;
+            font-size: 0.98rem;
             letter-spacing: 0;
+        }
+        div.stButton {
+            margin-top: 2px;
         }
         div.stButton > button[kind="primary"] {
             background: var(--accent);
             border-color: var(--accent);
         }
         .feedback-panel {
-            margin-top: 18px;
-            padding: 22px;
+            margin-top: 6px;
+            padding: 10px 12px;
             border-left-width: 5px;
         }
         .feedback-panel.correct {
@@ -2260,58 +1088,51 @@ def apply_global_styles():
         }
         .feedback-status {
             justify-content: space-between;
-            margin-bottom: 14px;
+            margin-bottom: 4px;
         }
         .feedback-status strong {
-            font-size: 1.65rem;
+            font-size: 1.08rem;
         }
         .feedback-line {
             display: grid;
-            grid-template-columns: 140px minmax(0, 1fr);
-            gap: 12px;
-            padding: 10px 0;
+            grid-template-columns: 88px minmax(0, 1fr);
+            gap: 8px;
+            padding: 4px 0;
             border-top: 1px solid rgba(25, 33, 31, 0.08);
         }
         .feedback-line span {
             color: var(--muted);
             font-weight: 700;
+            font-size: 0.82rem;
         }
-        .feedback-line b {
-            font-size: 1.1rem;
-            line-height: 1.55;
+        .feedback-line b,
+        .feedback-line div {
+            font-size: 0.94rem;
+            line-height: 1.28;
         }
-        .feedback-explanation {
-            display: grid;
-            grid-template-columns: 140px minmax(0, 1fr);
-            gap: 12px;
-            padding: 14px 0 4px 0;
-            border-top: 1px solid rgba(25, 33, 31, 0.08);
+        .feedback-heading {
+            margin-top: 4px;
+            margin-bottom: 2px;
         }
-        .feedback-explanation span {
-            color: var(--muted);
-            font-weight: 800;
-        }
-        .feedback-explanation div {
-            font-size: 1.12rem;
+        .feedback-clue div,
+        .feedback-note div {
             font-weight: 700;
-            line-height: 1.65;
         }
         .feedback-detail-grid {
             display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 10px;
-            padding-top: 14px;
-            border-top: 1px solid rgba(25, 33, 31, 0.08);
-            margin-top: 8px;
+            grid-template-columns: minmax(0, 1fr);
+            gap: 8px;
+            padding-top: 0;
+            margin-top: 6px;
         }
         .reteach-panel {
-            margin-top: 12px;
+            margin-top: 8px;
             background: #fff9ed;
             border-color: rgba(180, 35, 24, 0.18);
         }
         .flow-overview {
-            padding: 18px;
-            margin: 10px 0 20px 0;
+            padding: 12px;
+            margin: 6px 0 12px 0;
         }
         .flow-grid {
             display: grid;
@@ -2361,34 +1182,29 @@ def apply_global_styles():
         }
         @media (max-width: 820px) {
             .block-container {
-                padding-left: 1rem;
-                padding-right: 1rem;
-            }
-            .app-title,
-            .learning-header {
-                grid-template-columns: 1fr;
-                display: grid;
+                padding-left: 0.8rem;
+                padding-right: 0.8rem;
             }
             .pasuk-box {
-                font-size: 2rem;
-                padding: 20px;
-                line-height: 2.15;
+                font-size: 1.75rem;
+                padding: 14px 16px;
+                line-height: 1.65;
             }
             .target-word {
-                font-size: 2.35rem;
+                font-size: 1.75rem;
             }
             .context-snippet {
-                font-size: 1.2rem;
+                font-size: 0.96rem;
             }
             .compact-full-pasuk {
-                font-size: 1.35rem;
-                padding: 14px 16px;
+                font-size: 1.18rem;
+                padding: 10px 12px;
             }
             .phrase-box {
-                font-size: 1.65rem;
+                font-size: 1.35rem;
             }
             .question-text {
-                font-size: 1.24rem;
+                font-size: 1.28rem;
             }
             .feedback-line {
                 grid-template-columns: 1fr;
@@ -2404,188 +1220,6 @@ def apply_global_styles():
 def main():
     st.set_page_config(page_title="Chumash Quiz", layout="wide")
     init_session_state()
-    st.markdown(
-        """
-        <style>
-        :root {
-            --ink: #202124;
-            --muted: #5f6368;
-            --line: #dfe4ea;
-            --soft: #f7f9fb;
-            --panel: #ffffff;
-            --accent: #496b5b;
-            --accent-soft: #edf5f0;
-            --gold: #fff2a8;
-        }
-        .stApp {
-            background: #fbfcfd;
-            color: var(--ink);
-        }
-        .block-container {
-            max-width: 900px;
-            padding-top: 2rem;
-            padding-bottom: 3rem;
-        }
-        h1 {
-            text-align: center;
-            font-size: 2.4rem !important;
-            letter-spacing: 0;
-            margin-bottom: 1rem !important;
-        }
-        .top-card,
-        .question-card,
-        .pasuk-box {
-            border: 1px solid var(--line);
-            border-radius: 8px;
-            background: var(--panel);
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
-        }
-        .top-card {
-            padding: 18px 20px 16px 20px;
-            margin: 8px 0 26px 0;
-        }
-        .eyebrow,
-        .section-label {
-            color: var(--muted);
-            font-size: 0.78rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0;
-            margin-bottom: 6px;
-        }
-        .focus-title {
-            color: var(--ink);
-            font-size: 1.12rem;
-            font-weight: 750;
-            line-height: 1.35;
-        }
-        .think-text {
-            color: var(--ink);
-            font-size: 1rem;
-            line-height: 1.45;
-        }
-        .progress-text {
-            color: var(--muted);
-            font-size: 0.94rem;
-            margin-top: 10px;
-            line-height: 1.45;
-        }
-        div[data-testid="stProgress"] > div {
-            height: 12px;
-            border-radius: 8px;
-            background: #e9edf1;
-        }
-        div[data-testid="stProgress"] div[role="progressbar"] {
-            background: var(--accent);
-        }
-        .pasuk-box {
-            padding: 24px 28px;
-            margin: 8px 0 24px 0;
-            font-size: 2.55rem;
-            line-height: 2.05;
-            background: var(--soft);
-            direction: rtl;
-            text-align: right;
-            font-family: "SBL Hebrew", "Ezra SIL", "Taamey David CLM", "Times New Roman", serif;
-            unicode-bidi: isolate;
-        }
-        .hebrew-text,
-        .hebrew-inline {
-            direction: rtl;
-            text-align: right;
-            font-family: "SBL Hebrew", "Ezra SIL", "Taamey David CLM", "Times New Roman", serif;
-            unicode-bidi: isolate;
-        }
-        .question-card {
-            padding: 22px 24px;
-            margin: 14px 0 22px 0;
-        }
-        .question-text {
-            font-size: 1.55rem;
-            font-weight: 750;
-            margin: 4px 0 0 0;
-            line-height: 1.55;
-        }
-        .answer-label {
-            margin-top: 10px;
-            margin-bottom: 10px;
-        }
-        div.stButton > button {
-            min-height: 58px;
-            border-radius: 8px;
-            border: 1px solid var(--line);
-            background: #ffffff;
-            color: var(--ink);
-            font-size: 1.06rem;
-            font-weight: 650;
-            line-height: 1.35;
-            margin: 2px 0 8px 0;
-            text-align: left;
-            justify-content: flex-start;
-            unicode-bidi: plaintext;
-            transition: border-color 120ms ease, background-color 120ms ease, transform 120ms ease;
-        }
-        div.stButton > button:hover {
-            border-color: var(--accent);
-            background: var(--accent-soft);
-            transform: translateY(-1px);
-        }
-        div.stButton > button:disabled {
-            opacity: 0.82;
-            transform: none;
-        }
-        div.stButton > button[kind="primary"] {
-            background: var(--accent);
-            border-color: var(--accent);
-            color: #ffffff;
-        }
-        .feedback-card {
-            border: 1px solid var(--line);
-            border-radius: 8px;
-            background: #ffffff;
-            padding: 16px 18px;
-            margin-top: 18px;
-        }
-        mark {
-            background: var(--gold);
-            color: #111111;
-            padding: 3px 8px;
-            border-radius: 6px;
-            box-decoration-break: clone;
-            -webkit-box-decoration-break: clone;
-        }
-        [data-testid="stSidebar"] {
-            background: #f7f9fb;
-            border-right: 1px solid var(--line);
-        }
-        [data-testid="stSidebar"] h3 {
-            font-size: 1rem;
-        }
-        [data-testid="stSidebar"] .stMarkdown,
-        [data-testid="stSidebar"] p {
-            color: var(--muted);
-        }
-        @media (max-width: 760px) {
-            .block-container {
-                padding-left: 1rem;
-                padding-right: 1rem;
-            }
-            .pasuk-box {
-                font-size: 2rem;
-                padding: 20px;
-            }
-            .question-text {
-                font-size: 1.3rem;
-            }
-            .guidance-grid,
-            .feedback-detail-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-        </style>
-        """,
-        unsafe_allow_html=True,
-    )
     apply_global_styles()
 
     progress = load_progress()
@@ -2595,7 +1229,6 @@ def main():
         <header class="app-title">
             <div>
                 <h1>Chumash Practice</h1>
-                <p>Read the pasuk, notice the clue, then choose carefully.</p>
             </div>
         </header>
         """,
@@ -2649,10 +1282,12 @@ def main():
     elif practice_type == "Pasuk Flow":
         render_pasuk_flow(progress)
     else:
+        current_practice_skill = resolve_skill_id(st.session_state.practice_skill) or st.session_state.practice_skill
+        practice_index = SKILL_ORDER.index(current_practice_skill) if current_practice_skill in SKILL_ORDER else 0
         practice_skill = st.sidebar.selectbox(
             "Choose a skill to practice",
             SKILL_ORDER,
-            index=SKILL_ORDER.index(st.session_state.practice_skill),
+            index=practice_index,
             format_func=skill_path_label,
         )
         if practice_skill != st.session_state.practice_skill:
