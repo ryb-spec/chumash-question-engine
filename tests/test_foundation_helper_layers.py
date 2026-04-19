@@ -52,6 +52,14 @@ class FoundationHelperLayerTests(unittest.TestCase):
             skill_metadata_record("identify_prefix_meaning")["canonical_skill_ids"],
             ["PREFIX.BASIC_PREPOSITIONS"],
         )
+        self.assertEqual(
+            primary_canonical_skill_id("translation"),
+            "WORD.MEANING_BASIC",
+        )
+        self.assertEqual(
+            primary_canonical_skill_id("phrase_translation"),
+            "PHRASE.UNIT_TRANSLATE",
+        )
 
     def test_benchmark_layer_loads_section_weights_and_archetypes(self):
         self.assertEqual(benchmark_section_weight_map()["Chumash Skills"], 23)
@@ -114,7 +122,10 @@ class FoundationHelperLayerTests(unittest.TestCase):
         self.assertIn("recommended reteach groups", outputs["after_assessment"])
 
     def test_benchmark_data_is_not_treated_as_runtime_truth(self):
-        self.assertEqual(canonical_skill_ids_for_runtime_skill("translation"), [])
+        self.assertEqual(
+            canonical_skill_ids_for_runtime_skill("translation"),
+            ["WORD.MEANING_BASIC"],
+        )
         self.assertIsNone(resolve_skill_id("COMP.CONTEXT_TRANSLATION"))
         self.assertIn("translation", streamlit_app.SKILL_ORDER)
         self.assertNotIn("COMP.CONTEXT_TRANSLATION", streamlit_app.SKILL_ORDER)

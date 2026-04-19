@@ -239,6 +239,7 @@ SKILL_CATALOG = (
 )
 
 SKILL_IDS_IN_RUNTIME_ORDER = tuple(skill.id for skill in SKILL_CATALOG)
+INTENTIONALLY_UNMAPPED_RUNTIME_SKILLS = {}
 
 
 @lru_cache(maxsize=1)
@@ -288,6 +289,10 @@ def runtime_skill_to_canonical_ids():
         runtime_skill: tuple(canonical_ids)
         for runtime_skill, canonical_ids in mapping.items()
     }
+
+
+def intentionally_unmapped_runtime_skills():
+    return dict(INTENTIONALLY_UNMAPPED_RUNTIME_SKILLS)
 
 
 def resolve_skill_id(skill_or_alias):
@@ -376,6 +381,46 @@ def primary_canonical_skill_id(skill_or_alias, default=None):
     return canonical_ids[0]
 
 
+def runtime_skill_alignment_record(skill_or_alias):
+    skill = get_skill_definition(skill_or_alias)
+    if skill is None:
+        return None
+
+    canonical_ids = canonical_skill_ids_for_runtime_skill(skill.id)
+    unmapped_reason = intentionally_unmapped_runtime_skills().get(skill.id)
+    if canonical_ids:
+        status = "mapped"
+    elif unmapped_reason:
+        status = "intentionally_unmapped"
+    else:
+        status = "review_pending"
+
+    canonical_records = [
+        canonical_skill_record(canonical_skill_id)
+        for canonical_skill_id in canonical_ids
+    ]
+    return {
+        "id": skill.id,
+        "display_label": skill.display_label,
+        "canonical_skill_ids": canonical_ids,
+        "canonical_skills": canonical_records,
+        "canonical_system_layers": [
+            record.get("system_layer")
+            for record in canonical_records
+            if record is not None
+        ],
+        "status": status,
+        "unmapped_reason": unmapped_reason or "",
+    }
+
+
+def runtime_skill_alignment_records():
+    return [
+        runtime_skill_alignment_record(skill.id)
+        for skill in SKILL_CATALOG
+    ]
+
+
 def standard_display_label(standard_id, default=None):
     return STANDARD_LABELS.get(standard_id, default)
 
@@ -388,7 +433,8 @@ def skill_metadata_record(skill_or_alias):
     skill = get_skill_definition(skill_or_alias)
     if skill is None:
         return None
-    canonical_ids = canonical_skill_ids_for_runtime_skill(skill.id)
+    alignment = runtime_skill_alignment_record(skill.id)
+    canonical_ids = alignment["canonical_skill_ids"]
     return {
         "id": skill.id,
         "display_label": skill.display_label,
@@ -398,8 +444,8 @@ def skill_metadata_record(skill_or_alias):
         "standard": skill.standard,
         "micro_standard": skill.micro_standard,
         "canonical_skill_ids": canonical_ids,
-        "canonical_skills": [
-            canonical_skill_record(canonical_skill_id)
-            for canonical_skill_id in canonical_ids
-        ],
+        "canonical_skills": alignment["canonical_skills"],
+        "canonical_system_layers": alignment["canonical_system_layers"],
+        "alignment_status": alignment["status"],
+        "unmapped_reason": alignment["unmapped_reason"],
     }

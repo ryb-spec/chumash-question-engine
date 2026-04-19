@@ -78,6 +78,23 @@
       "notes": ""
     },
     {
+      "canonical_skill_id": "WORD.MEANING_BASIC",
+      "display_name": "Translate a single Hebrew word",
+      "domain": "Vocabulary and Language Skills",
+      "subdomain": "Vocabulary / meaning",
+      "description": "Translate an isolated Hebrew word in a safe literal way before context-shaped rendering.",
+      "zekelman_refs": [],
+      "zekelman_appendix_refs": [],
+      "jsat_refs": [],
+      "lhavin_refs": [],
+      "current_engine_skills": [
+        "translation"
+      ],
+      "engine_status": "mapped-current",
+      "system_layer": "engine_extension",
+      "notes": "Runtime-alignment extension for the live WM1 word-meaning lane. This row preserves explicit coverage without claiming a one-to-one external standards row from the current seed package."
+    },
+    {
       "canonical_skill_id": "WORD.PART_OF_SPEECH_BASIC",
       "display_name": "Differentiate noun vs. verb",
       "domain": "Vocabulary and Language Skills",
@@ -95,10 +112,12 @@
       "lhavin_refs": [
         "1.2"
       ],
-      "current_engine_skills": [],
-      "engine_status": "recommended-next",
+      "current_engine_skills": [
+        "part_of_speech"
+      ],
+      "engine_status": "mapped-partial",
       "system_layer": "canonical_truth",
-      "notes": ""
+      "notes": "Closest external analogue for the current runtime part_of_speech lane. The runtime lane is a little broader because it can also surface particle/preposition distractors."
     },
     {
       "canonical_skill_id": "WORD.PARTS.SEGMENT",
@@ -164,10 +183,12 @@
       "lhavin_refs": [
         "2.2"
       ],
-      "current_engine_skills": [],
-      "engine_status": "recommended-next",
+      "current_engine_skills": [
+        "shoresh"
+      ],
+      "engine_status": "mapped-current",
       "system_layer": "canonical_truth",
-      "notes": ""
+      "notes": "Covers the runtime shoresh lane when the engine can defend one clear root answer."
     },
     {
       "canonical_skill_id": "ROOT.IDENTIFY_DROPPED",
@@ -188,10 +209,12 @@
       "lhavin_refs": [
         "2.3"
       ],
-      "current_engine_skills": [],
-      "engine_status": "recommended-next",
+      "current_engine_skills": [
+        "shoresh"
+      ],
+      "engine_status": "mapped-partial",
       "system_layer": "canonical_truth",
-      "notes": ""
+      "notes": "Also applies to the reviewed subset of runtime shoresh questions that recover weak or dropped-letter roots."
     },
     {
       "canonical_skill_id": "PREFIX.BASIC_PREPOSITIONS",
@@ -214,11 +237,29 @@
         "3.1"
       ],
       "current_engine_skills": [
-        "identify_prefix_meaning"
+        "identify_prefix_meaning",
+        "preposition_meaning"
       ],
       "engine_status": "mapped-current",
       "system_layer": "canonical_truth",
-      "notes": ""
+      "notes": "The runtime uses this row both for direct prefix-meaning questions and for the dedicated preposition_meaning lane."
+    },
+    {
+      "canonical_skill_id": "PREFIX.FORM_IDENTIFY",
+      "display_name": "Identify the visible prefix on a word",
+      "domain": "Vocabulary and Language Skills",
+      "subdomain": "Prepositions and prefixes",
+      "description": "Name the attached prefix form itself before asking for its meaning in context.",
+      "zekelman_refs": [],
+      "zekelman_appendix_refs": [],
+      "jsat_refs": [],
+      "lhavin_refs": [],
+      "current_engine_skills": [
+        "prefix"
+      ],
+      "engine_status": "mapped-current",
+      "system_layer": "engine_extension",
+      "notes": "Runtime-alignment extension for the live prefix letter-identification lane. The seed crosswalk had prefix translation rows but not a dedicated form-recognition row."
     },
     {
       "canonical_skill_id": "PREFIX.CONTRACTED",
@@ -406,11 +447,12 @@
         "4.2"
       ],
       "current_engine_skills": [
-        "identify_suffix_meaning"
+        "identify_suffix_meaning",
+        "suffix"
       ],
       "engine_status": "mapped-partial",
       "system_layer": "canonical_truth",
-      "notes": ""
+      "notes": "The runtime identify_suffix_meaning and suffix lanes can both land here when a first-person suffix meaning is the defended answer."
     },
     {
       "canonical_skill_id": "SUFFIX.SECOND_PERSON",
@@ -432,11 +474,12 @@
         "4.3"
       ],
       "current_engine_skills": [
-        "identify_suffix_meaning"
+        "identify_suffix_meaning",
+        "suffix"
       ],
       "engine_status": "mapped-partial",
       "system_layer": "canonical_truth",
-      "notes": ""
+      "notes": "The runtime identify_suffix_meaning and suffix lanes can both land here when a second-person suffix meaning is the defended answer."
     },
     {
       "canonical_skill_id": "SUFFIX.THIRD_PERSON",
@@ -459,11 +502,12 @@
         "4.4"
       ],
       "current_engine_skills": [
-        "identify_pronoun_suffix"
+        "identify_pronoun_suffix",
+        "suffix"
       ],
       "engine_status": "mapped-partial",
       "system_layer": "canonical_truth",
-      "notes": ""
+      "notes": "The runtime identify_pronoun_suffix and suffix lanes can both land here when a clear third-person suffix meaning is the defended answer."
     },
     {
       "canonical_skill_id": "SUFFIX.HOMOPHONE_DISAMBIGUATE",
@@ -607,11 +651,12 @@
       ],
       "current_engine_skills": [
         "identify_tense",
-        "identify_suffix_past"
+        "identify_suffix_past",
+        "verb_tense"
       ],
       "engine_status": "mapped-current",
       "system_layer": "canonical_truth",
-      "notes": ""
+      "notes": "The runtime identify_tense and verb_tense lanes both classify clear past-tense forms."
     },
     {
       "canonical_skill_id": "VERB.TENSE.PRESENT",
@@ -634,11 +679,12 @@
       ],
       "current_engine_skills": [
         "identify_tense",
-        "identify_present_pattern"
+        "identify_present_pattern",
+        "verb_tense"
       ],
       "engine_status": "mapped-current",
       "system_layer": "canonical_truth",
-      "notes": ""
+      "notes": "The runtime identify_tense and verb_tense lanes both classify clear present-tense forms."
     },
     {
       "canonical_skill_id": "VERB.TENSE.FUTURE",
@@ -661,11 +707,12 @@
       ],
       "current_engine_skills": [
         "identify_tense",
-        "identify_prefix_future"
+        "identify_prefix_future",
+        "verb_tense"
       ],
       "engine_status": "mapped-current",
       "system_layer": "canonical_truth",
-      "notes": ""
+      "notes": "The runtime identify_tense and verb_tense lanes both classify clear future-tense forms."
     },
     {
       "canonical_skill_id": "VERB.COMMAND",
@@ -713,6 +760,23 @@
       "notes": ""
     },
     {
+      "canonical_skill_id": "PHRASE.UNIT_TRANSLATE",
+      "display_name": "Translate a short Hebrew phrase as a unit",
+      "domain": "Passage Comprehension",
+      "subdomain": "Phrase comprehension",
+      "description": "Translate a short phrase by reading the words together as one meaning unit.",
+      "zekelman_refs": [],
+      "zekelman_appendix_refs": [],
+      "jsat_refs": [],
+      "lhavin_refs": [],
+      "current_engine_skills": [
+        "phrase_translation"
+      ],
+      "engine_status": "mapped-current",
+      "system_layer": "engine_extension",
+      "notes": "Runtime-alignment extension for the live phrase_translation lane. This keeps phrase-unit work explicit without relabeling it as a benchmark-only context skill."
+    },
+    {
       "canonical_skill_id": "VERB.SUBJECT_OBJECT",
       "display_name": "Identify subject and object in a פסוק",
       "domain": "Passage Comprehension",
@@ -728,10 +792,13 @@
         "Sample Test items 89,96"
       ],
       "lhavin_refs": [],
-      "current_engine_skills": [],
-      "engine_status": "recommended-next",
+      "current_engine_skills": [
+        "subject_identification",
+        "object_identification"
+      ],
+      "engine_status": "mapped-partial",
       "system_layer": "canonical_truth",
-      "notes": ""
+      "notes": "The runtime covers this clause-role work through separate subject_identification and object_identification lanes rather than one combined prompt family."
     },
     {
       "canonical_skill_id": "VERB.MARKER",

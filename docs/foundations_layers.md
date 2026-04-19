@@ -35,6 +35,20 @@ The new foundation resources do not replace any of the above yet.
 These helpers are safe integration seams. They do not change runtime scoring,
 mastery, corpus scope, or student-facing behavior by themselves.
 
+## Crosswalk alignment notes
+
+- The canonical skill crosswalk can now contain three kinds of rows:
+  - `canonical_truth`
+    - externally anchored rows from the standards packet
+  - `benchmark`
+    - JSAT-style benchmark rows that stay outside runtime truth unless explicitly used
+  - `engine_extension`
+    - narrow internal alignment rows used when the supported runtime has a real skill
+      lane but the incoming seed package did not provide a clean one-to-one external row
+- `engine_extension` rows are alignment shims, not a claim that the runtime has created
+  a new external standard.
+- See `docs/runtime_skill_canonical_alignment.md` for the current runtime-skill review.
+
 ## Layer structure
 
 - `data/standards/crosswalks/`
