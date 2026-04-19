@@ -19,6 +19,22 @@ runtime.
 
 The new foundation resources do not replace any of the above yet.
 
+## Helper modules
+
+- `foundation_resources.py`
+  - manifest-backed loading and structural validation
+- `foundation_benchmark.py`
+  - read-only access to benchmark section weights, archetypes, and coverage
+- `foundation_paradigms.py`
+  - read-only access to grammar paradigm and pronoun query helpers
+- `foundation_lexicon.py`
+  - read-only access to high-frequency lexicon tiers and priority profiles
+- `foundation_teacher_ops.py`
+  - read-only access to teacher/admin workflow seed data
+
+These helpers are safe integration seams. They do not change runtime scoring,
+mastery, corpus scope, or student-facing behavior by themselves.
+
 ## Layer structure
 
 - `data/standards/crosswalks/`

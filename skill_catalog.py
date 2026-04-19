@@ -3,6 +3,8 @@ from __future__ import annotations
 from dataclasses import dataclass
 from functools import lru_cache
 
+from foundation_resources import load_foundation_resource
+
 
 ADAPTIVE_STANDARD_IDS = ("WM", "SR", "PR", "CF", "PC", "PS", "SS", "CM")
 
@@ -254,6 +256,40 @@ def skill_alias_map():
     return alias_map
 
 
+@lru_cache(maxsize=1)
+def canonical_skill_crosswalk():
+    data = load_foundation_resource("canonical_skill_crosswalk_json")
+    return tuple(data.get("skills", []))
+
+
+@lru_cache(maxsize=1)
+def canonical_skill_record_map():
+    return {
+        record["canonical_skill_id"]: dict(record)
+        for record in canonical_skill_crosswalk()
+        if record.get("canonical_skill_id")
+    }
+
+
+@lru_cache(maxsize=1)
+def runtime_skill_to_canonical_ids():
+    mapping = {skill.id: [] for skill in SKILL_CATALOG}
+    for record in canonical_skill_crosswalk():
+        canonical_skill_id = record.get("canonical_skill_id")
+        for runtime_skill in record.get("current_engine_skills") or []:
+            resolved_runtime_skill = resolve_skill_id(runtime_skill) or runtime_skill
+            if (
+                resolved_runtime_skill in mapping
+                and canonical_skill_id
+                and canonical_skill_id not in mapping[resolved_runtime_skill]
+            ):
+                mapping[resolved_runtime_skill].append(canonical_skill_id)
+    return {
+        runtime_skill: tuple(canonical_ids)
+        for runtime_skill, canonical_ids in mapping.items()
+    }
+
+
 def resolve_skill_id(skill_or_alias):
     if not skill_or_alias:
         return None
@@ -321,6 +357,25 @@ def skill_prerequisites(skill_or_alias):
     return list(skill.prerequisites)
 
 
+def canonical_skill_record(canonical_skill_id):
+    record = canonical_skill_record_map().get(canonical_skill_id)
+    return dict(record) if record is not None else None
+
+
+def canonical_skill_ids_for_runtime_skill(skill_or_alias):
+    skill_id = resolve_skill_id(skill_or_alias)
+    if skill_id is None:
+        return []
+    return list(runtime_skill_to_canonical_ids().get(skill_id, ()))
+
+
+def primary_canonical_skill_id(skill_or_alias, default=None):
+    canonical_ids = canonical_skill_ids_for_runtime_skill(skill_or_alias)
+    if not canonical_ids:
+        return default
+    return canonical_ids[0]
+
+
 def standard_display_label(standard_id, default=None):
     return STANDARD_LABELS.get(standard_id, default)
 
@@ -333,6 +388,7 @@ def skill_metadata_record(skill_or_alias):
     skill = get_skill_definition(skill_or_alias)
     if skill is None:
         return None
+    canonical_ids = canonical_skill_ids_for_runtime_skill(skill.id)
     return {
         "id": skill.id,
         "display_label": skill.display_label,
@@ -341,4 +397,9 @@ def skill_metadata_record(skill_or_alias):
         "prerequisites": list(skill.prerequisites),
         "standard": skill.standard,
         "micro_standard": skill.micro_standard,
+        "canonical_skill_ids": canonical_ids,
+        "canonical_skills": [
+            canonical_skill_record(canonical_skill_id)
+            for canonical_skill_id in canonical_ids
+        ],
     }
