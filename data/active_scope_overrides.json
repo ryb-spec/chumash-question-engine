@@ -1,0 +1,395 @@
+{
+  "metadata": {
+    "title": "Active Scope Curated Overrides",
+    "scope_id": "local_parsed_bereishis_1_1_to_2_9",
+    "status": "active",
+    "notes": [
+      "These overrides apply only inside the current active runtime scope.",
+      "They are narrow teacher-truth annotations for role and phrase questions when parser-derived support is unresolved, ambiguous, or instructionally weak."
+    ]
+  },
+  "overrides": {
+    "bereishis_1_1": {
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 1,
+        "pasuk": 1
+      },
+      "notes": [
+        "Recover the opening creation clause, which the parser currently leaves without a main verb."
+      ],
+      "skills": {
+        "subject_identification": {
+          "main_verb_token": "בָּרָא",
+          "subject": {
+            "surface": "אֱלֹקִים",
+            "translation": "God",
+            "semantic_group": "divine",
+            "entity_type": "divine_being"
+          }
+        },
+        "phrase_translation": {
+          "preferred_phrase": {
+            "surface": "בָּרָא אֱלֹקִים",
+            "translation": "God created",
+            "distractors": [
+              "the LORD created",
+              "God made",
+              "God blessed"
+            ]
+          }
+        }
+      }
+    },
+    "bereishis_1_3": {
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 1,
+        "pasuk": 3
+      },
+      "notes": [
+        "Recover the opening speech clause even though the full pasuk has multiple verb forms."
+      ],
+      "skills": {
+        "subject_identification": {
+          "main_verb_token": "וַיֹּאמֶר",
+          "subject": {
+            "surface": "אֱלֹקִים",
+            "translation": "God",
+            "semantic_group": "divine",
+            "entity_type": "divine_being"
+          }
+        },
+        "phrase_translation": {
+          "preferred_phrase": {
+            "surface": "וַיֹּאמֶר אֱלֹקִים",
+            "translation": "God said",
+            "distractors": [
+              "the LORD said",
+              "God made",
+              "God called"
+            ]
+          }
+        }
+      }
+    },
+    "bereishis_1_4": {
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 1,
+        "pasuk": 4
+      },
+      "notes": [
+        "Prefer the first clause of the pasuk for a clean saw-the-light target."
+      ],
+      "skills": {
+        "subject_identification": {
+          "main_verb_token": "וַיַּרְא",
+          "subject": {
+            "surface": "אֱלֹקִים",
+            "translation": "God",
+            "semantic_group": "divine",
+            "entity_type": "divine_being"
+          }
+        },
+        "object_identification": {
+          "main_verb_token": "וַיַּרְא",
+          "direct_object": {
+            "surface": "הָאוֹר",
+            "translation": "the light",
+            "semantic_group": "object",
+            "entity_type": "natural_feature"
+          }
+        },
+        "phrase_translation": {
+          "preferred_phrase": {
+            "surface": "וַיַּרְא אֱלֹקִים אֶת הָאוֹר",
+            "translation": "God saw the light",
+            "distractors": [
+              "the LORD saw the light",
+              "God made the light",
+              "God saw the darkness"
+            ]
+          }
+        }
+      }
+    },
+    "bereishis_1_7": {
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 1,
+        "pasuk": 7
+      },
+      "notes": [
+        "Prefer the first clause of the pasuk for a clean made-the-expanse target."
+      ],
+      "skills": {
+        "subject_identification": {
+          "main_verb_token": "וַיַּעַשׂ",
+          "subject": {
+            "surface": "אֱלֹקִים",
+            "translation": "God",
+            "semantic_group": "divine",
+            "entity_type": "divine_being"
+          }
+        },
+        "object_identification": {
+          "main_verb_token": "וַיַּעַשׂ",
+          "direct_object": {
+            "surface": "הָרָקִיעַ",
+            "translation": "the expanse",
+            "semantic_group": "object",
+            "entity_type": "natural_feature"
+          }
+        },
+        "phrase_translation": {
+          "preferred_phrase": {
+            "surface": "וַיַּעַשׂ אֱלֹקִים אֶת הָרָקִיעַ",
+            "translation": "God made the expanse",
+            "distractors": [
+              "the LORD made the expanse",
+              "God separated the waters",
+              "God made the waters"
+            ]
+          }
+        }
+      }
+    },
+    "bereishis_1_16": {
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 1,
+        "pasuk": 16
+      },
+      "notes": [
+        "Recover the first-clause object for the two great lights."
+      ],
+      "skills": {
+        "object_identification": {
+          "main_verb_token": "וַיַּעַשׂ",
+          "direct_object": {
+            "surface": "שְׁנֵי הַמְּאֹרֹת הַגְּדֹלִים",
+            "translation": "the two great lights",
+            "semantic_group": "object",
+            "entity_type": "natural_feature"
+          }
+        }
+      }
+    },
+    "bereishis_1_17": {
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 1,
+        "pasuk": 17
+      },
+      "notes": [
+        "Recover the clean pronoun direct object in the placement clause."
+      ],
+      "skills": {
+        "object_identification": {
+          "main_verb_token": "וַיִּתֵּן",
+          "direct_object": {
+            "surface": "אֹתָם",
+            "translation": "them",
+            "semantic_group": "object",
+            "entity_type": "pronoun"
+          }
+        }
+      }
+    },
+    "bereishis_1_27": {
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 1,
+        "pasuk": 27
+      },
+      "notes": [
+        "Recover the first creation clause object before the repeated follow-on clauses."
+      ],
+      "skills": {
+        "object_identification": {
+          "main_verb_token": "וַיִּבְרָא",
+          "direct_object": {
+            "surface": "הָאָדָם",
+            "translation": "the man",
+            "semantic_group": "object",
+            "entity_type": "person"
+          }
+        }
+      }
+    },
+    "bereishis_2_1": {
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 2,
+        "pasuk": 1
+      },
+      "notes": [
+        "Keep this plural completion clause out of phrase mode until the parser can ground a cleaner subject phrase."
+      ],
+      "skills": {
+        "phrase_translation": {
+          "suppress": {
+            "reason": "No quiz-ready phrase target found in this pasuk."
+          }
+        }
+      }
+    },
+    "bereishis_2_2": {
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 2,
+        "pasuk": 2
+      },
+      "notes": [
+        "Recover the direct object for the first finished clause."
+      ],
+      "skills": {
+        "object_identification": {
+          "main_verb_token": "וַיְכַל",
+          "direct_object": {
+            "surface": "מְלַאכְתּוֹ",
+            "translation": "His work",
+            "semantic_group": "object",
+            "entity_type": "common_noun"
+          }
+        }
+      }
+    },
+    "bereishis_2_3": {
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 2,
+        "pasuk": 3
+      },
+      "notes": [
+        "Recover the blessed-day direct object and the full blessing phrase."
+      ],
+      "skills": {
+        "object_identification": {
+          "main_verb_token": "וַיְבָרֶךְ",
+          "direct_object": {
+            "surface": "יוֹם הַשְּׁבִיעִי",
+            "translation": "the seventh day",
+            "semantic_group": "object",
+            "entity_type": "time_expression"
+          }
+        },
+        "phrase_translation": {
+          "preferred_phrase": {
+            "surface": "וַיְבָרֶךְ אֱלֹהִים אֶת יוֹם הַשְּׁבִיעִי",
+            "translation": "God blessed the seventh day",
+            "distractors": [
+              "the LORD blessed the seventh day",
+              "God finished the seventh day",
+              "God blessed the earth"
+            ]
+          }
+        }
+      }
+    },
+    "bereishis_2_7": {
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 2,
+        "pasuk": 7
+      },
+      "notes": [
+        "Prefer the first clause of the verse for role-backed questions."
+      ],
+      "skills": {
+        "subject_identification": {
+          "main_verb_token": "וַיִּיצֶר",
+          "subject": {
+            "surface": "יְהוָה אֱלֹהִים",
+            "translation": "the LORD God",
+            "semantic_group": "divine",
+            "entity_type": "divine_being"
+          }
+        },
+        "object_identification": {
+          "main_verb_token": "וַיִּיצֶר",
+          "direct_object": {
+            "surface": "הָאָדָם",
+            "translation": "the man",
+            "semantic_group": "object",
+            "entity_type": "person"
+          }
+        },
+        "phrase_translation": {
+          "preferred_phrase": {
+            "surface": "וַיִּיצֶר יְהוָה אֱלֹהִים אֶת הָאָדָם",
+            "translation": "the LORD God formed the man",
+            "distractors": [
+              "God formed the man",
+              "the LORD God placed the man",
+              "the LORD God formed the garden"
+            ]
+          }
+        }
+      }
+    },
+    "bereishis_2_8": {
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 2,
+        "pasuk": 8
+      },
+      "notes": [
+        "Prefer the first clause of the verse for role-backed questions."
+      ],
+      "skills": {
+        "subject_identification": {
+          "main_verb_token": "וַיִּטַּע",
+          "subject": {
+            "surface": "יְהוָה אֱלֹהִים",
+            "translation": "the LORD God",
+            "semantic_group": "divine",
+            "entity_type": "divine_being"
+          }
+        },
+        "object_identification": {
+          "main_verb_token": "וַיִּטַּע",
+          "direct_object": {
+            "surface": "גַּן",
+            "translation": "a garden",
+            "semantic_group": "object",
+            "entity_type": "place"
+          }
+        },
+        "phrase_translation": {
+          "preferred_phrase": {
+            "surface": "וַיִּטַּע יְהוָה אֱלֹהִים גַּן בְּעֵדֶן",
+            "translation": "the LORD God planted a garden in Eden",
+            "distractors": [
+              "God planted a garden in Eden",
+              "the LORD God placed a garden in Eden",
+              "the LORD God planted the man in Eden"
+            ]
+          }
+        }
+      }
+    },
+    "bereishis_2_9": {
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 2,
+        "pasuk": 9
+      },
+      "notes": [
+        "Recover the clean quantified direct object in the first clause."
+      ],
+      "skills": {
+        "object_identification": {
+          "main_verb_token": "וַיַּצְמַח",
+          "direct_object": {
+            "surface": "כׇּל עֵץ",
+            "translation": "every tree",
+            "semantic_group": "object",
+            "entity_type": "common_noun"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,12 +1,19 @@
 import re
+from copy import deepcopy
 from difflib import SequenceMatcher
+from functools import lru_cache
 from time import perf_counter
 
 import streamlit as st
 
 from adaptive_engine import candidate_weight
-from assessment_scope import active_pasuk_texts, active_scope_summary
+from assessment_scope import (
+    active_pasuk_texts,
+    active_scope_summary,
+    bind_question_to_active_scope,
+)
 from progress_store import load_progress_state
+from runtime.presentation import SKILL_ORDER
 from runtime.runtime_support import (
     analyze_generator_pasuk,
     generate_skill_question,
@@ -27,10 +34,14 @@ DEBUG_REJECTION_LABELS = {
     "generator_returned_none": "generator returned no question",
     "generator_skipped": "generator skipped candidate",
     "feature_repeat_blocked": "feature repetition blocked",
+    "morpheme_family_repeat_blocked": "morpheme-family repetition blocked",
+    "opening_mechanical_group_capped": "opening mechanical cap blocked",
+    "mechanical_group_cooldown_blocked": "mechanical cooldown blocked",
     "prefix_repeat_blocked": "prefix repetition blocked",
     "recent_exact_repeat": "recent exact repeat blocked",
     "recent_target_repeat": "recent target repeat blocked",
     "recent_prompt_repeat": "recent prompt repeat blocked",
+    "trusted_active_scope_unmappable": "trusted active-scope mapping blocked",
     "limited_candidate_reuse": "limited candidate reuse allowed",
 }
 RECENT_QUESTION_HISTORY_LIMIT = 12
@@ -68,6 +79,48 @@ FULL_CONTEXT_QUESTION_TYPES = {
     "flow_dependency",
     "role_clarity",
 }
+OPENING_MECHANICAL_SKILLS = {
+    "identify_prefix_meaning",
+    "identify_suffix_meaning",
+    "identify_pronoun_suffix",
+    "identify_verb_marker",
+    "segment_word_parts",
+}
+SEQUENCING_GROUP_SKILLS = {
+    "mechanical": [
+        "identify_prefix_meaning",
+        "identify_suffix_meaning",
+        "identify_pronoun_suffix",
+        "identify_verb_marker",
+        "segment_word_parts",
+        "prefix",
+        "suffix",
+    ],
+    "meaning": [
+        "translation",
+        "shoresh",
+        "part_of_speech",
+        "preposition_meaning",
+    ],
+    "verb_building": [
+        "verb_tense",
+        "identify_tense",
+        "identify_prefix_future",
+        "identify_suffix_past",
+        "identify_present_pattern",
+        "match_pronoun_to_verb",
+        "convert_future_to_command",
+    ],
+    "context": [
+        "phrase_translation",
+        "subject_identification",
+        "object_identification",
+    ],
+}
+LEARN_MODE_SEQUENCE_WINDOW = 10
+MAX_SEQUENCE_SKILL_ATTEMPTS = 6
+MAX_SEQUENCE_SKILLS_PER_GROUP = 2
+MAX_FULL_GENERATION_ROWS_PER_PASS = 8
 
 
 def attach_debug_trace(question, **updates):
@@ -95,6 +148,19 @@ def answer_to_next_ready_ms():
     if not started_at:
         return None
     return round((perf_counter() - started_at) * 1000, 1)
+
+
+@lru_cache(maxsize=256)
+def _cached_candidate_source(analyzer_identity, pasuk):
+    if analyze_generator_pasuk is None:
+        return pasuk
+    return analyze_generator_pasuk(pasuk)
+
+
+def candidate_source_for_pasuk(pasuk):
+    if analyze_generator_pasuk is None:
+        return pasuk
+    return deepcopy(_cached_candidate_source(id(analyze_generator_pasuk), pasuk))
 
 
 def progress_source_label(progress):
@@ -324,6 +390,108 @@ def summarize_debug_rejection_counts(rejection_counts):
     return rows
 
 
+def opening_variety_guard_skills(current_skill):
+    return [
+        skill
+        for skill in SKILL_ORDER
+        if skill != current_skill and skill not in OPENING_MECHANICAL_SKILLS
+    ]
+
+
+def trusted_active_scope_selection_enabled():
+    return st.session_state.get("pilot_scope_mode", "trusted_active_scope") == "trusted_active_scope"
+
+
+def short_run_question_number():
+    return int(st.session_state.get("questions_answered", 0)) + 1
+
+
+def sequencing_stage_for_question_number(question_number):
+    if question_number <= 2:
+        return "warmup"
+    if question_number <= 6:
+        return "meaning_build"
+    if question_number <= LEARN_MODE_SEQUENCE_WINDOW:
+        return "context_ramp"
+    return "open"
+
+
+def rebalance_group_preferences(preferences, recent_instructional_groups):
+    preferences = list(preferences)
+    recent_instructional_groups = list(recent_instructional_groups or [])
+    if len(preferences) <= 1 or not recent_instructional_groups:
+        return preferences
+
+    last_group = recent_instructional_groups[-1]
+    if recent_instructional_groups[-2:].count(last_group) >= 2 and last_group in preferences:
+        preferences = [group for group in preferences if group != last_group] + [last_group]
+    elif last_group == "mechanical" and last_group in preferences[:-1]:
+        preferences = [group for group in preferences if group != last_group] + [last_group]
+
+    return preferences
+
+
+def sequencing_group_preferences(question_number, recent_instructional_groups):
+    stage = sequencing_stage_for_question_number(question_number)
+    if stage == "warmup":
+        preferences = ["mechanical", "meaning", "verb_building", "context"]
+    elif stage == "meaning_build":
+        preferences = ["meaning", "verb_building", "context", "mechanical"]
+    elif stage == "context_ramp":
+        preferences = ["context", "meaning", "verb_building", "mechanical"]
+    else:
+        preferences = ["meaning", "context", "verb_building", "mechanical"]
+    return stage, rebalance_group_preferences(preferences, recent_instructional_groups)
+
+
+def sequence_skill_attempt_order(current_skill, recent_instructional_groups):
+    from runtime.session_state import get_instructional_group
+
+    current_skill = current_skill or ""
+    current_group = get_instructional_group(current_skill)
+    question_number = short_run_question_number()
+    stage, group_preferences = sequencing_group_preferences(question_number, recent_instructional_groups)
+
+    attempted = []
+    should_prepend_current = (
+        (stage == "warmup" and current_group in {"meaning", "verb_building", "context"})
+        or (stage == "meaning_build" and current_group in {"meaning", "verb_building"})
+        or (stage == "context_ramp" and current_group == "context")
+    )
+    if current_skill and should_prepend_current:
+        attempted.append(current_skill)
+
+    for group in group_preferences:
+        added_for_group = 0
+        if current_skill and current_group == group and current_skill not in attempted:
+            attempted.append(current_skill)
+            added_for_group += 1
+        for skill in SEQUENCING_GROUP_SKILLS.get(group, []):
+            if (
+                skill not in SKILL_ORDER
+                or skill in attempted
+                or added_for_group >= MAX_SEQUENCE_SKILLS_PER_GROUP
+            ):
+                continue
+            attempted.append(skill)
+            added_for_group += 1
+            if len(attempted) >= MAX_SEQUENCE_SKILL_ATTEMPTS:
+                break
+        if len(attempted) >= MAX_SEQUENCE_SKILL_ATTEMPTS:
+            break
+
+    if current_skill and current_skill not in attempted:
+        attempted.append(current_skill)
+
+    return {
+        "question_number": question_number,
+        "stage": stage,
+        "group_preferences": group_preferences,
+        "attempted_skills": attempted[:MAX_SEQUENCE_SKILL_ATTEMPTS],
+        "current_group": current_group,
+    }
+
+
 def current_routing_mode(flow=None):
     if flow is not None:
         return "Pasuk Flow"
@@ -379,6 +547,8 @@ def build_quiz_debug_payload(question, progress=None, flow=None):
         "question_generation_ms": trace.get("question_generation_ms"),
         "followup_generation_ms": trace.get("followup_generation_ms"),
         "answer_to_next_ready_ms": trace.get("answer_to_next_ready_ms"),
+        "selection_timing": dict(trace.get("selection_timing") or {}),
+        "answer_pipeline_timing": dict(st.session_state.get("last_answer_pipeline_timing") or {}),
         "candidate_score_breakdown": dict(trace.get("candidate_score_breakdown") or {}),
     }
 
@@ -413,7 +583,7 @@ def build_followup_question(progress, question):
     candidate_sources = []
     if pasuk and analyze_generator_pasuk is not None:
         try:
-            candidate_sources.append((pasuk, analyze_generator_pasuk(pasuk)))
+            candidate_sources.append((pasuk, candidate_source_for_pasuk(pasuk)))
         except Exception:
             pass
     if pasuk:
@@ -449,6 +619,17 @@ def build_followup_question(progress, question):
             )
             for code in skip_reason_codes(followup, "followup_skipped"):
                 rejection_counts = increment_debug_rejection_count(rejection_counts, code)
+            continue
+        scope_record = bind_question_to_active_scope(followup, fallback_text=pasuk_text)
+        if trusted_active_scope_selection_enabled() and not scope_record:
+            candidate_filtered = True
+            candidate_filter_reasons.append(
+                "A follow-up candidate could not be mapped to the active parsed dataset in trusted mode."
+            )
+            rejection_counts = increment_debug_rejection_count(
+                rejection_counts,
+                "trusted_active_scope_unmappable",
+            )
             continue
         repeat_reason = ""
         if not allow_recent_reuse:
@@ -540,9 +721,47 @@ def choose_weighted_pasuk_question(
     return selected
 
 
+def rank_ready_rows(
+    ready_rows,
+    recent_pesukim,
+    recent_words,
+    *,
+    progress=None,
+    adaptive_context=None,
+):
+    scored = []
+    for row in ready_rows:
+        scored.append(
+            (
+                candidate_weight(
+                    row,
+                    progress or {},
+                    recent_pesukim,
+                    recent_words,
+                    adaptive_context=adaptive_context,
+                ),
+                row.get("word") or "",
+                row.get("pasuk") or "",
+                row,
+            )
+        )
+    scored.sort(key=lambda item: (-item[0], item[1], item[2]))
+    return [item[3] for item in scored]
+
+
+def chunk_rows(rows, size):
+    if size <= 0:
+        return [list(rows)]
+    return [rows[index:index + size] for index in range(0, len(rows), size)]
+
+
 @st.cache_data
 def get_skill_ready_pasuks(skill):
-    from runtime.session_state import get_question_feature, get_question_prefix
+    from runtime.session_state import (
+        get_morpheme_family,
+        get_question_feature,
+        get_question_prefix,
+    )
 
     if generate_skill_question is None:
         return []
@@ -552,11 +771,7 @@ def get_skill_ready_pasuks(skill):
         try:
             question = generate_skill_question(
                 skill,
-                (
-                    analyze_generator_pasuk(pasuk)
-                    if analyze_generator_pasuk is not None
-                    else pasuk
-                ),
+                candidate_source_for_pasuk(pasuk),
             )
         except Exception:
             continue
@@ -568,6 +783,7 @@ def get_skill_ready_pasuks(skill):
                 "word": question.get("selected_word") or question.get("word"),
                 "feature": get_question_feature(question),
                 "prefix": get_question_prefix(question),
+                "morpheme_family": get_morpheme_family(question),
             }
         )
     return ready
@@ -575,12 +791,16 @@ def get_skill_ready_pasuks(skill):
 
 def select_pasuk_first_question(skill, progress=None, adaptive_context=None):
     from runtime.session_state import (
+        get_morpheme_family,
         feature_is_blocked,
         get_generation_history,
         get_question_feature,
         get_question_prefix,
         get_recent_prefixes,
         get_recent_question_formats,
+        mechanical_group_cooldown_is_blocked,
+        mechanical_group_is_capped,
+        morpheme_family_is_blocked,
         prefix_is_blocked,
         record_question_feature,
         record_question_prefix,
@@ -590,9 +810,11 @@ def select_pasuk_first_question(skill, progress=None, adaptive_context=None):
     if generate_skill_question is None:
         return None
 
+    ready_lookup_started_at = perf_counter()
     recent_pesukim = st.session_state.setdefault("recent_pesukim", [])
     recent_words = st.session_state.setdefault("asked_tokens", [])
     ready_rows = get_skill_ready_pasuks(skill)
+    ready_lookup_ms = round((perf_counter() - ready_lookup_started_at) * 1000, 1)
     if not ready_rows:
         return None
     pasuk_pool = [row["pasuk"] for row in ready_rows]
@@ -607,10 +829,7 @@ def select_pasuk_first_question(skill, progress=None, adaptive_context=None):
     recent_prefixes = get_recent_prefixes()
     preferred_pasuk = adaptive_context.get("preferred_pasuk")
     allow_recent_reuse = is_explicit_reteach_mode(adaptive_context)
-
-    attempts = 0
     candidate_rows = []
-    fallback_rows = []
     repeat_blocked_rows = []
     fallback_reason = ""
     rejection_counts = {}
@@ -618,75 +837,163 @@ def select_pasuk_first_question(skill, progress=None, adaptive_context=None):
         search_pool = [pasuk for pasuk in pasuk_pool if pasuk == preferred_pasuk] or (preferred_pasuks or pasuk_pool)
     else:
         search_pool = preferred_pasuks or pasuk_pool
+    metadata_filter_started_at = perf_counter()
 
-    while attempts < 10 and not candidate_rows:
-        attempts += 1
-        for pasuk in search_pool:
-            try:
-                question = generate_skill_question(
-                    skill,
-                    (
-                        analyze_generator_pasuk(pasuk)
-                        if analyze_generator_pasuk is not None
-                        else pasuk
-                    ),
-                    asked_tokens=generation_history,
-                    prefix_level=prefix_level,
-                    recent_question_formats=recent_question_formats,
-                    recent_prefixes=recent_prefixes,
+    def prefilter_ready_rows(candidate_pasuks):
+        candidate_pasuk_set = set(candidate_pasuks)
+        filtered_ready_rows = [
+            row for row in ready_rows if row["pasuk"] in candidate_pasuk_set
+        ]
+        eligible_rows = []
+        fallback_ready_rows = []
+        for ready_row in filtered_ready_rows:
+            feature = ready_row.get("feature", "")
+            prefix = ready_row.get("prefix", "")
+            morpheme_family = ready_row.get("morpheme_family", "")
+            if not morpheme_family:
+                if skill == "identify_verb_marker":
+                    morpheme_family = "verb_marker"
+                elif skill == "identify_pronoun_suffix":
+                    morpheme_family = "pronoun_suffix"
+                elif skill == "identify_suffix_meaning":
+                    morpheme_family = "suffix_meaning"
+                elif skill == "segment_word_parts":
+                    morpheme_family = "segment_word_parts"
+            if mechanical_group_is_capped(morpheme_family):
+                rejection_counts_local = "opening_mechanical_group_capped"
+                nonlocal_rejection_counts[0] = increment_debug_rejection_count(
+                    nonlocal_rejection_counts[0],
+                    rejection_counts_local,
                 )
-            except Exception:
-                rejection_counts = increment_debug_rejection_count(rejection_counts, "generation_error")
                 continue
-            if question is None:
-                rejection_counts = increment_debug_rejection_count(rejection_counts, "generator_returned_none")
+            if morpheme_family_is_blocked(morpheme_family):
+                nonlocal_rejection_counts[0] = increment_debug_rejection_count(
+                    nonlocal_rejection_counts[0],
+                    "morpheme_family_repeat_blocked",
+                )
                 continue
-            if question.get("status") == "skipped":
-                for code in skip_reason_codes(question, "generator_skipped"):
-                    rejection_counts = increment_debug_rejection_count(rejection_counts, code)
+            if mechanical_group_cooldown_is_blocked(morpheme_family):
+                nonlocal_rejection_counts[0] = increment_debug_rejection_count(
+                    nonlocal_rejection_counts[0],
+                    "mechanical_group_cooldown_blocked",
+                )
                 continue
-
-            word = question.get("selected_word") or question.get("word")
-            feature = get_question_feature(question)
-            prefix = get_question_prefix(question)
-            row = {
-                "pasuk": question.get("pasuk", pasuk),
-                "question": question,
-                "word": word,
-                "feature": feature,
-                "prefix": prefix,
-            }
             if feature == "prefix" and prefix_is_blocked(prefix):
-                fallback_rows.append(row)
-                rejection_counts = increment_debug_rejection_count(rejection_counts, "prefix_repeat_blocked")
+                fallback_ready_rows.append(ready_row)
+                nonlocal_rejection_counts[0] = increment_debug_rejection_count(
+                    nonlocal_rejection_counts[0],
+                    "prefix_repeat_blocked",
+                )
                 continue
             if feature_is_blocked(feature):
-                fallback_rows.append(row)
-                rejection_counts = increment_debug_rejection_count(rejection_counts, "feature_repeat_blocked")
+                fallback_ready_rows.append(ready_row)
+                nonlocal_rejection_counts[0] = increment_debug_rejection_count(
+                    nonlocal_rejection_counts[0],
+                    "feature_repeat_blocked",
+                )
                 continue
-            if not allow_recent_reuse:
-                repeat_reason = recent_question_repeat_reason(question, recent_questions)
-                if repeat_reason:
-                    repeat_blocked_rows.append(row)
-                    rejection_counts = increment_debug_rejection_count(rejection_counts, repeat_reason)
-                    continue
-            candidate_rows.append(row)
+            eligible_rows.append(ready_row)
+        return filtered_ready_rows, eligible_rows, fallback_ready_rows
 
-        if not candidate_rows and search_pool is not pasuk_pool:
-            search_pool = pasuk_pool
+    nonlocal_rejection_counts = [rejection_counts]
+    filtered_ready_rows, eligible_ready_rows, fallback_ready_rows = prefilter_ready_rows(search_pool)
+    if not eligible_ready_rows and not fallback_ready_rows and search_pool is not pasuk_pool:
+        filtered_ready_rows, eligible_ready_rows, fallback_ready_rows = prefilter_ready_rows(pasuk_pool)
+
+    rejection_counts = nonlocal_rejection_counts[0]
+    metadata_filter_ms = round((perf_counter() - metadata_filter_started_at) * 1000, 1)
+
+    ranking_started_at = perf_counter()
+    ranked_ready_rows = rank_ready_rows(
+        eligible_ready_rows,
+        recent_pesukim,
+        recent_words,
+        progress=progress,
+        adaptive_context=adaptive_context,
+    )
+    ranked_fallback_ready_rows = rank_ready_rows(
+        fallback_ready_rows,
+        recent_pesukim,
+        recent_words,
+        progress=progress,
+        adaptive_context=adaptive_context,
+    )
+    ranking_ms = round((perf_counter() - ranking_started_at) * 1000, 1)
+
+    full_generation_started_at = perf_counter()
+    full_generation_rows = 0
+
+    def materialize_candidate_rows(ranked_rows):
+        nonlocal full_generation_rows, rejection_counts
+        generated_candidates = []
+        for ready_batch in chunk_rows(ranked_rows, MAX_FULL_GENERATION_ROWS_PER_PASS):
+            batch_candidates = []
+            for ready_row in ready_batch:
+                pasuk = ready_row["pasuk"]
+                try:
+                    question = generate_skill_question(
+                        skill,
+                        candidate_source_for_pasuk(pasuk),
+                        asked_tokens=generation_history,
+                        prefix_level=prefix_level,
+                        recent_question_formats=recent_question_formats,
+                        recent_prefixes=recent_prefixes,
+                    )
+                    full_generation_rows += 1
+                except Exception:
+                    rejection_counts = increment_debug_rejection_count(rejection_counts, "generation_error")
+                    continue
+                if question is None:
+                    rejection_counts = increment_debug_rejection_count(rejection_counts, "generator_returned_none")
+                    continue
+                if question.get("status") == "skipped":
+                    for code in skip_reason_codes(question, "generator_skipped"):
+                        rejection_counts = increment_debug_rejection_count(rejection_counts, code)
+                    continue
+                scope_record = bind_question_to_active_scope(question, fallback_text=pasuk)
+                if trusted_active_scope_selection_enabled() and not scope_record:
+                    rejection_counts = increment_debug_rejection_count(
+                        rejection_counts,
+                        "trusted_active_scope_unmappable",
+                    )
+                    continue
+
+                row = {
+                    "pasuk": question.get("pasuk", pasuk),
+                    "question": question,
+                    "word": question.get("selected_word") or question.get("word"),
+                    "feature": get_question_feature(question),
+                    "prefix": get_question_prefix(question),
+                }
+                if not allow_recent_reuse:
+                    repeat_reason = recent_question_repeat_reason(question, recent_questions)
+                    if repeat_reason:
+                        repeat_blocked_rows.append(row)
+                        rejection_counts = increment_debug_rejection_count(rejection_counts, repeat_reason)
+                        continue
+                batch_candidates.append(row)
+
+            if batch_candidates:
+                generated_candidates.extend(batch_candidates)
+                break
+        return generated_candidates
+
+    candidate_rows = materialize_candidate_rows(ranked_ready_rows)
+
+    if not candidate_rows and ranked_fallback_ready_rows:
+        fallback_reason = "Feature repetition fallback used after 10 attempts."
+        st.session_state.feature_fallback_message = fallback_reason
+        candidate_rows = materialize_candidate_rows(ranked_fallback_ready_rows)
+
+    full_generation_ms = round((perf_counter() - full_generation_started_at) * 1000, 1)
 
     if not candidate_rows:
-        reuse_rows = list(repeat_blocked_rows) + list(fallback_rows)
-        if not reuse_rows:
-            return None
         if repeat_blocked_rows:
             rejection_counts = increment_debug_rejection_count(rejection_counts, "limited_candidate_reuse")
-        if fallback_rows:
-            fallback_reason = "Feature repetition fallback used after 10 attempts."
-            st.session_state.feature_fallback_message = fallback_reason
+            fallback_reason = fallback_reason or "Freshness fallback used because the safe candidate pool was too small."
+            candidate_rows = repeat_blocked_rows
         else:
-            fallback_reason = "Freshness fallback used because the safe candidate pool was too small."
-        candidate_rows = reuse_rows
+            return None
 
     selected = choose_weighted_pasuk_question(
         candidate_rows,
@@ -702,24 +1009,35 @@ def select_pasuk_first_question(skill, progress=None, adaptive_context=None):
     question["_cache_status"] = "eligible pasuk pool cached; question regenerated"
     attach_debug_trace(
         question,
-        candidate_filtered=bool(fallback_rows),
+        candidate_filtered=bool(ranked_fallback_ready_rows or repeat_blocked_rows),
         candidate_filter_reasons=(
             [fallback_reason]
             if fallback_reason
             else (
                 ["One or more candidate questions were filtered before selection."]
-                if fallback_rows or repeat_blocked_rows
+                if ranked_fallback_ready_rows or repeat_blocked_rows
                 else []
             )
         ),
         rejection_counts=rejection_counts,
         fallback_path=(
             "feature_repetition_fallback"
-            if fallback_rows and fallback_reason
+            if ranked_fallback_ready_rows and fallback_reason
             else ("limited_candidate_reuse" if repeat_blocked_rows and fallback_reason else "")
         ),
         candidate_score_breakdown=selected.get("candidate_score_breakdown", {}),
         transition_reason=fallback_reason,
+        selection_timing={
+            "ready_rows_lookup_ms": ready_lookup_ms,
+            "metadata_filter_ms": metadata_filter_ms,
+            "ranking_ms": ranking_ms,
+            "full_generation_ms": full_generation_ms,
+            "ready_rows_total": len(ready_rows),
+            "search_rows_total": len(filtered_ready_rows),
+            "eligible_ready_rows": len(ranked_ready_rows),
+            "fallback_ready_rows": len(ranked_fallback_ready_rows),
+            "full_generation_rows": full_generation_rows,
+        },
     )
     record_selected_pasuk(selected["pasuk"])
     record_question_feature(question)
@@ -728,15 +1046,94 @@ def select_pasuk_first_question(skill, progress=None, adaptive_context=None):
 
 
 def generate_mastery_question(progress):
-    from runtime.session_state import consume_adaptive_context
+    from runtime.session_state import (
+        consume_adaptive_context,
+        get_instructional_group,
+        get_recent_instructional_groups,
+    )
 
     adaptive_context = consume_adaptive_context()
+
+    def build_mastery_question():
+        current_skill = progress["current_skill"]
+        if current_routing_mode() != "Learn Mode" or short_run_question_number() > LEARN_MODE_SEQUENCE_WINDOW:
+            question = select_pasuk_first_question(
+                current_skill,
+                progress=progress,
+                adaptive_context=adaptive_context,
+            )
+            if (
+                question is not None
+                or current_routing_mode() != "Learn Mode"
+                or current_skill not in OPENING_MECHANICAL_SKILLS
+            ):
+                return question
+
+            for fallback_skill in opening_variety_guard_skills(current_skill):
+                fallback_question = select_pasuk_first_question(
+                    fallback_skill,
+                    progress=progress,
+                    adaptive_context=adaptive_context,
+                )
+                if fallback_question is None:
+                    continue
+                return attach_debug_trace(
+                    fallback_question,
+                    variety_guard_applied=True,
+                    variety_guard_source=current_skill,
+                    transition_reason=(
+                        "Opening-run variety guard selected a non-mechanical skill."
+                    ),
+                )
+            return None
+
+        recent_instructional_groups = get_recent_instructional_groups()
+        sequence_plan = sequence_skill_attempt_order(current_skill, recent_instructional_groups)
+        attempted_skills = sequence_plan["attempted_skills"]
+        stage = sequence_plan["stage"]
+        question_number = sequence_plan["question_number"]
+        group_preferences = sequence_plan["group_preferences"]
+
+        for skill_to_try in attempted_skills:
+            question = select_pasuk_first_question(
+                skill_to_try,
+                progress=progress,
+                adaptive_context=adaptive_context,
+            )
+            if question is None:
+                continue
+
+            selected_group = get_instructional_group(question)
+            transition_reason = ""
+            if stage == "meaning_build" and selected_group in {"meaning", "verb_building"}:
+                transition_reason = "Short-run sequencing moved the session toward meaning work."
+            elif stage == "context_ramp" and selected_group == "context":
+                transition_reason = "Short-run sequencing moved the session toward context."
+            elif skill_to_try != current_skill:
+                transition_reason = "Short-run sequencing selected a different instructional family."
+
+            question = attach_debug_trace(
+                question,
+                sequencing_applied=True,
+                sequencing_stage=stage,
+                sequencing_question_number=question_number,
+                sequencing_group_preferences=group_preferences,
+                sequencing_attempted_skills=attempted_skills,
+                sequencing_selected_group=selected_group,
+                sequencing_source_skill=current_skill,
+                transition_reason=transition_reason,
+            )
+            if skill_to_try != current_skill and current_skill in OPENING_MECHANICAL_SKILLS:
+                question = attach_debug_trace(
+                    question,
+                    variety_guard_applied=True,
+                    variety_guard_source=current_skill,
+                )
+            return question
+        return None
+
     question, elapsed_ms = timed_question_generation(
-        lambda: select_pasuk_first_question(
-            progress["current_skill"],
-            progress=progress,
-            adaptive_context=adaptive_context,
-        )
+        build_mastery_question
     )
     return attach_debug_trace(
         question,

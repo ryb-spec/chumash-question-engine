@@ -102,7 +102,9 @@ class ProgressStoreTests(unittest.TestCase):
             streamlit_app,
             "save_progress",
             side_effect=lambda state: state,
-        ) as save_progress_mock, patch.object(streamlit_app, "update_word_skill_score", None):
+        ) as save_progress_mock, \
+             patch.object(streamlit_app, "update_word_skill_score", None), \
+             patch.object(streamlit_app, "record_pilot_answer", return_value=None):
             streamlit_app.handle_answer("in the beginning", question, progress)
 
         self.assertEqual(save_progress_mock.call_count, 1)

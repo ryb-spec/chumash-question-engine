@@ -1,11 +1,11 @@
 # Chumash Engine Daily Review
 
-- Generated at (UTC): 2026-04-17T16:44:38.209444+00:00
+- Generated at (UTC): 2026-04-19T19:29:11.909269+00:00
 
 ## Test Status
 
-- Total tests: 69
-- Passed: 69
+- Total tests: 189
+- Passed: 189
 - Failed: 0
 - Errors: 0
 
@@ -18,13 +18,13 @@
 
 ## Summary
 
-- Total attempts: 127
-- Total incorrect: 47
+- Total attempts: 356
+- Total incorrect: 90
 
 ## Most Missed Words
 
+- `לָאוֹר`: 45
 - `למינו`: 11
-- `לָאוֹר`: 9
 - `מים`: 4
 - `במים`: 4
 - `ויקרא`: 4
@@ -36,31 +36,37 @@
 
 ## Most Missed Skills
 
-- `identify_prefix_meaning`: 24
-- `identify_suffix_meaning`: 13
+- `identify_prefix_meaning`: 60
+- `identify_suffix_meaning`: 14
+- `translation`: 7
 - `verb_tense`: 4
-- `translation`: 4
 - `shoresh`: 2
+- `suffix`: 2
+- `subject_identification`: 1
 
 ## Most Missed Question Types
 
+- `suffix`: 15
 - `prefix`: 15
-- `suffix`: 13
+- `word_meaning`: 6
 - `verb_tense`: 4
-- `word_meaning`: 4
 - `shoresh`: 2
+- `identify_suffix_meaning`: 1
+- `subject_identification`: 1
+- `translation`: 1
 
 ## Most Missed Standards
 
-- `PR`: 37
+- `PR`: 76
+- `WM`: 7
 - `CF`: 4
-- `WM`: 4
 - `SR`: 2
+- `SS`: 1
 
 ## Words Missed 3+ Times
 
+- `לָאוֹר`: 45
 - `למינו`: 11
-- `לָאוֹר`: 9
 - `מים`: 4
 - `במים`: 4
 - `ויקרא`: 4
@@ -73,8 +79,8 @@
 ## Recommended Next Actions
 
 - Review prefix meaning questions.
-- Add more gold cases for למינו, לָאוֹר, מים, and related forms.
-- Add more prefix-focused review items in the next practice cycle.
+- Add more gold cases for לָאוֹר, למינו, מים, and related forms.
+- Add more suffix-focused review items in the next practice cycle.
 - Revisit standard PR with a short targeted review set.
 - Prioritize noun suffix fallback fixes.
 - Tighten prefix handling and add more prefix review coverage.

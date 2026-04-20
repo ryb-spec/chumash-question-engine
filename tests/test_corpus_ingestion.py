@@ -71,6 +71,8 @@ class CorpusIngestionTests(unittest.TestCase):
         self.assertEqual(len(parsed_pesukim), 3)
         self.assertEqual(parsed_pesukim[2]["ref"]["pasuk"], 3)
         self.assertTrue(parsed_pesukim[2]["token_records"][0]["selected_analysis"])
+        self.assertIn("role_layer", parsed_pesukim[2])
+        self.assertTrue(all("role_data" in token for token in parsed_pesukim[2]["token_records"]))
 
     def test_parsed_output_remains_compatible_with_current_generator_expectations(self):
         artifacts = build_staged_corpus_from_source(

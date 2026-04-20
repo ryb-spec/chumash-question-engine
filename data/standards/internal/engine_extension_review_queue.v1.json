@@ -1,0 +1,76 @@
+{
+  "metadata": {
+    "title": "Engine Extension Governance Review Queue",
+    "version": "v1",
+    "scope": "Review queue for runtime-alignment rows marked system_layer = engine_extension.",
+    "governance_status_values": [
+      "proposed",
+      "under_review",
+      "approved_internal",
+      "kept_engine_only",
+      "merged",
+      "rejected"
+    ],
+    "recommended_disposition_values": [
+      "keep_engine_extension",
+      "promote_reviewed_internal_supplement",
+      "merge_into_existing_canonical_skill",
+      "rename_for_clarity"
+    ],
+    "notes": [
+      "These records document catalog-governance intent only.",
+      "They do not change runtime behavior, scoring, or student-facing truth.",
+      "No engine_extension row should be treated as external canonical truth unless a separate explicit review pass changes the crosswalk."
+    ]
+  },
+  "records": [
+    {
+      "canonical_skill_id": "WORD.MEANING_BASIC",
+      "display_name": "Translate a single Hebrew word",
+      "current_runtime_skills": [
+        "translation"
+      ],
+      "why_it_exists": "The supported runtime has a foundational isolated-word meaning lane that expects a literal or close-literal answer before context-shaped translation. The incoming crosswalk package did not provide a clean one-word meaning row for that live WM1-style skill.",
+      "nearest_existing_skill_ids": [
+        "COMP.CONTEXT_TRANSLATION"
+      ],
+      "nearest_existing_skill_notes": "The nearest existing neighbor in the current crosswalk is the benchmark context-translation row, but that row is broader and more context-shaped than the live runtime translation lane.",
+      "recommended_disposition": "promote_reviewed_internal_supplement",
+      "governance_status": "proposed",
+      "human_review_needed": true,
+      "review_notes": "Needs curriculum review to decide whether this isolated-word meaning lane should become a reviewed internal supplement row or remain an engine-only shim."
+    },
+    {
+      "canonical_skill_id": "PREFIX.FORM_IDENTIFY",
+      "display_name": "Identify the visible prefix on a word",
+      "current_runtime_skills": [
+        "prefix"
+      ],
+      "why_it_exists": "The supported runtime has a visible-prefix identification lane that asks for the prefix form itself before or instead of asking for the prefix meaning. The incoming crosswalk package had prefix-meaning rows, but not a clean form-identification row.",
+      "nearest_existing_skill_ids": [
+        "PREFIX.BASIC_PREPOSITIONS"
+      ],
+      "nearest_existing_skill_notes": "The closest external canonical neighbor is the common-prefix meaning row. That row is semantically adjacent, but it does not explicitly encode a form-identification micro-skill.",
+      "recommended_disposition": "keep_engine_extension",
+      "governance_status": "proposed",
+      "human_review_needed": true,
+      "review_notes": "This looks useful as an engine-support shim even if it never becomes a reviewed internal supplement. Human review should decide whether that narrower form-recognition lane deserves formal supplement status."
+    },
+    {
+      "canonical_skill_id": "PHRASE.UNIT_TRANSLATE",
+      "display_name": "Translate a short Hebrew phrase as a unit",
+      "current_runtime_skills": [
+        "phrase_translation"
+      ],
+      "why_it_exists": "The supported runtime translates short Hebrew phrases as units inside Pasuk Flow and related question lanes. That is a real skill boundary in the engine, but it was not represented cleanly in the incoming seed packet without borrowing a broader benchmark comprehension row.",
+      "nearest_existing_skill_ids": [
+        "COMP.CONTEXT_TRANSLATION"
+      ],
+      "nearest_existing_skill_notes": "The nearest existing neighbor is the benchmark context-translation row, but the runtime phrase_translation lane is narrower and more local than a full comprehension benchmark.",
+      "recommended_disposition": "promote_reviewed_internal_supplement",
+      "governance_status": "proposed",
+      "human_review_needed": true,
+      "review_notes": "Needs human review to decide whether short-phrase unit translation should be codified as a reviewed internal supplement distinct from broader benchmark comprehension."
+    }
+  ]
+}

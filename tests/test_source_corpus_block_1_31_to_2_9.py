@@ -5,8 +5,18 @@ import assessment_scope
 
 
 class SourceCorpusBlock131To29Tests(unittest.TestCase):
+    def test_existing_primary_source_filename_matches_its_actual_range(self):
+        existing_path = assessment_scope.repo_path("data", "source", "bereishis_1_1_to_1_30.json")
+        existing = json.loads(existing_path.read_text(encoding="utf-8"))
+
+        self.assertEqual(existing_path.name, "bereishis_1_1_to_1_30.json")
+        self.assertEqual(existing["metadata"]["range"], "1:1-1:30")
+        self.assertEqual(len(existing["pesukim"]), 30)
+        self.assertEqual((existing["pesukim"][0]["perek"], existing["pesukim"][0]["pasuk"]), (1, 1))
+        self.assertEqual((existing["pesukim"][-1]["perek"], existing["pesukim"][-1]["pasuk"]), (1, 30))
+
     def test_new_source_block_matches_existing_source_schema_and_ordering(self):
-        existing_path = assessment_scope.repo_path("data", "source", "bereishis_1_1_to_4_20.json")
+        existing_path = assessment_scope.repo_path("data", "source", "bereishis_1_1_to_1_30.json")
         new_path = assessment_scope.repo_path("data", "source", "bereishis_1_31_to_2_9.json")
 
         existing = json.loads(existing_path.read_text(encoding="utf-8"))
@@ -17,7 +27,7 @@ class SourceCorpusBlock131To29Tests(unittest.TestCase):
         self.assertEqual(list(new["pesukim"][0].keys()), list(existing["pesukim"][0].keys()))
 
     def test_new_source_block_is_contiguous_after_bereishis_1_30(self):
-        existing_path = assessment_scope.repo_path("data", "source", "bereishis_1_1_to_4_20.json")
+        existing_path = assessment_scope.repo_path("data", "source", "bereishis_1_1_to_1_30.json")
         new_path = assessment_scope.repo_path("data", "source", "bereishis_1_31_to_2_9.json")
 
         existing = json.loads(existing_path.read_text(encoding="utf-8"))

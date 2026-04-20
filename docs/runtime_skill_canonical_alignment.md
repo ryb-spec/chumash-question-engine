@@ -75,6 +75,9 @@ represented cleanly in the incoming seed package. They are marked
 `system_layer = engine_extension` in the crosswalk so they do not masquerade as
 external canonical truth.
 
+Their catalog-governance review queue now lives in
+`data/standards/internal/engine_extension_review_queue.v1.json`.
+
 - `translation`
   - `WORD.MEANING_BASIC`
   - rationale:
@@ -100,4 +103,3 @@ external canonical truth.
 - benchmark-only rows such as `COMP.CONTEXT_TRANSLATION` remain outside the
   runtime skill catalog
 - teacher-ops, paradigm, and lexicon resources remain helper layers only
-

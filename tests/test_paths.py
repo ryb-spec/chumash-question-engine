@@ -31,19 +31,25 @@ class PathResolutionTests(unittest.TestCase):
         try:
             os.chdir(assessment_scope.REPO_ROOT.parent)
             assessment_scope.load_active_pesukim_data.cache_clear()
+            assessment_scope.load_active_parsed_pesukim_data.cache_clear()
+            assessment_scope._active_parsed_pesukim_by_text.cache_clear()
             streamlit_app.load_pasuk_flows.clear()
 
             pesukim = assessment_scope.load_active_pesukim_data()
+            parsed_pesukim = assessment_scope.load_active_parsed_pesukim_data()
             flows = streamlit_app.load_pasuk_flows()
 
             self.assertEqual(len(pesukim.get("pesukim", [])), 40)
+            self.assertEqual(len(parsed_pesukim.get("parsed_pesukim", [])), 40)
             self.assertEqual(len(flows), 40)
         finally:
             os.chdir(original_cwd)
 
     def test_generator_and_runtime_resolve_active_dataset_paths_consistently(self):
         self.assertTrue(assessment_scope.ACTIVE_PARSED_PESUKIM_PATH.is_absolute())
+        self.assertTrue(assessment_scope.ACTIVE_PARSED_ANALYSIS_PATH.is_absolute())
         self.assertTrue(assessment_scope.ACTIVE_WORD_BANK_PATH.is_absolute())
+        self.assertTrue(assessment_scope.ACTIVE_PARSED_ANALYSIS_PATH.exists())
         self.assertEqual(pasuk_flow_generator.WORD_BANK_PATH, assessment_scope.ACTIVE_WORD_BANK_PATH)
         self.assertEqual(streamlit_app.WORD_BANK_PATH, assessment_scope.ACTIVE_WORD_BANK_PATH)
         self.assertEqual(progress_store.UNIFIED_PROGRESS_PATH, assessment_scope.repo_path("progress.json"))

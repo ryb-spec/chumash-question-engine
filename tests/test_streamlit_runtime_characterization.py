@@ -47,6 +47,17 @@ class StreamlitRuntimeCharacterizationTests(unittest.TestCase):
     def setUp(self):
         reset_runtime_state()
 
+    def test_teacher_pilot_monitor_uses_passed_progress_for_unlocks(self):
+        progress = {"current_skill": "translation", "skills": {"translation": {}}}
+        review_export = {"sessions": [], "flagged_review_queue": [], "summary": {}}
+
+        with patch.object(streamlit_app, "build_pilot_review_export", return_value=review_export), \
+             patch.object(streamlit_app, "current_session_review", return_value=None), \
+             patch.object(streamlit_app, "render_unlocks") as mock_render_unlocks:
+            streamlit_app.render_teacher_pilot_monitor(progress)
+
+        mock_render_unlocks.assert_called_once_with(progress)
+
     def test_pasuk_flow_covers_exact_active_runtime_scope(self):
         flows = streamlit_app.load_pasuk_flows()
         ref_lookup = active_ref_by_text()
@@ -173,6 +184,7 @@ class StreamlitRuntimeCharacterizationTests(unittest.TestCase):
         st.session_state.adaptive_status_level = "warning"
 
         with patch.object(streamlit_app, "append_attempt_log"), \
+             patch.object(streamlit_app, "record_pilot_answer", return_value=None), \
              patch.object(streamlit_app, "record_answer", return_value={"skill_state": {"point_change": "+0"}}), \
              patch.object(streamlit_app, "save_progress"), \
              patch.object(streamlit_app, "update_word_skill_score"), \

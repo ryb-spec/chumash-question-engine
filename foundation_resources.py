@@ -14,8 +14,9 @@ FOUNDATION_LAYER_VALUES = (
     "paradigm",
     "lexicon",
     "teacher_ops",
+    "governance",
 )
-FOUNDATION_STATUS_VALUES = ("validated_seed",)
+FOUNDATION_STATUS_VALUES = ("validated_seed", "validated_internal")
 _MANIFEST_REQUIRED_FIELDS = (
     "resource_name",
     "version",
@@ -39,6 +40,36 @@ _CROSSWALK_CSV_REQUIRED_COLUMNS = (
     "subdomain",
     "engine_status",
     "system_layer",
+)
+_CROSSWALK_SYSTEM_LAYER_VALUES = (
+    "canonical_truth",
+    "benchmark",
+    "engine_extension",
+    "internal_reviewed_supplement",
+)
+_ENGINE_EXTENSION_GOVERNANCE_STATUS_VALUES = (
+    "proposed",
+    "under_review",
+    "approved_internal",
+    "kept_engine_only",
+    "merged",
+    "rejected",
+)
+_ENGINE_EXTENSION_RECOMMENDED_DISPOSITION_VALUES = (
+    "keep_engine_extension",
+    "promote_reviewed_internal_supplement",
+    "merge_into_existing_canonical_skill",
+    "rename_for_clarity",
+)
+_ENGINE_EXTENSION_QUEUE_REQUIRED_FIELDS = (
+    "canonical_skill_id",
+    "display_name",
+    "current_runtime_skills",
+    "why_it_exists",
+    "nearest_existing_skill_ids",
+    "recommended_disposition",
+    "governance_status",
+    "human_review_needed",
 )
 
 
@@ -94,6 +125,12 @@ def _validate_crosswalk_json(data):
                 errors.append(
                     f"canonical_skill_crosswalk_json.skills[{index}] missing required field '{field}'."
                 )
+        system_layer = skill.get("system_layer")
+        if system_layer and system_layer not in _CROSSWALK_SYSTEM_LAYER_VALUES:
+            errors.append(
+                "canonical_skill_crosswalk_json.skills"
+                f"[{index}] has unsupported system_layer '{system_layer}'."
+            )
         canonical_skill_id = skill.get("canonical_skill_id")
         if canonical_skill_id in seen_ids:
             errors.append(f"Duplicate canonical_skill_id in crosswalk JSON: {canonical_skill_id}")
@@ -118,6 +155,11 @@ def _validate_crosswalk_csv(rows):
         if not canonical_skill_id:
             errors.append(f"canonical_skill_crosswalk_csv row {index + 1} missing canonical_skill_id.")
             continue
+        system_layer = row.get("system_layer")
+        if system_layer and system_layer not in _CROSSWALK_SYSTEM_LAYER_VALUES:
+            errors.append(
+                f"canonical_skill_crosswalk_csv row {index + 1} has unsupported system_layer '{system_layer}'."
+            )
         if canonical_skill_id in seen_ids:
             errors.append(f"Duplicate canonical_skill_id in crosswalk CSV: {canonical_skill_id}")
         else:
@@ -209,6 +251,75 @@ def _validate_teacher_ops_workflow(data):
     return errors
 
 
+def _validate_engine_extension_review_queue(data):
+    errors = []
+    if not _validate_mapping(data, "engine_extension_review_queue", errors):
+        return errors
+    metadata = data.get("metadata")
+    records = data.get("records")
+    if not _validate_mapping(metadata, "engine_extension_review_queue.metadata", errors):
+        return errors
+    if not _validate_list(records, "engine_extension_review_queue.records", errors):
+        return errors
+
+    status_values = tuple(metadata.get("governance_status_values") or ())
+    disposition_values = tuple(metadata.get("recommended_disposition_values") or ())
+    if status_values != _ENGINE_EXTENSION_GOVERNANCE_STATUS_VALUES:
+        errors.append(
+            "engine_extension_review_queue.metadata.governance_status_values must match the supported governance status model."
+        )
+    if disposition_values != _ENGINE_EXTENSION_RECOMMENDED_DISPOSITION_VALUES:
+        errors.append(
+            "engine_extension_review_queue.metadata.recommended_disposition_values must match the supported disposition model."
+        )
+
+    seen_ids = set()
+    for index, record in enumerate(records):
+        if not isinstance(record, dict):
+            errors.append(f"engine_extension_review_queue.records[{index}] must be an object.")
+            continue
+        for field in _ENGINE_EXTENSION_QUEUE_REQUIRED_FIELDS:
+            if field not in record:
+                errors.append(
+                    f"engine_extension_review_queue.records[{index}] missing required field '{field}'."
+                )
+        canonical_skill_id = record.get("canonical_skill_id")
+        if canonical_skill_id in seen_ids:
+            errors.append(
+                f"Duplicate canonical_skill_id in engine_extension_review_queue: {canonical_skill_id}"
+            )
+        elif canonical_skill_id:
+            seen_ids.add(canonical_skill_id)
+        if not isinstance(record.get("current_runtime_skills"), list):
+            errors.append(
+                f"engine_extension_review_queue.records[{index}].current_runtime_skills must be a list."
+            )
+        if not isinstance(record.get("nearest_existing_skill_ids"), list):
+            errors.append(
+                f"engine_extension_review_queue.records[{index}].nearest_existing_skill_ids must be a list."
+            )
+        if not isinstance(record.get("human_review_needed"), bool):
+            errors.append(
+                f"engine_extension_review_queue.records[{index}].human_review_needed must be a boolean."
+            )
+        governance_status = record.get("governance_status")
+        if governance_status and governance_status not in _ENGINE_EXTENSION_GOVERNANCE_STATUS_VALUES:
+            errors.append(
+                "engine_extension_review_queue.records"
+                f"[{index}] has unsupported governance_status '{governance_status}'."
+            )
+        recommended_disposition = record.get("recommended_disposition")
+        if (
+            recommended_disposition
+            and recommended_disposition not in _ENGINE_EXTENSION_RECOMMENDED_DISPOSITION_VALUES
+        ):
+            errors.append(
+                "engine_extension_review_queue.records"
+                f"[{index}] has unsupported recommended_disposition '{recommended_disposition}'."
+            )
+    return errors
+
+
 _RESOURCE_VALIDATORS = {
     "canonical_skill_crosswalk_json": _validate_crosswalk_json,
     "canonical_skill_crosswalk_csv": _validate_crosswalk_csv,
@@ -216,6 +327,7 @@ _RESOURCE_VALIDATORS = {
     "grammar_paradigms": _validate_grammar_paradigms,
     "high_frequency_lexicon": _validate_high_frequency_lexicon,
     "teacher_ops_workflow": _validate_teacher_ops_workflow,
+    "engine_extension_review_queue": _validate_engine_extension_review_queue,
 }
 
 
@@ -276,6 +388,7 @@ def validate_foundation_manifest(manifest=None):
 
     crosswalk_json = loaded_payloads.get("canonical_skill_crosswalk_json")
     crosswalk_csv = loaded_payloads.get("canonical_skill_crosswalk_csv")
+    engine_extension_queue = loaded_payloads.get("engine_extension_review_queue")
     if crosswalk_json is not None and crosswalk_csv is not None:
         json_ids = {
             skill.get("canonical_skill_id")
@@ -289,6 +402,22 @@ def validate_foundation_manifest(manifest=None):
         }
         if json_ids != csv_ids:
             errors.append("canonical_skill_crosswalk_json and canonical_skill_crosswalk_csv disagree on canonical_skill_id membership.")
+
+    if crosswalk_json is not None and engine_extension_queue is not None:
+        crosswalk_engine_extension_ids = {
+            skill.get("canonical_skill_id")
+            for skill in crosswalk_json.get("skills", [])
+            if isinstance(skill, dict) and skill.get("system_layer") == "engine_extension"
+        }
+        governed_ids = {
+            record.get("canonical_skill_id")
+            for record in engine_extension_queue.get("records", [])
+            if isinstance(record, dict)
+        }
+        if crosswalk_engine_extension_ids != governed_ids:
+            errors.append(
+                "canonical_skill_crosswalk_json engine_extension ids and engine_extension_review_queue ids disagree."
+            )
 
     return errors
 

@@ -32,6 +32,41 @@ class PrefixQuestionGenerationTests(unittest.TestCase):
         self.assertEqual(question.get("selected_word"), "\u05dc\u05b8\u05d0\u05d5\u05b9\u05e8")
         self.assertEqual(question.get("correct_answer"), "\u05dc")
 
+    def test_prefix_letter_questions_use_full_consistent_choice_bank(self):
+        question = pasuk_flow_generator.generate_question(
+            "identify_prefix_meaning",
+            "\u05dc\u05b8\u05d0\u05d5\u05b9\u05e8",
+        )
+
+        self.assertNotEqual(question.get("status"), "skipped")
+        self.assertEqual(len(question.get("choices", [])), 7)
+        self.assertEqual(
+            set(question.get("choices", [])),
+            {"\u05d5", "\u05d1", "\u05dc", "\u05de", "\u05db", "\u05d4", "\u05e9"},
+        )
+
+    def test_prefix_meaning_questions_use_lane_consistent_meaning_bank(self):
+        question = pasuk_flow_generator.generate_question(
+            "identify_prefix_meaning",
+            "\u05dc\u05b8\u05d0\u05d5\u05b9\u05e8",
+            prefix_level=2,
+        )
+
+        self.assertNotEqual(question.get("status"), "skipped")
+        self.assertEqual(
+            set(question.get("choices", [])),
+            {
+                "and",
+                "in / with",
+                "to / for",
+                "from",
+                "like / as",
+                "the",
+                "that / which",
+            },
+        )
+        self.assertTrue(all(not any("\u0590" <= char <= "\u05ff" for char in choice) for choice in question.get("choices", [])))
+
     def test_stacked_prefix_letters_are_not_treated_as_single_clear_prefix_question(self):
         is_valid, reason = pasuk_flow_generator.prefix_question_validation(
             "\u05d5\u05dc\u05de\u05e8\u05d0\u05d4",

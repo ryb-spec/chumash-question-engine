@@ -1,6 +1,6 @@
 import unittest
 
-from assessment_scope import active_pesukim_records
+from assessment_scope import active_pesukim_records, active_scope_override_for_pasuk_id
 from pasuk_flow_generator import (
     CONTROLLED_TENSE_CHOICES,
     analyze_pasuk,
@@ -8,6 +8,7 @@ from pasuk_flow_generator import (
     generate_question,
     load_word_bank,
 )
+from torah_parser.word_bank_adapter import normalize_hebrew_key
 
 
 def pasuk_by_ref(perek, pasuk):
@@ -23,8 +24,20 @@ class QuestionTypeContractTests(unittest.TestCase):
     def setUpClass(cls):
         cls.word_bank, _ = load_word_bank()
 
-    def test_subject_identification_uses_semantic_fields(self):
+    def test_subject_identification_can_use_active_scope_override_when_parser_fails_closed(self):
         pasuk = pasuk_by_ref(1, 1)
+        question = generate_question("subject_identification", pasuk)
+
+        self.assertNotEqual(question.get("status"), "skipped")
+        self.assertEqual(question.get("skill"), "subject_identification")
+        self.assertEqual(question.get("selected_word"), "אֱלֹקִים")
+        self.assertEqual(question.get("correct_answer"), "God")
+        self.assertEqual(question.get("action_token"), "בָּרָא")
+        self.assertEqual(question.get("analysis_source"), "active_scope_override")
+        self.assertEqual(question.get("override_pasuk_id"), "bereishis_1_1")
+
+    def test_subject_identification_uses_role_layer_when_supported(self):
+        pasuk = pasuk_by_ref(1, 26)
         question = generate_question("subject_identification", pasuk)
         self.assertNotEqual(question.get("status"), "skipped")
 
@@ -32,13 +45,31 @@ class QuestionTypeContractTests(unittest.TestCase):
         subject_item = next(
             item for item in analyzed if item["token"] == question["selected_word"]
         )
+        action_item = next(
+            item for item in analyzed if item["token"] == question["action_token"]
+        )
 
-        self.assertEqual(subject_item["entry"].get("group"), "unknown")
         self.assertEqual(subject_item["entry"].get("semantic_group"), "divine")
         self.assertEqual(subject_item["entry"].get("role_hint"), "subject_candidate")
+        self.assertEqual(subject_item["role_data"].get("clause_role"), "subject")
+        self.assertEqual(action_item["role_data"].get("clause_role"), "verb")
+        self.assertEqual(normalize_hebrew_key(question.get("action_token")), "ויאמר")
+        self.assertIn("Who is doing the action in", question.get("question", ""))
+        self.assertIn(question["action_token"], question.get("question", ""))
+        self.assertIn(question["action_token"], question.get("explanation", ""))
+        self.assertEqual(question.get("role_focus"), "subject")
 
     def test_verb_tense_choices_follow_runtime_labels(self):
-        allowed = set(CONTROLLED_TENSE_CHOICES) | {"not a verb"}
+        allowed = {
+            "past narrative",
+            "short future form",
+            "future",
+            "past",
+            "present",
+            "infinitive",
+            "command",
+            "not a verb",
+        }
 
         for ref in ((1, 3), (1, 9), (1, 14), (1, 17)):
             pasuk = pasuk_by_ref(*ref)
@@ -47,6 +78,14 @@ class QuestionTypeContractTests(unittest.TestCase):
                 continue
             self.assertIn(question["correct_answer"], allowed)
             self.assertTrue(set(question["choices"]).issubset(allowed))
+            self.assertNotIn("future_jussive", question["choices"])
+            self.assertNotIn("vav_consecutive_past", question["choices"])
+
+    def test_non_verb_surface_is_rejected_for_verb_tense(self):
+        question = generate_question("verb_tense", "בְּצַלְמֵנוּ")
+
+        self.assertEqual(question.get("status"), "skipped")
+        self.assertIn("verb tense", question.get("reason", "").lower())
 
     def test_unsupported_skill_returns_structured_skip(self):
         pasuk = pasuk_by_ref(1, 13)
@@ -58,6 +97,16 @@ class QuestionTypeContractTests(unittest.TestCase):
         self.assertEqual(question.get("pasuk"), pasuk)
         self.assertIn("subject", question.get("reason", "").lower())
         self.assertIsNone(question.get("selected_word"))
+
+    def test_active_scope_override_does_not_apply_outside_active_scope(self):
+        question = generate_question(
+            "subject_identification",
+            "בְּרֵאשִׁית בָּרָא אֱלֹקִים",
+        )
+
+        self.assertEqual(question.get("status"), "skipped")
+        self.assertIsNone(question.get("analysis_source"))
+        self.assertIsNone(question.get("override_pasuk_id"))
 
     def test_flow_generation_stays_valid_when_skill_is_skipped(self):
         pasuk = pasuk_by_ref(1, 13)
@@ -74,6 +123,222 @@ class QuestionTypeContractTests(unittest.TestCase):
             "subject_identification",
             {item.get("question_type") for item in flow.get("questions", [])},
         )
+
+    def test_object_identification_skips_ambiguous_translation_like_case(self):
+        pasuk = pasuk_by_ref(1, 1)
+        question = generate_question("object_identification", pasuk)
+
+        self.assertEqual(question.get("status"), "skipped")
+        self.assertEqual(question.get("skill"), "object_identification")
+        self.assertNotEqual(question.get("question"), "What does this word mean?")
+
+    def test_object_identification_supported_case_uses_role_language(self):
+        analyzed_pasuk = [
+            {
+                "token": "וַיִּתֵּן",
+                "entry": {
+                    "word": "וַיִּתֵּן",
+                    "translation": "and gave",
+                    "type": "verb",
+                    "part_of_speech": "verb",
+                    "semantic_group": "action",
+                    "role_hint": "unknown",
+                    "entity_type": "verb",
+                    "tense": "past",
+                    "shoresh": "נתן",
+                },
+            },
+            {
+                "token": "מֹשֶׁה",
+                "entry": {
+                    "word": "מֹשֶׁה",
+                    "translation": "Moshe",
+                    "type": "noun",
+                    "part_of_speech": "noun",
+                    "semantic_group": "person",
+                    "role_hint": "subject_candidate",
+                    "entity_type": "person",
+                },
+            },
+            {
+                "token": "אֶת",
+                "entry": {
+                    "word": "אֶת",
+                    "translation": "[direct object marker]",
+                    "type": "particle",
+                    "part_of_speech": "particle",
+                    "semantic_group": "unknown",
+                    "role_hint": "object_candidate",
+                    "entity_type": "grammatical_particle",
+                },
+            },
+            {
+                "token": "סֵפֶר",
+                "entry": {
+                    "word": "סֵפֶר",
+                    "translation": "a book",
+                    "type": "noun",
+                    "part_of_speech": "noun",
+                    "semantic_group": "object",
+                    "role_hint": "object_candidate",
+                    "entity_type": "common_noun",
+                },
+            },
+        ]
+
+        question = generate_question(
+            "object_identification",
+            "וַיִּתֵּן מֹשֶׁה אֶת סֵפֶר",
+            analyzed_override=analyzed_pasuk,
+        )
+
+        self.assertNotEqual(question.get("status"), "skipped")
+        self.assertEqual(question.get("action_token"), "וַיִּתֵּן")
+        self.assertEqual(question.get("role_focus"), "direct_object")
+        self.assertEqual(question.get("correct_answer"), "a book")
+        self.assertEqual(
+            question.get("question"),
+            "What receives the action in וַיִּתֵּן?",
+        )
+        self.assertIn("receives the action", question.get("explanation", ""))
+
+    def test_object_identification_can_use_active_scope_override(self):
+        pasuk = pasuk_by_ref(2, 3)
+        question = generate_question("object_identification", pasuk)
+
+        self.assertNotEqual(question.get("status"), "skipped")
+        self.assertEqual(question.get("selected_word"), "יוֹם הַשְּׁבִיעִי")
+        self.assertEqual(question.get("correct_answer"), "the seventh day")
+        self.assertEqual(question.get("action_token"), "וַיְבָרֶךְ")
+        self.assertEqual(question.get("analysis_source"), "active_scope_override")
+
+    def test_object_identification_can_use_active_scope_override_for_clean_first_clause(self):
+        pasuk = pasuk_by_ref(1, 4)
+        question = generate_question("object_identification", pasuk)
+
+        self.assertNotEqual(question.get("status"), "skipped")
+        self.assertEqual(question.get("selected_word"), "הָאוֹר")
+        self.assertEqual(question.get("correct_answer"), "the light")
+        self.assertEqual(question.get("action_token"), "וַיַּרְא")
+        self.assertEqual(question.get("analysis_source"), "active_scope_override")
+
+    def test_object_identification_recovers_additional_gold_aligned_override_cases(self):
+        expected = {
+            (1, 16): "the two great lights",
+            (1, 17): "them",
+            (1, 27): "the man",
+            (2, 2): "His work",
+            (2, 9): "every tree",
+        }
+
+        for ref, answer in expected.items():
+            question = generate_question("object_identification", pasuk_by_ref(*ref))
+            self.assertNotEqual(question.get("status"), "skipped")
+            self.assertEqual(question.get("correct_answer"), answer)
+            self.assertEqual(question.get("analysis_source"), "active_scope_override")
+            self.assertEqual(question.get("role_focus"), "direct_object")
+
+    def test_phrase_translation_skips_known_weak_active_scope_fragment(self):
+        pasuk = pasuk_by_ref(1, 15)
+        question = generate_question("phrase_translation", pasuk)
+
+        self.assertEqual(question.get("status"), "skipped")
+        self.assertEqual(
+            question.get("reason"),
+            "No quiz-ready phrase target found in this pasuk.",
+        )
+
+    def test_phrase_translation_prefers_full_role_backed_clause_when_available(self):
+        analyzed_pasuk = [
+            {
+                "token": "וַיְבָרֶךְ",
+                "entry": {
+                    "word": "וַיְבָרֶךְ",
+                    "translation": "and blessed",
+                    "type": "verb",
+                    "part_of_speech": "verb",
+                    "semantic_group": "action",
+                    "role_hint": "unknown",
+                    "entity_type": "verb",
+                },
+            },
+            {
+                "token": "אֹתָם",
+                "entry": {
+                    "word": "אֹתָם",
+                    "translation": "them",
+                    "type": "noun",
+                    "part_of_speech": "noun",
+                    "semantic_group": "object",
+                    "role_hint": "object_candidate",
+                    "entity_type": "pronoun",
+                },
+            },
+            {
+                "token": "אֱלֹקִים",
+                "entry": {
+                    "word": "אֱלֹקִים",
+                    "translation": "God",
+                    "type": "noun",
+                    "part_of_speech": "noun",
+                    "semantic_group": "divine",
+                    "role_hint": "subject_candidate",
+                    "entity_type": "divine_being",
+                },
+            },
+        ]
+
+        question = generate_question(
+            "phrase_translation",
+            "וַיְבָרֶךְ אֹתָם אֱלֹקִים",
+            analyzed_override=analyzed_pasuk,
+        )
+
+        self.assertNotEqual(question.get("status"), "skipped")
+        self.assertEqual(question.get("selected_word"), "וַיְבָרֶךְ אֹתָם אֱלֹקִים")
+        self.assertEqual(question.get("correct_answer"), "and God blessed them")
+        self.assertNotIn("God and blessed", question.get("choices", []))
+        self.assertNotIn("and blessed God", question.get("choices", []))
+        self.assertNotIn("and he God blessed", question.get("choices", []))
+
+    def test_phrase_translation_can_use_active_scope_preferred_phrase_override(self):
+        pasuk = pasuk_by_ref(2, 7)
+        question = generate_question("phrase_translation", pasuk)
+
+        self.assertNotEqual(question.get("status"), "skipped")
+        self.assertEqual(
+            question.get("selected_word"),
+            "וַיִּיצֶר יְהוָה אֱלֹהִים אֶת הָאָדָם",
+        )
+        self.assertEqual(question.get("correct_answer"), "and the LORD God formed the man")
+        self.assertEqual(question.get("analysis_source"), "active_scope_override")
+
+    def test_phrase_translation_can_use_active_scope_preferred_phrase_override_for_god_said_clause(self):
+        pasuk = pasuk_by_ref(1, 3)
+        question = generate_question("phrase_translation", pasuk)
+
+        self.assertNotEqual(question.get("status"), "skipped")
+        self.assertEqual(question.get("selected_word"), "וַיֹּאמֶר אֱלֹקִים")
+        self.assertEqual(question.get("correct_answer"), "and God said")
+        self.assertEqual(question.get("analysis_source"), "active_scope_override")
+
+    def test_student_facing_translation_completes_vav_verbs_and_keeps_divine_choices_consistent(self):
+        word_question = generate_question("translation", "וַיְבָרֶךְ")
+        divine_question = generate_question("translation", "וַיְכַל אֱלֹהִים")
+
+        self.assertEqual(word_question.get("correct_answer"), "and he blessed")
+        self.assertNotIn("and blessed", word_question.get("choices", []))
+        self.assertEqual(divine_question.get("correct_answer"), "God")
+        self.assertIn("God", divine_question.get("choices", []))
+        self.assertNotIn("the LORD", divine_question.get("choices", []))
+
+    def test_active_scope_override_records_exist_for_curated_pasuks(self):
+        self.assertIsNotNone(active_scope_override_for_pasuk_id("bereishis_1_1"))
+        self.assertIsNotNone(active_scope_override_for_pasuk_id("bereishis_1_3"))
+        self.assertIsNotNone(active_scope_override_for_pasuk_id("bereishis_1_4"))
+        self.assertIsNotNone(active_scope_override_for_pasuk_id("bereishis_1_7"))
+        self.assertIsNotNone(active_scope_override_for_pasuk_id("bereishis_2_7"))
+        self.assertIsNone(active_scope_override_for_pasuk_id("bereishis_99_1"))
 
 
 if __name__ == "__main__":

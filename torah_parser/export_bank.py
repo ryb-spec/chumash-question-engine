@@ -3,10 +3,17 @@
 import json
 from pathlib import Path
 
-from assessment_scope import resolve_repo_path
+from assessment_scope import (
+    ACTIVE_PARSED_ANALYSIS_PATH,
+    ACTIVE_PARSED_PESUKIM_PATH,
+    ACTIVE_WORD_BANK_PATH,
+    ACTIVE_WORD_OCCURRENCES_PATH,
+    active_scope_metadata,
+    resolve_repo_path,
+)
 
 from .candidate_generator import generate_candidate_analyses
-from .disambiguate import select_best_candidate
+from .disambiguate import annotate_role_layer, select_best_candidate
 from .normalize import normalize_form, preserve_surface_text
 from .tokenize import tokenize_pasuk_record
 
@@ -161,6 +168,18 @@ def build_parsed_pesukim(pesukim, word_bank, occurrences):
                     "selected_analysis": dict(selected) if selected else None,
                 }
             )
+        annotated_records, role_layer = annotate_role_layer(
+            [
+                {
+                    "surface": record["surface"],
+                    "token_index": record["token_index"],
+                    "selected_analysis": record["selected_analysis"],
+                }
+                for record in token_records
+            ]
+        )
+        for record, annotated in zip(token_records, annotated_records):
+            record["role_data"] = dict(annotated.get("role_data") or {})
         parsed_pesukim.append(
             {
                 "pasuk_id": pasuk.get("pasuk_id"),
@@ -169,9 +188,47 @@ def build_parsed_pesukim(pesukim, word_bank, occurrences):
                 "text": preserve_surface_text(pasuk.get("text", "")),
                 "tokens": list(pasuk.get("tokens", [])),
                 "token_records": token_records,
+                "role_layer": role_layer,
             }
         )
     return parsed_pesukim
+
+
+def build_parsed_pesukim_artifact(pesukim_data, word_bank_data, occurrences_data, *, source_files=None, corpus_id=None, status="active"):
+    runtime_pesukim = list((pesukim_data or {}).get("pesukim", []))
+    words = (word_bank_data or {}).get("words", {})
+    occurrences = list((occurrences_data or {}).get("occurrences", []))
+    parsed_pesukim = build_parsed_pesukim(runtime_pesukim, words, occurrences)
+    return {
+        "metadata": _artifact_metadata(
+            title="Generated Parsed Torah Pesukim",
+            artifact_type="parsed_pesukim",
+            pesukim=runtime_pesukim,
+            source_files=source_files,
+            corpus_id=corpus_id,
+            status=status,
+        ),
+        "parsed_pesukim": parsed_pesukim,
+    }
+
+
+def rebuild_active_parsed_pesukim_artifact(output_path=None):
+    scope = active_scope_metadata()
+    source_files = list(scope.get("source_files") or [])
+    corpus_id = scope.get("parsed_corpus_id") or scope.get("scope_id")
+    pesukim_data = load_json(ACTIVE_PARSED_PESUKIM_PATH, {"pesukim": []})
+    word_bank_data = load_json(ACTIVE_WORD_BANK_PATH, {"words": {}})
+    occurrences_data = load_json(ACTIVE_WORD_OCCURRENCES_PATH, {"occurrences": []})
+    artifact = build_parsed_pesukim_artifact(
+        pesukim_data,
+        word_bank_data,
+        occurrences_data,
+        source_files=source_files,
+        corpus_id=corpus_id,
+        status=scope.get("status", "active"),
+    )
+    write_json(output_path or ACTIVE_PARSED_ANALYSIS_PATH, artifact)
+    return artifact
 
 
 def build_translation_reviews_stub(pesukim, source_files=None, corpus_id=None, status="parsed"):

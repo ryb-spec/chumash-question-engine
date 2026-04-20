@@ -23,6 +23,7 @@ EXPECTED_RESOURCE_NAMES = (
     "grammar_paradigms",
     "high_frequency_lexicon",
     "teacher_ops_workflow",
+    "engine_extension_review_queue",
 )
 
 
@@ -48,7 +49,7 @@ class FoundationResourcesTests(unittest.TestCase):
         for resource_name in foundation_resource_names():
             metadata = get_foundation_resource_metadata(resource_name)
             self.assertTrue(repo_path(metadata["source"]).exists(), resource_name)
-            self.assertEqual(metadata["status"], "validated_seed")
+            self.assertIn(metadata["status"], FOUNDATION_STATUS_VALUES)
             self.assertIn(metadata["layer"], FOUNDATION_LAYER_VALUES)
             self.assertTrue(metadata["intended_use"])
 
@@ -64,11 +65,13 @@ class FoundationResourcesTests(unittest.TestCase):
         paradigms = load_foundation_resource("grammar_paradigms")
         lexicon = load_foundation_resource("high_frequency_lexicon")
         teacher_ops = load_foundation_resource("teacher_ops_workflow")
+        governance = load_foundation_resource("engine_extension_review_queue")
 
         self.assertIn("recommended_local_blueprint", blueprint)
         self.assertIn("verb_paradigm_example", paradigms)
         self.assertIn("seed_entries", lexicon)
         self.assertIn("deployment_cycle", teacher_ops)
+        self.assertIn("records", governance)
 
     def test_all_resource_validators_return_clean_results(self):
         self.assertEqual(
@@ -86,6 +89,12 @@ class FoundationResourcesTests(unittest.TestCase):
             "Adopt `canonical_skill_crosswalk_seed.json` as the first pass of `skill_catalog.json`.",
             readme,
         )
+
+    def test_internal_standards_doc_keeps_engine_extensions_out_of_external_truth(self):
+        doc = Path("docs/internal_standards_supplement.md").read_text(encoding="utf-8")
+        self.assertIn("no rows are approved", doc)
+        self.assertIn("engine_extension", doc)
+        self.assertIn("external canonical truth", doc)
 
 
 if __name__ == "__main__":

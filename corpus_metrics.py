@@ -65,8 +65,11 @@ def parsed_token_record_to_item(token_record):
     analysis = dict(token_record.get("selected_analysis") or {})
     token = token_record.get("surface", "")
     analysis.setdefault("normalized", token_record.get("normalized") or analysis.get("normalized"))
-    analysis.setdefault("translation_literal", token)
-    analysis.setdefault("translation_context", token)
+    analysis.setdefault("translation_literal", analysis.get("translation") or token)
+    analysis.setdefault(
+        "translation_context",
+        analysis.get("context_translation") or analysis.get("translation") or token,
+    )
     entry = adapt_word_analysis(
         token,
         analysis,

@@ -47,7 +47,14 @@ mastery, corpus scope, or student-facing behavior by themselves.
       lane but the incoming seed package did not provide a clean one-to-one external row
 - `engine_extension` rows are alignment shims, not a claim that the runtime has created
   a new external standard.
+- The repo now also has a governance queue for `engine_extension` rows:
+  - `data/standards/internal/engine_extension_review_queue.v1.json`
+  - use it to record whether an engine-only shim should stay engine-only, become a
+    reviewed internal supplement, merge into an existing canonical row, or be renamed
+    for clarity
 - See `docs/runtime_skill_canonical_alignment.md` for the current runtime-skill review.
+- See `docs/internal_standards_supplement.md` for the internal supplement / shim
+  governance boundary.
 
 ## Layer structure
 
@@ -66,6 +73,9 @@ mastery, corpus scope, or student-facing behavior by themselves.
 - `data/teacher_ops/`
   - teacher/admin workflow seeds
   - use for dashboards, DDI reporting, and deployment support
+- `data/standards/internal/`
+  - internal standards-governance records
+  - use for review queues, internal supplement decisions, and engine-extension audit notes
 - `data/foundations/incoming/`
   - raw intake drop zone
   - not the long-term versioned home
@@ -80,6 +90,8 @@ mastery, corpus scope, or student-facing behavior by themselves.
   - status
   - intended use
 - `foundation_resources.py` is the shared loader and structural validator.
+- `foundation_governance.py`
+  - read-only helper access for engine-extension governance records
 - `docs/chumash_foundations_package_seed.md`
   - preserved copy of the original incoming package README for provenance
 

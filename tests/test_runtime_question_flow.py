@@ -1,14 +1,28 @@
 import unittest
+from unittest.mock import patch
 
+import streamlit as st
+
+from assessment_scope import active_pesukim_records
+import runtime.pilot_logging as pilot_logging
 from runtime.question_flow import (
     candidate_quality_breakdown,
     display_context_policy,
     question_signature,
     recent_question_repeat_reason,
+    select_pasuk_first_question,
 )
+import runtime.question_flow as question_flow
+import runtime.session_state as session_state
+import streamlit_app
 
 
 class RuntimeQuestionFlowTests(unittest.TestCase):
+    def setUp(self):
+        st.session_state.clear()
+        streamlit_app.init_session_state()
+        st.session_state.practice_type = "Learn Mode"
+
     def _translation_question(self, word="בָּרָא", prompt="What does בָּרָא mean?"):
         return {
             "skill": "translation",
@@ -89,6 +103,153 @@ class RuntimeQuestionFlowTests(unittest.TestCase):
 
         self.assertGreater(fresh_breakdown["novelty"], stale_breakdown["novelty"])
         self.assertGreater(fresh_breakdown["total"], stale_breakdown["total"])
+
+    def test_select_pasuk_first_question_shortlists_before_full_generation(self):
+        st.session_state.pilot_scope_mode = "open_pilot_scope"
+        ready_rows = [
+            {
+                "pasuk": f"pasuk_{index}",
+                "word": f"word_{index}",
+                "feature": "translation",
+                "prefix": "",
+                "morpheme_family": "",
+            }
+            for index in range(12)
+        ]
+
+        def generate_question(skill, candidate_source, **kwargs):
+            return {
+                "skill": "translation",
+                "question_type": "translation",
+                "question": f"What does {candidate_source} mean?",
+                "selected_word": candidate_source,
+                "word": candidate_source,
+                "correct_answer": "answer",
+                "choices": ["answer", "other1", "other2", "other3"],
+                "pasuk": candidate_source,
+            }
+
+        with patch.object(question_flow, "get_skill_ready_pasuks", return_value=ready_rows), \
+             patch.object(question_flow, "generate_skill_question", side_effect=generate_question) as mocked_generate, \
+             patch.object(question_flow, "analyze_generator_pasuk", side_effect=lambda pasuk: pasuk), \
+             patch.object(session_state, "record_selected_pasuk"), \
+             patch.object(session_state, "record_question_feature"), \
+             patch.object(session_state, "record_question_prefix"):
+            result = select_pasuk_first_question("translation", progress={"prefix_level": 1}, adaptive_context={})
+
+        self.assertIsNotNone(result)
+        self.assertLessEqual(mocked_generate.call_count, 8)
+        self.assertIn("selection_timing", result.get("_debug_trace", {}))
+        self.assertLessEqual(
+            result.get("_debug_trace", {}).get("selection_timing", {}).get("full_generation_rows", 99),
+            8,
+        )
+
+    def test_select_pasuk_first_question_skips_unmappable_candidate_in_trusted_scope(self):
+        active_records = active_pesukim_records()[:2]
+        ready_rows = [
+            {
+                "pasuk": active_records[0]["text"],
+                "word": "bad_word",
+                "feature": "translation",
+                "prefix": "",
+                "morpheme_family": "",
+            },
+            {
+                "pasuk": active_records[1]["text"],
+                "word": "good_word",
+                "feature": "translation",
+                "prefix": "",
+                "morpheme_family": "",
+            },
+        ]
+
+        def generate_question(skill, candidate_source, **kwargs):
+            if candidate_source == active_records[0]["text"]:
+                return {
+                    "skill": "translation",
+                    "question_type": "translation",
+                    "question": "What does this word mean?",
+                    "selected_word": "מִחוּץ",
+                    "word": "מִחוּץ",
+                    "correct_answer": "outside",
+                    "choices": ["outside", "inside", "light", "earth"],
+                    "pasuk": "outside active pilot block text",
+                }
+            return {
+                "skill": "translation",
+                "question_type": "translation",
+                "question": "What does this word mean?",
+                "selected_word": "אֱלֹקִים",
+                "word": "אֱלֹקִים",
+                "correct_answer": "God",
+                "choices": ["God", "light", "earth", "water"],
+            }
+
+        captured_events = []
+        with patch.object(question_flow, "get_skill_ready_pasuks", return_value=ready_rows), \
+             patch.object(question_flow, "generate_skill_question", side_effect=generate_question) as mocked_generate, \
+             patch.object(question_flow, "analyze_generator_pasuk", side_effect=lambda pasuk: pasuk), \
+             patch.object(session_state, "record_selected_pasuk"), \
+             patch.object(session_state, "record_question_feature"), \
+             patch.object(session_state, "record_question_prefix"), \
+             patch.object(
+                 pilot_logging,
+                 "append_pilot_event",
+                 side_effect=lambda event, **kwargs: captured_events.append(event) or True,
+             ):
+            result = select_pasuk_first_question("translation", progress={"prefix_level": 1}, adaptive_context={})
+            pilot_logging.sync_pilot_served_question(result, practice_type="Learn Mode")
+
+        self.assertIsNotNone(result)
+        self.assertEqual(mocked_generate.call_count, 2)
+        self.assertEqual(result["pasuk"], active_records[1]["text"])
+        self.assertEqual(result["pasuk_id"], active_records[1]["pasuk_id"])
+        self.assertEqual(captured_events[0]["scope_membership"], "active_parsed")
+        self.assertNotEqual(
+            captured_events[0]["pasuk_ref"]["label"],
+            pilot_logging.OUTSIDE_ACTIVE_PARSED_LABEL,
+        )
+
+    def test_build_followup_question_skips_unmappable_candidate_in_trusted_scope(self):
+        active_record = active_pesukim_records()[0]
+        progress = {"current_skill": "translation", "prefix_level": 1}
+        current_question = {
+            "skill": "translation",
+            "pasuk": active_record["text"],
+            "pasuk_id": active_record["pasuk_id"],
+            "selected_word": "בְּרֵאשִׁית",
+            "question": "What does בְּרֵאשִׁית mean?",
+        }
+        bad_followup = {
+            "skill": "translation",
+            "question": "What does this word mean?",
+            "selected_word": "מִחוּץ",
+            "correct_answer": "outside",
+            "choices": ["outside", "inside", "light", "earth"],
+            "pasuk": "outside active pilot block text",
+        }
+        good_followup = {
+            "skill": "translation",
+            "question": "What does אֱלֹקִים mean?",
+            "selected_word": "אֱלֹקִים",
+            "correct_answer": "God",
+            "choices": ["God", "created", "earth", "light"],
+        }
+
+        with patch.object(question_flow, "analyze_generator_pasuk", return_value=[{"word": "בְּרֵאשִׁית"}]), \
+             patch.object(question_flow, "generate_skill_question", side_effect=[bad_followup, good_followup]), \
+             patch.object(question_flow, "generate_practice_question") as practice_fallback, \
+             patch.object(session_state, "record_selected_pasuk"), \
+             patch.object(session_state, "record_question_feature"), \
+             patch.object(session_state, "record_question_prefix"):
+            result = streamlit_app.build_followup_question(progress, current_question)
+
+        self.assertIsNotNone(result)
+        self.assertEqual(result["pasuk"], active_record["text"])
+        self.assertEqual(result["pasuk_id"], active_record["pasuk_id"])
+        self.assertEqual(result["_assessment_source"], "targeted follow-up from active parsed dataset")
+        practice_fallback.assert_not_called()
 
 
 if __name__ == "__main__":

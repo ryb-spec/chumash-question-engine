@@ -58,6 +58,9 @@ class StreamlitQuizExperienceTests(unittest.TestCase):
         self.assertNotIn("What Happens Next", header_html)
         self.assertIn("Mastery", header_html)
 
+    def test_answer_choice_labels_support_expanded_affix_choice_banks(self):
+        self.assertEqual(streamlit_app.answer_choice_label("ש", 6), "G. ש")
+
     def test_quiz_render_sequence_prioritizes_question_answers_and_submit(self):
         question = self._sample_prefix_question()
         progress = {"standards": {"PR": 70}, "xp": {"PR": 10}, "current_skill": "identify_prefix_meaning"}
@@ -140,7 +143,8 @@ class StreamlitQuizExperienceTests(unittest.TestCase):
         with patch.object(streamlit_app, "last_answer_was_correct", return_value=False), \
              patch.object(streamlit_app.st, "markdown", side_effect=lambda body, **kwargs: rendered.append(body)), \
              patch.object(streamlit_app.st, "caption"), \
-             patch.object(streamlit_app.st, "expander", _fake_expander):
+             patch.object(streamlit_app.st, "expander", _fake_expander), \
+             patch.object(streamlit_app.st, "button", return_value=False):
             streamlit_app.render_feedback(question, {"current_skill": "identify_prefix_meaning"})
 
         main_panel = next(body for body in rendered if "feedback-panel" in body)

@@ -7,10 +7,12 @@
       "benchmark",
       "paradigm",
       "lexicon",
-      "teacher_ops"
+      "teacher_ops",
+      "governance"
     ],
     "status_values": [
-      "validated_seed"
+      "validated_seed",
+      "validated_internal"
     ],
     "notes": [
       "These resources are versioned foundation seeds for standards alignment, analytics, paradigms, lexicon policy, and teacher operations.",
@@ -78,6 +80,16 @@
       "source": "data/foundations/incoming/teacher_ops_workflow_seed.json",
       "status": "validated_seed",
       "intended_use": "Teacher/admin workflow reference for dashboards, readiness reporting, and action-plan tooling; not student-facing."
+    },
+    {
+      "resource_name": "engine_extension_review_queue",
+      "version": "v1",
+      "layer": "governance",
+      "format": "json",
+      "path": "data/standards/internal/engine_extension_review_queue.v1.json",
+      "source": "data/standards/crosswalks/canonical_skill_crosswalk.seed.v1.json",
+      "status": "validated_internal",
+      "intended_use": "Internal governance queue for reviewing engine_extension crosswalk rows. This is documentation and standards-governance data only; it does not change runtime truth or student-facing behavior."
     }
   ]
 }

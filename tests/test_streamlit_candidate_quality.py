@@ -98,7 +98,7 @@ class StreamlitCandidateQualityTests(unittest.TestCase):
         question = {
             "skill": "subject_identification",
             "question_type": "subject_identification",
-            "question": "Who is doing the action?",
+            "question": "Who is doing the action in בָּרָא?",
             "selected_word": "אֱלֹקִים",
             "correct_answer": "אֱלֹקִים",
             "pasuk": "בְּרֵאשִׁית בָּרָא אֱלֹקִים",

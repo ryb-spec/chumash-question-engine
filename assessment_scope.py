@@ -10,6 +10,8 @@ from copy import deepcopy
 from functools import lru_cache
 from pathlib import Path
 
+from torah_parser.word_bank_adapter import normalize_hebrew_key
+
 
 REPO_ROOT = Path(__file__).resolve().parent
 BASE_DIR = REPO_ROOT
@@ -64,11 +66,12 @@ def _canonicalize_manifest(manifest):
 
 def _default_corpus_manifest():
     source_files = [
-        "data/source/bereishis_1_1_to_4_20.json",
+        "data/source/bereishis_1_1_to_1_30.json",
         "data/source/bereishis_1_31_to_2_9.json",
     ]
     parsed_files = {
         "pesukim": "data/pesukim_100.json",
+        "parsed_pesukim": "data/parsed_pesukim.json",
         "word_bank": "data/word_bank.json",
         "word_occurrences": "data/word_occurrences.json",
         "translation_reviews": "data/translation_reviews.json",
@@ -218,6 +221,9 @@ _ACTIVE_PARSED_FILES = _MANIFEST_ACTIVE_SCOPE.get("parsed_files", {})
 ACTIVE_PARSED_PESUKIM_PATH = resolve_repo_path(
     _ACTIVE_PARSED_FILES.get("pesukim", "data/pesukim_100.json")
 )
+ACTIVE_PARSED_ANALYSIS_PATH = resolve_repo_path(
+    _ACTIVE_PARSED_FILES.get("parsed_pesukim", "data/parsed_pesukim.json")
+)
 ACTIVE_WORD_BANK_PATH = resolve_repo_path(
     _ACTIVE_PARSED_FILES.get("word_bank", "data/word_bank.json")
 )
@@ -227,6 +233,8 @@ ACTIVE_WORD_OCCURRENCES_PATH = resolve_repo_path(
 ACTIVE_TRANSLATION_REVIEWS_PATH = resolve_repo_path(
     _ACTIVE_PARSED_FILES.get("translation_reviews", "data/translation_reviews.json")
 )
+ACTIVE_SCOPE_OVERRIDES_PATH = resolve_repo_path("data/active_scope_overrides.json")
+ACTIVE_SCOPE_GOLD_ANNOTATIONS_PATH = resolve_repo_path("data/active_scope_gold_annotations.json")
 
 PREVIEW_ARTIFACTS_DIR = repo_path("artifacts", "preview")
 LEGACY_DIR = repo_path("legacy")
@@ -244,9 +252,12 @@ LEGACY_GOOGLE_DOCS_EXPORT_PATH = LEGACY_DIR / "chumash_question_bank_google_docs
 
 ACTIVE_DATASET_PATHS = {
     "pesukim": ACTIVE_PARSED_PESUKIM_PATH,
+    "parsed_pesukim": ACTIVE_PARSED_ANALYSIS_PATH,
     "word_bank": ACTIVE_WORD_BANK_PATH,
     "word_occurrences": ACTIVE_WORD_OCCURRENCES_PATH,
     "translation_reviews": ACTIVE_TRANSLATION_REVIEWS_PATH,
+    "active_scope_overrides": ACTIVE_SCOPE_OVERRIDES_PATH,
+    "active_scope_gold_annotations": ACTIVE_SCOPE_GOLD_ANNOTATIONS_PATH,
 }
 
 
@@ -256,8 +267,113 @@ def load_active_pesukim_data():
         return json.load(file)
 
 
+@lru_cache(maxsize=1)
+def load_active_parsed_pesukim_data():
+    if not ACTIVE_PARSED_ANALYSIS_PATH.exists():
+        return {"metadata": {}, "parsed_pesukim": []}
+    with ACTIVE_PARSED_ANALYSIS_PATH.open("r", encoding="utf-8") as file:
+        return json.load(file)
+
+
 def active_pesukim_records():
     return tuple(load_active_pesukim_data().get("pesukim", []))
+
+
+def active_parsed_pesukim_records():
+    return tuple(load_active_parsed_pesukim_data().get("parsed_pesukim", []))
+
+
+@lru_cache(maxsize=1)
+def _active_pesukim_by_text():
+    return {
+        record.get("text"): record
+        for record in active_pesukim_records()
+        if record.get("text")
+    }
+
+
+@lru_cache(maxsize=1)
+def _active_pesukim_by_normalized_text():
+    return {
+        normalize_hebrew_key(record.get("text")): record
+        for record in active_pesukim_records()
+        if record.get("text")
+    }
+
+
+@lru_cache(maxsize=1)
+def _active_pesukim_by_id():
+    return {
+        record.get("pasuk_id"): record
+        for record in active_pesukim_records()
+        if record.get("pasuk_id")
+    }
+
+
+def active_pasuk_record_for_text(text):
+    if not text:
+        return None
+    return _active_pesukim_by_text().get(text) or _active_pesukim_by_normalized_text().get(
+        normalize_hebrew_key(text)
+    )
+
+
+def active_pasuk_record_for_pasuk_id(pasuk_id):
+    if not pasuk_id:
+        return None
+    return _active_pesukim_by_id().get(pasuk_id)
+
+
+def active_pasuk_record_for_question(question, fallback_text=None):
+    question = question or {}
+    embedded_ref = question.get("pasuk_ref") or {}
+    record = active_pasuk_record_for_pasuk_id(
+        question.get("pasuk_id")
+        or question.get("override_pasuk_id")
+        or embedded_ref.get("pasuk_id")
+    )
+    explicit_pasuk = question.get("pasuk")
+    if not record and explicit_pasuk:
+        record = active_pasuk_record_for_text(explicit_pasuk)
+    if not record and not explicit_pasuk and fallback_text:
+        record = active_pasuk_record_for_text(fallback_text)
+    return record
+
+
+def active_pasuk_ref_payload(record):
+    if not record:
+        return None
+    ref = record.get("ref", {})
+    return {
+        "sefer": ref.get("sefer"),
+        "perek": ref.get("perek"),
+        "pasuk": ref.get("pasuk"),
+        "label": f"{ref.get('sefer')} {ref.get('perek')}:{ref.get('pasuk')}",
+        "pasuk_id": record.get("pasuk_id"),
+    }
+
+
+def bind_question_to_active_scope(question, fallback_text=None):
+    record = active_pasuk_record_for_question(question, fallback_text=fallback_text)
+    if not question or not record:
+        return None
+    question.setdefault("pasuk", record.get("text") or fallback_text)
+    question.setdefault("pasuk_id", record.get("pasuk_id"))
+    question.setdefault("pasuk_ref", active_pasuk_ref_payload(record))
+    return record
+
+
+@lru_cache(maxsize=1)
+def _active_parsed_pesukim_by_text():
+    return {
+        record.get("text"): record
+        for record in active_parsed_pesukim_records()
+        if record.get("text")
+    }
+
+
+def active_parsed_pasuk_record_for_text(text):
+    return _active_parsed_pesukim_by_text().get(text)
 
 
 def active_pasuk_texts():
@@ -273,8 +389,214 @@ def active_pasuk_text_set():
     return frozenset(active_pasuk_texts())
 
 
+@lru_cache(maxsize=1)
+def active_pasuk_id_set():
+    return frozenset(
+        record.get("pasuk_id")
+        for record in active_pesukim_records()
+        if record.get("pasuk_id")
+    )
+
+
 def is_active_pasuk_text(text):
     return text in active_pasuk_text_set()
+
+
+def _default_active_scope_overrides():
+    return {
+        "metadata": {
+            "title": "Active Scope Curated Overrides",
+            "scope_id": ACTIVE_ASSESSMENT_SCOPE,
+            "status": "active",
+        },
+        "overrides": {},
+    }
+
+
+def _default_active_scope_gold_annotations():
+    return {
+        "metadata": {
+            "title": "Active Scope Gold Annotations",
+            "scope_id": ACTIVE_ASSESSMENT_SCOPE,
+            "status": "active",
+        },
+        "annotations": {},
+    }
+
+
+def _canonicalize_active_scope_overrides(payload):
+    canonical = deepcopy(payload or {})
+    metadata = canonical.setdefault("metadata", {})
+    metadata.setdefault("title", "Active Scope Curated Overrides")
+    metadata.setdefault("scope_id", ACTIVE_ASSESSMENT_SCOPE)
+    metadata.setdefault("status", "active")
+
+    raw_overrides = canonical.get("overrides", {})
+    if not isinstance(raw_overrides, dict):
+        raise ValueError("Active scope overrides must store overrides as an object keyed by pasuk_id.")
+
+    normalized = {}
+    for pasuk_id, override in raw_overrides.items():
+        if not isinstance(override, dict):
+            raise ValueError(f"Active scope override for {pasuk_id} must be an object.")
+        item = deepcopy(override)
+        item.setdefault("skills", {})
+        if not isinstance(item["skills"], dict):
+            raise ValueError(f"Active scope override skills for {pasuk_id} must be an object.")
+        normalized[pasuk_id] = item
+
+    canonical["overrides"] = normalized
+    return canonical
+
+
+def _canonicalize_active_scope_gold_annotations(payload):
+    canonical = deepcopy(payload or {})
+    metadata = canonical.setdefault("metadata", {})
+    metadata.setdefault("title", "Active Scope Gold Annotations")
+    metadata.setdefault("scope_id", ACTIVE_ASSESSMENT_SCOPE)
+    metadata.setdefault("status", "active")
+
+    raw_annotations = canonical.get("annotations", {})
+    if not isinstance(raw_annotations, dict):
+        raise ValueError("Active scope gold annotations must store annotations as an object keyed by pasuk_id.")
+
+    normalized = {}
+    for pasuk_id, annotation in raw_annotations.items():
+        if not isinstance(annotation, dict):
+            raise ValueError(f"Gold annotation for {pasuk_id} must be an object.")
+        item = deepcopy(annotation)
+        item.setdefault("skills", {})
+        if not isinstance(item["skills"], dict):
+            raise ValueError(f"Gold annotation skills for {pasuk_id} must be an object.")
+        for skill_name, skill_record in item["skills"].items():
+            if not isinstance(skill_record, dict):
+                raise ValueError(f"Gold annotation for {pasuk_id}/{skill_name} must be an object.")
+            status = skill_record.get("status")
+            if status not in {"approved", "suppressed"}:
+                raise ValueError(
+                    f"Gold annotation for {pasuk_id}/{skill_name} must have status 'approved' or 'suppressed'."
+                )
+            if status == "approved":
+                approved_targets = skill_record.get("approved_targets")
+                if not isinstance(approved_targets, list) or not approved_targets:
+                    raise ValueError(
+                        f"Gold annotation for {pasuk_id}/{skill_name} must include a non-empty approved_targets list."
+                    )
+            if status == "suppressed" and not skill_record.get("reason"):
+                raise ValueError(
+                    f"Gold annotation for {pasuk_id}/{skill_name} must include a suppression reason."
+                )
+        normalized[pasuk_id] = item
+
+    canonical["annotations"] = normalized
+    return canonical
+
+
+@lru_cache(maxsize=1)
+def load_active_scope_overrides_data():
+    if not ACTIVE_SCOPE_OVERRIDES_PATH.exists():
+        return _canonicalize_active_scope_overrides(_default_active_scope_overrides())
+    with ACTIVE_SCOPE_OVERRIDES_PATH.open("r", encoding="utf-8") as file:
+        return _canonicalize_active_scope_overrides(json.load(file))
+
+
+@lru_cache(maxsize=1)
+def load_active_scope_gold_annotations_data():
+    if not ACTIVE_SCOPE_GOLD_ANNOTATIONS_PATH.exists():
+        return _canonicalize_active_scope_gold_annotations(_default_active_scope_gold_annotations())
+    with ACTIVE_SCOPE_GOLD_ANNOTATIONS_PATH.open("r", encoding="utf-8-sig") as file:
+        return _canonicalize_active_scope_gold_annotations(json.load(file))
+
+
+def active_scope_override_records():
+    return dict(load_active_scope_overrides_data().get("overrides", {}))
+
+
+def active_scope_gold_annotation_records():
+    return dict(load_active_scope_gold_annotations_data().get("annotations", {}))
+
+
+def active_scope_override_for_pasuk_id(pasuk_id):
+    if pasuk_id not in active_pasuk_id_set():
+        return None
+    return active_scope_override_records().get(pasuk_id)
+
+
+def active_scope_gold_annotation_for_pasuk_id(pasuk_id):
+    if pasuk_id not in active_pasuk_id_set():
+        return None
+    return active_scope_gold_annotation_records().get(pasuk_id)
+
+
+def active_scope_override_for_text(text):
+    record = active_pasuk_record_for_text(text)
+    if not record:
+        return None
+    return active_scope_override_for_pasuk_id(record.get("pasuk_id"))
+
+
+def active_scope_gold_annotation_for_text(text):
+    record = active_pasuk_record_for_text(text)
+    if not record:
+        return None
+    return active_scope_gold_annotation_for_pasuk_id(record.get("pasuk_id"))
+
+
+def gold_skill_record_for_text(text, skill):
+    annotation = active_scope_gold_annotation_for_text(text)
+    if not annotation:
+        return None
+    return (annotation.get("skills") or {}).get(skill)
+
+
+def _normalize_gold_translation(text):
+    rendered = " ".join(str(text or "").split())
+    lower = rendered.lower()
+    if lower.startswith("and "):
+        rendered = rendered[4:]
+        lower = rendered.lower()
+    if lower.startswith("he "):
+        rendered = rendered[3:]
+    return rendered
+
+
+def question_matches_gold_skill_record(question, gold_skill_record):
+    if not question or not gold_skill_record or question.get("status") == "skipped":
+        return False
+
+    if gold_skill_record.get("status") != "approved":
+        return False
+
+    skill = question.get("skill")
+    selected = question.get("selected_word") or question.get("word")
+    correct = question.get("correct_answer")
+    action_token = question.get("action_token")
+    role_focus = question.get("role_focus")
+
+    for target in gold_skill_record.get("approved_targets", []):
+        if skill == "subject_identification":
+            if (
+                target.get("surface") == selected
+                and target.get("translation") == correct
+                and target.get("main_verb_token") == action_token
+            ):
+                return True
+        elif skill == "object_identification":
+            target_role = target.get("role")
+            if (
+                target.get("surface") == selected
+                and target.get("translation") == correct
+                and target.get("main_verb_token") == action_token
+                and (target_role is None or target_role == role_focus)
+            ):
+                return True
+        elif skill == "phrase_translation":
+            if (
+                target.get("surface") == selected
+                and _normalize_gold_translation(target.get("translation")) == _normalize_gold_translation(correct)
+            ):
+                return True
+    return False
 
 
 def active_pasuk_refs():

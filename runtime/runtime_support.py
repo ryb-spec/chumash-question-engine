@@ -20,6 +20,7 @@ from assessment_scope import (
     repo_path,
 )
 from progress_store import load_progress_state, record_answer, save_progress_state
+from runtime.pilot_logging import record_pilot_answer
 from runtime.presentation import (
     SKILL_ORDER,
     get_error_type,
@@ -48,7 +49,7 @@ WORD_BANK_PATH = data_path("word_bank.json")
 ATTEMPT_LOG_PATH = data_path("attempt_log.jsonl")
 HEBREW_WORD_RE = re.compile(r"[\u0590-\u05ff]+")
 HEBREW_MARK_RE = re.compile(r"[\u0591-\u05c7]")
-OPTION_LABELS = ["A", "B", "C", "D"]
+OPTION_LABELS = [chr(ord("A") + index) for index in range(26)]
 
 MENUKAD_FALLBACK = {
     "הלך": "הָלַךְ",
@@ -295,33 +296,44 @@ def handle_answer(choice, question, progress):
     if st.session_state.answered:
         return
 
-    st.session_state.last_answer_submitted_at = perf_counter()
+    pipeline_started_at = perf_counter()
+    st.session_state.last_answer_submitted_at = pipeline_started_at
     st.session_state.answered = True
     st.session_state.selected_answer = choice
     st.session_state.questions_answered += 1
     if question.get("difficulty") == 5:
         st.session_state.level5_answered += 1
     is_correct = choice == question["correct_answer"]
+    attempt_log_started_at = perf_counter()
     append_attempt_log(question, choice, is_correct)
+    attempt_log_ms = round((perf_counter() - attempt_log_started_at) * 1000, 1)
+    pilot_log_started_at = perf_counter()
+    record_pilot_answer(question, choice, is_correct)
+    pilot_log_ms = round((perf_counter() - pilot_log_started_at) * 1000, 1)
+    scoring_started_at = perf_counter()
     progress_result = record_answer(
         progress,
         question,
         is_correct,
         None if is_correct else get_error_type(question.get("skill")),
     )
+    scoring_ms = round((perf_counter() - scoring_started_at) * 1000, 1)
     answered_skill = question.get("skill", question.get("standard", "unknown"))
     full_skill_state = dict(progress.get("skills", {}).get(answered_skill, {}))
     if progress_result.get("skill_state", {}).get("point_change"):
         full_skill_state["point_change"] = progress_result["skill_state"]["point_change"]
     st.session_state.last_skill_state = full_skill_state
     asked_token = question.get("selected_word") or question.get("word")
+    word_score_ms = 0.0
     if asked_token and update_word_skill_score is not None:
+        word_score_started_at = perf_counter()
         update_word_skill_score(
             asked_token,
             question.get("skill", question.get("standard", "unknown")),
             is_correct,
             progress,
         )
+        word_score_ms = round((perf_counter() - word_score_started_at) * 1000, 1)
     if asked_token:
         st.session_state.asked_tokens.append(asked_token)
         if (
@@ -341,6 +353,7 @@ def handle_answer(choice, question, progress):
         st.session_state.get("practice_type") == "Learn Mode"
         and answered_skill == progress.get("current_skill")
     ):
+        adaptive_started_at = perf_counter()
         current_skill = progress.get("current_skill")
         next_skill_label = skill_path_label(get_next_skill(current_skill))
         decision = evaluate_skill_progression(
@@ -365,8 +378,22 @@ def handle_answer(choice, question, progress):
             st.session_state.asked_question_ids = []
             st.session_state.asked_pasuks = []
         st.session_state.unlocked_skill_message = ""
+        adaptive_ms = round((perf_counter() - adaptive_started_at) * 1000, 1)
+    else:
+        adaptive_ms = 0.0
 
+    save_started_at = perf_counter()
     save_progress(progress)
+    save_progress_ms = round((perf_counter() - save_started_at) * 1000, 1)
+    st.session_state.last_answer_pipeline_timing = {
+        "attempt_log_ms": attempt_log_ms,
+        "pilot_log_ms": pilot_log_ms,
+        "scoring_ms": scoring_ms,
+        "word_score_ms": word_score_ms,
+        "adaptive_ms": adaptive_ms,
+        "save_progress_ms": save_progress_ms,
+        "total_ms": round((perf_counter() - pipeline_started_at) * 1000, 1),
+    }
 
 
 def last_answer_was_correct(question):

@@ -37,7 +37,7 @@ class CorpusPromotionTests(unittest.TestCase):
     def test_combined_source_files_expose_new_contiguous_block_after_bereishis_1_30(self):
         source_corpus = load_source_corpora(
             [
-                "data/source/bereishis_1_1_to_4_20.json",
+                "data/source/bereishis_1_1_to_1_30.json",
                 "data/source/bereishis_1_31_to_2_9.json",
             ]
         )

@@ -15,6 +15,9 @@ from assessment_scope import (
     ACTIVE_ASSESSMENT_SCOPE,
     ACTIVE_WORD_BANK_PATH,
     LEGACY_PASUK_FLOW_PREVIEW_PATH,
+    active_parsed_pasuk_record_for_text,
+    active_scope_override_for_text,
+    active_pasuk_record_for_text,
     active_pasuk_texts,
     data_path,
     repo_path,
@@ -37,6 +40,7 @@ from torah_parser.candidate_generator import (
     prefix_has_known_base as parser_prefix_has_known_base,
     suffix_has_known_base as parser_suffix_has_known_base,
 )
+from torah_parser.disambiguate import annotate_role_layer
 from torah_parser.tokenize import tokenize_pasuk as parser_tokenize_pasuk
 from torah_parser.word_bank_adapter import (
     NORMALIZED_ALIAS_KEY,
@@ -116,6 +120,16 @@ PREFIX_MEANINGS = {
     "\u05d4": "the",
     "\u05e9": "that / which",
 }
+PREFIX_FORM_BANK = ["\u05d5", "\u05d1", "\u05dc", "\u05de", "\u05db", "\u05d4", "\u05e9"]
+PREFIX_MEANING_BANK = [
+    "and",
+    "in / with",
+    "to / for",
+    "from",
+    "like / as",
+    "the",
+    "that / which",
+]
 
 KNOWN_PREFIXES = PREFIX_MEANINGS
 CONTROLLED_TENSE_CHOICES = [
@@ -127,6 +141,38 @@ CONTROLLED_TENSE_CHOICES = [
     "infinitive",
     "command",
 ]
+STUDENT_TENSE_LABELS = {
+    "vav_consecutive_past": "past narrative",
+    "future_jussive": "short future form",
+    "future": "future",
+    "past": "past",
+    "present": "present",
+    "infinitive": "infinitive",
+    "command": "command",
+}
+TENSE_CODE_BY_LABEL = {
+    label: code
+    for code, label in STUDENT_TENSE_LABELS.items()
+}
+DIVINE_NAME_VARIANTS = (
+    "the LORD God",
+    "the LORD",
+    "G-d",
+    "God",
+)
+EXPLICIT_SUBJECT_PREFIXES = (
+    "he ",
+    "she ",
+    "it ",
+    "they ",
+    "there ",
+    "god ",
+    "the lord ",
+    "the lord god ",
+    "someone else ",
+    "the man ",
+    "the woman ",
+)
 
 SKILLS = skill_ids_in_runtime_order()
 
@@ -147,16 +193,6 @@ SKILL_METADATA = {
     for skill_id in SKILLS
 }
 
-PREFIX_MEANING_CHOICES = {
-    "\u05d1": ["in / with", "to / for", "from", "the"],
-    "\u05dc": ["to / for", "in / with", "from", "like / as"],
-    "\u05de": ["from", "to / for", "in / with", "the"],
-    "\u05d5": ["and", "the", "to / for", "from"],
-    "\u05db": ["like / as", "in / with", "from", "the"],
-    "\u05d4": ["the", "and", "to / for", "from"],
-    "\u05e9": ["that / which", "and", "the", "from"],
-}
-
 SUFFIX_MEANINGS = {
     "\u05d9": "my",
     "\u05da\u05b8": "your (m)",
@@ -173,6 +209,8 @@ SUFFIX_MEANINGS = {
     "\u05df": "their",
     "\u05d9\u05d5": "his",
 }
+SUFFIX_FORM_BANK = list(SUFFIX_MEANINGS.keys())
+
 @lru_cache(maxsize=1)
 def load_word_bank():
     data = json.loads(Path(WORD_BANK_PATH).read_text(encoding="utf-8")) if Path(WORD_BANK_PATH).exists() else {"words": []}
@@ -467,6 +505,8 @@ def is_suffix_candidate(entry, token, word_bank=None):
     suffix = entry.get("suffix") or extract_suffix(token)
     if not suffix:
         return False
+    if has_lexical_plural_ending(entry, token, suffix):
+        return False
     if entry.get("type") == "suffix_form":
         return True
     if word_bank is None:
@@ -570,7 +610,8 @@ def normalize_analyzed_pasuk(analyzed_words, word_bank=None):
         structured_word_to_item(word_data, word_bank)
         for word_data in analyzed_words
     ]
-    return [item for item in items if item is not None]
+    annotated, _ = annotate_role_layer([item for item in items if item is not None])
+    return annotated
 
 
 def prebuilt_analyzed_pasuk(analyzed_words):
@@ -583,7 +624,76 @@ def prebuilt_analyzed_pasuk(analyzed_words):
             continue
         normalized = normalize_analyzed_pasuk([item], word_bank=None)
         items.extend(normalized)
-    return items
+    annotated, _ = annotate_role_layer(items)
+    return annotated
+
+
+def parsed_token_record_to_item(token_record):
+    analysis = dict(token_record.get("selected_analysis") or {})
+    token = token_record.get("surface", "")
+    analysis.setdefault("normalized", token_record.get("normalized") or analysis.get("normalized"))
+    analysis.setdefault("translation_literal", analysis.get("translation") or token)
+    analysis.setdefault(
+        "translation_context",
+        analysis.get("context_translation") or analysis.get("translation") or token,
+    )
+    entry = adapt_word_analysis(
+        token,
+        analysis,
+        defaults={
+            "group": "unknown",
+            "semantic_group": "unknown",
+            "role_hint": "unknown",
+            "entity_type": "unknown",
+            "base_word": analysis.get("lemma") or token,
+        },
+    )
+    item = {
+        "token": token,
+        "entry": entry,
+        "base": analysis.get("lemma") or token,
+    }
+    if token_record.get("role_data"):
+        item["role_data"] = dict(token_record.get("role_data") or {})
+    return item
+
+
+def active_scope_parsed_analysis(pasuk):
+    parsed_record = active_parsed_pasuk_record_for_text(pasuk)
+    if not parsed_record:
+        return None
+    token_records = parsed_record.get("token_records") or []
+    if not token_records:
+        return None
+    items = [parsed_token_record_to_item(token_record) for token_record in token_records]
+    if any(item.get("role_data") for item in items):
+        return items
+    annotated, _ = annotate_role_layer(items)
+    return annotated
+
+
+def active_scope_skill_override(pasuk_text, skill):
+    override = active_scope_override_for_text(pasuk_text)
+    if not override:
+        return None
+    skills = override.get("skills") or {}
+    return skills.get(skill)
+
+
+def override_distractors(pool, correct):
+    return [value for value in pool if value and value != correct]
+
+
+def override_target_entry(surface, translation, *, semantic_group, role_hint, entity_type):
+    return {
+        "word": surface,
+        "translation": translation,
+        "type": "noun",
+        "part_of_speech": "noun",
+        "semantic_group": semantic_group,
+        "role_hint": role_hint,
+        "entity_type": entity_type,
+    }
 
 
 def structured_word_bank_items(predicate, word_bank=None, pasuk_text=None, progress=None):
@@ -688,6 +798,10 @@ def analyze_pasuk(pasuk, word_bank=None):
     if word_bank is None:
         return [analyze_word(word) for word in tokenize_pasuk(pasuk)]
 
+    parsed_items = active_scope_parsed_analysis(pasuk)
+    if parsed_items is not None:
+        return parsed_items
+
     analyzed = []
     unknown = []
     for token in tokenize_pasuk(pasuk):
@@ -700,7 +814,8 @@ def analyze_pasuk(pasuk, word_bank=None):
     if unknown:
         raise ValueError(f"Unknown word(s) not in word bank: {', '.join(unknown)}")
 
-    return analyzed
+    annotated, _ = annotate_role_layer(analyzed)
+    return annotated
 
 
 def stable_rng(key):
@@ -724,16 +839,161 @@ def build_choices(correct, partials, clear, key, extra=None):
     return choices
 
 
+def build_parallel_choices(correct, candidates, key, *, extra=None, token=None):
+    choices = unique(
+        [correct]
+        + [
+            item
+            for item in list(candidates or []) + list(extra or [])
+            if item and item != correct and not is_placeholder_translation(item, token)
+        ]
+    )
+    if len(choices) < 4:
+        raise ValueError(f"Need 4 parallel choices. Got: {choices}")
+    choices = choices[:4]
+    stable_rng(key).shuffle(choices)
+    return choices
+
+
 def contains_hebrew(text):
     return any("\u0590" <= char <= "\u05ff" for char in str(text or ""))
 
 
-def is_placeholder_translation(value, token=None):
-    if not value:
-        return True
-    text = str(value).strip()
+def clean_value_text(value):
+    text = str(value or "").strip()
     if not text:
+        return None
+    if set(text) == {"?"}:
+        return None
+    if "???" in text:
+        return None
+    return text
+
+
+def clean_shoresh_value(value):
+    text = clean_value_text(value)
+    if not text or "?" in text:
+        return None
+    return text
+
+
+def student_tense_label(value):
+    return STUDENT_TENSE_LABELS.get(value, value)
+
+
+def canonical_tense_code(value):
+    text = clean_value_text(value)
+    if text is None:
+        return None
+    return TENSE_CODE_BY_LABEL.get(text, text)
+
+
+def replace_tense_codes_in_text(text):
+    rendered = str(text or "")
+    for code, label in STUDENT_TENSE_LABELS.items():
+        rendered = rendered.replace(code, label)
+    return rendered
+
+
+def has_leading_vav(surface):
+    first_token = str(surface or "").strip().split()
+    if not first_token:
+        return False
+    normalized = normalize_hebrew_key(first_token[0])
+    return normalized.startswith("ו")
+
+
+def divine_name_style(text):
+    rendered = str(text or "")
+    for variant in DIVINE_NAME_VARIANTS:
+        if variant in rendered:
+            return "God" if variant == "G-d" else variant
+    return None
+
+
+def apply_divine_name_style(text, preferred_style):
+    rendered = str(text or "")
+    preferred = "God" if preferred_style == "G-d" else preferred_style
+    if not preferred:
+        return rendered
+    for variant in DIVINE_NAME_VARIANTS:
+        if variant == preferred:
+            continue
+        rendered = rendered.replace(variant, preferred)
+    return rendered
+
+
+def complete_subjectless_verb_gloss(text):
+    rendered = str(text or "").strip()
+    if not rendered:
+        return rendered
+    lower = rendered.lower()
+    if lower.startswith("and "):
+        remainder = rendered[4:]
+        if remainder.lower().startswith(EXPLICIT_SUBJECT_PREFIXES):
+            return rendered
+        return f"and he {remainder}"
+    if lower.startswith(EXPLICIT_SUBJECT_PREFIXES):
+        return rendered
+    return rendered
+
+
+def sanitize_entry_translation(value, entry=None, token=None):
+    rendered = clean_value_text(value)
+    if rendered is None:
+        return None
+    rendered = apply_divine_name_style(rendered, divine_name_style(rendered))
+    if entry_type(entry) == "verb":
+        if has_leading_vav(token) and not rendered.lower().startswith("and "):
+            rendered = f"and {rendered}"
+        rendered = complete_subjectless_verb_gloss(rendered)
+    return " ".join(rendered.split())
+
+
+def sanitize_question_translation_text(
+    text,
+    *,
+    question_type="",
+    surface="",
+    part_of_speech="",
+    preferred_divine_style=None,
+):
+    rendered = clean_value_text(text)
+    if rendered is None:
+        return None
+    if preferred_divine_style:
+        rendered = apply_divine_name_style(rendered, preferred_divine_style)
+    elif "G-d" in rendered:
+        rendered = rendered.replace("G-d", "God")
+    if question_type in {"translation", "phrase_translation"} and has_leading_vav(surface):
+        if not rendered.lower().startswith("and "):
+            rendered = f"and {rendered}"
+    if part_of_speech == "verb" or question_type == "phrase_translation":
+        rendered = complete_subjectless_verb_gloss(rendered)
+    return " ".join(rendered.split())
+
+
+def non_divine_phrase_fallback(text):
+    rendered = " ".join(str(text or "").split())
+    replacements = (
+        ("and the LORD God ", "and someone else "),
+        ("and the LORD ", "and someone else "),
+        ("and God ", "and someone else "),
+        ("the LORD God ", "someone else "),
+        ("the LORD ", "someone else "),
+        ("God ", "someone else "),
+    )
+    for prefix, replacement in replacements:
+        if rendered.startswith(prefix):
+            return f"{replacement}{rendered[len(prefix):]}".strip()
+    return None
+
+
+def is_placeholder_translation(value, token=None):
+    rendered = clean_value_text(value)
+    if not rendered:
         return True
+    text = rendered
     if text.startswith("[") and text.endswith("]"):
         return True
     if "direct object marker" in text.lower():
@@ -747,7 +1007,7 @@ def usable_translation(entry, token=None):
     for key in ("translation_context", "context_translation", "translation", "translation_literal"):
         value = entry.get(key)
         if not is_placeholder_translation(value, token):
-            return value
+            return sanitize_entry_translation(value, entry, token)
     return None
 
 
@@ -755,7 +1015,12 @@ def instructional_value(entry, question_type=None):
     if not isinstance(entry, dict):
         return "low"
     token = entry.get("word") or entry.get("surface")
-    if question_type in {"word_meaning", "translation", "subject_identification"}:
+    if question_type in {
+        "word_meaning",
+        "translation",
+        "subject_identification",
+        "object_identification",
+    }:
         if usable_translation(entry, token) is None:
             return "low"
         if entry.get("entity_type") == "grammatical_particle":
@@ -765,9 +1030,9 @@ def instructional_value(entry, question_type=None):
     if question_type in {"verb_tense", "shoresh"}:
         if entry.get("type") != "verb" or entry.get("confidence") == "generated_alternate":
             return "low"
-        if question_type == "shoresh" and not entry.get("shoresh"):
+        if question_type == "shoresh" and not clean_shoresh_value(entry.get("shoresh")):
             return "low"
-        if question_type == "verb_tense" and not entry.get("tense"):
+        if question_type == "verb_tense" and not runtime_tense_label(entry, token):
             return "low"
     if entry.get("confidence") in {"reviewed_starter", "reviewed"}:
         return "high"
@@ -822,6 +1087,10 @@ def is_object_candidate_entry(entry, token, word_bank=None):
 
 
 def runtime_tense_label(entry, token):
+    if entry_type(entry) != "verb" or entry.get("confidence") == "generated_alternate":
+        return None
+    if not clean_shoresh_value(entry.get("shoresh")) and usable_translation(entry, token) is None:
+        return None
     explicit = (entry or {}).get("tense")
     if explicit in CONTROLLED_TENSE_CHOICES:
         return explicit
@@ -884,6 +1153,7 @@ def filtered_translation_values(entries, correct, correct_entry=None, question_t
     seen_values = {correct}
     seen_keys = set()
     correct_key = distractor_key(correct_entry)
+    preferred_divine_style = divine_name_style(correct)
     if correct_key:
         seen_keys.add(correct_key)
 
@@ -894,6 +1164,8 @@ def filtered_translation_values(entries, correct, correct_entry=None, question_t
             continue
         value = usable_translation(entry, entry.get("word"))
         if not value or value in seen_values:
+            continue
+        if preferred_divine_style and divine_name_style(value) and divine_name_style(value) != preferred_divine_style:
             continue
         key = distractor_key(entry)
         if key and key in seen_keys:
@@ -1028,14 +1300,82 @@ def naturalize_subject_action(action_text, subject_text):
     replacements = [
         ("and he ", "and "),
         ("and it ", "and "),
-        ("and ", ""),
         ("he ", ""),
         ("it ", ""),
+        ("they ", ""),
+        ("and they ", "and "),
     ]
     for prefix, replacement in replacements:
         if action_text.startswith(prefix):
             return f"{replacement}{subject_text} {action_text[len(prefix):]}"
     return f"{subject_text} {action_text}"
+
+
+PHRASE_ACTION_DISTRACTOR_POOL = (
+    "said",
+    "made",
+    "blessed",
+    "finished",
+    "created",
+    "saw",
+    "called",
+    "gave",
+    "separated",
+    "caused to grow",
+)
+
+PHRASE_SUBJECT_DISTRACTOR_POOL = (
+    "God",
+    "the LORD",
+    "someone else",
+    "they",
+)
+
+PHRASE_OBJECT_DISTRACTOR_POOL = (
+    "something else",
+    "someone else",
+    "them",
+    "the earth",
+    "the heavens",
+)
+
+PHRASE_RECIPIENT_DISTRACTOR_POOL = (
+    "them",
+    "him",
+    "her",
+    "someone else",
+)
+
+PHRASE_DIRECT_OBJECT_ACTION_BLACKLIST = {
+    "said",
+    "called",
+}
+
+SUBJECT_OVERRIDE_DISTRACTOR_POOL = (
+    "God",
+    "the LORD",
+    "the LORD God",
+    "someone else",
+    "the man",
+    "they",
+)
+
+OBJECT_OVERRIDE_DISTRACTOR_POOL = (
+    "the man",
+    "a garden",
+    "the earth",
+    "the heavens",
+    "the seventh day",
+    "something else",
+)
+
+RECIPIENT_OVERRIDE_DISTRACTOR_POOL = (
+    "them",
+    "him",
+    "her",
+    "someone else",
+    "the man",
+)
 
 
 def format_translation(items, mode=TRANSLATION_LITERAL):
@@ -1101,7 +1441,7 @@ def varied_phrase_window(
 
 
 def clean_action(text):
-    for lead in ["and he ", "and it "]:
+    for lead in ["and he ", "and it ", "and they ", "he ", "it ", "they ", "and "]:
         if text.startswith(lead):
             return text[len(lead):]
     return text
@@ -1112,6 +1452,183 @@ def strip_relation(text):
         if text.startswith(lead):
             return text[len(lead):]
     return text
+
+
+def normalize_role_translation(text):
+    text = strip_relation(str(text or "").strip())
+    if text.startswith("and "):
+        return text[4:]
+    return text
+
+
+def phrase_surface_text(items):
+    ordered = sorted(
+        (item for item in items if item),
+        key=lambda item: (item.get("role_data") or {}).get("token_index", 10**6),
+    )
+    if not ordered:
+        return None
+    return " ".join(item["token"] for item in ordered)
+
+
+def phrase_distractor_pool(pool, correct):
+    return [value for value in pool if value and value != correct]
+
+
+def quiz_ready_phrase_option(phrase, correct, candidates):
+    clean_candidates = filtered_phrase_candidates(candidates, phrase)
+    if not phrase or not correct or is_placeholder_translation(correct, phrase):
+        return None
+    if len(clean_candidates) < 3:
+        return None
+    return {
+        "phrase": phrase,
+        "correct": correct,
+        "candidates": clean_candidates,
+    }
+
+
+def choose_phrase_option(options, recent_phrases=None):
+    recent_block = set(list(recent_phrases or [])[-5:])
+    for option in options:
+        if option["phrase"] not in recent_block:
+            return option
+    return options[0] if options else None
+
+
+def quiz_ready_phrase_options(analyzed):
+    verb = get_verb(analyzed)
+    subject = get_subject(analyzed)
+    direct_object = get_direct_object(analyzed)
+    recipient_phrase = get_phrase_role(analyzed, "recipient")
+    recipient = recipient_phrase["object"] if recipient_phrase else get_recipient(analyzed)
+    source_phrase = get_phrase_role(analyzed, "source")
+    destination_phrase = get_phrase_role(analyzed, "destination")
+
+    action_text = translated_item_text(verb)
+    action = clean_action(action_text or "")
+    subject_text = strip_relation(translated_item_text(subject) or "")
+    direct_object_text = normalize_role_translation(translated_item_text(direct_object) or "")
+    recipient_text = strip_relation(translated_item_text(recipient) or "")
+
+    action_distractors = phrase_distractor_pool(PHRASE_ACTION_DISTRACTOR_POOL, action)
+    object_action_distractors = [
+        candidate
+        for candidate in action_distractors
+        if candidate not in PHRASE_DIRECT_OBJECT_ACTION_BLACKLIST
+    ]
+    subject_distractors = phrase_distractor_pool(PHRASE_SUBJECT_DISTRACTOR_POOL, subject_text)
+    object_distractors = phrase_distractor_pool(PHRASE_OBJECT_DISTRACTOR_POOL, direct_object_text)
+    recipient_distractors = phrase_distractor_pool(PHRASE_RECIPIENT_DISTRACTOR_POOL, recipient_text)
+
+    options = []
+
+    if (
+        verb
+        and subject
+        and direct_object
+        and action
+        and action not in PHRASE_DIRECT_OBJECT_ACTION_BLACKLIST
+        and subject_text
+        and direct_object_text
+    ):
+        subject_action_text = naturalize_subject_action(action_text or action, subject_text)
+        option = quiz_ready_phrase_option(
+            phrase_surface_text([verb, direct_object, subject]),
+            f"{subject_action_text} {direct_object_text}",
+            [
+                f"{naturalize_subject_action(object_action_distractors[0], subject_text)} {direct_object_text}",
+                f"{subject_distractors[0]} {action} {direct_object_text}",
+                f"{subject_action_text} {object_distractors[0]}",
+                f"{naturalize_subject_action(object_action_distractors[1], subject_text)} {direct_object_text}",
+            ],
+        )
+        if option:
+            options.append(option)
+
+    if verb and subject and recipient and action and subject_text and recipient_text:
+        subject_action_text = naturalize_subject_action(action_text or action, subject_text)
+        option = quiz_ready_phrase_option(
+            phrase_surface_text([verb, recipient, subject]),
+            f"{subject_action_text} to {recipient_text}",
+            [
+                f"{naturalize_subject_action(action_distractors[0], subject_text)} to {recipient_text}",
+                f"{subject_distractors[0]} {action} to {recipient_text}",
+                f"{subject_action_text} from {recipient_text}",
+                f"{subject_action_text} to {recipient_distractors[0]}",
+            ],
+        )
+        if option:
+            options.append(option)
+
+    if source_phrase and destination_phrase:
+        source_text = translated_item_text(source_phrase["object"])
+        destination_text = translated_item_text(destination_phrase["object"])
+        if source_text and destination_text:
+            source_text = strip_relation(source_text)
+            destination_text = strip_relation(destination_text)
+            option = quiz_ready_phrase_option(
+                f"{source_phrase['text']} {destination_phrase['text']}",
+                f"from {source_text} to {destination_text}",
+                [
+                    f"from {destination_text} to {source_text}",
+                    f"from {source_text} in {destination_text}",
+                    f"to {source_text} from {destination_text}",
+                    f"in {source_text} to {destination_text}",
+                ],
+            )
+            if option:
+                options.append(option)
+
+    if (
+        verb
+        and direct_object
+        and action
+        and action not in PHRASE_DIRECT_OBJECT_ACTION_BLACKLIST
+        and direct_object_text
+    ):
+        option = quiz_ready_phrase_option(
+            phrase_surface_text([verb, direct_object]),
+            f"{action} {direct_object_text}",
+            [
+                f"{object_action_distractors[0]} {direct_object_text}",
+                f"{action} {object_distractors[0]}",
+                f"{object_action_distractors[1]} {direct_object_text}",
+                f"{action} {object_distractors[1]}",
+            ],
+        )
+        if option:
+            options.append(option)
+
+    if verb and recipient and action and recipient_text:
+        option = quiz_ready_phrase_option(
+            phrase_surface_text([verb, recipient]),
+            f"{action} to {recipient_text}",
+            [
+                f"{action_distractors[0]} to {recipient_text}",
+                f"{action} from {recipient_text}",
+                f"{action_distractors[1]} to {recipient_text}",
+                f"{action} to {recipient_distractors[0]}",
+            ],
+        )
+        if option:
+            options.append(option)
+
+    if verb and subject and action_text and subject_text:
+        option = quiz_ready_phrase_option(
+            phrase_surface_text([verb, subject]),
+            naturalize_subject_action(action_text, subject_text),
+            [
+                f"{subject_text} {action_distractors[0]}",
+                f"{subject_distractors[0]} {action}",
+                f"{subject_text} {action_distractors[1]}",
+                f"{subject_distractors[1]} {action}",
+            ],
+        )
+        if option:
+            options.append(option)
+
+    return options
 
 
 def root_meaning(entry):
@@ -1159,14 +1676,99 @@ def question_id_for(question):
     return hashlib.sha1(base.encode("utf-8")).hexdigest()[:12]
 
 
+def normalize_student_facing_question(question):
+    question_type = str(question.get("question_type", ""))
+    skill = str(question.get("skill", ""))
+
+    if question_type in {"verb_tense", "identify_tense"} or skill in {"verb_tense", "identify_tense"}:
+        raw_correct = canonical_tense_code(question.get("correct_answer"))
+        question["correct_answer"] = student_tense_label(raw_correct)
+        question["choices"] = [student_tense_label(canonical_tense_code(choice)) for choice in question.get("choices", [])]
+        question["question"] = replace_tense_codes_in_text(question.get("question"))
+        if "question_text" in question:
+            question["question_text"] = replace_tense_codes_in_text(question.get("question_text"))
+        question["explanation"] = replace_tense_codes_in_text(question.get("explanation"))
+        if raw_correct:
+            question.setdefault("tense_code", raw_correct)
+
+    translation_like = question_type in {
+        "translation",
+        "phrase_translation",
+        "subject_identification",
+        "object_identification",
+    } or skill in {
+        "translation",
+        "phrase_translation",
+        "subject_identification",
+        "object_identification",
+    }
+    if translation_like:
+        surface = question.get("selected_word") or question.get("word") or ""
+        part_of_speech = str(question.get("part_of_speech", ""))
+        raw_correct = clean_value_text(question.get("correct_answer")) or str(question.get("correct_answer", "")).strip()
+        if raw_correct:
+            sanitized_correct = sanitize_question_translation_text(
+                raw_correct,
+                question_type=question_type,
+                surface=surface,
+                part_of_speech=part_of_speech,
+            )
+            preferred_style = divine_name_style(sanitized_correct)
+            original_choices = list(question.get("choices", []))
+            choice_style = preferred_style if question_type in {"translation", "phrase_translation"} else preferred_style
+            sanitized_choices = unique(
+                sanitize_question_translation_text(
+                    choice,
+                    question_type=question_type,
+                    surface=surface,
+                    part_of_speech=part_of_speech,
+                    preferred_divine_style=choice_style,
+                )
+                for choice in original_choices
+            )
+            if sanitized_correct not in sanitized_choices:
+                sanitized_choices = [sanitized_correct] + sanitized_choices
+            while question_type == "phrase_translation" and len(sanitized_choices) < len(original_choices):
+                fallback = non_divine_phrase_fallback(sanitized_correct)
+                if not fallback or fallback in sanitized_choices:
+                    break
+                sanitized_choices.append(fallback)
+            if len(sanitized_choices) >= len(original_choices):
+                question["choices"] = sanitized_choices
+            question["correct_answer"] = sanitized_correct
+            explanation = str(question.get("explanation", ""))
+            if raw_correct and sanitized_correct and raw_correct in explanation:
+                question["explanation"] = explanation.replace(raw_correct, sanitized_correct)
+
+    return question
+
+
 def validate_question_payload(question):
+    normalize_student_facing_question(question)
     choices = list(question.get("choices", []))
-    if len(choices) != 4:
+    question_type = str(question.get("question_type", ""))
+    skill = str(question.get("skill", ""))
+    if question_type.startswith("prefix_level_") or skill == "identify_prefix_meaning":
+        if len(choices) < 4:
+            raise ValueError(f"Prefix question must have at least 4 choices: {question.get('question')}")
+    elif len(choices) != 4:
         raise ValueError(f"Question must have exactly 4 choices: {question.get('question')}")
-    if len(set(choices)) != 4:
+    if len(set(choices)) != len(choices):
         raise ValueError(f"Question choices must be unique: {question.get('question')}")
     if question.get("correct_answer") not in choices:
         raise ValueError(f"Correct answer is missing from choices: {question.get('question')}")
+    if skill == "segment_word_parts":
+        morpheme_type = question.get("morpheme_type")
+        if morpheme_type == "prefix":
+            allowed_choices = set(PREFIX_FORM_BANK)
+        elif morpheme_type == "suffix":
+            allowed_choices = set(SUFFIX_FORM_BANK)
+        else:
+            allowed_choices = set()
+        if not morpheme_type or any(choice not in allowed_choices for choice in choices):
+            raise ValueError(
+                f"segment_word_parts choices must be lane-consistent affix units: {question.get('question')}"
+            )
     random.shuffle(choices)
     question["choices"] = choices
     question.setdefault("id", question_id_for(question))
@@ -1185,8 +1787,9 @@ def make_question(
     correct_answer,
     explanation,
     difficulty,
+    **extra_fields,
 ):
-    return validate_question_payload({
+    payload = {
         "step": step,
         "skill": skill,
         "mode": "pasuk" if question_type in {"phrase_meaning", "subject_identification"} else "word",
@@ -1206,11 +1809,34 @@ def make_question(
         "explanation": explanation,
         "difficulty": difficulty,
         "source": "generated pasuk flow",
+    }
+    payload.update({
+        key: value
+        for key, value in extra_fields.items()
+        if value not in {None, ""}
     })
+    return validate_question_payload(payload)
+
+
+def role_data(item):
+    return (item or {}).get("role_data") or {}
+
+
+def role_status(analyzed):
+    if not analyzed:
+        return "no_tokens"
+    return role_data(analyzed[0]).get("role_status", "unresolved")
 
 
 def get_verb(analyzed):
-    return find_first(analyzed, lambda entry, _token: entry_type(entry) == "verb")
+    return next(
+        (
+            item
+            for item in analyzed
+            if role_data(item).get("clause_role") == "verb"
+        ),
+        None,
+    )
 
 
 def get_prefixed_word(analyzed):
@@ -1240,12 +1866,29 @@ def choice_pool(values, correct, fallback):
 
 
 def prefix_meaning_choices(prefix):
-    options = PREFIX_MEANING_CHOICES.get(prefix)
-    if options:
-        return options
-
     correct = PREFIX_MEANINGS.get(prefix, "and")
-    return unique([correct, "and", "the", "in / with", "to / for", "from"])[:4]
+    return unique([correct] + [value for value in PREFIX_MEANING_BANK if value != correct])
+
+
+def suffix_form_choices(suffix):
+    correct_meaning = SUFFIX_MEANINGS.get(suffix)
+    distractors = [
+        form
+        for form in SUFFIX_FORM_BANK
+        if form != suffix and SUFFIX_MEANINGS.get(form) != correct_meaning
+    ]
+    return unique([suffix] + distractors)
+
+
+def has_lexical_plural_ending(entry, token, suffix):
+    normalized = normalize_hebrew_key(token or "")
+    if suffix not in {"\u05dd", "\u05df"}:
+        return False
+    if not normalized.endswith(("ים", "ין")):
+        return False
+    if (entry or {}).get("type") == "suffix_form":
+        return False
+    return entry_type(entry) in {"noun", "adj", "unknown"}
 
 
 QUESTION_VALIDATOR_REGISTRY = {}
@@ -1357,6 +2000,8 @@ def format_validation_reason(token, result):
         return f"{token} carries compound morphology, so a simple question would be ambiguous."
     if code == "context_dependent_suffix":
         return f"{token} depends on verb/context morphology, so it is not a safe isolated-word suffix question."
+    if code == "lexical_plural_ending":
+        return f"{token} ends with a normal plural/lexical ending, not a possessive suffix."
     if code == "no_clear_shoresh":
         return f"No clearly analyzed shoresh is available for {token}."
     if code == "shoresh_not_supported":
@@ -1485,6 +2130,12 @@ def suffix_validation_result(token, entry, correct_answer=None, choices=None, ch
         )
 
     expected_suffix = suffix_forms[0]
+    if has_lexical_plural_ending(entry, token, expected_suffix):
+        return invalid_result(
+            "lexical_plural_ending",
+            expected_suffix=expected_suffix,
+            normalized_token=normalize_hebrew_key(token),
+        )
     canonical_meaning = SUFFIX_MEANINGS.get(expected_suffix, "")
     entry_meaning = entry.get("suffix_meaning", "")
     if entry_meaning and canonical_meaning and entry_meaning != canonical_meaning:
@@ -1549,7 +2200,7 @@ def suffix_validation_result(token, entry, correct_answer=None, choices=None, ch
 
 def shoresh_validation_result(token, entry, correct_answer=None, choices=None, choice_entries=None):
     entry = entry or {}
-    expected_shoresh = entry.get("shoresh")
+    expected_shoresh = clean_shoresh_value(entry.get("shoresh"))
     if not expected_shoresh:
         return invalid_result("no_clear_shoresh")
 
@@ -1580,7 +2231,10 @@ def shoresh_validation_result(token, entry, correct_answer=None, choices=None, c
             competing = _competing_choice_tokens(
                 choice_entries,
                 token,
-                lambda _choice, choice_entry: _normalized_match(choice_entry.get("shoresh"), expected_shoresh),
+                lambda _choice, choice_entry: _normalized_match(
+                    clean_shoresh_value(choice_entry.get("shoresh")),
+                    expected_shoresh,
+                ),
                 correct_answer=correct_answer,
             )
         else:
@@ -1871,7 +2525,15 @@ def remember_selected_word(progress, word, entry=None):
         progress["recent_suffixes"] = progress["recent_suffixes"][-10:]
 
 
-def skill_question_payload(skill, target, question_text, choices, correct_answer, explanation):
+def skill_question_payload(
+    skill,
+    target,
+    question_text,
+    choices,
+    correct_answer,
+    explanation,
+    **extra_fields,
+):
     skill = resolve_skill_id(skill) or skill
     entry = target.get("entry") or {}
     metadata = SKILL_METADATA[skill]
@@ -1897,12 +2559,19 @@ def skill_question_payload(skill, target, question_text, choices, correct_answer
         "prefix_meaning": entry.get("prefix_meaning", ""),
         "suffix": entry.get("suffix", ""),
         "suffix_meaning": entry.get("suffix_meaning", ""),
-        "shoresh": entry.get("shoresh", ""),
+        "shoresh": clean_shoresh_value(entry.get("shoresh")) or "",
+        "tense": entry.get("tense", ""),
+        "part_of_speech": entry_type(entry),
         "explanation": explanation,
         "source": "generated skill question",
     }
     if target.get("source_pasuk"):
         payload["pasuk"] = target["source_pasuk"]
+    payload.update({
+        key: value
+        for key, value in extra_fields.items()
+        if value not in {None, ""}
+    })
     return validate_question_payload(payload)
 
 
@@ -1917,7 +2586,6 @@ def prefix_level_question_payload(
     explanation,
 ):
     choices = unique([correct_answer] + [choice for choice in choices if choice != correct_answer])
-    choices = choices[:4]
     question = skill_question_payload(
         skill,
         target,
@@ -2051,14 +2719,12 @@ def generate_question(
     def clean_choices(correct, candidates):
         choices = unique([correct] + [item for item in candidates if item and item != correct])
         if len(choices) < 4:
-            choices = unique(
-                choices
-                + [
-                    entry.get("translation")
-                    for entry in word_bank.values()
-                    if entry.get("translation") != correct
-                ]
-            )
+            fallback_candidates = [
+                usable_translation(entry, entry.get("word"))
+                for entry in word_bank_entries(word_bank, source_derived_only=True)
+                if usable_translation(entry, entry.get("word")) != correct
+            ]
+            choices = unique(choices + fallback_candidates)
         if len(choices) < 4:
             raise ValueError(f"Could not build 4 clean choices for {skill}: {choices}")
         choices = choices[:4]
@@ -2196,6 +2862,7 @@ def generate_question(
         *,
         add_prefix=False,
         add_suffix=False,
+        **extra_fields,
     ):
         cleaned_choices = clean_choices(correct, choices)
         choice_entries = None
@@ -2227,9 +2894,10 @@ def generate_question(
             cleaned_choices,
             correct,
             explanation,
+            **extra_fields,
         )
 
-    def grammar_choice_payload(target, question_text, correct, choices, explanation):
+    def grammar_choice_payload(target, question_text, correct, choices, explanation, **extra_fields):
         return validated_question_payload(
             skill,
             target,
@@ -2237,6 +2905,7 @@ def generate_question(
             correct,
             choices,
             explanation,
+            **extra_fields,
         )
 
     def choose_validated_suffix_target():
@@ -2321,7 +2990,7 @@ def generate_question(
         if level == 1:
             return validated_prefix_payload(
                 f"What is the prefix in {target['token']}?",
-                [prefix, "ו", "ב", "ל", "מ", "כ", "ה", "ש"],
+                PREFIX_FORM_BANK,
                 prefix,
                 f"The prefix in {target['token']} is {prefix}.",
             )
@@ -2352,7 +3021,7 @@ def generate_question(
         if level == 4:
             return validated_prefix_payload(
                 f"Which prefix means '{prefix_meaning}' here?",
-                ["ו", "ב", "ל", "מ", "כ", "ה", "ש"],
+                PREFIX_FORM_BANK,
                 prefix,
                 f"The word {target['token']} uses {prefix} for '{prefix_meaning}'.",
             )
@@ -2437,109 +3106,111 @@ def generate_question(
             correct = prefix
             meaning = PREFIX_MEANINGS.get(prefix)
             question_text = f"Which part means '{meaning}'?"
-            choices = [prefix, target["entry"].get("shoresh"), suffix, target["token"]]
+            choices = [prefix] + [form for form in PREFIX_FORM_BANK if form != prefix]
             explanation = f"In {target['token']}, {prefix} means '{meaning}'."
+            morpheme_type = "prefix"
         else:
+            if has_lexical_plural_ending(target["entry"], target["token"], suffix):
+                return skip_question_payload(
+                    skill,
+                    pasuk_text,
+                    "No word with a prefix or suffix found in this pasuk.",
+                )
             correct = suffix
             meaning = SUFFIX_MEANINGS.get(suffix)
             question_text = f"Which part means '{meaning}'?"
-            choices = [suffix, target["entry"].get("shoresh"), target["token"][:1], target["token"]]
+            choices = suffix_form_choices(suffix)
             explanation = f"In {target['token']}, {suffix} means '{meaning}'."
-        return grammar_choice_payload(target, question_text, correct, choices, explanation)
-
-    def people_translation_choices(correct):
-        return clean_choices(
+            morpheme_type = "suffix"
+        if len(unique(choices)) < 4:
+            return skip_question_payload(
+                skill,
+                pasuk_text,
+                "No clean affix-unit choices found in this pasuk.",
+            )
+        return grammar_choice_payload(
+            target,
+            question_text,
             correct,
-            [
-                usable_translation(entry, entry.get("word"))
-                for entry in word_bank_entries(word_bank, source_derived_only=True)
-                if is_person_like_entry(entry)
-                and usable_translation(entry, entry.get("word")) != correct
-            ],
+            choices[:4],
+            explanation,
+            morpheme_type=morpheme_type,
+            morpheme_form=correct,
         )
 
-    def noun_translation_choices(correct):
-        return clean_choices(
-            correct,
+    def people_translation_choices(
+        correct,
+        correct_entry=None,
+        question_type="subject_identification",
+        key="people",
+    ):
+        distractors = filtered_translation_values(
             [
-                usable_translation(entry, entry.get("word"))
-                for entry in word_bank.values()
-                if entry_type(entry) == "noun"
-                and usable_translation(entry, entry.get("word")) != correct
+                entry
+                for entry in word_bank_entries(word_bank, source_derived_only=True)
+                if is_person_like_entry(entry)
             ],
+            correct,
+            correct_entry,
+            question_type=question_type,
+        )
+        extra = (
+            ["someone else", "the man", "they"]
+            if question_type in {"subject_identification", "object_identification"}
+            else []
+        )
+        if question_type == "object_identification":
+            distractors = unique(
+                normalize_role_translation(value)
+                for value in distractors
+                if normalize_role_translation(value) and normalize_role_translation(value) != correct
+            )
+        return build_parallel_choices(
+            correct,
+            distractors,
+            f"{pasuk_text}|{skill}|{key}",
+            extra=extra,
+            token=(correct_entry or {}).get("word"),
+        )
+
+    def noun_translation_choices(
+        correct,
+        correct_entry=None,
+        question_type="object_identification",
+        key="nouns",
+    ):
+        distractors = filtered_translation_values(
+            [
+                entry
+                for entry in word_bank_entries(word_bank, source_derived_only=True)
+                if entry_type(entry) == "noun" and not is_person_like_entry(entry)
+            ],
+            correct,
+            correct_entry,
+            question_type=question_type,
+        )
+        if question_type == "object_identification":
+            distractors = unique(
+                normalize_role_translation(value)
+                for value in distractors
+                if normalize_role_translation(value) and normalize_role_translation(value) != correct
+            )
+        return build_parallel_choices(
+            correct,
+            distractors,
+            f"{pasuk_text}|{skill}|{key}",
+            extra=["something else"],
+            token=(correct_entry or {}).get("word"),
         )
 
     def phrase_parts():
-        source = get_source(analyzed)
-        marker, destination = get_destination(analyzed)
-        recipient = get_recipient(analyzed)
-        direct_object = get_direct_object(analyzed)
-        phrase_options = []
-        target_item = (
-            find_first(analyzed, lambda _entry, token: token not in asked_set)
-            or get_verb(analyzed)
-        )
-        target_token = target_item["token"] if target_item else None
-
-        source_text = translated_item_text(source)
-        destination_text = translated_item_text(destination)
-        recipient_text = translated_item_text(recipient)
-        direct_object_text = translated_item_text(direct_object)
-
-        if source and marker and destination and source_text and destination_text:
-            phrase = f"{source['token']} {marker['token']} {destination['token']}"
-            source_text = strip_relation(source_text)
-            destination_text = strip_relation(destination_text)
-            correct = f"from {source_text} to {destination_text}"
-            candidates = filtered_phrase_candidates([
-                f"in {source_text} to {destination_text}",
-                f"from {destination_text} to {source_text}",
-                f"from {source_text} in {destination_text}",
-                f"to {source_text} from {destination_text}",
-            ], phrase)
-            if target_token in phrase.split():
-                phrase_options.append((phrase, correct, candidates))
-
-        if direct_object and recipient and direct_object_text and recipient_text:
-            phrase = f"{direct_object['token']} {recipient['token']}"
-            recipient_text = strip_relation(recipient_text)
-            correct = f"{direct_object_text} to {recipient_text}"
-            candidates = filtered_phrase_candidates([
-                f"{direct_object_text} from {recipient_text}",
-                f"{direct_object_text} in {recipient_text}",
-                f"{recipient_text} to {direct_object_text}",
-                f"{direct_object_text} with {recipient_text}",
-            ], phrase)
-            if target_token in phrase.split():
-                phrase_options.append((phrase, correct, candidates))
-
-        phrase, phrase_items = varied_phrase_window(
-            analyzed,
-            target_token=target_token,
+        option = choose_phrase_option(
+            quiz_ready_phrase_options(analyzed),
             recent_phrases=asked_set,
-            key=f"{pasuk}|phrase_parts",
-            require_translatable=True,
         )
-        if phrase_items:
-            correct = format_translation(phrase_items, TRANSLATION_NATURAL)
-            literal = format_translation(phrase_items, TRANSLATION_LITERAL)
-            candidates = filtered_phrase_candidates([
-                literal,
-                " ".join(reversed([describe(item) for item in phrase_items])),
-                f"{describe(phrase_items[0])} in {describe(phrase_items[-1])}",
-                f"{describe(phrase_items[0])} from {describe(phrase_items[-1])}",
-                f"{describe(phrase_items[-1])} to {describe(phrase_items[0])}",
-            ], phrase)
-            if not is_placeholder_translation(correct, phrase):
-                phrase_options.append((phrase, correct, candidates))
-
-        if not phrase_options:
+        if not option:
             return None, None, []
-
-        unused = [item for item in phrase_options if item[0] not in asked_set]
-        return stable_rng(f"{pasuk}|phrase_choice|{len(asked_set)}").choice(
-            unused or phrase_options
-        )
+        return option["phrase"], option["correct"], option["candidates"]
 
     if skill == "shoresh":
         target = choose_validated_target(
@@ -2741,79 +3412,262 @@ def generate_question(
         )
 
     if skill == "subject_identification":
+        override = subject_override_components(pasuk_text)
         target = choose_target(
             lambda entry, _token: is_subject_candidate_entry(entry),
             lambda: get_subject(analyzed),
         )
         if target is None:
+            if override is not None:
+                return skill_question_payload(
+                    skill,
+                    override["target"],
+                    override["question"],
+                    override["choices"],
+                    override["correct_answer"],
+                    override["explanation"],
+                    action_token=override["action_token"],
+                    role_focus=override["role_focus"],
+                    source="active scope override",
+                    analysis_source="active_scope_override",
+                    override_pasuk_id=override["pasuk_id"],
+                )
             return skip_question_payload(skill, pasuk_text, "No subject candidate is supported by this pasuk.")
         correct = usable_translation(target["entry"], target["token"])
         if correct is None:
+            if override is not None:
+                return skill_question_payload(
+                    skill,
+                    override["target"],
+                    override["question"],
+                    override["choices"],
+                    override["correct_answer"],
+                    override["explanation"],
+                    action_token=override["action_token"],
+                    role_focus=override["role_focus"],
+                    source="active scope override",
+                    analysis_source="active_scope_override",
+                    override_pasuk_id=override["pasuk_id"],
+                )
             return skip_question_payload(skill, pasuk_text, "No usable subject translation is available for this pasuk.")
+        action = get_action_anchor(analyzed, target)
+        if action is None:
+            if override is not None:
+                return skill_question_payload(
+                    skill,
+                    override["target"],
+                    override["question"],
+                    override["choices"],
+                    override["correct_answer"],
+                    override["explanation"],
+                    action_token=override["action_token"],
+                    role_focus=override["role_focus"],
+                    source="active scope override",
+                    analysis_source="active_scope_override",
+                    override_pasuk_id=override["pasuk_id"],
+                )
+            return skip_question_payload(skill, pasuk_text, "No clear action anchor is available for this pasuk.")
         if mode == "selection":
             return finish(skill_question_payload(
                 skill,
                 target,
-                "Which word is doing the action?",
+                f"Which word is doing the action in {action['token']}?",
                 pasuk_word_choices(target["token"]),
                 target["token"],
-                f"{target['token']} is doing the action.",
+                f"In {action['token']}, {target['token']} is doing the action.",
+                action_token=action["token"],
+                role_focus="subject",
             ))
-        choices = people_translation_choices(correct)
+        try:
+            choices = people_translation_choices(
+                correct,
+                target["entry"],
+                question_type="subject_identification",
+            )
+        except ValueError:
+            if override is not None:
+                return skill_question_payload(
+                    skill,
+                    override["target"],
+                    override["question"],
+                    override["choices"],
+                    override["correct_answer"],
+                    override["explanation"],
+                    action_token=override["action_token"],
+                    role_focus=override["role_focus"],
+                    source="active scope override",
+                    analysis_source="active_scope_override",
+                    override_pasuk_id=override["pasuk_id"],
+                )
+            return skip_question_payload(
+                skill,
+                pasuk_text,
+                "No quiz-ready subject choices are available for this pasuk.",
+            )
         return skill_question_payload(
             skill,
             target,
             prompt(
-                "Who is doing the action?",
-                "Who is doing the action?",
+                f"Who is doing the action in {action['token']}?",
+                f"Who is doing the action in {action['token']}?",
                 "",
             ),
             choices,
             correct,
-            f"{target['token']} is the one doing the action.",
+            f"In {action['token']}, {target['token']} is doing the action.",
+            action_token=action["token"],
+            role_focus="subject",
         )
 
     if skill == "object_identification":
-        target = (
-            get_recipient(analyzed)
-            or get_direct_object(analyzed)
-            or find_first(
-                analyzed,
-                lambda entry, token: entry_type(entry) == "noun"
-                and not is_person_like_entry(entry)
-                and is_object_candidate_entry(entry, token, word_bank),
-            )
-        )
+        override = object_override_components(pasuk_text)
+        target = get_action_recipient(analyzed, word_bank) or get_direct_object(analyzed)
         if target is None:
+            if override is not None:
+                return skill_question_payload(
+                    skill,
+                    override["target"],
+                    override["question"],
+                    override["choices"],
+                    override["correct_answer"],
+                    override["explanation"],
+                    action_token=override["action_token"],
+                    role_focus=override["role_focus"],
+                    source="active scope override",
+                    analysis_source="active_scope_override",
+                    override_pasuk_id=override["pasuk_id"],
+                )
             return skip_question_payload(skill, pasuk_text, "No supported object target found in this pasuk.")
         target.setdefault("source_pasuk", pasuk_text)
         remember_selected_word(progress, target["token"], target["entry"])
+        action = get_action_anchor(analyzed, target)
+        if action is None:
+            if override is not None:
+                return skill_question_payload(
+                    skill,
+                    override["target"],
+                    override["question"],
+                    override["choices"],
+                    override["correct_answer"],
+                    override["explanation"],
+                    action_token=override["action_token"],
+                    role_focus=override["role_focus"],
+                    source="active scope override",
+                    analysis_source="active_scope_override",
+                    override_pasuk_id=override["pasuk_id"],
+                )
+            return skip_question_payload(skill, pasuk_text, "No clear action anchor is available for this pasuk.")
 
         is_person_object = is_person_like_entry(target["entry"])
-        correct = (
-            strip_relation(usable_translation(target["entry"], target["token"]) or "")
-            if is_person_object or is_suffix_candidate(target["entry"], target["token"], word_bank)
-            else usable_translation(target["entry"], target["token"])
-        )
-        if not correct:
+        correct = usable_translation(target["entry"], target["token"])
+        if correct is None:
+            if override is not None:
+                return skill_question_payload(
+                    skill,
+                    override["target"],
+                    override["question"],
+                    override["choices"],
+                    override["correct_answer"],
+                    override["explanation"],
+                    action_token=override["action_token"],
+                    role_focus=override["role_focus"],
+                    source="active scope override",
+                    analysis_source="active_scope_override",
+                    override_pasuk_id=override["pasuk_id"],
+                )
             return skip_question_payload(skill, pasuk_text, "No usable object translation is available for this pasuk.")
-        choices = (
-            people_translation_choices(correct)
-            if is_person_object
-            else noun_translation_choices(correct)
-        )
-        question_text = (
-            "Who is the action done to?"
-            if is_person_object or is_suffix_candidate(target["entry"], target["token"], word_bank)
-            else "What does this word mean?"
-        )
+        correct = normalize_role_translation(correct)
+        if is_person_object:
+            try:
+                choices = people_translation_choices(
+                    correct,
+                    target["entry"],
+                    question_type="object_identification",
+                    key="object_people",
+                )
+            except ValueError:
+                if override is not None:
+                    return skill_question_payload(
+                        skill,
+                        override["target"],
+                        override["question"],
+                        override["choices"],
+                        override["correct_answer"],
+                        override["explanation"],
+                        action_token=override["action_token"],
+                        role_focus=override["role_focus"],
+                        source="active scope override",
+                        analysis_source="active_scope_override",
+                        override_pasuk_id=override["pasuk_id"],
+                    )
+                return skip_question_payload(
+                    skill,
+                    pasuk_text,
+                    "No quiz-ready object choices are available for this pasuk.",
+                )
+            question_text = f"Who receives the action in {action['token']}?"
+            explanation = f"In {action['token']}, {target['token']} is the one receiving the action."
+            role_focus = "recipient"
+        else:
+            if role_hint(target["entry"]) != "object_candidate":
+                if override is not None:
+                    return skill_question_payload(
+                        skill,
+                        override["target"],
+                        override["question"],
+                        override["choices"],
+                        override["correct_answer"],
+                        override["explanation"],
+                        action_token=override["action_token"],
+                        role_focus=override["role_focus"],
+                        source="active scope override",
+                        analysis_source="active_scope_override",
+                        override_pasuk_id=override["pasuk_id"],
+                    )
+                return skip_question_payload(
+                    skill,
+                    pasuk_text,
+                    "No clearly supported direct object target found in this pasuk.",
+                )
+            try:
+                choices = noun_translation_choices(
+                    correct,
+                    target["entry"],
+                    question_type="object_identification",
+                    key="object_nouns",
+                )
+            except ValueError:
+                if override is not None:
+                    return skill_question_payload(
+                        skill,
+                        override["target"],
+                        override["question"],
+                        override["choices"],
+                        override["correct_answer"],
+                        override["explanation"],
+                        action_token=override["action_token"],
+                        role_focus=override["role_focus"],
+                        source="active scope override",
+                        analysis_source="active_scope_override",
+                        override_pasuk_id=override["pasuk_id"],
+                    )
+                return skip_question_payload(
+                    skill,
+                    pasuk_text,
+                    "No quiz-ready object choices are available for this pasuk.",
+                )
+            question_text = f"What receives the action in {action['token']}?"
+            explanation = f"In {action['token']}, {target['token']} is what receives the action."
+            role_focus = "direct_object"
         return skill_question_payload(
             skill,
             target,
             question_text,
             choices,
             correct,
-            f"{target['token']} means '{correct}'.",
+            explanation,
+            action_token=action["token"],
+            role_focus=role_focus,
         )
 
     if skill == "preposition_meaning":
@@ -2841,13 +3695,26 @@ def generate_question(
         )
 
     if skill == "phrase_translation":
-        phrase, correct, candidates = phrase_parts()
-        if not phrase or not correct:
+        override = phrase_override_components(pasuk_text)
+        if override and override.get("suppress"):
             return skip_question_payload(
                 skill,
                 pasuk_text,
-                "No quiz-ready phrase target found in this pasuk.",
+                override["reason"],
+                source="active scope override",
             )
+        phrase, correct, candidates = phrase_parts()
+        if not phrase or not correct:
+            if override:
+                phrase = override["phrase"]
+                correct = override["correct_answer"]
+                candidates = [choice for choice in override["choices"] if choice != correct]
+            else:
+                return skip_question_payload(
+                    skill,
+                    pasuk_text,
+                    "No quiz-ready phrase target found in this pasuk.",
+                )
         if mode == "selection":
             phrase_tokens = phrase.split()
             distractors = []
@@ -2863,8 +3730,31 @@ def generate_question(
                 choices,
                 phrase,
                 f"{phrase} means '{correct}'.",
+                source="active scope override" if override and phrase == override.get("phrase") else "generated skill question",
+                analysis_source="active_scope_override" if override and phrase == override.get("phrase") else None,
+                override_pasuk_id=override.get("pasuk_id") if override and phrase == override.get("phrase") else None,
             ))
-        choices = clean_choices(correct, candidates)
+        if override and phrase == override.get("phrase"):
+            choices = override["choices"]
+        else:
+            try:
+                choices = build_parallel_choices(
+                    correct,
+                    candidates,
+                    f"{pasuk_text}|phrase_translation",
+                    token=phrase,
+                )
+            except ValueError:
+                if override:
+                    choices = override["choices"]
+                    phrase = override["phrase"]
+                    correct = override["correct_answer"]
+                else:
+                    return skip_question_payload(
+                        skill,
+                        pasuk_text,
+                        "No quiz-ready phrase target found in this pasuk.",
+                    )
         return skill_question_payload(
             skill,
             {"token": phrase, "entry": {"translation": correct}, "source_pasuk": pasuk_text},
@@ -2875,7 +3765,14 @@ def generate_question(
             ),
             choices,
             correct,
-            f"{phrase} means '{correct}'.",
+            (
+                override["explanation"]
+                if override and phrase == override.get("phrase")
+                else f"{phrase} means '{correct}'."
+            ),
+            source="active scope override" if override and phrase == override.get("phrase") else "generated skill question",
+            analysis_source="active_scope_override" if override and phrase == override.get("phrase") else None,
+            override_pasuk_id=override.get("pasuk_id") if override and phrase == override.get("phrase") else None,
         )
 
     target = choose_target(
@@ -2913,54 +3810,269 @@ def generate_question(
 
 
 def get_subject(analyzed):
-    verb = get_verb(analyzed)
-    if verb is None:
-        return None
-    verb_index = analyzed.index(verb)
-    return (
-        find_after(
-            analyzed,
-            verb_index,
-            lambda entry, _token: is_subject_candidate_entry(entry),
-        )
-        or find_first(
-            analyzed,
-            lambda entry, _token: is_subject_candidate_entry(entry),
-        )
+    return next(
+        (
+            item
+            for item in analyzed
+            if role_data(item).get("clause_role") == "subject"
+        ),
+        None,
     )
 
 
 def get_source(analyzed):
-    return find_first(analyzed, lambda entry, token: extract_prefix(token) == "\u05de")
+    phrase = get_phrase_role(analyzed, "source")
+    if phrase is None:
+        return None
+    return phrase.get("object")
 
 
 def get_recipient(analyzed):
-    return find_first(analyzed, lambda entry, token: extract_prefix(token) == "\u05dc")
+    return next(
+        (
+            item
+            for item in analyzed
+            if role_data(item).get("clause_role") == "recipient"
+        ),
+        None,
+    )
 
 
 def get_destination(analyzed):
-    marker = find_first(
-        analyzed,
-        lambda entry, token: token == "\u05d0\u05dc" or extract_prefix(token) == "\u05dc",
-    )
-    if marker is None:
+    phrase = get_phrase_role(analyzed, "destination")
+    if phrase is None:
         return None, None
-
-    marker_index = analyzed.index(marker)
-    obj = find_after(
-        analyzed,
-        marker_index,
-        lambda entry, _token: semantic_group(entry) in {"place", "person", "divine", "animal"},
-    )
-    return marker, obj
+    return phrase.get("marker"), phrase.get("object")
 
 
 def get_direct_object(analyzed):
-    return find_first(
-        analyzed,
-        lambda entry, token: is_object_candidate_entry(entry, token)
-        and not is_prefix_candidate(entry, token),
+    return next(
+        (
+            item
+            for item in analyzed
+            if role_data(item).get("clause_role") == "direct_object"
+        ),
+        None,
     )
+
+
+def get_phrase_role(analyzed, phrase_role):
+    marker = next(
+        (
+            item
+            for item in analyzed
+            if role_data(item).get("clause_role") == "prep_marker"
+            and role_data(item).get("phrase_role") == phrase_role
+        ),
+        None,
+    )
+    obj = next(
+        (
+            item
+            for item in analyzed
+            if role_data(item).get("phrase_role") == phrase_role
+            and role_data(item).get("clause_role") in {"recipient", "prepositional_object"}
+        ),
+        None,
+    )
+    if obj is None:
+        return None
+    details = role_data(obj)
+    span = details.get("phrase_span") or [analyzed.index(obj), analyzed.index(obj)]
+    text = " ".join(analyzed[index]["token"] for index in range(span[0], span[1] + 1))
+    return {
+        "marker": marker,
+        "object": obj,
+        "span": span,
+        "text": text,
+        "phrase_role": phrase_role,
+        "preposition_form": details.get("preposition_form"),
+        "preposition_meaning": details.get("preposition_meaning"),
+    }
+
+
+def subject_override_components(pasuk_text):
+    spec = active_scope_skill_override(pasuk_text, "subject_identification")
+    if not spec or spec.get("suppress"):
+        return None
+
+    subject_spec = spec.get("subject") or {}
+    action_token = spec.get("main_verb_token")
+    surface = subject_spec.get("surface")
+    translation = subject_spec.get("translation")
+    if not action_token or not surface or not translation:
+        return None
+
+    record = active_pasuk_record_for_text(pasuk_text) or {}
+    target = {
+        "token": surface,
+        "entry": override_target_entry(
+            surface,
+            translation,
+            semantic_group=subject_spec.get("semantic_group", "person"),
+            role_hint="subject_candidate",
+            entity_type=subject_spec.get("entity_type", "person"),
+        ),
+        "source_pasuk": pasuk_text,
+    }
+    choices = build_parallel_choices(
+        translation,
+        override_distractors(SUBJECT_OVERRIDE_DISTRACTOR_POOL, translation),
+        f"{pasuk_text}|subject_override",
+        token=surface,
+    )
+    return {
+        "pasuk_id": record.get("pasuk_id"),
+        "target": target,
+        "question": f"Who is doing the action in {action_token}?",
+        "choices": choices,
+        "correct_answer": translation,
+        "explanation": f"In {action_token}, {surface} is doing the action.",
+        "action_token": action_token,
+        "role_focus": "subject",
+    }
+
+
+def object_override_components(pasuk_text):
+    spec = active_scope_skill_override(pasuk_text, "object_identification")
+    if not spec or spec.get("suppress"):
+        return None
+
+    action_token = spec.get("main_verb_token")
+    if not action_token:
+        return None
+
+    record = active_pasuk_record_for_text(pasuk_text) or {}
+    recipient_spec = spec.get("recipient")
+    object_spec = spec.get("direct_object")
+
+    if recipient_spec:
+        surface = recipient_spec.get("surface")
+        translation = recipient_spec.get("translation")
+        if not surface or not translation:
+            return None
+        target = {
+            "token": surface,
+            "entry": override_target_entry(
+                surface,
+                translation,
+                semantic_group=recipient_spec.get("semantic_group", "person"),
+                role_hint="subject_candidate",
+                entity_type=recipient_spec.get("entity_type", "person"),
+            ),
+            "source_pasuk": pasuk_text,
+        }
+        choices = build_parallel_choices(
+            translation,
+            override_distractors(RECIPIENT_OVERRIDE_DISTRACTOR_POOL, translation),
+            f"{pasuk_text}|recipient_override",
+            token=surface,
+        )
+        return {
+            "pasuk_id": record.get("pasuk_id"),
+            "target": target,
+            "question": f"Who receives the action in {action_token}?",
+            "choices": choices,
+            "correct_answer": translation,
+            "explanation": f"In {action_token}, {surface} is the one receiving the action.",
+            "action_token": action_token,
+            "role_focus": "recipient",
+        }
+
+    if not object_spec:
+        return None
+
+    surface = object_spec.get("surface")
+    translation = object_spec.get("translation")
+    if not surface or not translation:
+        return None
+
+    target = {
+        "token": surface,
+        "entry": override_target_entry(
+            surface,
+            translation,
+            semantic_group=object_spec.get("semantic_group", "object"),
+            role_hint="object_candidate",
+            entity_type=object_spec.get("entity_type", "common_noun"),
+        ),
+        "source_pasuk": pasuk_text,
+    }
+    choices = build_parallel_choices(
+        translation,
+        override_distractors(OBJECT_OVERRIDE_DISTRACTOR_POOL, translation),
+        f"{pasuk_text}|object_override",
+        token=surface,
+    )
+    return {
+        "pasuk_id": record.get("pasuk_id"),
+        "target": target,
+        "question": f"What receives the action in {action_token}?",
+        "choices": choices,
+        "correct_answer": translation,
+        "explanation": f"In {action_token}, {surface} is what receives the action.",
+        "action_token": action_token,
+        "role_focus": "direct_object",
+    }
+
+
+def phrase_override_components(pasuk_text):
+    spec = active_scope_skill_override(pasuk_text, "phrase_translation")
+    if not spec:
+        return None
+    if spec.get("suppress"):
+        return {
+            "suppress": True,
+            "reason": (spec.get("suppress") or {}).get("reason")
+            or "No quiz-ready phrase target found in this pasuk.",
+        }
+
+    phrase_spec = spec.get("preferred_phrase") or {}
+    surface = phrase_spec.get("surface")
+    translation = phrase_spec.get("translation")
+    distractors = phrase_spec.get("distractors") or []
+    if not surface or not translation:
+        return None
+
+    record = active_pasuk_record_for_text(pasuk_text) or {}
+    choices = build_parallel_choices(
+        translation,
+        distractors,
+        f"{pasuk_text}|phrase_override",
+        token=surface,
+    )
+    return {
+        "pasuk_id": record.get("pasuk_id"),
+        "phrase": surface,
+        "question": "What does this phrase mean?",
+        "choices": choices,
+        "correct_answer": translation,
+        "explanation": f"Here, {surface} is the curated quiz-ready phrase and means '{translation}'.",
+    }
+
+
+def is_action_anchor_candidate(item):
+    if not item:
+        return False
+    entry = item["entry"]
+    token = item["token"]
+    if entity_type(entry) == "grammatical_particle":
+        return False
+    if entry_type(entry) in {"prep", "particle"}:
+        return False
+    if normalize_hebrew_key(token) in {"את", "ואת"}:
+        return False
+    if is_subject_candidate_entry(entry) or is_person_like_entry(entry):
+        return False
+    return True
+
+
+def get_action_anchor(analyzed, target=None):
+    return get_verb(analyzed)
+
+
+def get_action_recipient(analyzed, word_bank=None):
+    return get_recipient(analyzed)
 
 
 def get_prefixed_or_suffixed(analyzed, word_bank=None):
@@ -3027,39 +4139,40 @@ def build_pr_question(step, pasuk, analyzed, word_bank=None):
 
     if prefix and prefix_meaning:
         correct = prefix_meaning
-        partials = [
-            item
-            for item in prefix_meaning_choices(prefix)
-            if item != correct
-        ]
-        extra = [
-            value
-            for value in PREFIX_MEANINGS.values()
-            if value != correct
-        ]
-        clear = "possessive suffix"
+        partials = [item for item in prefix_meaning_choices(prefix) if item != correct]
+        extra = [value for value in PREFIX_MEANINGS.values() if value != correct]
         micro_standard = "PR1"
+        prompt = f"What does the prefix {prefix} add in {target['token']}?"
+        explanation = f"In {target['token']}, the prefix {prefix} adds '{correct}'."
+        morpheme_type = "prefix"
+        morpheme_form = prefix
     elif suffix and suffix_meaning:
         correct = suffix_meaning
-        partials = [
-            value
-            for value in SUFFIX_MEANINGS.values()
-            if value != correct
-        ]
-        extra = ["and", "the", "to / for"]
-        clear = "prefix meaning"
+        partials = [value for value in SUFFIX_MEANINGS.values() if value != correct]
+        extra = []
         micro_standard = "PR2"
+        prompt = f"What does the suffix {suffix} add in {target['token']}?"
+        explanation = f"In {target['token']}, the suffix {suffix} adds '{correct}'."
+        morpheme_type = "suffix"
+        morpheme_form = suffix
     else:
         raise ValueError("No quiz-ready prefix or suffix target found in this pasuk.")
 
-    choices = build_choices(correct, partials, clear, f"{pasuk}|pr", extra=extra)
-    prompt = stable_rng(f"{pasuk}|pr_prompt").choice(
-        [
-            f"What does {target['token']} add?",
-            f"What does {target['token']} add?",
-            f"What does {target['token']} add?",
-        ]
-    )
+    try:
+        choices = build_parallel_choices(
+            correct,
+            partials,
+            f"{pasuk}|pr",
+            extra=extra,
+            token=target["token"],
+        )
+    except ValueError:
+        return skip_question_payload(
+            "prefix_suffix",
+            pasuk,
+            "No quiz-ready morpheme choices found in this pasuk.",
+            source="generated pasuk flow",
+        )
     return make_question(
         step,
         "prefix_suffix",
@@ -3070,81 +4183,63 @@ def build_pr_question(step, pasuk, analyzed, word_bank=None):
         prompt,
         choices,
         correct,
-        f"{target['token']} is read as '{entry['translation']}'.",
+        explanation,
         3,
+        morpheme_type=morpheme_type,
+        morpheme_form=morpheme_form,
     )
 
 
 def build_phrase_question(step, pasuk, analyzed, recent_phrases=None):
-    source = get_source(analyzed)
-    marker, destination = get_destination(analyzed)
-    recipient = get_recipient(analyzed)
-    direct_object = get_direct_object(analyzed)
-    subject = get_subject(analyzed)
-    phrase_options = []
-    subject_text = strip_relation(translated_item_text(subject) or "someone else")
-    source_text = translated_item_text(source)
-    destination_text = translated_item_text(destination)
-    recipient_text = translated_item_text(recipient)
-    direct_object_text = translated_item_text(direct_object)
-
-    if source and marker and destination and source_text and destination_text:
-        phrase = f"{source['token']} {marker['token']} {destination['token']}"
-        source_text = strip_relation(source_text)
-        destination_text = strip_relation(destination_text)
-        correct = f"from {source_text} to {destination_text}"
-        partials = filtered_phrase_candidates([
-            f"from {source_text} in {destination_text}",
-            f"from {destination_text} to {source_text}",
-        ], phrase)
-        clear = f"from {source_text} to {subject_text}"
-        phrase_options.append((phrase, correct, partials, clear, []))
-
-    if recipient and direct_object and recipient_text and direct_object_text:
-        phrase = f"{direct_object['token']} {recipient['token']}"
-        recipient_text = strip_relation(recipient_text)
-        correct = f"{direct_object_text} to {recipient_text}"
-        partials = filtered_phrase_candidates([
-            f"{direct_object_text} from {recipient_text}",
-            f"{direct_object_text} with {recipient_text}",
-        ], phrase)
-        clear = f"{direct_object_text} to {subject_text}"
-        phrase_options.append((phrase, correct, partials, clear, []))
-
-    target_token = get_verb(analyzed)["token"] if get_verb(analyzed) else None
-    phrase, phrase_items = varied_phrase_window(
-        analyzed,
-        target_token=target_token,
+    override = phrase_override_components(pasuk)
+    if override and override.get("suppress"):
+        return skip_question_payload(
+            "phrase_meaning",
+            pasuk,
+            override["reason"],
+            source="active scope override",
+        )
+    option = choose_phrase_option(
+        quiz_ready_phrase_options(analyzed),
         recent_phrases=recent_phrases,
-        key=f"{pasuk}|build_phrase",
-        require_translatable=True,
     )
-    if phrase_items:
-        correct = format_translation(phrase_items, TRANSLATION_NATURAL)
-        literal = format_translation(phrase_items, TRANSLATION_LITERAL)
-        partials = filtered_phrase_candidates([
-            literal,
-            " ".join(reversed([describe(item) for item in phrase_items])),
-            f"{describe(phrase_items[0])} in {describe(phrase_items[-1])}",
-        ], phrase)
-        clear = f"{describe(phrase_items[-1])} from {describe(phrase_items[0])}"
-        extra = phrase_choice_fallbacks(analyzed, phrase_items, correct)
-        if not is_placeholder_translation(correct, phrase):
-            phrase_options.append((phrase, correct, partials, clear, extra))
-
-    if not phrase_options:
+    if not option and override:
+        option = {
+            "phrase": override["phrase"],
+            "correct": override["correct_answer"],
+            "candidates": [choice for choice in override["choices"] if choice != override["correct_answer"]],
+        }
+    if not option:
         return skip_question_payload(
             "phrase_meaning",
             pasuk,
             "No quiz-ready phrase target found in this pasuk.",
             source="generated pasuk flow",
         )
-
-    phrase, correct, partials, clear, extra = stable_rng(f"{pasuk}|phrase_question|{step}").choice(
-        phrase_options
-    )
-
-    choices = build_choices(correct, partials, clear, f"{pasuk}|phrase", extra=extra)
+    phrase = option["phrase"]
+    correct = option["correct"]
+    if override and phrase == override.get("phrase"):
+        choices = override["choices"]
+    else:
+        try:
+            choices = build_parallel_choices(
+                correct,
+                option["candidates"],
+                f"{pasuk}|phrase",
+                token=phrase,
+            )
+        except ValueError:
+            if override:
+                phrase = override["phrase"]
+                correct = override["correct_answer"]
+                choices = override["choices"]
+            else:
+                return skip_question_payload(
+                    "phrase_meaning",
+                    pasuk,
+                    "No quiz-ready phrase target found in this pasuk.",
+                    source="generated pasuk flow",
+                )
     return make_question(
         step,
         "phrase",
@@ -3155,14 +4250,41 @@ def build_phrase_question(step, pasuk, analyzed, recent_phrases=None):
         "What does this phrase mean?",
         choices,
         correct,
-        f"{phrase} functions as a combined phrase unit in the pasuk.",
+        (
+            override["explanation"]
+            if override and phrase == override.get("phrase")
+            else f"Here, {phrase} works together as one phrase and means '{correct}'."
+        ),
         4,
+        source="active scope override" if override and phrase == override.get("phrase") else "generated pasuk flow",
+        analysis_source="active_scope_override" if override and phrase == override.get("phrase") else None,
+        override_pasuk_id=override.get("pasuk_id") if override and phrase == override.get("phrase") else None,
     )
 
 
 def build_subject_question(step, pasuk, analyzed, by_group, word_bank=None):
+    override = subject_override_components(pasuk)
     subject = first_ready(analyzed, "subject_identification")
     if subject is None:
+        if override is not None:
+            return make_question(
+                step,
+                "subject_identification",
+                "SS",
+                "SS1",
+                "subject_identification",
+                override["target"]["token"],
+                override["question"],
+                override["choices"],
+                override["correct_answer"],
+                override["explanation"],
+                4,
+                action_token=override["action_token"],
+                role_focus=override["role_focus"],
+                source="active scope override",
+                analysis_source="active_scope_override",
+                override_pasuk_id=override["pasuk_id"],
+            )
         return skip_question_payload(
             "subject_identification",
             pasuk,
@@ -3171,41 +4293,102 @@ def build_subject_question(step, pasuk, analyzed, by_group, word_bank=None):
         )
     correct = usable_translation(subject["entry"], subject["token"])
     if correct is None:
+        if override is not None:
+            return make_question(
+                step,
+                "subject_identification",
+                "SS",
+                "SS1",
+                "subject_identification",
+                override["target"]["token"],
+                override["question"],
+                override["choices"],
+                override["correct_answer"],
+                override["explanation"],
+                4,
+                action_token=override["action_token"],
+                role_focus=override["role_focus"],
+                source="active scope override",
+                analysis_source="active_scope_override",
+                override_pasuk_id=override["pasuk_id"],
+            )
         return skip_question_payload(
             "subject_identification",
             pasuk,
             "No usable subject translation found in this pasuk.",
             source="generated pasuk flow",
         )
+    action = get_action_anchor(analyzed, subject)
+    if action is None:
+        if override is not None:
+            return make_question(
+                step,
+                "subject_identification",
+                "SS",
+                "SS1",
+                "subject_identification",
+                override["target"]["token"],
+                override["question"],
+                override["choices"],
+                override["correct_answer"],
+                override["explanation"],
+                4,
+                action_token=override["action_token"],
+                role_focus=override["role_focus"],
+                source="active scope override",
+                analysis_source="active_scope_override",
+                override_pasuk_id=override["pasuk_id"],
+            )
+        return skip_question_payload(
+            "subject_identification",
+            pasuk,
+            "No clear action anchor is available for this subject question.",
+            source="generated pasuk flow",
+        )
     distractor_entries = [
-        item["entry"]
-        for item in analyzed
-        if item is not subject
-        and item["entry"].get("semantic_group") in {"cosmic_entity", "place", "time", "object"}
-    ]
-    distractor_entries.extend(
-        entry
-        for entry in word_bank_entries(word_bank, source_derived_only=True)
-        if entry.get("semantic_group") in {"divine", "person", "cosmic_entity", "place"}
-    )
-    distractor_entries.extend(
         entry
         for entry in word_bank_entries(word_bank, source_derived_only=True)
         if is_person_like_entry(entry)
-    )
+    ]
     distractors = filtered_translation_values(
         distractor_entries,
         correct,
         subject["entry"],
         question_type="subject_identification",
     )
-    choices = build_choices(
-        correct,
-        distractors,
-        "someone else",
-        f"{pasuk}|subject",
-        extra=["not the subject", "the action", "the time"],
-    )
+    try:
+        choices = build_parallel_choices(
+            correct,
+            distractors,
+            f"{pasuk}|subject",
+            token=subject["token"],
+        )
+    except ValueError:
+        if override is not None:
+            return make_question(
+                step,
+                "subject_identification",
+                "SS",
+                "SS1",
+                "subject_identification",
+                override["target"]["token"],
+                override["question"],
+                override["choices"],
+                override["correct_answer"],
+                override["explanation"],
+                4,
+                action_token=override["action_token"],
+                role_focus=override["role_focus"],
+                source="active scope override",
+                analysis_source="active_scope_override",
+                override_pasuk_id=override["pasuk_id"],
+            )
+        return skip_question_payload(
+            "subject_identification",
+            pasuk,
+            "No quiz-ready subject choices found in this pasuk.",
+            source="generated pasuk flow",
+        )
     return make_question(
         step,
         "subject_identification",
@@ -3213,38 +4396,14 @@ def build_subject_question(step, pasuk, analyzed, by_group, word_bank=None):
         "SS1",
         "subject_identification",
         subject["token"],
-        "Who is doing the action?",
+        f"Who is doing the action in {action['token']}?",
         choices,
         correct,
-        f"{subject['token']} is doing the action.",
+        f"In {action['token']}, {subject['token']} is doing the action.",
         4,
+        action_token=action["token"],
+        role_focus="subject",
     )
-
-
-def phrase_choice_fallbacks(analyzed, phrase_items, correct):
-    fallbacks = []
-    for length in range(2, min(4, len(analyzed)) + 1):
-        for start in range(0, len(analyzed) - length + 1):
-            items = analyzed[start:start + length]
-            if not phrase_items_are_translatable(items):
-                continue
-            text = format_translation(items, TRANSLATION_NATURAL)
-            if text != correct and not is_placeholder_translation(text):
-                fallbacks.append(text)
-            reversed_text = " ".join(reversed([describe(item) for item in items]))
-            if reversed_text != correct and not is_placeholder_translation(reversed_text):
-                fallbacks.append(reversed_text)
-    if phrase_items:
-        fallbacks.extend(
-            filtered_phrase_candidates(
-                [
-                    f"{describe(phrase_items[0])} after {describe(phrase_items[-1])}",
-                    f"{describe(phrase_items[-1])} before {describe(phrase_items[0])}",
-                    "not a connected phrase",
-                ]
-            )
-        )
-    return unique(fallbacks)
 
 
 def build_shoresh_question(step, pasuk, analyzed, word_bank=None):
@@ -3358,30 +4517,42 @@ def build_tense_question(step, pasuk, analyzed):
 
 
 def build_flow_question(step, pasuk, analyzed):
-    source = get_source(analyzed)
-    marker, destination = get_destination(analyzed)
-    recipient = get_recipient(analyzed)
+    source_phrase = get_phrase_role(analyzed, "source")
+    destination_phrase = get_phrase_role(analyzed, "destination")
+    recipient_phrase = get_phrase_role(analyzed, "recipient")
+    source = source_phrase["object"] if source_phrase else None
+    destination = destination_phrase["object"] if destination_phrase else None
+    recipient = recipient_phrase["object"] if recipient_phrase else get_recipient(analyzed)
     direct_object = get_direct_object(analyzed)
     subject = get_subject(analyzed)
     verb = get_verb(analyzed)
 
-    if source and marker and destination:
+    if verb is None or subject is None:
+        return skip_question_payload(
+            "flow",
+            pasuk,
+            "No role-resolved clause is available for this flow question.",
+            source="generated pasuk flow",
+        )
+
+    if source_phrase and destination_phrase and source and destination:
         source_text = strip_relation(describe(source))
         destination_text = strip_relation(describe(destination))
-        correct = f"{source['token']} must be read as the starting point before {marker['token']} {destination['token']} can be read as the destination"
+        correct = f"{source_phrase['text']} must be read as the starting point before {destination_phrase['text']} can be read as the destination"
         partials = [
-            f"{marker['token']} {destination['token']} must be read as the starting point before {source['token']} can be read as the destination",
-            f"{source['token']} gives possession, while {marker['token']} {destination['token']} alone gives the full movement",
+            f"{destination_phrase['text']} must be read as the starting point before {source_phrase['text']} can be read as the destination",
+            f"{source_phrase['text']} gives possession, while {destination_phrase['text']} alone gives the full movement",
         ]
         clear = f"{subject['token']} must be read as the destination before {verb['token']} gives the action"
         explanation = "The flow depends on reading source and destination together."
         prompt = "What comes first?"
     elif recipient and direct_object:
         recipient_text = strip_relation(describe(recipient))
-        correct = f"{direct_object['token']} must be read as the object before {recipient['token']} can mark the receiver"
+        recipient_label = (recipient_phrase or {"text": recipient["token"]})["text"]
+        correct = f"{direct_object['token']} must be read as the object before {recipient_label} can mark the receiver"
         partials = [
-            f"{recipient['token']} must be read as the object before {direct_object['token']} can mark the receiver",
-            f"{verb['token']} shows transfer, but {recipient['token']} only shows possession and not receiver",
+            f"{recipient_label} must be read as the object before {direct_object['token']} can mark the receiver",
+            f"{verb['token']} shows transfer, but {recipient_label} only shows possession and not receiver",
         ]
         clear = f"{subject['token']} must be read as the receiver before {direct_object['token']} gives the object"
         explanation = "The flow depends on distinguishing the object from the receiver."
@@ -3413,14 +4584,21 @@ def build_flow_question(step, pasuk, analyzed):
 
 
 def build_substitution_question(step, pasuk, analyzed):
-    source = get_source(analyzed)
-    recipient = get_recipient(analyzed)
-    marker, destination = get_destination(analyzed)
+    source_phrase = get_phrase_role(analyzed, "source")
+    recipient_phrase = get_phrase_role(analyzed, "recipient")
+    destination_phrase = get_phrase_role(analyzed, "destination")
+    source = source_phrase["object"] if source_phrase else None
+    recipient = recipient_phrase["object"] if recipient_phrase else get_recipient(analyzed)
+    destination = destination_phrase["object"] if destination_phrase else None
 
     if source:
         prompt_variant = "impossible"
-        old = source["token"]
-        replacement = f"ב{source['token'][1:]}" if old.startswith("מ") else f"ב{old}"
+        old = source_phrase["text"] if source_phrase else source["token"]
+        replacement = (
+            f"ב{source['token'][1:]}"
+            if source["token"].startswith("מ")
+            else f"ב{source['token']}"
+        )
         correct = "movement away from that place would no longer be possible"
         partials = [
             "movement toward the destination would no longer be possible",
@@ -3429,17 +4607,21 @@ def build_substitution_question(step, pasuk, analyzed):
         clear = "the source clue would turn into a location-inside clue"
     elif recipient:
         prompt_variant = "new_meaning"
-        old = recipient["token"]
-        replacement = f"מ{recipient['token'][1:]}" if old.startswith("ל") else f"מ{old}"
+        old = recipient_phrase["text"] if recipient_phrase else recipient["token"]
+        replacement = (
+            f"מ{recipient['token'][1:]}"
+            if recipient["token"].startswith("ל")
+            else f"מ{recipient['token']}"
+        )
         correct = "movement away from that person would be introduced"
         partials = [
             "movement toward that person would become stronger",
             "possession by that person would become the main meaning",
         ]
         clear = "the receiver clue would become a source clue"
-    elif marker and destination:
+    elif destination_phrase and destination:
         prompt_variant = "breaks"
-        old = marker["token"]
+        old = destination_phrase["text"]
         replacement = "מן"
         correct = "the direction would change from toward to away from"
         partials = [
@@ -3450,6 +4632,13 @@ def build_substitution_question(step, pasuk, analyzed):
     else:
         prompt_variant = "change"
         verb = get_verb(analyzed)
+        if verb is None:
+            return skip_question_payload(
+                "substitution",
+                pasuk,
+                "No role-resolved clause is available for this substitution question.",
+                source="generated pasuk flow",
+            )
         old = verb["token"]
         replacement = "וישב"
         correct = "the action would change while the subject could stay the same"
@@ -3484,26 +4673,44 @@ def build_substitution_question(step, pasuk, analyzed):
 def build_reasoning_question(step, pasuk, analyzed):
     verb = get_verb(analyzed)
     subject = get_subject(analyzed)
-    source = get_source(analyzed)
-    recipient = get_recipient(analyzed)
+    source_phrase = get_phrase_role(analyzed, "source")
+    destination_phrase = get_phrase_role(analyzed, "destination")
+    recipient_phrase = get_phrase_role(analyzed, "recipient")
+    source = source_phrase["object"] if source_phrase else None
+    recipient = recipient_phrase["object"] if recipient_phrase else get_recipient(analyzed)
     direct_object = get_direct_object(analyzed)
-    marker, destination = get_destination(analyzed)
+    destination = destination_phrase["object"] if destination_phrase else None
 
-    if source and marker and destination:
-        correct = f"{verb['token']} gives the action, {subject['token']} gives the subject, {source['token']} gives the source, and {marker['token']} {destination['token']} gives the destination"
+    if verb is None or subject is None:
+        return skip_question_payload(
+            "reasoning",
+            pasuk,
+            "No role-resolved clause is available for this reasoning question.",
+            source="generated pasuk flow",
+        )
+
+    if source_phrase and destination_phrase and source and destination:
+        correct = (
+            f"{verb['token']} gives the action, {subject['token']} gives the subject, "
+            f"{source_phrase['text']} gives the source, and {destination_phrase['text']} gives the destination"
+        )
         partials = [
             f"{verb['token']} gives the action and {subject['token']} gives the subject, but the direction is only implied",
-            f"{source['token']} gives the destination and {marker['token']} {destination['token']} gives the starting point",
+            f"{source_phrase['text']} gives the destination and {destination_phrase['text']} gives the starting point",
         ]
         clear = f"{verb['token']} means gave, and {destination['token']} is the object being given"
         prompt = "Choose the best answer."
     elif recipient and direct_object:
-        correct = f"{verb['token']} gives the action, {subject['token']} gives the giver, {direct_object['token']} gives the object, and {recipient['token']} gives the receiver"
+        recipient_label = (recipient_phrase or {"text": recipient["token"]})["text"]
+        correct = (
+            f"{verb['token']} gives the action, {subject['token']} gives the giver, "
+            f"{direct_object['token']} gives the object, and {recipient_label} gives the receiver"
+        )
         partials = [
             f"{verb['token']} gives the action and {subject['token']} gives the giver, but the receiver is not marked",
-            f"{recipient['token']} gives the object, and {direct_object['token']} gives the receiver",
+            f"{recipient_label} gives the object, and {direct_object['token']} gives the receiver",
         ]
-        clear = f"{verb['token']} means went, and {recipient['token']} gives the destination city"
+        clear = f"{verb['token']} means went, and {recipient_label} gives the destination city"
         prompt = "Who gets the action?"
     else:
         correct = f"{verb['token']} gives the action, and {subject['token']} gives the subject"

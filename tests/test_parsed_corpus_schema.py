@@ -39,8 +39,9 @@ class ParsedCorpusSchemaTests(unittest.TestCase):
 
         self.assertEqual(
             sorted(first.keys()),
-            ["pasuk_id", "ref", "source_ref", "text", "token_records", "tokens"],
+            ["pasuk_id", "ref", "role_layer", "source_ref", "text", "token_records", "tokens"],
         )
+        self.assertIn(first["role_layer"]["status"], {"resolved", "no_main_verb", "ambiguous_main_verbs"})
         self.assertTrue(first["token_records"])
         token = first["token_records"][0]
         self.assertEqual(
@@ -50,12 +51,15 @@ class ParsedCorpusSchemaTests(unittest.TestCase):
                 "analysis_index",
                 "normalized",
                 "pasuk_id",
+                "role_data",
                 "selected_analysis",
                 "source_ref",
                 "surface",
                 "token_index",
             ],
         )
+        self.assertEqual(token["role_data"]["token_index"], 0)
+        self.assertEqual(token["role_data"]["token"], token["surface"])
 
     def test_source_metadata_is_preserved_correctly(self):
         artifacts = build_parsed_corpus_artifacts(

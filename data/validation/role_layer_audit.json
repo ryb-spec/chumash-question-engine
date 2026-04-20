@@ -1,0 +1,1279 @@
+{
+  "active_scope": {
+    "pesukim_count": 40,
+    "parsed_pesukim_count": 40,
+    "parsed_role_status_counts": {
+      "no_main_verb": 5,
+      "ambiguous_main_verbs": 20,
+      "resolved": 15
+    }
+  },
+  "parsed_artifact_without_overrides": {
+    "support": {
+      "subject_identification": {
+        "supported": 12,
+        "skipped": 28,
+        "skip_reasons": {
+          "No clear action anchor is available for this pasuk.": 21,
+          "No subject candidate is supported by this pasuk.": 7
+        },
+        "supported_refs": [
+          "1:12",
+          "1:14",
+          "1:16",
+          "1:18",
+          "1:20"
+        ]
+      },
+      "object_identification": {
+        "supported": 1,
+        "skipped": 39,
+        "skip_reasons": {
+          "No supported object target found in this pasuk.": 38,
+          "No clearly supported direct object target found in this pasuk.": 1
+        },
+        "supported_refs": [
+          "1:22"
+        ]
+      },
+      "phrase_translation": {
+        "supported": 10,
+        "skipped": 30,
+        "skip_reasons": {
+          "No quiz-ready phrase target found in this pasuk.": 30
+        },
+        "supported_refs": [
+          "1:12",
+          "1:14",
+          "1:16",
+          "1:18",
+          "1:20"
+        ]
+      }
+    },
+    "examples": {
+      "subject_identification": {
+        "supported_examples": [
+          {
+            "ref": "1:12",
+            "question": "Who is doing the action in וַיַּרְא?",
+            "correct_answer": "God",
+            "reason": null,
+            "source": "generated skill question",
+            "analysis_source": null
+          },
+          {
+            "ref": "1:14",
+            "question": "Who is doing the action in וַיֹּאמֶר?",
+            "correct_answer": "God",
+            "reason": null,
+            "source": "generated skill question",
+            "analysis_source": null
+          },
+          {
+            "ref": "1:16",
+            "question": "Who is doing the action in וַיַּעַשׂ?",
+            "correct_answer": "God",
+            "reason": null,
+            "source": "generated skill question",
+            "analysis_source": null
+          },
+          {
+            "ref": "1:18",
+            "question": "Who is doing the action in וַיַּרְא?",
+            "correct_answer": "God",
+            "reason": null,
+            "source": "generated skill question",
+            "analysis_source": null
+          },
+          {
+            "ref": "1:20",
+            "question": "Who is doing the action in וַיֹּאמֶר?",
+            "correct_answer": "God",
+            "reason": null,
+            "source": "generated skill question",
+            "analysis_source": null
+          }
+        ],
+        "skipped_examples": [
+          {
+            "ref": "1:1",
+            "question": null,
+            "correct_answer": null,
+            "reason": "No clear action anchor is available for this pasuk.",
+            "source": "generated skill question",
+            "analysis_source": null
+          },
+          {
+            "ref": "1:2",
+            "question": null,
+            "correct_answer": null,
+            "reason": "No clear action anchor is available for this pasuk.",
+            "source": "generated skill question",
+            "analysis_source": null
+          },
+          {
+            "ref": "1:3",
+            "question": null,
+            "correct_answer": null,
+            "reason": "No clear action anchor is available for this pasuk.",
+            "source": "generated skill question",
+            "analysis_source": null
+          },
+          {
+            "ref": "1:4",
+            "question": null,
+            "correct_answer": null,
+            "reason": "No clear action anchor is available for this pasuk.",
+            "source": "generated skill question",
+            "analysis_source": null
+          },
+          {
+            "ref": "1:5",
+            "question": null,
+            "correct_answer": null,
+            "reason": "No clear action anchor is available for this pasuk.",
+            "source": "generated skill question",
+            "analysis_source": null
+          }
+        ]
+      },
+      "object_identification": {
+        "supported_examples": [
+          {
+            "ref": "1:22",
+            "question": "What receives the action in וַיְבָרֶךְ?",
+            "correct_answer": "them",
+            "reason": null,
+            "source": "generated skill question",
+            "analysis_source": null
+          }
+        ],
+        "skipped_examples": [
+          {
+            "ref": "1:1",
+            "question": null,
+            "correct_answer": null,
+            "reason": "No supported object target found in this pasuk.",
+            "source": "generated skill question",
+            "analysis_source": null
+          },
+          {
+            "ref": "1:2",
+            "question": null,
+            "correct_answer": null,
+            "reason": "No supported object target found in this pasuk.",
+            "source": "generated skill question",
+            "analysis_source": null
+          },
+          {
+            "ref": "1:3",
+            "question": null,
+            "correct_answer": null,
+            "reason": "No supported object target found in this pasuk.",
+            "source": "generated skill question",
+            "analysis_source": null
+          },
+          {
+            "ref": "1:4",
+            "question": null,
+            "correct_answer": null,
+            "reason": "No supported object target found in this pasuk.",
+            "source": "generated skill question",
+            "analysis_source": null
+          },
+          {
+            "ref": "1:5",
+            "question": null,
+            "correct_answer": null,
+            "reason": "No supported object target found in this pasuk.",
+            "source": "generated skill question",
+            "analysis_source": null
+          }
+        ]
+      },
+      "phrase_translation": {
+        "supported_examples": [
+          {
+            "ref": "1:12",
+            "question": "What does this phrase mean?",
+            "correct_answer": "God saw",
+            "reason": null,
+            "source": "generated skill question",
+            "analysis_source": null
+          },
+          {
+            "ref": "1:14",
+            "question": "What does this phrase mean?",
+            "correct_answer": "God said",
+            "reason": null,
+            "source": "generated skill question",
+            "analysis_source": null
+          },
+          {
+            "ref": "1:16",
+            "question": "What does this phrase mean?",
+            "correct_answer": "God made",
+            "reason": null,
+            "source": "generated skill question",
+            "analysis_source": null
+          },
+          {
+            "ref": "1:18",
+            "question": "What does this phrase mean?",
+            "correct_answer": "God saw",
+            "reason": null,
+            "source": "generated skill question",
+            "analysis_source": null
+          },
+          {
+            "ref": "1:20",
+            "question": "What does this phrase mean?",
+            "correct_answer": "God said",
+            "reason": null,
+            "source": "generated skill question",
+            "analysis_source": null
+          }
+        ],
+        "skipped_examples": [
+          {
+            "ref": "1:1",
+            "question": null,
+            "correct_answer": null,
+            "reason": "No quiz-ready phrase target found in this pasuk.",
+            "source": "generated skill question",
+            "analysis_source": null
+          },
+          {
+            "ref": "1:2",
+            "question": null,
+            "correct_answer": null,
+            "reason": "No quiz-ready phrase target found in this pasuk.",
+            "source": "generated skill question",
+            "analysis_source": null
+          },
+          {
+            "ref": "1:3",
+            "question": null,
+            "correct_answer": null,
+            "reason": "No quiz-ready phrase target found in this pasuk.",
+            "source": "generated skill question",
+            "analysis_source": null
+          },
+          {
+            "ref": "1:4",
+            "question": null,
+            "correct_answer": null,
+            "reason": "No quiz-ready phrase target found in this pasuk.",
+            "source": "generated skill question",
+            "analysis_source": null
+          },
+          {
+            "ref": "1:5",
+            "question": null,
+            "correct_answer": null,
+            "reason": "No quiz-ready phrase target found in this pasuk.",
+            "source": "generated skill question",
+            "analysis_source": null
+          }
+        ]
+      }
+    }
+  },
+  "parsed_artifact_with_overrides": {
+    "support": {
+      "subject_identification": {
+        "supported": 18,
+        "skipped": 22,
+        "skip_reasons": {
+          "No clear action anchor is available for this pasuk.": 15,
+          "No subject candidate is supported by this pasuk.": 7
+        },
+        "supported_refs": [
+          "1:1",
+          "1:3",
+          "1:4",
+          "1:7",
+          "1:12"
+        ]
+      },
+      "object_identification": {
+        "supported": 11,
+        "skipped": 29,
+        "skip_reasons": {
+          "No supported object target found in this pasuk.": 28,
+          "No clearly supported direct object target found in this pasuk.": 1
+        },
+        "supported_refs": [
+          "1:4",
+          "1:7",
+          "1:16",
+          "1:17",
+          "1:22"
+        ]
+      },
+      "phrase_translation": {
+        "supported": 17,
+        "skipped": 23,
+        "skip_reasons": {
+          "No quiz-ready phrase target found in this pasuk.": 23
+        },
+        "supported_refs": [
+          "1:1",
+          "1:3",
+          "1:4",
+          "1:7",
+          "1:12"
+        ]
+      }
+    },
+    "examples": {
+      "subject_identification": {
+        "supported_examples": [
+          {
+            "ref": "1:1",
+            "question": "Who is doing the action in בָּרָא?",
+            "correct_answer": "God",
+            "reason": null,
+            "source": "active scope override",
+            "analysis_source": "active_scope_override"
+          },
+          {
+            "ref": "1:3",
+            "question": "Who is doing the action in וַיֹּאמֶר?",
+            "correct_answer": "God",
+            "reason": null,
+            "source": "active scope override",
+            "analysis_source": "active_scope_override"
+          },
+          {
+            "ref": "1:4",
+            "question": "Who is doing the action in וַיַּרְא?",
+            "correct_answer": "God",
+            "reason": null,
+            "source": "active scope override",
+            "analysis_source": "active_scope_override"
+          },
+          {
+            "ref": "1:7",
+            "question": "Who is doing the action in וַיַּעַשׂ?",
+            "correct_answer": "God",
+            "reason": null,
+            "source": "active scope override",
+            "analysis_source": "active_scope_override"
+          },
+          {
+            "ref": "1:12",
+            "question": "Who is doing the action in וַיַּרְא?",
+            "correct_answer": "God",
+            "reason": null,
+            "source": "generated skill question",
+            "analysis_source": null
+          }
+        ],
+        "skipped_examples": [
+          {
+            "ref": "1:2",
+            "question": null,
+            "correct_answer": null,
+            "reason": "No clear action anchor is available for this pasuk.",
+            "source": "generated skill question",
+            "analysis_source": null
+          },
+          {
+            "ref": "1:5",
+            "question": null,
+            "correct_answer": null,
+            "reason": "No clear action anchor is available for this pasuk.",
+            "source": "generated skill question",
+            "analysis_source": null
+          },
+          {
+            "ref": "1:6",
+            "question": null,
+            "correct_answer": null,
+            "reason": "No clear action anchor is available for this pasuk.",
+            "source": "generated skill question",
+            "analysis_source": null
+          },
+          {
+            "ref": "1:8",
+            "question": null,
+            "correct_answer": null,
+            "reason": "No clear action anchor is available for this pasuk.",
+            "source": "generated skill question",
+            "analysis_source": null
+          },
+          {
+            "ref": "1:9",
+            "question": null,
+            "correct_answer": null,
+            "reason": "No clear action anchor is available for this pasuk.",
+            "source": "generated skill question",
+            "analysis_source": null
+          }
+        ]
+      },
+      "object_identification": {
+        "supported_examples": [
+          {
+            "ref": "1:4",
+            "question": "What receives the action in וַיַּרְא?",
+            "correct_answer": "the light",
+            "reason": null,
+            "source": "active scope override",
+            "analysis_source": "active_scope_override"
+          },
+          {
+            "ref": "1:7",
+            "question": "What receives the action in וַיַּעַשׂ?",
+            "correct_answer": "the expanse",
+            "reason": null,
+            "source": "active scope override",
+            "analysis_source": "active_scope_override"
+          },
+          {
+            "ref": "1:16",
+            "question": "What receives the action in וַיַּעַשׂ?",
+            "correct_answer": "the two great lights",
+            "reason": null,
+            "source": "active scope override",
+            "analysis_source": "active_scope_override"
+          },
+          {
+            "ref": "1:17",
+            "question": "What receives the action in וַיִּתֵּן?",
+            "correct_answer": "them",
+            "reason": null,
+            "source": "active scope override",
+            "analysis_source": "active_scope_override"
+          },
+          {
+            "ref": "1:22",
+            "question": "What receives the action in וַיְבָרֶךְ?",
+            "correct_answer": "them",
+            "reason": null,
+            "source": "generated skill question",
+            "analysis_source": null
+          }
+        ],
+        "skipped_examples": [
+          {
+            "ref": "1:1",
+            "question": null,
+            "correct_answer": null,
+            "reason": "No supported object target found in this pasuk.",
+            "source": "generated skill question",
+            "analysis_source": null
+          },
+          {
+            "ref": "1:2",
+            "question": null,
+            "correct_answer": null,
+            "reason": "No supported object target found in this pasuk.",
+            "source": "generated skill question",
+            "analysis_source": null
+          },
+          {
+            "ref": "1:3",
+            "question": null,
+            "correct_answer": null,
+            "reason": "No supported object target found in this pasuk.",
+            "source": "generated skill question",
+            "analysis_source": null
+          },
+          {
+            "ref": "1:5",
+            "question": null,
+            "correct_answer": null,
+            "reason": "No supported object target found in this pasuk.",
+            "source": "generated skill question",
+            "analysis_source": null
+          },
+          {
+            "ref": "1:6",
+            "question": null,
+            "correct_answer": null,
+            "reason": "No supported object target found in this pasuk.",
+            "source": "generated skill question",
+            "analysis_source": null
+          }
+        ]
+      },
+      "phrase_translation": {
+        "supported_examples": [
+          {
+            "ref": "1:1",
+            "question": "What does this phrase mean?",
+            "correct_answer": "God created",
+            "reason": null,
+            "source": "active scope override",
+            "analysis_source": "active_scope_override"
+          },
+          {
+            "ref": "1:3",
+            "question": "What does this phrase mean?",
+            "correct_answer": "God said",
+            "reason": null,
+            "source": "active scope override",
+            "analysis_source": "active_scope_override"
+          },
+          {
+            "ref": "1:4",
+            "question": "What does this phrase mean?",
+            "correct_answer": "God saw the light",
+            "reason": null,
+            "source": "active scope override",
+            "analysis_source": "active_scope_override"
+          },
+          {
+            "ref": "1:7",
+            "question": "What does this phrase mean?",
+            "correct_answer": "God made the expanse",
+            "reason": null,
+            "source": "active scope override",
+            "analysis_source": "active_scope_override"
+          },
+          {
+            "ref": "1:12",
+            "question": "What does this phrase mean?",
+            "correct_answer": "God saw",
+            "reason": null,
+            "source": "generated skill question",
+            "analysis_source": null
+          }
+        ],
+        "skipped_examples": [
+          {
+            "ref": "1:2",
+            "question": null,
+            "correct_answer": null,
+            "reason": "No quiz-ready phrase target found in this pasuk.",
+            "source": "generated skill question",
+            "analysis_source": null
+          },
+          {
+            "ref": "1:5",
+            "question": null,
+            "correct_answer": null,
+            "reason": "No quiz-ready phrase target found in this pasuk.",
+            "source": "generated skill question",
+            "analysis_source": null
+          },
+          {
+            "ref": "1:6",
+            "question": null,
+            "correct_answer": null,
+            "reason": "No quiz-ready phrase target found in this pasuk.",
+            "source": "generated skill question",
+            "analysis_source": null
+          },
+          {
+            "ref": "1:8",
+            "question": null,
+            "correct_answer": null,
+            "reason": "No quiz-ready phrase target found in this pasuk.",
+            "source": "generated skill question",
+            "analysis_source": null
+          },
+          {
+            "ref": "1:9",
+            "question": null,
+            "correct_answer": null,
+            "reason": "No quiz-ready phrase target found in this pasuk.",
+            "source": "generated skill question",
+            "analysis_source": null
+          }
+        ]
+      }
+    }
+  },
+  "gold_truth": {
+    "subject_identification": {
+      "approved": 30,
+      "suppressed": 10,
+      "approved_refs": [
+        "1:1",
+        "1:3",
+        "1:4",
+        "1:5",
+        "1:6",
+        "1:7",
+        "1:8",
+        "1:9",
+        "1:10",
+        "1:11",
+        "1:12",
+        "1:14",
+        "1:16",
+        "1:17",
+        "1:18",
+        "1:20",
+        "1:21",
+        "1:22",
+        "1:24",
+        "1:25",
+        "1:26",
+        "1:27",
+        "1:28",
+        "1:29",
+        "1:31",
+        "2:2",
+        "2:3",
+        "2:7",
+        "2:8",
+        "2:9"
+      ],
+      "suppressed_refs": [
+        "1:2",
+        "1:13",
+        "1:15",
+        "1:19",
+        "1:23",
+        "1:30",
+        "2:1",
+        "2:4",
+        "2:5",
+        "2:6"
+      ]
+    },
+    "object_identification": {
+      "approved": 15,
+      "suppressed": 25,
+      "approved_refs": [
+        "1:4",
+        "1:7",
+        "1:16",
+        "1:17",
+        "1:21",
+        "1:22",
+        "1:25",
+        "1:27",
+        "1:28",
+        "1:31",
+        "2:2",
+        "2:3",
+        "2:7",
+        "2:8",
+        "2:9"
+      ],
+      "suppressed_refs": [
+        "1:1",
+        "1:2",
+        "1:3",
+        "1:5",
+        "1:6",
+        "1:8",
+        "1:9",
+        "1:10",
+        "1:11",
+        "1:12",
+        "1:13",
+        "1:14",
+        "1:15",
+        "1:18",
+        "1:19",
+        "1:20",
+        "1:23",
+        "1:24",
+        "1:26",
+        "1:29",
+        "1:30",
+        "2:1",
+        "2:4",
+        "2:5",
+        "2:6"
+      ]
+    },
+    "phrase_translation": {
+      "approved": 27,
+      "suppressed": 13,
+      "approved_refs": [
+        "1:1",
+        "1:3",
+        "1:4",
+        "1:6",
+        "1:7",
+        "1:9",
+        "1:11",
+        "1:12",
+        "1:14",
+        "1:16",
+        "1:17",
+        "1:18",
+        "1:20",
+        "1:21",
+        "1:22",
+        "1:24",
+        "1:25",
+        "1:26",
+        "1:27",
+        "1:28",
+        "1:29",
+        "1:31",
+        "2:2",
+        "2:3",
+        "2:7",
+        "2:8",
+        "2:9"
+      ],
+      "suppressed_refs": [
+        "1:2",
+        "1:5",
+        "1:8",
+        "1:10",
+        "1:13",
+        "1:15",
+        "1:19",
+        "1:23",
+        "1:30",
+        "2:1",
+        "2:4",
+        "2:5",
+        "2:6"
+      ]
+    }
+  },
+  "parser_vs_gold": {
+    "subject_identification": {
+      "matched_approved_refs": [
+        "1:12",
+        "1:14",
+        "1:16",
+        "1:18",
+        "1:20",
+        "1:21",
+        "1:22",
+        "1:26",
+        "1:29",
+        "2:2",
+        "2:3",
+        "2:9"
+      ],
+      "matched_approved_count": 12,
+      "missed_gold_refs": [
+        "1:1",
+        "1:3",
+        "1:4",
+        "1:5",
+        "1:6",
+        "1:7",
+        "1:8",
+        "1:9",
+        "1:10",
+        "1:11",
+        "1:17",
+        "1:24",
+        "1:25",
+        "1:27",
+        "1:28",
+        "1:31",
+        "2:7",
+        "2:8"
+      ],
+      "missed_gold_count": 18,
+      "matched_suppressed_refs": [
+        "1:2",
+        "1:13",
+        "1:15",
+        "1:19",
+        "1:23",
+        "1:30",
+        "2:1",
+        "2:4",
+        "2:5",
+        "2:6"
+      ],
+      "matched_suppressed_count": 10,
+      "unsupported_in_gold_refs": [
+        "1:2",
+        "1:13",
+        "1:15",
+        "1:19",
+        "1:23",
+        "1:30",
+        "2:1",
+        "2:4",
+        "2:5",
+        "2:6"
+      ],
+      "unsupported_in_gold_count": 10
+    },
+    "object_identification": {
+      "matched_approved_refs": [
+        "1:22"
+      ],
+      "matched_approved_count": 1,
+      "missed_gold_refs": [
+        "1:4",
+        "1:7",
+        "1:16",
+        "1:17",
+        "1:21",
+        "1:25",
+        "1:27",
+        "1:28",
+        "1:31",
+        "2:2",
+        "2:3",
+        "2:7",
+        "2:8",
+        "2:9"
+      ],
+      "missed_gold_count": 14,
+      "matched_suppressed_refs": [
+        "1:1",
+        "1:2",
+        "1:3",
+        "1:5",
+        "1:6",
+        "1:8",
+        "1:9",
+        "1:10",
+        "1:11",
+        "1:12",
+        "1:13",
+        "1:14",
+        "1:15",
+        "1:18",
+        "1:19",
+        "1:20",
+        "1:23",
+        "1:24",
+        "1:26",
+        "1:29",
+        "1:30",
+        "2:1",
+        "2:4",
+        "2:5",
+        "2:6"
+      ],
+      "matched_suppressed_count": 25,
+      "unsupported_in_gold_refs": [
+        "1:1",
+        "1:2",
+        "1:3",
+        "1:5",
+        "1:6",
+        "1:8",
+        "1:9",
+        "1:10",
+        "1:11",
+        "1:12",
+        "1:13",
+        "1:14",
+        "1:15",
+        "1:18",
+        "1:19",
+        "1:20",
+        "1:23",
+        "1:24",
+        "1:26",
+        "1:29",
+        "1:30",
+        "2:1",
+        "2:4",
+        "2:5",
+        "2:6"
+      ],
+      "unsupported_in_gold_count": 25
+    },
+    "phrase_translation": {
+      "matched_approved_refs": [
+        "1:12",
+        "1:14",
+        "1:16",
+        "1:18",
+        "1:20",
+        "1:21",
+        "1:22",
+        "1:26",
+        "1:29",
+        "2:2"
+      ],
+      "matched_approved_count": 10,
+      "missed_gold_refs": [
+        "1:1",
+        "1:3",
+        "1:4",
+        "1:6",
+        "1:7",
+        "1:9",
+        "1:11",
+        "1:17",
+        "1:24",
+        "1:25",
+        "1:27",
+        "1:28",
+        "1:31",
+        "2:3",
+        "2:7",
+        "2:8",
+        "2:9"
+      ],
+      "missed_gold_count": 17,
+      "matched_suppressed_refs": [
+        "1:2",
+        "1:5",
+        "1:8",
+        "1:10",
+        "1:13",
+        "1:15",
+        "1:19",
+        "1:23",
+        "1:30",
+        "2:1",
+        "2:4",
+        "2:5",
+        "2:6"
+      ],
+      "matched_suppressed_count": 13,
+      "unsupported_in_gold_refs": [
+        "1:2",
+        "1:5",
+        "1:8",
+        "1:10",
+        "1:13",
+        "1:15",
+        "1:19",
+        "1:23",
+        "1:30",
+        "2:1",
+        "2:4",
+        "2:5",
+        "2:6"
+      ],
+      "unsupported_in_gold_count": 13
+    }
+  },
+  "override_vs_gold": {
+    "subject_identification": {
+      "matched_approved_refs": [
+        "1:1",
+        "1:3",
+        "1:4",
+        "1:7",
+        "1:12",
+        "1:14",
+        "1:16",
+        "1:18",
+        "1:20",
+        "1:21",
+        "1:22",
+        "1:26",
+        "1:29",
+        "2:2",
+        "2:3",
+        "2:7",
+        "2:8",
+        "2:9"
+      ],
+      "matched_approved_count": 18,
+      "missed_gold_refs": [
+        "1:5",
+        "1:6",
+        "1:8",
+        "1:9",
+        "1:10",
+        "1:11",
+        "1:17",
+        "1:24",
+        "1:25",
+        "1:27",
+        "1:28",
+        "1:31"
+      ],
+      "missed_gold_count": 12,
+      "matched_suppressed_refs": [
+        "1:2",
+        "1:13",
+        "1:15",
+        "1:19",
+        "1:23",
+        "1:30",
+        "2:1",
+        "2:4",
+        "2:5",
+        "2:6"
+      ],
+      "matched_suppressed_count": 10,
+      "unsupported_in_gold_refs": [
+        "1:2",
+        "1:13",
+        "1:15",
+        "1:19",
+        "1:23",
+        "1:30",
+        "2:1",
+        "2:4",
+        "2:5",
+        "2:6"
+      ],
+      "unsupported_in_gold_count": 10
+    },
+    "object_identification": {
+      "matched_approved_refs": [
+        "1:4",
+        "1:7",
+        "1:16",
+        "1:17",
+        "1:22",
+        "1:27",
+        "2:2",
+        "2:3",
+        "2:7",
+        "2:8",
+        "2:9"
+      ],
+      "matched_approved_count": 11,
+      "missed_gold_refs": [
+        "1:21",
+        "1:25",
+        "1:28",
+        "1:31"
+      ],
+      "missed_gold_count": 4,
+      "matched_suppressed_refs": [
+        "1:1",
+        "1:2",
+        "1:3",
+        "1:5",
+        "1:6",
+        "1:8",
+        "1:9",
+        "1:10",
+        "1:11",
+        "1:12",
+        "1:13",
+        "1:14",
+        "1:15",
+        "1:18",
+        "1:19",
+        "1:20",
+        "1:23",
+        "1:24",
+        "1:26",
+        "1:29",
+        "1:30",
+        "2:1",
+        "2:4",
+        "2:5",
+        "2:6"
+      ],
+      "matched_suppressed_count": 25,
+      "unsupported_in_gold_refs": [
+        "1:1",
+        "1:2",
+        "1:3",
+        "1:5",
+        "1:6",
+        "1:8",
+        "1:9",
+        "1:10",
+        "1:11",
+        "1:12",
+        "1:13",
+        "1:14",
+        "1:15",
+        "1:18",
+        "1:19",
+        "1:20",
+        "1:23",
+        "1:24",
+        "1:26",
+        "1:29",
+        "1:30",
+        "2:1",
+        "2:4",
+        "2:5",
+        "2:6"
+      ],
+      "unsupported_in_gold_count": 25
+    },
+    "phrase_translation": {
+      "matched_approved_refs": [
+        "1:1",
+        "1:3",
+        "1:4",
+        "1:7",
+        "1:12",
+        "1:14",
+        "1:16",
+        "1:18",
+        "1:20",
+        "1:21",
+        "1:22",
+        "1:26",
+        "1:29",
+        "2:2",
+        "2:3",
+        "2:7",
+        "2:8"
+      ],
+      "matched_approved_count": 17,
+      "missed_gold_refs": [
+        "1:6",
+        "1:9",
+        "1:11",
+        "1:17",
+        "1:24",
+        "1:25",
+        "1:27",
+        "1:28",
+        "1:31",
+        "2:9"
+      ],
+      "missed_gold_count": 10,
+      "matched_suppressed_refs": [
+        "1:2",
+        "1:5",
+        "1:8",
+        "1:10",
+        "1:13",
+        "1:15",
+        "1:19",
+        "1:23",
+        "1:30",
+        "2:1",
+        "2:4",
+        "2:5",
+        "2:6"
+      ],
+      "matched_suppressed_count": 13,
+      "unsupported_in_gold_refs": [
+        "1:2",
+        "1:5",
+        "1:8",
+        "1:10",
+        "1:13",
+        "1:15",
+        "1:19",
+        "1:23",
+        "1:30",
+        "2:1",
+        "2:4",
+        "2:5",
+        "2:6"
+      ],
+      "unsupported_in_gold_count": 13
+    }
+  },
+  "override_delta_supported": {
+    "subject_identification": 6,
+    "object_identification": 10,
+    "phrase_translation": 7
+  },
+  "override_improvements": {
+    "subject_identification": [
+      "1:1",
+      "1:3",
+      "1:4",
+      "1:7",
+      "2:7",
+      "2:8"
+    ],
+    "object_identification": [
+      "1:16",
+      "1:17",
+      "1:27",
+      "1:4",
+      "1:7",
+      "2:2",
+      "2:3",
+      "2:7",
+      "2:8",
+      "2:9"
+    ],
+    "phrase_translation": [
+      "1:1",
+      "1:3",
+      "1:4",
+      "1:7",
+      "2:3",
+      "2:7",
+      "2:8"
+    ]
+  },
+  "still_skipped_after_overrides": {
+    "subject_identification": [
+      "1:10",
+      "1:11",
+      "1:13",
+      "1:15",
+      "1:17",
+      "1:19",
+      "1:2",
+      "1:23",
+      "1:24",
+      "1:25",
+      "1:27",
+      "1:28",
+      "1:30",
+      "1:31",
+      "1:5",
+      "1:6",
+      "1:8",
+      "1:9",
+      "2:1",
+      "2:4",
+      "2:5",
+      "2:6"
+    ],
+    "object_identification": [
+      "1:1",
+      "1:10",
+      "1:11",
+      "1:12",
+      "1:13",
+      "1:14",
+      "1:15",
+      "1:18",
+      "1:19",
+      "1:2",
+      "1:20",
+      "1:21",
+      "1:23",
+      "1:24",
+      "1:25",
+      "1:26",
+      "1:28",
+      "1:29",
+      "1:3",
+      "1:30",
+      "1:31",
+      "1:5",
+      "1:6",
+      "1:8",
+      "1:9",
+      "2:1",
+      "2:4",
+      "2:5",
+      "2:6"
+    ],
+    "phrase_translation": [
+      "1:10",
+      "1:11",
+      "1:13",
+      "1:15",
+      "1:17",
+      "1:19",
+      "1:2",
+      "1:23",
+      "1:24",
+      "1:25",
+      "1:27",
+      "1:28",
+      "1:30",
+      "1:31",
+      "1:5",
+      "1:6",
+      "1:8",
+      "1:9",
+      "2:1",
+      "2:4",
+      "2:5",
+      "2:6",
+      "2:9"
+    ]
+  }
+}

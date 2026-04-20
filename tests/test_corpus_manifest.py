@@ -7,6 +7,8 @@ import streamlit_app
 def reset_manifest_runtime_state():
     assessment_scope.load_corpus_manifest.cache_clear()
     assessment_scope.load_active_pesukim_data.cache_clear()
+    assessment_scope.load_active_parsed_pesukim_data.cache_clear()
+    assessment_scope._active_parsed_pesukim_by_text.cache_clear()
     assessment_scope.active_pasuk_text_set.cache_clear()
     streamlit_app.load_pasuk_flows.clear()
 
@@ -55,7 +57,7 @@ class CorpusManifestTests(unittest.TestCase):
         self.assertEqual(
             source_corpus["source_files"],
             [
-                "data/source/bereishis_1_1_to_4_20.json",
+                "data/source/bereishis_1_1_to_1_30.json",
                 "data/source/bereishis_1_31_to_2_9.json",
             ],
         )
@@ -75,6 +77,14 @@ class CorpusManifestTests(unittest.TestCase):
         self.assertEqual(contract["active_scope"], active_scope["scope_id"])
         self.assertEqual(contract["active_scope_status"], active_scope["status"])
         self.assertEqual(contract["active_pesukim_count"], active_scope["pesukim_count"])
+        self.assertIn("parsed_pesukim", contract["active_dataset_paths"])
+
+    def test_manifest_active_scope_lists_committed_parsed_analysis_artifact(self):
+        active_scope = assessment_scope.active_scope_metadata()
+        parsed_files = active_scope.get("parsed_files", {})
+
+        self.assertEqual(parsed_files.get("parsed_pesukim"), "data/parsed_pesukim.json")
+        self.assertTrue(assessment_scope.ACTIVE_PARSED_ANALYSIS_PATH.exists())
 
     def test_streamlit_runtime_remains_compatible_with_manifest_backed_scope_resolution(self):
         flows = streamlit_app.load_pasuk_flows()

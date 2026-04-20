@@ -81,7 +81,9 @@ class MasteryAccelerationTests(unittest.TestCase):
             "difficulty": 1,
         }
 
-        with patch.object(streamlit_app, "save_progress"), patch.object(streamlit_app, "update_word_skill_score"):
+        with patch.object(streamlit_app, "save_progress"), \
+             patch.object(streamlit_app, "update_word_skill_score"), \
+             patch.object(streamlit_app, "record_pilot_answer", return_value=None):
             streamlit_app.handle_answer("ל", question, progress)
 
         self.assertEqual(progress["current_skill"], "identify_suffix_meaning")

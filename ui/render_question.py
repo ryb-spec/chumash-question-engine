@@ -6,6 +6,7 @@ import streamlit as st
 import streamlit.components.v1 as components
 
 from question_ui import build_learning_context
+from runtime.pilot_logging import sync_pilot_served_question
 from runtime.presentation import (
     QUESTION_TYPE_NAMES,
     get_next_skill,
@@ -27,6 +28,39 @@ from runtime.runtime_support import (
     mixed_text_html,
     rtl_hebrew_html,
 )
+
+STUDENT_TENSE_LABELS = {
+    "vav_consecutive_past": "past narrative",
+    "future_jussive": "short future form",
+    "future": "future",
+    "past": "past",
+    "present": "present",
+    "infinitive": "infinitive",
+    "command": "command",
+}
+
+
+def _clean_clue_value(value):
+    text = str(value or "").strip()
+    if not text:
+        return None
+    if set(text) == {"?"} or "???" in text:
+        return None
+    return text
+
+
+def _clean_shoresh(value):
+    text = _clean_clue_value(value)
+    if not text or "?" in text:
+        return None
+    return text
+
+
+def _student_tense_label(value):
+    text = _clean_clue_value(value)
+    if not text:
+        return None
+    return STUDENT_TENSE_LABELS.get(text, text)
 
 
 def split_pasuk_phrases(text, words_per_phrase=4):
@@ -398,14 +432,20 @@ def render_grammar_clues(question):
     entry = get_word_entry(question)
     clues = []
     if entry:
-        if entry.get("prefix"):
-            clues.append(f"{entry['prefix']} = {entry.get('prefix_meaning', '')}")
-        if entry.get("shoresh"):
-            clues.append(f"root clue: {entry['shoresh']}")
-        if entry.get("suffix"):
-            clues.append(f"{entry['suffix']} = {entry.get('suffix_meaning', '')}")
-        if entry.get("tense"):
-            clues.append(f"time clue: {entry['tense']}")
+        prefix = _clean_clue_value(entry.get("prefix"))
+        prefix_meaning = _clean_clue_value(entry.get("prefix_meaning"))
+        shoresh = _clean_shoresh(entry.get("shoresh"))
+        suffix = _clean_clue_value(entry.get("suffix"))
+        suffix_meaning = _clean_clue_value(entry.get("suffix_meaning"))
+        tense = _student_tense_label(entry.get("tense"))
+        if prefix and prefix_meaning:
+            clues.append(f"{prefix} = {prefix_meaning}")
+        if shoresh:
+            clues.append(f"root clue: {shoresh}")
+        if suffix and suffix_meaning:
+            clues.append(f"{suffix} = {suffix_meaning}")
+        if tense:
+            clues.append(f"time clue: {tense}")
 
     if clues:
         st.markdown("**Key clues:**")
@@ -417,6 +457,13 @@ def answer_choice_label(choice, index):
 
 
 def render_question(question, progress, button_prefix, flow=None):
+    practice_type = "Pasuk Flow" if flow is not None else st.session_state.get("practice_type", "Learn Mode")
+    sync_pilot_served_question(
+        question,
+        practice_type=practice_type,
+        flow_label=st.session_state.get("flow_label", "") if flow is not None else "",
+        flow_step=(st.session_state.get("flow_step", 0) + 1) if flow is not None else None,
+    )
     from ui.render_feedback import render_feedback
 
     render_learning_header(question, progress, flow)
