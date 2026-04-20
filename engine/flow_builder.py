@@ -8,6 +8,7 @@ work, but those helpers are not the supported student-facing runtime.
 import json
 import random
 import hashlib
+import re
 from functools import lru_cache
 from pathlib import Path
 
@@ -159,6 +160,9 @@ DIVINE_NAME_VARIANTS = (
     "the LORD",
     "G-d",
     "God",
+)
+DIVINE_NAME_PATTERN = re.compile(
+    "|".join(re.escape(variant) for variant in sorted(DIVINE_NAME_VARIANTS, key=len, reverse=True))
 )
 EXPLICIT_SUBJECT_PREFIXES = (
     "he ",
@@ -916,11 +920,42 @@ def apply_divine_name_style(text, preferred_style):
     preferred = "God" if preferred_style == "G-d" else preferred_style
     if not preferred:
         return rendered
-    for variant in DIVINE_NAME_VARIANTS:
-        if variant == preferred:
-            continue
-        rendered = rendered.replace(variant, preferred)
-    return rendered
+    return DIVINE_NAME_PATTERN.sub(preferred, rendered)
+
+
+def has_definite_article_prefix(entry):
+    prefixes = (entry or {}).get("prefixes") or []
+    return any(
+        isinstance(prefix, dict) and prefix.get("type") == "definite_article"
+        for prefix in prefixes
+    )
+
+
+def clearly_finite_verb_entry(entry, token):
+    if entry_type(entry) != "verb" or (entry or {}).get("confidence") == "generated_alternate":
+        return False
+    # Narrow pilot guard: article-led forms like הָרֹמֶשֶׂת / הַמְּאֹרֹת may be
+    # parser-tagged as verbs, but they are not clean finite-tense quiz targets.
+    if has_definite_article_prefix(entry):
+        return False
+    return True
+
+
+def is_student_safe_vav_finite_gloss(text):
+    rendered = clean_value_text(text)
+    if rendered is None:
+        return False
+    lower = rendered.lower()
+    if lower == "and there was":
+        return True
+    if not lower.startswith(("and he ", "and she ", "and it ", "and they ")):
+        return False
+    if any(marker in lower for marker in (" when ", " which ", " that ", " who ", ",")):
+        return False
+    tail = lower.split(" ", 2)[-1].strip()
+    if not tail or tail.endswith("ing"):
+        return False
+    return True
 
 
 def complete_subjectless_verb_gloss(text):
@@ -1087,7 +1122,7 @@ def is_object_candidate_entry(entry, token, word_bank=None):
 
 
 def runtime_tense_label(entry, token):
-    if entry_type(entry) != "verb" or entry.get("confidence") == "generated_alternate":
+    if not clearly_finite_verb_entry(entry, token):
         return None
     if not clean_shoresh_value(entry.get("shoresh")) and usable_translation(entry, token) is None:
         return None
@@ -1148,12 +1183,18 @@ def distractor_key(entry):
     return key or normalized_word
 
 
+def is_vav_led_finite_translation_target(entry):
+    token = (entry or {}).get("word") or (entry or {}).get("surface") or ""
+    return has_leading_vav(token) and runtime_tense_label(entry, token) == "vav_consecutive_past"
+
+
 def filtered_translation_values(entries, correct, correct_entry=None, question_type="translation"):
     values = []
     seen_values = {correct}
     seen_keys = set()
     correct_key = distractor_key(correct_entry)
     preferred_divine_style = divine_name_style(correct)
+    require_vav_finite_style = is_vav_led_finite_translation_target(correct_entry)
     if correct_key:
         seen_keys.add(correct_key)
 
@@ -1166,6 +1207,8 @@ def filtered_translation_values(entries, correct, correct_entry=None, question_t
         if not value or value in seen_values:
             continue
         if preferred_divine_style and divine_name_style(value) and divine_name_style(value) != preferred_divine_style:
+            continue
+        if require_vav_finite_style and not is_student_safe_vav_finite_gloss(value):
             continue
         key = distractor_key(entry)
         if key and key in seen_keys:
@@ -2259,7 +2302,7 @@ def tense_validation_result(token, entry, correct_answer=None, choices=None, cho
     if not expected_tense:
         return invalid_result("no_clear_tense")
 
-    if entry_type(entry) != "verb" or entry.get("confidence") == "generated_alternate":
+    if not clearly_finite_verb_entry(entry, token):
         return invalid_result(
             "tense_not_supported",
             entry_type=entry_type(entry),
@@ -2405,14 +2448,15 @@ def confident_verb_tense(entry, token):
     if explicit:
         return explicit
 
-    current_type = entry_type(entry)
-    if current_type and current_type not in {"verb", "unknown"}:
+    if not clearly_finite_verb_entry(entry, token):
         return None
 
     for analysis in parser_generate_candidate_analyses(token):
         if analysis.get("part_of_speech") != "verb":
             continue
         if analysis.get("confidence") == "generated_alternate":
+            continue
+        if has_definite_article_prefix(analysis):
             continue
         tense = analysis.get("tense")
         if tense:

@@ -87,6 +87,14 @@ class QuestionTypeContractTests(unittest.TestCase):
         self.assertEqual(question.get("status"), "skipped")
         self.assertIn("verb tense", question.get("reason", "").lower())
 
+    def test_article_led_nonfinite_surfaces_are_rejected_for_verb_tense(self):
+        for token in ("הָרֹמֶשֶׂת", "הַמְּאֹרֹת"):
+            question = generate_question("verb_tense", token)
+
+            self.assertEqual(question.get("status"), "skipped")
+            self.assertIsNone(question.get("choices"))
+            self.assertIn("verb tense", question.get("reason", "").lower())
+
     def test_unsupported_skill_returns_structured_skip(self):
         pasuk = pasuk_by_ref(1, 13)
         question = generate_question("subject_identification", pasuk)
@@ -325,12 +333,48 @@ class QuestionTypeContractTests(unittest.TestCase):
     def test_student_facing_translation_completes_vav_verbs_and_keeps_divine_choices_consistent(self):
         word_question = generate_question("translation", "וַיְבָרֶךְ")
         divine_question = generate_question("translation", "וַיְכַל אֱלֹהִים")
+        formed_question = generate_question("translation", "וַיִּיצֶר")
+        finished_phrase = generate_question("phrase_translation", pasuk_by_ref(2, 2))
+        made_phrase = generate_question("phrase_translation", pasuk_by_ref(1, 16))
+        formed_phrase = generate_question("phrase_translation", pasuk_by_ref(2, 7))
 
         self.assertEqual(word_question.get("correct_answer"), "and he blessed")
         self.assertNotIn("and blessed", word_question.get("choices", []))
+        self.assertEqual(formed_question.get("correct_answer"), "and he formed")
+        self.assertTrue(
+            all(" when " not in choice.lower() for choice in formed_question.get("choices", []))
+        )
+        self.assertTrue(
+            all(not choice.lower().endswith("ing") for choice in formed_question.get("choices", []))
+        )
         self.assertEqual(divine_question.get("correct_answer"), "God")
         self.assertIn("God", divine_question.get("choices", []))
         self.assertNotIn("the LORD", divine_question.get("choices", []))
+        self.assertEqual(finished_phrase.get("correct_answer"), "and God finished")
+        self.assertEqual(made_phrase.get("correct_answer"), "and God made")
+        self.assertNotIn("the LORD the LORD", " ".join(formed_phrase.get("choices", [])))
+        self.assertNotIn("God God", " ".join(formed_phrase.get("choices", [])))
+
+    def test_active_scope_verb_tense_reroutes_away_from_known_bad_targets(self):
+        expected_bad = {
+            (1, 16): "הַמְּאֹרֹת",
+            (1, 21): "הָרֹמֶשֶׂת",
+        }
+
+        for ref, bad_token in expected_bad.items():
+            question = generate_question("verb_tense", pasuk_by_ref(*ref))
+
+            self.assertNotEqual(question.get("status"), "skipped")
+            self.assertNotEqual(question.get("selected_word"), bad_token)
+            self.assertIn(question.get("correct_answer"), {
+                "past narrative",
+                "short future form",
+                "future",
+                "past",
+                "present",
+                "infinitive",
+                "command",
+            })
 
     def test_active_scope_override_records_exist_for_curated_pasuks(self):
         self.assertIsNotNone(active_scope_override_for_pasuk_id("bereishis_1_1"))

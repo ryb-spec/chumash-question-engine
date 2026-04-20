@@ -222,6 +222,23 @@ class ActiveRuntimeQualityTests(unittest.TestCase):
                 self.assertEqual(question.get("correct_answer"), answer)
                 self.assertEqual(question.get("analysis_source"), "active_scope_override")
 
+    def test_active_scope_verb_tense_filters_known_nonfinite_article_forms(self):
+        expected_bad = {
+            (1, 16): "הַמְּאֹרֹת",
+            (1, 21): "הָרֹמֶשֶׂת",
+        }
+
+        for record in active_pesukim_records():
+            ref = record.get("ref", {})
+            key = (ref.get("perek"), ref.get("pasuk"))
+            if key not in expected_bad:
+                continue
+
+            question = generate_question("verb_tense", record["text"])
+            self.assertNotEqual(question.get("status"), "skipped")
+            self.assertNotEqual(question.get("selected_word"), expected_bad[key])
+            self.assertNotIn(expected_bad[key], question.get("explanation", ""))
+
     def test_promoted_scope_translation_reviews_remain_needs_review(self):
         reviews = json.loads(
             Path("data/translation_reviews.json").read_text(encoding="utf-8")
