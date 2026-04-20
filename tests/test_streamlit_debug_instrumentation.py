@@ -13,6 +13,7 @@ class StreamlitDebugInstrumentationTests(unittest.TestCase):
         st.session_state.clear()
         streamlit_app.init_session_state()
         st.session_state.practice_type = "Practice Mode"
+        st.session_state.pilot_scope_mode = "open_pilot_scope"
 
     def test_generate_practice_question_marks_progress_reloaded_when_not_passed(self):
         question = {"question": "Q", "selected_word": "word", "skill": "translation"}

@@ -3,7 +3,11 @@ import unittest
 import streamlit as st
 
 import streamlit_app
-from assessment_scope import ACTIVE_ASSESSMENT_SCOPE, active_pasuk_text_set
+from assessment_scope import (
+    ACTIVE_ASSESSMENT_SCOPE,
+    active_pasuk_record_for_question,
+    active_pasuk_record_for_text,
+)
 
 
 def reset_streamlit_runtime_state():
@@ -25,7 +29,7 @@ class StreamlitModesSmokeTests(unittest.TestCase):
         )
 
         self.assertIsNotNone(question)
-        self.assertIn(question["pasuk"], active_pasuk_text_set())
+        self.assertIsNotNone(active_pasuk_record_for_question(question))
 
     def test_practice_mode_uses_only_active_parsed_pesukim(self):
         reset_streamlit_runtime_state()
@@ -33,15 +37,17 @@ class StreamlitModesSmokeTests(unittest.TestCase):
         question = streamlit_app.generate_practice_question("translation")
 
         self.assertIsNotNone(question)
-        self.assertIn(question["pasuk"], active_pasuk_text_set())
+        self.assertIsNotNone(active_pasuk_record_for_question(question))
 
     def test_pasuk_flow_uses_only_active_parsed_pesukim(self):
         reset_streamlit_runtime_state()
 
         flows = streamlit_app.load_pasuk_flows()
 
-        self.assertEqual(len(flows), 40)
-        self.assertTrue(all(flow["pasuk"] in active_pasuk_text_set() for flow in flows))
+        self.assertEqual(len(flows), 44)
+        self.assertTrue(
+            all(active_pasuk_record_for_text(flow["pasuk"]) is not None for flow in flows)
+        )
         self.assertTrue(
             all(
                 flow.get("source", "").startswith(f"{ACTIVE_ASSESSMENT_SCOPE}:")

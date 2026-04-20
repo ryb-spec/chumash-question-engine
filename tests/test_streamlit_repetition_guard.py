@@ -13,6 +13,7 @@ class StreamlitRepetitionGuardTests(unittest.TestCase):
         st.session_state.clear()
         streamlit_app.init_session_state()
         st.session_state.practice_type = "Practice Mode"
+        st.session_state.pilot_scope_mode = "open_pilot_scope"
 
     def _translation_question(self, word="בָּרָא", prompt="What does בָּרָא mean?"):
         return {
