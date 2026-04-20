@@ -271,6 +271,8 @@ class StreamlitQuizExperienceTests(unittest.TestCase):
         self.assertIn('data-arrival-token="question-arrival-7"', question_markup)
         self.assertTrue(any("student-question-wrapper-question-arrival-7" in body for body in emitted_scripts))
         self.assertTrue(any("__assessmentArrivalHandledToken" in body for body in emitted_scripts))
+        self.assertTrue(any("__assessmentPendingArrivalToken" in body for body in emitted_scripts))
+        self.assertTrue(any("[data-testid=\"stMain\"]" in body for body in emitted_scripts))
 
     def test_render_question_skips_arrival_hook_without_new_question_state(self):
         question = self._sample_prefix_question()

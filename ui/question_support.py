@@ -14,9 +14,9 @@ STUDENT_TENSE_LABELS = {
     "future": "future",
     "past": "past",
     "present": "present",
-    "infinitive": "infinitive",
+    "infinitive": "to do form",
 }
-COHORT_TAUGHT_TENSE_LABELS = {"past", "future", "present", "infinitive"}
+COHORT_TAUGHT_TENSE_LABELS = {"past", "future", "present", "to do form"}
 
 
 def _clean_clue_value(value):

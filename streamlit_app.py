@@ -1129,7 +1129,7 @@ def apply_global_styles():
             margin: 4px 0 6px 0;
         }
         .question-arrival-target {
-            scroll-margin-top: 20px;
+            scroll-margin-top: 56px;
             outline: none;
         }
         .question-arrival-target.question-arrival-active {

@@ -64,7 +64,7 @@ class QuestionTypeContractTests(unittest.TestCase):
             "past",
             "future",
             "present",
-            "infinitive",
+            "to do form",
         }
 
         for ref in ((1, 3), (1, 9), (1, 14), (1, 17)):
@@ -81,15 +81,63 @@ class QuestionTypeContractTests(unittest.TestCase):
             self.assertNotIn("not a verb", question["choices"])
 
     def test_identify_tense_uses_only_taught_labels(self):
-        allowed = {"past", "future", "present", "infinitive"}
+        allowed = {"past", "future", "present", "to do form"}
 
         question = generate_question("identify_tense", pasuk_by_ref(1, 3))
 
         self.assertNotEqual(question.get("status"), "skipped")
         self.assertTrue(set(question.get("choices", [])).issubset(allowed))
+        self.assertNotIn("infinitive", question.get("choices", []))
         self.assertNotIn("past narrative", question.get("choices", []))
         self.assertNotIn("short future form", question.get("choices", []))
         self.assertNotIn("not a verb", question.get("choices", []))
+
+    def test_part_of_speech_uses_cohort_safe_word_kind_labels(self):
+        analyzed_override = [
+            {
+                "token": "בָּרָא",
+                "entry": {
+                    "word": "בָּרָא",
+                    "translation": "created",
+                    "type": "verb",
+                    "part_of_speech": "verb",
+                    "semantic_group": "action",
+                    "entity_type": "verb",
+                },
+            },
+            {
+                "token": "אוֹר",
+                "entry": {
+                    "word": "אוֹר",
+                    "translation": "light",
+                    "type": "noun",
+                    "part_of_speech": "noun",
+                    "semantic_group": "object",
+                    "entity_type": "common_noun",
+                },
+            },
+        ]
+
+        question = generate_question(
+            "part_of_speech",
+            "בָּרָא אוֹר",
+            analyzed_override=analyzed_override,
+        )
+
+        self.assertNotEqual(question.get("status"), "skipped")
+        self.assertEqual(
+            question.get("question"),
+            f"What kind of word is {question.get('selected_word')}?",
+        )
+        self.assertIn(question.get("correct_answer"), {"action word", "naming word"})
+        self.assertEqual(
+            set(question.get("choices", [])),
+            {"action word", "naming word", "small helper word", "direction word"},
+        )
+        self.assertIn(question.get("word_gloss"), {"created", "light"})
+        self.assertNotIn("part of speech", question.get("question", "").lower())
+        self.assertNotIn("particle", " ".join(question.get("choices", [])).lower())
+        self.assertNotIn("prep", " ".join(question.get("choices", [])).lower())
 
     def test_non_verb_surface_is_rejected_for_verb_tense(self):
         question = generate_question("verb_tense", "בְּצַלְמֵנוּ")
@@ -380,7 +428,7 @@ class QuestionTypeContractTests(unittest.TestCase):
                 "past",
                 "future",
                 "present",
-                "infinitive",
+                "to do form",
             })
 
     def test_tense_questions_do_not_emit_structurally_weird_answer_banks(self):

@@ -148,20 +148,32 @@ STUDENT_TENSE_LABELS = {
     "future": "future",
     "past": "past",
     "present": "present",
-    "infinitive": "infinitive",
+    "infinitive": "to do form",
 }
 COHORT_TAUGHT_TENSE_LABELS = (
     "past",
     "future",
     "present",
-    "infinitive",
+    "to do form",
 )
 COHORT_TAUGHT_TENSE_CANONICAL_CODES = {
     "past": "past",
     "future": "future",
     "present": "present",
-    "infinitive": "infinitive",
+    "to do form": "infinitive",
 }
+STUDENT_PART_OF_SPEECH_LABELS = {
+    "noun": "naming word",
+    "verb": "action word",
+    "particle": "small helper word",
+    "prep": "direction word",
+}
+COHORT_PART_OF_SPEECH_CHOICES = (
+    "naming word",
+    "action word",
+    "small helper word",
+    "direction word",
+)
 TENSE_CODE_BY_LABEL = {
     label: code
     for code, label in STUDENT_TENSE_LABELS.items()
@@ -894,6 +906,43 @@ def clean_shoresh_value(value):
 
 def student_tense_label(value):
     return STUDENT_TENSE_LABELS.get(value, value)
+
+
+def student_part_of_speech_label(value):
+    return STUDENT_PART_OF_SPEECH_LABELS.get(str(value or "").strip(), str(value or "").strip())
+
+
+def part_of_speech_with_article(label):
+    rendered = student_part_of_speech_label(label)
+    if not rendered:
+        return rendered
+    article = "an" if rendered[0].lower() in {"a", "e", "i", "o", "u"} else "a"
+    return f"{article} {rendered}"
+
+
+def cohort_safe_part_of_speech_choices(correct):
+    correct_label = student_part_of_speech_label(correct)
+    if correct_label not in COHORT_PART_OF_SPEECH_CHOICES:
+        return None
+    return [
+        correct_label,
+        *[label for label in COHORT_PART_OF_SPEECH_CHOICES if label != correct_label],
+    ][:4]
+
+
+def replace_part_of_speech_terms_in_text(text):
+    rendered = str(text or "")
+    rendered = rendered.replace("part of speech", "kind of word")
+    for raw, label in STUDENT_PART_OF_SPEECH_LABELS.items():
+        rendered = re.sub(rf"\b{re.escape(raw)}\b", label, rendered)
+    return rendered
+
+
+def tense_form_phrase(value):
+    label = student_tense_label(value)
+    if label == "to do form":
+        return "the 'to do' form"
+    return f"the {label} form"
 
 
 def taught_tense_label(value):
@@ -1775,6 +1824,20 @@ def normalize_student_facing_question(question):
         question["explanation"] = replace_tense_codes_in_text(question.get("explanation"))
         if raw_correct:
             question.setdefault("tense_code", raw_correct)
+        question["question"] = question["question"].replace("What verb tense is shown?", "What form is shown?")
+        if "question_text" in question:
+            question["question_text"] = question["question_text"].replace("What verb tense is shown?", "What form is shown?")
+        question["question"] = question["question"].replace("Which word shows the to do form form?", "Which word shows the 'to do' form?")
+        if "question_text" in question:
+            question["question_text"] = question["question_text"].replace("Which word shows the to do form form?", "Which word shows the 'to do' form?")
+
+    if question_type == "part_of_speech" or skill == "part_of_speech":
+        question["correct_answer"] = student_part_of_speech_label(question.get("correct_answer"))
+        question["choices"] = [student_part_of_speech_label(choice) for choice in question.get("choices", [])]
+        question["question"] = replace_part_of_speech_terms_in_text(question.get("question"))
+        if "question_text" in question:
+            question["question_text"] = replace_part_of_speech_terms_in_text(question.get("question_text"))
+        question["explanation"] = replace_part_of_speech_terms_in_text(question.get("explanation"))
 
     translation_like = question_type in {
         "translation",
@@ -2649,6 +2712,7 @@ def skill_question_payload(
         "tense": entry.get("tense", ""),
         "part_of_speech": entry_type(entry),
         "explanation": explanation,
+        "word_gloss": usable_translation(entry, target["token"]) or "",
         "source": "generated skill question",
     }
     if target.get("source_pasuk"):
@@ -3452,25 +3516,30 @@ def generate_question(
                 "No fair taught-label verb tense bank is available for this pasuk.",
             )
         if mode == "selection":
+            prompt_text = (
+                "Which word shows the 'to do' form?"
+                if student_tense_label(correct) == "to do form"
+                else f"Which word shows {tense_form_phrase(correct)}?"
+            )
             return finish(validated_question_payload(
                 "verb_tense",
                 target,
-                f"Which word shows {correct} tense?",
+                prompt_text,
                 target["token"],
                 pasuk_word_choices(target["token"]),
-                f"{target['token']} shows {correct} tense.",
+                f"{target['token']} shows {tense_form_phrase(correct)}.",
             ))
         return validated_question_payload(
             "verb_tense",
             target,
             prompt(
-                "What verb tense is shown?",
-                "What verb tense is shown?",
+                "What form is shown?",
+                "What form is shown?",
                 "",
             ),
             correct,
             fair_choices,
-            f"{target['token']} is read as {correct}.",
+            f"{target['token']} is read as {tense_form_phrase(correct)}.",
         )
 
     if skill == "part_of_speech":
@@ -3481,27 +3550,36 @@ def generate_question(
         if target is None:
             return skip_question_payload(skill, pasuk_text, "No noun or verb target found in this pasuk.")
         correct = entry_type(target["entry"])
+        student_correct = student_part_of_speech_label(correct)
+        choices = cohort_safe_part_of_speech_choices(correct)
+        if not student_correct or choices is None:
+            return skip_question_payload(skill, pasuk_text, "No cohort-safe word-kind target found in this pasuk.")
+        word_gloss = usable_translation(target["entry"], target["token"])
+        explanation = (
+            f"{target['token']} means '{word_gloss}', so here it is {part_of_speech_with_article(student_correct)}."
+            if word_gloss
+            else f"{target['token']} is {part_of_speech_with_article(student_correct)}."
+        )
         if mode == "selection":
             return finish(skill_question_payload(
                 skill,
                 target,
-                f"Which word is a {correct}?",
+                f"Which word is {part_of_speech_with_article(student_correct)}?",
                 pasuk_word_choices(target["token"]),
                 target["token"],
-                f"{target['token']} is a {correct}.",
+                explanation,
             ))
-        choices = clean_choices(correct, ["noun", "verb", "particle", "prep"])
         return skill_question_payload(
             skill,
             target,
             prompt(
-                f"What part of speech is {target['token']}?",
-                f"What part of speech is {target['token']}?",
+                f"What kind of word is {target['token']}?",
+                f"What kind of word is {target['token']}?",
                 "",
             ),
             choices,
-            correct,
-            f"{target['token']} is a {correct}.",
+            student_correct,
+            explanation,
         )
 
     if skill == "subject_identification":
@@ -4603,10 +4681,10 @@ def build_tense_question(step, pasuk, analyzed):
         "PR5",
         "verb_tense",
         target["token"],
-        "What verb tense is shown?",
+        "What form is shown?",
         choices,
         correct,
-        f"{target['token']} is read as {correct}.",
+        f"{target['token']} is read as {tense_form_phrase(correct)}.",
         3,
     )
 

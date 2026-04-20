@@ -44,11 +44,14 @@ DEBUG_REJECTION_LABELS = {
     "trusted_active_scope_unmappable": "trusted active-scope mapping blocked",
     "tense_followup_continue_blocked": "tense follow-up held for broader variety",
     "tense_family_short_run_capped": "tense-family short-run cap blocked",
+    "grammar_taxonomy_short_run_capped": "grammar-taxonomy short-run cap blocked",
+    "recent_exact_word_repeat": "recent exact-word repeat blocked",
     "limited_candidate_reuse": "limited candidate reuse allowed",
 }
 RECENT_QUESTION_HISTORY_LIMIT = 12
 EXACT_REPEAT_WINDOW = 8
 NEAR_REPEAT_WINDOW = 5
+EXACT_WORD_REPEAT_WINDOW = 4
 HEBREW_WORD_RE = re.compile(r"[\u0590-\u05ff]+")
 MORPHOLOGY_SKILLS = {
     "identify_prefix_meaning",
@@ -67,6 +70,9 @@ MORPHOLOGY_SKILLS = {
 TENSE_FAMILY_SKILLS = {
     "identify_tense",
     "verb_tense",
+}
+GRAMMAR_TAXONOMY_SKILLS = TENSE_FAMILY_SKILLS | {
+    "part_of_speech",
 }
 COMPACT_CONTEXT_QUESTION_TYPES = {
     "word_meaning",
@@ -252,6 +258,11 @@ def recent_question_repeat_reason(question, recent_questions):
         ):
             return "recent_prompt_repeat"
 
+    if signature.get("target_word"):
+        exact_word_window = recent_questions[-EXACT_WORD_REPEAT_WINDOW:]
+        if any(previous.get("target_word") == signature["target_word"] for previous in exact_word_window):
+            return "recent_exact_word_repeat"
+
     return ""
 
 
@@ -422,6 +433,23 @@ def tense_family_selection_block_reason(skill, recent_questions):
         return "tense_followup_continue_blocked"
     if recent_tense_family_count(recent_questions) >= SHORT_RUN_TENSE_CAP:
         return "tense_family_short_run_capped"
+    return ""
+
+
+def recent_grammar_taxonomy_count(recent_questions, window=SHORT_RUN_TENSE_WINDOW):
+    recent_questions = list(recent_questions or [])
+    return sum(
+        1
+        for item in recent_questions[-window:]
+        if (item or {}).get("skill") in GRAMMAR_TAXONOMY_SKILLS
+    )
+
+
+def grammar_taxonomy_selection_block_reason(skill, recent_questions):
+    if current_routing_mode() != "Learn Mode" or skill not in GRAMMAR_TAXONOMY_SKILLS:
+        return ""
+    if recent_grammar_taxonomy_count(recent_questions) >= SHORT_RUN_TENSE_CAP:
+        return "grammar_taxonomy_short_run_capped"
     return ""
 
 
@@ -856,8 +884,11 @@ def select_pasuk_first_question(skill, progress=None, adaptive_context=None):
     recent_prefixes = get_recent_prefixes()
     preferred_pasuk = adaptive_context.get("preferred_pasuk")
     allow_recent_reuse = is_explicit_reteach_mode(adaptive_context)
-    tense_block_reason = tense_family_selection_block_reason(skill, recent_questions)
-    if tense_block_reason:
+    selection_block_reason = (
+        tense_family_selection_block_reason(skill, recent_questions)
+        or grammar_taxonomy_selection_block_reason(skill, recent_questions)
+    )
+    if selection_block_reason:
         st.session_state.feature_fallback_message = ""
         return None
     candidate_rows = []
@@ -1079,6 +1110,7 @@ def select_pasuk_first_question(skill, progress=None, adaptive_context=None):
 def generate_mastery_question(progress):
     from runtime.session_state import (
         consume_adaptive_context,
+        is_grammar_taxonomy_skill,
         get_instructional_group,
         get_recent_instructional_groups,
         is_tense_family_skill,
@@ -1099,10 +1131,10 @@ def generate_mastery_question(progress):
 
             if current_skill in OPENING_MECHANICAL_SKILLS:
                 fallback_skills = opening_variety_guard_skills(current_skill)
-            elif current_skill in TENSE_FAMILY_SKILLS:
+            elif current_skill in GRAMMAR_TAXONOMY_SKILLS:
                 fallback_skills = [
                     skill for skill in SKILL_ORDER
-                    if skill != current_skill and skill not in TENSE_FAMILY_SKILLS
+                    if skill != current_skill and skill not in GRAMMAR_TAXONOMY_SKILLS
                 ]
             else:
                 return None
@@ -1163,6 +1195,8 @@ def generate_mastery_question(progress):
                 transition_reason = (
                     "A short tense contrast was shown, so the run moved back into broader variety."
                 )
+            elif skill_to_try != current_skill and is_grammar_taxonomy_skill(current_skill):
+                transition_reason = "Learn Mode moved back to clearer word work before more grammar labels."
 
             question = attach_debug_trace(
                 question,

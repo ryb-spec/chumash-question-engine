@@ -56,6 +56,22 @@ class RuntimeQuestionFlowTests(unittest.TestCase):
         self.assertEqual(exact_reason, "recent_exact_repeat")
         self.assertEqual(near_reason, "recent_target_repeat")
 
+    def test_recent_question_repeat_reason_blocks_same_word_across_skill_lanes(self):
+        previous = {
+            "skill": "part_of_speech",
+            "question_type": "part_of_speech",
+            "question": "What kind of word is בָּרָא?",
+            "selected_word": "בָּרָא",
+            "correct_answer": "action word",
+            "choices": ["action word", "naming word", "small helper word", "direction word"],
+            "pasuk": "בְּרֵאשִׁית בָּרָא אֱלֹקִים",
+        }
+        translation = self._translation_question()
+
+        reason = recent_question_repeat_reason(translation, [question_signature(previous)])
+
+        self.assertEqual(reason, "recent_exact_word_repeat")
+
     def test_display_context_policy_keeps_simple_word_questions_compact(self):
         question = {
             "skill": "identify_prefix_meaning",
@@ -144,6 +160,60 @@ class RuntimeQuestionFlowTests(unittest.TestCase):
             result.get("_debug_trace", {}).get("selection_timing", {}).get("full_generation_rows", 99),
             8,
         )
+
+    def test_select_pasuk_first_question_blocks_recent_exact_word_and_uses_fresh_word(self):
+        st.session_state.pilot_scope_mode = "open_pilot_scope"
+        st.session_state.recent_questions = [
+            question_signature(
+                {
+                    "skill": "part_of_speech",
+                    "question_type": "part_of_speech",
+                    "question": "What kind of word is בָּרָא?",
+                    "selected_word": "בָּרָא",
+                    "correct_answer": "action word",
+                    "choices": ["action word", "naming word", "small helper word", "direction word"],
+                    "pasuk": "בְּרֵאשִׁית בָּרָא אֱלֹקִים",
+                }
+            )
+        ]
+        ready_rows = [
+            {"pasuk": "repeat_pasuk", "word": "בָּרָא", "feature": "translation", "prefix": "", "morpheme_family": ""},
+            {"pasuk": "fresh_pasuk", "word": "אֱלֹקִים", "feature": "translation", "prefix": "", "morpheme_family": ""},
+        ]
+
+        def generate_question(skill, candidate_source, **kwargs):
+            if candidate_source == "repeat_pasuk":
+                return {
+                    "skill": "translation",
+                    "question_type": "translation",
+                    "question": "What does בָּרָא mean?",
+                    "selected_word": "בָּרָא",
+                    "word": "בָּרָא",
+                    "correct_answer": "created",
+                    "choices": ["created", "light", "earth", "water"],
+                    "pasuk": "repeat_pasuk",
+                }
+            return {
+                "skill": "translation",
+                "question_type": "translation",
+                "question": "What does אֱלֹקִים mean?",
+                "selected_word": "אֱלֹקִים",
+                "word": "אֱלֹקִים",
+                "correct_answer": "God",
+                "choices": ["God", "light", "earth", "water"],
+                "pasuk": "fresh_pasuk",
+            }
+
+        with patch.object(question_flow, "get_skill_ready_pasuks", return_value=ready_rows), \
+             patch.object(question_flow, "generate_skill_question", side_effect=generate_question), \
+             patch.object(question_flow, "analyze_generator_pasuk", side_effect=lambda pasuk: pasuk), \
+             patch.object(session_state, "record_selected_pasuk"), \
+             patch.object(session_state, "record_question_feature"), \
+             patch.object(session_state, "record_question_prefix"):
+            result = select_pasuk_first_question("translation", progress={"prefix_level": 1}, adaptive_context={})
+
+        self.assertIsNotNone(result)
+        self.assertEqual(result["selected_word"], "אֱלֹקִים")
 
     def test_select_pasuk_first_question_skips_unmappable_candidate_in_trusted_scope(self):
         active_records = active_pesukim_records()[:2]

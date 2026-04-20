@@ -145,14 +145,15 @@ class StreamlitFeedbackFlowTests(unittest.TestCase):
             "In וַיִּתֵּן, אֹתָם is what receives the action.",
         )
 
-    def test_feedback_context_for_tense_question_uses_explicit_present_infinitive_contrast(self):
+    def test_feedback_context_for_tense_question_uses_explicit_present_to_do_form_contrast(self):
         feedback = build_feedback_context(
             question={
                 "question_type": "verb_tense",
                 "skill": "verb_tense",
                 "selected_word": "לְהַבְדִּיל",
-                "correct_answer": "infinitive",
-                "explanation": "לְהַבְדִּיל is read as infinitive.",
+                "correct_answer": "to do form",
+                "word_gloss": "to separate",
+                "explanation": "לְהַבְדִּיל is read as the 'to do' form.",
             },
             selected_answer="present",
             is_correct=False,
@@ -164,11 +165,38 @@ class StreamlitFeedbackFlowTests(unittest.TestCase):
 
         self.assertEqual(
             feedback["grammar_feedback"],
-            "Present = doing / is doing. Infinitive = to do.",
+            "לְהַבְדִּיל means 'to separate', so here it is the to do form. Present would mean doing / is doing.",
         )
         self.assertEqual(
             feedback["likely_confusion"],
-            "Present = doing / is doing. Infinitive = to do.",
+            "Present = doing / is doing. 'To do' form = to do.",
+        )
+
+    def test_feedback_context_for_part_of_speech_uses_plain_word_kind_contrast(self):
+        feedback = build_feedback_context(
+            question={
+                "question_type": "part_of_speech",
+                "skill": "part_of_speech",
+                "selected_word": "אוֹר",
+                "correct_answer": "naming word",
+                "word_gloss": "light",
+                "explanation": "אוֹר means 'light', so here it is a naming word.",
+            },
+            selected_answer="action word",
+            is_correct=False,
+            clue_text="",
+            practice_type="Learn Mode",
+            skill_label="Kinds of words",
+            next_skill_label="Word meaning",
+        )
+
+        self.assertEqual(
+            feedback["grammar_feedback"],
+            "אוֹר means 'light', so here it is a naming word. Action word would mean something happening or being done.",
+        )
+        self.assertEqual(
+            feedback["likely_confusion"],
+            "אוֹר means 'light', so here it is a naming word. Action word would mean something happening or being done.",
         )
 
     def test_clue_helpers_hide_placeholder_markers_and_studentize_tense(self):

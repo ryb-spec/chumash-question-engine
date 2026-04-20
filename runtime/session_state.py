@@ -46,6 +46,9 @@ TENSE_FAMILY_SKILLS = {
     "identify_tense",
     "verb_tense",
 }
+GRAMMAR_TAXONOMY_SKILLS = TENSE_FAMILY_SKILLS | {
+    "part_of_speech",
+}
 OPENING_MECHANICAL_GROUP_WINDOW = 6
 OPENING_MECHANICAL_GROUP_CAP = 2
 MORPHEME_FAMILY_REPEAT_WINDOW = 6
@@ -227,6 +230,15 @@ def is_tense_family_skill(question_or_skill):
         question = question_or_skill or {}
         skill = question.get("skill", "") or question.get("question_type", "")
     return (skill or "").lower() in TENSE_FAMILY_SKILLS
+
+
+def is_grammar_taxonomy_skill(question_or_skill):
+    if isinstance(question_or_skill, str):
+        skill = question_or_skill
+    else:
+        question = question_or_skill or {}
+        skill = question.get("skill", "") or question.get("question_type", "")
+    return (skill or "").lower() in GRAMMAR_TAXONOMY_SKILLS
 
 
 def get_question_prefix(question):

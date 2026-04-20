@@ -5,12 +5,41 @@ COHORT_TAUGHT_TENSE_LABELS = {
     "past",
     "future",
     "present",
-    "infinitive",
+    "to do form",
+}
+STUDENT_TENSE_LABEL_ALIASES = {
+    "past narrative": "past",
+    "short future form": "future",
+    "infinitive": "to do form",
+    "to do form": "to do form",
+}
+STUDENT_WORD_KIND_ALIASES = {
+    "noun": "naming word",
+    "verb": "action word",
+    "particle": "small helper word",
+    "prep": "direction word",
+    "naming word": "naming word",
+    "action word": "action word",
+    "small helper word": "small helper word",
+    "direction word": "direction word",
+}
+WORD_KIND_EXPLANATIONS = {
+    "naming word": "a person, place, or thing",
+    "action word": "something happening or being done",
+    "small helper word": "a small clue word, not the main meaning word",
+    "direction word": "a word like to, in, or from",
+}
+TENSE_MEANINGS = {
+    "past": "did",
+    "future": "will do",
+    "present": "doing / is doing",
+    "to do form": "to do",
 }
 
 
 def _clean_tense_label(value):
     label = str(value or "").strip().lower()
+    label = STUDENT_TENSE_LABEL_ALIASES.get(label, label)
     return label if label in COHORT_TAUGHT_TENSE_LABELS else ""
 
 
@@ -19,19 +48,85 @@ def tense_contrast_text(correct_answer="", selected_answer=""):
     selected = _clean_tense_label(selected_answer)
     pair = {correct, selected}
 
-    if pair == {"present", "infinitive"}:
-        return "Present = doing / is doing. Infinitive = to do."
+    if pair == {"present", "to do form"}:
+        return "Present = doing / is doing. 'To do' form = to do."
     if pair == {"past", "future"}:
         return "Past = did. Future = will do."
     if correct == "present":
         return "Present = doing / is doing."
-    if correct == "infinitive":
-        return "Infinitive = to do."
+    if correct == "to do form":
+        return "'To do' form = to do."
     if correct == "past":
         return "Past = did."
     if correct == "future":
         return "Future = will do."
     return ""
+
+
+def _clean_word_kind_label(value):
+    label = STUDENT_WORD_KIND_ALIASES.get(str(value or "").strip().lower(), "")
+    return label if label in WORD_KIND_EXPLANATIONS else ""
+
+
+def _word_kind_article(label):
+    if not label:
+        return label
+    article = "an" if label[0].lower() in {"a", "e", "i", "o", "u"} else "a"
+    return f"{article} {label}"
+
+
+def _grammar_gloss(question):
+    gloss = str(question.get("word_gloss") or "").strip()
+    token = question.get("selected_word") or question.get("word") or "This word"
+    return token, gloss
+
+
+def _display_tense_label(label):
+    if label == "to do form":
+        return "'To do' form"
+    return label.capitalize()
+
+
+def _tense_form_phrase(label):
+    if label == "to do form":
+        return "the to do form"
+    return f"the {label} form"
+
+
+def tense_feedback_text(question, selected_answer=""):
+    correct = _clean_tense_label(question.get("correct_answer"))
+    selected = _clean_tense_label(selected_answer)
+    token, gloss = _grammar_gloss(question)
+    if not correct:
+        return ""
+
+    parts = []
+    if gloss:
+        parts.append(f"{token} means '{gloss}', so here it is {_tense_form_phrase(correct)}.")
+    if selected and selected != correct:
+        parts.append(f"{_display_tense_label(selected)} would mean {TENSE_MEANINGS[selected]}.")
+    elif correct in TENSE_MEANINGS:
+        parts.append(f"{_display_tense_label(correct)} means {TENSE_MEANINGS[correct]}.")
+    return " ".join(part for part in parts if part)
+
+
+def word_kind_feedback_text(question, selected_answer=""):
+    correct = _clean_word_kind_label(question.get("correct_answer"))
+    selected = _clean_word_kind_label(selected_answer)
+    token, gloss = _grammar_gloss(question)
+    if not correct:
+        return ""
+
+    parts = []
+    if gloss:
+        parts.append(f"{token} means '{gloss}', so here it is {_word_kind_article(correct)}.")
+    if selected and selected != correct:
+        parts.append(
+            f"{selected.capitalize()} would mean {WORD_KIND_EXPLANATIONS[selected]}."
+        )
+    elif correct in WORD_KIND_EXPLANATIONS:
+        parts.append(f"{correct.capitalize()} means {WORD_KIND_EXPLANATIONS[correct]}.")
+    return " ".join(part for part in parts if part)
 
 
 def build_learning_context(
@@ -86,6 +181,11 @@ def likely_confusion_text(question, selected_answer=""):
         if contrast:
             return contrast
         return "Watch the verb form closely: the tense clue changes the whole meaning."
+    if question_type == "part_of_speech" or skill == "part_of_speech":
+        contrast = word_kind_feedback_text(question, selected_answer)
+        if contrast:
+            return contrast
+        return ""
     if question_type in {"subject_identification", "role_clarity"} or skill in {"subject_identification", "object_identification"}:
         return "A strong noun can look important even when another clue is marking the real role."
     if question_type in {"phrase_meaning", "flow", "flow_dependency"} or skill == "phrase_translation":
@@ -127,11 +227,19 @@ def _skill_specific_feedback(question, selected_answer="", is_correct=True):
 
     if question_type == "verb_tense" or skill in {"verb_tense", "identify_tense", "identify_verb_marker"}:
         if not is_correct:
-            contrast = tense_contrast_text(question.get("correct_answer"), selected_answer)
-            if contrast:
-                return contrast
+            feedback = tense_feedback_text(question, selected_answer)
+            if feedback:
+                return feedback
         clue = question.get("explanation") or ""
         return clue or "Watch the verb form; the marker shows the tense."
+
+    if question_type == "part_of_speech" or skill == "part_of_speech":
+        if not is_correct:
+            feedback = word_kind_feedback_text(question, selected_answer)
+            if feedback:
+                return feedback
+        clue = question.get("explanation") or ""
+        return clue or "Check what the full word means before you choose its kind."
 
     return question.get("explanation") or ""
 

@@ -35,9 +35,9 @@ STUDENT_TENSE_LABELS = {
     "future": "future",
     "past": "past",
     "present": "present",
-    "infinitive": "infinitive",
+    "infinitive": "to do form",
 }
-COHORT_TAUGHT_TENSE_LABELS = {"past", "future", "present", "infinitive"}
+COHORT_TAUGHT_TENSE_LABELS = {"past", "future", "present", "to do form"}
 
 
 def _clean_clue_value(value):
@@ -142,7 +142,19 @@ def render_question_arrival_scroll(arrival_token, wrapper_id):
                     && node.scrollHeight > node.clientHeight + 4;
             }};
 
+            const preferredMainContainer = () => {{
+                const main = rootDocument.querySelector('[data-testid="stMain"]');
+                if (main && main.scrollHeight > main.clientHeight + 4) {{
+                    return main;
+                }}
+                return null;
+            }};
+
             const findScrollContainer = (node) => {{
+                const main = preferredMainContainer();
+                if (main) {{
+                    return main;
+                }}
                 let current = node ? node.parentElement : null;
                 while (current && current !== rootDocument.body) {{
                     if (isScrollable(current)) {{
@@ -153,8 +165,14 @@ def render_question_arrival_scroll(arrival_token, wrapper_id):
                 return rootDocument.scrollingElement || rootDocument.documentElement || rootDocument.body;
             }};
 
+            const topOffset = () => {{
+                const header = rootDocument.querySelector('header[data-testid="stHeader"]');
+                const headerHeight = header ? header.getBoundingClientRect().height : 0;
+                return Math.max(28, headerHeight + 16);
+            }};
+
             const scrollToTarget = (target) => {{
-                const offset = 20;
+                const offset = topOffset();
                 const scrollContainer = findScrollContainer(target);
                 const targetRect = target.getBoundingClientRect();
 
@@ -179,32 +197,68 @@ def render_question_arrival_scroll(arrival_token, wrapper_id):
                 scrollContainer.scrollTo({{ top, behavior: "auto" }});
             }};
 
+            const targetLooksReady = (target) => {{
+                const rect = target.getBoundingClientRect();
+                const viewportHeight = rootWindow.innerHeight || rootDocument.documentElement.clientHeight || 0;
+                const offset = topOffset();
+                return rect.top >= offset && rect.top <= Math.max(offset + 140, viewportHeight * 0.35);
+            }};
+
+            const activateTarget = (target) => {{
+                try {{
+                    target.focus({{ preventScroll: true }});
+                }} catch (error) {{
+                    target.focus();
+                }}
+                target.classList.add("question-arrival-active");
+                rootWindow.setTimeout(() => {{
+                    target.classList.remove("question-arrival-active");
+                }}, 1200);
+            }};
+
+            const retryScroll = () => {{
+                if (attempts >= maxAttempts) {{
+                    rootWindow.__assessmentArrivalHandledToken = arrivalToken;
+                    rootWindow.__assessmentPendingArrivalToken = "";
+                    return;
+                }}
+                rootWindow.requestAnimationFrame(() => rootWindow.setTimeout(findAndScroll, 35));
+            }};
+
             const findAndScroll = () => {{
+                if (
+                    rootWindow.__assessmentPendingArrivalToken
+                    && rootWindow.__assessmentPendingArrivalToken !== arrivalToken
+                ) {{
+                    return;
+                }}
+
                 const target = rootDocument.getElementById(targetId);
                 if (!target) {{
                     attempts += 1;
-                    if (attempts >= maxAttempts) return;
-                    rootWindow.requestAnimationFrame(() => rootWindow.setTimeout(findAndScroll, 25));
+                    retryScroll();
                     return;
                 }}
 
-                if (rootWindow.__assessmentArrivalHandledToken === arrivalToken) {{
+                if (
+                    rootWindow.__assessmentArrivalHandledToken === arrivalToken
+                    && targetLooksReady(target)
+                ) {{
                     return;
                 }}
 
-                rootWindow.__assessmentArrivalHandledToken = arrivalToken;
+                rootWindow.__assessmentPendingArrivalToken = arrivalToken;
                 target.setAttribute("data-arrival-token", arrivalToken);
                 scrollToTarget(target);
                 rootWindow.requestAnimationFrame(() => {{
-                    try {{
-                        target.focus({{ preventScroll: true }});
-                    }} catch (error) {{
-                        target.focus();
+                    activateTarget(target);
+                    if (targetLooksReady(target)) {{
+                        rootWindow.__assessmentArrivalHandledToken = arrivalToken;
+                        rootWindow.__assessmentPendingArrivalToken = "";
+                        return;
                     }}
-                    target.classList.add("question-arrival-active");
-                    rootWindow.setTimeout(() => {{
-                        target.classList.remove("question-arrival-active");
-                    }}, 1200);
+                    attempts += 1;
+                    retryScroll();
                 }});
             }};
 

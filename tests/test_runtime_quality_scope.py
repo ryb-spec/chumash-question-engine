@@ -686,10 +686,10 @@ class ActiveRuntimeQualityTests(unittest.TestCase):
         tense_question = {
             "skill": "identify_tense",
             "question_type": "identify_tense",
-            "question": "What verb tense is shown?",
+            "question": "What form is shown?",
             "selected_word": "וַיַּרְא",
             "correct_answer": "past",
-            "choices": ["past", "future", "present", "infinitive"],
+            "choices": ["past", "future", "present", "to do form"],
             "pasuk": "tense_pasuk",
         }
         translation_question = {
@@ -794,10 +794,10 @@ class ActiveRuntimeQualityTests(unittest.TestCase):
         tense_question = {
             "skill": "identify_tense",
             "question_type": "identify_tense",
-            "question": "What verb tense is shown?",
+            "question": "What form is shown?",
             "selected_word": "וַיַּרְא",
             "correct_answer": "past",
-            "choices": ["past", "future", "present", "infinitive"],
+            "choices": ["past", "future", "present", "to do form"],
             "pasuk": "tense_pasuk",
         }
         translation_question = {
@@ -834,6 +834,67 @@ class ActiveRuntimeQualityTests(unittest.TestCase):
 
         self.assertEqual(result["skill"], "translation")
         self.assertEqual(result["_debug_trace"]["sequencing_stage"], "context_ramp")
+
+    def test_generate_mastery_question_caps_broader_grammar_taxonomy_family(self):
+        st.session_state.pilot_scope_mode = "open_pilot_scope"
+        st.session_state.practice_type = "Learn Mode"
+        st.session_state.questions_answered = 7
+        st.session_state.recent_questions = [
+            {"skill": "identify_tense"},
+            {"skill": "translation"},
+            {"skill": "part_of_speech"},
+            {"skill": "shoresh"},
+            {"skill": "verb_tense"},
+        ]
+        st.session_state.recent_instructional_groups = ["verb_building", "meaning", "meaning", "context"]
+
+        progress = {"current_skill": "part_of_speech", "prefix_level": 1}
+        grammar_question = {
+            "skill": "part_of_speech",
+            "question_type": "part_of_speech",
+            "question": "What kind of word is אוֹר?",
+            "selected_word": "אוֹר",
+            "correct_answer": "naming word",
+            "choices": ["naming word", "action word", "small helper word", "direction word"],
+            "pasuk": "grammar_pasuk",
+        }
+        translation_question = {
+            "skill": "translation",
+            "question_type": "translation",
+            "question": "What does בָּרָא mean?",
+            "selected_word": "בָּרָא",
+            "correct_answer": "created",
+            "choices": ["created", "light", "earth", "water"],
+            "pasuk": "translation_pasuk",
+        }
+
+        def ready_rows(skill):
+            if skill == "part_of_speech":
+                return [{"pasuk": "grammar_pasuk"}]
+            if skill == "translation":
+                return [{"pasuk": "translation_pasuk"}]
+            return []
+
+        def generate_question(skill, candidate_source, **kwargs):
+            if skill == "part_of_speech":
+                return dict(grammar_question)
+            if skill == "translation":
+                return dict(translation_question)
+            return None
+
+        with patch.object(question_flow, "get_skill_ready_pasuks", side_effect=ready_rows), \
+             patch.object(question_flow, "analyze_generator_pasuk", side_effect=lambda pasuk: pasuk), \
+             patch.object(question_flow, "generate_skill_question", side_effect=generate_question), \
+             patch.object(session_state, "record_selected_pasuk"), \
+             patch.object(session_state, "record_question_feature"), \
+             patch.object(session_state, "record_question_prefix"):
+            result = streamlit_app.generate_mastery_question(progress)
+
+        self.assertEqual(result["skill"], "translation")
+        self.assertEqual(
+            result["_debug_trace"]["transition_reason"],
+            "Learn Mode moved back to clearer word work before more grammar labels.",
+        )
 
 
 if __name__ == "__main__":
