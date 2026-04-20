@@ -1,27 +1,13 @@
 from __future__ import annotations
 
-import json
 from collections import Counter
 from pathlib import Path
 
+from runtime.pilot_logging import build_pilot_export, load_attempts
 
 BASE_DIR = Path(__file__).resolve().parents[1]
 ATTEMPT_LOG_PATH = BASE_DIR / "data" / "attempt_log.jsonl"
 OUTPUT_PATH = BASE_DIR / "data" / "validation" / "nightly_insights.md"
-
-
-def load_attempts(path: Path) -> list[dict]:
-    attempts = []
-    with path.open("r", encoding="utf-8") as handle:
-        for line in handle:
-            line = line.strip()
-            if not line:
-                continue
-            try:
-                attempts.append(json.loads(line))
-            except json.JSONDecodeError:
-                continue
-    return attempts
 
 
 def top_lines(counter: Counter, label: str, limit: int = 10) -> list[str]:
@@ -144,6 +130,8 @@ def build_report() -> str:
         )
 
     attempts = load_attempts(ATTEMPT_LOG_PATH)
+    pilot_export = build_pilot_export(attempts)
+    pilot_summary = pilot_export["summary"]
     incorrect_attempts = [row for row in attempts if not row.get("is_correct")]
 
     missed_words = Counter()
@@ -184,8 +172,19 @@ def build_report() -> str:
         "",
         "## Summary",
         "",
+        f"- Served questions: {pilot_summary['served']}",
+        f"- Answered questions: {pilot_summary['answered']}",
         f"- Total attempts: {len(attempts)}",
         f"- Total incorrect: {len(incorrect_attempts)}",
+        f"- In active parsed dataset: {pilot_summary['in_active_scope_served']}",
+        f"- Out of active parsed dataset: {pilot_summary['out_of_scope_served']}",
+        "",
+        "## Pilot Consistency Checks",
+        "",
+        f"- Served equals question-type totals: {pilot_export['consistency']['served_equals_question_type_total']}",
+        f"- Served equals question-family totals: {pilot_export['consistency']['served_equals_question_family_total']}",
+        f"- Answered ≤ served: {pilot_export['consistency']['answered_lte_served']}",
+        f"- Correct ≤ answered: {pilot_export['consistency']['correct_lte_answered']}",
         "",
         "## Most Missed Words",
         "",

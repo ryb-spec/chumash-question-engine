@@ -27,6 +27,9 @@ class ActiveRuntimeQualityTests(unittest.TestCase):
         st.session_state.recent_phrases = []
         st.session_state.recent_question_formats = []
         st.session_state.recent_prefixes = []
+        st.session_state.recent_suffixes = []
+        st.session_state.recent_morphemes = []
+        st.session_state.recent_question_families = []
         st.session_state.recent_features = []
         st.session_state.feature_fallback_message = ""
 
@@ -138,6 +141,59 @@ class ActiveRuntimeQualityTests(unittest.TestCase):
             st.session_state.feature_fallback_message,
             "Feature repetition fallback used after 10 attempts.",
         )
+
+    def test_morpheme_cooldown_blocks_repeating_same_prefix_loop(self):
+        ready_rows = [
+            {"pasuk": "לָאוֹר", "word": "לָאוֹר", "feature": "prefix", "prefix": "ל"},
+        ]
+        repeated = {
+            "skill": "identify_prefix_meaning",
+            "question_type": "prefix",
+            "question": "What is the prefix in לָאוֹר?",
+            "selected_word": "לָאוֹר",
+            "correct_answer": "ל",
+            "choices": ["ל", "ב", "מ", "ו"],
+            "prefix": "ל",
+        }
+
+        st.session_state.recent_morphemes = ["prefix:ל", "prefix:ל"]
+
+        with patch.object(streamlit_app, "get_skill_ready_pasuks", return_value=ready_rows), \
+             patch.object(streamlit_app, "generate_skill_question", return_value=dict(repeated)), \
+             patch.object(streamlit_app, "record_selected_pasuk"), \
+             patch.object(streamlit_app, "record_question_feature"), \
+             patch.object(streamlit_app, "record_question_prefix"):
+            result = streamlit_app.select_pasuk_first_question(
+                "identify_prefix_meaning",
+                progress={"prefix_level": 1},
+            )
+
+        self.assertEqual(result["selected_word"], "לָאוֹר")
+        self.assertEqual(
+            st.session_state.feature_fallback_message,
+            "Feature repetition fallback used after 10 attempts.",
+        )
+
+    def test_trusted_scope_mode_filters_out_non_active_questions(self):
+        ready_rows = [
+            {"pasuk": "בְּרֵאשִׁית בָּרָא אֱלֹקִים", "word": "בְּרֵאשִׁית", "feature": "translation", "prefix": ""},
+        ]
+        out_of_scope_question = {
+            "skill": "translation",
+            "question_type": "word_meaning",
+            "question": "What does בְּרֵאשִׁית mean?",
+            "selected_word": "בְּרֵאשִׁית",
+            "pasuk": "לָאוֹר",
+            "correct_answer": "in the beginning",
+            "choices": ["in the beginning", "light", "and", "from"],
+        }
+
+        with patch.dict("os.environ", {"CHUMASH_TRUSTED_PILOT_ACTIVE_SCOPE_ONLY": "1"}), \
+             patch.object(streamlit_app, "get_skill_ready_pasuks", return_value=ready_rows), \
+             patch.object(streamlit_app, "generate_skill_question", return_value=dict(out_of_scope_question)):
+            result = streamlit_app.select_pasuk_first_question("translation", progress={"prefix_level": 1})
+
+        self.assertIsNone(result)
 
 
 if __name__ == "__main__":

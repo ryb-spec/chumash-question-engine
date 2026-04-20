@@ -32,6 +32,7 @@ from assessment_scope import (
     repo_path,
 )
 from progress_store import load_progress_state, record_answer, save_progress_state
+from runtime.pilot_logging import append_attempt, classify_question_family
 
 try:
     from pasuk_flow_generator import analyze_pasuk as analyze_generator_pasuk
@@ -116,6 +117,7 @@ MAX_LEVEL5_SESSION_RATIO = 0.2
 HEBREW_WORD_RE = re.compile(r"[\u0590-\u05ff]+")
 HEBREW_MARK_RE = re.compile(r"[\u0591-\u05c7]")
 OPTION_LABELS = ["A", "B", "C", "D"]
+AFFIX_HEAVY_FAMILIES = {"affix_mechanics", "verb_mechanics"}
 
 MENUKAD_FALLBACK = {
     "הלך": "הָלַךְ",
@@ -1038,24 +1040,26 @@ def consume_adaptive_context():
 
 def append_attempt_log(question, choice, is_correct):
     pasuk_text = question.get("pasuk")
+    in_active_scope = bool(pasuk_text and pasuk_text in set(active_pasuk_texts()))
     record = {
         "timestamp_utc": datetime.now(timezone.utc).isoformat(),
         "word": question.get("word"),
         "selected_word": question.get("selected_word"),
         "skill": question.get("skill"),
-        "question_type": question.get("question_type"),
+        "question_type": question.get("question_type") or question.get("skill"),
         "standard": question.get("standard"),
         "is_correct": is_correct,
         "expected_answer": question.get("correct_answer"),
         "user_answer": choice,
         "pasuk_ref": get_active_pasuk_ref(pasuk_text) if pasuk_text else None,
+        "pasuk_text": pasuk_text,
+        "in_active_scope": in_active_scope,
+        "question_family": classify_question_family(question),
         "source": question.get("source"),
     }
 
     try:
-        ATTEMPT_LOG_PATH.parent.mkdir(parents=True, exist_ok=True)
-        with ATTEMPT_LOG_PATH.open("a", encoding="utf-8") as handle:
-            handle.write(json.dumps(record, ensure_ascii=False) + "\n")
+        append_attempt(ATTEMPT_LOG_PATH, record)
     except Exception:
         # Logging is best-effort only; assessment flow should continue even if
         # the local attempt log is unavailable or unwritable.
@@ -1509,17 +1513,29 @@ def select_pasuk_first_question(skill, progress=None, adaptive_context=None):
             word = question.get("selected_word") or question.get("word")
             feature = get_question_feature(question)
             prefix = get_question_prefix(question)
+            suffix = get_question_suffix(question)
+            morpheme = get_question_morpheme(question)
             row = {
                 "pasuk": question.get("pasuk", pasuk),
                 "question": question,
                 "word": word,
                 "feature": feature,
                 "prefix": prefix,
+                "suffix": suffix,
+                "morpheme": morpheme,
             }
+            if trusted_pilot_active_scope_only() and row["pasuk"] not in set(active_pasuk_texts()):
+                continue
             if feature == "prefix" and prefix_is_blocked(prefix):
                 fallback_rows.append(row)
                 continue
+            if feature == "suffix" and suffix_is_blocked(suffix):
+                fallback_rows.append(row)
+                continue
             if feature_is_blocked(feature):
+                fallback_rows.append(row)
+                continue
+            if morpheme_is_blocked(morpheme):
                 fallback_rows.append(row)
                 continue
             candidate_rows.append(row)
@@ -1577,6 +1593,14 @@ def get_recent_prefixes():
     return st.session_state.setdefault("recent_prefixes", [])[-5:]
 
 
+def get_recent_suffixes():
+    return st.session_state.setdefault("recent_suffixes", [])[-5:]
+
+
+def get_recent_morphemes():
+    return st.session_state.setdefault("recent_morphemes", [])[-6:]
+
+
 def get_question_prefix(question):
     if question.get("prefix"):
         return question["prefix"]
@@ -1585,6 +1609,31 @@ def get_question_prefix(question):
     word = question.get("selected_word") or question.get("word") or ""
     if word and word[0] in {"ו", "ב", "ל", "מ", "כ", "ה", "ש"}:
         return word[0]
+    return ""
+
+
+def get_question_suffix(question):
+    suffix = question.get("suffix") or ""
+    if suffix:
+        return suffix
+    if get_question_feature(question) != "suffix":
+        return ""
+    word = question.get("selected_word") or question.get("word") or ""
+    if len(word) >= 2 and word[-1] in {"ו", "ה", "ך", "ם", "ן"}:
+        return word[-1]
+    return ""
+
+
+def get_question_morpheme(question):
+    feature = get_question_feature(question)
+    if feature == "prefix":
+        return f"prefix:{get_question_prefix(question)}"
+    if feature == "suffix":
+        return f"suffix:{get_question_suffix(question)}"
+    if question.get("skill") == "identify_verb_marker":
+        marker = str(question.get("correct_answer") or "").strip()
+        if marker and len(marker) <= 2:
+            return f"verb_marker:{marker}"
     return ""
 
 
@@ -1600,6 +1649,18 @@ def record_question_prefix(question):
         return
     st.session_state.recent_prefixes.append(prefix)
     st.session_state.recent_prefixes = st.session_state.recent_prefixes[-10:]
+
+
+def suffix_is_blocked(suffix):
+    if not suffix:
+        return False
+    return get_recent_suffixes().count(suffix) >= 2
+
+
+def morpheme_is_blocked(morpheme):
+    if not morpheme:
+        return False
+    return get_recent_morphemes().count(morpheme) >= 2
 
 
 def get_question_feature(question):
@@ -1627,13 +1688,38 @@ def feature_is_blocked(feature):
     controlled_features = {"prefix", "translation", "verb", "suffix", "part_of_speech"}
     if feature not in controlled_features:
         return False
-    return recent_features[-5:].count(feature) >= 2
+    if recent_features[-5:].count(feature) >= 2:
+        return True
+    if feature in {"prefix", "suffix", "verb"}:
+        family_window = st.session_state.setdefault("recent_question_families", [])[-5:]
+        return sum(1 for family in family_window if family in AFFIX_HEAVY_FAMILIES) >= 3
+    return False
 
 
 def record_question_feature(question):
     feature = get_question_feature(question)
     st.session_state.recent_features.append(feature)
     st.session_state.recent_features = st.session_state.recent_features[-10:]
+    family = classify_question_family(question)
+    st.session_state.setdefault("recent_question_families", []).append(family)
+    st.session_state.recent_question_families = st.session_state.recent_question_families[-10:]
+    suffix = get_question_suffix(question)
+    if suffix:
+        st.session_state.setdefault("recent_suffixes", []).append(suffix)
+        st.session_state.recent_suffixes = st.session_state.recent_suffixes[-10:]
+    morpheme = get_question_morpheme(question)
+    if morpheme:
+        st.session_state.setdefault("recent_morphemes", []).append(morpheme)
+        st.session_state.recent_morphemes = st.session_state.recent_morphemes[-10:]
+
+
+def trusted_pilot_active_scope_only():
+    return os.environ.get("CHUMASH_TRUSTED_PILOT_ACTIVE_SCOPE_ONLY", "").lower() in {
+        "1",
+        "true",
+        "yes",
+        "on",
+    }
 
 
 def generate_mastery_question(progress):
@@ -1869,6 +1955,9 @@ def init_session_state():
     st.session_state.setdefault("recent_question_formats", [])
     st.session_state.setdefault("recent_features", [])
     st.session_state.setdefault("recent_prefixes", [])
+    st.session_state.setdefault("recent_suffixes", [])
+    st.session_state.setdefault("recent_morphemes", [])
+    st.session_state.setdefault("recent_question_families", [])
     st.session_state.setdefault("feature_fallback_message", "")
     st.session_state.setdefault("practice_type", "Learn Mode")
     st.session_state.setdefault("practice_skill", SKILL_ORDER[0])
