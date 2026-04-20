@@ -14,7 +14,7 @@ class ActiveRoleArtifactTests(unittest.TestCase):
         temp_path.parent.mkdir(parents=True, exist_ok=True)
         try:
             artifact = rebuild_active_parsed_pesukim_artifact(output_path=temp_path)
-            self.assertEqual(artifact["metadata"]["pesukim_count"], 40)
+            self.assertEqual(artifact["metadata"]["pesukim_count"], 48)
             self.assertTrue(temp_path.exists())
 
             persisted = json.loads(temp_path.read_text(encoding="utf-8"))

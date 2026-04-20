@@ -3,9 +3,9 @@
     "title": "Generated Parsed Torah Pesukim",
     "version": "0.1",
     "artifact_type": "parsed_pesukim",
-    "corpus_id": "parsed_bereishis_1_1_to_2_9_root",
+    "corpus_id": "parsed_bereishis_1_1_to_2_17_root",
     "status": "active",
-    "pesukim_count": 40,
+    "pesukim_count": 48,
     "sefer": "Bereishis",
     "range": {
       "start": {
@@ -16,12 +16,13 @@
       "end": {
         "sefer": "Bereishis",
         "perek": 2,
-        "pasuk": 9
+        "pasuk": 17
       }
     },
     "source_files": [
       "data/source/bereishis_1_1_to_1_30.json",
-      "data/source/bereishis_1_31_to_2_9.json"
+      "data/source/bereishis_1_31_to_2_9.json",
+      "data/source/bereishis_2_10_to_2_17.json"
     ]
   },
   "parsed_pesukim": [
@@ -35598,6 +35599,5363 @@
           "subject",
           "direct_object"
         ]
+      }
+    },
+    {
+      "pasuk_id": "bereishis_2_10",
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 2,
+        "pasuk": 10
+      },
+      "source_ref": {
+        "sefer": "Bereishis",
+        "perek": 2,
+        "pasuk": 10
+      },
+      "text": "וְנָהָר יֹצֵא מֵעֵדֶן, לְהַשְׁקוֹת אֶת־הַגָּן; וּמִשָּׁם, יִפָּרֵד, וְהָיָה, לְאַרְבָּעָה רָאשִׁים.",
+      "tokens": [
+        "וְנָהָר",
+        "יֹצֵא",
+        "מֵעֵדֶן",
+        "לְהַשְׁקוֹת",
+        "אֶת",
+        "הַגָּן",
+        "וּמִשָּׁם",
+        "יִפָּרֵד",
+        "וְהָיָה",
+        "לְאַרְבָּעָה",
+        "רָאשִׁים"
+      ],
+      "token_records": [
+        {
+          "pasuk_id": "bereishis_2_10",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 10
+          },
+          "token_index": 0,
+          "surface": "וְנָהָר",
+          "normalized": "ונהר",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "וְנָהָר",
+            "normalized": "ונהר",
+            "lemma": "ונהר",
+            "shoresh": "נהר",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "unknown",
+            "role_hint": "unknown",
+            "entity_type": "unknown",
+            "prefixes": [
+              {
+                "form": "ו",
+                "type": "conjunction",
+                "translation": "and"
+              }
+            ],
+            "suffixes": [],
+            "translation_literal": "וְנָהָר",
+            "translation_context": "וְנָהָר",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_2_10"
+            ],
+            "prefix": "ו",
+            "prefix_meaning": "and",
+            "suffix": "",
+            "suffix_meaning": ""
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 0,
+            "token": "וְנָהָר"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_10",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 10
+          },
+          "token_index": 1,
+          "surface": "יֹצֵא",
+          "normalized": "יצא",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "יֹצֵא",
+            "normalized": "יצא",
+            "lemma": "יצא",
+            "shoresh": "יצא",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "unknown",
+            "role_hint": "unknown",
+            "entity_type": "unknown",
+            "prefixes": [],
+            "suffixes": [],
+            "translation_literal": "יֹצֵא",
+            "translation_context": "יֹצֵא",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_2_10"
+            ],
+            "prefix": "",
+            "prefix_meaning": "",
+            "suffix": "",
+            "suffix_meaning": ""
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 1,
+            "token": "יֹצֵא"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_10",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 10
+          },
+          "token_index": 2,
+          "surface": "מֵעֵדֶן",
+          "normalized": "מעדן",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "מֵעֵדֶן",
+            "normalized": "מעדן",
+            "lemma": "מעדן",
+            "shoresh": "עדן",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "unknown",
+            "role_hint": "unknown",
+            "entity_type": "unknown",
+            "prefixes": [
+              {
+                "form": "מ",
+                "type": "preposition_m",
+                "translation": "from"
+              }
+            ],
+            "suffixes": [
+              {
+                "form": "ן",
+                "type": "pronominal_suffix",
+                "translation": "their"
+              }
+            ],
+            "translation_literal": "מֵעֵדֶן",
+            "translation_context": "מֵעֵדֶן",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_2_10"
+            ],
+            "prefix": "מ",
+            "prefix_meaning": "from",
+            "suffix": "ן",
+            "suffix_meaning": "their"
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 2,
+            "token": "מֵעֵדֶן"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_10",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 10
+          },
+          "token_index": 3,
+          "surface": "לְהַשְׁקוֹת",
+          "normalized": "להשקות",
+          "analysis_index": 0,
+          "analysis_count": 2,
+          "selected_analysis": {
+            "surface": "לְהַשְׁקוֹת",
+            "normalized": "להשקות",
+            "lemma": "להשקות",
+            "shoresh": "שקות",
+            "part_of_speech": "verb",
+            "binyan": "qal",
+            "tense": "past",
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "action",
+            "role_hint": "unknown",
+            "entity_type": "verb",
+            "prefixes": [
+              {
+                "form": "ל",
+                "type": "preposition_l",
+                "translation": "to / for"
+              }
+            ],
+            "suffixes": [],
+            "translation_literal": "לְהַשְׁקוֹת",
+            "translation_context": "לְהַשְׁקוֹת",
+            "confidence": "rule_based",
+            "source_refs": [
+              "bereishis_2_10"
+            ],
+            "prefix": "ל",
+            "prefix_meaning": "to / for",
+            "suffix": "",
+            "suffix_meaning": ""
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 3,
+            "token": "לְהַשְׁקוֹת"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_10",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 10
+          },
+          "token_index": 4,
+          "surface": "אֶת",
+          "normalized": "את",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "אֶת",
+            "normalized": "את",
+            "lemma": "את",
+            "shoresh": "את",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "unknown",
+            "role_hint": "object_candidate",
+            "entity_type": "grammatical_particle",
+            "prefixes": [],
+            "suffixes": [],
+            "translation_literal": "אֶת",
+            "translation_context": "אֶת",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_1_4",
+              "bereishis_1_7",
+              "bereishis_1_16",
+              "bereishis_1_21",
+              "bereishis_1_22",
+              "bereishis_1_25",
+              "bereishis_1_27",
+              "bereishis_1_28",
+              "bereishis_1_29",
+              "bereishis_1_30",
+              "bereishis_1_31",
+              "bereishis_2_3",
+              "bereishis_2_5",
+              "bereishis_2_6",
+              "bereishis_2_7",
+              "bereishis_2_8"
+            ],
+            "prefix": "",
+            "prefix_meaning": "",
+            "suffix": "",
+            "suffix_meaning": ""
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 4,
+            "token": "אֶת"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_10",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 10
+          },
+          "token_index": 5,
+          "surface": "הַגָּן",
+          "normalized": "הגן",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "הַגָּן",
+            "normalized": "הגן",
+            "lemma": "????",
+            "shoresh": "???",
+            "part_of_speech": "noun",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "place",
+            "role_hint": "location_candidate",
+            "entity_type": "place",
+            "prefixes": [
+              {
+                "form": "ה",
+                "type": "definite_article",
+                "translation": "the"
+              }
+            ],
+            "suffixes": [],
+            "translation_literal": "the garden",
+            "translation_context": "the garden",
+            "confidence": "reviewed_starter",
+            "source_refs": [
+              "bereishis_2_10",
+              "bereishis_2_16"
+            ],
+            "prefix": "ה",
+            "prefix_meaning": "the",
+            "suffix": "",
+            "suffix_meaning": "",
+            "translation": "the garden",
+            "context_translation": "the garden",
+            "type": "noun"
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 5,
+            "token": "הַגָּן"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_10",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 10
+          },
+          "token_index": 6,
+          "surface": "וּמִשָּׁם",
+          "normalized": "ומשם",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "וּמִשָּׁם",
+            "normalized": "ומשם",
+            "lemma": "ומשם",
+            "shoresh": "משם",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "unknown",
+            "role_hint": "unknown",
+            "entity_type": "unknown",
+            "prefixes": [
+              {
+                "form": "ו",
+                "type": "conjunction",
+                "translation": "and"
+              }
+            ],
+            "suffixes": [
+              {
+                "form": "ם",
+                "type": "pronominal_suffix",
+                "translation": "their"
+              }
+            ],
+            "translation_literal": "וּמִשָּׁם",
+            "translation_context": "וּמִשָּׁם",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_2_10"
+            ],
+            "prefix": "ו",
+            "prefix_meaning": "and",
+            "suffix": "ם",
+            "suffix_meaning": "their"
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 6,
+            "token": "וּמִשָּׁם"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_10",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 10
+          },
+          "token_index": 7,
+          "surface": "יִפָּרֵד",
+          "normalized": "יפרד",
+          "analysis_index": 0,
+          "analysis_count": 2,
+          "selected_analysis": {
+            "surface": "יִפָּרֵד",
+            "normalized": "יפרד",
+            "lemma": "יפרד",
+            "shoresh": "יפרד",
+            "part_of_speech": "verb",
+            "binyan": "qal",
+            "tense": "future",
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "action",
+            "role_hint": "unknown",
+            "entity_type": "verb",
+            "prefixes": [
+              {
+                "form": "י",
+                "type": "verb_prefix_future",
+                "translation": "future / jussive marker"
+              }
+            ],
+            "suffixes": [],
+            "translation_literal": "יִפָּרֵד",
+            "translation_context": "יִפָּרֵד",
+            "confidence": "rule_based",
+            "source_refs": [
+              "bereishis_2_10"
+            ],
+            "prefix": "",
+            "prefix_meaning": "",
+            "suffix": "",
+            "suffix_meaning": ""
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 7,
+            "token": "יִפָּרֵד"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_10",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 10
+          },
+          "token_index": 8,
+          "surface": "וְהָיָה",
+          "normalized": "והיה",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "וְהָיָה",
+            "normalized": "והיה",
+            "lemma": "והיה",
+            "shoresh": "יה",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "unknown",
+            "role_hint": "unknown",
+            "entity_type": "unknown",
+            "prefixes": [
+              {
+                "form": "ו",
+                "type": "conjunction",
+                "translation": "and"
+              },
+              {
+                "form": "ה",
+                "type": "definite_article",
+                "translation": "the"
+              }
+            ],
+            "suffixes": [
+              {
+                "form": "ה",
+                "type": "pronominal_suffix",
+                "translation": "her"
+              }
+            ],
+            "translation_literal": "וְהָיָה",
+            "translation_context": "וְהָיָה",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_2_10"
+            ],
+            "prefix": "ו",
+            "prefix_meaning": "and",
+            "suffix": "ה",
+            "suffix_meaning": "her"
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 8,
+            "token": "וְהָיָה"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_10",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 10
+          },
+          "token_index": 9,
+          "surface": "לְאַרְבָּעָה",
+          "normalized": "לארבעה",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "לְאַרְבָּעָה",
+            "normalized": "לארבעה",
+            "lemma": "לארבעה",
+            "shoresh": "לארבעה",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "unknown",
+            "role_hint": "unknown",
+            "entity_type": "unknown",
+            "prefixes": [
+              {
+                "form": "ל",
+                "type": "preposition_l",
+                "translation": "to / for"
+              }
+            ],
+            "suffixes": [
+              {
+                "form": "ה",
+                "type": "pronominal_suffix",
+                "translation": "her"
+              }
+            ],
+            "translation_literal": "לְאַרְבָּעָה",
+            "translation_context": "לְאַרְבָּעָה",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_2_10"
+            ],
+            "prefix": "ל",
+            "prefix_meaning": "to / for",
+            "suffix": "ה",
+            "suffix_meaning": "her"
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 9,
+            "token": "לְאַרְבָּעָה"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_10",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 10
+          },
+          "token_index": 10,
+          "surface": "רָאשִׁים",
+          "normalized": "ראשים",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "רָאשִׁים",
+            "normalized": "ראשים",
+            "lemma": "ראשים",
+            "shoresh": "ראשים",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "unknown",
+            "role_hint": "unknown",
+            "entity_type": "unknown",
+            "prefixes": [],
+            "suffixes": [
+              {
+                "form": "ם",
+                "type": "pronominal_suffix",
+                "translation": "their"
+              }
+            ],
+            "translation_literal": "רָאשִׁים",
+            "translation_context": "רָאשִׁים",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_2_10"
+            ],
+            "prefix": "",
+            "prefix_meaning": "",
+            "suffix": "ם",
+            "suffix_meaning": "their"
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 10,
+            "token": "רָאשִׁים"
+          }
+        }
+      ],
+      "role_layer": {
+        "status": "no_main_verb",
+        "main_verb_index": null,
+        "subject_index": null,
+        "direct_object_index": null,
+        "recipient_index": null,
+        "prepositional_phrases": [],
+        "ambiguities": []
+      }
+    },
+    {
+      "pasuk_id": "bereishis_2_11",
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 2,
+        "pasuk": 11
+      },
+      "source_ref": {
+        "sefer": "Bereishis",
+        "perek": 2,
+        "pasuk": 11
+      },
+      "text": "שֵׁם הָאֶחָד, פִּישׁוֹן: הוּא הַסֹּבֵב, אֵת כָּל־אֶרֶץ הַחֲוִילָה--אֲשֶׁר שָׁם הַזָּהָב.",
+      "tokens": [
+        "שֵׁם",
+        "הָאֶחָד",
+        "פִּישׁוֹן",
+        "הוּא",
+        "הַסֹּבֵב",
+        "אֵת",
+        "כָּל",
+        "אֶרֶץ",
+        "הַחֲוִילָה",
+        "אֲשֶׁר",
+        "שָׁם",
+        "הַזָּהָב"
+      ],
+      "token_records": [
+        {
+          "pasuk_id": "bereishis_2_11",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 11
+          },
+          "token_index": 0,
+          "surface": "שֵׁם",
+          "normalized": "שם",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "שֵׁם",
+            "normalized": "שם",
+            "lemma": "שם",
+            "shoresh": "שם",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "unknown",
+            "role_hint": "unknown",
+            "entity_type": "unknown",
+            "prefixes": [],
+            "suffixes": [],
+            "translation_literal": "שֵׁם",
+            "translation_context": "שֵׁם",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_2_11"
+            ],
+            "prefix": "",
+            "prefix_meaning": "",
+            "suffix": "",
+            "suffix_meaning": ""
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 0,
+            "token": "שֵׁם"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_11",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 11
+          },
+          "token_index": 1,
+          "surface": "הָאֶחָד",
+          "normalized": "האחד",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "הָאֶחָד",
+            "normalized": "האחד",
+            "lemma": "האחד",
+            "shoresh": "האחד",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "unknown",
+            "role_hint": "unknown",
+            "entity_type": "unknown",
+            "prefixes": [
+              {
+                "form": "ה",
+                "type": "definite_article",
+                "translation": "the"
+              }
+            ],
+            "suffixes": [],
+            "translation_literal": "הָאֶחָד",
+            "translation_context": "הָאֶחָד",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_2_11"
+            ],
+            "prefix": "ה",
+            "prefix_meaning": "the",
+            "suffix": "",
+            "suffix_meaning": ""
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 1,
+            "token": "הָאֶחָד"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_11",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 11
+          },
+          "token_index": 2,
+          "surface": "פִּישׁוֹן",
+          "normalized": "פישון",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "פִּישׁוֹן",
+            "normalized": "פישון",
+            "lemma": "פישון",
+            "shoresh": "פישון",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "unknown",
+            "role_hint": "unknown",
+            "entity_type": "unknown",
+            "prefixes": [],
+            "suffixes": [
+              {
+                "form": "ן",
+                "type": "pronominal_suffix",
+                "translation": "their"
+              }
+            ],
+            "translation_literal": "פִּישׁוֹן",
+            "translation_context": "פִּישׁוֹן",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_2_11"
+            ],
+            "prefix": "",
+            "prefix_meaning": "",
+            "suffix": "ן",
+            "suffix_meaning": "their"
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 2,
+            "token": "פִּישׁוֹן"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_11",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 11
+          },
+          "token_index": 3,
+          "surface": "הוּא",
+          "normalized": "הוא",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "הוּא",
+            "normalized": "הוא",
+            "lemma": "הוא",
+            "shoresh": "הוא",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "unknown",
+            "role_hint": "unknown",
+            "entity_type": "unknown",
+            "prefixes": [
+              {
+                "form": "ה",
+                "type": "definite_article",
+                "translation": "the"
+              }
+            ],
+            "suffixes": [],
+            "translation_literal": "הוּא",
+            "translation_context": "הוּא",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_2_11",
+              "bereishis_2_13",
+              "bereishis_2_14"
+            ],
+            "prefix": "ה",
+            "prefix_meaning": "the",
+            "suffix": "",
+            "suffix_meaning": ""
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 3,
+            "token": "הוּא"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_11",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 11
+          },
+          "token_index": 4,
+          "surface": "הַסֹּבֵב",
+          "normalized": "הסבב",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "הַסֹּבֵב",
+            "normalized": "הסבב",
+            "lemma": "הסבב",
+            "shoresh": "הסבב",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "unknown",
+            "role_hint": "unknown",
+            "entity_type": "unknown",
+            "prefixes": [
+              {
+                "form": "ה",
+                "type": "definite_article",
+                "translation": "the"
+              }
+            ],
+            "suffixes": [],
+            "translation_literal": "הַסֹּבֵב",
+            "translation_context": "הַסֹּבֵב",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_2_11"
+            ],
+            "prefix": "ה",
+            "prefix_meaning": "the",
+            "suffix": "",
+            "suffix_meaning": ""
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 4,
+            "token": "הַסֹּבֵב"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_11",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 11
+          },
+          "token_index": 5,
+          "surface": "אֵת",
+          "normalized": "את",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "אֵת",
+            "normalized": "את",
+            "lemma": "את",
+            "shoresh": "את",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "unknown",
+            "role_hint": "object_candidate",
+            "entity_type": "grammatical_particle",
+            "prefixes": [],
+            "suffixes": [],
+            "translation_literal": "אֵת",
+            "translation_context": "אֵת",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_1_1"
+            ],
+            "prefix": "",
+            "prefix_meaning": "",
+            "suffix": "",
+            "suffix_meaning": ""
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 5,
+            "token": "אֵת"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_11",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 11
+          },
+          "token_index": 6,
+          "surface": "כָּל",
+          "normalized": "כל",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "כָּל",
+            "normalized": "כל",
+            "lemma": "כל",
+            "shoresh": "כל",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "unknown",
+            "role_hint": "unknown",
+            "entity_type": "unknown",
+            "prefixes": [],
+            "suffixes": [],
+            "translation_literal": "כָּל",
+            "translation_context": "כָּל",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_1_21",
+              "bereishis_1_25",
+              "bereishis_1_29",
+              "bereishis_1_30"
+            ],
+            "prefix": "",
+            "prefix_meaning": "",
+            "suffix": "",
+            "suffix_meaning": ""
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 6,
+            "token": "כָּל"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_11",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 11
+          },
+          "token_index": 7,
+          "surface": "אֶרֶץ",
+          "normalized": "ארץ",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "אֶרֶץ",
+            "normalized": "ארץ",
+            "lemma": "ארץ",
+            "shoresh": "ארץ",
+            "part_of_speech": "noun",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "place",
+            "role_hint": "location_candidate",
+            "entity_type": "natural_feature",
+            "prefixes": [],
+            "suffixes": [],
+            "translation_literal": "earth",
+            "translation_context": "earth",
+            "confidence": "local_data_enrichment",
+            "source_refs": [
+              "bereishis_2_4"
+            ],
+            "prefix": "",
+            "prefix_meaning": "",
+            "suffix": "",
+            "suffix_meaning": ""
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 7,
+            "token": "אֶרֶץ"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_11",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 11
+          },
+          "token_index": 8,
+          "surface": "הַחֲוִילָה",
+          "normalized": "החוילה",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "הַחֲוִילָה",
+            "normalized": "החוילה",
+            "lemma": "החוילה",
+            "shoresh": "החוילה",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "unknown",
+            "role_hint": "unknown",
+            "entity_type": "unknown",
+            "prefixes": [
+              {
+                "form": "ה",
+                "type": "definite_article",
+                "translation": "the"
+              }
+            ],
+            "suffixes": [
+              {
+                "form": "ה",
+                "type": "pronominal_suffix",
+                "translation": "her"
+              }
+            ],
+            "translation_literal": "הַחֲוִילָה",
+            "translation_context": "הַחֲוִילָה",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_2_11"
+            ],
+            "prefix": "ה",
+            "prefix_meaning": "the",
+            "suffix": "ה",
+            "suffix_meaning": "her"
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 8,
+            "token": "הַחֲוִילָה"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_11",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 11
+          },
+          "token_index": 9,
+          "surface": "אֲשֶׁר",
+          "normalized": "אשר",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "אֲשֶׁר",
+            "normalized": "אשר",
+            "lemma": "אשר",
+            "shoresh": "אשר",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "abstract",
+            "role_hint": "descriptor",
+            "entity_type": "grammatical_particle",
+            "prefixes": [],
+            "suffixes": [],
+            "translation_literal": "אֲשֶׁר",
+            "translation_context": "אֲשֶׁר",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_1_7",
+              "bereishis_1_11",
+              "bereishis_1_12",
+              "bereishis_1_21",
+              "bereishis_1_29",
+              "bereishis_1_30"
+            ],
+            "prefix": "",
+            "prefix_meaning": "",
+            "suffix": "",
+            "suffix_meaning": ""
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 9,
+            "token": "אֲשֶׁר"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_11",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 11
+          },
+          "token_index": 10,
+          "surface": "שָׁם",
+          "normalized": "שם",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "שָׁם",
+            "normalized": "שם",
+            "lemma": "שם",
+            "shoresh": "שם",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "unknown",
+            "role_hint": "unknown",
+            "entity_type": "unknown",
+            "prefixes": [],
+            "suffixes": [],
+            "translation_literal": "שָׁם",
+            "translation_context": "שָׁם",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_2_11",
+              "bereishis_2_12"
+            ],
+            "prefix": "",
+            "prefix_meaning": "",
+            "suffix": "",
+            "suffix_meaning": ""
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 10,
+            "token": "שָׁם"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_11",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 11
+          },
+          "token_index": 11,
+          "surface": "הַזָּהָב",
+          "normalized": "הזהב",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "הַזָּהָב",
+            "normalized": "הזהב",
+            "lemma": "הזהב",
+            "shoresh": "הזהב",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "unknown",
+            "role_hint": "unknown",
+            "entity_type": "unknown",
+            "prefixes": [
+              {
+                "form": "ה",
+                "type": "definite_article",
+                "translation": "the"
+              }
+            ],
+            "suffixes": [],
+            "translation_literal": "הַזָּהָב",
+            "translation_context": "הַזָּהָב",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_2_11"
+            ],
+            "prefix": "ה",
+            "prefix_meaning": "the",
+            "suffix": "",
+            "suffix_meaning": ""
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 11,
+            "token": "הַזָּהָב"
+          }
+        }
+      ],
+      "role_layer": {
+        "status": "no_main_verb",
+        "main_verb_index": null,
+        "subject_index": null,
+        "direct_object_index": null,
+        "recipient_index": null,
+        "prepositional_phrases": [],
+        "ambiguities": []
+      }
+    },
+    {
+      "pasuk_id": "bereishis_2_12",
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 2,
+        "pasuk": 12
+      },
+      "source_ref": {
+        "sefer": "Bereishis",
+        "perek": 2,
+        "pasuk": 12
+      },
+      "text": "וּזֲהַב הָאָרֶץ הַהִוא, טוֹב; שָׁם, הַבְּדֹלַח וְאֶבֶן הַשֹּׁהַם.",
+      "tokens": [
+        "וּזֲהַב",
+        "הָאָרֶץ",
+        "הַהִוא",
+        "טוֹב",
+        "שָׁם",
+        "הַבְּדֹלַח",
+        "וְאֶבֶן",
+        "הַשֹּׁהַם"
+      ],
+      "token_records": [
+        {
+          "pasuk_id": "bereishis_2_12",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 12
+          },
+          "token_index": 0,
+          "surface": "וּזֲהַב",
+          "normalized": "וזהב",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "וּזֲהַב",
+            "normalized": "וזהב",
+            "lemma": "וזהב",
+            "shoresh": "זהב",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "unknown",
+            "role_hint": "unknown",
+            "entity_type": "unknown",
+            "prefixes": [
+              {
+                "form": "ו",
+                "type": "conjunction",
+                "translation": "and"
+              }
+            ],
+            "suffixes": [],
+            "translation_literal": "וּזֲהַב",
+            "translation_context": "וּזֲהַב",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_2_12"
+            ],
+            "prefix": "ו",
+            "prefix_meaning": "and",
+            "suffix": "",
+            "suffix_meaning": ""
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 0,
+            "token": "וּזֲהַב"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_12",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 12
+          },
+          "token_index": 1,
+          "surface": "הָאָרֶץ",
+          "normalized": "הארץ",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "הָאָרֶץ",
+            "normalized": "הארץ",
+            "lemma": "???",
+            "shoresh": null,
+            "part_of_speech": "noun",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": "singular",
+            "gender": "feminine",
+            "semantic_group": "place",
+            "role_hint": "location_candidate",
+            "entity_type": "natural_feature",
+            "prefixes": [
+              {
+                "form": "?",
+                "type": "definite_article",
+                "translation": "the"
+              }
+            ],
+            "suffixes": [],
+            "translation_literal": "the earth",
+            "translation_context": "the earth",
+            "confidence": "rule_based",
+            "source_refs": [
+              "bereishis_1_1",
+              "bereishis_1_11",
+              "bereishis_1_12",
+              "bereishis_1_15",
+              "bereishis_1_17",
+              "bereishis_1_20",
+              "bereishis_1_24",
+              "bereishis_1_25",
+              "bereishis_1_26",
+              "bereishis_1_28",
+              "bereishis_1_29",
+              "bereishis_1_30",
+              "bereishis_2_5",
+              "bereishis_2_6"
+            ],
+            "prefix": "?",
+            "prefix_meaning": "the",
+            "suffix": "",
+            "suffix_meaning": ""
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 1,
+            "token": "הָאָרֶץ"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_12",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 12
+          },
+          "token_index": 2,
+          "surface": "הַהִוא",
+          "normalized": "ההוא",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "הַהִוא",
+            "normalized": "ההוא",
+            "lemma": "ההוא",
+            "shoresh": "ההוא",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "unknown",
+            "role_hint": "unknown",
+            "entity_type": "unknown",
+            "prefixes": [
+              {
+                "form": "ה",
+                "type": "definite_article",
+                "translation": "the"
+              }
+            ],
+            "suffixes": [],
+            "translation_literal": "הַהִוא",
+            "translation_context": "הַהִוא",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_2_12"
+            ],
+            "prefix": "ה",
+            "prefix_meaning": "the",
+            "suffix": "",
+            "suffix_meaning": ""
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 2,
+            "token": "הַהִוא"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_12",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 12
+          },
+          "token_index": 3,
+          "surface": "טוֹב",
+          "normalized": "טוב",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "טוֹב",
+            "normalized": "טוב",
+            "lemma": "טוב",
+            "shoresh": "טוב",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "abstract",
+            "role_hint": "descriptor",
+            "entity_type": "common_noun",
+            "prefixes": [],
+            "suffixes": [],
+            "translation_literal": "טוֹב",
+            "translation_context": "טוֹב",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_1_4",
+              "bereishis_1_10",
+              "bereishis_1_12",
+              "bereishis_1_18",
+              "bereishis_1_21",
+              "bereishis_1_25",
+              "bereishis_1_31",
+              "bereishis_2_9"
+            ],
+            "prefix": "",
+            "prefix_meaning": "",
+            "suffix": "",
+            "suffix_meaning": ""
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 3,
+            "token": "טוֹב"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_12",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 12
+          },
+          "token_index": 4,
+          "surface": "שָׁם",
+          "normalized": "שם",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "שָׁם",
+            "normalized": "שם",
+            "lemma": "שם",
+            "shoresh": "שם",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "unknown",
+            "role_hint": "unknown",
+            "entity_type": "unknown",
+            "prefixes": [],
+            "suffixes": [],
+            "translation_literal": "שָׁם",
+            "translation_context": "שָׁם",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_2_11",
+              "bereishis_2_12"
+            ],
+            "prefix": "",
+            "prefix_meaning": "",
+            "suffix": "",
+            "suffix_meaning": ""
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 4,
+            "token": "שָׁם"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_12",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 12
+          },
+          "token_index": 5,
+          "surface": "הַבְּדֹלַח",
+          "normalized": "הבדלח",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "הַבְּדֹלַח",
+            "normalized": "הבדלח",
+            "lemma": "הבדלח",
+            "shoresh": "הבדלח",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "unknown",
+            "role_hint": "unknown",
+            "entity_type": "unknown",
+            "prefixes": [
+              {
+                "form": "ה",
+                "type": "definite_article",
+                "translation": "the"
+              }
+            ],
+            "suffixes": [],
+            "translation_literal": "הַבְּדֹלַח",
+            "translation_context": "הַבְּדֹלַח",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_2_12"
+            ],
+            "prefix": "ה",
+            "prefix_meaning": "the",
+            "suffix": "",
+            "suffix_meaning": ""
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 5,
+            "token": "הַבְּדֹלַח"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_12",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 12
+          },
+          "token_index": 6,
+          "surface": "וְאֶבֶן",
+          "normalized": "ואבן",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "וְאֶבֶן",
+            "normalized": "ואבן",
+            "lemma": "ואבן",
+            "shoresh": "אבן",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "unknown",
+            "role_hint": "unknown",
+            "entity_type": "unknown",
+            "prefixes": [
+              {
+                "form": "ו",
+                "type": "conjunction",
+                "translation": "and"
+              }
+            ],
+            "suffixes": [
+              {
+                "form": "ן",
+                "type": "pronominal_suffix",
+                "translation": "their"
+              }
+            ],
+            "translation_literal": "וְאֶבֶן",
+            "translation_context": "וְאֶבֶן",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_2_12"
+            ],
+            "prefix": "ו",
+            "prefix_meaning": "and",
+            "suffix": "ן",
+            "suffix_meaning": "their"
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 6,
+            "token": "וְאֶבֶן"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_12",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 12
+          },
+          "token_index": 7,
+          "surface": "הַשֹּׁהַם",
+          "normalized": "השהם",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "הַשֹּׁהַם",
+            "normalized": "השהם",
+            "lemma": "השהם",
+            "shoresh": "השהם",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "unknown",
+            "role_hint": "unknown",
+            "entity_type": "unknown",
+            "prefixes": [
+              {
+                "form": "ה",
+                "type": "definite_article",
+                "translation": "the"
+              }
+            ],
+            "suffixes": [
+              {
+                "form": "ם",
+                "type": "pronominal_suffix",
+                "translation": "their"
+              }
+            ],
+            "translation_literal": "הַשֹּׁהַם",
+            "translation_context": "הַשֹּׁהַם",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_2_12"
+            ],
+            "prefix": "ה",
+            "prefix_meaning": "the",
+            "suffix": "ם",
+            "suffix_meaning": "their"
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 7,
+            "token": "הַשֹּׁהַם"
+          }
+        }
+      ],
+      "role_layer": {
+        "status": "no_main_verb",
+        "main_verb_index": null,
+        "subject_index": null,
+        "direct_object_index": null,
+        "recipient_index": null,
+        "prepositional_phrases": [],
+        "ambiguities": []
+      }
+    },
+    {
+      "pasuk_id": "bereishis_2_13",
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 2,
+        "pasuk": 13
+      },
+      "source_ref": {
+        "sefer": "Bereishis",
+        "perek": 2,
+        "pasuk": 13
+      },
+      "text": "וְשֵׁם־הַנָּהָר הַשֵּׁנִי גִּיחוֹן; הוּא הַסּוֹבֵב, אֵת כָּל־אֶרֶץ כּוּשׁ.",
+      "tokens": [
+        "וְשֵׁם",
+        "הַנָּהָר",
+        "הַשֵּׁנִי",
+        "גִּיחוֹן",
+        "הוּא",
+        "הַסּוֹבֵב",
+        "אֵת",
+        "כָּל",
+        "אֶרֶץ",
+        "כּוּשׁ"
+      ],
+      "token_records": [
+        {
+          "pasuk_id": "bereishis_2_13",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 13
+          },
+          "token_index": 0,
+          "surface": "וְשֵׁם",
+          "normalized": "ושם",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "וְשֵׁם",
+            "normalized": "ושם",
+            "lemma": "ושם",
+            "shoresh": "שם",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "unknown",
+            "role_hint": "unknown",
+            "entity_type": "unknown",
+            "prefixes": [
+              {
+                "form": "ו",
+                "type": "conjunction",
+                "translation": "and"
+              }
+            ],
+            "suffixes": [],
+            "translation_literal": "וְשֵׁם",
+            "translation_context": "וְשֵׁם",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_2_13",
+              "bereishis_2_14"
+            ],
+            "prefix": "ו",
+            "prefix_meaning": "and",
+            "suffix": "",
+            "suffix_meaning": ""
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 0,
+            "token": "וְשֵׁם"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_13",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 13
+          },
+          "token_index": 1,
+          "surface": "הַנָּהָר",
+          "normalized": "הנהר",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "הַנָּהָר",
+            "normalized": "הנהר",
+            "lemma": "הנהר",
+            "shoresh": "הנהר",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "unknown",
+            "role_hint": "unknown",
+            "entity_type": "unknown",
+            "prefixes": [
+              {
+                "form": "ה",
+                "type": "definite_article",
+                "translation": "the"
+              }
+            ],
+            "suffixes": [],
+            "translation_literal": "הַנָּהָר",
+            "translation_context": "הַנָּהָר",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_2_13",
+              "bereishis_2_14"
+            ],
+            "prefix": "ה",
+            "prefix_meaning": "the",
+            "suffix": "",
+            "suffix_meaning": ""
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 1,
+            "token": "הַנָּהָר"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_13",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 13
+          },
+          "token_index": 2,
+          "surface": "הַשֵּׁנִי",
+          "normalized": "השני",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "הַשֵּׁנִי",
+            "normalized": "השני",
+            "lemma": "השני",
+            "shoresh": "השני",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "unknown",
+            "role_hint": "unknown",
+            "entity_type": "unknown",
+            "prefixes": [
+              {
+                "form": "ה",
+                "type": "definite_article",
+                "translation": "the"
+              }
+            ],
+            "suffixes": [
+              {
+                "form": "י",
+                "type": "pronominal_suffix",
+                "translation": "my"
+              }
+            ],
+            "translation_literal": "הַשֵּׁנִי",
+            "translation_context": "הַשֵּׁנִי",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_2_13"
+            ],
+            "prefix": "ה",
+            "prefix_meaning": "the",
+            "suffix": "י",
+            "suffix_meaning": "my"
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 2,
+            "token": "הַשֵּׁנִי"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_13",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 13
+          },
+          "token_index": 3,
+          "surface": "גִּיחוֹן",
+          "normalized": "גיחון",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "גִּיחוֹן",
+            "normalized": "גיחון",
+            "lemma": "גיחון",
+            "shoresh": "גיחון",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "unknown",
+            "role_hint": "unknown",
+            "entity_type": "unknown",
+            "prefixes": [],
+            "suffixes": [
+              {
+                "form": "ן",
+                "type": "pronominal_suffix",
+                "translation": "their"
+              }
+            ],
+            "translation_literal": "גִּיחוֹן",
+            "translation_context": "גִּיחוֹן",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_2_13"
+            ],
+            "prefix": "",
+            "prefix_meaning": "",
+            "suffix": "ן",
+            "suffix_meaning": "their"
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 3,
+            "token": "גִּיחוֹן"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_13",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 13
+          },
+          "token_index": 4,
+          "surface": "הוּא",
+          "normalized": "הוא",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "הוּא",
+            "normalized": "הוא",
+            "lemma": "הוא",
+            "shoresh": "הוא",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "unknown",
+            "role_hint": "unknown",
+            "entity_type": "unknown",
+            "prefixes": [
+              {
+                "form": "ה",
+                "type": "definite_article",
+                "translation": "the"
+              }
+            ],
+            "suffixes": [],
+            "translation_literal": "הוּא",
+            "translation_context": "הוּא",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_2_11",
+              "bereishis_2_13",
+              "bereishis_2_14"
+            ],
+            "prefix": "ה",
+            "prefix_meaning": "the",
+            "suffix": "",
+            "suffix_meaning": ""
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 4,
+            "token": "הוּא"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_13",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 13
+          },
+          "token_index": 5,
+          "surface": "הַסּוֹבֵב",
+          "normalized": "הסובב",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "הַסּוֹבֵב",
+            "normalized": "הסובב",
+            "lemma": "הסובב",
+            "shoresh": "הסובב",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "unknown",
+            "role_hint": "unknown",
+            "entity_type": "unknown",
+            "prefixes": [
+              {
+                "form": "ה",
+                "type": "definite_article",
+                "translation": "the"
+              }
+            ],
+            "suffixes": [],
+            "translation_literal": "הַסּוֹבֵב",
+            "translation_context": "הַסּוֹבֵב",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_2_13"
+            ],
+            "prefix": "ה",
+            "prefix_meaning": "the",
+            "suffix": "",
+            "suffix_meaning": ""
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 5,
+            "token": "הַסּוֹבֵב"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_13",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 13
+          },
+          "token_index": 6,
+          "surface": "אֵת",
+          "normalized": "את",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "אֵת",
+            "normalized": "את",
+            "lemma": "את",
+            "shoresh": "את",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "unknown",
+            "role_hint": "object_candidate",
+            "entity_type": "grammatical_particle",
+            "prefixes": [],
+            "suffixes": [],
+            "translation_literal": "אֵת",
+            "translation_context": "אֵת",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_1_1"
+            ],
+            "prefix": "",
+            "prefix_meaning": "",
+            "suffix": "",
+            "suffix_meaning": ""
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 6,
+            "token": "אֵת"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_13",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 13
+          },
+          "token_index": 7,
+          "surface": "כָּל",
+          "normalized": "כל",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "כָּל",
+            "normalized": "כל",
+            "lemma": "כל",
+            "shoresh": "כל",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "unknown",
+            "role_hint": "unknown",
+            "entity_type": "unknown",
+            "prefixes": [],
+            "suffixes": [],
+            "translation_literal": "כָּל",
+            "translation_context": "כָּל",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_1_21",
+              "bereishis_1_25",
+              "bereishis_1_29",
+              "bereishis_1_30"
+            ],
+            "prefix": "",
+            "prefix_meaning": "",
+            "suffix": "",
+            "suffix_meaning": ""
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 7,
+            "token": "כָּל"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_13",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 13
+          },
+          "token_index": 8,
+          "surface": "אֶרֶץ",
+          "normalized": "ארץ",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "אֶרֶץ",
+            "normalized": "ארץ",
+            "lemma": "ארץ",
+            "shoresh": "ארץ",
+            "part_of_speech": "noun",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "place",
+            "role_hint": "location_candidate",
+            "entity_type": "natural_feature",
+            "prefixes": [],
+            "suffixes": [],
+            "translation_literal": "earth",
+            "translation_context": "earth",
+            "confidence": "local_data_enrichment",
+            "source_refs": [
+              "bereishis_2_4"
+            ],
+            "prefix": "",
+            "prefix_meaning": "",
+            "suffix": "",
+            "suffix_meaning": ""
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 8,
+            "token": "אֶרֶץ"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_13",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 13
+          },
+          "token_index": 9,
+          "surface": "כּוּשׁ",
+          "normalized": "כוש",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "כּוּשׁ",
+            "normalized": "כוש",
+            "lemma": "כוש",
+            "shoresh": "כוש",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "unknown",
+            "role_hint": "unknown",
+            "entity_type": "unknown",
+            "prefixes": [],
+            "suffixes": [],
+            "translation_literal": "כּוּשׁ",
+            "translation_context": "כּוּשׁ",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_2_13"
+            ],
+            "prefix": "",
+            "prefix_meaning": "",
+            "suffix": "",
+            "suffix_meaning": ""
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 9,
+            "token": "כּוּשׁ"
+          }
+        }
+      ],
+      "role_layer": {
+        "status": "no_main_verb",
+        "main_verb_index": null,
+        "subject_index": null,
+        "direct_object_index": null,
+        "recipient_index": null,
+        "prepositional_phrases": [],
+        "ambiguities": []
+      }
+    },
+    {
+      "pasuk_id": "bereishis_2_14",
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 2,
+        "pasuk": 14
+      },
+      "source_ref": {
+        "sefer": "Bereishis",
+        "perek": 2,
+        "pasuk": 14
+      },
+      "text": "וְשֵׁם הַנָּהָר הַשְּׁלִישִׁי, חִדֶּקֶל: הוּא הַהֹלֵךְ, קִדְמַת אַשּׁוּר; וְהַנָּהָר הָרְבִיעִי, הוּא פְרָת.",
+      "tokens": [
+        "וְשֵׁם",
+        "הַנָּהָר",
+        "הַשְּׁלִישִׁי",
+        "חִדֶּקֶל",
+        "הוּא",
+        "הַהֹלֵךְ",
+        "קִדְמַת",
+        "אַשּׁוּר",
+        "וְהַנָּהָר",
+        "הָרְבִיעִי",
+        "הוּא",
+        "פְרָת"
+      ],
+      "token_records": [
+        {
+          "pasuk_id": "bereishis_2_14",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 14
+          },
+          "token_index": 0,
+          "surface": "וְשֵׁם",
+          "normalized": "ושם",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "וְשֵׁם",
+            "normalized": "ושם",
+            "lemma": "ושם",
+            "shoresh": "שם",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "unknown",
+            "role_hint": "unknown",
+            "entity_type": "unknown",
+            "prefixes": [
+              {
+                "form": "ו",
+                "type": "conjunction",
+                "translation": "and"
+              }
+            ],
+            "suffixes": [],
+            "translation_literal": "וְשֵׁם",
+            "translation_context": "וְשֵׁם",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_2_13",
+              "bereishis_2_14"
+            ],
+            "prefix": "ו",
+            "prefix_meaning": "and",
+            "suffix": "",
+            "suffix_meaning": ""
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 0,
+            "token": "וְשֵׁם"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_14",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 14
+          },
+          "token_index": 1,
+          "surface": "הַנָּהָר",
+          "normalized": "הנהר",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "הַנָּהָר",
+            "normalized": "הנהר",
+            "lemma": "הנהר",
+            "shoresh": "הנהר",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "unknown",
+            "role_hint": "unknown",
+            "entity_type": "unknown",
+            "prefixes": [
+              {
+                "form": "ה",
+                "type": "definite_article",
+                "translation": "the"
+              }
+            ],
+            "suffixes": [],
+            "translation_literal": "הַנָּהָר",
+            "translation_context": "הַנָּהָר",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_2_13",
+              "bereishis_2_14"
+            ],
+            "prefix": "ה",
+            "prefix_meaning": "the",
+            "suffix": "",
+            "suffix_meaning": ""
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 1,
+            "token": "הַנָּהָר"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_14",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 14
+          },
+          "token_index": 2,
+          "surface": "הַשְּׁלִישִׁי",
+          "normalized": "השלישי",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "הַשְּׁלִישִׁי",
+            "normalized": "השלישי",
+            "lemma": "השלישי",
+            "shoresh": "השלישי",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "unknown",
+            "role_hint": "unknown",
+            "entity_type": "unknown",
+            "prefixes": [
+              {
+                "form": "ה",
+                "type": "definite_article",
+                "translation": "the"
+              }
+            ],
+            "suffixes": [
+              {
+                "form": "י",
+                "type": "pronominal_suffix",
+                "translation": "my"
+              }
+            ],
+            "translation_literal": "הַשְּׁלִישִׁי",
+            "translation_context": "הַשְּׁלִישִׁי",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_2_14"
+            ],
+            "prefix": "ה",
+            "prefix_meaning": "the",
+            "suffix": "י",
+            "suffix_meaning": "my"
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 2,
+            "token": "הַשְּׁלִישִׁי"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_14",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 14
+          },
+          "token_index": 3,
+          "surface": "חִדֶּקֶל",
+          "normalized": "חדקל",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "חִדֶּקֶל",
+            "normalized": "חדקל",
+            "lemma": "חדקל",
+            "shoresh": "חדקל",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "unknown",
+            "role_hint": "unknown",
+            "entity_type": "unknown",
+            "prefixes": [],
+            "suffixes": [],
+            "translation_literal": "חִדֶּקֶל",
+            "translation_context": "חִדֶּקֶל",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_2_14"
+            ],
+            "prefix": "",
+            "prefix_meaning": "",
+            "suffix": "",
+            "suffix_meaning": ""
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 3,
+            "token": "חִדֶּקֶל"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_14",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 14
+          },
+          "token_index": 4,
+          "surface": "הוּא",
+          "normalized": "הוא",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "הוּא",
+            "normalized": "הוא",
+            "lemma": "הוא",
+            "shoresh": "הוא",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "unknown",
+            "role_hint": "unknown",
+            "entity_type": "unknown",
+            "prefixes": [
+              {
+                "form": "ה",
+                "type": "definite_article",
+                "translation": "the"
+              }
+            ],
+            "suffixes": [],
+            "translation_literal": "הוּא",
+            "translation_context": "הוּא",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_2_11",
+              "bereishis_2_13",
+              "bereishis_2_14"
+            ],
+            "prefix": "ה",
+            "prefix_meaning": "the",
+            "suffix": "",
+            "suffix_meaning": ""
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 4,
+            "token": "הוּא"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_14",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 14
+          },
+          "token_index": 5,
+          "surface": "הַהֹלֵךְ",
+          "normalized": "ההלך",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "הַהֹלֵךְ",
+            "normalized": "ההלך",
+            "lemma": "ההלך",
+            "shoresh": "ההלך",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "unknown",
+            "role_hint": "unknown",
+            "entity_type": "unknown",
+            "prefixes": [
+              {
+                "form": "ה",
+                "type": "definite_article",
+                "translation": "the"
+              }
+            ],
+            "suffixes": [
+              {
+                "form": "ך",
+                "type": "pronominal_suffix",
+                "translation": "your"
+              }
+            ],
+            "translation_literal": "הַהֹלֵךְ",
+            "translation_context": "הַהֹלֵךְ",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_2_14"
+            ],
+            "prefix": "ה",
+            "prefix_meaning": "the",
+            "suffix": "ך",
+            "suffix_meaning": "your"
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 5,
+            "token": "הַהֹלֵךְ"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_14",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 14
+          },
+          "token_index": 6,
+          "surface": "קִדְמַת",
+          "normalized": "קדמת",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "קִדְמַת",
+            "normalized": "קדמת",
+            "lemma": "קדמת",
+            "shoresh": "קדמת",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "unknown",
+            "role_hint": "unknown",
+            "entity_type": "unknown",
+            "prefixes": [],
+            "suffixes": [],
+            "translation_literal": "קִדְמַת",
+            "translation_context": "קִדְמַת",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_2_14"
+            ],
+            "prefix": "",
+            "prefix_meaning": "",
+            "suffix": "",
+            "suffix_meaning": ""
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 6,
+            "token": "קִדְמַת"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_14",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 14
+          },
+          "token_index": 7,
+          "surface": "אַשּׁוּר",
+          "normalized": "אשור",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "אַשּׁוּר",
+            "normalized": "אשור",
+            "lemma": "אשור",
+            "shoresh": "אשור",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "unknown",
+            "role_hint": "unknown",
+            "entity_type": "unknown",
+            "prefixes": [],
+            "suffixes": [],
+            "translation_literal": "אַשּׁוּר",
+            "translation_context": "אַשּׁוּר",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_2_14"
+            ],
+            "prefix": "",
+            "prefix_meaning": "",
+            "suffix": "",
+            "suffix_meaning": ""
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 7,
+            "token": "אַשּׁוּר"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_14",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 14
+          },
+          "token_index": 8,
+          "surface": "וְהַנָּהָר",
+          "normalized": "והנהר",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "וְהַנָּהָר",
+            "normalized": "והנהר",
+            "lemma": "והנהר",
+            "shoresh": "נהר",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "unknown",
+            "role_hint": "unknown",
+            "entity_type": "unknown",
+            "prefixes": [
+              {
+                "form": "ו",
+                "type": "conjunction",
+                "translation": "and"
+              },
+              {
+                "form": "ה",
+                "type": "definite_article",
+                "translation": "the"
+              }
+            ],
+            "suffixes": [],
+            "translation_literal": "וְהַנָּהָר",
+            "translation_context": "וְהַנָּהָר",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_2_14"
+            ],
+            "prefix": "ו",
+            "prefix_meaning": "and",
+            "suffix": "",
+            "suffix_meaning": ""
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 8,
+            "token": "וְהַנָּהָר"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_14",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 14
+          },
+          "token_index": 9,
+          "surface": "הָרְבִיעִי",
+          "normalized": "הרביעי",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "הָרְבִיעִי",
+            "normalized": "הרביעי",
+            "lemma": "הרביעי",
+            "shoresh": "הרביעי",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "unknown",
+            "role_hint": "unknown",
+            "entity_type": "unknown",
+            "prefixes": [
+              {
+                "form": "ה",
+                "type": "definite_article",
+                "translation": "the"
+              }
+            ],
+            "suffixes": [
+              {
+                "form": "י",
+                "type": "pronominal_suffix",
+                "translation": "my"
+              }
+            ],
+            "translation_literal": "הָרְבִיעִי",
+            "translation_context": "הָרְבִיעִי",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_2_14"
+            ],
+            "prefix": "ה",
+            "prefix_meaning": "the",
+            "suffix": "י",
+            "suffix_meaning": "my"
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 9,
+            "token": "הָרְבִיעִי"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_14",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 14
+          },
+          "token_index": 10,
+          "surface": "הוּא",
+          "normalized": "הוא",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "הוּא",
+            "normalized": "הוא",
+            "lemma": "הוא",
+            "shoresh": "הוא",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "unknown",
+            "role_hint": "unknown",
+            "entity_type": "unknown",
+            "prefixes": [
+              {
+                "form": "ה",
+                "type": "definite_article",
+                "translation": "the"
+              }
+            ],
+            "suffixes": [],
+            "translation_literal": "הוּא",
+            "translation_context": "הוּא",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_2_11",
+              "bereishis_2_13",
+              "bereishis_2_14"
+            ],
+            "prefix": "ה",
+            "prefix_meaning": "the",
+            "suffix": "",
+            "suffix_meaning": ""
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 10,
+            "token": "הוּא"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_14",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 14
+          },
+          "token_index": 11,
+          "surface": "פְרָת",
+          "normalized": "פרת",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "פְרָת",
+            "normalized": "פרת",
+            "lemma": "פרת",
+            "shoresh": "פרת",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "unknown",
+            "role_hint": "unknown",
+            "entity_type": "unknown",
+            "prefixes": [],
+            "suffixes": [],
+            "translation_literal": "פְרָת",
+            "translation_context": "פְרָת",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_2_14"
+            ],
+            "prefix": "",
+            "prefix_meaning": "",
+            "suffix": "",
+            "suffix_meaning": ""
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 11,
+            "token": "פְרָת"
+          }
+        }
+      ],
+      "role_layer": {
+        "status": "no_main_verb",
+        "main_verb_index": null,
+        "subject_index": null,
+        "direct_object_index": null,
+        "recipient_index": null,
+        "prepositional_phrases": [],
+        "ambiguities": []
+      }
+    },
+    {
+      "pasuk_id": "bereishis_2_15",
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 2,
+        "pasuk": 15
+      },
+      "source_ref": {
+        "sefer": "Bereishis",
+        "perek": 2,
+        "pasuk": 15
+      },
+      "text": "וַיִּקַּח יְהוָה אֱלֹהִים, אֶת־הָאָדָם; וַיַּנִּחֵהוּ בְגַן־עֵדֶן, לְעָבְדָהּ וּלְשָׁמְרָהּ.",
+      "tokens": [
+        "וַיִּקַּח",
+        "יְהוָה",
+        "אֱלֹהִים",
+        "אֶת",
+        "הָאָדָם",
+        "וַיַּנִּחֵהוּ",
+        "בְגַן",
+        "עֵדֶן",
+        "לְעָבְדָהּ",
+        "וּלְשָׁמְרָהּ"
+      ],
+      "token_records": [
+        {
+          "pasuk_id": "bereishis_2_15",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 15
+          },
+          "token_index": 0,
+          "surface": "וַיִּקַּח",
+          "normalized": "ויקח",
+          "analysis_index": 0,
+          "analysis_count": 2,
+          "selected_analysis": {
+            "surface": "וַיִּקַּח",
+            "normalized": "ויקח",
+            "lemma": "ויקח",
+            "shoresh": "יקח",
+            "part_of_speech": "verb",
+            "binyan": "qal",
+            "tense": "vav_consecutive_past",
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "action",
+            "role_hint": "unknown",
+            "entity_type": "verb",
+            "prefixes": [
+              {
+                "form": "ו",
+                "type": "verb_prefix_vav_consecutive",
+                "translation": "and"
+              }
+            ],
+            "suffixes": [],
+            "translation_literal": "וַיִּקַּח",
+            "translation_context": "וַיִּקַּח",
+            "confidence": "rule_based",
+            "source_refs": [
+              "bereishis_2_15"
+            ],
+            "prefix": "ו",
+            "prefix_meaning": "and",
+            "suffix": "",
+            "suffix_meaning": ""
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 0,
+            "token": "וַיִּקַּח"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_15",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 15
+          },
+          "token_index": 1,
+          "surface": "יְהוָה",
+          "normalized": "יהוה",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "יְהוָה",
+            "normalized": "יהוה",
+            "lemma": "יהוה",
+            "shoresh": "יהוה",
+            "part_of_speech": "noun",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "divine",
+            "role_hint": "subject_candidate",
+            "entity_type": "divine_name",
+            "prefixes": [],
+            "suffixes": [],
+            "translation_literal": "the LORD",
+            "translation_context": "the LORD",
+            "confidence": "reviewed_starter",
+            "source_refs": [
+              "bereishis_2_4",
+              "bereishis_2_8"
+            ],
+            "prefix": "",
+            "prefix_meaning": "",
+            "suffix": "",
+            "suffix_meaning": ""
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 1,
+            "token": "יְהוָה"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_15",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 15
+          },
+          "token_index": 2,
+          "surface": "אֱלֹהִים",
+          "normalized": "אלהים",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "אֱלֹהִים",
+            "normalized": "אלהים",
+            "lemma": "אלהים",
+            "shoresh": "אלהים",
+            "part_of_speech": "noun",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "divine",
+            "role_hint": "subject_candidate",
+            "entity_type": "divine_name",
+            "prefixes": [],
+            "suffixes": [],
+            "translation_literal": "God",
+            "translation_context": "God",
+            "confidence": "reviewed_starter",
+            "source_refs": [
+              "bereishis_2_2",
+              "bereishis_2_4",
+              "bereishis_2_8"
+            ],
+            "prefix": "",
+            "prefix_meaning": "",
+            "suffix": "",
+            "suffix_meaning": ""
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 2,
+            "token": "אֱלֹהִים"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_15",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 15
+          },
+          "token_index": 3,
+          "surface": "אֶת",
+          "normalized": "את",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "אֶת",
+            "normalized": "את",
+            "lemma": "את",
+            "shoresh": "את",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "unknown",
+            "role_hint": "object_candidate",
+            "entity_type": "grammatical_particle",
+            "prefixes": [],
+            "suffixes": [],
+            "translation_literal": "אֶת",
+            "translation_context": "אֶת",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_1_4",
+              "bereishis_1_7",
+              "bereishis_1_16",
+              "bereishis_1_21",
+              "bereishis_1_22",
+              "bereishis_1_25",
+              "bereishis_1_27",
+              "bereishis_1_28",
+              "bereishis_1_29",
+              "bereishis_1_30",
+              "bereishis_1_31",
+              "bereishis_2_3",
+              "bereishis_2_5",
+              "bereishis_2_6",
+              "bereishis_2_7",
+              "bereishis_2_8"
+            ],
+            "prefix": "",
+            "prefix_meaning": "",
+            "suffix": "",
+            "suffix_meaning": ""
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 3,
+            "token": "אֶת"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_15",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 15
+          },
+          "token_index": 4,
+          "surface": "הָאָדָם",
+          "normalized": "האדם",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "הָאָדָם",
+            "normalized": "האדם",
+            "lemma": "אדם",
+            "shoresh": "אדם",
+            "part_of_speech": "noun",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "person",
+            "role_hint": "object_candidate",
+            "entity_type": "person",
+            "prefixes": [
+              {
+                "form": "ה",
+                "type": "article_h",
+                "translation": "the"
+              }
+            ],
+            "suffixes": [],
+            "translation_literal": "the man",
+            "translation_context": "the man",
+            "confidence": "reviewed_starter",
+            "source_refs": [
+              "bereishis_2_8"
+            ],
+            "prefix": "ה",
+            "prefix_meaning": "the",
+            "suffix": "",
+            "suffix_meaning": ""
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 4,
+            "token": "הָאָדָם"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_15",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 15
+          },
+          "token_index": 5,
+          "surface": "וַיַּנִּחֵהוּ",
+          "normalized": "וינחהו",
+          "analysis_index": 0,
+          "analysis_count": 2,
+          "selected_analysis": {
+            "surface": "וַיַּנִּחֵהוּ",
+            "normalized": "וינחהו",
+            "lemma": "וינחהו",
+            "shoresh": "ינחה",
+            "part_of_speech": "verb",
+            "binyan": "qal",
+            "tense": "vav_consecutive_past",
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "action",
+            "role_hint": "unknown",
+            "entity_type": "verb",
+            "prefixes": [
+              {
+                "form": "ו",
+                "type": "verb_prefix_vav_consecutive",
+                "translation": "and"
+              }
+            ],
+            "suffixes": [],
+            "translation_literal": "וַיַּנִּחֵהוּ",
+            "translation_context": "וַיַּנִּחֵהוּ",
+            "confidence": "rule_based",
+            "source_refs": [
+              "bereishis_2_15"
+            ],
+            "prefix": "ו",
+            "prefix_meaning": "and",
+            "suffix": "",
+            "suffix_meaning": ""
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 5,
+            "token": "וַיַּנִּחֵהוּ"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_15",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 15
+          },
+          "token_index": 6,
+          "surface": "בְגַן",
+          "normalized": "בגן",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "בְגַן",
+            "normalized": "בגן",
+            "lemma": "בגן",
+            "shoresh": "בגן",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "unknown",
+            "role_hint": "unknown",
+            "entity_type": "unknown",
+            "prefixes": [],
+            "suffixes": [],
+            "translation_literal": "בְגַן",
+            "translation_context": "בְגַן",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_2_15"
+            ],
+            "prefix": "",
+            "prefix_meaning": "",
+            "suffix": "",
+            "suffix_meaning": ""
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 6,
+            "token": "בְגַן"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_15",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 15
+          },
+          "token_index": 7,
+          "surface": "עֵדֶן",
+          "normalized": "עדן",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "עֵדֶן",
+            "normalized": "עדן",
+            "lemma": "עדן",
+            "shoresh": "עדן",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "unknown",
+            "role_hint": "unknown",
+            "entity_type": "unknown",
+            "prefixes": [],
+            "suffixes": [],
+            "translation_literal": "עֵדֶן",
+            "translation_context": "עֵדֶן",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_2_15"
+            ],
+            "prefix": "",
+            "prefix_meaning": "",
+            "suffix": "",
+            "suffix_meaning": ""
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 7,
+            "token": "עֵדֶן"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_15",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 15
+          },
+          "token_index": 8,
+          "surface": "לְעָבְדָהּ",
+          "normalized": "לעבדה",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "לְעָבְדָהּ",
+            "normalized": "לעבדה",
+            "lemma": "לעבדה",
+            "shoresh": "לעבדה",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "unknown",
+            "role_hint": "unknown",
+            "entity_type": "unknown",
+            "prefixes": [
+              {
+                "form": "ל",
+                "type": "preposition_l",
+                "translation": "to / for"
+              }
+            ],
+            "suffixes": [
+              {
+                "form": "ה",
+                "type": "pronominal_suffix",
+                "translation": "her"
+              }
+            ],
+            "translation_literal": "לְעָבְדָהּ",
+            "translation_context": "לְעָבְדָהּ",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_2_15"
+            ],
+            "prefix": "ל",
+            "prefix_meaning": "to / for",
+            "suffix": "ה",
+            "suffix_meaning": "her"
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 8,
+            "token": "לְעָבְדָהּ"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_15",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 15
+          },
+          "token_index": 9,
+          "surface": "וּלְשָׁמְרָהּ",
+          "normalized": "ולשמרה",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "וּלְשָׁמְרָהּ",
+            "normalized": "ולשמרה",
+            "lemma": "ולשמרה",
+            "shoresh": "לשמרה",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "unknown",
+            "role_hint": "unknown",
+            "entity_type": "unknown",
+            "prefixes": [
+              {
+                "form": "ו",
+                "type": "conjunction",
+                "translation": "and"
+              },
+              {
+                "form": "ל",
+                "type": "preposition_l",
+                "translation": "to / for"
+              }
+            ],
+            "suffixes": [
+              {
+                "form": "ה",
+                "type": "pronominal_suffix",
+                "translation": "her"
+              }
+            ],
+            "translation_literal": "וּלְשָׁמְרָהּ",
+            "translation_context": "וּלְשָׁמְרָהּ",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_2_15"
+            ],
+            "prefix": "ו",
+            "prefix_meaning": "and",
+            "suffix": "ה",
+            "suffix_meaning": "her"
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 9,
+            "token": "וּלְשָׁמְרָהּ"
+          }
+        }
+      ],
+      "role_layer": {
+        "status": "no_main_verb",
+        "main_verb_index": null,
+        "subject_index": null,
+        "direct_object_index": null,
+        "recipient_index": null,
+        "prepositional_phrases": [],
+        "ambiguities": []
+      }
+    },
+    {
+      "pasuk_id": "bereishis_2_16",
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 2,
+        "pasuk": 16
+      },
+      "source_ref": {
+        "sefer": "Bereishis",
+        "perek": 2,
+        "pasuk": 16
+      },
+      "text": "וַיְצַו יְהוָה אֱלֹהִים, עַל־הָאָדָם לֵאמֹר: מִכֹּל עֵץ־הַגָּן, אָכֹל תֹּאכֵל.",
+      "tokens": [
+        "וַיְצַו",
+        "יְהוָה",
+        "אֱלֹהִים",
+        "עַל",
+        "הָאָדָם",
+        "לֵאמֹר",
+        "מִכֹּל",
+        "עֵץ",
+        "הַגָּן",
+        "אָכֹל",
+        "תֹּאכֵל"
+      ],
+      "token_records": [
+        {
+          "pasuk_id": "bereishis_2_16",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 16
+          },
+          "token_index": 0,
+          "surface": "וַיְצַו",
+          "normalized": "ויצו",
+          "analysis_index": 0,
+          "analysis_count": 2,
+          "selected_analysis": {
+            "surface": "וַיְצַו",
+            "normalized": "ויצו",
+            "lemma": "ויצו",
+            "shoresh": "יצו",
+            "part_of_speech": "verb",
+            "binyan": "qal",
+            "tense": "vav_consecutive_past",
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "action",
+            "role_hint": "unknown",
+            "entity_type": "verb",
+            "prefixes": [
+              {
+                "form": "ו",
+                "type": "verb_prefix_vav_consecutive",
+                "translation": "and"
+              }
+            ],
+            "suffixes": [],
+            "translation_literal": "וַיְצַו",
+            "translation_context": "וַיְצַו",
+            "confidence": "rule_based",
+            "source_refs": [
+              "bereishis_2_16"
+            ],
+            "prefix": "ו",
+            "prefix_meaning": "and",
+            "suffix": "",
+            "suffix_meaning": ""
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 0,
+            "token": "וַיְצַו"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_16",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 16
+          },
+          "token_index": 1,
+          "surface": "יְהוָה",
+          "normalized": "יהוה",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "יְהוָה",
+            "normalized": "יהוה",
+            "lemma": "יהוה",
+            "shoresh": "יהוה",
+            "part_of_speech": "noun",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "divine",
+            "role_hint": "subject_candidate",
+            "entity_type": "divine_name",
+            "prefixes": [],
+            "suffixes": [],
+            "translation_literal": "the LORD",
+            "translation_context": "the LORD",
+            "confidence": "reviewed_starter",
+            "source_refs": [
+              "bereishis_2_4",
+              "bereishis_2_8"
+            ],
+            "prefix": "",
+            "prefix_meaning": "",
+            "suffix": "",
+            "suffix_meaning": ""
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 1,
+            "token": "יְהוָה"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_16",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 16
+          },
+          "token_index": 2,
+          "surface": "אֱלֹהִים",
+          "normalized": "אלהים",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "אֱלֹהִים",
+            "normalized": "אלהים",
+            "lemma": "אלהים",
+            "shoresh": "אלהים",
+            "part_of_speech": "noun",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "divine",
+            "role_hint": "subject_candidate",
+            "entity_type": "divine_name",
+            "prefixes": [],
+            "suffixes": [],
+            "translation_literal": "God",
+            "translation_context": "God",
+            "confidence": "reviewed_starter",
+            "source_refs": [
+              "bereishis_2_2",
+              "bereishis_2_4",
+              "bereishis_2_8"
+            ],
+            "prefix": "",
+            "prefix_meaning": "",
+            "suffix": "",
+            "suffix_meaning": ""
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 2,
+            "token": "אֱלֹהִים"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_16",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 16
+          },
+          "token_index": 3,
+          "surface": "עַל",
+          "normalized": "על",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "עַל",
+            "normalized": "על",
+            "lemma": "על",
+            "shoresh": "על",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "unknown",
+            "role_hint": "unknown",
+            "entity_type": "unknown",
+            "prefixes": [],
+            "suffixes": [],
+            "translation_literal": "עַל",
+            "translation_context": "עַל",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_1_2",
+              "bereishis_1_11",
+              "bereishis_1_15",
+              "bereishis_1_17",
+              "bereishis_1_20",
+              "bereishis_1_26",
+              "bereishis_1_28",
+              "bereishis_1_29",
+              "bereishis_1_30",
+              "bereishis_2_5"
+            ],
+            "prefix": "",
+            "prefix_meaning": "",
+            "suffix": "",
+            "suffix_meaning": ""
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 3,
+            "token": "עַל"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_16",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 16
+          },
+          "token_index": 4,
+          "surface": "הָאָדָם",
+          "normalized": "האדם",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "הָאָדָם",
+            "normalized": "האדם",
+            "lemma": "אדם",
+            "shoresh": "אדם",
+            "part_of_speech": "noun",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "person",
+            "role_hint": "object_candidate",
+            "entity_type": "person",
+            "prefixes": [
+              {
+                "form": "ה",
+                "type": "article_h",
+                "translation": "the"
+              }
+            ],
+            "suffixes": [],
+            "translation_literal": "the man",
+            "translation_context": "the man",
+            "confidence": "reviewed_starter",
+            "source_refs": [
+              "bereishis_2_8"
+            ],
+            "prefix": "ה",
+            "prefix_meaning": "the",
+            "suffix": "",
+            "suffix_meaning": ""
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 4,
+            "token": "הָאָדָם"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_16",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 16
+          },
+          "token_index": 5,
+          "surface": "לֵאמֹר",
+          "normalized": "לאמר",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "לֵאמֹר",
+            "normalized": "לאמר",
+            "lemma": "לאמר",
+            "shoresh": "אמר",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "unknown",
+            "role_hint": "unknown",
+            "entity_type": "unknown",
+            "prefixes": [
+              {
+                "form": "ל",
+                "type": "preposition_l",
+                "translation": "to / for"
+              }
+            ],
+            "suffixes": [],
+            "translation_literal": "לֵאמֹר",
+            "translation_context": "לֵאמֹר",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_1_22"
+            ],
+            "prefix": "ל",
+            "prefix_meaning": "to / for",
+            "suffix": "",
+            "suffix_meaning": ""
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 5,
+            "token": "לֵאמֹר"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_16",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 16
+          },
+          "token_index": 6,
+          "surface": "מִכֹּל",
+          "normalized": "מכל",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "מִכֹּל",
+            "normalized": "מכל",
+            "lemma": "מכל",
+            "shoresh": "מכל",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "unknown",
+            "role_hint": "unknown",
+            "entity_type": "unknown",
+            "prefixes": [],
+            "suffixes": [],
+            "translation_literal": "מִכֹּל",
+            "translation_context": "מִכֹּל",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_2_16"
+            ],
+            "prefix": "",
+            "prefix_meaning": "",
+            "suffix": "",
+            "suffix_meaning": ""
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 6,
+            "token": "מִכֹּל"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_16",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 16
+          },
+          "token_index": 7,
+          "surface": "עֵץ",
+          "normalized": "עץ",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "עֵץ",
+            "normalized": "עץ",
+            "lemma": "עץ",
+            "shoresh": "עץ",
+            "part_of_speech": "noun",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "object",
+            "role_hint": "object_candidate",
+            "entity_type": "plant",
+            "prefixes": [],
+            "suffixes": [],
+            "translation_literal": "a tree",
+            "translation_context": "a tree",
+            "confidence": "local_data_enrichment",
+            "source_refs": [
+              "bereishis_2_9"
+            ],
+            "prefix": "",
+            "prefix_meaning": "",
+            "suffix": "",
+            "suffix_meaning": ""
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 7,
+            "token": "עֵץ"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_16",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 16
+          },
+          "token_index": 8,
+          "surface": "הַגָּן",
+          "normalized": "הגן",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "הַגָּן",
+            "normalized": "הגן",
+            "lemma": "????",
+            "shoresh": "???",
+            "part_of_speech": "noun",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "place",
+            "role_hint": "location_candidate",
+            "entity_type": "place",
+            "prefixes": [
+              {
+                "form": "ה",
+                "type": "definite_article",
+                "translation": "the"
+              }
+            ],
+            "suffixes": [],
+            "translation_literal": "the garden",
+            "translation_context": "the garden",
+            "confidence": "reviewed_starter",
+            "source_refs": [
+              "bereishis_2_10",
+              "bereishis_2_16"
+            ],
+            "prefix": "ה",
+            "prefix_meaning": "the",
+            "suffix": "",
+            "suffix_meaning": "",
+            "translation": "the garden",
+            "context_translation": "the garden",
+            "type": "noun"
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 8,
+            "token": "הַגָּן"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_16",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 16
+          },
+          "token_index": 9,
+          "surface": "אָכֹל",
+          "normalized": "אכל",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "אָכֹל",
+            "normalized": "אכל",
+            "lemma": "אכל",
+            "shoresh": "אכל",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "unknown",
+            "role_hint": "unknown",
+            "entity_type": "unknown",
+            "prefixes": [],
+            "suffixes": [],
+            "translation_literal": "אָכֹל",
+            "translation_context": "אָכֹל",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_2_16"
+            ],
+            "prefix": "",
+            "prefix_meaning": "",
+            "suffix": "",
+            "suffix_meaning": ""
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 9,
+            "token": "אָכֹל"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_16",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 16
+          },
+          "token_index": 10,
+          "surface": "תֹּאכֵל",
+          "normalized": "תאכל",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "תֹּאכֵל",
+            "normalized": "תאכל",
+            "lemma": "תאכל",
+            "shoresh": "תאכל",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "unknown",
+            "role_hint": "unknown",
+            "entity_type": "unknown",
+            "prefixes": [],
+            "suffixes": [],
+            "translation_literal": "תֹּאכֵל",
+            "translation_context": "תֹּאכֵל",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_2_16"
+            ],
+            "prefix": "",
+            "prefix_meaning": "",
+            "suffix": "",
+            "suffix_meaning": ""
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 10,
+            "token": "תֹּאכֵל"
+          }
+        }
+      ],
+      "role_layer": {
+        "status": "no_main_verb",
+        "main_verb_index": null,
+        "subject_index": null,
+        "direct_object_index": null,
+        "recipient_index": null,
+        "prepositional_phrases": [],
+        "ambiguities": []
+      }
+    },
+    {
+      "pasuk_id": "bereishis_2_17",
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 2,
+        "pasuk": 17
+      },
+      "source_ref": {
+        "sefer": "Bereishis",
+        "perek": 2,
+        "pasuk": 17
+      },
+      "text": "וּמֵעֵץ, הַדַּעַת טוֹב וָרָע, לֹא תֹאכַל, מִמֶּנּוּ: כִּי, בְּיוֹם אֲכָלְךָ מִמֶּנּוּ--מוֹת תָּמוּת.",
+      "tokens": [
+        "וּמֵעֵץ",
+        "הַדַּעַת",
+        "טוֹב",
+        "וָרָע",
+        "לֹא",
+        "תֹאכַל",
+        "מִמֶּנּוּ",
+        "כִּי",
+        "בְּיוֹם",
+        "אֲכָלְךָ",
+        "מִמֶּנּוּ",
+        "מוֹת",
+        "תָּמוּת"
+      ],
+      "token_records": [
+        {
+          "pasuk_id": "bereishis_2_17",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 17
+          },
+          "token_index": 0,
+          "surface": "וּמֵעֵץ",
+          "normalized": "ומעץ",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "וּמֵעֵץ",
+            "normalized": "ומעץ",
+            "lemma": "ומעץ",
+            "shoresh": "מעץ",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "unknown",
+            "role_hint": "unknown",
+            "entity_type": "unknown",
+            "prefixes": [
+              {
+                "form": "ו",
+                "type": "conjunction",
+                "translation": "and"
+              }
+            ],
+            "suffixes": [],
+            "translation_literal": "וּמֵעֵץ",
+            "translation_context": "וּמֵעֵץ",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_2_17"
+            ],
+            "prefix": "ו",
+            "prefix_meaning": "and",
+            "suffix": "",
+            "suffix_meaning": ""
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 0,
+            "token": "וּמֵעֵץ"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_17",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 17
+          },
+          "token_index": 1,
+          "surface": "הַדַּעַת",
+          "normalized": "הדעת",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "הַדַּעַת",
+            "normalized": "הדעת",
+            "lemma": "??????",
+            "shoresh": "???",
+            "part_of_speech": "noun",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "abstract",
+            "role_hint": "descriptor",
+            "entity_type": "common_noun",
+            "prefixes": [
+              {
+                "form": "ה",
+                "type": "definite_article",
+                "translation": "the"
+              }
+            ],
+            "suffixes": [],
+            "translation_literal": "the knowledge",
+            "translation_context": "the knowledge",
+            "confidence": "reviewed_starter",
+            "source_refs": [
+              "bereishis_2_17"
+            ],
+            "prefix": "ה",
+            "prefix_meaning": "the",
+            "suffix": "",
+            "suffix_meaning": "",
+            "translation": "the knowledge",
+            "context_translation": "the knowledge",
+            "type": "noun"
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 1,
+            "token": "הַדַּעַת"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_17",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 17
+          },
+          "token_index": 2,
+          "surface": "טוֹב",
+          "normalized": "טוב",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "טוֹב",
+            "normalized": "טוב",
+            "lemma": "טוב",
+            "shoresh": "טוב",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "abstract",
+            "role_hint": "descriptor",
+            "entity_type": "common_noun",
+            "prefixes": [],
+            "suffixes": [],
+            "translation_literal": "טוֹב",
+            "translation_context": "טוֹב",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_1_4",
+              "bereishis_1_10",
+              "bereishis_1_12",
+              "bereishis_1_18",
+              "bereishis_1_21",
+              "bereishis_1_25",
+              "bereishis_1_31",
+              "bereishis_2_9"
+            ],
+            "prefix": "",
+            "prefix_meaning": "",
+            "suffix": "",
+            "suffix_meaning": ""
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 2,
+            "token": "טוֹב"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_17",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 17
+          },
+          "token_index": 3,
+          "surface": "וָרָע",
+          "normalized": "ורע",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "וָרָע",
+            "normalized": "ורע",
+            "lemma": "רע",
+            "shoresh": "רע",
+            "part_of_speech": "adjective",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "description",
+            "role_hint": "unknown",
+            "entity_type": "adjective",
+            "prefixes": [
+              {
+                "form": "ו",
+                "type": "conjunction_v",
+                "translation": "and"
+              }
+            ],
+            "suffixes": [],
+            "translation_literal": "and evil",
+            "translation_context": "and evil",
+            "confidence": "local_data_enrichment",
+            "source_refs": [
+              "bereishis_2_9"
+            ],
+            "prefix": "ו",
+            "prefix_meaning": "and",
+            "suffix": "",
+            "suffix_meaning": ""
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 3,
+            "token": "וָרָע"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_17",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 17
+          },
+          "token_index": 4,
+          "surface": "לֹא",
+          "normalized": "לא",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "לֹא",
+            "normalized": "לא",
+            "lemma": "לא",
+            "shoresh": "לא",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "unknown",
+            "role_hint": "unknown",
+            "entity_type": "unknown",
+            "prefixes": [],
+            "suffixes": [],
+            "translation_literal": "לֹא",
+            "translation_context": "לֹא",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_2_5"
+            ],
+            "prefix": "",
+            "prefix_meaning": "",
+            "suffix": "",
+            "suffix_meaning": ""
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 4,
+            "token": "לֹא"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_17",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 17
+          },
+          "token_index": 5,
+          "surface": "תֹאכַל",
+          "normalized": "תאכל",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "תֹאכַל",
+            "normalized": "תאכל",
+            "lemma": "תאכל",
+            "shoresh": "תאכל",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "unknown",
+            "role_hint": "unknown",
+            "entity_type": "unknown",
+            "prefixes": [],
+            "suffixes": [],
+            "translation_literal": "תֹאכַל",
+            "translation_context": "תֹאכַל",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_2_17"
+            ],
+            "prefix": "",
+            "prefix_meaning": "",
+            "suffix": "",
+            "suffix_meaning": ""
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 5,
+            "token": "תֹאכַל"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_17",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 17
+          },
+          "token_index": 6,
+          "surface": "מִמֶּנּוּ",
+          "normalized": "ממנו",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "מִמֶּנּוּ",
+            "normalized": "ממנו",
+            "lemma": "ממנו",
+            "shoresh": "מנו",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "unknown",
+            "role_hint": "unknown",
+            "entity_type": "unknown",
+            "prefixes": [
+              {
+                "form": "מ",
+                "type": "preposition_m",
+                "translation": "from"
+              }
+            ],
+            "suffixes": [
+              {
+                "form": "נו",
+                "type": "pronominal_suffix",
+                "translation": "our"
+              }
+            ],
+            "translation_literal": "מִמֶּנּוּ",
+            "translation_context": "מִמֶּנּוּ",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_2_17"
+            ],
+            "prefix": "מ",
+            "prefix_meaning": "from",
+            "suffix": "נו",
+            "suffix_meaning": "our"
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 6,
+            "token": "מִמֶּנּוּ"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_17",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 17
+          },
+          "token_index": 7,
+          "surface": "כִּי",
+          "normalized": "כי",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "כִּי",
+            "normalized": "כי",
+            "lemma": "כי",
+            "shoresh": "כי",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "abstract",
+            "role_hint": "descriptor",
+            "entity_type": "grammatical_particle",
+            "prefixes": [],
+            "suffixes": [],
+            "translation_literal": "כִּי",
+            "translation_context": "כִּי",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_1_4",
+              "bereishis_1_10",
+              "bereishis_1_12",
+              "bereishis_1_18",
+              "bereishis_1_21",
+              "bereishis_1_25"
+            ],
+            "prefix": "",
+            "prefix_meaning": "",
+            "suffix": "",
+            "suffix_meaning": ""
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 7,
+            "token": "כִּי"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_17",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 17
+          },
+          "token_index": 8,
+          "surface": "בְּיוֹם",
+          "normalized": "ביום",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "בְּיוֹם",
+            "normalized": "ביום",
+            "lemma": "ביום",
+            "shoresh": "יום",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "unknown",
+            "role_hint": "unknown",
+            "entity_type": "unknown",
+            "prefixes": [
+              {
+                "form": "ב",
+                "type": "preposition_b",
+                "translation": "in / with"
+              }
+            ],
+            "suffixes": [
+              {
+                "form": "ם",
+                "type": "pronominal_suffix",
+                "translation": "their"
+              }
+            ],
+            "translation_literal": "בְּיוֹם",
+            "translation_context": "בְּיוֹם",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_2_17"
+            ],
+            "prefix": "ב",
+            "prefix_meaning": "in / with",
+            "suffix": "ם",
+            "suffix_meaning": "their"
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 8,
+            "token": "בְּיוֹם"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_17",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 17
+          },
+          "token_index": 9,
+          "surface": "אֲכָלְךָ",
+          "normalized": "אכלך",
+          "analysis_index": 0,
+          "analysis_count": 2,
+          "selected_analysis": {
+            "surface": "אֲכָלְךָ",
+            "normalized": "אכלך",
+            "lemma": "אכלך",
+            "shoresh": "אכלך",
+            "part_of_speech": "verb",
+            "binyan": "qal",
+            "tense": "future",
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "action",
+            "role_hint": "unknown",
+            "entity_type": "verb",
+            "prefixes": [
+              {
+                "form": "א",
+                "type": "verb_prefix_future",
+                "translation": "future / jussive marker"
+              }
+            ],
+            "suffixes": [],
+            "translation_literal": "אֲכָלְךָ",
+            "translation_context": "אֲכָלְךָ",
+            "confidence": "rule_based",
+            "source_refs": [
+              "bereishis_2_17"
+            ],
+            "prefix": "",
+            "prefix_meaning": "",
+            "suffix": "",
+            "suffix_meaning": ""
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 9,
+            "token": "אֲכָלְךָ"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_17",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 17
+          },
+          "token_index": 10,
+          "surface": "מִמֶּנּוּ",
+          "normalized": "ממנו",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "מִמֶּנּוּ",
+            "normalized": "ממנו",
+            "lemma": "ממנו",
+            "shoresh": "מנו",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "unknown",
+            "role_hint": "unknown",
+            "entity_type": "unknown",
+            "prefixes": [
+              {
+                "form": "מ",
+                "type": "preposition_m",
+                "translation": "from"
+              }
+            ],
+            "suffixes": [
+              {
+                "form": "נו",
+                "type": "pronominal_suffix",
+                "translation": "our"
+              }
+            ],
+            "translation_literal": "מִמֶּנּוּ",
+            "translation_context": "מִמֶּנּוּ",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_2_17"
+            ],
+            "prefix": "מ",
+            "prefix_meaning": "from",
+            "suffix": "נו",
+            "suffix_meaning": "our"
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 10,
+            "token": "מִמֶּנּוּ"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_17",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 17
+          },
+          "token_index": 11,
+          "surface": "מוֹת",
+          "normalized": "מות",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "מוֹת",
+            "normalized": "מות",
+            "lemma": "מות",
+            "shoresh": "מות",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "unknown",
+            "role_hint": "unknown",
+            "entity_type": "unknown",
+            "prefixes": [],
+            "suffixes": [],
+            "translation_literal": "מוֹת",
+            "translation_context": "מוֹת",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_2_17"
+            ],
+            "prefix": "",
+            "prefix_meaning": "",
+            "suffix": "",
+            "suffix_meaning": ""
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 11,
+            "token": "מוֹת"
+          }
+        },
+        {
+          "pasuk_id": "bereishis_2_17",
+          "source_ref": {
+            "sefer": "Bereishis",
+            "perek": 2,
+            "pasuk": 17
+          },
+          "token_index": 12,
+          "surface": "תָּמוּת",
+          "normalized": "תמות",
+          "analysis_index": 0,
+          "analysis_count": 1,
+          "selected_analysis": {
+            "surface": "תָּמוּת",
+            "normalized": "תמות",
+            "lemma": "תמות",
+            "shoresh": "תמות",
+            "part_of_speech": "unknown",
+            "binyan": null,
+            "tense": null,
+            "person": null,
+            "number": null,
+            "gender": null,
+            "semantic_group": "unknown",
+            "role_hint": "unknown",
+            "entity_type": "unknown",
+            "prefixes": [],
+            "suffixes": [],
+            "translation_literal": "תָּמוּת",
+            "translation_context": "תָּמוּת",
+            "confidence": "generated_candidate",
+            "source_refs": [
+              "bereishis_2_17"
+            ],
+            "prefix": "",
+            "prefix_meaning": "",
+            "suffix": "",
+            "suffix_meaning": ""
+          },
+          "role_data": {
+            "role_status": "no_main_verb",
+            "clause_role": "other",
+            "verb_index": null,
+            "verb_token": null,
+            "phrase_role": null,
+            "phrase_span": null,
+            "preposition_form": null,
+            "preposition_meaning": null,
+            "token_index": 12,
+            "token": "תָּמוּת"
+          }
+        }
+      ],
+      "role_layer": {
+        "status": "no_main_verb",
+        "main_verb_index": null,
+        "subject_index": null,
+        "direct_object_index": null,
+        "recipient_index": null,
+        "prepositional_phrases": [],
+        "ambiguities": []
       }
     }
   ]

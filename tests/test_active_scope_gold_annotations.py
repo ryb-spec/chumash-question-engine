@@ -33,7 +33,7 @@ class ActiveScopeGoldAnnotationTests(unittest.TestCase):
 
         self.assertEqual(
             data.get("metadata", {}).get("scope_id"),
-            "local_parsed_bereishis_1_1_to_2_9",
+            "local_parsed_bereishis_1_1_to_2_17",
         )
         self.assertEqual(
             set(active_scope_gold_annotation_records().keys()),
@@ -82,6 +82,9 @@ class ActiveScopeGoldAnnotationTests(unittest.TestCase):
         self.assertIn("1:17", audit["override_vs_gold"]["object_identification"]["matched_approved_refs"])
         self.assertIn("1:21", audit["override_vs_gold"]["object_identification"]["missed_gold_refs"])
         self.assertIn("1:31", audit["override_vs_gold"]["phrase_translation"]["missed_gold_refs"])
+        self.assertIn("2:15", audit["override_vs_gold"]["phrase_translation"]["matched_approved_refs"])
+        self.assertIn("2:16", audit["override_vs_gold"]["phrase_translation"]["matched_approved_refs"])
+        self.assertIn("2:17", audit["override_vs_gold"]["phrase_translation"]["matched_approved_refs"])
         self.assertIn("1:2", audit["override_vs_gold"]["subject_identification"]["unsupported_in_gold_refs"])
         self.assertIn("2:1", audit["override_vs_gold"]["phrase_translation"]["unsupported_in_gold_refs"])
 

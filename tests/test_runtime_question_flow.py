@@ -394,6 +394,63 @@ class RuntimeQuestionFlowTests(unittest.TestCase):
             pilot_logging.OUTSIDE_ACTIVE_PARSED_LABEL,
         )
 
+    def test_select_pasuk_first_question_serves_new_chunk_in_scope_in_trusted_mode(self):
+        active_record = next(
+            record
+            for record in active_pesukim_records()
+            if record.get("ref", {}).get("perek") == 2
+            and record.get("ref", {}).get("pasuk") == 15
+        )
+        ready_rows = [
+            {
+                "pasuk": active_record["text"],
+                "word": "וַיִּקַּח",
+                "feature": "phrase_translation",
+                "prefix": "",
+                "morpheme_family": "",
+            }
+        ]
+        generated_question = {
+            "skill": "phrase_translation",
+            "question_type": "phrase_translation",
+            "question": "What does this phrase mean?",
+            "selected_word": "וַיִּקַּח יְהוָה אֱלֹהִים אֶת הָאָדָם",
+            "word": "וַיִּקַּח יְהוָה אֱלֹהִים אֶת הָאָדָם",
+            "correct_answer": "and the LORD God took the man",
+            "choices": [
+                "and the LORD God took the man",
+                "and the LORD God placed the man",
+                "and the LORD God commanded the man",
+                "and God took the man",
+            ],
+        }
+
+        captured_events = []
+        with patch.object(question_flow, "get_skill_ready_pasuks", return_value=ready_rows), \
+             patch.object(question_flow, "generate_skill_question", return_value=dict(generated_question)), \
+             patch.object(question_flow, "analyze_generator_pasuk", side_effect=lambda pasuk: pasuk), \
+             patch.object(session_state, "record_selected_pasuk"), \
+             patch.object(session_state, "record_question_feature"), \
+             patch.object(session_state, "record_question_prefix"), \
+             patch.object(
+                 pilot_logging,
+                 "append_pilot_event",
+                 side_effect=lambda event, **kwargs: captured_events.append(event) or True,
+             ):
+            result = select_pasuk_first_question(
+                "phrase_translation",
+                progress={"prefix_level": 1},
+                adaptive_context={},
+            )
+            pilot_logging.sync_pilot_served_question(result, practice_type="Learn Mode")
+
+        self.assertIsNotNone(result)
+        self.assertEqual(result["pasuk"], active_record["text"])
+        self.assertEqual(result["pasuk_id"], active_record["pasuk_id"])
+        self.assertEqual(captured_events[0]["scope_membership"], "active_parsed")
+        self.assertEqual(captured_events[0]["pasuk_ref"]["pasuk_id"], active_record["pasuk_id"])
+        self.assertEqual(captured_events[0]["pasuk_ref"]["label"], "Bereishis 2:15")
+
     def test_build_followup_question_skips_unmappable_candidate_in_trusted_scope(self):
         active_record = active_pesukim_records()[0]
         progress = {"current_skill": "translation", "prefix_level": 1}

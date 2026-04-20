@@ -17,12 +17,12 @@ class CorpusPromotionTests(unittest.TestCase):
         self.assertEqual(result["status"], "no_next_block")
         self.assertFalse(result["promoted"])
         self.assertIn("ends at the current active scope", result["reason"])
-        self.assertEqual(result["source_declared_range"], "1:1-2:9")
+        self.assertEqual(result["source_declared_range"], "1:1-2:17")
         self.assertEqual(
             result["source_actual_range"]["end"],
-            {"sefer": "Bereishis", "perek": 2, "pasuk": 9},
+            {"sefer": "Bereishis", "perek": 2, "pasuk": 17},
         )
-        self.assertEqual(result["source_pesukim_count"], 40)
+        self.assertEqual(result["source_pesukim_count"], 48)
 
     def test_active_scope_remains_unchanged_when_no_promotion_occurs(self):
         before = assessment_scope.active_scope_summary()
@@ -58,6 +58,32 @@ class CorpusPromotionTests(unittest.TestCase):
         self.assertEqual(result["pesukim_count"], 10)
         self.assertEqual(result["range"]["start"], {"sefer": "Bereishis", "perek": 1, "pasuk": 31})
         self.assertEqual(result["range"]["end"], {"sefer": "Bereishis", "perek": 2, "pasuk": 9})
+
+    def test_combined_source_files_expose_next_contiguous_block_after_2_9(self):
+        source_corpus = load_source_corpora(
+            [
+                "data/source/bereishis_1_1_to_1_30.json",
+                "data/source/bereishis_1_31_to_2_9.json",
+                "data/source/bereishis_2_10_to_2_17.json",
+            ]
+        )
+
+        result = find_next_source_block(
+            source_corpus,
+            active_scope={
+                "sefer": "Bereishis",
+                "range": {
+                    "start": {"perek": 1, "pasuk": 1},
+                    "end": {"perek": 2, "pasuk": 9},
+                },
+            },
+            block_size=10,
+        )
+
+        self.assertEqual(result["status"], "found")
+        self.assertEqual(result["pesukim_count"], 8)
+        self.assertEqual(result["range"]["start"], {"sefer": "Bereishis", "perek": 2, "pasuk": 10})
+        self.assertEqual(result["range"]["end"], {"sefer": "Bereishis", "perek": 2, "pasuk": 17})
 
     def test_manifest_active_scope_updates_correctly_if_promotion_is_applied(self):
         manifest = {

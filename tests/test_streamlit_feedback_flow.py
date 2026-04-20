@@ -311,8 +311,11 @@ class StreamlitFeedbackFlowTests(unittest.TestCase):
         st.session_state.last_skill_state = {"score": 70}
         st.session_state.post_answer_action_pending = "next_mastery"
         st.session_state.scroll_to_question_on_render = False
+        st.session_state.scroll_to_post_answer_action_on_render = True
         st.session_state.current_question_arrival_token = "question-arrival-1"
+        st.session_state.current_post_answer_visibility_token = "post-answer-2"
         st.session_state.question_arrival_counter = 1
+        st.session_state.post_answer_visibility_counter = 2
 
         with patch.object(streamlit_app.st, "rerun"):
             streamlit_app.transition_to_question({"question": "Next", "correct_answer": "A"})
@@ -326,7 +329,9 @@ class StreamlitFeedbackFlowTests(unittest.TestCase):
         self.assertIsNone(st.session_state.selected_answer)
         self.assertEqual(st.session_state.post_answer_action_pending, "")
         self.assertTrue(st.session_state.scroll_to_question_on_render)
+        self.assertFalse(st.session_state.scroll_to_post_answer_action_on_render)
         self.assertEqual(st.session_state.current_question_arrival_token, "question-arrival-2")
+        self.assertEqual(st.session_state.current_post_answer_visibility_token, "")
 
 
 if __name__ == "__main__":

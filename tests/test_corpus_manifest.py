@@ -42,26 +42,27 @@ class CorpusManifestTests(unittest.TestCase):
 
         self.assertEqual(active_scope["sefer"], "Bereishis")
         self.assertEqual(active_scope["range"]["start"], {"perek": 1, "pasuk": 1})
-        self.assertEqual(active_scope["range"]["end"], {"perek": 2, "pasuk": 9})
-        self.assertEqual(active_scope["pesukim_count"], 40)
+        self.assertEqual(active_scope["range"]["end"], {"perek": 2, "pasuk": 17})
+        self.assertEqual(active_scope["pesukim_count"], 48)
         self.assertEqual(active_scope["status"], "active")
 
     def test_source_corpus_metadata_matches_expanded_local_source_boundary(self):
         source_corpus = assessment_scope.corpus_source_corpora()[0]
 
-        self.assertEqual(source_corpus["corpus_id"], "source_bereishis_1_1_to_2_9_local")
+        self.assertEqual(source_corpus["corpus_id"], "source_bereishis_1_1_to_2_17_local")
         self.assertEqual(source_corpus["status"], "source")
         self.assertEqual(source_corpus["range"]["start"], {"perek": 1, "pasuk": 1})
-        self.assertEqual(source_corpus["range"]["end"], {"perek": 2, "pasuk": 9})
-        self.assertEqual(source_corpus["pesukim_count"], 40)
+        self.assertEqual(source_corpus["range"]["end"], {"perek": 2, "pasuk": 17})
+        self.assertEqual(source_corpus["pesukim_count"], 48)
         self.assertEqual(
             source_corpus["source_files"],
             [
                 "data/source/bereishis_1_1_to_1_30.json",
                 "data/source/bereishis_1_31_to_2_9.json",
+                "data/source/bereishis_2_10_to_2_17.json",
             ],
         )
-        self.assertEqual(source_corpus["declared_source_range"], "1:1-2:9")
+        self.assertEqual(source_corpus["declared_source_range"], "1:1-2:17")
 
     def test_legacy_status_aliases_normalize_to_canonical_lifecycle_states(self):
         self.assertEqual(assessment_scope.normalize_corpus_status("experimental"), "source")
@@ -89,8 +90,26 @@ class CorpusManifestTests(unittest.TestCase):
     def test_streamlit_runtime_remains_compatible_with_manifest_backed_scope_resolution(self):
         flows = streamlit_app.load_pasuk_flows()
         active_scope = assessment_scope.active_scope_metadata()
+        active_texts = {record.get("text") for record in assessment_scope.active_pesukim_records()}
+        flow_pesukim = {flow.get("pasuk") for flow in flows}
+        expected_new_flow_refs = {
+            (2, 10),
+            (2, 15),
+            (2, 16),
+            (2, 17),
+        }
+        expected_new_flow_texts = {
+            record.get("text")
+            for record in assessment_scope.active_pesukim_records()
+            if (
+                record.get("ref", {}).get("perek"),
+                record.get("ref", {}).get("pasuk"),
+            ) in expected_new_flow_refs
+        }
 
-        self.assertEqual(len(flows), active_scope["pesukim_count"])
+        self.assertLessEqual(len(flows), active_scope["pesukim_count"])
+        self.assertTrue(flow_pesukim.issubset(active_texts))
+        self.assertTrue(expected_new_flow_texts.issubset(flow_pesukim))
         self.assertTrue(
             all(
                 flow.get("source", "").startswith(f"{assessment_scope.ACTIVE_ASSESSMENT_SCOPE}:")

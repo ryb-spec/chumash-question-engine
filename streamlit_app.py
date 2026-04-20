@@ -101,6 +101,7 @@ from runtime.session_state import (
     record_question_prefix,
     record_selected_pasuk,
     reset_for_new_question,
+    schedule_post_answer_action_visibility,
     set_adaptive_status,
     set_question,
     transition_to_question,
@@ -490,6 +491,7 @@ def handle_answer(choice, question, progress):
     st.session_state.last_answer_submitted_at = pipeline_started_at
     st.session_state.answered = True
     st.session_state.selected_answer = choice
+    schedule_post_answer_action_visibility()
     st.session_state.questions_answered += 1
     if question.get("difficulty") == 5:
         st.session_state.level5_answered += 1
@@ -1200,13 +1202,17 @@ def apply_global_styles():
             background: var(--danger-soft);
         }
         .post-answer-action-shell {
-            margin-top: 10px;
-            padding: 10px 12px 6px 12px;
+            margin-top: 8px;
+            padding: 8px 12px 6px 12px;
             border: 1px solid var(--line);
             border-radius: 8px;
             background: rgba(255, 255, 255, 0.94);
             box-shadow: 0 4px 16px rgba(28, 45, 40, 0.06);
             backdrop-filter: blur(8px);
+        }
+        .post-answer-action-target {
+            scroll-margin-top: 56px;
+            outline: none;
         }
         .post-answer-action-note {
             margin-top: 4px;

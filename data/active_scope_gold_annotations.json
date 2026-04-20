@@ -1,7 +1,7 @@
-﻿{
+{
   "metadata": {
     "title": "Active Scope Gold Annotations",
-    "scope_id": "local_parsed_bereishis_1_1_to_2_9",
+    "scope_id": "local_parsed_bereishis_1_1_to_2_17",
     "status": "active",
     "notes": [
       "This file defines teacher-defensible gold targets for the current active runtime scope only.",
@@ -11,323 +11,1469 @@
   },
   "annotations": {
     "bereishis_1_1": {
-      "ref": {"sefer": "Bereishis", "perek": 1, "pasuk": 1},
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 1,
+        "pasuk": 1
+      },
       "skills": {
-        "subject_identification": {"status": "approved", "approved_targets": [{"main_verb_token": "בָּרָא", "surface": "אֱלֹקִים", "translation": "God"}]},
-        "object_identification": {"status": "suppressed", "reason": "No clean single direct-object target is preferred here."},
-        "phrase_translation": {"status": "approved", "approved_targets": [{"surface": "בָּרָא אֱלֹקִים", "translation": "God created"}]}
+        "subject_identification": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "main_verb_token": "בָּרָא",
+              "surface": "אֱלֹקִים",
+              "translation": "God"
+            }
+          ]
+        },
+        "object_identification": {
+          "status": "suppressed",
+          "reason": "No clean single direct-object target is preferred here."
+        },
+        "phrase_translation": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "surface": "בָּרָא אֱלֹקִים",
+              "translation": "God created"
+            }
+          ]
+        }
       }
     },
     "bereishis_1_2": {
-      "ref": {"sefer": "Bereishis", "perek": 1, "pasuk": 2},
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 1,
+        "pasuk": 2
+      },
       "skills": {
-        "subject_identification": {"status": "suppressed", "reason": "This descriptive multi-clause pasuk does not have one clean quiz-ready action anchor."},
-        "object_identification": {"status": "suppressed", "reason": "No clean direct-object or recipient target is preferred here."},
-        "phrase_translation": {"status": "suppressed", "reason": "No compact quiz-ready phrase is preferred here."}
+        "subject_identification": {
+          "status": "suppressed",
+          "reason": "This descriptive multi-clause pasuk does not have one clean quiz-ready action anchor."
+        },
+        "object_identification": {
+          "status": "suppressed",
+          "reason": "No clean direct-object or recipient target is preferred here."
+        },
+        "phrase_translation": {
+          "status": "suppressed",
+          "reason": "No compact quiz-ready phrase is preferred here."
+        }
       }
     },
     "bereishis_1_3": {
-      "ref": {"sefer": "Bereishis", "perek": 1, "pasuk": 3},
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 1,
+        "pasuk": 3
+      },
       "skills": {
-        "subject_identification": {"status": "approved", "approved_targets": [{"main_verb_token": "וַיֹּאמֶר", "surface": "אֱלֹקִים", "translation": "God"}]},
-        "object_identification": {"status": "suppressed", "reason": "The speech content is not treated as a direct-object target in this lane."},
-        "phrase_translation": {"status": "approved", "approved_targets": [{"surface": "וַיֹּאמֶר אֱלֹקִים", "translation": "God said"}]}
+        "subject_identification": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "main_verb_token": "וַיֹּאמֶר",
+              "surface": "אֱלֹקִים",
+              "translation": "God"
+            }
+          ]
+        },
+        "object_identification": {
+          "status": "suppressed",
+          "reason": "The speech content is not treated as a direct-object target in this lane."
+        },
+        "phrase_translation": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "surface": "וַיֹּאמֶר אֱלֹקִים",
+              "translation": "God said"
+            }
+          ]
+        }
       }
     },
     "bereishis_1_4": {
-      "ref": {"sefer": "Bereishis", "perek": 1, "pasuk": 4},
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 1,
+        "pasuk": 4
+      },
       "skills": {
-        "subject_identification": {"status": "approved", "approved_targets": [{"main_verb_token": "וַיַּרְא", "surface": "אֱלֹקִים", "translation": "God"}]},
-        "object_identification": {"status": "approved", "approved_targets": [{"main_verb_token": "וַיַּרְא", "role": "direct_object", "surface": "הָאוֹר", "translation": "the light"}]},
-        "phrase_translation": {"status": "approved", "approved_targets": [{"surface": "וַיַּרְא אֱלֹקִים אֶת הָאוֹר", "translation": "God saw the light"}]}
+        "subject_identification": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "main_verb_token": "וַיַּרְא",
+              "surface": "אֱלֹקִים",
+              "translation": "God"
+            }
+          ]
+        },
+        "object_identification": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "main_verb_token": "וַיַּרְא",
+              "role": "direct_object",
+              "surface": "הָאוֹר",
+              "translation": "the light"
+            }
+          ]
+        },
+        "phrase_translation": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "surface": "וַיַּרְא אֱלֹקִים אֶת הָאוֹר",
+              "translation": "God saw the light"
+            }
+          ]
+        }
       }
     },
     "bereishis_1_5": {
-      "ref": {"sefer": "Bereishis", "perek": 1, "pasuk": 5},
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 1,
+        "pasuk": 5
+      },
       "skills": {
-        "subject_identification": {"status": "approved", "approved_targets": [{"main_verb_token": "וַיִּקְרָא", "surface": "אֱלֹקִים", "translation": "God"}]},
-        "object_identification": {"status": "suppressed", "reason": "Naming targets are not treated as clean direct-object questions here."},
-        "phrase_translation": {"status": "suppressed", "reason": "The naming clause is not yet preferred as a quiz-ready phrase target."}
+        "subject_identification": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "main_verb_token": "וַיִּקְרָא",
+              "surface": "אֱלֹקִים",
+              "translation": "God"
+            }
+          ]
+        },
+        "object_identification": {
+          "status": "suppressed",
+          "reason": "Naming targets are not treated as clean direct-object questions here."
+        },
+        "phrase_translation": {
+          "status": "suppressed",
+          "reason": "The naming clause is not yet preferred as a quiz-ready phrase target."
+        }
       }
     },
     "bereishis_1_6": {
-      "ref": {"sefer": "Bereishis", "perek": 1, "pasuk": 6},
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 1,
+        "pasuk": 6
+      },
       "skills": {
-        "subject_identification": {"status": "approved", "approved_targets": [{"main_verb_token": "וַיֹּאמֶר", "surface": "אֱלֹקִים", "translation": "God"}]},
-        "object_identification": {"status": "suppressed", "reason": "The command content is not treated as a direct-object target in this lane."},
-        "phrase_translation": {"status": "approved", "approved_targets": [{"surface": "וַיֹּאמֶר אֱלֹקִים", "translation": "God said"}]}
+        "subject_identification": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "main_verb_token": "וַיֹּאמֶר",
+              "surface": "אֱלֹקִים",
+              "translation": "God"
+            }
+          ]
+        },
+        "object_identification": {
+          "status": "suppressed",
+          "reason": "The command content is not treated as a direct-object target in this lane."
+        },
+        "phrase_translation": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "surface": "וַיֹּאמֶר אֱלֹקִים",
+              "translation": "God said"
+            }
+          ]
+        }
       }
     },
     "bereishis_1_7": {
-      "ref": {"sefer": "Bereishis", "perek": 1, "pasuk": 7},
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 1,
+        "pasuk": 7
+      },
       "skills": {
-        "subject_identification": {"status": "approved", "approved_targets": [{"main_verb_token": "וַיַּעַשׂ", "surface": "אֱלֹקִים", "translation": "God"}]},
-        "object_identification": {"status": "approved", "approved_targets": [{"main_verb_token": "וַיַּעַשׂ", "role": "direct_object", "surface": "הָרָקִיעַ", "translation": "the expanse"}]},
-        "phrase_translation": {"status": "approved", "approved_targets": [{"surface": "וַיַּעַשׂ אֱלֹקִים אֶת הָרָקִיעַ", "translation": "God made the expanse"}]}
+        "subject_identification": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "main_verb_token": "וַיַּעַשׂ",
+              "surface": "אֱלֹקִים",
+              "translation": "God"
+            }
+          ]
+        },
+        "object_identification": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "main_verb_token": "וַיַּעַשׂ",
+              "role": "direct_object",
+              "surface": "הָרָקִיעַ",
+              "translation": "the expanse"
+            }
+          ]
+        },
+        "phrase_translation": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "surface": "וַיַּעַשׂ אֱלֹקִים אֶת הָרָקִיעַ",
+              "translation": "God made the expanse"
+            }
+          ]
+        }
       }
     },
     "bereishis_1_8": {
-      "ref": {"sefer": "Bereishis", "perek": 1, "pasuk": 8},
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 1,
+        "pasuk": 8
+      },
       "skills": {
-        "subject_identification": {"status": "approved", "approved_targets": [{"main_verb_token": "וַיִּקְרָא", "surface": "אֱלֹקִים", "translation": "God"}]},
-        "object_identification": {"status": "suppressed", "reason": "Naming targets are not treated as clean direct-object questions here."},
-        "phrase_translation": {"status": "suppressed", "reason": "The naming clause is not yet preferred as a quiz-ready phrase target."}
+        "subject_identification": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "main_verb_token": "וַיִּקְרָא",
+              "surface": "אֱלֹקִים",
+              "translation": "God"
+            }
+          ]
+        },
+        "object_identification": {
+          "status": "suppressed",
+          "reason": "Naming targets are not treated as clean direct-object questions here."
+        },
+        "phrase_translation": {
+          "status": "suppressed",
+          "reason": "The naming clause is not yet preferred as a quiz-ready phrase target."
+        }
       }
     },
     "bereishis_1_9": {
-      "ref": {"sefer": "Bereishis", "perek": 1, "pasuk": 9},
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 1,
+        "pasuk": 9
+      },
       "skills": {
-        "subject_identification": {"status": "approved", "approved_targets": [{"main_verb_token": "וַיֹּאמֶר", "surface": "אֱלֹקִים", "translation": "God"}]},
-        "object_identification": {"status": "suppressed", "reason": "The command content is not treated as a direct-object target in this lane."},
-        "phrase_translation": {"status": "approved", "approved_targets": [{"surface": "וַיֹּאמֶר אֱלֹקִים", "translation": "God said"}]}
+        "subject_identification": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "main_verb_token": "וַיֹּאמֶר",
+              "surface": "אֱלֹקִים",
+              "translation": "God"
+            }
+          ]
+        },
+        "object_identification": {
+          "status": "suppressed",
+          "reason": "The command content is not treated as a direct-object target in this lane."
+        },
+        "phrase_translation": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "surface": "וַיֹּאמֶר אֱלֹקִים",
+              "translation": "God said"
+            }
+          ]
+        }
       }
     },
     "bereishis_1_10": {
-      "ref": {"sefer": "Bereishis", "perek": 1, "pasuk": 10},
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 1,
+        "pasuk": 10
+      },
       "skills": {
-        "subject_identification": {"status": "approved", "approved_targets": [{"main_verb_token": "וַיִּקְרָא", "surface": "אֱלֹקִים", "translation": "God"}]},
-        "object_identification": {"status": "suppressed", "reason": "Naming targets are not treated as clean direct-object questions here."},
-        "phrase_translation": {"status": "suppressed", "reason": "The naming clause is not yet preferred as a quiz-ready phrase target."}
+        "subject_identification": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "main_verb_token": "וַיִּקְרָא",
+              "surface": "אֱלֹקִים",
+              "translation": "God"
+            }
+          ]
+        },
+        "object_identification": {
+          "status": "suppressed",
+          "reason": "Naming targets are not treated as clean direct-object questions here."
+        },
+        "phrase_translation": {
+          "status": "suppressed",
+          "reason": "The naming clause is not yet preferred as a quiz-ready phrase target."
+        }
       }
     },
     "bereishis_1_11": {
-      "ref": {"sefer": "Bereishis", "perek": 1, "pasuk": 11},
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 1,
+        "pasuk": 11
+      },
       "skills": {
-        "subject_identification": {"status": "approved", "approved_targets": [{"main_verb_token": "וַיֹּאמֶר", "surface": "אֱלֹקִים", "translation": "God"}]},
-        "object_identification": {"status": "suppressed", "reason": "The command content is not treated as a direct-object target in this lane."},
-        "phrase_translation": {"status": "approved", "approved_targets": [{"surface": "וַיֹּאמֶר אֱלֹקִים", "translation": "God said"}]}
+        "subject_identification": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "main_verb_token": "וַיֹּאמֶר",
+              "surface": "אֱלֹקִים",
+              "translation": "God"
+            }
+          ]
+        },
+        "object_identification": {
+          "status": "suppressed",
+          "reason": "The command content is not treated as a direct-object target in this lane."
+        },
+        "phrase_translation": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "surface": "וַיֹּאמֶר אֱלֹקִים",
+              "translation": "God said"
+            }
+          ]
+        }
       }
     },
     "bereishis_1_12": {
-      "ref": {"sefer": "Bereishis", "perek": 1, "pasuk": 12},
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 1,
+        "pasuk": 12
+      },
       "skills": {
-        "subject_identification": {"status": "approved", "approved_targets": [{"main_verb_token": "וַיַּרְא", "surface": "אֱלֹקִים", "translation": "God"}]},
-        "object_identification": {"status": "suppressed", "reason": "No clean single direct-object or recipient target is preferred here."},
-        "phrase_translation": {"status": "approved", "approved_targets": [{"surface": "וַיַּרְא אֱלֹקִים", "translation": "God saw"}]}
+        "subject_identification": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "main_verb_token": "וַיַּרְא",
+              "surface": "אֱלֹקִים",
+              "translation": "God"
+            }
+          ]
+        },
+        "object_identification": {
+          "status": "suppressed",
+          "reason": "No clean single direct-object or recipient target is preferred here."
+        },
+        "phrase_translation": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "surface": "וַיַּרְא אֱלֹקִים",
+              "translation": "God saw"
+            }
+          ]
+        }
       }
     },
     "bereishis_1_13": {
-      "ref": {"sefer": "Bereishis", "perek": 1, "pasuk": 13},
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 1,
+        "pasuk": 13
+      },
       "skills": {
-        "subject_identification": {"status": "suppressed", "reason": "The day-label formula is not a clean subject-identification target."},
-        "object_identification": {"status": "suppressed", "reason": "The day-label formula has no clean object target."},
-        "phrase_translation": {"status": "suppressed", "reason": "The day-label formula is not treated as a quiz-ready phrase target."}
+        "subject_identification": {
+          "status": "suppressed",
+          "reason": "The day-label formula is not a clean subject-identification target."
+        },
+        "object_identification": {
+          "status": "suppressed",
+          "reason": "The day-label formula has no clean object target."
+        },
+        "phrase_translation": {
+          "status": "suppressed",
+          "reason": "The day-label formula is not treated as a quiz-ready phrase target."
+        }
       }
     },
     "bereishis_1_14": {
-      "ref": {"sefer": "Bereishis", "perek": 1, "pasuk": 14},
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 1,
+        "pasuk": 14
+      },
       "skills": {
-        "subject_identification": {"status": "approved", "approved_targets": [{"main_verb_token": "וַיֹּאמֶר", "surface": "אֱלֹקִים", "translation": "God"}]},
-        "object_identification": {"status": "suppressed", "reason": "The command content is not treated as a direct-object target in this lane."},
-        "phrase_translation": {"status": "approved", "approved_targets": [{"surface": "וַיֹּאמֶר אֱלֹקִים", "translation": "God said"}]}
+        "subject_identification": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "main_verb_token": "וַיֹּאמֶר",
+              "surface": "אֱלֹקִים",
+              "translation": "God"
+            }
+          ]
+        },
+        "object_identification": {
+          "status": "suppressed",
+          "reason": "The command content is not treated as a direct-object target in this lane."
+        },
+        "phrase_translation": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "surface": "וַיֹּאמֶר אֱלֹקִים",
+              "translation": "God said"
+            }
+          ]
+        }
       }
     },
     "bereishis_1_15": {
-      "ref": {"sefer": "Bereishis", "perek": 1, "pasuk": 15},
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 1,
+        "pasuk": 15
+      },
       "skills": {
-        "subject_identification": {"status": "suppressed", "reason": "This clause does not have a clean explicit subject target."},
-        "object_identification": {"status": "suppressed", "reason": "No clean direct-object or recipient target is preferred here."},
-        "phrase_translation": {"status": "suppressed", "reason": "This clause is not treated as a quiz-ready phrase target."}
+        "subject_identification": {
+          "status": "suppressed",
+          "reason": "This clause does not have a clean explicit subject target."
+        },
+        "object_identification": {
+          "status": "suppressed",
+          "reason": "No clean direct-object or recipient target is preferred here."
+        },
+        "phrase_translation": {
+          "status": "suppressed",
+          "reason": "This clause is not treated as a quiz-ready phrase target."
+        }
       }
     },
     "bereishis_1_16": {
-      "ref": {"sefer": "Bereishis", "perek": 1, "pasuk": 16},
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 1,
+        "pasuk": 16
+      },
       "skills": {
-        "subject_identification": {"status": "approved", "approved_targets": [{"main_verb_token": "וַיַּעַשׂ", "surface": "אֱלֹקִים", "translation": "God"}]},
-        "object_identification": {"status": "approved", "approved_targets": [{"main_verb_token": "וַיַּעַשׂ", "role": "direct_object", "surface": "שְׁנֵי הַמְּאֹרֹת הַגְּדֹלִים", "translation": "the two great lights"}]},
-        "phrase_translation": {"status": "approved", "approved_targets": [{"surface": "וַיַּעַשׂ אֱלֹקִים אֶת שְׁנֵי הַמְּאֹרֹת הַגְּדֹלִים", "translation": "God made the two great lights"}, {"surface": "וַיַּעַשׂ אֱלֹקִים", "translation": "God made"}]}
+        "subject_identification": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "main_verb_token": "וַיַּעַשׂ",
+              "surface": "אֱלֹקִים",
+              "translation": "God"
+            }
+          ]
+        },
+        "object_identification": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "main_verb_token": "וַיַּעַשׂ",
+              "role": "direct_object",
+              "surface": "שְׁנֵי הַמְּאֹרֹת הַגְּדֹלִים",
+              "translation": "the two great lights"
+            }
+          ]
+        },
+        "phrase_translation": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "surface": "וַיַּעַשׂ אֱלֹקִים אֶת שְׁנֵי הַמְּאֹרֹת הַגְּדֹלִים",
+              "translation": "God made the two great lights"
+            },
+            {
+              "surface": "וַיַּעַשׂ אֱלֹקִים",
+              "translation": "God made"
+            }
+          ]
+        }
       }
     },
     "bereishis_1_17": {
-      "ref": {"sefer": "Bereishis", "perek": 1, "pasuk": 17},
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 1,
+        "pasuk": 17
+      },
       "skills": {
-        "subject_identification": {"status": "approved", "approved_targets": [{"main_verb_token": "וַיִּתֵּן", "surface": "אֱלֹקִים", "translation": "God"}]},
-        "object_identification": {"status": "approved", "approved_targets": [{"main_verb_token": "וַיִּתֵּן", "role": "direct_object", "surface": "אֹתָם", "translation": "them"}]},
-        "phrase_translation": {"status": "approved", "approved_targets": [{"surface": "וַיִּתֵּן אֹתָם אֱלֹקִים", "translation": "God placed them"}]}
+        "subject_identification": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "main_verb_token": "וַיִּתֵּן",
+              "surface": "אֱלֹקִים",
+              "translation": "God"
+            }
+          ]
+        },
+        "object_identification": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "main_verb_token": "וַיִּתֵּן",
+              "role": "direct_object",
+              "surface": "אֹתָם",
+              "translation": "them"
+            }
+          ]
+        },
+        "phrase_translation": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "surface": "וַיִּתֵּן אֹתָם אֱלֹקִים",
+              "translation": "God placed them"
+            }
+          ]
+        }
       }
     },
     "bereishis_1_18": {
-      "ref": {"sefer": "Bereishis", "perek": 1, "pasuk": 18},
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 1,
+        "pasuk": 18
+      },
       "skills": {
-        "subject_identification": {"status": "approved", "approved_targets": [{"main_verb_token": "וַיַּרְא", "surface": "אֱלֹקִים", "translation": "God"}]},
-        "object_identification": {"status": "suppressed", "reason": "The infinitive chain is not treated as a clean object question."},
-        "phrase_translation": {"status": "approved", "approved_targets": [{"surface": "וַיַּרְא אֱלֹקִים", "translation": "God saw"}]}
+        "subject_identification": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "main_verb_token": "וַיַּרְא",
+              "surface": "אֱלֹקִים",
+              "translation": "God"
+            }
+          ]
+        },
+        "object_identification": {
+          "status": "suppressed",
+          "reason": "The infinitive chain is not treated as a clean object question."
+        },
+        "phrase_translation": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "surface": "וַיַּרְא אֱלֹקִים",
+              "translation": "God saw"
+            }
+          ]
+        }
       }
     },
     "bereishis_1_19": {
-      "ref": {"sefer": "Bereishis", "perek": 1, "pasuk": 19},
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 1,
+        "pasuk": 19
+      },
       "skills": {
-        "subject_identification": {"status": "suppressed", "reason": "The day-label formula is not a clean subject-identification target."},
-        "object_identification": {"status": "suppressed", "reason": "The day-label formula has no clean object target."},
-        "phrase_translation": {"status": "suppressed", "reason": "The day-label formula is not treated as a quiz-ready phrase target."}
+        "subject_identification": {
+          "status": "suppressed",
+          "reason": "The day-label formula is not a clean subject-identification target."
+        },
+        "object_identification": {
+          "status": "suppressed",
+          "reason": "The day-label formula has no clean object target."
+        },
+        "phrase_translation": {
+          "status": "suppressed",
+          "reason": "The day-label formula is not treated as a quiz-ready phrase target."
+        }
       }
     },
     "bereishis_1_20": {
-      "ref": {"sefer": "Bereishis", "perek": 1, "pasuk": 20},
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 1,
+        "pasuk": 20
+      },
       "skills": {
-        "subject_identification": {"status": "approved", "approved_targets": [{"main_verb_token": "וַיֹּאמֶר", "surface": "אֱלֹקִים", "translation": "God"}]},
-        "object_identification": {"status": "suppressed", "reason": "The command content is not treated as a direct-object target in this lane."},
-        "phrase_translation": {"status": "approved", "approved_targets": [{"surface": "וַיֹּאמֶר אֱלֹקִים", "translation": "God said"}]}
+        "subject_identification": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "main_verb_token": "וַיֹּאמֶר",
+              "surface": "אֱלֹקִים",
+              "translation": "God"
+            }
+          ]
+        },
+        "object_identification": {
+          "status": "suppressed",
+          "reason": "The command content is not treated as a direct-object target in this lane."
+        },
+        "phrase_translation": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "surface": "וַיֹּאמֶר אֱלֹקִים",
+              "translation": "God said"
+            }
+          ]
+        }
       }
     },
     "bereishis_1_21": {
-      "ref": {"sefer": "Bereishis", "perek": 1, "pasuk": 21},
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 1,
+        "pasuk": 21
+      },
       "skills": {
-        "subject_identification": {"status": "approved", "approved_targets": [{"main_verb_token": "וַיִּבְרָא", "surface": "אֱלֹקִים", "translation": "God"}, {"main_verb_token": "וַיַּרְא", "surface": "אֱלֹקִים", "translation": "God"}]},
-        "object_identification": {"status": "approved", "approved_targets": [{"main_verb_token": "וַיִּבְרָא", "role": "direct_object", "surface": "הַתַּנִּינִם הַגְּדֹלִים", "translation": "the great sea creatures"}]},
-        "phrase_translation": {"status": "approved", "approved_targets": [{"surface": "וַיִּבְרָא אֱלֹקִים אֶת הַתַּנִּינִם הַגְּדֹלִים", "translation": "God created the great sea creatures"}, {"surface": "וַיַּרְא אֱלֹקִים", "translation": "God saw"}]}
+        "subject_identification": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "main_verb_token": "וַיִּבְרָא",
+              "surface": "אֱלֹקִים",
+              "translation": "God"
+            },
+            {
+              "main_verb_token": "וַיַּרְא",
+              "surface": "אֱלֹקִים",
+              "translation": "God"
+            }
+          ]
+        },
+        "object_identification": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "main_verb_token": "וַיִּבְרָא",
+              "role": "direct_object",
+              "surface": "הַתַּנִּינִם הַגְּדֹלִים",
+              "translation": "the great sea creatures"
+            }
+          ]
+        },
+        "phrase_translation": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "surface": "וַיִּבְרָא אֱלֹקִים אֶת הַתַּנִּינִם הַגְּדֹלִים",
+              "translation": "God created the great sea creatures"
+            },
+            {
+              "surface": "וַיַּרְא אֱלֹקִים",
+              "translation": "God saw"
+            }
+          ]
+        }
       }
     },
     "bereishis_1_22": {
-      "ref": {"sefer": "Bereishis", "perek": 1, "pasuk": 22},
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 1,
+        "pasuk": 22
+      },
       "skills": {
-        "subject_identification": {"status": "approved", "approved_targets": [{"main_verb_token": "וַיְבָרֶךְ", "surface": "אֱלֹקִים", "translation": "God"}]},
-        "object_identification": {"status": "approved", "approved_targets": [{"main_verb_token": "וַיְבָרֶךְ", "role": "direct_object", "surface": "אֹתָם", "translation": "them"}]},
-        "phrase_translation": {"status": "approved", "approved_targets": [{"surface": "וַיְבָרֶךְ אֹתָם אֱלֹקִים", "translation": "God blessed them"}]}
+        "subject_identification": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "main_verb_token": "וַיְבָרֶךְ",
+              "surface": "אֱלֹקִים",
+              "translation": "God"
+            }
+          ]
+        },
+        "object_identification": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "main_verb_token": "וַיְבָרֶךְ",
+              "role": "direct_object",
+              "surface": "אֹתָם",
+              "translation": "them"
+            }
+          ]
+        },
+        "phrase_translation": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "surface": "וַיְבָרֶךְ אֹתָם אֱלֹקִים",
+              "translation": "God blessed them"
+            }
+          ]
+        }
       }
     },
     "bereishis_1_23": {
-      "ref": {"sefer": "Bereishis", "perek": 1, "pasuk": 23},
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 1,
+        "pasuk": 23
+      },
       "skills": {
-        "subject_identification": {"status": "suppressed", "reason": "The day-label formula is not a clean subject-identification target."},
-        "object_identification": {"status": "suppressed", "reason": "The day-label formula has no clean object target."},
-        "phrase_translation": {"status": "suppressed", "reason": "The day-label formula is not treated as a quiz-ready phrase target."}
+        "subject_identification": {
+          "status": "suppressed",
+          "reason": "The day-label formula is not a clean subject-identification target."
+        },
+        "object_identification": {
+          "status": "suppressed",
+          "reason": "The day-label formula has no clean object target."
+        },
+        "phrase_translation": {
+          "status": "suppressed",
+          "reason": "The day-label formula is not treated as a quiz-ready phrase target."
+        }
       }
     },
     "bereishis_1_24": {
-      "ref": {"sefer": "Bereishis", "perek": 1, "pasuk": 24},
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 1,
+        "pasuk": 24
+      },
       "skills": {
-        "subject_identification": {"status": "approved", "approved_targets": [{"main_verb_token": "וַיֹּאמֶר", "surface": "אֱלֹקִים", "translation": "God"}]},
-        "object_identification": {"status": "suppressed", "reason": "The command content is not treated as a direct-object target in this lane."},
-        "phrase_translation": {"status": "approved", "approved_targets": [{"surface": "וַיֹּאמֶר אֱלֹקִים", "translation": "God said"}]}
+        "subject_identification": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "main_verb_token": "וַיֹּאמֶר",
+              "surface": "אֱלֹקִים",
+              "translation": "God"
+            }
+          ]
+        },
+        "object_identification": {
+          "status": "suppressed",
+          "reason": "The command content is not treated as a direct-object target in this lane."
+        },
+        "phrase_translation": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "surface": "וַיֹּאמֶר אֱלֹקִים",
+              "translation": "God said"
+            }
+          ]
+        }
       }
     },
     "bereishis_1_25": {
-      "ref": {"sefer": "Bereishis", "perek": 1, "pasuk": 25},
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 1,
+        "pasuk": 25
+      },
       "skills": {
-        "subject_identification": {"status": "approved", "approved_targets": [{"main_verb_token": "וַיַּעַשׂ", "surface": "אֱלֹקִים", "translation": "God"}]},
-        "object_identification": {"status": "approved", "approved_targets": [{"main_verb_token": "וַיַּעַשׂ", "role": "direct_object", "surface": "חַיַּת הָאָרֶץ", "translation": "the beasts of the earth"}]},
-        "phrase_translation": {"status": "approved", "approved_targets": [{"surface": "וַיַּעַשׂ אֱלֹקִים אֶת חַיַּת הָאָרֶץ", "translation": "God made the beasts of the earth"}]}
+        "subject_identification": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "main_verb_token": "וַיַּעַשׂ",
+              "surface": "אֱלֹקִים",
+              "translation": "God"
+            }
+          ]
+        },
+        "object_identification": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "main_verb_token": "וַיַּעַשׂ",
+              "role": "direct_object",
+              "surface": "חַיַּת הָאָרֶץ",
+              "translation": "the beasts of the earth"
+            }
+          ]
+        },
+        "phrase_translation": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "surface": "וַיַּעַשׂ אֱלֹקִים אֶת חַיַּת הָאָרֶץ",
+              "translation": "God made the beasts of the earth"
+            }
+          ]
+        }
       }
     },
     "bereishis_1_26": {
-      "ref": {"sefer": "Bereishis", "perek": 1, "pasuk": 26},
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 1,
+        "pasuk": 26
+      },
       "skills": {
-        "subject_identification": {"status": "approved", "approved_targets": [{"main_verb_token": "וַיֹּאמֶר", "surface": "אֱלֹקִים", "translation": "God"}]},
-        "object_identification": {"status": "suppressed", "reason": "The command content is not treated as a clean direct-object target in this lane."},
-        "phrase_translation": {"status": "approved", "approved_targets": [{"surface": "וַיֹּאמֶר אֱלֹקִים", "translation": "God said"}]}
+        "subject_identification": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "main_verb_token": "וַיֹּאמֶר",
+              "surface": "אֱלֹקִים",
+              "translation": "God"
+            }
+          ]
+        },
+        "object_identification": {
+          "status": "suppressed",
+          "reason": "The command content is not treated as a clean direct-object target in this lane."
+        },
+        "phrase_translation": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "surface": "וַיֹּאמֶר אֱלֹקִים",
+              "translation": "God said"
+            }
+          ]
+        }
       }
     },
     "bereishis_1_27": {
-      "ref": {"sefer": "Bereishis", "perek": 1, "pasuk": 27},
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 1,
+        "pasuk": 27
+      },
       "skills": {
-        "subject_identification": {"status": "approved", "approved_targets": [{"main_verb_token": "וַיִּבְרָא", "surface": "אֱלֹקִים", "translation": "God"}]},
-        "object_identification": {"status": "approved", "approved_targets": [{"main_verb_token": "וַיִּבְרָא", "role": "direct_object", "surface": "הָאָדָם", "translation": "the man"}]},
-        "phrase_translation": {"status": "approved", "approved_targets": [{"surface": "וַיִּבְרָא אֱלֹקִים אֶת הָאָדָם", "translation": "God created the man"}]}
+        "subject_identification": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "main_verb_token": "וַיִּבְרָא",
+              "surface": "אֱלֹקִים",
+              "translation": "God"
+            }
+          ]
+        },
+        "object_identification": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "main_verb_token": "וַיִּבְרָא",
+              "role": "direct_object",
+              "surface": "הָאָדָם",
+              "translation": "the man"
+            }
+          ]
+        },
+        "phrase_translation": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "surface": "וַיִּבְרָא אֱלֹקִים אֶת הָאָדָם",
+              "translation": "God created the man"
+            }
+          ]
+        }
       }
     },
     "bereishis_1_28": {
-      "ref": {"sefer": "Bereishis", "perek": 1, "pasuk": 28},
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 1,
+        "pasuk": 28
+      },
       "skills": {
-        "subject_identification": {"status": "approved", "approved_targets": [{"main_verb_token": "וַיְבָרֶךְ", "surface": "אֱלֹקִים", "translation": "God"}, {"main_verb_token": "וַיֹּאמֶר", "surface": "אֱלֹקִים", "translation": "God"}]},
-        "object_identification": {"status": "approved", "approved_targets": [{"main_verb_token": "וַיְבָרֶךְ", "role": "direct_object", "surface": "אֹתָם", "translation": "them"}]},
-        "phrase_translation": {"status": "approved", "approved_targets": [{"surface": "וַיְבָרֶךְ אֹתָם אֱלֹקִים", "translation": "God blessed them"}]}
+        "subject_identification": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "main_verb_token": "וַיְבָרֶךְ",
+              "surface": "אֱלֹקִים",
+              "translation": "God"
+            },
+            {
+              "main_verb_token": "וַיֹּאמֶר",
+              "surface": "אֱלֹקִים",
+              "translation": "God"
+            }
+          ]
+        },
+        "object_identification": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "main_verb_token": "וַיְבָרֶךְ",
+              "role": "direct_object",
+              "surface": "אֹתָם",
+              "translation": "them"
+            }
+          ]
+        },
+        "phrase_translation": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "surface": "וַיְבָרֶךְ אֹתָם אֱלֹקִים",
+              "translation": "God blessed them"
+            }
+          ]
+        }
       }
     },
     "bereishis_1_29": {
-      "ref": {"sefer": "Bereishis", "perek": 1, "pasuk": 29},
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 1,
+        "pasuk": 29
+      },
       "skills": {
-        "subject_identification": {"status": "approved", "approved_targets": [{"main_verb_token": "וַיֹּאמֶר", "surface": "אֱלֹקִים", "translation": "God"}]},
-        "object_identification": {"status": "suppressed", "reason": "This gift clause does not yet have one compact preferred object target."},
-        "phrase_translation": {"status": "approved", "approved_targets": [{"surface": "וַיֹּאמֶר אֱלֹקִים", "translation": "God said"}]}
+        "subject_identification": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "main_verb_token": "וַיֹּאמֶר",
+              "surface": "אֱלֹקִים",
+              "translation": "God"
+            }
+          ]
+        },
+        "object_identification": {
+          "status": "suppressed",
+          "reason": "This gift clause does not yet have one compact preferred object target."
+        },
+        "phrase_translation": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "surface": "וַיֹּאמֶר אֱלֹקִים",
+              "translation": "God said"
+            }
+          ]
+        }
       }
     },
     "bereishis_1_30": {
-      "ref": {"sefer": "Bereishis", "perek": 1, "pasuk": 30},
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 1,
+        "pasuk": 30
+      },
       "skills": {
-        "subject_identification": {"status": "suppressed", "reason": "This continuation clause does not have a clean explicit subject target."},
-        "object_identification": {"status": "suppressed", "reason": "No clean direct-object or recipient target is preferred here."},
-        "phrase_translation": {"status": "suppressed", "reason": "This continuation clause is not treated as a quiz-ready phrase target."}
+        "subject_identification": {
+          "status": "suppressed",
+          "reason": "This continuation clause does not have a clean explicit subject target."
+        },
+        "object_identification": {
+          "status": "suppressed",
+          "reason": "No clean direct-object or recipient target is preferred here."
+        },
+        "phrase_translation": {
+          "status": "suppressed",
+          "reason": "This continuation clause is not treated as a quiz-ready phrase target."
+        }
       }
     },
     "bereishis_1_31": {
-      "ref": {"sefer": "Bereishis", "perek": 1, "pasuk": 31},
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 1,
+        "pasuk": 31
+      },
       "skills": {
-        "subject_identification": {"status": "approved", "approved_targets": [{"main_verb_token": "וַיַּרְא", "surface": "אֱלֹהִים", "translation": "God"}]},
-        "object_identification": {"status": "approved", "approved_targets": [{"main_verb_token": "וַיַּרְא", "role": "direct_object", "surface": "כׇּל אֲשֶׁר עָשָׂה", "translation": "all that He had made"}]},
-        "phrase_translation": {"status": "approved", "approved_targets": [{"surface": "וַיַּרְא אֱלֹהִים אֶת כׇּל אֲשֶׁר עָשָׂה", "translation": "God saw all that He had made"}]}
+        "subject_identification": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "main_verb_token": "וַיַּרְא",
+              "surface": "אֱלֹהִים",
+              "translation": "God"
+            }
+          ]
+        },
+        "object_identification": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "main_verb_token": "וַיַּרְא",
+              "role": "direct_object",
+              "surface": "כׇּל אֲשֶׁר עָשָׂה",
+              "translation": "all that He had made"
+            }
+          ]
+        },
+        "phrase_translation": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "surface": "וַיַּרְא אֱלֹהִים אֶת כׇּל אֲשֶׁר עָשָׂה",
+              "translation": "God saw all that He had made"
+            }
+          ]
+        }
       }
     },
     "bereishis_2_1": {
-      "ref": {"sefer": "Bereishis", "perek": 2, "pasuk": 1},
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 2,
+        "pasuk": 1
+      },
       "skills": {
-        "subject_identification": {"status": "suppressed", "reason": "This completion clause does not have a preferred who-does-the-action target."},
-        "object_identification": {"status": "suppressed", "reason": "No clean direct-object or recipient target is preferred here."},
-        "phrase_translation": {"status": "suppressed", "reason": "No compact quiz-ready phrase is preferred here."}
+        "subject_identification": {
+          "status": "suppressed",
+          "reason": "This completion clause does not have a preferred who-does-the-action target."
+        },
+        "object_identification": {
+          "status": "suppressed",
+          "reason": "No clean direct-object or recipient target is preferred here."
+        },
+        "phrase_translation": {
+          "status": "suppressed",
+          "reason": "No compact quiz-ready phrase is preferred here."
+        }
       }
     },
     "bereishis_2_2": {
-      "ref": {"sefer": "Bereishis", "perek": 2, "pasuk": 2},
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 2,
+        "pasuk": 2
+      },
       "skills": {
-        "subject_identification": {"status": "approved", "approved_targets": [{"main_verb_token": "וַיְכַל", "surface": "אֱלֹהִים", "translation": "God"}]},
-        "object_identification": {"status": "approved", "approved_targets": [{"main_verb_token": "וַיְכַל", "role": "direct_object", "surface": "מְלַאכְתּוֹ", "translation": "His work"}]},
-        "phrase_translation": {"status": "approved", "approved_targets": [{"surface": "וַיְכַל אֱלֹהִים", "translation": "God finished"}]}
+        "subject_identification": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "main_verb_token": "וַיְכַל",
+              "surface": "אֱלֹהִים",
+              "translation": "God"
+            }
+          ]
+        },
+        "object_identification": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "main_verb_token": "וַיְכַל",
+              "role": "direct_object",
+              "surface": "מְלַאכְתּוֹ",
+              "translation": "His work"
+            }
+          ]
+        },
+        "phrase_translation": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "surface": "וַיְכַל אֱלֹהִים",
+              "translation": "God finished"
+            }
+          ]
+        }
       }
     },
     "bereishis_2_3": {
-      "ref": {"sefer": "Bereishis", "perek": 2, "pasuk": 3},
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 2,
+        "pasuk": 3
+      },
       "skills": {
-        "subject_identification": {"status": "approved", "approved_targets": [{"main_verb_token": "וַיְבָרֶךְ", "surface": "אֱלֹהִים", "translation": "God"}]},
-        "object_identification": {"status": "approved", "approved_targets": [{"main_verb_token": "וַיְבָרֶךְ", "role": "direct_object", "surface": "יוֹם הַשְּׁבִיעִי", "translation": "the seventh day"}]},
-        "phrase_translation": {"status": "approved", "approved_targets": [{"surface": "וַיְבָרֶךְ אֱלֹהִים אֶת יוֹם הַשְּׁבִיעִי", "translation": "God blessed the seventh day"}]}
+        "subject_identification": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "main_verb_token": "וַיְבָרֶךְ",
+              "surface": "אֱלֹהִים",
+              "translation": "God"
+            }
+          ]
+        },
+        "object_identification": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "main_verb_token": "וַיְבָרֶךְ",
+              "role": "direct_object",
+              "surface": "יוֹם הַשְּׁבִיעִי",
+              "translation": "the seventh day"
+            }
+          ]
+        },
+        "phrase_translation": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "surface": "וַיְבָרֶךְ אֱלֹהִים אֶת יוֹם הַשְּׁבִיעִי",
+              "translation": "God blessed the seventh day"
+            }
+          ]
+        }
       }
     },
     "bereishis_2_4": {
-      "ref": {"sefer": "Bereishis", "perek": 2, "pasuk": 4},
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 2,
+        "pasuk": 4
+      },
       "skills": {
-        "subject_identification": {"status": "suppressed", "reason": "This genealogy-style header does not have one clean quiz-ready action anchor."},
-        "object_identification": {"status": "suppressed", "reason": "No clean direct-object or recipient target is preferred here."},
-        "phrase_translation": {"status": "suppressed", "reason": "No compact quiz-ready phrase is preferred here."}
+        "subject_identification": {
+          "status": "suppressed",
+          "reason": "This genealogy-style header does not have one clean quiz-ready action anchor."
+        },
+        "object_identification": {
+          "status": "suppressed",
+          "reason": "No clean direct-object or recipient target is preferred here."
+        },
+        "phrase_translation": {
+          "status": "suppressed",
+          "reason": "No compact quiz-ready phrase is preferred here."
+        }
       }
     },
     "bereishis_2_5": {
-      "ref": {"sefer": "Bereishis", "perek": 2, "pasuk": 5},
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 2,
+        "pasuk": 5
+      },
       "skills": {
-        "subject_identification": {"status": "suppressed", "reason": "The negated multi-clause explanation is not treated as one clean subject target."},
-        "object_identification": {"status": "suppressed", "reason": "No clean direct-object or recipient target is preferred here."},
-        "phrase_translation": {"status": "suppressed", "reason": "No compact quiz-ready phrase is preferred here."}
+        "subject_identification": {
+          "status": "suppressed",
+          "reason": "The negated multi-clause explanation is not treated as one clean subject target."
+        },
+        "object_identification": {
+          "status": "suppressed",
+          "reason": "No clean direct-object or recipient target is preferred here."
+        },
+        "phrase_translation": {
+          "status": "suppressed",
+          "reason": "No compact quiz-ready phrase is preferred here."
+        }
       }
     },
     "bereishis_2_6": {
-      "ref": {"sefer": "Bereishis", "perek": 2, "pasuk": 6},
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 2,
+        "pasuk": 6
+      },
       "skills": {
-        "subject_identification": {"status": "suppressed", "reason": "This clause does not have a preferred who-does-the-action target."},
-        "object_identification": {"status": "suppressed", "reason": "No clean direct-object or recipient target is preferred here."},
-        "phrase_translation": {"status": "suppressed", "reason": "No compact quiz-ready phrase is preferred here."}
+        "subject_identification": {
+          "status": "suppressed",
+          "reason": "This clause does not have a preferred who-does-the-action target."
+        },
+        "object_identification": {
+          "status": "suppressed",
+          "reason": "No clean direct-object or recipient target is preferred here."
+        },
+        "phrase_translation": {
+          "status": "suppressed",
+          "reason": "No compact quiz-ready phrase is preferred here."
+        }
       }
     },
     "bereishis_2_7": {
-      "ref": {"sefer": "Bereishis", "perek": 2, "pasuk": 7},
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 2,
+        "pasuk": 7
+      },
       "skills": {
-        "subject_identification": {"status": "approved", "approved_targets": [{"main_verb_token": "וַיִּיצֶר", "surface": "יְהוָה אֱלֹהִים", "translation": "the LORD God"}]},
-        "object_identification": {"status": "approved", "approved_targets": [{"main_verb_token": "וַיִּיצֶר", "role": "direct_object", "surface": "הָאָדָם", "translation": "the man"}]},
-        "phrase_translation": {"status": "approved", "approved_targets": [{"surface": "וַיִּיצֶר יְהוָה אֱלֹהִים אֶת הָאָדָם", "translation": "the LORD God formed the man"}]}
+        "subject_identification": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "main_verb_token": "וַיִּיצֶר",
+              "surface": "יְהוָה אֱלֹהִים",
+              "translation": "the LORD God"
+            }
+          ]
+        },
+        "object_identification": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "main_verb_token": "וַיִּיצֶר",
+              "role": "direct_object",
+              "surface": "הָאָדָם",
+              "translation": "the man"
+            }
+          ]
+        },
+        "phrase_translation": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "surface": "וַיִּיצֶר יְהוָה אֱלֹהִים אֶת הָאָדָם",
+              "translation": "the LORD God formed the man"
+            }
+          ]
+        }
       }
     },
     "bereishis_2_8": {
-      "ref": {"sefer": "Bereishis", "perek": 2, "pasuk": 8},
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 2,
+        "pasuk": 8
+      },
       "skills": {
-        "subject_identification": {"status": "approved", "approved_targets": [{"main_verb_token": "וַיִּטַּע", "surface": "יְהוָה אֱלֹהִים", "translation": "the LORD God"}]},
-        "object_identification": {"status": "approved", "approved_targets": [{"main_verb_token": "וַיִּטַּע", "role": "direct_object", "surface": "גַּן", "translation": "a garden"}]},
-        "phrase_translation": {"status": "approved", "approved_targets": [{"surface": "וַיִּטַּע יְהוָה אֱלֹהִים גַּן בְּעֵדֶן", "translation": "the LORD God planted a garden in Eden"}]}
+        "subject_identification": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "main_verb_token": "וַיִּטַּע",
+              "surface": "יְהוָה אֱלֹהִים",
+              "translation": "the LORD God"
+            }
+          ]
+        },
+        "object_identification": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "main_verb_token": "וַיִּטַּע",
+              "role": "direct_object",
+              "surface": "גַּן",
+              "translation": "a garden"
+            }
+          ]
+        },
+        "phrase_translation": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "surface": "וַיִּטַּע יְהוָה אֱלֹהִים גַּן בְּעֵדֶן",
+              "translation": "the LORD God planted a garden in Eden"
+            }
+          ]
+        }
       }
     },
     "bereishis_2_9": {
-      "ref": {"sefer": "Bereishis", "perek": 2, "pasuk": 9},
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 2,
+        "pasuk": 9
+      },
       "skills": {
-        "subject_identification": {"status": "approved", "approved_targets": [{"main_verb_token": "וַיַּצְמַח", "surface": "יְהוָה אֱלֹהִים", "translation": "the LORD God"}, {"main_verb_token": "וַיַּצְמַח", "surface": "אֱלֹהִים", "translation": "God"}]},
-        "object_identification": {"status": "approved", "approved_targets": [{"main_verb_token": "וַיַּצְמַח", "role": "direct_object", "surface": "כׇּל עֵץ", "translation": "every tree"}]},
-        "phrase_translation": {"status": "approved", "approved_targets": [{"surface": "וַיַּצְמַח יְהוָה אֱלֹהִים כׇּל עֵץ", "translation": "the LORD God caused every tree to grow"}]}
+        "subject_identification": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "main_verb_token": "וַיַּצְמַח",
+              "surface": "יְהוָה אֱלֹהִים",
+              "translation": "the LORD God"
+            },
+            {
+              "main_verb_token": "וַיַּצְמַח",
+              "surface": "אֱלֹהִים",
+              "translation": "God"
+            }
+          ]
+        },
+        "object_identification": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "main_verb_token": "וַיַּצְמַח",
+              "role": "direct_object",
+              "surface": "כׇּל עֵץ",
+              "translation": "every tree"
+            }
+          ]
+        },
+        "phrase_translation": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "surface": "וַיַּצְמַח יְהוָה אֱלֹהִים כׇּל עֵץ",
+              "translation": "the LORD God caused every tree to grow"
+            }
+          ]
+        }
+      }
+    },
+    "bereishis_2_10": {
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 2,
+        "pasuk": 10
+      },
+      "skills": {
+        "subject_identification": {
+          "status": "suppressed",
+          "reason": "No clean student-ready subject target is approved for this expansion pass."
+        },
+        "object_identification": {
+          "status": "suppressed",
+          "reason": "No clean student-ready object target is approved for this expansion pass."
+        },
+        "phrase_translation": {
+          "status": "suppressed",
+          "reason": "No compact quiz-ready phrase is approved for this verse in this expansion pass."
+        }
+      }
+    },
+    "bereishis_2_11": {
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 2,
+        "pasuk": 11
+      },
+      "skills": {
+        "subject_identification": {
+          "status": "suppressed",
+          "reason": "No clean student-ready subject target is approved for this expansion pass."
+        },
+        "object_identification": {
+          "status": "suppressed",
+          "reason": "No clean student-ready object target is approved for this expansion pass."
+        },
+        "phrase_translation": {
+          "status": "suppressed",
+          "reason": "No compact quiz-ready phrase is approved for this verse in this expansion pass."
+        }
+      }
+    },
+    "bereishis_2_12": {
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 2,
+        "pasuk": 12
+      },
+      "skills": {
+        "subject_identification": {
+          "status": "suppressed",
+          "reason": "No clean student-ready subject target is approved for this expansion pass."
+        },
+        "object_identification": {
+          "status": "suppressed",
+          "reason": "No clean student-ready object target is approved for this expansion pass."
+        },
+        "phrase_translation": {
+          "status": "suppressed",
+          "reason": "No compact quiz-ready phrase is approved for this verse in this expansion pass."
+        }
+      }
+    },
+    "bereishis_2_13": {
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 2,
+        "pasuk": 13
+      },
+      "skills": {
+        "subject_identification": {
+          "status": "suppressed",
+          "reason": "No clean student-ready subject target is approved for this expansion pass."
+        },
+        "object_identification": {
+          "status": "suppressed",
+          "reason": "No clean student-ready object target is approved for this expansion pass."
+        },
+        "phrase_translation": {
+          "status": "suppressed",
+          "reason": "No compact quiz-ready phrase is approved for this verse in this expansion pass."
+        }
+      }
+    },
+    "bereishis_2_14": {
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 2,
+        "pasuk": 14
+      },
+      "skills": {
+        "subject_identification": {
+          "status": "suppressed",
+          "reason": "No clean student-ready subject target is approved for this expansion pass."
+        },
+        "object_identification": {
+          "status": "suppressed",
+          "reason": "No clean student-ready object target is approved for this expansion pass."
+        },
+        "phrase_translation": {
+          "status": "suppressed",
+          "reason": "No compact quiz-ready phrase is approved for this verse in this expansion pass."
+        }
+      }
+    },
+    "bereishis_2_15": {
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 2,
+        "pasuk": 15
+      },
+      "skills": {
+        "subject_identification": {
+          "status": "suppressed",
+          "reason": "No clean student-ready subject target is approved for this expansion pass."
+        },
+        "object_identification": {
+          "status": "suppressed",
+          "reason": "No clean student-ready object target is approved for this expansion pass."
+        },
+        "phrase_translation": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "surface": "וַיִּקַּח יְהוָה אֱלֹהִים אֶת הָאָדָם",
+              "translation": "and the LORD God took the man"
+            }
+          ]
+        }
+      }
+    },
+    "bereishis_2_16": {
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 2,
+        "pasuk": 16
+      },
+      "skills": {
+        "subject_identification": {
+          "status": "suppressed",
+          "reason": "No clean student-ready subject target is approved for this expansion pass."
+        },
+        "object_identification": {
+          "status": "suppressed",
+          "reason": "No clean student-ready object target is approved for this expansion pass."
+        },
+        "phrase_translation": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "surface": "וַיְצַו יְהוָה אֱלֹהִים",
+              "translation": "and the LORD God commanded"
+            }
+          ]
+        }
+      }
+    },
+    "bereishis_2_17": {
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 2,
+        "pasuk": 17
+      },
+      "skills": {
+        "subject_identification": {
+          "status": "suppressed",
+          "reason": "No clean student-ready subject target is approved for this expansion pass."
+        },
+        "object_identification": {
+          "status": "suppressed",
+          "reason": "No clean student-ready object target is approved for this expansion pass."
+        },
+        "phrase_translation": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "surface": "מוֹת תָּמוּת",
+              "translation": "you shall surely die"
+            }
+          ]
+        }
       }
     }
   }

@@ -7,9 +7,9 @@ class QuestionValidationAuditTests(unittest.TestCase):
     def test_active_scope_summary_reflects_expanded_runtime_boundary(self):
         report = question_validation_audit.build_question_validation_audit()
 
-        self.assertEqual(report["scope_summary"]["scope"], "local_parsed_bereishis_1_1_to_2_9")
-        self.assertEqual(report["scope_summary"]["range"]["end"], {"perek": 2, "pasuk": 9})
-        self.assertEqual(report["scope_summary"]["pesukim_count"], 40)
+        self.assertEqual(report["scope_summary"]["scope"], "local_parsed_bereishis_1_1_to_2_17")
+        self.assertEqual(report["scope_summary"]["range"]["end"], {"perek": 2, "pasuk": 17})
+        self.assertEqual(report["scope_summary"]["pesukim_count"], 48)
 
     def test_contextual_meaning_validator_rejects_placeholder_translation(self):
         result = question_validation_audit.contextual_meaning_validation_result(

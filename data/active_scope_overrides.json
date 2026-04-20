@@ -1,7 +1,7 @@
 {
   "metadata": {
     "title": "Active Scope Curated Overrides",
-    "scope_id": "local_parsed_bereishis_1_1_to_2_9",
+    "scope_id": "local_parsed_bereishis_1_1_to_2_17",
     "status": "active",
     "notes": [
       "These overrides apply only inside the current active runtime scope.",
@@ -387,6 +387,75 @@
             "translation": "every tree",
             "semantic_group": "object",
             "entity_type": "common_noun"
+          }
+        }
+      }
+    },
+    "bereishis_2_15": {
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 2,
+        "pasuk": 15
+      },
+      "notes": [
+        "Recover the clean opening action phrase for the verse."
+      ],
+      "skills": {
+        "phrase_translation": {
+          "preferred_phrase": {
+            "surface": "וַיִּקַּח יְהוָה אֱלֹהִים אֶת הָאָדָם",
+            "translation": "and the LORD God took the man",
+            "distractors": [
+              "and the LORD God placed the man",
+              "and the LORD God commanded the man",
+              "and God took the man"
+            ]
+          }
+        }
+      }
+    },
+    "bereishis_2_16": {
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 2,
+        "pasuk": 16
+      },
+      "notes": [
+        "Recover the clean opening command phrase for the verse."
+      ],
+      "skills": {
+        "phrase_translation": {
+          "preferred_phrase": {
+            "surface": "וַיְצַו יְהוָה אֱלֹהִים",
+            "translation": "and the LORD God commanded",
+            "distractors": [
+              "and the LORD God took",
+              "and the LORD God formed",
+              "and God commanded"
+            ]
+          }
+        }
+      }
+    },
+    "bereishis_2_17": {
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 2,
+        "pasuk": 17
+      },
+      "notes": [
+        "Recover the compact warning phrase at the end of the verse."
+      ],
+      "skills": {
+        "phrase_translation": {
+          "preferred_phrase": {
+            "surface": "מוֹת תָּמוּת",
+            "translation": "you shall surely die",
+            "distractors": [
+              "you may surely eat",
+              "you shall surely know",
+              "you shall not eat"
+            ]
           }
         }
       }

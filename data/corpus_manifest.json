@@ -13,7 +13,7 @@
   },
   "source_corpora": [
     {
-      "corpus_id": "source_bereishis_1_1_to_2_9_local",
+      "corpus_id": "source_bereishis_1_1_to_2_17_local",
       "type": "source_corpus",
       "sefer": "Bereishis",
       "range": {
@@ -23,26 +23,27 @@
         },
         "end": {
           "perek": 2,
-          "pasuk": 9
+          "pasuk": 17
         }
       },
-      "pesukim_count": 40,
+      "pesukim_count": 48,
       "source_files": [
         "data/source/bereishis_1_1_to_1_30.json",
-        "data/source/bereishis_1_31_to_2_9.json"
+        "data/source/bereishis_1_31_to_2_9.json",
+        "data/source/bereishis_2_10_to_2_17.json"
       ],
       "parsed_files": {},
       "status": "source",
-      "declared_source_range": "1:1-2:9",
+      "declared_source_range": "1:1-2:17",
       "notes": [
         "Current local source files backing the active parsed dataset.",
-        "Current local source corpus spans Bereishis 1:1 through 2:9."
+        "Current local source corpus spans Bereishis 1:1 through 2:17."
       ]
     }
   ],
   "parsed_corpora": [
     {
-      "corpus_id": "parsed_bereishis_1_1_to_2_9_root",
+      "corpus_id": "parsed_bereishis_1_1_to_2_17_root",
       "type": "parsed_corpus",
       "sefer": "Bereishis",
       "range": {
@@ -52,13 +53,14 @@
         },
         "end": {
           "perek": 2,
-          "pasuk": 9
+          "pasuk": 17
         }
       },
-      "pesukim_count": 40,
+      "pesukim_count": 48,
       "source_files": [
         "data/source/bereishis_1_1_to_1_30.json",
-        "data/source/bereishis_1_31_to_2_9.json"
+        "data/source/bereishis_1_31_to_2_9.json",
+        "data/source/bereishis_2_10_to_2_17.json"
       ],
       "parsed_files": {
         "pesukim": "data/pesukim_100.json",
@@ -77,7 +79,7 @@
   ],
   "scopes": [
     {
-      "scope_id": "local_parsed_bereishis_1_1_to_2_9",
+      "scope_id": "local_parsed_bereishis_1_1_to_2_17",
       "type": "runtime_scope",
       "sefer": "Bereishis",
       "range": {
@@ -87,15 +89,16 @@
         },
         "end": {
           "perek": 2,
-          "pasuk": 9
+          "pasuk": 17
         }
       },
-      "pesukim_count": 40,
-      "source_corpus_id": "source_bereishis_1_1_to_2_9_local",
-      "parsed_corpus_id": "parsed_bereishis_1_1_to_2_9_root",
+      "pesukim_count": 48,
+      "source_corpus_id": "source_bereishis_1_1_to_2_17_local",
+      "parsed_corpus_id": "parsed_bereishis_1_1_to_2_17_root",
       "source_files": [
         "data/source/bereishis_1_1_to_1_30.json",
-        "data/source/bereishis_1_31_to_2_9.json"
+        "data/source/bereishis_1_31_to_2_9.json",
+        "data/source/bereishis_2_10_to_2_17.json"
       ],
       "parsed_files": {
         "pesukim": "data/pesukim_100.json",

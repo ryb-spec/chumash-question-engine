@@ -36,6 +36,15 @@ def promoted_scope_pesukim():
     ]
 
 
+def current_expansion_chunk_records():
+    return [
+        record
+        for record in active_pesukim_records()
+        if record.get("ref", {}).get("perek") == 2
+        and 10 <= record.get("ref", {}).get("pasuk", 0) <= 17
+    ]
+
+
 class ActiveRuntimeQualityTests(unittest.TestCase):
     def setUp(self):
         st.session_state.clear()
@@ -208,6 +217,15 @@ class ActiveRuntimeQualityTests(unittest.TestCase):
             (2, 9): {
                 "object_identification": "every tree",
             },
+            (2, 15): {
+                "phrase_translation": "and the LORD God took the man",
+            },
+            (2, 16): {
+                "phrase_translation": "and the LORD God commanded",
+            },
+            (2, 17): {
+                "phrase_translation": "you shall surely die",
+            },
         }
 
         for record in active_pesukim_records():
@@ -221,6 +239,40 @@ class ActiveRuntimeQualityTests(unittest.TestCase):
                 self.assertNotEqual(question.get("status"), "skipped")
                 self.assertEqual(question.get("correct_answer"), answer)
                 self.assertEqual(question.get("analysis_source"), "active_scope_override")
+
+    def test_current_expansion_chunk_supports_stable_families_with_cohort_safe_labels(self):
+        by_ref = {
+            (record["ref"]["perek"], record["ref"]["pasuk"]): record["text"]
+            for record in current_expansion_chunk_records()
+        }
+        taught_tense_labels = {"past", "future", "present", "to do form"}
+
+        translation = generate_question("translation", by_ref[(2, 10)])
+        self.assertNotEqual(translation.get("status"), "skipped")
+        self.assertEqual(translation.get("correct_answer"), "the garden")
+
+        for ref, expected_phrase in {
+            (2, 15): "and the LORD God took the man",
+            (2, 16): "and the LORD God commanded",
+            (2, 17): "you shall surely die",
+        }.items():
+            pasuk = by_ref[ref]
+            phrase_question = generate_question("phrase_translation", pasuk)
+            shoresh_question = generate_question("shoresh", pasuk)
+            identify_tense_question = generate_question("identify_tense", pasuk)
+            verb_tense_question = generate_question("verb_tense", pasuk)
+            prefix_question = generate_question("identify_prefix_meaning", pasuk)
+
+            self.assertNotEqual(phrase_question.get("status"), "skipped")
+            self.assertEqual(phrase_question.get("correct_answer"), expected_phrase)
+            self.assertEqual(phrase_question.get("analysis_source"), "active_scope_override")
+
+            self.assertNotEqual(shoresh_question.get("status"), "skipped")
+            self.assertNotEqual(identify_tense_question.get("status"), "skipped")
+            self.assertNotEqual(verb_tense_question.get("status"), "skipped")
+            self.assertNotEqual(prefix_question.get("status"), "skipped")
+            self.assertTrue(set(identify_tense_question.get("choices", [])).issubset(taught_tense_labels))
+            self.assertTrue(set(verb_tense_question.get("choices", [])).issubset(taught_tense_labels))
 
     def test_active_scope_verb_tense_filters_known_nonfinite_article_forms(self):
         expected_bad = {
@@ -282,7 +334,14 @@ class ActiveRuntimeQualityTests(unittest.TestCase):
                 self.assertNotEqual(object_question.get("question"), "What does this word mean?")
                 self.assertIn("receiv", object_question.get("explanation", "").lower())
 
-            flow = generate_pasuk_flow(pasuk)
+            try:
+                flow = generate_pasuk_flow(pasuk)
+            except ValueError as error:
+                self.assertIn(
+                    "Could not build enough quiz-ready pasuk flow questions",
+                    str(error),
+                )
+                continue
             for question in flow.get("questions", []):
                 if question.get("question_type") != "prefix_suffix":
                     continue

@@ -68,6 +68,7 @@ def _default_corpus_manifest():
     source_files = [
         "data/source/bereishis_1_1_to_1_30.json",
         "data/source/bereishis_1_31_to_2_9.json",
+        "data/source/bereishis_2_10_to_2_17.json",
     ]
     parsed_files = {
         "pesukim": "data/pesukim_100.json",
@@ -90,34 +91,34 @@ def _default_corpus_manifest():
         },
         "source_corpora": [
             {
-                "corpus_id": "source_bereishis_1_1_to_2_9_local",
+                "corpus_id": "source_bereishis_1_1_to_2_17_local",
                 "type": "source_corpus",
                 "sefer": "Bereishis",
                 "range": {
                     "start": {"perek": 1, "pasuk": 1},
-                    "end": {"perek": 2, "pasuk": 9},
+                    "end": {"perek": 2, "pasuk": 17},
                 },
-                "pesukim_count": 40,
+                "pesukim_count": 48,
                 "source_files": list(source_files),
                 "parsed_files": {},
                 "status": "source",
-                "declared_source_range": "1:1-2:9",
+                "declared_source_range": "1:1-2:17",
                 "notes": [
                     "Current local source file backing the active parsed dataset.",
-                    "Current local source corpus spans Bereishis 1:1 through 2:9.",
+                    "Current local source corpus spans Bereishis 1:1 through 2:17.",
                 ],
             }
         ],
         "parsed_corpora": [
             {
-                "corpus_id": "parsed_bereishis_1_1_to_2_9_root",
+                "corpus_id": "parsed_bereishis_1_1_to_2_17_root",
                 "type": "parsed_corpus",
                 "sefer": "Bereishis",
                 "range": {
                     "start": {"perek": 1, "pasuk": 1},
-                    "end": {"perek": 2, "pasuk": 9},
+                    "end": {"perek": 2, "pasuk": 17},
                 },
-                "pesukim_count": 40,
+                "pesukim_count": 48,
                 "source_files": list(source_files),
                 "parsed_files": dict(parsed_files),
                 "status": "active",
@@ -130,16 +131,16 @@ def _default_corpus_manifest():
         ],
         "scopes": [
             {
-                "scope_id": "local_parsed_bereishis_1_1_to_2_9",
+                "scope_id": "local_parsed_bereishis_1_1_to_2_17",
                 "type": "runtime_scope",
                 "sefer": "Bereishis",
                 "range": {
                     "start": {"perek": 1, "pasuk": 1},
-                    "end": {"perek": 2, "pasuk": 9},
+                    "end": {"perek": 2, "pasuk": 17},
                 },
-                "pesukim_count": 40,
-                "source_corpus_id": "source_bereishis_1_1_to_2_9_local",
-                "parsed_corpus_id": "parsed_bereishis_1_1_to_2_9_root",
+                "pesukim_count": 48,
+                "source_corpus_id": "source_bereishis_1_1_to_2_17_local",
+                "parsed_corpus_id": "parsed_bereishis_1_1_to_2_17_root",
                 "source_files": list(source_files),
                 "parsed_files": dict(parsed_files),
                 "status": "active",
@@ -213,7 +214,7 @@ _MANIFEST_ACTIVE_SCOPE = _resolve_manifest_active_scope()
 
 ACTIVE_ASSESSMENT_SCOPE = _MANIFEST_ACTIVE_SCOPE.get(
     "scope_id",
-    "local_parsed_bereishis_1_1_to_2_9",
+    "local_parsed_bereishis_1_1_to_2_17",
 )
 
 _ACTIVE_PARSED_FILES = _MANIFEST_ACTIVE_SCOPE.get("parsed_files", {})

@@ -213,6 +213,29 @@ class StreamlitQuizExperienceTests(unittest.TestCase):
             key="next_mastery",
         )
 
+    def test_answered_mastery_mode_emits_post_answer_visibility_hook(self):
+        question = self._sample_prefix_question()
+        progress = {"current_skill": "identify_prefix_meaning"}
+        st.session_state.current_question = question
+        st.session_state.answered = True
+        st.session_state.current_post_answer_visibility_token = "post-answer-4"
+        st.session_state.scroll_to_post_answer_action_on_render = True
+        emitted_scripts = []
+
+        with patch.object(mode_handlers, "render_question"), \
+             patch.object(mode_handlers, "render_assessment_diagnostics"), \
+             patch.object(mode_handlers, "last_answer_was_correct", return_value=True), \
+             patch.object(mode_handlers, "render_enter_key_handler"), \
+             patch.object(mode_handlers.st, "markdown"), \
+             patch.object(mode_handlers.st, "button", return_value=False), \
+             patch.object(mode_handlers.components, "html", side_effect=lambda body, **kwargs: emitted_scripts.append(body)):
+            streamlit_app.render_mastery_mode(progress)
+
+        self.assertTrue(any("post-answer-action-post-answer-4" in body for body in emitted_scripts))
+        self.assertTrue(any("__assessmentHandledPostAnswerToken" in body for body in emitted_scripts))
+        self.assertTrue(any("Next Question" in body for body in emitted_scripts))
+        self.assertFalse(st.session_state.scroll_to_post_answer_action_on_render)
+
     def test_pending_mastery_continue_after_error_shows_loading_and_blocks_duplicate_clicks(self):
         question = self._sample_prefix_question()
         next_question = {

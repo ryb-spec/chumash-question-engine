@@ -69,7 +69,7 @@ class QuestionTypeContractTests(unittest.TestCase):
             "to do form",
         }
 
-        for ref in ((1, 3), (1, 9), (1, 14), (1, 17)):
+        for ref in ((1, 3), (1, 9), (1, 14), (1, 17), (2, 10), (2, 15), (2, 17)):
             pasuk = pasuk_by_ref(*ref)
             question = generate_question("verb_tense", pasuk)
             if question.get("status") == "skipped":
@@ -576,6 +576,9 @@ class QuestionTypeContractTests(unittest.TestCase):
         self.assertIsNotNone(active_scope_override_for_pasuk_id("bereishis_1_4"))
         self.assertIsNotNone(active_scope_override_for_pasuk_id("bereishis_1_7"))
         self.assertIsNotNone(active_scope_override_for_pasuk_id("bereishis_2_7"))
+        self.assertIsNotNone(active_scope_override_for_pasuk_id("bereishis_2_15"))
+        self.assertIsNotNone(active_scope_override_for_pasuk_id("bereishis_2_16"))
+        self.assertIsNotNone(active_scope_override_for_pasuk_id("bereishis_2_17"))
         self.assertIsNone(active_scope_override_for_pasuk_id("bereishis_99_1"))
 
 

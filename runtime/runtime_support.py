@@ -291,7 +291,11 @@ def append_attempt_log(question, choice, is_correct):
 
 
 def handle_answer(choice, question, progress):
-    from runtime.session_state import is_tense_family_skill, set_adaptive_status
+    from runtime.session_state import (
+        is_tense_family_skill,
+        schedule_post_answer_action_visibility,
+        set_adaptive_status,
+    )
 
     if st.session_state.answered:
         return
@@ -300,6 +304,7 @@ def handle_answer(choice, question, progress):
     st.session_state.last_answer_submitted_at = pipeline_started_at
     st.session_state.answered = True
     st.session_state.selected_answer = choice
+    schedule_post_answer_action_visibility()
     st.session_state.questions_answered += 1
     if question.get("difficulty") == 5:
         st.session_state.level5_answered += 1

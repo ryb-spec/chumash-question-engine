@@ -65,6 +65,15 @@ def schedule_question_arrival():
     return token
 
 
+def schedule_post_answer_action_visibility():
+    counter = int(st.session_state.get("post_answer_visibility_counter", 0)) + 1
+    token = f"post-answer-{counter}"
+    st.session_state.post_answer_visibility_counter = counter
+    st.session_state.current_post_answer_visibility_token = token
+    st.session_state.scroll_to_post_answer_action_on_render = True
+    return token
+
+
 def reset_for_new_question():
     st.session_state.current_question = None
     st.session_state.answered = False
@@ -72,7 +81,9 @@ def reset_for_new_question():
     st.session_state.last_skill_state = None
     st.session_state.post_answer_action_pending = ""
     st.session_state.scroll_to_question_on_render = False
+    st.session_state.scroll_to_post_answer_action_on_render = False
     st.session_state.current_question_arrival_token = ""
+    st.session_state.current_post_answer_visibility_token = ""
     st.session_state.pilot_current_question_signature = ""
     st.session_state.pilot_current_question_log_id = None
     st.session_state.pilot_current_question_started_at = None
@@ -85,6 +96,8 @@ def set_question(question):
     st.session_state.last_skill_state = None
     st.session_state.post_answer_action_pending = ""
     schedule_question_arrival()
+    st.session_state.scroll_to_post_answer_action_on_render = False
+    st.session_state.current_post_answer_visibility_token = ""
     st.session_state.pilot_current_question_signature = ""
     st.session_state.pilot_current_question_log_id = None
     st.session_state.pilot_current_question_started_at = None
@@ -384,9 +397,13 @@ def init_session_state():
     st.session_state.setdefault("post_answer_action_pending", "")
     st.session_state.setdefault("pending_tense_contrast_followup", False)
     st.session_state.setdefault("scroll_to_question_on_render", False)
+    st.session_state.setdefault("scroll_to_post_answer_action_on_render", False)
     st.session_state.setdefault("question_arrival_counter", 0)
     st.session_state.setdefault("current_question_arrival_token", "")
     st.session_state.setdefault("last_question_scroll_token", "")
+    st.session_state.setdefault("post_answer_visibility_counter", 0)
+    st.session_state.setdefault("current_post_answer_visibility_token", "")
+    st.session_state.setdefault("last_post_answer_scroll_token", "")
     st.session_state.setdefault("pilot_session_id", None)
     st.session_state.setdefault("pilot_scope_mode", "trusted_active_scope")
     st.session_state.setdefault("pilot_trusted_active_scope_session", True)
