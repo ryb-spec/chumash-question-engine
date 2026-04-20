@@ -1,5 +1,7 @@
 import unittest
+from unittest.mock import patch
 
+import engine.flow_builder as flow_builder
 from assessment_scope import active_pesukim_records, active_scope_override_for_pasuk_id
 from pasuk_flow_generator import (
     CONTROLLED_TENSE_CHOICES,
@@ -412,6 +414,132 @@ class QuestionTypeContractTests(unittest.TestCase):
         self.assertEqual(made_phrase.get("correct_answer"), "and God made")
         self.assertNotIn("the LORD the LORD", " ".join(formed_phrase.get("choices", [])))
         self.assertNotIn("God God", " ".join(formed_phrase.get("choices", [])))
+
+    def test_translation_uses_same_family_verb_distractors_instead_of_random_nouns(self):
+        target_entry = {
+            "word": "וַיִּיצֶר",
+            "translation": "formed",
+            "type": "verb",
+            "part_of_speech": "verb",
+            "semantic_group": "action",
+            "role_hint": "unknown",
+            "entity_type": "verb",
+            "group": "verb_action",
+            "shoresh": "יצר",
+            "tense": "vav_consecutive_past",
+            "source_refs": ["bereishis_2_7"],
+        }
+        made_entry = {
+            "word": "וַיַּעַשׂ",
+            "translation": "made",
+            "type": "verb",
+            "part_of_speech": "verb",
+            "semantic_group": "action",
+            "role_hint": "unknown",
+            "entity_type": "verb",
+            "group": "verb_action",
+            "shoresh": "עשה",
+            "tense": "vav_consecutive_past",
+            "source_refs": ["bereishis_1_16"],
+        }
+        saw_entry = {
+            "word": "וַיַּרְא",
+            "translation": "saw",
+            "type": "verb",
+            "part_of_speech": "verb",
+            "semantic_group": "action",
+            "role_hint": "unknown",
+            "entity_type": "verb",
+            "group": "verb_action",
+            "shoresh": "ראה",
+            "tense": "vav_consecutive_past",
+            "source_refs": ["bereishis_1_4"],
+        }
+        called_entry = {
+            "word": "וַיִּקְרָא",
+            "translation": "called",
+            "type": "verb",
+            "part_of_speech": "verb",
+            "semantic_group": "action",
+            "role_hint": "unknown",
+            "entity_type": "verb",
+            "group": "verb_action",
+            "shoresh": "קרא",
+            "tense": "vav_consecutive_past",
+            "source_refs": ["bereishis_1_5"],
+        }
+        noun_entries = [
+            {
+                "word": "אוֹר",
+                "translation": "light",
+                "type": "noun",
+                "part_of_speech": "noun",
+                "semantic_group": "object",
+                "role_hint": "unknown",
+                "entity_type": "common_noun",
+                "group": "noun_object",
+                "source_refs": ["bereishis_1_3"],
+            },
+            {
+                "word": "אֶרֶץ",
+                "translation": "earth",
+                "type": "noun",
+                "part_of_speech": "noun",
+                "semantic_group": "place",
+                "role_hint": "unknown",
+                "entity_type": "common_noun",
+                "group": "noun_object",
+                "source_refs": ["bereishis_1_1"],
+            },
+            {
+                "word": "מַיִם",
+                "translation": "water",
+                "type": "noun",
+                "part_of_speech": "noun",
+                "semantic_group": "object",
+                "role_hint": "unknown",
+                "entity_type": "common_noun",
+                "group": "noun_object",
+                "source_refs": ["bereishis_1_2"],
+            },
+        ]
+        word_bank = {
+            entry["word"]: entry
+            for entry in [target_entry, made_entry, saw_entry, called_entry, *noun_entries]
+        }
+        by_group = {
+            "verb_action": [target_entry, made_entry, saw_entry, called_entry],
+            "noun_object": noun_entries,
+        }
+
+        with patch.object(flow_builder, "load_word_bank", return_value=(word_bank, by_group)):
+            question = generate_question(
+                "translation",
+                "וַיִּיצֶר",
+                analyzed_override=[{"token": "וַיִּיצֶר", "entry": dict(target_entry)}],
+            )
+
+        self.assertNotEqual(question.get("status"), "skipped")
+        self.assertEqual(question.get("correct_answer"), "and he formed")
+        wrong_answers = {
+            choice for choice in question.get("choices", [])
+            if choice != question.get("correct_answer")
+        }
+        self.assertEqual(
+            wrong_answers,
+            {"and he made", "and he saw", "and he called"},
+        )
+        self.assertNotIn("light", question.get("choices", []))
+        self.assertNotIn("earth", question.get("choices", []))
+        self.assertNotIn("water", question.get("choices", []))
+
+    def test_phrase_translation_choices_stay_phrase_like_and_same_family(self):
+        question = generate_question("phrase_translation", pasuk_by_ref(1, 4))
+
+        self.assertNotEqual(question.get("status"), "skipped")
+        self.assertEqual(question.get("correct_answer"), "and God saw the light")
+        self.assertTrue(all(choice.startswith("and ") for choice in question.get("choices", [])))
+        self.assertTrue(all(len(choice.split()) >= 3 for choice in question.get("choices", [])))
 
     def test_active_scope_verb_tense_reroutes_away_from_known_bad_targets(self):
         expected_bad = {

@@ -46,6 +46,8 @@ DEBUG_REJECTION_LABELS = {
     "tense_family_short_run_capped": "tense-family short-run cap blocked",
     "grammar_taxonomy_short_run_capped": "grammar-taxonomy short-run cap blocked",
     "recent_exact_word_repeat": "recent exact-word repeat blocked",
+    "recent_same_pasuk_intent_repeat": "same pasuk intent repeat blocked",
+    "recent_semantic_sibling_repeat": "semantic sibling repeat blocked",
     "limited_candidate_reuse": "limited candidate reuse allowed",
 }
 RECENT_QUESTION_HISTORY_LIMIT = 12
@@ -205,15 +207,93 @@ def question_prompt_family(question):
     return re.sub(r"\s+", " ", prompt).strip()
 
 
+def question_target_family(question):
+    target = _signature_text(question.get("selected_word") or question.get("word") or "")
+    if not target:
+        return ""
+    if " " in target:
+        return target
+
+    family = target
+    if len(family) > 3 and family.startswith("ו"):
+        family = family[1:]
+    if len(family) > 3 and family.startswith(("ה", "ל", "מ", "ב", "כ", "ש")):
+        family = family[1:]
+    return family or target
+
+
+def _answer_text_profile(answer):
+    normalized = _signature_text(answer)
+    words = normalized.split()
+    if normalized.startswith("and the lord god "):
+        leading = "and_the_lord_god"
+    elif normalized.startswith("and the lord "):
+        leading = "and_the_lord"
+    elif normalized.startswith("and god "):
+        leading = "and_god"
+    elif normalized.startswith("and he "):
+        leading = "and_he"
+    elif normalized.startswith("and she "):
+        leading = "and_she"
+    elif normalized.startswith("and it "):
+        leading = "and_it"
+    elif normalized.startswith("and they "):
+        leading = "and_they"
+    elif normalized.startswith("to "):
+        leading = "to_form"
+    elif normalized in {"him", "her", "them", "me", "us", "you", "someone else", "something else"}:
+        leading = "pronoun"
+    elif words[:1] and words[0] in {"the", "a", "an"}:
+        leading = "article_noun"
+    elif len(words) == 1:
+        leading = "single_word"
+    else:
+        leading = words[0] if words else ""
+
+    relation = ""
+    for prefix in ("from", "to", "in", "on", "with"):
+        if normalized.startswith(f"{prefix} "):
+            relation = prefix
+            break
+
+    return {
+        "leading": leading,
+        "relation": relation,
+        "word_count": min(len(words), 4),
+    }
+
+
+def question_answer_pattern(question):
+    question = question or {}
+    question_type = question_type_key(question)
+    profile = _answer_text_profile(question.get("correct_answer") or "")
+    parts = [question_type]
+    part_of_speech = _signature_text(question.get("part_of_speech") or "")
+    role_focus = _signature_text(question.get("role_focus") or question.get("morpheme_type") or "")
+    if part_of_speech:
+        parts.append(part_of_speech)
+    if role_focus:
+        parts.append(role_focus)
+    if profile["leading"]:
+        parts.append(profile["leading"])
+    if profile["relation"]:
+        parts.append(f"rel:{profile['relation']}")
+    parts.append(f"words:{profile['word_count']}")
+    return "|".join(parts)
+
+
 def question_signature(question):
     question = question or {}
     pasuk = question.get("pasuk") or ""
 
     return {
         "skill": question.get("skill") or question.get("question_type") or "",
+        "question_type": question_type_key(question),
         "target_word": _signature_text(question.get("selected_word") or question.get("word") or ""),
+        "target_family": question_target_family(question),
         "prompt_family": question_prompt_family(question),
         "correct_answer": _signature_text(question.get("correct_answer") or ""),
+        "answer_pattern": question_answer_pattern(question),
         "source_pasuk": _signature_text(get_active_pasuk_ref(pasuk) if pasuk else ""),
     }
 
@@ -257,6 +337,24 @@ def recent_question_repeat_reason(question, recent_questions):
             and previous.get("source_pasuk") == signature["source_pasuk"]
         ):
             return "recent_prompt_repeat"
+
+    previous = recent_questions[-1] if recent_questions else {}
+    if previous:
+        if (
+            previous.get("question_type") == signature["question_type"]
+            and previous.get("source_pasuk")
+            and previous.get("source_pasuk") == signature["source_pasuk"]
+            and previous.get("prompt_family") == signature["prompt_family"]
+            and previous.get("answer_pattern") == signature["answer_pattern"]
+        ):
+            return "recent_same_pasuk_intent_repeat"
+        if (
+            previous.get("question_type") == signature["question_type"]
+            and previous.get("target_family")
+            and previous.get("target_family") == signature["target_family"]
+            and previous.get("target_word") != signature["target_word"]
+        ):
+            return "recent_semantic_sibling_repeat"
 
     if signature.get("target_word"):
         exact_word_window = recent_questions[-EXACT_WORD_REPEAT_WINDOW:]
@@ -908,10 +1006,22 @@ def select_pasuk_first_question(skill, progress=None, adaptive_context=None):
         ]
         eligible_rows = []
         fallback_ready_rows = []
+        recent_target_words = {
+            item.get("target_word")
+            for item in recent_questions[-EXACT_WORD_REPEAT_WINDOW:]
+            if (item or {}).get("target_word")
+        }
         for ready_row in filtered_ready_rows:
             feature = ready_row.get("feature", "")
             prefix = ready_row.get("prefix", "")
             morpheme_family = ready_row.get("morpheme_family", "")
+            row_word = _signature_text(ready_row.get("word") or "")
+            if row_word and row_word in recent_target_words:
+                nonlocal_rejection_counts[0] = increment_debug_rejection_count(
+                    nonlocal_rejection_counts[0],
+                    "recent_exact_word_repeat",
+                )
+                continue
             if not morpheme_family:
                 if skill == "identify_verb_marker":
                     morpheme_family = "verb_marker"

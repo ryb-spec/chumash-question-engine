@@ -72,6 +72,63 @@ class RuntimeQuestionFlowTests(unittest.TestCase):
 
         self.assertEqual(reason, "recent_exact_word_repeat")
 
+    def test_recent_question_repeat_reason_blocks_same_pasuk_same_intent_repeat(self):
+        active_record = active_pesukim_records()[0]
+        previous = {
+            "skill": "translation",
+            "question_type": "translation",
+            "question": "What does created-word mean?",
+            "selected_word": "בָּרָא",
+            "word": "בָּרָא",
+            "part_of_speech": "verb",
+            "correct_answer": "and he created",
+            "choices": ["and he created", "and he made", "and he called", "and he saw"],
+            "pasuk": active_record["text"],
+        }
+        next_question = {
+            "skill": "translation",
+            "question_type": "translation",
+            "question": "What does God-word mean?",
+            "selected_word": "אֱלֹקִים",
+            "word": "אֱלֹקִים",
+            "part_of_speech": "verb",
+            "correct_answer": "and he made",
+            "choices": ["and he made", "and he saw", "and he called", "and he formed"],
+            "pasuk": active_record["text"],
+        }
+
+        reason = recent_question_repeat_reason(next_question, [question_signature(previous)])
+
+        self.assertEqual(reason, "recent_same_pasuk_intent_repeat")
+
+    def test_recent_question_repeat_reason_blocks_semantic_sibling_word_family(self):
+        previous = {
+            "skill": "translation",
+            "question_type": "translation",
+            "question": "What does light-word mean?",
+            "selected_word": "אוֹר",
+            "word": "אוֹר",
+            "part_of_speech": "noun",
+            "correct_answer": "light",
+            "choices": ["light", "earth", "water", "garden"],
+            "pasuk": "מקור א",
+        }
+        sibling = {
+            "skill": "translation",
+            "question_type": "translation",
+            "question": "What does the-light-word mean?",
+            "selected_word": "הָאוֹר",
+            "word": "הָאוֹר",
+            "part_of_speech": "noun",
+            "correct_answer": "the light",
+            "choices": ["the light", "the earth", "the water", "the garden"],
+            "pasuk": "מקור ב",
+        }
+
+        reason = recent_question_repeat_reason(sibling, [question_signature(previous)])
+
+        self.assertEqual(reason, "recent_semantic_sibling_repeat")
+
     def test_display_context_policy_keeps_simple_word_questions_compact(self):
         question = {
             "skill": "identify_prefix_meaning",
@@ -214,6 +271,62 @@ class RuntimeQuestionFlowTests(unittest.TestCase):
 
         self.assertIsNotNone(result)
         self.assertEqual(result["selected_word"], "אֱלֹקִים")
+
+    def test_select_pasuk_first_question_skips_same_pasuk_intent_repeat_when_fresh_option_exists(self):
+        st.session_state.pilot_scope_mode = "open_pilot_scope"
+        active_records = active_pesukim_records()[:2]
+        previous = {
+            "skill": "translation",
+            "question_type": "translation",
+            "question": "What does created-word mean?",
+            "selected_word": "בָּרָא",
+            "word": "בָּרָא",
+            "part_of_speech": "verb",
+            "correct_answer": "and he created",
+            "choices": ["and he created", "and he made", "and he saw", "and he called"],
+            "pasuk": active_records[0]["text"],
+        }
+        st.session_state.recent_questions = [question_signature(previous)]
+        ready_rows = [
+            {"pasuk": active_records[0]["text"], "word": "אֱלֹקִים", "feature": "translation", "prefix": "", "morpheme_family": ""},
+            {"pasuk": active_records[1]["text"], "word": "אֱלֹקִים", "feature": "translation", "prefix": "", "morpheme_family": ""},
+        ]
+
+        def generate_question(skill, candidate_source, **kwargs):
+            if candidate_source == active_records[0]["text"]:
+                return {
+                    "skill": "translation",
+                    "question_type": "translation",
+                    "question": "What does God-word mean?",
+                    "selected_word": "אֱלֹקִים",
+                    "word": "אֱלֹקִים",
+                    "part_of_speech": "verb",
+                    "correct_answer": "and he made",
+                    "choices": ["and he made", "and he saw", "and he called", "and he formed"],
+                    "pasuk": active_records[0]["text"],
+                }
+            return {
+                "skill": "translation",
+                "question_type": "translation",
+                "question": "What does God-word mean?",
+                "selected_word": "אֱלֹקִים",
+                "word": "אֱלֹקִים",
+                "part_of_speech": "noun",
+                "correct_answer": "God",
+                "choices": ["God", "the LORD", "the man", "someone else"],
+                "pasuk": active_records[1]["text"],
+            }
+
+        with patch.object(question_flow, "get_skill_ready_pasuks", return_value=ready_rows), \
+             patch.object(question_flow, "generate_skill_question", side_effect=generate_question), \
+             patch.object(question_flow, "analyze_generator_pasuk", side_effect=lambda pasuk: pasuk), \
+             patch.object(session_state, "record_selected_pasuk"), \
+             patch.object(session_state, "record_question_feature"), \
+             patch.object(session_state, "record_question_prefix"):
+            result = select_pasuk_first_question("translation", progress={"prefix_level": 1}, adaptive_context={})
+
+        self.assertIsNotNone(result)
+        self.assertEqual(result["pasuk"], active_records[1]["text"])
 
     def test_select_pasuk_first_question_skips_unmappable_candidate_in_trusted_scope(self):
         active_records = active_pesukim_records()[:2]

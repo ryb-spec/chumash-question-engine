@@ -867,14 +867,22 @@ def build_choices(correct, partials, clear, key, extra=None):
 
 
 def build_parallel_choices(correct, candidates, key, *, extra=None, token=None):
-    choices = unique(
-        [correct]
-        + [
-            item
-            for item in list(candidates or []) + list(extra or [])
-            if item and item != correct and not is_placeholder_translation(item, token)
-        ]
-    )
+    candidate_pool = [
+        item
+        for item in list(candidates or []) + list(extra or [])
+        if item and item != correct and not is_placeholder_translation(item, token)
+    ]
+    ranked_candidates = rank_parallel_choice_values(correct, candidate_pool)
+    quality_floor = parallel_choice_quality_floor(correct)
+    high_quality = [
+        item
+        for item in ranked_candidates
+        if parallel_choice_match_score(correct, item) >= quality_floor
+    ]
+    if quality_floor > 0 and len(high_quality) >= 3:
+        ranked_candidates = high_quality
+
+    choices = unique([correct] + ranked_candidates)
     if len(choices) < 4:
         raise ValueError(f"Need 4 parallel choices. Got: {choices}")
     choices = choices[:4]
@@ -1274,13 +1282,174 @@ def distractor_key(entry):
     return key or normalized_word
 
 
+PARALLEL_RELATION_PREFIXES = ("from", "to", "in", "on", "with")
+PARALLEL_SUBJECT_PREFIXES = (
+    "and the lord god ",
+    "and the lord ",
+    "and god ",
+    "and someone else ",
+    "and he ",
+    "and she ",
+    "and it ",
+    "and they ",
+    "the lord god ",
+    "the lord ",
+    "god ",
+    "someone else ",
+)
+PARALLEL_PRONOUN_CHOICES = {
+    "him",
+    "her",
+    "them",
+    "me",
+    "us",
+    "you",
+    "someone else",
+    "something else",
+}
+
+
+def normalized_parallel_text(value):
+    cleaned = clean_value_text(value)
+    if cleaned is None:
+        return ""
+    return " ".join(str(cleaned).split()).lower()
+
+
+def parallel_text_profile(text):
+    lowered = normalized_parallel_text(text)
+    words = lowered.split()
+    subject_prefix = ""
+    for prefix in PARALLEL_SUBJECT_PREFIXES:
+        if lowered.startswith(prefix):
+            subject_prefix = prefix.strip().replace(" ", "_")
+            break
+
+    relation_prefix = ""
+    for prefix in PARALLEL_RELATION_PREFIXES:
+        if lowered.startswith(f"{prefix} "):
+            relation_prefix = prefix
+            break
+
+    if lowered.startswith("to "):
+        leading_form = "to_form"
+    elif lowered in PARALLEL_PRONOUN_CHOICES:
+        leading_form = "pronoun"
+    elif words[:1] and words[0] in {"the", "a", "an"}:
+        leading_form = "article_noun"
+    elif len(words) == 1:
+        leading_form = "single_word"
+    else:
+        leading_form = words[0] if words else ""
+
+    return {
+        "word_count": min(len(words), 4),
+        "starts_with_and": lowered.startswith("and "),
+        "subject_prefix": subject_prefix,
+        "relation_prefix": relation_prefix,
+        "leading_form": leading_form,
+        "divine_style": divine_name_style(text) or "",
+    }
+
+
+def parallel_choice_match_score(correct, candidate):
+    correct_profile = parallel_text_profile(correct)
+    candidate_profile = parallel_text_profile(candidate)
+    score = 0.0
+
+    if correct_profile["subject_prefix"]:
+        if candidate_profile["subject_prefix"] == correct_profile["subject_prefix"]:
+            score += 4.0
+    elif candidate_profile["starts_with_and"] == correct_profile["starts_with_and"]:
+        score += 1.5
+
+    if correct_profile["relation_prefix"]:
+        if candidate_profile["relation_prefix"] == correct_profile["relation_prefix"]:
+            score += 3.0
+    elif not candidate_profile["relation_prefix"]:
+        score += 1.0
+
+    if correct_profile["leading_form"] and candidate_profile["leading_form"] == correct_profile["leading_form"]:
+        score += 3.0
+
+    if correct_profile["divine_style"]:
+        if candidate_profile["divine_style"] == correct_profile["divine_style"]:
+            score += 2.0
+    elif not candidate_profile["divine_style"]:
+        score += 0.5
+
+    word_gap = abs(correct_profile["word_count"] - candidate_profile["word_count"])
+    if word_gap == 0:
+        score += 2.0
+    elif word_gap == 1:
+        score += 1.0
+
+    return round(score, 2)
+
+
+def parallel_choice_quality_floor(correct):
+    profile = parallel_text_profile(correct)
+    if profile["subject_prefix"] or profile["relation_prefix"]:
+        return 5.0
+    if profile["leading_form"] in {"article_noun", "to_form"} or profile["word_count"] >= 2:
+        return 4.0
+    return 0.0
+
+
+def rank_parallel_choice_values(correct, candidates):
+    scored = [
+        (
+            parallel_choice_match_score(correct, candidate),
+            abs(parallel_text_profile(correct)["word_count"] - parallel_text_profile(candidate)["word_count"]),
+            candidate,
+        )
+        for candidate in unique(candidates)
+    ]
+    scored.sort(key=lambda item: (-item[0], item[1], item[2]))
+    return [item[2] for item in scored]
+
+
+def translation_entry_family_score(entry, correct_entry):
+    if not isinstance(entry, dict) or not isinstance(correct_entry, dict):
+        return 0.0
+
+    score = 0.0
+    if entry_type(entry) == entry_type(correct_entry):
+        score += 4.0
+    if semantic_group(entry) != "unknown" and semantic_group(entry) == semantic_group(correct_entry):
+        score += 3.0
+    if entity_type(entry) != "unknown" and entity_type(entry) == entity_type(correct_entry):
+        score += 2.0
+    if is_person_like_entry(entry) and is_person_like_entry(correct_entry):
+        score += 1.0
+    return score
+
+
+def translation_distractor_quality_floor(correct_entry, question_type):
+    kind = entry_type(correct_entry)
+    if question_type in {"word_meaning", "translation"}:
+        if kind == "verb":
+            return 9.0
+        if kind == "noun":
+            return 6.0
+    if question_type in {"subject_identification", "object_identification"}:
+        return 5.0
+    return 0.0
+
+
 def is_vav_led_finite_translation_target(entry):
     token = (entry or {}).get("word") or (entry or {}).get("surface") or ""
     return has_leading_vav(token) and runtime_tense_label(entry, token) == "vav_consecutive_past"
 
 
-def filtered_translation_values(entries, correct, correct_entry=None, question_type="translation"):
-    values = []
+def filtered_translation_values(
+    entries,
+    correct,
+    correct_entry=None,
+    question_type="translation",
+    require_quality_count=0,
+):
+    scored_values = []
     seen_values = {correct}
     seen_keys = set()
     correct_key = distractor_key(correct_entry)
@@ -1304,11 +1473,20 @@ def filtered_translation_values(entries, correct, correct_entry=None, question_t
         key = distractor_key(entry)
         if key and key in seen_keys:
             continue
-        values.append(value)
+        shape_score = parallel_choice_match_score(correct, value)
+        family_score = translation_entry_family_score(entry, correct_entry)
+        total_score = round(family_score + shape_score, 2)
+        scored_values.append((total_score, family_score, shape_score, value))
         seen_values.add(value)
         if key:
             seen_keys.add(key)
-    return values
+
+    scored_values.sort(key=lambda item: (-item[0], -item[1], -item[2], item[3]))
+    if require_quality_count and correct_entry is not None:
+        quality_floor = translation_distractor_quality_floor(correct_entry, question_type)
+        high_quality = [value for score, _family, _shape, value in scored_values if score >= quality_floor]
+        return high_quality
+    return [value for _score, _family, _shape, value in scored_values]
 
 
 def word_bank_entries(word_bank, source_derived_only=False):
@@ -1333,7 +1511,7 @@ def valid_shorashim(word_bank):
     )
 
 
-def translation_distractors(correct, target_entry, by_group, word_bank=None):
+def translation_distractors(correct, target_entry, by_group, word_bank=None, require_quality_count=0):
     same_semantic_group = [
         entry
         for entry in word_bank_entries(word_bank, source_derived_only=True)
@@ -1362,6 +1540,7 @@ def translation_distractors(correct, target_entry, by_group, word_bank=None):
         correct,
         target_entry,
         question_type="word_meaning",
+        require_quality_count=require_quality_count,
     )
 
 
@@ -2869,21 +3048,25 @@ def generate_question(
     def clean_choices(correct, candidates):
         choices = unique([correct] + [item for item in candidates if item and item != correct])
         if len(choices) < 4:
-            fallback_candidates = [
-                usable_translation(entry, entry.get("word"))
-                for entry in word_bank_entries(word_bank, source_derived_only=True)
-                if usable_translation(entry, entry.get("word")) != correct
-            ]
-            choices = unique(choices + fallback_candidates)
-        if len(choices) < 4:
             raise ValueError(f"Could not build 4 clean choices for {skill}: {choices}")
         choices = choices[:4]
         stable_rng(f"{pasuk_text}|{skill}|choices").shuffle(choices)
         return choices
 
     def same_group_translation_choices(target_entry, correct):
-        distractors = translation_distractors(correct, target_entry, by_group, word_bank)
-        return clean_choices(correct, distractors)
+        distractors = translation_distractors(
+            correct,
+            target_entry,
+            by_group,
+            word_bank,
+            require_quality_count=3,
+        )
+        return build_parallel_choices(
+            correct,
+            distractors,
+            f"{pasuk_text}|{skill}|translation",
+            token=target_entry.get("word"),
+        )
 
     def pasuk_word_choices(correct_token):
         return clean_choices(
@@ -3965,7 +4148,14 @@ def generate_question(
         question["hide_pasuk"] = True
         question["hide_focus_word"] = True
         return question
-    choices = same_group_translation_choices(target["entry"], correct)
+    try:
+        choices = same_group_translation_choices(target["entry"], correct)
+    except ValueError:
+        return skip_question_payload(
+            skill,
+            pasuk_text,
+            "No quiz-ready translation choices found in this pasuk.",
+        )
     return skill_question_payload(
         skill,
         target,
