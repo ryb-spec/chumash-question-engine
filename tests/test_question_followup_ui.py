@@ -12,6 +12,7 @@ from question_ui import build_followup_plan
 class QuestionFollowupUiTests(unittest.TestCase):
     def setUp(self):
         st.session_state.clear()
+        st.session_state.pilot_scope_mode = "open"
         st.session_state.recent_phrases = []
         st.session_state.asked_tokens = []
         st.session_state.asked_question_ids = []

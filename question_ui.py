@@ -1,6 +1,39 @@
 """Student-facing copy and follow-up helpers for the Streamlit runtime."""
 
 
+COHORT_TAUGHT_TENSE_LABELS = {
+    "past",
+    "future",
+    "present",
+    "infinitive",
+}
+
+
+def _clean_tense_label(value):
+    label = str(value or "").strip().lower()
+    return label if label in COHORT_TAUGHT_TENSE_LABELS else ""
+
+
+def tense_contrast_text(correct_answer="", selected_answer=""):
+    correct = _clean_tense_label(correct_answer)
+    selected = _clean_tense_label(selected_answer)
+    pair = {correct, selected}
+
+    if pair == {"present", "infinitive"}:
+        return "Present = doing / is doing. Infinitive = to do."
+    if pair == {"past", "future"}:
+        return "Past = did. Future = will do."
+    if correct == "present":
+        return "Present = doing / is doing."
+    if correct == "infinitive":
+        return "Infinitive = to do."
+    if correct == "past":
+        return "Past = did."
+    if correct == "future":
+        return "Future = will do."
+    return ""
+
+
 def build_learning_context(
     *,
     practice_type,
@@ -41,7 +74,7 @@ def build_learning_context(
     }
 
 
-def likely_confusion_text(question):
+def likely_confusion_text(question, selected_answer=""):
     question_type = question.get("question_type") or ""
     skill = question.get("skill") or ""
     standard = question.get("standard") or ""
@@ -49,7 +82,10 @@ def likely_confusion_text(question):
     if question_type in {"prefix_suffix", "prefix", "suffix"} or "prefix" in skill or "suffix" in skill:
         return "A small letter clue can look like part of the base word if you read too quickly."
     if question_type == "verb_tense" or skill in {"verb_tense", "identify_tense", "identify_verb_marker"}:
-        return "The verb form can look familiar even when the tense clue points in a different direction."
+        contrast = tense_contrast_text(question.get("correct_answer"), selected_answer)
+        if contrast:
+            return contrast
+        return "Watch the verb form closely: the tense clue changes the whole meaning."
     if question_type in {"subject_identification", "role_clarity"} or skill in {"subject_identification", "object_identification"}:
         return "A strong noun can look important even when another clue is marking the real role."
     if question_type in {"phrase_meaning", "flow", "flow_dependency"} or skill == "phrase_translation":
@@ -61,7 +97,7 @@ def likely_confusion_text(question):
     return "A nearby clue likely mattered more than the first answer that felt familiar."
 
 
-def _skill_specific_feedback(question):
+def _skill_specific_feedback(question, selected_answer="", is_correct=True):
     skill = question.get("skill") or ""
     question_type = question.get("question_type") or ""
     token = question.get("selected_word") or question.get("word") or "this word"
@@ -90,6 +126,10 @@ def _skill_specific_feedback(question):
             return f"Shoresh: {shoresh}."
 
     if question_type == "verb_tense" or skill in {"verb_tense", "identify_tense", "identify_verb_marker"}:
+        if not is_correct:
+            contrast = tense_contrast_text(question.get("correct_answer"), selected_answer)
+            if contrast:
+                return contrast
         clue = question.get("explanation") or ""
         return clue or "Watch the verb form; the marker shows the tense."
 
@@ -142,11 +182,15 @@ def build_feedback_context(
 ):
     context = {
         "title": "Correct" if is_correct else "Incorrect",
-        "grammar_feedback": _skill_specific_feedback(question),
+        "grammar_feedback": _skill_specific_feedback(
+            question,
+            selected_answer=selected_answer,
+            is_correct=is_correct,
+        ),
         "selected_answer": selected_answer or "",
         "correct_answer": question.get("correct_answer", ""),
         "explanation": question.get("explanation", ""),
         "clue_that_mattered": clue_text or "",
-        "likely_confusion": "" if is_correct else likely_confusion_text(question),
+        "likely_confusion": "" if is_correct else likely_confusion_text(question, selected_answer),
     }
     return context

@@ -1,7 +1,11 @@
 import streamlit as st
 
 from question_ui import build_feedback_context
-from runtime.pilot_logging import mark_current_question_unclear, question_is_flagged_unclear
+from runtime.pilot_logging import (
+    STUDENT_FLAG_NOTE_MAX_LENGTH,
+    mark_current_question_unclear,
+    question_is_flagged_unclear,
+)
 from runtime.presentation import get_next_skill, plain_skill, skill_path_label
 from runtime.runtime_support import last_answer_was_correct, mixed_text_html
 from ui.question_support import clue_sentence, render_grammar_clues
@@ -112,8 +116,20 @@ def render_feedback(question, progress):
     if skill_state:
         st.caption(f"Mastery {skill_state['score']}/100 | Streak {skill_state['current_streak']}")
 
+    note_key = f"mark_unclear_note_{question.get('id') or question.get('question') or question.get('selected_word') or 'question'}"
     button_key = f"mark_unclear_{question.get('id') or question.get('question') or question.get('selected_word') or 'question'}"
-    if st.button("Mark Question Unclear", key=button_key, use_container_width=True):
-        mark_current_question_unclear(question)
+    student_note = st.text_input(
+        "Optional note for teacher",
+        key=note_key,
+        max_chars=STUDENT_FLAG_NOTE_MAX_LENGTH,
+        placeholder="Optional: say what felt unclear",
+        disabled=question_is_flagged_unclear(),
+    )
+    if st.button("Mark Question Unclear", key=button_key, use_container_width=True, disabled=question_is_flagged_unclear()):
+        mark_current_question_unclear(question, note_text=student_note)
     if question_is_flagged_unclear():
+        question_log_id = st.session_state.get("pilot_current_question_log_id")
+        flagged_notes = st.session_state.setdefault("pilot_flagged_question_notes", {})
         st.caption("Marked for teacher review.")
+        if question_log_id and flagged_notes.get(question_log_id):
+            st.caption(f"Your note: {flagged_notes[question_log_id]}")

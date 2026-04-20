@@ -9,14 +9,14 @@ from runtime.runtime_support import OPTION_LABELS, load_word_bank_metadata, menu
 from torah_parser.word_bank_adapter import normalize_hebrew_key
 
 STUDENT_TENSE_LABELS = {
-    "vav_consecutive_past": "past narrative",
-    "future_jussive": "short future form",
+    "vav_consecutive_past": "past",
+    "future_jussive": "future",
     "future": "future",
     "past": "past",
     "present": "present",
     "infinitive": "infinitive",
-    "command": "command",
 }
+COHORT_TAUGHT_TENSE_LABELS = {"past", "future", "present", "infinitive"}
 
 
 def _clean_clue_value(value):
@@ -39,7 +39,10 @@ def _student_tense_label(value):
     text = _clean_clue_value(value)
     if not text:
         return None
-    return STUDENT_TENSE_LABELS.get(text, text)
+    label = STUDENT_TENSE_LABELS.get(text, text)
+    if label not in COHORT_TAUGHT_TENSE_LABELS:
+        return None
+    return label
 
 
 def split_pasuk_phrases(text, words_per_phrase=4):

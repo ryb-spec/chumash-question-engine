@@ -143,11 +143,17 @@ class StreamlitCandidateQualityTests(unittest.TestCase):
         compact_index = next(
             index for index, event in enumerate(events) if event[0] == "markdown" and "compact-context" in event[1]
         )
+        compact_markup = next(
+            event[1] for event in events if event[0] == "markdown" and "compact-context" in event[1]
+        )
         question_index = next(
             index for index, event in enumerate(events) if event[0] == "markdown" and "question-card" in event[1]
         )
 
         self.assertLess(compact_index, question_index)
+        self.assertIn("target-word", compact_markup)
+        self.assertNotIn("context-snippet", compact_markup)
+        self.assertNotIn(question["pasuk"], compact_markup)
 
 
 if __name__ == "__main__":

@@ -36,10 +36,12 @@ from runtime.mode_handlers import (
 from runtime.pilot_logging import (
     PILOT_EVENT_LOG_PATH,
     TEACHER_FLAG_LABELS,
+    TEACHER_FLAG_NOTE_MAX_LENGTH,
     build_pilot_review_export,
     current_session_review,
     record_pilot_answer,
     record_teacher_flag_label,
+    record_teacher_flag_note,
 )
 from runtime.presentation import (
     MICRO_STANDARD_NAMES,
@@ -797,12 +799,16 @@ def render_teacher_pilot_monitor(progress):
             st.caption(item.get("question_text") or "")
             if item.get("selected_word"):
                 st.caption(f"Word: {item['selected_word']}")
+            if item.get("student_note"):
+                st.caption(f"Student note: {item['student_note']}")
             if item.get("repeat_count", 0) > 1:
                 st.caption(f"Repeated flag count: {item['repeat_count']}")
             current_label = item.get("teacher_label")
+            current_teacher_note = item.get("teacher_note") or ""
             label_options = [""] + list(TEACHER_FLAG_LABELS)
             default_index = label_options.index(current_label) if current_label in label_options else 0
             select_key = f"teacher_flag_label_{item.get('question_log_id')}"
+            note_key = f"teacher_flag_note_{item.get('question_log_id')}"
             selected_label = st.selectbox(
                 "Teacher label",
                 label_options,
@@ -810,20 +816,39 @@ def render_teacher_pilot_monitor(progress):
                 key=select_key,
                 label_visibility="collapsed",
             )
+            teacher_note = st.text_area(
+                "Teacher note",
+                value=current_teacher_note,
+                key=note_key,
+                height=80,
+                max_chars=TEACHER_FLAG_NOTE_MAX_LENGTH,
+                placeholder="Optional: explain why this was unclear or how to improve it",
+                label_visibility="collapsed",
+            )
             if st.button(
-                "Save label",
+                "Save review",
                 key=f"save_teacher_flag_{item.get('question_log_id')}",
                 use_container_width=True,
             ):
+                saved = False
                 if selected_label:
-                    record_teacher_flag_label(
+                    saved = record_teacher_flag_label(
                         item.get("question_log_id"),
                         selected_label,
                         session_id=item.get("session_id"),
-                    )
+                    ) or saved
+                if teacher_note.strip():
+                    saved = record_teacher_flag_note(
+                        item.get("question_log_id"),
+                        teacher_note,
+                        session_id=item.get("session_id"),
+                    ) or saved
+                if saved:
                     st.rerun()
             if current_label:
                 st.caption(f"Current label: {current_label}")
+            if current_teacher_note:
+                st.caption(f"Teacher note: {current_teacher_note}")
 
         st.markdown("#### Quick Pilot Summary")
         summary = review_export.get("summary", {})
@@ -898,7 +923,7 @@ def apply_global_styles():
         .block-container {
             max-width: 980px;
             padding-top: 1.1rem;
-            padding-bottom: 2rem;
+            padding-bottom: 7rem;
         }
         h1 {
             letter-spacing: 0 !important;
@@ -1103,6 +1128,13 @@ def apply_global_styles():
             padding: 12px 14px;
             margin: 4px 0 6px 0;
         }
+        .question-arrival-target {
+            scroll-margin-top: 20px;
+            outline: none;
+        }
+        .question-arrival-target.question-arrival-active {
+            box-shadow: 0 0 0 3px rgba(37, 99, 169, 0.18), 0 4px 16px rgba(28, 45, 40, 0.05);
+        }
         .question-text {
             margin-top: 2px;
             font-size: 1.54rem;
@@ -1166,6 +1198,38 @@ def apply_global_styles():
         .feedback-panel.incorrect {
             border-left-color: var(--danger);
             background: var(--danger-soft);
+        }
+        .post-answer-action-shell {
+            margin-top: 10px;
+            padding: 10px 12px 6px 12px;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.94);
+            box-shadow: 0 4px 16px rgba(28, 45, 40, 0.06);
+            backdrop-filter: blur(8px);
+        }
+        .post-answer-action-note {
+            margin-top: 4px;
+            color: var(--muted);
+            font-size: 0.92rem;
+            font-weight: 650;
+            line-height: 1.3;
+        }
+        [data-testid="stVerticalBlock"] > div:has(.post-answer-action-sentinel) ~ div div.stButton > button {
+            position: sticky;
+            bottom: max(0.8rem, env(safe-area-inset-bottom));
+            z-index: 30;
+            box-shadow: 0 10px 24px rgba(25, 33, 31, 0.14);
+        }
+        [data-testid="stVerticalBlock"] > div:has(.post-answer-action-sentinel) ~ div [data-testid="stSpinner"] {
+            position: sticky;
+            bottom: max(4.1rem, calc(env(safe-area-inset-bottom) + 3.3rem));
+            z-index: 29;
+            margin-top: 8px;
+            padding: 8px 10px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.96);
+            border: 1px solid var(--line);
         }
         .feedback-status {
             justify-content: space-between;

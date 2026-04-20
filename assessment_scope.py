@@ -333,9 +333,17 @@ def active_pasuk_record_for_question(question, fallback_text=None):
         or embedded_ref.get("pasuk_id")
     )
     explicit_pasuk = question.get("pasuk")
+    selected_word = question.get("selected_word") or question.get("word")
     if not record and explicit_pasuk:
         record = active_pasuk_record_for_text(explicit_pasuk)
-    if not record and not explicit_pasuk and fallback_text:
+    if (
+        not record
+        and fallback_text
+        and (
+            not explicit_pasuk
+            or normalize_hebrew_key(explicit_pasuk) == normalize_hebrew_key(selected_word)
+        )
+    ):
         record = active_pasuk_record_for_text(fallback_text)
     return record
 
@@ -357,7 +365,13 @@ def bind_question_to_active_scope(question, fallback_text=None):
     record = active_pasuk_record_for_question(question, fallback_text=fallback_text)
     if not question or not record:
         return None
-    question.setdefault("pasuk", record.get("text") or fallback_text)
+    explicit_pasuk = question.get("pasuk")
+    selected_word = question.get("selected_word") or question.get("word")
+    if (
+        not explicit_pasuk
+        or normalize_hebrew_key(explicit_pasuk) == normalize_hebrew_key(selected_word)
+    ):
+        question["pasuk"] = record.get("text") or fallback_text
     question.setdefault("pasuk_id", record.get("pasuk_id"))
     question.setdefault("pasuk_ref", active_pasuk_ref_payload(record))
     return record

@@ -677,6 +677,164 @@ class ActiveRuntimeQualityTests(unittest.TestCase):
         self.assertEqual(late["_debug_trace"]["sequencing_stage"], "context_ramp")
         self.assertEqual(late["_debug_trace"]["sequencing_selected_group"], "context")
 
+    def test_generate_mastery_question_moves_out_of_tense_family_after_missed_tense(self):
+        st.session_state.pilot_scope_mode = "open_pilot_scope"
+        st.session_state.practice_type = "Learn Mode"
+        st.session_state.pending_tense_contrast_followup = True
+
+        progress = {"current_skill": "identify_tense", "prefix_level": 1}
+        tense_question = {
+            "skill": "identify_tense",
+            "question_type": "identify_tense",
+            "question": "What verb tense is shown?",
+            "selected_word": "וַיַּרְא",
+            "correct_answer": "past",
+            "choices": ["past", "future", "present", "infinitive"],
+            "pasuk": "tense_pasuk",
+        }
+        translation_question = {
+            "skill": "translation",
+            "question_type": "translation",
+            "question": "What does בָּרָא mean?",
+            "selected_word": "בָּרָא",
+            "correct_answer": "created",
+            "choices": ["created", "light", "earth", "water"],
+            "pasuk": "translation_pasuk",
+        }
+
+        def ready_rows(skill):
+            if skill == "identify_tense":
+                return [{"pasuk": "tense_pasuk"}]
+            if skill == "translation":
+                return [{"pasuk": "translation_pasuk"}]
+            return []
+
+        def generate_question(skill, candidate_source, **kwargs):
+            if skill == "identify_tense":
+                return dict(tense_question)
+            if skill == "translation":
+                return dict(translation_question)
+            return None
+
+        with patch.object(question_flow, "get_skill_ready_pasuks", side_effect=ready_rows), \
+             patch.object(question_flow, "analyze_generator_pasuk", side_effect=lambda pasuk: pasuk), \
+             patch.object(question_flow, "generate_skill_question", side_effect=generate_question), \
+             patch.object(session_state, "record_selected_pasuk"), \
+             patch.object(session_state, "record_question_feature"), \
+             patch.object(session_state, "record_question_prefix"):
+            result = streamlit_app.generate_mastery_question(progress)
+
+        self.assertEqual(result["skill"], "translation")
+        self.assertFalse(st.session_state.pending_tense_contrast_followup)
+        self.assertEqual(
+            result["_debug_trace"]["transition_reason"],
+            "A short tense contrast was shown, so the run moved back into broader variety.",
+        )
+
+    def test_select_pasuk_first_question_binds_lamor_to_active_scope_in_trusted_mode(self):
+        st.session_state.pilot_scope_mode = "trusted_active_scope"
+        active_record = next(
+            record for record in active_pesukim_records()
+            if "לָאוֹר" in record.get("text", "")
+        )
+        ready_rows = [
+            {
+                "pasuk": active_record["text"],
+                "word": "לָאוֹר",
+                "feature": "prefix",
+                "prefix": "ל",
+                "morpheme_family": "",
+            }
+        ]
+        generated_question = {
+            "skill": "identify_prefix_meaning",
+            "question_type": "prefix_level_3_apply_prefix_meaning",
+            "question": "What does לָאוֹר mean?",
+            "selected_word": "לָאוֹר",
+            "word": "לָאוֹר",
+            "pasuk": "לָאוֹר",
+            "correct_answer": "to / for light",
+            "choices": ["to / for light", "in the light", "and light", "the light"],
+            "prefix": "ל",
+        }
+
+        with patch.object(question_flow, "get_skill_ready_pasuks", return_value=ready_rows), \
+             patch.object(question_flow, "analyze_generator_pasuk", side_effect=lambda pasuk: pasuk), \
+             patch.object(question_flow, "generate_skill_question", return_value=dict(generated_question)), \
+             patch.object(session_state, "record_selected_pasuk"), \
+             patch.object(session_state, "record_question_feature"), \
+             patch.object(session_state, "record_question_prefix"):
+            result = streamlit_app.select_pasuk_first_question(
+                "identify_prefix_meaning",
+                progress={"prefix_level": 3},
+            )
+
+        self.assertEqual(result["selected_word"], "לָאוֹר")
+        self.assertEqual(result["pasuk"], active_record["text"])
+        self.assertEqual(result["pasuk_id"], active_record["pasuk_id"])
+        self.assertEqual(
+            result["pasuk_ref"]["label"],
+            f"{active_record['ref']['sefer']} {active_record['ref']['perek']}:{active_record['ref']['pasuk']}",
+        )
+
+    def test_generate_mastery_question_caps_tense_family_in_short_run(self):
+        st.session_state.pilot_scope_mode = "open_pilot_scope"
+        st.session_state.practice_type = "Learn Mode"
+        st.session_state.questions_answered = 6
+        st.session_state.recent_questions = [
+            {"skill": "identify_tense"},
+            {"skill": "translation"},
+            {"skill": "verb_tense"},
+            {"skill": "shoresh"},
+            {"skill": "identify_tense"},
+        ]
+        st.session_state.recent_instructional_groups = ["verb_building", "meaning", "verb_building", "meaning"]
+
+        progress = {"current_skill": "identify_tense", "prefix_level": 1}
+        tense_question = {
+            "skill": "identify_tense",
+            "question_type": "identify_tense",
+            "question": "What verb tense is shown?",
+            "selected_word": "וַיַּרְא",
+            "correct_answer": "past",
+            "choices": ["past", "future", "present", "infinitive"],
+            "pasuk": "tense_pasuk",
+        }
+        translation_question = {
+            "skill": "translation",
+            "question_type": "translation",
+            "question": "What does בָּרָא mean?",
+            "selected_word": "בָּרָא",
+            "correct_answer": "created",
+            "choices": ["created", "light", "earth", "water"],
+            "pasuk": "translation_pasuk",
+        }
+
+        def ready_rows(skill):
+            if skill == "identify_tense":
+                return [{"pasuk": "tense_pasuk"}]
+            if skill == "translation":
+                return [{"pasuk": "translation_pasuk"}]
+            return []
+
+        def generate_question(skill, candidate_source, **kwargs):
+            if skill == "identify_tense":
+                return dict(tense_question)
+            if skill == "translation":
+                return dict(translation_question)
+            return None
+
+        with patch.object(question_flow, "get_skill_ready_pasuks", side_effect=ready_rows), \
+             patch.object(question_flow, "analyze_generator_pasuk", side_effect=lambda pasuk: pasuk), \
+             patch.object(question_flow, "generate_skill_question", side_effect=generate_question), \
+             patch.object(session_state, "record_selected_pasuk"), \
+             patch.object(session_state, "record_question_feature"), \
+             patch.object(session_state, "record_question_prefix"):
+            result = streamlit_app.generate_mastery_question(progress)
+
+        self.assertEqual(result["skill"], "translation")
+        self.assertEqual(result["_debug_trace"]["sequencing_stage"], "context_ramp")
+
 
 if __name__ == "__main__":
     unittest.main()

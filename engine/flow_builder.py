@@ -143,13 +143,24 @@ CONTROLLED_TENSE_CHOICES = [
     "command",
 ]
 STUDENT_TENSE_LABELS = {
-    "vav_consecutive_past": "past narrative",
-    "future_jussive": "short future form",
+    "vav_consecutive_past": "past",
+    "future_jussive": "future",
     "future": "future",
     "past": "past",
     "present": "present",
     "infinitive": "infinitive",
-    "command": "command",
+}
+COHORT_TAUGHT_TENSE_LABELS = (
+    "past",
+    "future",
+    "present",
+    "infinitive",
+)
+COHORT_TAUGHT_TENSE_CANONICAL_CODES = {
+    "past": "past",
+    "future": "future",
+    "present": "present",
+    "infinitive": "infinitive",
 }
 TENSE_CODE_BY_LABEL = {
     label: code
@@ -885,11 +896,42 @@ def student_tense_label(value):
     return STUDENT_TENSE_LABELS.get(value, value)
 
 
+def taught_tense_label(value):
+    label = student_tense_label(value)
+    if label in COHORT_TAUGHT_TENSE_LABELS:
+        return label
+    return None
+
+
 def canonical_tense_code(value):
     text = clean_value_text(value)
     if text is None:
         return None
     return TENSE_CODE_BY_LABEL.get(text, text)
+
+
+def fair_tense_choice_codes(correct):
+    correct_code = canonical_tense_code(correct)
+    correct_label = taught_tense_label(correct_code)
+    if not correct_code or not correct_label:
+        return None
+
+    distractor_labels = [
+        label
+        for label in COHORT_TAUGHT_TENSE_LABELS
+        if label != correct_label
+    ]
+    if len(distractor_labels) < 3:
+        return None
+
+    distractor_codes = [
+        COHORT_TAUGHT_TENSE_CANONICAL_CODES[label]
+        for label in distractor_labels[:3]
+    ]
+    choices = [correct_code] + distractor_codes
+    if len({student_tense_label(choice) for choice in choices}) != 4:
+        return None
+    return choices
 
 
 def replace_tense_codes_in_text(text):
@@ -3402,6 +3444,13 @@ def generate_question(
         correct = infer_tense(target["entry"], target["token"])
         if correct is None:
             return skip_question_payload(skill, pasuk_text, "No confidently classified verb tense found in this pasuk.")
+        fair_choices = fair_tense_choice_codes(correct)
+        if fair_choices is None:
+            return skip_question_payload(
+                skill,
+                pasuk_text,
+                "No fair taught-label verb tense bank is available for this pasuk.",
+            )
         if mode == "selection":
             return finish(validated_question_payload(
                 "verb_tense",
@@ -3420,7 +3469,7 @@ def generate_question(
                 "",
             ),
             correct,
-            [label for label in CONTROLLED_TENSE_CHOICES if label != correct] + ["not a verb"],
+            fair_choices,
             f"{target['token']} is read as {correct}.",
         )
 
@@ -4524,12 +4573,14 @@ def build_tense_question(step, pasuk, analyzed):
             "No runtime verb tense label found in this pasuk.",
             source="generated pasuk flow",
         )
-    choices = build_choices(
-        correct,
-        [item for item in CONTROLLED_TENSE_CHOICES if item != correct],
-        "not a verb",
-        f"{pasuk}|tense",
-    )
+    choices = fair_tense_choice_codes(correct)
+    if choices is None:
+        return skip_question_payload(
+            "verb_tense",
+            pasuk,
+            "No fair taught-label verb tense bank is available for this pasuk.",
+            source="generated pasuk flow",
+        )
     validation = validate_question_candidate(
         "verb_tense",
         target["token"],

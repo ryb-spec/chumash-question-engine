@@ -42,6 +42,10 @@ CONTEXT_SKILLS = {
     "object_identification",
     "phrase_translation",
 }
+TENSE_FAMILY_SKILLS = {
+    "identify_tense",
+    "verb_tense",
+}
 OPENING_MECHANICAL_GROUP_WINDOW = 6
 OPENING_MECHANICAL_GROUP_CAP = 2
 MORPHEME_FAMILY_REPEAT_WINDOW = 6
@@ -49,11 +53,23 @@ MORPHEME_FAMILY_REPEAT_CAP = 2
 POST_MECHANICAL_COOLDOWN_NON_MECHANICAL = 4
 
 
+def schedule_question_arrival():
+    counter = int(st.session_state.get("question_arrival_counter", 0)) + 1
+    token = f"question-arrival-{counter}"
+    st.session_state.question_arrival_counter = counter
+    st.session_state.current_question_arrival_token = token
+    st.session_state.scroll_to_question_on_render = True
+    return token
+
+
 def reset_for_new_question():
     st.session_state.current_question = None
     st.session_state.answered = False
     st.session_state.selected_answer = None
     st.session_state.last_skill_state = None
+    st.session_state.post_answer_action_pending = ""
+    st.session_state.scroll_to_question_on_render = False
+    st.session_state.current_question_arrival_token = ""
     st.session_state.pilot_current_question_signature = ""
     st.session_state.pilot_current_question_log_id = None
     st.session_state.pilot_current_question_started_at = None
@@ -64,6 +80,8 @@ def set_question(question):
     st.session_state.answered = False
     st.session_state.selected_answer = None
     st.session_state.last_skill_state = None
+    st.session_state.post_answer_action_pending = ""
+    schedule_question_arrival()
     st.session_state.pilot_current_question_signature = ""
     st.session_state.pilot_current_question_log_id = None
     st.session_state.pilot_current_question_started_at = None
@@ -200,6 +218,15 @@ def get_instructional_group(question_or_skill):
     if skill in MEANING_SKILLS or "meaning" in question_type or question_type == "translation":
         return "meaning"
     return "other"
+
+
+def is_tense_family_skill(question_or_skill):
+    if isinstance(question_or_skill, str):
+        skill = question_or_skill
+    else:
+        question = question_or_skill or {}
+        skill = question.get("skill", "") or question.get("question_type", "")
+    return (skill or "").lower() in TENSE_FAMILY_SKILLS
 
 
 def get_question_prefix(question):
@@ -342,6 +369,12 @@ def init_session_state():
     st.session_state.setdefault("developer_debug_mode", diagnostics_enabled())
     st.session_state.setdefault("last_answer_submitted_at", None)
     st.session_state.setdefault("last_answer_pipeline_timing", {})
+    st.session_state.setdefault("post_answer_action_pending", "")
+    st.session_state.setdefault("pending_tense_contrast_followup", False)
+    st.session_state.setdefault("scroll_to_question_on_render", False)
+    st.session_state.setdefault("question_arrival_counter", 0)
+    st.session_state.setdefault("current_question_arrival_token", "")
+    st.session_state.setdefault("last_question_scroll_token", "")
     st.session_state.setdefault("pilot_session_id", None)
     st.session_state.setdefault("pilot_scope_mode", "trusted_active_scope")
     st.session_state.setdefault("pilot_trusted_active_scope_session", True)

@@ -7,6 +7,7 @@ import streamlit as st
 import streamlit_app
 from question_ui import build_feedback_context, build_learning_context
 from ui import question_support
+from ui import render_feedback as render_feedback_module
 
 
 @contextmanager
@@ -144,6 +145,32 @@ class StreamlitFeedbackFlowTests(unittest.TestCase):
             "In וַיִּתֵּן, אֹתָם is what receives the action.",
         )
 
+    def test_feedback_context_for_tense_question_uses_explicit_present_infinitive_contrast(self):
+        feedback = build_feedback_context(
+            question={
+                "question_type": "verb_tense",
+                "skill": "verb_tense",
+                "selected_word": "לְהַבְדִּיל",
+                "correct_answer": "infinitive",
+                "explanation": "לְהַבְדִּיל is read as infinitive.",
+            },
+            selected_answer="present",
+            is_correct=False,
+            clue_text="",
+            practice_type="Learn Mode",
+            skill_label="Verb Tense",
+            next_skill_label="Translation",
+        )
+
+        self.assertEqual(
+            feedback["grammar_feedback"],
+            "Present = doing / is doing. Infinitive = to do.",
+        )
+        self.assertEqual(
+            feedback["likely_confusion"],
+            "Present = doing / is doing. Infinitive = to do.",
+        )
+
     def test_clue_helpers_hide_placeholder_markers_and_studentize_tense(self):
         rendered = []
 
@@ -163,11 +190,13 @@ class StreamlitFeedbackFlowTests(unittest.TestCase):
             question_support.render_grammar_clues({"selected_word": "וַיְהִי"})
 
         self.assertNotIn("???", clue)
-        self.assertIn("past narrative", clue)
+        self.assertIn("past", clue)
+        self.assertNotIn("past narrative", clue)
         combined = " ".join(rendered)
         self.assertNotIn("???", combined)
         self.assertNotIn("vav_consecutive_past", combined)
-        self.assertIn("past narrative", combined)
+        self.assertNotIn("past narrative", combined)
+        self.assertIn("past", combined)
 
     def test_render_feedback_does_not_show_progression_narration_in_main_panel(self):
         question = {
@@ -221,6 +250,28 @@ class StreamlitFeedbackFlowTests(unittest.TestCase):
 
         self.assertIn("Marked for teacher review.", captions)
 
+    def test_render_feedback_marks_unclear_with_optional_student_note(self):
+        question = {
+            "question_type": "phrase_meaning",
+            "skill": "phrase_translation",
+            "selected_word": "וַיֹּאמֶר אֱלֹהִים",
+            "correct_answer": "and God said",
+            "explanation": "The phrase works as one clause.",
+            "choices": ["and God said", "and God saw", "the earth", "the heavens"],
+        }
+
+        with patch.object(streamlit_app, "last_answer_was_correct", return_value=False), \
+             patch.object(streamlit_app.st, "markdown"), \
+             patch.object(streamlit_app.st, "caption"), \
+             patch.object(streamlit_app.st, "expander", _fake_expander), \
+             patch.object(streamlit_app.st, "text_input", return_value="wording felt unclear"), \
+             patch.object(render_feedback_module, "question_is_flagged_unclear", return_value=False), \
+             patch.object(render_feedback_module, "mark_current_question_unclear") as mock_mark, \
+             patch.object(streamlit_app.st, "button", return_value=True):
+            streamlit_app.render_feedback(question, {"current_skill": "phrase_translation"})
+
+        mock_mark.assert_called_once_with(question, note_text="wording felt unclear")
+
     def test_transition_to_question_clears_transient_messages(self):
         st.session_state.unlocked_skill_message = "Unlocked"
         st.session_state.feature_fallback_message = "Fallback"
@@ -230,6 +281,10 @@ class StreamlitFeedbackFlowTests(unittest.TestCase):
         st.session_state.answered = True
         st.session_state.selected_answer = "wrong"
         st.session_state.last_skill_state = {"score": 70}
+        st.session_state.post_answer_action_pending = "next_mastery"
+        st.session_state.scroll_to_question_on_render = False
+        st.session_state.current_question_arrival_token = "question-arrival-1"
+        st.session_state.question_arrival_counter = 1
 
         with patch.object(streamlit_app.st, "rerun"):
             streamlit_app.transition_to_question({"question": "Next", "correct_answer": "A"})
@@ -241,6 +296,9 @@ class StreamlitFeedbackFlowTests(unittest.TestCase):
         self.assertEqual(st.session_state.adaptive_status_level, "info")
         self.assertFalse(st.session_state.answered)
         self.assertIsNone(st.session_state.selected_answer)
+        self.assertEqual(st.session_state.post_answer_action_pending, "")
+        self.assertTrue(st.session_state.scroll_to_question_on_render)
+        self.assertEqual(st.session_state.current_question_arrival_token, "question-arrival-2")
 
 
 if __name__ == "__main__":

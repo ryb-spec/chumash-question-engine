@@ -29,6 +29,8 @@ TEACHER_FLAG_LABELS = (
     "unclear wording",
     "other",
 )
+STUDENT_FLAG_NOTE_MAX_LENGTH = 120
+TEACHER_FLAG_NOTE_MAX_LENGTH = 280
 
 
 def utc_now_iso():
@@ -124,6 +126,13 @@ def append_pilot_event(record, *, path=PILOT_EVENT_LOG_PATH):
     except Exception:
         return False
     return True
+
+
+def clean_optional_note(text, *, max_length):
+    cleaned = " ".join(str(text or "").split()).strip()
+    if not cleaned:
+        return None
+    return cleaned[:max_length]
 
 
 def build_question_served_event(
@@ -233,6 +242,18 @@ def build_question_label_event(*, session_id, question_log_id, label):
     }
 
 
+def build_question_note_event(*, session_id, question_log_id, note_role, note_text):
+    return {
+        "event_type": "question_noted",
+        "timestamp_utc": utc_now_iso(),
+        "session_id": session_id,
+        "question_log_id": question_log_id,
+        "scope_id": ACTIVE_ASSESSMENT_SCOPE,
+        "note_role": note_role,
+        "note_text": note_text,
+    }
+
+
 def sync_pilot_served_question(question, *, practice_type="", flow_label="", flow_step=None):
     session_id = ensure_pilot_session_id()
     signature = question_log_signature(
@@ -287,23 +308,31 @@ def question_is_flagged_unclear():
     return bool(question_log_id and question_log_id in flagged_ids)
 
 
-def mark_current_question_unclear(question):
+def mark_current_question_unclear(question, note_text=""):
     session_id = ensure_pilot_session_id()
     question_log_id = st.session_state.get("pilot_current_question_log_id")
     if not question_log_id:
         return False
     flagged_ids = st.session_state.setdefault("pilot_flagged_question_log_ids", [])
+    flagged_notes = st.session_state.setdefault("pilot_flagged_question_notes", {})
     if question_log_id in flagged_ids:
         return False
+    cleaned_note = clean_optional_note(note_text, max_length=STUDENT_FLAG_NOTE_MAX_LENGTH)
     flagged_ids.append(question_log_id)
     st.session_state.pilot_flagged_question_log_ids = flagged_ids
+    if cleaned_note:
+        flagged_notes[question_log_id] = cleaned_note
+        st.session_state.pilot_flagged_question_notes = flagged_notes
     append_pilot_event(
-        build_question_flag_event(
-            question,
-            session_id=session_id,
-            question_log_id=question_log_id,
-            flag="unclear",
-        )
+        {
+            **build_question_flag_event(
+                question,
+                session_id=session_id,
+                question_log_id=question_log_id,
+                flag="unclear",
+            ),
+            "student_note": cleaned_note,
+        }
     )
     return True
 
@@ -318,6 +347,21 @@ def record_teacher_flag_label(question_log_id, label, *, session_id=None, path=P
             session_id=session_id or ensure_pilot_session_id(),
             question_log_id=question_log_id,
             label=label,
+        ),
+        path=path,
+    )
+
+
+def record_teacher_flag_note(question_log_id, note_text, *, session_id=None, path=PILOT_EVENT_LOG_PATH):
+    cleaned_note = clean_optional_note(note_text, max_length=TEACHER_FLAG_NOTE_MAX_LENGTH)
+    if not question_log_id or not cleaned_note:
+        return False
+    return append_pilot_event(
+        build_question_note_event(
+            session_id=session_id or ensure_pilot_session_id(),
+            question_log_id=question_log_id,
+            note_role="teacher",
+            note_text=cleaned_note,
         ),
         path=path,
     )
@@ -352,8 +396,25 @@ def latest_teacher_labels_by_question(events):
     return labels
 
 
+def latest_teacher_notes_by_question(events):
+    notes = {}
+    for event in events:
+        if event.get("event_type") != "question_noted" or event.get("note_role") != "teacher":
+            continue
+        question_log_id = event.get("question_log_id")
+        if not question_log_id:
+            continue
+        notes[question_log_id] = {
+            "teacher_note": event.get("note_text"),
+            "noted_at_utc": event.get("timestamp_utc"),
+            "session_id": event.get("session_id"),
+        }
+    return notes
+
+
 def build_flagged_review_queue(events, *, max_items=20):
     latest_labels = latest_teacher_labels_by_question(events)
+    latest_notes = latest_teacher_notes_by_question(events)
     flagged_items = []
     fingerprint_counts = Counter()
 
@@ -369,6 +430,7 @@ def build_flagged_review_queue(events, *, max_items=20):
             "question_text": event.get("question_text"),
             "selected_word": event.get("selected_word"),
             "scope_membership": event.get("scope_membership"),
+            "student_note": event.get("student_note"),
         }
         fingerprint = (
             item["pasuk_ref"],
@@ -382,8 +444,11 @@ def build_flagged_review_queue(events, *, max_items=20):
 
     for item in flagged_items:
         label_data = latest_labels.get(item["question_log_id"], {})
+        note_data = latest_notes.get(item["question_log_id"], {})
         item["teacher_label"] = label_data.get("teacher_label")
         item["labeled_at_utc"] = label_data.get("labeled_at_utc")
+        item["teacher_note"] = note_data.get("teacher_note")
+        item["teacher_noted_at_utc"] = note_data.get("noted_at_utc")
         item["repeat_count"] = fingerprint_counts[item["fingerprint"]]
         item.pop("fingerprint", None)
 
@@ -565,6 +630,7 @@ def summarize_pilot_sessions(events, *, max_sessions=5):
                     "question_type": event.get("question_type"),
                     "question_text": event.get("question_text"),
                     "selected_word": event.get("selected_word"),
+                    "student_note": event.get("student_note"),
                 }
             )
 
@@ -622,6 +688,8 @@ def build_pilot_review_export(*, max_sessions=5, path=PILOT_EVENT_LOG_PATH):
             "flagged_unclear_question_types": "question_flagged events with flag=unclear only",
         },
         "teacher_flag_labels": list(TEACHER_FLAG_LABELS),
+        "student_flag_note_max_length": STUDENT_FLAG_NOTE_MAX_LENGTH,
+        "teacher_flag_note_max_length": TEACHER_FLAG_NOTE_MAX_LENGTH,
         "session_count": len({event.get("session_id") for event in events if event.get("session_id")}),
         "sessions": sessions,
         "flagged_review_queue": flagged_review_queue,

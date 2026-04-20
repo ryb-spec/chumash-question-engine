@@ -42,6 +42,8 @@ DEBUG_REJECTION_LABELS = {
     "recent_target_repeat": "recent target repeat blocked",
     "recent_prompt_repeat": "recent prompt repeat blocked",
     "trusted_active_scope_unmappable": "trusted active-scope mapping blocked",
+    "tense_followup_continue_blocked": "tense follow-up held for broader variety",
+    "tense_family_short_run_capped": "tense-family short-run cap blocked",
     "limited_candidate_reuse": "limited candidate reuse allowed",
 }
 RECENT_QUESTION_HISTORY_LIMIT = 12
@@ -60,6 +62,10 @@ MORPHOLOGY_SKILLS = {
     "shoresh",
     "prefix",
     "suffix",
+    "verb_tense",
+}
+TENSE_FAMILY_SKILLS = {
+    "identify_tense",
     "verb_tense",
 }
 COMPACT_CONTEXT_QUESTION_TYPES = {
@@ -121,6 +127,8 @@ LEARN_MODE_SEQUENCE_WINDOW = 10
 MAX_SEQUENCE_SKILL_ATTEMPTS = 6
 MAX_SEQUENCE_SKILLS_PER_GROUP = 2
 MAX_FULL_GENERATION_ROWS_PER_PASS = 8
+SHORT_RUN_TENSE_WINDOW = 10
+SHORT_RUN_TENSE_CAP = 3
 
 
 def attach_debug_trace(question, **updates):
@@ -396,6 +404,25 @@ def opening_variety_guard_skills(current_skill):
         for skill in SKILL_ORDER
         if skill != current_skill and skill not in OPENING_MECHANICAL_SKILLS
     ]
+
+
+def recent_tense_family_count(recent_questions, window=SHORT_RUN_TENSE_WINDOW):
+    recent_questions = list(recent_questions or [])
+    return sum(
+        1
+        for item in recent_questions[-window:]
+        if (item or {}).get("skill") in TENSE_FAMILY_SKILLS
+    )
+
+
+def tense_family_selection_block_reason(skill, recent_questions):
+    if current_routing_mode() != "Learn Mode" or skill not in TENSE_FAMILY_SKILLS:
+        return ""
+    if st.session_state.get("pending_tense_contrast_followup"):
+        return "tense_followup_continue_blocked"
+    if recent_tense_family_count(recent_questions) >= SHORT_RUN_TENSE_CAP:
+        return "tense_family_short_run_capped"
+    return ""
 
 
 def trusted_active_scope_selection_enabled():
@@ -829,6 +856,10 @@ def select_pasuk_first_question(skill, progress=None, adaptive_context=None):
     recent_prefixes = get_recent_prefixes()
     preferred_pasuk = adaptive_context.get("preferred_pasuk")
     allow_recent_reuse = is_explicit_reteach_mode(adaptive_context)
+    tense_block_reason = tense_family_selection_block_reason(skill, recent_questions)
+    if tense_block_reason:
+        st.session_state.feature_fallback_message = ""
+        return None
     candidate_rows = []
     repeat_blocked_rows = []
     fallback_reason = ""
@@ -1050,6 +1081,7 @@ def generate_mastery_question(progress):
         consume_adaptive_context,
         get_instructional_group,
         get_recent_instructional_groups,
+        is_tense_family_skill,
     )
 
     adaptive_context = consume_adaptive_context()
@@ -1062,14 +1094,20 @@ def generate_mastery_question(progress):
                 progress=progress,
                 adaptive_context=adaptive_context,
             )
-            if (
-                question is not None
-                or current_routing_mode() != "Learn Mode"
-                or current_skill not in OPENING_MECHANICAL_SKILLS
-            ):
+            if question is not None or current_routing_mode() != "Learn Mode":
                 return question
 
-            for fallback_skill in opening_variety_guard_skills(current_skill):
+            if current_skill in OPENING_MECHANICAL_SKILLS:
+                fallback_skills = opening_variety_guard_skills(current_skill)
+            elif current_skill in TENSE_FAMILY_SKILLS:
+                fallback_skills = [
+                    skill for skill in SKILL_ORDER
+                    if skill != current_skill and skill not in TENSE_FAMILY_SKILLS
+                ]
+            else:
+                return None
+
+            for fallback_skill in fallback_skills:
                 fallback_question = select_pasuk_first_question(
                     fallback_skill,
                     progress=progress,
@@ -1077,12 +1115,17 @@ def generate_mastery_question(progress):
                 )
                 if fallback_question is None:
                     continue
+                if (
+                    st.session_state.get("pending_tense_contrast_followup")
+                    and current_skill in TENSE_FAMILY_SKILLS
+                ):
+                    st.session_state.pending_tense_contrast_followup = False
                 return attach_debug_trace(
                     fallback_question,
                     variety_guard_applied=True,
                     variety_guard_source=current_skill,
                     transition_reason=(
-                        "Opening-run variety guard selected a non-mechanical skill."
+                        "Learn Mode selected a broader non-mechanical question."
                     ),
                 )
             return None
@@ -1111,6 +1154,15 @@ def generate_mastery_question(progress):
                 transition_reason = "Short-run sequencing moved the session toward context."
             elif skill_to_try != current_skill:
                 transition_reason = "Short-run sequencing selected a different instructional family."
+            if (
+                st.session_state.get("pending_tense_contrast_followup")
+                and is_tense_family_skill(current_skill)
+                and not is_tense_family_skill(question)
+            ):
+                st.session_state.pending_tense_contrast_followup = False
+                transition_reason = (
+                    "A short tense contrast was shown, so the run moved back into broader variety."
+                )
 
             question = attach_debug_trace(
                 question,

@@ -5,9 +5,11 @@ from unittest.mock import patch
 import streamlit as st
 
 import pasuk_flow_generator
+import runtime.mode_handlers as mode_handlers
 import runtime.question_flow as question_flow
 import runtime.session_state as session_state
 import streamlit_app
+from ui import render_question as render_question_module
 
 
 @contextmanager
@@ -102,7 +104,7 @@ class StreamlitQuizExperienceTests(unittest.TestCase):
         self.assertLess(question_index, answer_label_index)
         self.assertLess(answer_label_index, radio_index)
         self.assertLess(radio_index, button_index)
-        self.assertLessEqual(question_index, 5)
+        self.assertLessEqual(question_index, 6)
 
     def test_no_duplicate_explanatory_panels_before_question(self):
         question = self._sample_prefix_question()
@@ -186,6 +188,109 @@ class StreamlitQuizExperienceTests(unittest.TestCase):
 
         self.assertEqual(result["selected_word"], "בָּרָא")
         self.assertNotEqual(result["question"], question["question"])
+
+
+    def test_answered_mastery_mode_keeps_next_action_visible(self):
+        question = self._sample_prefix_question()
+        progress = {"current_skill": "identify_prefix_meaning"}
+        st.session_state.current_question = question
+        st.session_state.answered = True
+        rendered = []
+
+        with patch.object(mode_handlers, "render_question"), \
+             patch.object(mode_handlers, "render_assessment_diagnostics"), \
+             patch.object(mode_handlers, "last_answer_was_correct", return_value=True), \
+             patch.object(mode_handlers, "render_enter_key_handler"), \
+             patch.object(mode_handlers.st, "markdown", side_effect=lambda body, **kwargs: rendered.append(body)), \
+             patch.object(mode_handlers.st, "button", return_value=False) as mock_button:
+            streamlit_app.render_mastery_mode(progress)
+
+        self.assertTrue(any("post-answer-action-sentinel" in body for body in rendered))
+        mock_button.assert_called_with(
+            "Next Question",
+            type="primary",
+            use_container_width=True,
+            key="next_mastery",
+        )
+
+    def test_pending_mastery_continue_after_error_shows_loading_and_blocks_duplicate_clicks(self):
+        question = self._sample_prefix_question()
+        next_question = {
+            **question,
+            "question": "What does ×‘Ö¸Ö¼×¨Ö¸× mean?",
+            "selected_word": "×‘Ö¸Ö¼×¨Ö¸×",
+            "correct_answer": "created",
+            "choices": ["created", "light", "earth", "water"],
+        }
+        progress = {"current_skill": "identify_prefix_meaning"}
+        st.session_state.current_question = question
+        st.session_state.answered = True
+        st.session_state.post_answer_action_pending = "continue_mastery_after_error"
+        button_calls = []
+
+        def capture_button(label, **kwargs):
+            button_calls.append((label, kwargs))
+            return False
+
+        with patch.object(mode_handlers, "render_question"), \
+             patch.object(mode_handlers, "render_assessment_diagnostics"), \
+             patch.object(mode_handlers, "last_answer_was_correct", return_value=False), \
+             patch.object(mode_handlers, "render_enter_key_handler"), \
+             patch.object(mode_handlers, "generate_mastery_question", return_value=next_question) as mock_generate, \
+             patch.object(mode_handlers, "transition_to_question") as mock_transition, \
+             patch.object(mode_handlers.st, "spinner", _fake_expander), \
+             patch.object(mode_handlers.st, "button", side_effect=capture_button):
+            streamlit_app.render_mastery_mode(progress)
+
+        self.assertEqual(button_calls[0][0], "Loading next question...")
+        self.assertTrue(button_calls[0][1]["disabled"])
+        self.assertNotIn("Continue", [label for label, _ in button_calls[1:]])
+        self.assertEqual(st.session_state.post_answer_action_pending, "")
+        mock_generate.assert_called_once_with(progress)
+        mock_transition.assert_called_once()
+
+    def test_render_question_emits_unique_arrival_token_and_wrapper_id(self):
+        question = self._sample_prefix_question()
+        progress = {"standards": {"PR": 70}, "xp": {"PR": 10}, "current_skill": "identify_prefix_meaning"}
+        st.session_state.answered = False
+        st.session_state.current_question_arrival_token = "question-arrival-7"
+        rendered = []
+        emitted_scripts = []
+
+        with patch.object(streamlit_app.st, "markdown", side_effect=lambda body, **kwargs: rendered.append(body)), \
+             patch.object(streamlit_app.st, "radio", return_value=None), \
+             patch.object(streamlit_app.st, "button", return_value=False), \
+             patch.object(streamlit_app.st, "progress"), \
+             patch.object(streamlit_app.st, "expander", _fake_expander), \
+             patch.object(streamlit_app, "render_enter_key_handler"), \
+             patch.object(render_question_module.components, "html", side_effect=lambda body, **kwargs: emitted_scripts.append(body)):
+            streamlit_app.render_question(question, progress, "quiz_experience")
+
+        question_markup = next(body for body in rendered if "question-card" in body)
+        self.assertIn('id="student-question-wrapper-question-arrival-7"', question_markup)
+        self.assertIn('data-arrival-token="question-arrival-7"', question_markup)
+        self.assertTrue(any("student-question-wrapper-question-arrival-7" in body for body in emitted_scripts))
+        self.assertTrue(any("__assessmentArrivalHandledToken" in body for body in emitted_scripts))
+
+    def test_render_question_skips_arrival_hook_without_new_question_state(self):
+        question = self._sample_prefix_question()
+        progress = {"standards": {"PR": 70}, "xp": {"PR": 10}, "current_skill": "identify_prefix_meaning"}
+        st.session_state.answered = False
+        st.session_state.current_question_arrival_token = "question-arrival-9"
+        st.session_state.last_question_scroll_token = "question-arrival-9"
+        st.session_state.scroll_to_question_on_render = False
+        emitted_scripts = []
+
+        with patch.object(streamlit_app.st, "markdown"), \
+             patch.object(streamlit_app.st, "radio", return_value=None), \
+             patch.object(streamlit_app.st, "button", return_value=False), \
+             patch.object(streamlit_app.st, "progress"), \
+             patch.object(streamlit_app.st, "expander", _fake_expander), \
+             patch.object(streamlit_app, "render_enter_key_handler"), \
+             patch.object(render_question_module.components, "html", side_effect=lambda body, **kwargs: emitted_scripts.append(body)):
+            streamlit_app.render_question(question, progress, "quiz_experience")
+
+        self.assertFalse(any("__assessmentArrivalHandledToken" in body for body in emitted_scripts))
 
 
 if __name__ == "__main__":

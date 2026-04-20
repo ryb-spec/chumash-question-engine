@@ -16,8 +16,96 @@ from runtime.runtime_support import (
     mixed_text_html,
     render_assessment_diagnostics,
 )
-from runtime.session_state import set_question, transition_to_question
+from runtime.session_state import (
+    is_tense_family_skill,
+    schedule_question_arrival,
+    set_question,
+    transition_to_question,
+)
 from ui.render_question import render_enter_key_handler, render_question
+
+
+def queue_post_answer_action(action_name):
+    if st.session_state.get("post_answer_action_pending"):
+        return
+    st.session_state.post_answer_action_pending = action_name
+    st.rerun()
+
+
+def render_post_answer_action_bar(note_text="Ready for the next question?"):
+    st.markdown(
+        f"""
+        <div class="post-answer-action-sentinel"></div>
+        <section class="post-answer-action-shell">
+            <div class="section-label">Continue</div>
+            <div class="post-answer-action-note">{escape(note_text)}</div>
+        </section>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
+def run_pending_post_answer_action(action_name, action_callable, loading_key):
+    if st.session_state.get("post_answer_action_pending") != action_name:
+        return False
+
+    render_post_answer_action_bar("Loading the next question now.")
+    st.button(
+        "Loading next question...",
+        key=loading_key,
+        type="primary",
+        disabled=True,
+        use_container_width=True,
+    )
+    with st.spinner("Loading next question..."):
+        st.session_state.post_answer_action_pending = ""
+        try:
+            action_callable()
+        except Exception as error:
+            st.warning(f"No question is ready for this skill and pasuk yet: {error}")
+    return True
+
+
+def render_answered_status_captions(adaptive_message="", adaptive_reason="", unlocked_message="", fallback_message=""):
+    if adaptive_message:
+        st.caption(adaptive_message)
+    if adaptive_reason:
+        st.caption(f"Why this path: {adaptive_reason}.")
+    if unlocked_message:
+        st.caption(unlocked_message)
+    if fallback_message:
+        st.caption(fallback_message)
+
+
+def transition_to_mastery_followup(progress, question):
+    followup = build_followup_question(progress, question)
+    if followup is None:
+        st.warning("No close follow-up is ready yet. Continuing with the normal path.")
+        followup = generate_mastery_question(progress)
+    if is_tense_family_skill(question):
+        st.session_state.pending_tense_contrast_followup = False
+    transition_to_question(
+        finalize_transition_debug(
+            followup,
+            (followup.get("_debug_trace") or {}).get("transition_path", "follow-up"),
+            (followup.get("_debug_trace") or {}).get("transition_reason", ""),
+        )
+    )
+
+
+def transition_to_practice_followup(progress, question, skill):
+    followup = build_followup_question(progress, question)
+    if followup is None:
+        followup = generate_practice_question(skill, progress)
+    if is_tense_family_skill(question):
+        st.session_state.pending_tense_contrast_followup = False
+    transition_to_question(
+        finalize_transition_debug(
+            followup,
+            (followup.get("_debug_trace") or {}).get("transition_path", "follow-up"),
+            (followup.get("_debug_trace") or {}).get("transition_reason", ""),
+        )
+    )
 
 
 def render_mastery_mode(progress):
@@ -66,59 +154,52 @@ def render_mastery_mode(progress):
 
     if st.session_state.answered:
         if last_answer_was_correct(question):
-            if st.button("Next Question", type="primary", use_container_width=True, key="next_mastery"):
-                try:
-                    next_question = generate_mastery_question(progress)
-                except Exception as error:
-                    st.warning(f"No question is ready for this skill and pasuk yet: {error}")
-                    return
-                transition_to_question(
+            if run_pending_post_answer_action(
+                "next_mastery",
+                lambda: transition_to_question(
                     finalize_transition_debug(
-                        next_question,
+                        generate_mastery_question(progress),
                         "next_question",
                         adaptive_reason,
                     )
-                )
+                ),
+                "next_mastery_loading",
+            ):
+                return
+            render_answered_status_captions(adaptive_message, adaptive_reason, unlocked_message, fallback_message)
+            render_post_answer_action_bar()
+            if st.button("Next Question", type="primary", use_container_width=True, key="next_mastery"):
+                queue_post_answer_action("next_mastery")
+                return
             render_enter_key_handler("enter_next_mastery", ["Next Question"])
         else:
-            primary, secondary = st.columns([2, 1])
-            with primary:
-                if st.button("Try One Like This", type="primary", use_container_width=True, key="retry_mastery_like_this"):
-                    followup = build_followup_question(progress, question)
-                    if followup is None:
-                        st.warning("No close follow-up is ready yet. Continuing with the normal path.")
-                        followup = generate_mastery_question(progress)
-                    transition_to_question(
-                        finalize_transition_debug(
-                            followup,
-                            (followup.get("_debug_trace") or {}).get("transition_path", "follow-up"),
-                            (followup.get("_debug_trace") or {}).get("transition_reason", ""),
-                        )
+            if run_pending_post_answer_action(
+                "retry_mastery_like_this",
+                lambda: transition_to_mastery_followup(progress, question),
+                "retry_mastery_like_this_loading",
+            ):
+                return
+            if run_pending_post_answer_action(
+                "continue_mastery_after_error",
+                lambda: transition_to_question(
+                    finalize_transition_debug(
+                        generate_mastery_question(progress),
+                        "retry_continue",
+                        adaptive_reason,
                     )
-            with secondary:
-                if st.button("Continue", use_container_width=True, key="continue_mastery_after_error"):
-                    try:
-                        next_question = generate_mastery_question(progress)
-                    except Exception as error:
-                        st.warning(f"No question is ready for this skill and pasuk yet: {error}")
-                        return
-                    transition_to_question(
-                        finalize_transition_debug(
-                            next_question,
-                            "retry_continue",
-                            adaptive_reason,
-                        )
-                    )
+                ),
+                "continue_mastery_after_error_loading",
+            ):
+                return
+            render_answered_status_captions(adaptive_message, adaptive_reason, unlocked_message, fallback_message)
+            render_post_answer_action_bar("Keep going when you're ready.")
+            if st.button("Try One Like This", type="primary", use_container_width=True, key="retry_mastery_like_this"):
+                queue_post_answer_action("retry_mastery_like_this")
+                return
+            if st.button("Continue", use_container_width=True, key="continue_mastery_after_error"):
+                queue_post_answer_action("continue_mastery_after_error")
+                return
             render_enter_key_handler("enter_retry_mastery", ["Try One Like This", "Continue"])
-
-        if adaptive_message:
-            st.caption(adaptive_message)
-        if adaptive_reason:
-            st.caption(f"Why this path: {adaptive_reason}.")
-        if unlocked_message:
-            st.caption(unlocked_message)
-        if fallback_message:
-            st.caption(fallback_message)
 
 
 def render_skill_practice_mode(progress, skill):
@@ -147,40 +228,50 @@ def render_skill_practice_mode(progress, skill):
 
     if st.session_state.answered:
         if last_answer_was_correct(question):
-            if st.button("Next Question", type="primary", use_container_width=True, key=f"next_practice_{skill}"):
-                transition_to_question(
+            if run_pending_post_answer_action(
+                f"next_practice_{skill}",
+                lambda: transition_to_question(
                     finalize_transition_debug(
                         generate_practice_question(skill, progress),
                         "next_question",
                     )
-                )
+                ),
+                f"next_practice_{skill}_loading",
+            ):
+                return
+            render_answered_status_captions(fallback_message=fallback_message)
+            render_post_answer_action_bar()
+            if st.button("Next Question", type="primary", use_container_width=True, key=f"next_practice_{skill}"):
+                queue_post_answer_action(f"next_practice_{skill}")
+                return
             render_enter_key_handler(f"enter_next_practice_{skill}", ["Next Question"])
         else:
-            primary, secondary = st.columns([2, 1])
-            with primary:
-                if st.button("Try One Like This", type="primary", use_container_width=True, key=f"retry_practice_like_this_{skill}"):
-                    followup = build_followup_question(progress, question)
-                    if followup is None:
-                        followup = generate_practice_question(skill, progress)
-                    transition_to_question(
-                        finalize_transition_debug(
-                            followup,
-                            (followup.get("_debug_trace") or {}).get("transition_path", "follow-up"),
-                            (followup.get("_debug_trace") or {}).get("transition_reason", ""),
-                        )
+            if run_pending_post_answer_action(
+                f"retry_practice_like_this_{skill}",
+                lambda: transition_to_practice_followup(progress, question, skill),
+                f"retry_practice_like_this_{skill}_loading",
+            ):
+                return
+            if run_pending_post_answer_action(
+                f"continue_practice_after_error_{skill}",
+                lambda: transition_to_question(
+                    finalize_transition_debug(
+                        generate_practice_question(skill, progress),
+                        "retry_continue",
                     )
-            with secondary:
-                if st.button("Continue", use_container_width=True, key=f"continue_practice_after_error_{skill}"):
-                    transition_to_question(
-                        finalize_transition_debug(
-                            generate_practice_question(skill, progress),
-                            "retry_continue",
-                        )
-                    )
+                ),
+                f"continue_practice_after_error_{skill}_loading",
+            ):
+                return
+            render_answered_status_captions(fallback_message=fallback_message)
+            render_post_answer_action_bar("Keep going when you're ready.")
+            if st.button("Try One Like This", type="primary", use_container_width=True, key=f"retry_practice_like_this_{skill}"):
+                queue_post_answer_action(f"retry_practice_like_this_{skill}")
+                return
+            if st.button("Continue", use_container_width=True, key=f"continue_practice_after_error_{skill}"):
+                queue_post_answer_action(f"continue_practice_after_error_{skill}")
+                return
             render_enter_key_handler(f"enter_retry_practice_{skill}", ["Try One Like This", "Continue"])
-
-        if fallback_message:
-            st.caption(fallback_message)
 
 
 def render_flow_overview(flow, active_step):
@@ -256,17 +347,45 @@ def render_pasuk_flow(progress):
 
     if st.session_state.answered:
         if step_index + 1 < len(steps):
+            if run_pending_post_answer_action(
+                f"next_flow_step_{step_index}",
+                lambda: _advance_flow_step(),
+                f"next_flow_step_{step_index}_loading",
+            ):
+                return
+            render_post_answer_action_bar("Ready for the next step?")
             if st.button("Next Step", type="primary", use_container_width=True, key=f"next_flow_step_{step_index}"):
-                st.session_state.flow_step += 1
-                st.session_state.answered = False
-                st.session_state.selected_answer = None
-                st.rerun()
+                queue_post_answer_action(f"next_flow_step_{step_index}")
+                return
             render_enter_key_handler(f"enter_next_flow_{step_index}", ["Next Step"])
         else:
             st.success("Pasuk flow complete.")
+            if run_pending_post_answer_action(
+                "restart_flow",
+                lambda: _restart_flow(),
+                "restart_flow_loading",
+            ):
+                return
+            render_post_answer_action_bar("Ready to run this pasuk flow again?")
             if st.button("Restart Flow", type="primary", use_container_width=True, key="restart_flow"):
-                st.session_state.flow_step = 0
-                st.session_state.answered = False
-                st.session_state.selected_answer = None
-                st.rerun()
+                queue_post_answer_action("restart_flow")
+                return
             render_enter_key_handler("enter_restart_flow", ["Restart Flow"])
+
+
+def _advance_flow_step():
+    st.session_state.flow_step += 1
+    st.session_state.answered = False
+    st.session_state.selected_answer = None
+    st.session_state.post_answer_action_pending = ""
+    schedule_question_arrival()
+    st.rerun()
+
+
+def _restart_flow():
+    st.session_state.flow_step = 0
+    st.session_state.answered = False
+    st.session_state.selected_answer = None
+    st.session_state.post_answer_action_pending = ""
+    schedule_question_arrival()
+    st.rerun()

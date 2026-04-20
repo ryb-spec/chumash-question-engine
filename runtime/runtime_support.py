@@ -291,7 +291,7 @@ def append_attempt_log(question, choice, is_correct):
 
 
 def handle_answer(choice, question, progress):
-    from runtime.session_state import set_adaptive_status
+    from runtime.session_state import is_tense_family_skill, set_adaptive_status
 
     if st.session_state.answered:
         return
@@ -349,6 +349,11 @@ def handle_answer(choice, question, progress):
         st.session_state.recent_question_formats = st.session_state.recent_question_formats[-10:]
 
     answered_skill = question.get("skill")
+    if st.session_state.get("practice_type") == "Learn Mode" and is_tense_family_skill(answered_skill):
+        st.session_state.pending_tense_contrast_followup = not is_correct
+    elif answered_skill and not is_tense_family_skill(answered_skill):
+        st.session_state.pending_tense_contrast_followup = False
+
     if (
         st.session_state.get("practice_type") == "Learn Mode"
         and answered_skill == progress.get("current_skill")

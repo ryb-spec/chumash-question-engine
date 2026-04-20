@@ -30,14 +30,14 @@ from runtime.runtime_support import (
 )
 
 STUDENT_TENSE_LABELS = {
-    "vav_consecutive_past": "past narrative",
-    "future_jussive": "short future form",
+    "vav_consecutive_past": "past",
+    "future_jussive": "future",
     "future": "future",
     "past": "past",
     "present": "present",
     "infinitive": "infinitive",
-    "command": "command",
 }
+COHORT_TAUGHT_TENSE_LABELS = {"past", "future", "present", "infinitive"}
 
 
 def _clean_clue_value(value):
@@ -60,7 +60,10 @@ def _student_tense_label(value):
     text = _clean_clue_value(value)
     if not text:
         return None
-    return STUDENT_TENSE_LABELS.get(text, text)
+    label = STUDENT_TENSE_LABELS.get(text, text)
+    if label not in COHORT_TAUGHT_TENSE_LABELS:
+        return None
+    return label
 
 
 def split_pasuk_phrases(text, words_per_phrase=4):
@@ -98,6 +101,133 @@ def question_key(question, prefix):
         ]
     )
     return hashlib.sha1(raw.encode("utf-8")).hexdigest()[:12]
+
+
+def current_question_arrival_token(question_key_value):
+    token = st.session_state.get("current_question_arrival_token", "")
+    if token:
+        return token
+    return f"question-arrival-{question_key_value}"
+
+
+def question_wrapper_id(arrival_token):
+    return f"student-question-wrapper-{arrival_token}"
+
+
+def render_question_arrival_scroll(arrival_token, wrapper_id):
+    if st.session_state.get("answered"):
+        return
+
+    should_scroll = st.session_state.get("scroll_to_question_on_render", False)
+    last_scroll_token = st.session_state.get("last_question_scroll_token", "")
+    if not should_scroll and last_scroll_token == arrival_token:
+        return
+
+    st.session_state.last_question_scroll_token = arrival_token
+    st.session_state.scroll_to_question_on_render = False
+    script = """
+        <script>
+        (function() {{
+            const rootWindow = window.parent;
+            const rootDocument = rootWindow.document;
+            const arrivalToken = {arrival_token};
+            const targetId = {wrapper_id};
+            const maxAttempts = 90;
+            let attempts = 0;
+
+            const isScrollable = (node) => {{
+                if (!node || !node.tagName) return false;
+                const style = rootWindow.getComputedStyle(node);
+                return ['auto', 'scroll', 'overlay'].includes(style.overflowY)
+                    && node.scrollHeight > node.clientHeight + 4;
+            }};
+
+            const findScrollContainer = (node) => {{
+                let current = node ? node.parentElement : null;
+                while (current && current !== rootDocument.body) {{
+                    if (isScrollable(current)) {{
+                        return current;
+                    }}
+                    current = current.parentElement;
+                }}
+                return rootDocument.scrollingElement || rootDocument.documentElement || rootDocument.body;
+            }};
+
+            const scrollToTarget = (target) => {{
+                const offset = 20;
+                const scrollContainer = findScrollContainer(target);
+                const targetRect = target.getBoundingClientRect();
+
+                if (
+                    scrollContainer === rootDocument.body
+                    || scrollContainer === rootDocument.documentElement
+                    || scrollContainer === rootDocument.scrollingElement
+                ) {{
+                    const top = Math.max(
+                        targetRect.top + rootWindow.pageYOffset - offset,
+                        0
+                    );
+                    rootWindow.scrollTo({{ top, behavior: "auto" }});
+                    return;
+                }}
+
+                const containerRect = scrollContainer.getBoundingClientRect();
+                const top = Math.max(
+                    targetRect.top - containerRect.top + scrollContainer.scrollTop - offset,
+                    0
+                );
+                scrollContainer.scrollTo({{ top, behavior: "auto" }});
+            }};
+
+            const findAndScroll = () => {{
+                const target = rootDocument.getElementById(targetId);
+                if (!target) {{
+                    attempts += 1;
+                    if (attempts >= maxAttempts) return;
+                    rootWindow.requestAnimationFrame(() => rootWindow.setTimeout(findAndScroll, 25));
+                    return;
+                }}
+
+                if (rootWindow.__assessmentArrivalHandledToken === arrivalToken) {{
+                    return;
+                }}
+
+                rootWindow.__assessmentArrivalHandledToken = arrivalToken;
+                target.setAttribute("data-arrival-token", arrivalToken);
+                scrollToTarget(target);
+                rootWindow.requestAnimationFrame(() => {{
+                    try {{
+                        target.focus({{ preventScroll: true }});
+                    }} catch (error) {{
+                        target.focus();
+                    }}
+                    target.classList.add("question-arrival-active");
+                    rootWindow.setTimeout(() => {{
+                        target.classList.remove("question-arrival-active");
+                    }}, 1200);
+                }});
+            }};
+
+            rootWindow.requestAnimationFrame(findAndScroll);
+            rootWindow.setTimeout(findAndScroll, 60);
+            rootWindow.setTimeout(findAndScroll, 180);
+            rootWindow.setTimeout(findAndScroll, 320);
+            rootWindow.setTimeout(findAndScroll, 520);
+            rootWindow.setTimeout(findAndScroll, 820);
+            rootWindow.setTimeout(findAndScroll, 1200);
+            if (rootDocument.readyState !== "complete") {{
+                rootWindow.addEventListener("load", findAndScroll, {{ once: true }});
+            }}
+        }})();
+        </script>
+        """.format(
+        arrival_token=json.dumps(arrival_token),
+        wrapper_id=json.dumps(wrapper_id),
+    )
+    components.html(
+        script,
+        height=0,
+    )
 
 
 def render_enter_key_handler(handler_key, action_labels):
@@ -363,10 +493,11 @@ def render_pasukh_panel(question, flow=None):
 
     source = get_source_label(question, flow)
     compact_context = uses_compact_pasuk_context(question, flow)
+    focus_label = "Focus Phrase" if focus and " " in focus.strip() else "Focus Word"
     st.markdown(
         f"""
         <div class="section-heading">
-            <span>{'Focus Word' if compact_context else 'Read The Pasuk'}</span>
+            <span>{focus_label if compact_context else 'Read The Pasuk'}</span>
             <small>{escape(source)}</small>
         </div>
         """,
@@ -374,14 +505,10 @@ def render_pasukh_panel(question, flow=None):
     )
 
     if compact_context and focus:
-        snippet = local_context_snippet(pasuk, focus)
         st.markdown(
             f"""
             <section class="compact-context">
                 <div class="target-word" dir="rtl" lang="he">{mixed_text_html(focus)}</div>
-                <div class="context-snippet" dir="rtl" lang="he">
-                    {highlight_display_text(snippet, focus) if snippet else ''}
-                </div>
             </section>
             """,
             unsafe_allow_html=True,
@@ -466,13 +593,22 @@ def render_question(question, progress, button_prefix, flow=None):
     )
     from ui.render_feedback import render_feedback
 
+    key = question_key(question, button_prefix)
+    arrival_token = current_question_arrival_token(key)
+    wrapper_id = question_wrapper_id(arrival_token)
+    render_question_arrival_scroll(arrival_token, wrapper_id)
     render_learning_header(question, progress, flow)
     with st.container():
         render_pasukh_panel(question, flow)
         render_debug(question)
         st.markdown(
             f"""
-            <section class="question-card">
+            <section
+                id="{wrapper_id}"
+                class="question-card question-arrival-target"
+                data-arrival-token="{arrival_token}"
+                tabindex="-1"
+            >
                 <div class="section-label">Question</div>
                 <div class="question-text">{mixed_text_html(question['question'])}</div>
             </section>
@@ -481,7 +617,6 @@ def render_question(question, progress, button_prefix, flow=None):
         )
         render_quiz_debug_panel(question, progress=progress, flow=flow)
 
-    key = question_key(question, button_prefix)
     choices = question["choices"]
     label_by_choice = {
         choice: answer_choice_label(choice, index)

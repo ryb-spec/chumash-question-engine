@@ -61,14 +61,10 @@ class QuestionTypeContractTests(unittest.TestCase):
 
     def test_verb_tense_choices_follow_runtime_labels(self):
         allowed = {
-            "past narrative",
-            "short future form",
-            "future",
             "past",
+            "future",
             "present",
             "infinitive",
-            "command",
-            "not a verb",
         }
 
         for ref in ((1, 3), (1, 9), (1, 14), (1, 17)):
@@ -78,8 +74,22 @@ class QuestionTypeContractTests(unittest.TestCase):
                 continue
             self.assertIn(question["correct_answer"], allowed)
             self.assertTrue(set(question["choices"]).issubset(allowed))
-            self.assertNotIn("future_jussive", question["choices"])
-            self.assertNotIn("vav_consecutive_past", question["choices"])
+            self.assertEqual(len(question["choices"]), 4)
+            self.assertEqual(len(set(question["choices"])), 4)
+            self.assertNotIn("past narrative", question["choices"])
+            self.assertNotIn("short future form", question["choices"])
+            self.assertNotIn("not a verb", question["choices"])
+
+    def test_identify_tense_uses_only_taught_labels(self):
+        allowed = {"past", "future", "present", "infinitive"}
+
+        question = generate_question("identify_tense", pasuk_by_ref(1, 3))
+
+        self.assertNotEqual(question.get("status"), "skipped")
+        self.assertTrue(set(question.get("choices", [])).issubset(allowed))
+        self.assertNotIn("past narrative", question.get("choices", []))
+        self.assertNotIn("short future form", question.get("choices", []))
+        self.assertNotIn("not a verb", question.get("choices", []))
 
     def test_non_verb_surface_is_rejected_for_verb_tense(self):
         question = generate_question("verb_tense", "בְּצַלְמֵנוּ")
@@ -367,14 +377,22 @@ class QuestionTypeContractTests(unittest.TestCase):
             self.assertNotEqual(question.get("status"), "skipped")
             self.assertNotEqual(question.get("selected_word"), bad_token)
             self.assertIn(question.get("correct_answer"), {
-                "past narrative",
-                "short future form",
-                "future",
                 "past",
+                "future",
                 "present",
                 "infinitive",
-                "command",
             })
+
+    def test_tense_questions_do_not_emit_structurally_weird_answer_banks(self):
+        for skill in ("verb_tense", "identify_tense"):
+            question = generate_question(skill, pasuk_by_ref(2, 2))
+
+            self.assertNotEqual(question.get("status"), "skipped")
+            self.assertEqual(len(question.get("choices", [])), 4)
+            self.assertEqual(len(set(question.get("choices", []))), 4)
+            self.assertNotIn("not a verb", question.get("choices", []))
+            self.assertNotIn("past narrative", question.get("choices", []))
+            self.assertNotIn("short future form", question.get("choices", []))
 
     def test_active_scope_override_records_exist_for_curated_pasuks(self):
         self.assertIsNotNone(active_scope_override_for_pasuk_id("bereishis_1_1"))
