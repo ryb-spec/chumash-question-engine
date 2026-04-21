@@ -5,6 +5,7 @@ from unittest.mock import patch
 import streamlit as st
 
 import pasuk_flow_generator
+from assessment_scope import active_pesukim_records
 import runtime.mode_handlers as mode_handlers
 import runtime.question_flow as question_flow
 import runtime.session_state as session_state
@@ -59,6 +60,26 @@ class StreamlitQuizExperienceTests(unittest.TestCase):
         self.assertNotIn("Why This Question", header_html)
         self.assertNotIn("What Happens Next", header_html)
         self.assertIn("Mastery", header_html)
+
+    def test_learning_header_uses_canonical_skill_label_when_question_focus_is_narrower(self):
+        question = {
+            **self._sample_prefix_question(),
+            "skill": "verb_tense",
+            "question_type": "verb_tense",
+            "question": "What form is shown?",
+        }
+        rendered = []
+
+        with patch.object(streamlit_app.st, "markdown", side_effect=lambda body, **kwargs: rendered.append(body)), \
+             patch.object(streamlit_app.st, "progress"):
+            streamlit_app.render_learning_header(
+                question,
+                {"standards": {"PR": 70}, "xp": {"PR": 10}, "current_skill": "identify_tense"},
+            )
+
+        header_html = next(body for body in rendered if "learning-header" in body)
+        self.assertIn("How verbs are built · Verb tense", header_html)
+        self.assertIn("You&#x27;re building How verbs are built.", header_html)
 
     def test_answer_choice_labels_support_expanded_affix_choice_banks(self):
         self.assertEqual(streamlit_app.answer_choice_label("ש", 6), "G. ש")
@@ -150,35 +171,46 @@ class StreamlitQuizExperienceTests(unittest.TestCase):
             streamlit_app.render_feedback(question, {"current_skill": "identify_prefix_meaning"})
 
         main_panel = next(body for body in rendered if "feedback-panel" in body)
-        self.assertIn("Grammar", main_panel)
+        self.assertIn("How words are built", main_panel)
+        self.assertIn("Rule", main_panel)
+        self.assertIn("Here", main_panel)
+        self.assertNotIn("Grammar", main_panel)
         self.assertNotIn("What Comes Next", main_panel)
         self.assertNotIn("What Happens Next", main_panel)
         self.assertNotIn("Why This Question", main_panel)
 
     def test_followup_generation_does_not_repeat_same_question_unnecessarily(self):
-        progress = {"current_skill": "translation", "prefix_level": 1}
+        active_record = active_pesukim_records()[0]
+        second_record = active_pesukim_records()[1]
+        progress = {"current_skill": "subject_identification", "prefix_level": 1}
         question = {
-            "skill": "translation",
-            "pasuk": "בְּרֵאשִׁית בָּרָא אֱלֹקִים",
-            "selected_word": "בְּרֵאשִׁית",
-            "question": "What does בְּרֵאשִׁית mean?",
+            "skill": "subject_identification",
+            "question_type": "subject_identification",
+            "pasuk": active_record["text"],
+            "selected_word": "אֱלֹקִים",
+            "question": "Who is doing the action in בָּרָא?",
         }
         stale_followup = {
-            "skill": "translation",
-            "question": "What does בְּרֵאשִׁית mean?",
-            "selected_word": "בְּרֵאשִׁית",
-            "correct_answer": "in the beginning",
-            "choices": ["in the beginning", "created", "God", "earth"],
+            "skill": "subject_identification",
+            "question_type": "subject_identification",
+            "question": "Who is doing the action in בָּרָא?",
+            "selected_word": "אֱלֹקִים",
+            "correct_answer": "God",
+            "choices": ["God", "the man", "the earth", "the light"],
         }
         fallback_question = {
-            "skill": "translation",
-            "question": "What does בָּרָא mean?",
-            "selected_word": "בָּרָא",
-            "correct_answer": "created",
-            "choices": ["created", "in the beginning", "earth", "light"],
+            "skill": "subject_identification",
+            "question_type": "subject_identification",
+            "question": "Who is doing the action here?",
+            "selected_word": "הָאָרֶץ",
+            "word": "הָאָרֶץ",
+            "correct_answer": "the earth",
+            "choices": ["the earth", "God", "light", "water"],
+            "pasuk": second_record["text"],
+            "pasuk_ref": {"pasuk_id": second_record["pasuk_id"], "label": "Bereishis 1:2"},
         }
 
-        with patch.object(question_flow, "analyze_generator_pasuk", return_value=[{"word": "בְּרֵאשִׁית"}]), \
+        with patch.object(question_flow, "analyze_generator_pasuk", return_value=[{"word": "אֱלֹקִים"}]), \
              patch.object(question_flow, "generate_skill_question", return_value=stale_followup), \
              patch.object(question_flow, "generate_practice_question", return_value=dict(fallback_question)), \
              patch.object(session_state, "record_selected_pasuk"), \
@@ -186,9 +218,45 @@ class StreamlitQuizExperienceTests(unittest.TestCase):
              patch.object(session_state, "record_question_prefix"):
             result = streamlit_app.build_followup_question(progress, question)
 
-        self.assertEqual(result["selected_word"], "בָּרָא")
+        self.assertEqual(result["selected_word"], "הָאָרֶץ")
         self.assertNotEqual(result["question"], question["question"])
 
+
+    def test_followup_generation_marks_explicit_reteach_reuse_when_requested(self):
+        active_record = active_pesukim_records()[0]
+        progress = {"current_skill": "subject_identification", "prefix_level": 1}
+        st.session_state.pilot_scope_mode = "open_pilot_scope"
+        question = {
+            "skill": "subject_identification",
+            "question_type": "subject_identification",
+            "pasuk": active_record["text"],
+            "selected_word": "אֱלֹקִים",
+            "question": "Who is doing the action in בָּרָא?",
+        }
+        repeated_followup = {
+            "skill": "subject_identification",
+            "question_type": "subject_identification",
+            "question": "Who is doing the action in בָּרָא?",
+            "selected_word": "אֱלֹקִים",
+            "correct_answer": "God",
+            "choices": ["God", "the man", "the earth", "the light"],
+            "pasuk": active_record["text"],
+        }
+        st.session_state.recent_questions = [streamlit_app.question_signature(repeated_followup)]
+        st.session_state.pending_adaptive_context = {"selection_mode": "reteach"}
+
+        with patch.object(question_flow, "analyze_generator_pasuk", return_value=[{"word": "אֱלֹקִים"}]), \
+             patch.object(question_flow, "generate_skill_question", return_value=dict(repeated_followup)), \
+             patch.object(session_state, "record_selected_pasuk"), \
+             patch.object(session_state, "record_question_feature"), \
+             patch.object(session_state, "record_question_prefix"):
+            result = streamlit_app.build_followup_question(progress, question)
+
+        trace = result.get("_debug_trace") or {}
+        self.assertEqual(result["selected_word"], "אֱלֹקִים")
+        self.assertEqual(trace.get("reuse_mode"), "explicit_reteach_reuse")
+        self.assertEqual(trace.get("selection_mode"), "reteach")
+        self.assertEqual(trace.get("rejection_counts", {}).get("explicit_reteach_reuse"), 1)
 
     def test_answered_mastery_mode_keeps_next_action_visible(self):
         question = self._sample_prefix_question()

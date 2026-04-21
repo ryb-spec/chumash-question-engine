@@ -3,6 +3,7 @@ from unittest.mock import patch
 
 import streamlit as st
 
+from assessment_scope import active_pesukim_records
 import runtime.question_flow as question_flow
 import runtime.session_state as session_state
 import streamlit_app
@@ -19,7 +20,7 @@ class StreamlitDebugInstrumentationTests(unittest.TestCase):
         question = {"question": "Q", "selected_word": "word", "skill": "translation"}
 
         with patch.object(streamlit_app, "load_progress", return_value={"current_skill": "translation"}), \
-             patch.object(streamlit_app, "select_pasuk_first_question", return_value=dict(question)):
+             patch.object(question_flow, "select_pasuk_first_question", return_value=dict(question)):
             result = streamlit_app.generate_practice_question("translation")
 
         trace = result.get("_debug_trace") or {}
@@ -29,7 +30,7 @@ class StreamlitDebugInstrumentationTests(unittest.TestCase):
     def test_generate_practice_question_marks_progress_reused_when_passed(self):
         question = {"question": "Q", "selected_word": "word", "skill": "translation"}
 
-        with patch.object(streamlit_app, "select_pasuk_first_question", return_value=dict(question)):
+        with patch.object(question_flow, "select_pasuk_first_question", return_value=dict(question)):
             result = streamlit_app.generate_practice_question("translation", {"current_skill": "translation"})
 
         trace = result.get("_debug_trace") or {}
@@ -130,29 +131,37 @@ class StreamlitDebugInstrumentationTests(unittest.TestCase):
         )
 
     def test_build_followup_question_fallback_records_rejection_reasons(self):
-        progress = {"current_skill": "translation", "prefix_level": 1}
+        active_record = active_pesukim_records()[0]
+        second_record = active_pesukim_records()[1]
+        progress = {"current_skill": "subject_identification", "prefix_level": 1}
         question = {
-            "skill": "translation",
-            "pasuk": "\u05d1\u05bc\u05b0\u05e8\u05b5\u05d0\u05e9\u05c1\u05b4\u05d9\u05ea \u05d1\u05bc\u05b8\u05e8\u05b8\u05d0 \u05d0\u05b1\u05dc\u05b9\u05e7\u05b4\u05d9\u05dd",
-            "selected_word": "\u05d1\u05bc\u05b0\u05e8\u05b5\u05d0\u05e9\u05c1\u05b4\u05d9\u05ea",
-            "question": "What does \u05d1\u05bc\u05b0\u05e8\u05b5\u05d0\u05e9\u05c1\u05b4\u05d9\u05ea mean?",
+            "skill": "subject_identification",
+            "question_type": "subject_identification",
+            "pasuk": active_record["text"],
+            "selected_word": "\u05d0\u05b1\u05dc\u05b9\u05e7\u05b4\u05d9\u05dd",
+            "question": "Who is doing the action in \u05d1\u05bc\u05b8\u05e8\u05b8\u05d0?",
         }
         stale_followup = {
-            "skill": "translation",
-            "question": "What does \u05d1\u05bc\u05b0\u05e8\u05b5\u05d0\u05e9\u05c1\u05b4\u05d9\u05ea mean?",
-            "selected_word": "\u05d1\u05bc\u05b0\u05e8\u05b5\u05d0\u05e9\u05c1\u05b4\u05d9\u05ea",
-            "correct_answer": "in the beginning",
-            "choices": ["in the beginning", "created", "God", "earth"],
+            "skill": "subject_identification",
+            "question_type": "subject_identification",
+            "question": "Who is doing the action in \u05d1\u05bc\u05b8\u05e8\u05b8\u05d0?",
+            "selected_word": "\u05d0\u05b1\u05dc\u05b9\u05e7\u05b4\u05d9\u05dd",
+            "correct_answer": "God",
+            "choices": ["God", "the man", "the earth", "the light"],
         }
         fallback_question = {
-            "skill": "translation",
-            "question": "What does \u05d1\u05bc\u05b8\u05e8\u05b8\u05d0 mean?",
-            "selected_word": "\u05d1\u05bc\u05b8\u05e8\u05b8\u05d0",
-            "correct_answer": "created",
-            "choices": ["created", "in the beginning", "earth", "light"],
+            "skill": "subject_identification",
+            "question_type": "subject_identification",
+            "question": "Who is doing the action here?",
+            "selected_word": "\u05d4\u05b8\u05d0\u05b8\u05e8\u05b6\u05e5",
+            "word": "\u05d4\u05b8\u05d0\u05b8\u05e8\u05b6\u05e5",
+            "correct_answer": "the earth",
+            "choices": ["the earth", "God", "light", "water"],
+            "pasuk": second_record["text"],
+            "pasuk_ref": {"pasuk_id": second_record["pasuk_id"], "label": "Bereishis 1:2"},
         }
 
-        with patch.object(question_flow, "analyze_generator_pasuk", return_value=[{"word": "\u05d1\u05bc\u05b0\u05e8\u05b5\u05d0\u05e9\u05c1\u05b4\u05d9\u05ea"}]), \
+        with patch.object(question_flow, "analyze_generator_pasuk", return_value=[{"word": "\u05d0\u05b1\u05dc\u05b9\u05e7\u05b4\u05d9\u05dd"}]), \
              patch.object(question_flow, "generate_skill_question", return_value=stale_followup), \
              patch.object(question_flow, "generate_practice_question", return_value=dict(fallback_question)), \
              patch.object(session_state, "record_selected_pasuk"), \

@@ -90,7 +90,26 @@ def reset_for_new_question():
 
 
 def set_question(question):
-    st.session_state.current_question = question
+    candidate = question
+    if isinstance(question, dict) and (
+        question.get("skill")
+        or question.get("question_type")
+        or question.get("choices")
+        or question.get("selected_word")
+        or question.get("word")
+    ):
+        from runtime.question_flow import validate_question_for_serve
+
+        validation = validate_question_for_serve(
+            question,
+            validation_path="current_question_setter",
+        )
+        if not validation["valid"]:
+            codes = ", ".join(validation["rejection_codes"]) or "invalid_question"
+            raise ValueError(f"Blocked invalid runtime question before serve: {codes}")
+        candidate = validation["question"]
+
+    st.session_state.current_question = candidate
     st.session_state.answered = False
     st.session_state.selected_answer = None
     st.session_state.last_skill_state = None
@@ -101,7 +120,7 @@ def set_question(question):
     st.session_state.pilot_current_question_signature = ""
     st.session_state.pilot_current_question_log_id = None
     st.session_state.pilot_current_question_started_at = None
-    remember_recent_question(question)
+    remember_recent_question(candidate)
 
 
 def clear_transient_quiz_messages():
@@ -268,7 +287,14 @@ def get_question_prefix(question):
 def prefix_is_blocked(prefix):
     if not prefix:
         return False
-    return get_recent_prefixes().count(prefix) >= 2
+    if st.session_state.get("practice_type", "Learn Mode") != "Learn Mode":
+        return False
+    recent_prefixes = get_recent_prefixes()
+    if not recent_prefixes:
+        return False
+    if recent_prefixes[-1] == prefix:
+        return True
+    return recent_prefixes[-4:].count(prefix) >= 2
 
 
 def morpheme_family_is_blocked(family):
@@ -405,6 +431,7 @@ def init_session_state():
     st.session_state.setdefault("current_post_answer_visibility_token", "")
     st.session_state.setdefault("last_post_answer_scroll_token", "")
     st.session_state.setdefault("pilot_session_id", None)
+    st.session_state.setdefault("pilot_session_origin", "")
     st.session_state.setdefault("pilot_scope_mode", "trusted_active_scope")
     st.session_state.setdefault("pilot_trusted_active_scope_session", True)
     st.session_state.setdefault("pilot_current_question_signature", "")

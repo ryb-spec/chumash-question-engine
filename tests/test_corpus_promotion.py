@@ -17,12 +17,12 @@ class CorpusPromotionTests(unittest.TestCase):
         self.assertEqual(result["status"], "no_next_block")
         self.assertFalse(result["promoted"])
         self.assertIn("ends at the current active scope", result["reason"])
-        self.assertEqual(result["source_declared_range"], "1:1-2:17")
+        self.assertEqual(result["source_declared_range"], "1:1-2:25")
         self.assertEqual(
             result["source_actual_range"]["end"],
-            {"sefer": "Bereishis", "perek": 2, "pasuk": 17},
+            {"sefer": "Bereishis", "perek": 2, "pasuk": 25},
         )
-        self.assertEqual(result["source_pesukim_count"], 48)
+        self.assertEqual(result["source_pesukim_count"], 56)
 
     def test_active_scope_remains_unchanged_when_no_promotion_occurs(self):
         before = assessment_scope.active_scope_summary()

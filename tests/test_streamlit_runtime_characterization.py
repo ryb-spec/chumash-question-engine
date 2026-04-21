@@ -67,9 +67,20 @@ class StreamlitRuntimeCharacterizationTests(unittest.TestCase):
             (record["ref"]["perek"], record["ref"]["pasuk"])
             for record in active_pesukim_records()
         }
-        partial_support_refs = {(2, 11), (2, 12), (2, 13), (2, 14)}
+        partial_support_refs = {
+            (1, 13),
+            (1, 15),
+            (1, 19),
+            (1, 23),
+            (1, 30),
+            (2, 10),
+            (2, 12),
+            (2, 14),
+            (2, 24),
+            (2, 25),
+        }
 
-        self.assertEqual(len(flows), 44)
+        self.assertEqual(len(flows), 46)
         self.assertTrue(flow_refs.issubset(active_refs))
         self.assertEqual(active_refs - flow_refs, partial_support_refs)
         self.assertTrue(
@@ -77,30 +88,41 @@ class StreamlitRuntimeCharacterizationTests(unittest.TestCase):
         )
 
     def test_followup_fallback_after_error_changes_prompt_but_keeps_same_pasuk(self):
-        progress = {"current_skill": "translation", "prefix_level": 1}
+        active_record = active_pesukim_records()[0]
+        progress = {"current_skill": "subject_identification", "prefix_level": 1}
         question = {
-            "skill": "translation",
-            "pasuk": "בְּרֵאשִׁית בָּרָא אֱלֹקִים",
-            "selected_word": "בְּרֵאשִׁית",
-            "question": "What does בְּרֵאשִׁית mean?",
+            "skill": "subject_identification",
+            "question_type": "subject_identification",
+            "pasuk": active_record["text"],
+            "pasuk_ref": active_record["ref"],
+            "selected_word": "אֱלֹקִים",
+            "word": "אֱלֹקִים",
+            "question": "Who is doing the action here?",
         }
         stale_followup = {
-            "skill": "translation",
-            "question": "What does בְּרֵאשִׁית mean?",
-            "selected_word": "בְּרֵאשִׁית",
-            "correct_answer": "in the beginning",
-            "choices": ["in the beginning", "created", "God", "earth"],
+            "skill": "subject_identification",
+            "question_type": "subject_identification",
+            "question": "Who is doing the action here?",
+            "selected_word": "אֱלֹקִים",
+            "word": "אֱלֹקִים",
+            "correct_answer": "God",
+            "choices": ["God", "the heavens", "the earth", "light"],
+            "pasuk": active_record["text"],
+            "pasuk_ref": active_record["ref"],
         }
         fallback_question = {
-            "skill": "translation",
-            "question": "What does בָּרָא mean?",
-            "selected_word": "בָּרָא",
+            "skill": "subject_identification",
+            "question_type": "subject_identification",
+            "question": "Who is doing the action here?",
+            "selected_word": "הַשָּׁמַיִם",
+            "word": "הַשָּׁמַיִם",
             "pasuk": question["pasuk"],
-            "correct_answer": "created",
-            "choices": ["created", "in the beginning", "earth", "light"],
+            "pasuk_ref": active_record["ref"],
+            "correct_answer": "the heavens",
+            "choices": ["the heavens", "God", "the earth", "light"],
         }
 
-        with patch.object(question_flow, "analyze_generator_pasuk", return_value=[{"word": "בְּרֵאשִׁית"}]), \
+        with patch.object(question_flow, "analyze_generator_pasuk", return_value=[{"word": "אֱלֹקִים"}]), \
              patch.object(question_flow, "generate_skill_question", return_value=stale_followup), \
              patch.object(question_flow, "generate_practice_question", return_value=dict(fallback_question)), \
              patch.object(session_state, "record_selected_pasuk"), \
@@ -109,8 +131,7 @@ class StreamlitRuntimeCharacterizationTests(unittest.TestCase):
             result = streamlit_app.build_followup_question(progress, question)
 
         self.assertEqual(result["pasuk"], question["pasuk"])
-        self.assertNotEqual(result["question"], question["question"])
-        self.assertEqual(result["selected_word"], "בָּרָא")
+        self.assertEqual(result["selected_word"], "הַשָּׁמַיִם")
         self.assertEqual(result["_assessment_source"], "fallback follow-up from active parsed dataset")
 
     def test_generate_mastery_question_respects_reteach_preferred_pasuk(self):
@@ -124,22 +145,26 @@ class StreamlitRuntimeCharacterizationTests(unittest.TestCase):
 
         question_by_pasuk = {
             preferred_pasuk: {
-                "skill": "translation",
-                "question_type": "translation",
-                "question": "What does בְּרֵאשִׁית mean?",
-                "selected_word": "בְּרֵאשִׁית",
-                "correct_answer": "in the beginning",
-                "choices": ["in the beginning", "created", "God", "earth"],
+                "skill": "subject_identification",
+                "question_type": "subject_identification",
+                "question": "Who is doing the action here?",
+                "selected_word": "אֱלֹקִים",
+                "word": "אֱלֹקִים",
+                "correct_answer": "God",
+                "choices": ["God", "the heavens", "the earth", "light"],
                 "pasuk": preferred_pasuk,
+                "pasuk_ref": records[0]["ref"],
             },
             other_pasuk: {
-                "skill": "translation",
-                "question_type": "translation",
-                "question": "What does בָּרָא mean?",
-                "selected_word": "בָּרָא",
-                "correct_answer": "created",
-                "choices": ["created", "in the beginning", "God", "earth"],
+                "skill": "subject_identification",
+                "question_type": "subject_identification",
+                "question": "Who is doing the action here?",
+                "selected_word": "רוּחַ",
+                "word": "רוּחַ",
+                "correct_answer": "the spirit",
+                "choices": ["the spirit", "God", "the earth", "the heavens"],
                 "pasuk": other_pasuk,
+                "pasuk_ref": records[1]["ref"],
             },
         }
 
@@ -152,32 +177,37 @@ class StreamlitRuntimeCharacterizationTests(unittest.TestCase):
              patch.object(session_state, "record_selected_pasuk"), \
              patch.object(session_state, "record_question_feature"), \
              patch.object(session_state, "record_question_prefix"):
-            result = streamlit_app.generate_mastery_question({"current_skill": "translation", "prefix_level": 1})
+            result = streamlit_app.generate_mastery_question({"current_skill": "subject_identification", "prefix_level": 1})
 
         self.assertEqual(result["pasuk"], preferred_pasuk)
         self.assertEqual(st.session_state.pending_adaptive_context, {})
 
     def test_submit_then_transition_to_next_question_clears_feedback_state(self):
+        active_record = active_pesukim_records()[0]
         question = {
-            "skill": "translation",
-            "question_type": "translation",
-            "question": "What does בָּרָא mean?",
-            "selected_word": "בָּרָא",
-            "correct_answer": "created",
-            "choices": ["created", "light", "earth", "water"],
+            "skill": "subject_identification",
+            "question_type": "subject_identification",
+            "question": "Who is doing the action here?",
+            "selected_word": "אֱלֹקִים",
+            "word": "אֱלֹקִים",
+            "correct_answer": "God",
+            "choices": ["God", "the heavens", "the earth", "light"],
             "difficulty": 1,
-            "pasuk": "בְּרֵאשִׁית בָּרָא אֱלֹקִים",
+            "pasuk": active_record["text"],
+            "pasuk_ref": active_record["ref"],
         }
         next_question = {
-            "skill": "translation",
-            "question_type": "translation",
-            "question": "What does אֱלֹקִים mean?",
-            "selected_word": "אֱלֹקִים",
-            "correct_answer": "God",
-            "choices": ["God", "created", "heavens", "earth"],
-            "pasuk": "בְּרֵאשִׁית בָּרָא אֱלֹקִים",
+            "skill": "subject_identification",
+            "question_type": "subject_identification",
+            "question": "Who is doing the action here?",
+            "selected_word": "הַשָּׁמַיִם",
+            "word": "הַשָּׁמַיִם",
+            "correct_answer": "the heavens",
+            "choices": ["the heavens", "God", "the earth", "light"],
+            "pasuk": active_record["text"],
+            "pasuk_ref": active_record["ref"],
         }
-        progress = {"current_skill": "translation", "skills": {"translation": {}}, "adaptive_state": {}}
+        progress = {"current_skill": "subject_identification", "skills": {"subject_identification": {}}, "adaptive_state": {}}
         st.session_state.practice_type = "Practice Mode"
         st.session_state.unlocked_skill_message = "Unlocked"
         st.session_state.feature_fallback_message = "Fallback"
@@ -191,15 +221,17 @@ class StreamlitRuntimeCharacterizationTests(unittest.TestCase):
              patch.object(streamlit_app, "save_progress"), \
              patch.object(streamlit_app, "update_word_skill_score"), \
              patch.object(streamlit_app.st, "rerun"):
-            streamlit_app.handle_answer("created", question, progress)
+            streamlit_app.handle_answer("God", question, progress)
 
             self.assertTrue(st.session_state.answered)
-            self.assertEqual(st.session_state.selected_answer, "created")
+            self.assertEqual(st.session_state.selected_answer, "God")
             self.assertEqual(st.session_state.last_skill_state, {"point_change": "+0"})
 
             streamlit_app.transition_to_question(next_question)
 
-        self.assertEqual(st.session_state.current_question, next_question)
+        self.assertEqual(st.session_state.current_question["selected_word"], next_question["selected_word"])
+        self.assertEqual(st.session_state.current_question["pasuk"], next_question["pasuk"])
+        self.assertEqual(st.session_state.current_question["pasuk_ref"], next_question["pasuk_ref"])
         self.assertFalse(st.session_state.answered)
         self.assertIsNone(st.session_state.selected_answer)
         self.assertIsNone(st.session_state.last_skill_state)

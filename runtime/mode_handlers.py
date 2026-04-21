@@ -10,6 +10,7 @@ from runtime.question_flow import (
     finalize_transition_debug,
     generate_mastery_question,
     generate_practice_question,
+    validate_question_for_serve,
 )
 from runtime.runtime_support import (
     get_active_pasuk_ref,
@@ -559,6 +560,19 @@ def render_pasuk_flow(progress):
     steps = flow.get("questions") or flow.get("steps", [])
     step_index = st.session_state.flow_step
     question = steps[step_index]
+    validation = validate_question_for_serve(
+        question,
+        fallback_text=flow.get("pasuk", ""),
+        validation_path="pasuk_flow_step",
+        trusted_active_scope=True,
+    )
+    if not validation["valid"]:
+        st.warning(
+            "This pasuk-flow question was blocked before serve because it no longer passed runtime validation."
+        )
+        return
+    question = validation["question"]
+    steps[step_index] = question
 
     render_assessment_diagnostics(question, flow, "Pasuk Flow")
     render_question(question, progress, f"flow_{step_index}", flow)

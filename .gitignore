@@ -6,3 +6,5 @@ progress.json
 progress.json.txt
 skill_progress.json
 data/validation/latest_question_replay.json
+data/pilot/runs/
+data/pilot/exports/

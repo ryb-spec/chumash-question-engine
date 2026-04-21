@@ -5,6 +5,7 @@ from unittest.mock import patch
 import streamlit as st
 
 import streamlit_app
+from assessment_scope import active_pesukim_records
 
 
 @contextmanager
@@ -154,6 +155,92 @@ class StreamlitCandidateQualityTests(unittest.TestCase):
         self.assertIn("target-word", compact_markup)
         self.assertNotIn("context-snippet", compact_markup)
         self.assertNotIn(question["pasuk"], compact_markup)
+
+    def test_pre_serve_validation_rejects_trivial_duplicate_choice_text(self):
+        record = active_pesukim_records()[0]
+        question = {
+            "skill": "translation",
+            "question_type": "translation",
+            "question": "What does בָּרָא mean?",
+            "selected_word": "בָּרָא",
+            "word": "בָּרָא",
+            "correct_answer": "created",
+            "choices": ["created", "Created", "light", "earth"],
+            "pasuk": record["text"],
+        }
+
+        validation = streamlit_app.validate_question_for_serve(
+            question,
+            validation_path="candidate_quality_test",
+            trusted_active_scope=True,
+        )
+
+        self.assertFalse(validation["valid"])
+        self.assertIn("duplicate_distractors", validation["rejection_codes"])
+        self.assertIn("ambiguous_answer_key", validation["rejection_codes"])
+
+    def test_candidate_quality_penalizes_duplicate_feel_translation_meaning(self):
+        recent_questions = [
+            streamlit_app.question_signature(
+                {
+                    "skill": "translation",
+                    "question_type": "translation",
+                    "question": "What does אֶרֶץ mean?",
+                    "selected_word": "אֶרֶץ",
+                    "word": "אֶרֶץ",
+                    "correct_answer": "earth",
+                    "choices": ["earth", "light", "water", "sky"],
+                    "pasuk": "מקור א",
+                }
+            )
+        ]
+        repeated_meaning = {
+            "pasuk": "מקור ב",
+            "word": "הָאָרֶץ",
+            "question": {
+                "skill": "translation",
+                "question_type": "translation",
+                "question": "What does הָאָרֶץ mean?",
+                "selected_word": "הָאָרֶץ",
+                "word": "הָאָרֶץ",
+                "correct_answer": "the earth",
+                "choices": ["the earth", "the light", "the water", "the sky"],
+                "pasuk": "מקור ב",
+            },
+        }
+        fresh_meaning = {
+            "pasuk": "מקור ג",
+            "word": "אוֹר",
+            "question": {
+                "skill": "translation",
+                "question_type": "translation",
+                "question": "What does אוֹר mean?",
+                "selected_word": "אוֹר",
+                "word": "אוֹר",
+                "correct_answer": "light",
+                "choices": ["light", "earth", "water", "sky"],
+                "pasuk": "מקור ג",
+            },
+        }
+
+        repeated_breakdown = streamlit_app.candidate_quality_breakdown(
+            repeated_meaning,
+            recent_pesukim=[],
+            recent_words=[],
+            recent_questions=recent_questions,
+            progress={},
+            adaptive_context={},
+        )
+        fresh_breakdown = streamlit_app.candidate_quality_breakdown(
+            fresh_meaning,
+            recent_pesukim=[],
+            recent_words=[],
+            recent_questions=recent_questions,
+            progress={},
+            adaptive_context={},
+        )
+
+        self.assertLess(repeated_breakdown["novelty"], fresh_breakdown["novelty"])
 
 
 if __name__ == "__main__":
