@@ -451,6 +451,50 @@ class RuntimeQuestionFlowTests(unittest.TestCase):
         self.assertEqual(captured_events[0]["pasuk_ref"]["pasuk_id"], active_record["pasuk_id"])
         self.assertEqual(captured_events[0]["pasuk_ref"]["label"], "Bereishis 2:15")
 
+    def test_select_pasuk_first_question_keeps_lamor_in_scope_in_trusted_mode_with_real_generator(self):
+        active_record = next(
+            record
+            for record in active_pesukim_records()
+            if record.get("ref", {}).get("perek") == 1
+            and record.get("ref", {}).get("pasuk") == 5
+        )
+        ready_rows = [
+            {
+                "pasuk": active_record["text"],
+                "word": "לָאוֹר",
+                "feature": "prefix",
+                "prefix": "ל",
+                "morpheme_family": "",
+            }
+        ]
+
+        captured_events = []
+        with patch.object(question_flow, "get_skill_ready_pasuks", return_value=ready_rows), \
+             patch.object(session_state, "record_selected_pasuk"), \
+             patch.object(session_state, "record_question_feature"), \
+             patch.object(session_state, "record_question_prefix"), \
+             patch.object(
+                 pilot_logging,
+                 "append_pilot_event",
+                 side_effect=lambda event, **kwargs: captured_events.append(event) or True,
+             ):
+            result = select_pasuk_first_question(
+                "identify_prefix_meaning",
+                progress={"prefix_level": 3},
+                adaptive_context={},
+            )
+            pilot_logging.sync_pilot_served_question(result, practice_type="Learn Mode")
+
+        self.assertIsNotNone(result)
+        self.assertEqual(result["question_type"], "prefix_level_3_apply_prefix_meaning")
+        self.assertEqual(result["selected_word"], "לָאוֹר")
+        self.assertEqual(result["pasuk"], active_record["text"])
+        self.assertEqual(result["pasuk_id"], active_record["pasuk_id"])
+        self.assertEqual(result["pasuk_ref"]["pasuk_id"], active_record["pasuk_id"])
+        self.assertEqual(captured_events[0]["scope_membership"], "active_parsed")
+        self.assertEqual(captured_events[0]["pasuk_ref"]["pasuk_id"], active_record["pasuk_id"])
+        self.assertEqual(captured_events[0]["pasuk_ref"]["label"], "Bereishis 1:5")
+
     def test_build_followup_question_skips_unmappable_candidate_in_trusted_scope(self):
         active_record = active_pesukim_records()[0]
         progress = {"current_skill": "translation", "prefix_level": 1}

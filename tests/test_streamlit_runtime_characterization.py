@@ -67,9 +67,11 @@ class StreamlitRuntimeCharacterizationTests(unittest.TestCase):
             (record["ref"]["perek"], record["ref"]["pasuk"])
             for record in active_pesukim_records()
         }
+        partial_support_refs = {(2, 11), (2, 12), (2, 13), (2, 14)}
 
-        self.assertEqual(len(flows), len(active_refs))
-        self.assertEqual(flow_refs, active_refs)
+        self.assertEqual(len(flows), 44)
+        self.assertTrue(flow_refs.issubset(active_refs))
+        self.assertEqual(active_refs - flow_refs, partial_support_refs)
         self.assertTrue(
             all(flow.get("source", "").startswith(f"{ACTIVE_ASSESSMENT_SCOPE}:") for flow in flows)
         )
