@@ -42,27 +42,28 @@ class CorpusManifestTests(unittest.TestCase):
 
         self.assertEqual(active_scope["sefer"], "Bereishis")
         self.assertEqual(active_scope["range"]["start"], {"perek": 1, "pasuk": 1})
-        self.assertEqual(active_scope["range"]["end"], {"perek": 2, "pasuk": 17})
-        self.assertEqual(active_scope["pesukim_count"], 48)
+        self.assertEqual(active_scope["range"]["end"], {"perek": 2, "pasuk": 25})
+        self.assertEqual(active_scope["pesukim_count"], 56)
         self.assertEqual(active_scope["status"], "active")
 
     def test_source_corpus_metadata_matches_expanded_local_source_boundary(self):
         source_corpus = assessment_scope.corpus_source_corpora()[0]
 
-        self.assertEqual(source_corpus["corpus_id"], "source_bereishis_1_1_to_2_17_local")
+        self.assertEqual(source_corpus["corpus_id"], "source_bereishis_1_1_to_2_25_local")
         self.assertEqual(source_corpus["status"], "source")
         self.assertEqual(source_corpus["range"]["start"], {"perek": 1, "pasuk": 1})
-        self.assertEqual(source_corpus["range"]["end"], {"perek": 2, "pasuk": 17})
-        self.assertEqual(source_corpus["pesukim_count"], 48)
+        self.assertEqual(source_corpus["range"]["end"], {"perek": 2, "pasuk": 25})
+        self.assertEqual(source_corpus["pesukim_count"], 56)
         self.assertEqual(
             source_corpus["source_files"],
             [
                 "data/source/bereishis_1_1_to_1_30.json",
                 "data/source/bereishis_1_31_to_2_9.json",
                 "data/source/bereishis_2_10_to_2_17.json",
+                "data/source/bereishis_2_18_to_2_25.json",
             ],
         )
-        self.assertEqual(source_corpus["declared_source_range"], "1:1-2:17")
+        self.assertEqual(source_corpus["declared_source_range"], "1:1-2:25")
 
     def test_legacy_status_aliases_normalize_to_canonical_lifecycle_states(self):
         self.assertEqual(assessment_scope.normalize_corpus_status("experimental"), "source")
@@ -93,10 +94,12 @@ class CorpusManifestTests(unittest.TestCase):
         active_texts = {record.get("text") for record in assessment_scope.active_pesukim_records()}
         flow_pesukim = {flow.get("pasuk") for flow in flows}
         expected_new_flow_refs = {
-            (2, 10),
-            (2, 15),
-            (2, 16),
-            (2, 17),
+            (2, 18),
+            (2, 19),
+            (2, 20),
+            (2, 21),
+            (2, 22),
+            (2, 23),
         }
         expected_new_flow_texts = {
             record.get("text")

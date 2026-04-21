@@ -3,6 +3,7 @@ from unittest.mock import patch
 
 from engine import flow_builder, question_builders, skill_logic, token_analysis
 import runtime.question_flow as question_flow
+from assessment_scope import active_pesukim_records
 from runtime.question_flow import build_followup_question
 
 
@@ -71,10 +72,112 @@ class EngineModuleTests(unittest.TestCase):
         self.assertEqual(suffix_reason, "")
 
     def test_flow_builder_suppresses_duplicate_prompts(self):
-        flow = flow_builder.generate_pasuk_flow("וַיְהִי עֶרֶב וַיְהִי בֹקֶר יוֹם שְׁלִישִׁי")
+        record = next(
+            item
+            for item in active_pesukim_records()
+            if item.get("ref", {}).get("perek") == 1
+            and item.get("ref", {}).get("pasuk") == 24
+        )
+        flow = flow_builder.generate_pasuk_flow(record["text"])
         prompts = [item["question"] for item in flow["questions"]]
 
         self.assertEqual(len(prompts), len(set(prompts)))
+
+    def test_translation_question_skips_thin_definite_article_standalone_form(self):
+        analyzed_override = [
+            {
+                "token": "הָאָרֶץ",
+                "entry": {
+                    "word": "הָאָרֶץ",
+                    "type": "noun",
+                    "part_of_speech": "noun",
+                    "semantic_group": "place",
+                    "group": "common_noun",
+                    "entity_type": "common_noun",
+                    "translation": "the earth",
+                    "translation_literal": "the earth",
+                    "translation_context": "the earth",
+                    "prefixes": [{"form": "ה", "translation": "the"}],
+                    "suffixes": [],
+                    "confidence": "reviewed",
+                },
+            }
+        ]
+
+        question = flow_builder.generate_question(
+            "translation",
+            "הָאָרֶץ",
+            analyzed_override=analyzed_override,
+        )
+
+        self.assertEqual(question.get("status"), "skipped")
+        self.assertEqual(question.get("reason"), "No usable translation target found in this pasuk.")
+
+    def test_translation_question_skips_prefixed_nonverb_standalone_form(self):
+        analyzed_override = [
+            {
+                "token": "לָאוֹר",
+                "entry": {
+                    "word": "לָאוֹר",
+                    "type": "noun",
+                    "part_of_speech": "noun",
+                    "semantic_group": "natural_object",
+                    "group": "common_noun",
+                    "entity_type": "common_noun",
+                    "translation": "to the light",
+                    "translation_literal": "to the light",
+                    "translation_context": "to the light",
+                    "prefixes": [{"form": "ל", "translation": "to / for"}],
+                    "suffixes": [],
+                    "confidence": "reviewed",
+                },
+            }
+        ]
+
+        question = flow_builder.generate_question(
+            "translation",
+            "לָאוֹר",
+            analyzed_override=analyzed_override,
+        )
+
+        self.assertEqual(question.get("status"), "skipped")
+        self.assertEqual(question.get("reason"), "No usable translation target found in this pasuk.")
+
+    def test_runtime_shoresh_question_uses_hebrew_root_distractors_not_generic_fillers(self):
+        record = next(
+            item
+            for item in active_pesukim_records()
+            if item.get("ref", {}).get("perek") == 1
+            and item.get("ref", {}).get("pasuk") == 10
+        )
+
+        question = flow_builder.generate_question("shoresh", record["text"])
+
+        self.assertNotEqual(question.get("status"), "skipped")
+        self.assertEqual(len(question.get("choices", [])), 4)
+        self.assertNotIn("not a verb", question.get("choices", []))
+        self.assertTrue(all(flow_builder.contains_hebrew(choice) for choice in question.get("choices", [])))
+
+    def test_runtime_shoresh_question_avoids_known_false_surface_targets(self):
+        blocked_targets = {
+            (1, 1): {"בְּרֵאשִׁית", "ראשית"},
+            (1, 2): {"תְהוֹם", "תהום", "מְרַחֶפֶת", "רחפת"},
+            (1, 11): {"לְמִינוֹ", "מין"},
+            (1, 15): {"לִמְאוֹרֹת", "מאורת"},
+        }
+
+        for ref, blocked_values in blocked_targets.items():
+            record = next(
+                item
+                for item in active_pesukim_records()
+                if item.get("ref", {}).get("perek") == ref[0]
+                and item.get("ref", {}).get("pasuk") == ref[1]
+            )
+
+            question = flow_builder.generate_question("shoresh", record["text"])
+
+            self.assertNotIn(question.get("selected_word"), blocked_values)
+            self.assertNotIn(question.get("correct_answer"), blocked_values)
 
 
 class FollowupFallbackModuleTests(unittest.TestCase):
@@ -91,33 +194,38 @@ class FollowupFallbackModuleTests(unittest.TestCase):
         import streamlit as st
         import streamlit_app
 
+        active_record = active_pesukim_records()[0]
         question = {
-            "skill": "translation",
-            "question": "What does בָּרָא mean?",
-            "selected_word": "בָּרָא",
-            "word": "בָּרָא",
-            "correct_answer": "created",
-            "choices": ["created", "light", "earth", "water"],
-            "pasuk": "בְּרֵאשִׁית בָּרָא אֱלֹקִים",
+            "skill": "subject_identification",
+            "question_type": "subject_identification",
+            "question": "Who is doing the action here?",
+            "selected_word": "אֱלֹקִים",
+            "word": "אֱלֹקִים",
+            "correct_answer": "God",
+            "choices": ["God", "the heavens", "the earth", "light"],
+            "pasuk": active_record["text"],
+            "pasuk_ref": active_record["ref"],
         }
         repeated = dict(question)
         repeated["_assessment_source"] = "targeted"
         fallback = {
-            "skill": "translation",
-            "question": "What does אֱלֹקִים mean?",
-            "selected_word": "אֱלֹקִים",
-            "word": "אֱלֹקִים",
-            "correct_answer": "God",
-            "choices": ["God", "created", "light", "water"],
-            "pasuk": "בְּרֵאשִׁית בָּרָא אֱלֹקִים",
+            "skill": "subject_identification",
+            "question_type": "subject_identification",
+            "question": "Who is doing the action here?",
+            "selected_word": "הַשָּׁמַיִם",
+            "word": "הַשָּׁמַיִם",
+            "correct_answer": "the heavens",
+            "choices": ["the heavens", "God", "the earth", "light"],
+            "pasuk": active_record["text"],
+            "pasuk_ref": active_record["ref"],
         }
 
         st.session_state.recent_questions = [streamlit_app.question_signature(question)]
 
-        with patch.object(question_flow, "analyze_generator_pasuk", return_value="בְּרֵאשִׁית בָּרָא אֱלֹקִים"), \
+        with patch.object(question_flow, "analyze_generator_pasuk", return_value=active_record["text"]), \
              patch.object(question_flow, "generate_skill_question", return_value=dict(repeated)), \
              patch.object(question_flow, "generate_practice_question", return_value=dict(fallback)):
-            result = build_followup_question({"current_skill": "translation"}, question)
+            result = build_followup_question({"current_skill": "subject_identification"}, question)
 
         self.assertEqual(result["_assessment_source"], "fallback follow-up from active parsed dataset")
         self.assertEqual(result["_debug_trace"]["transition_path"], "practice_fallback")

@@ -44,7 +44,7 @@ class StreamlitModesSmokeTests(unittest.TestCase):
 
         flows = streamlit_app.load_pasuk_flows()
 
-        self.assertEqual(len(flows), 44)
+        self.assertEqual(len(flows), 46)
         self.assertTrue(
             all(active_pasuk_record_for_text(flow["pasuk"]) is not None for flow in flows)
         )

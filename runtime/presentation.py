@@ -69,6 +69,41 @@ def skill_path_label(skill):
     return SKILL_NAMES.get(canonical_skill, canonical_skill.replace("_", " ").title())
 
 
+def question_focus_label(question):
+    if not isinstance(question, dict):
+        return plain_skill(question)
+
+    skill = resolve_skill_id(question.get("skill"))
+    if skill:
+        return skill_path_label(skill)
+
+    question_type = question.get("question_type")
+    if question_type in QUESTION_TYPE_NAMES:
+        return QUESTION_TYPE_NAMES[question_type]
+
+    return standard_display_label(question.get("standard"), "Chumash Reading")
+
+
+def student_skill_context(*, question=None, current_skill=None):
+    current_label = skill_path_label(current_skill) if current_skill else ""
+    focus_label = question_focus_label(question) if isinstance(question, dict) else ""
+
+    if not current_label:
+        current_label = focus_label or "Chumash Reading"
+    if not focus_label:
+        focus_label = current_label
+
+    student_label = current_label
+    if focus_label and focus_label != current_label:
+        student_label = f"{current_label} · {focus_label}"
+
+    return {
+        "current_label": current_label,
+        "focus_label": focus_label,
+        "student_label": student_label,
+    }
+
+
 def get_error_type(skill):
     skill = resolve_skill_id(skill) or skill
     return ERROR_TYPE_BY_SKILL.get(skill)
@@ -98,15 +133,12 @@ def plain_skill(question_or_mode):
             return skill_path_label(canonical)
         return SKILL_NAMES.get(question_or_mode, question_or_mode)
 
-    question_type = question_or_mode.get("question_type")
-    if question_type in QUESTION_TYPE_NAMES:
-        return QUESTION_TYPE_NAMES[question_type]
-    return standard_display_label(question_or_mode.get("standard"), "Chumash Reading")
+    return question_focus_label(question_or_mode)
 
 
 def learning_goal(question):
     if question.get("skill"):
-        return skill_path_label(question["skill"])
+        return question_focus_label(question)
     return micro_standard_display_label(question.get("micro_standard"), plain_skill(question))
 
 

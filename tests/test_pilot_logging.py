@@ -10,6 +10,10 @@ from assessment_scope import active_pesukim_records
 from runtime import pilot_logging
 
 
+class FakeQueryParams(dict):
+    pass
+
+
 class PilotLoggingTests(unittest.TestCase):
     def setUp(self):
         st.session_state.clear()
@@ -44,7 +48,7 @@ class PilotLoggingTests(unittest.TestCase):
 
         self.assertEqual(first_log_id, second_log_id)
         self.assertNotEqual(first_log_id, third_log_id)
-        self.assertEqual(append_mock.call_count, 2)
+        self.assertEqual(append_mock.call_count, 3)
         self.assertTrue(st.session_state.get("pilot_session_id"))
         self.assertTrue(st.session_state.get("pilot_trusted_active_scope_session"))
 
@@ -69,8 +73,9 @@ class PilotLoggingTests(unittest.TestCase):
         ):
             pilot_logging.sync_pilot_served_question(question, practice_type="Learn Mode")
 
-        self.assertEqual(len(captured_events), 1)
-        served_event = captured_events[0]
+        served_events = [event for event in captured_events if event.get("event_type") == "question_served"]
+        self.assertEqual(len(served_events), 1)
+        served_event = served_events[0]
         self.assertEqual(served_event["scope_membership"], "active_parsed")
         self.assertEqual(
             served_event["pasuk_ref"]["label"],
@@ -97,8 +102,9 @@ class PilotLoggingTests(unittest.TestCase):
         ):
             pilot_logging.sync_pilot_served_question(question, practice_type="Learn Mode")
 
-        self.assertEqual(len(captured_events), 1)
-        served_event = captured_events[0]
+        served_events = [event for event in captured_events if event.get("event_type") == "question_served"]
+        self.assertEqual(len(served_events), 1)
+        served_event = served_events[0]
         self.assertEqual(served_event["scope_membership"], "outside_active_parsed")
         self.assertEqual(
             served_event["pasuk_ref"]["label"],
@@ -351,6 +357,9 @@ class PilotLoggingTests(unittest.TestCase):
         self.assertEqual(latest["average_response_time_ms"], 4200.0)
         self.assertEqual(latest["practice_types"], {"Learn Mode": 1})
         self.assertEqual(latest["session_scope_status"], "trusted_active_scope")
+        self.assertEqual(latest["session_origin"], "legacy_or_inferred")
+        self.assertFalse(latest["is_shell_session"])
+        self.assertTrue(latest["is_substantive_session"])
         self.assertEqual(latest["served_question_types"], {"word_meaning": 1})
         self.assertEqual(latest["answered_question_types"], {"word_meaning": 1})
         self.assertEqual(latest["flagged_unclear_question_types"], {"word_meaning": 1})
@@ -367,6 +376,7 @@ class PilotLoggingTests(unittest.TestCase):
         older = export["sessions"][1]
         self.assertEqual(older["session_id"], "pilot-b")
         self.assertEqual(older["session_scope_status"], "outside_active_scope_detected")
+        self.assertEqual(older["session_origin"], "legacy_or_inferred")
         self.assertFalse(older["trusted_active_scope_session"])
         self.assertEqual(older["served_question_types"], {"subject_identification": 1})
         self.assertEqual(older["answered_question_types"], {})
@@ -517,6 +527,391 @@ class PilotLoggingTests(unittest.TestCase):
             self.assertEqual(created_path.read_text(encoding="utf-8"), "")
             self.assertNotEqual(first_path, second_path)
             self.assertIn("fresh-check", first_path.stem)
+
+    def test_refresh_resume_keeps_same_pilot_session_id(self):
+        query_params = FakeQueryParams()
+        lifecycle_events = []
+
+        with patch.object(
+            pilot_logging,
+            "_pilot_query_params_proxy",
+            return_value=query_params,
+        ), patch.object(
+            pilot_logging,
+            "append_pilot_event",
+            side_effect=lambda event, **kwargs: lifecycle_events.append(event) or True,
+        ):
+            first_session_id = pilot_logging.ensure_pilot_session_id()
+            st.session_state.clear()
+            resumed_session_id = pilot_logging.ensure_pilot_session_id()
+
+        self.assertEqual(first_session_id, resumed_session_id)
+        self.assertEqual(query_params[pilot_logging.PILOT_SESSION_QUERY_PARAM], first_session_id)
+        self.assertEqual(
+            [event.get("lifecycle") for event in lifecycle_events if event.get("event_type") == "session_lifecycle"],
+            ["started", "resumed"],
+        )
+
+    def test_repeated_reruns_do_not_generate_new_pilot_session_id(self):
+        query_params = FakeQueryParams()
+        lifecycle_events = []
+
+        with patch.object(
+            pilot_logging,
+            "_pilot_query_params_proxy",
+            return_value=query_params,
+        ), patch.object(
+            pilot_logging,
+            "append_pilot_event",
+            side_effect=lambda event, **kwargs: lifecycle_events.append(event) or True,
+        ):
+            first_session_id = pilot_logging.ensure_pilot_session_id()
+            second_session_id = pilot_logging.ensure_pilot_session_id()
+            third_session_id = pilot_logging.ensure_pilot_session_id()
+
+        self.assertEqual(first_session_id, second_session_id)
+        self.assertEqual(second_session_id, third_session_id)
+        self.assertEqual(
+            [event.get("lifecycle") for event in lifecycle_events if event.get("event_type") == "session_lifecycle"],
+            ["started"],
+        )
+
+    def test_answering_multiple_questions_in_one_sitting_stays_in_one_session(self):
+        first_record = active_pesukim_records()[0]
+        second_record = active_pesukim_records()[1]
+        first_question = {
+            "skill": "translation",
+            "question_type": "translation",
+            "question": "What does this word mean?",
+            "selected_word": "בְּרֵאשִׁית",
+            "correct_answer": "in the beginning",
+            "pasuk": first_record["text"],
+            "pasuk_id": first_record["pasuk_id"],
+        }
+        second_question = {
+            "skill": "shoresh",
+            "question_type": "shoresh",
+            "question": "What is the shoresh?",
+            "selected_word": "בָּרָא",
+            "correct_answer": "ברא",
+            "pasuk": second_record["text"],
+            "pasuk_id": second_record["pasuk_id"],
+        }
+        events = []
+
+        with patch.object(
+            pilot_logging,
+            "append_pilot_event",
+            side_effect=lambda event, **kwargs: events.append(event) or True,
+        ):
+            pilot_logging.sync_pilot_served_question(first_question, practice_type="Learn Mode")
+            pilot_logging.record_pilot_answer(first_question, "in the beginning", True)
+            pilot_logging.sync_pilot_served_question(second_question, practice_type="Learn Mode")
+            pilot_logging.record_pilot_answer(second_question, "ברא", True)
+
+        session_ids = {
+            event.get("session_id")
+            for event in events
+            if event.get("event_type") in {"question_served", "question_answered"}
+        }
+        self.assertEqual(len(session_ids), 1)
+
+    def test_true_restart_creates_new_pilot_session_id(self):
+        query_params = FakeQueryParams()
+        lifecycle_events = []
+
+        with patch.object(
+            pilot_logging,
+            "_pilot_query_params_proxy",
+            return_value=query_params,
+        ), patch.object(
+            pilot_logging,
+            "append_pilot_event",
+            side_effect=lambda event, **kwargs: lifecycle_events.append(event) or True,
+        ):
+            first_session_id = pilot_logging.ensure_pilot_session_id()
+            self.assertTrue(pilot_logging.end_pilot_session(reason="restart_assessment"))
+            st.session_state.clear()
+            second_session_id = pilot_logging.ensure_pilot_session_id()
+
+        self.assertNotEqual(first_session_id, second_session_id)
+        self.assertEqual(query_params[pilot_logging.PILOT_SESSION_QUERY_PARAM], second_session_id)
+        self.assertEqual(
+            [event.get("lifecycle") for event in lifecycle_events if event.get("event_type") == "session_lifecycle"],
+            ["started", "ended", "started"],
+        )
+
+    def test_export_marks_empty_startup_sessions_as_shells_not_substantive_runs(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            path = Path(tmpdir) / "pilot_events.jsonl"
+            events = [
+                {
+                    "event_type": "session_lifecycle",
+                    "timestamp_utc": "2026-04-21T10:00:00+00:00",
+                    "session_id": "pilot-shell",
+                    "scope_id": "local_parsed_bereishis_1_1_to_2_17",
+                    "lifecycle": "started",
+                    "reason": "runtime_initialized",
+                },
+                {
+                    "event_type": "question_served",
+                    "timestamp_utc": "2026-04-21T10:00:01+00:00",
+                    "session_id": "pilot-shell",
+                    "question_log_id": "q-shell",
+                    "scope_id": "local_parsed_bereishis_1_1_to_2_17",
+                    "trusted_scope_mode": "trusted_active_scope",
+                    "trusted_active_scope_requested": True,
+                    "trusted_active_scope_session": True,
+                    "practice_type": "Learn Mode",
+                    "pasuk_ref": {"label": "Bereishis 1:1", "pasuk_id": "bereishis_1_1"},
+                    "scope_membership": "active_parsed",
+                    "question_type": "translation",
+                    "served_status": "served",
+                },
+                {
+                    "event_type": "session_lifecycle",
+                    "timestamp_utc": "2026-04-21T10:05:00+00:00",
+                    "session_id": "pilot-real",
+                    "scope_id": "local_parsed_bereishis_1_1_to_2_17",
+                    "lifecycle": "started",
+                    "reason": "runtime_initialized",
+                },
+                {
+                    "event_type": "question_served",
+                    "timestamp_utc": "2026-04-21T10:05:01+00:00",
+                    "session_id": "pilot-real",
+                    "question_log_id": "q-real",
+                    "scope_id": "local_parsed_bereishis_1_1_to_2_17",
+                    "trusted_scope_mode": "trusted_active_scope",
+                    "trusted_active_scope_requested": True,
+                    "trusted_active_scope_session": True,
+                    "practice_type": "Learn Mode",
+                    "pasuk_ref": {"label": "Bereishis 1:2", "pasuk_id": "bereishis_1_2"},
+                    "scope_membership": "active_parsed",
+                    "question_type": "shoresh",
+                    "served_status": "served",
+                },
+                {
+                    "event_type": "question_answered",
+                    "timestamp_utc": "2026-04-21T10:05:10+00:00",
+                    "session_id": "pilot-real",
+                    "question_log_id": "q-real",
+                    "scope_id": "local_parsed_bereishis_1_1_to_2_17",
+                    "pasuk_ref": {"label": "Bereishis 1:2", "pasuk_id": "bereishis_1_2"},
+                    "scope_membership": "active_parsed",
+                    "question_type": "shoresh",
+                    "is_correct": True,
+                    "response_time_ms": 3200.0,
+                },
+            ]
+            path.write_text(
+                "\n".join(json.dumps(event, ensure_ascii=False) for event in events) + "\n",
+                encoding="utf-8",
+            )
+
+            export = pilot_logging.build_pilot_review_export(max_sessions=5, path=path)
+
+        sessions_by_id = {session["session_id"]: session for session in export["sessions"]}
+        self.assertEqual(export["session_count"], 2)
+        self.assertEqual(export["substantive_session_count"], 1)
+        self.assertEqual(export["shell_session_count"], 1)
+        self.assertEqual(export["summary"]["substantive_session_count"], 1)
+        self.assertEqual(export["summary"]["shell_session_count"], 1)
+        self.assertTrue(sessions_by_id["pilot-shell"]["is_shell_session"])
+        self.assertEqual(sessions_by_id["pilot-shell"]["shell_session_reason"], "single_question_no_answer")
+        self.assertFalse(sessions_by_id["pilot-shell"]["is_substantive_session"])
+        self.assertTrue(sessions_by_id["pilot-real"]["is_substantive_session"])
+
+    def test_build_pilot_review_export_surfaces_fresh_run_validation_signals(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            path = Path(tmpdir) / "runs" / "pilot_session_events_isolated.jsonl"
+            path.parent.mkdir(parents=True, exist_ok=True)
+            events = [
+                {
+                    "event_type": "question_served",
+                    "timestamp_utc": "2026-04-21T12:00:00+00:00",
+                    "session_id": "pilot-one",
+                    "question_log_id": "q1",
+                    "scope_id": "local_parsed_bereishis_1_1_to_2_17",
+                    "trusted_scope_mode": "trusted_active_scope",
+                    "trusted_active_scope_requested": True,
+                    "trusted_active_scope_session": True,
+                    "practice_type": "Learn Mode",
+                    "pasuk_ref": {"label": "Bereishis 1:1", "pasuk_id": "bereishis_1_1"},
+                    "scope_membership": "active_parsed",
+                    "question_type": "translation",
+                    "selected_word": "×‘Ö¼Ö°×¨Öµ××©×Ö´×™×ª",
+                    "question_text": "What does ×‘Ö¼Ö°×¨Öµ××©×Ö´×™×ª mean?",
+                    "served_status": "served",
+                    "debug_pre_serve_validation_passed": True,
+                    "debug_rejection_counts": {
+                        "invalid_tense_target": 2,
+                        "duplicate_distractors": 1,
+                    },
+                },
+                {
+                    "event_type": "question_served",
+                    "timestamp_utc": "2026-04-21T12:03:00+00:00",
+                    "session_id": "pilot-two",
+                    "question_log_id": "q2",
+                    "scope_id": "local_parsed_bereishis_1_1_to_2_17",
+                    "trusted_scope_mode": "trusted_active_scope",
+                    "trusted_active_scope_requested": True,
+                    "trusted_active_scope_session": True,
+                    "practice_type": "Learn Mode",
+                    "pasuk_ref": {"label": "Bereishis 1:2", "pasuk_id": "bereishis_1_2"},
+                    "scope_membership": "active_parsed",
+                    "question_type": "identify_tense",
+                    "selected_word": "×•Ö·×™Ö¼Ö¹××žÖ¶×¨",
+                    "question_text": "What form is shown?",
+                    "served_status": "served",
+                    "debug_pre_serve_validation_passed": False,
+                    "debug_rejection_counts": {
+                        "invalid_tense_target": 1,
+                    },
+                },
+                {
+                    "event_type": "question_flagged",
+                    "timestamp_utc": "2026-04-21T12:03:30+00:00",
+                    "session_id": "pilot-two",
+                    "question_log_id": "q2",
+                    "scope_id": "local_parsed_bereishis_1_1_to_2_17",
+                    "pasuk_ref": {"label": "Bereishis 1:2", "pasuk_id": "bereishis_1_2"},
+                    "scope_membership": "active_parsed",
+                    "question_type": "identify_tense",
+                    "question_text": "What form is shown?",
+                    "selected_word": "×•Ö·×™Ö¼Ö¹××žÖ¶×¨",
+                    "flag": "unclear",
+                },
+            ]
+            path.write_text(
+                "\n".join(json.dumps(event, ensure_ascii=False) for event in events) + "\n",
+                encoding="utf-8",
+            )
+
+            export = pilot_logging.build_pilot_review_export(max_sessions=5, path=path)
+
+        self.assertEqual(export["review_window"]["source_log_is_isolated_run"], True)
+        self.assertEqual(export["review_window"]["fresh_run_only"], True)
+        self.assertEqual(export["review_scope_id"], "local_parsed_bereishis_1_1_to_2_17")
+        warning_codes = {item["code"] for item in export["review_window"]["warnings"]}
+        if pilot_logging.ACTIVE_ASSESSMENT_SCOPE == "local_parsed_bereishis_1_1_to_2_17":
+            self.assertEqual(export["review_window"]["warnings"], [])
+        else:
+            self.assertEqual(warning_codes, {"runtime_scope_differs_from_review_scope"})
+        self.assertEqual(export["summary"]["served_without_validation_signals"]["served_with_validation_flag"], 1)
+        self.assertEqual(export["summary"]["served_without_validation_signals"]["served_without_validation_flag"], 1)
+        self.assertEqual(
+            export["summary"]["top_pre_serve_rejection_codes"][0],
+            {"code": "invalid_tense_target", "count": 3},
+        )
+        self.assertEqual(
+            export["summary"]["top_served_question_families"],
+            {"identify_tense": 1},
+        )
+        self.assertEqual(
+            export["summary"]["top_flagged_unclear_items"][0]["question_type"],
+            "identify_tense",
+        )
+
+    def test_build_pilot_review_export_can_filter_by_session_start_scope_and_trusted_mode(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            path = Path(tmpdir) / "pilot_events.jsonl"
+            events = [
+                {
+                    "event_type": "question_served",
+                    "timestamp_utc": "2026-04-21T10:00:00+00:00",
+                    "session_id": "pilot-old",
+                    "question_log_id": "q-old",
+                    "scope_id": "local_parsed_bereishis_1_1_to_2_17",
+                    "trusted_scope_mode": "trusted_active_scope",
+                    "trusted_active_scope_requested": True,
+                    "trusted_active_scope_session": True,
+                    "practice_type": "Learn Mode",
+                    "pasuk_ref": {"label": "Bereishis 1:1", "pasuk_id": "bereishis_1_1"},
+                    "scope_membership": "active_parsed",
+                    "question_type": "translation",
+                    "served_status": "served",
+                    "debug_pre_serve_validation_passed": True,
+                },
+                {
+                    "event_type": "question_served",
+                    "timestamp_utc": "2026-04-21T12:00:00+00:00",
+                    "session_id": "pilot-keep",
+                    "question_log_id": "q-keep",
+                    "scope_id": "local_parsed_bereishis_1_1_to_2_17",
+                    "trusted_scope_mode": "trusted_active_scope",
+                    "trusted_active_scope_requested": True,
+                    "trusted_active_scope_session": True,
+                    "practice_type": "Learn Mode",
+                    "pasuk_ref": {"label": "Bereishis 1:2", "pasuk_id": "bereishis_1_2"},
+                    "scope_membership": "active_parsed",
+                    "question_type": "shoresh",
+                    "served_status": "served",
+                    "debug_pre_serve_validation_passed": True,
+                },
+                {
+                    "event_type": "question_served",
+                    "timestamp_utc": "2026-04-21T13:00:00+00:00",
+                    "session_id": "pilot-open",
+                    "question_log_id": "q-open",
+                    "scope_id": "local_parsed_bereishis_1_1_to_2_17",
+                    "trusted_scope_mode": "open_pilot_scope",
+                    "trusted_active_scope_requested": False,
+                    "trusted_active_scope_session": False,
+                    "practice_type": "Practice Mode",
+                    "pasuk_ref": {"label": "Bereishis 1:3", "pasuk_id": "bereishis_1_3"},
+                    "scope_membership": "active_parsed",
+                    "question_type": "translation",
+                    "served_status": "served",
+                    "debug_pre_serve_validation_passed": True,
+                },
+                {
+                    "event_type": "question_served",
+                    "timestamp_utc": "2026-04-21T14:00:00+00:00",
+                    "session_id": "pilot-other-scope",
+                    "question_log_id": "q-other",
+                    "scope_id": "local_parsed_bereishis_1_1_to_2_25",
+                    "trusted_scope_mode": "trusted_active_scope",
+                    "trusted_active_scope_requested": True,
+                    "trusted_active_scope_session": True,
+                    "practice_type": "Learn Mode",
+                    "pasuk_ref": {"label": "Bereishis 2:20", "pasuk_id": "bereishis_2_20"},
+                    "scope_membership": "active_parsed",
+                    "question_type": "translation",
+                    "served_status": "served",
+                    "debug_pre_serve_validation_passed": True,
+                },
+            ]
+            path.write_text(
+                "\n".join(json.dumps(event, ensure_ascii=False) for event in events) + "\n",
+                encoding="utf-8",
+            )
+
+            export = pilot_logging.build_pilot_review_export(
+                max_sessions=5,
+                path=path,
+                session_start_since="2026-04-21T11:00:00+00:00",
+                session_start_until="2026-04-21T13:30:00+00:00",
+                scope_id="local_parsed_bereishis_1_1_to_2_17",
+                trusted_active_scope_only=True,
+            )
+
+        self.assertEqual(export["session_count"], 1)
+        self.assertEqual(export["sessions"][0]["session_id"], "pilot-keep")
+        self.assertEqual(export["review_window"]["source_session_count"], 4)
+        self.assertEqual(export["review_window"]["included_session_count"], 1)
+        self.assertEqual(export["review_window"]["excluded_event_count"], 3)
+        warning_codes = {item["code"] for item in export["review_window"]["warnings"]}
+        self.assertIn("source_log_not_isolated", warning_codes)
+        self.assertIn("source_log_multiple_scope_ids", warning_codes)
+        self.assertIn("filters_excluded_source_events", warning_codes)
+        self.assertIn("review_filters_applied", warning_codes)
+        if pilot_logging.ACTIVE_ASSESSMENT_SCOPE != "local_parsed_bereishis_1_1_to_2_17":
+            self.assertIn("runtime_scope_differs_from_review_scope", warning_codes)
+        self.assertEqual(export["review_window"]["scope_id"], "local_parsed_bereishis_1_1_to_2_17")
+        self.assertEqual(export["review_scope_id"], "local_parsed_bereishis_1_1_to_2_17")
+        self.assertTrue(export["review_window"]["trusted_active_scope_only"])
 
 
 if __name__ == "__main__":

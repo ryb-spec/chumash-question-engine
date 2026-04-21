@@ -1,0 +1,151 @@
+{
+  "scope_id": "local_parsed_bereishis_1_1_to_2_25",
+  "question_count": 100,
+  "baseline_lane_counts": {
+    "translation": 25,
+    "shoresh": 17,
+    "tense": 18,
+    "affix": 25
+  },
+  "lane_counts": {
+    "translation": 25,
+    "shoresh": 25,
+    "tense": 25,
+    "affix": 25
+  },
+  "lane_count_delta": {
+    "translation": 0,
+    "shoresh": 8,
+    "tense": 7,
+    "affix": 0
+  },
+  "skill_counts": {
+    "translation": 10,
+    "phrase_translation": 15,
+    "shoresh": 25,
+    "identify_tense": 25,
+    "identify_prefix_meaning": 15,
+    "identify_suffix_meaning": 5,
+    "identify_pronoun_suffix": 5
+  },
+  "issues": [],
+  "duplicate_items": [],
+  "duplicate_reviewed_ids": [],
+  "repeated_targets": [
+    {
+      "family": "shoresh",
+      "target": "ויברא",
+      "count": 2
+    },
+    {
+      "family": "shoresh",
+      "target": "ויקח",
+      "count": 2
+    },
+    {
+      "family": "shoresh",
+      "target": "ויבדל",
+      "count": 2
+    },
+    {
+      "family": "shoresh",
+      "target": "ויאמר",
+      "count": 2
+    },
+    {
+      "family": "shoresh",
+      "target": "ויקרא",
+      "count": 2
+    },
+    {
+      "family": "tense",
+      "target": "ויהי",
+      "count": 2
+    },
+    {
+      "family": "tense",
+      "target": "ויאמר",
+      "count": 2
+    },
+    {
+      "family": "tense",
+      "target": "ויבדל",
+      "count": 2
+    },
+    {
+      "family": "tense",
+      "target": "ויברא",
+      "count": 2
+    },
+    {
+      "family": "tense",
+      "target": "ויעש",
+      "count": 2
+    },
+    {
+      "family": "affix",
+      "target": "בארץ",
+      "count": 2
+    },
+    {
+      "family": "affix",
+      "target": "ביום",
+      "count": 3
+    },
+    {
+      "family": "affix",
+      "target": "לאור",
+      "count": 2
+    },
+    {
+      "family": "affix",
+      "target": "לאשה",
+      "count": 2
+    },
+    {
+      "family": "affix",
+      "target": "לאכלה",
+      "count": 2
+    },
+    {
+      "family": "affix",
+      "target": "לעבדה",
+      "count": 2
+    },
+    {
+      "family": "affix",
+      "target": "לקחה",
+      "count": 2
+    },
+    {
+      "family": "affix",
+      "target": "וחיתו",
+      "count": 2
+    },
+    {
+      "family": "affix",
+      "target": "זרעו",
+      "count": 2
+    }
+  ],
+  "shortfalls": {},
+  "remaining_shortfall_reasons": {},
+  "morphology_support_additions": [
+    "וַתּוֹצֵא",
+    "וַיִּתֵּן",
+    "וַיִּבְרָא",
+    "וַיִּשְׁבֹּת",
+    "עֲשׂוֹת",
+    "יִצְמָח",
+    "וַיִּיצֶר",
+    "וַיִּטַּע",
+    "יִפָּרֵד",
+    "וַיְצַו",
+    "אֶעֱשֶׂה",
+    "וַיִּקַּח",
+    "וַיִּבֶן",
+    "תַּדְשֵׁא",
+    "יִשְׁרְצוּ"
+  ],
+  "valid": true
+}

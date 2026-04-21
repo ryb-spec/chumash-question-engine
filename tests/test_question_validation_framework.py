@@ -2,6 +2,8 @@ import unittest
 from unittest.mock import patch
 
 import pasuk_flow_generator
+import runtime.question_flow as question_flow
+from assessment_scope import active_pesukim_records
 
 
 def _verb_entry(shoresh, tense, **overrides):
@@ -182,6 +184,87 @@ class QuestionValidationFrameworkTests(unittest.TestCase):
 
         self.assertNotEqual(question.get("status"), "skipped")
         self.assertEqual(question.get("selected_word"), "\u05ea\u05e6\u05d0")
+
+    def test_runtime_pre_serve_validation_maps_invalid_tense_target_to_explicit_code(self):
+        active_record = next(
+            record
+            for record in active_pesukim_records()
+            if record.get("ref", {}).get("perek") == 1
+            and record.get("ref", {}).get("pasuk") == 1
+        )
+        question = {
+            "skill": "verb_tense",
+            "question_type": "verb_tense",
+            "question": "What form is shown?",
+            "selected_word": "אֱלֹקִים",
+            "word": "אֱלֹקִים",
+            "correct_answer": "future",
+            "choices": ["future", "past", "present", "to do form"],
+            "pasuk": active_record["text"],
+        }
+
+        validation = question_flow.validate_question_for_serve(
+            question,
+            validation_path="framework_test",
+            trusted_active_scope=True,
+        )
+
+        self.assertFalse(validation["valid"])
+        self.assertIn("invalid_tense_target", validation["rejection_codes"])
+
+    def test_runtime_pre_serve_validation_accepts_safe_generated_translation_question(self):
+        active_record = next(
+            record
+            for record in active_pesukim_records()
+            if record.get("ref", {}).get("perek") == 1
+            and record.get("ref", {}).get("pasuk") == 1
+        )
+
+        with patch.object(pasuk_flow_generator, "pick_word_for_skill", return_value="אֱלֹקִים"):
+            question = question_flow.generate_skill_question(
+                "translation",
+                question_flow.candidate_source_for_pasuk(active_record["text"]),
+            )
+
+        validation = question_flow.validate_question_for_serve(
+            question,
+            validation_path="framework_test",
+            trusted_active_scope=True,
+        )
+
+        self.assertEqual(question.get("selected_word"), "אֱלֹקִים")
+        self.assertEqual(question.get("correct_answer"), "God")
+        self.assertTrue(validation["valid"])
+        self.assertEqual(validation["rejection_codes"], [])
+
+    def test_runtime_pre_serve_validation_rejects_ambiguous_vayehi_translation_target(self):
+        active_record = next(
+            record
+            for record in active_pesukim_records()
+            if record.get("ref", {}).get("perek") == 1
+            and record.get("ref", {}).get("pasuk") == 3
+        )
+        question = {
+            "skill": "translation",
+            "question_type": "translation",
+            "question": "What does וַיְהִי mean?",
+            "selected_word": "וַיְהִי",
+            "word": "וַיְהִי",
+            "correct_answer": "and it was",
+            "word_gloss": "and it was",
+            "part_of_speech": "verb",
+            "choices": ["and it was", "and there was", "created", "God"],
+            "pasuk": active_record["text"],
+        }
+
+        validation = question_flow.validate_question_for_serve(
+            question,
+            validation_path="framework_test",
+            trusted_active_scope=True,
+        )
+
+        self.assertFalse(validation["valid"])
+        self.assertIn("incompatible_skill_target", validation["rejection_codes"])
 
 
 if __name__ == "__main__":

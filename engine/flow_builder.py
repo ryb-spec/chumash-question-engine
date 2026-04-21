@@ -9,15 +9,23 @@ import json
 import random
 import hashlib
 import re
+from copy import deepcopy
 from functools import lru_cache
 from pathlib import Path
 
+from engine.morphology_labels import (
+    canonical_tense_code as canonical_morphology_tense_code,
+    classify_tense_form,
+    student_tense_label as morphology_student_tense_label,
+)
 from assessment_scope import (
     ACTIVE_ASSESSMENT_SCOPE,
     ACTIVE_WORD_BANK_PATH,
     LEGACY_PASUK_FLOW_PREVIEW_PATH,
     active_parsed_pasuk_record_for_text,
+    active_pasuk_ref_payload,
     active_scope_override_for_text,
+    active_scope_reviewed_questions_for_text,
     active_pasuk_record_for_text,
     active_pasuk_texts,
     data_path,
@@ -707,6 +715,57 @@ def active_scope_skill_override(pasuk_text, skill):
     return skills.get(skill)
 
 
+def reviewed_question_skill_aliases(question):
+    return {
+        str(question.get("skill") or "").strip(),
+        *[str(value).strip() for value in question.get("alias_skills") or [] if str(value).strip()],
+    }
+
+
+def reviewed_question_matches_request(question, skill, *, prefix_level=None):
+    requested_skill = str(skill or "").strip()
+    if requested_skill not in reviewed_question_skill_aliases(question):
+        return False
+    if requested_skill == "identify_prefix_meaning" and question.get("prefix_level") is not None:
+        return int(question.get("prefix_level")) == int(prefix_level or 1)
+    return True
+
+
+def clone_reviewed_question(question, requested_skill):
+    cloned = deepcopy(question)
+    cloned.pop("reviewed_id", None)
+    cloned.pop("review_family", None)
+    cloned.pop("alias_skills", None)
+    requested_skill = str(requested_skill or "").strip()
+    if requested_skill and requested_skill != cloned.get("skill"):
+        if {
+            requested_skill,
+            str(cloned.get("skill") or "").strip(),
+        }.issubset({"identify_tense", "verb_tense"}):
+            cloned["skill"] = requested_skill
+            cloned["question_type"] = requested_skill
+    cloned["source"] = "active scope reviewed bank"
+    cloned["analysis_source"] = "active_scope_reviewed_bank"
+    return cloned
+
+
+def reviewed_question_for_pasuk_skill(pasuk_text, skill, *, prefix_level=None):
+    matches = [
+        question
+        for question in active_scope_reviewed_questions_for_text(pasuk_text, skill=skill)
+        if reviewed_question_matches_request(question, skill, prefix_level=prefix_level)
+    ]
+    if not matches:
+        return None
+    question = clone_reviewed_question(matches[0], skill)
+    record = active_pasuk_record_for_text(pasuk_text)
+    if record:
+        question.setdefault("pasuk", record.get("text"))
+        question.setdefault("pasuk_id", record.get("pasuk_id"))
+        question.setdefault("pasuk_ref", active_pasuk_ref_payload(record))
+    return validate_question_payload(question)
+
+
 def override_distractors(pool, correct):
     return [value for value in pool if value and value != correct]
 
@@ -913,7 +972,7 @@ def clean_shoresh_value(value):
 
 
 def student_tense_label(value):
-    return STUDENT_TENSE_LABELS.get(value, value)
+    return morphology_student_tense_label(value)
 
 
 def student_part_of_speech_label(value):
@@ -947,10 +1006,8 @@ def replace_part_of_speech_terms_in_text(text):
 
 
 def tense_form_phrase(value):
-    label = student_tense_label(value)
-    if label == "to do form":
-        return "the 'to do' form"
-    return f"the {label} form"
+    details = classify_tense_form(value)
+    return details.get("display_phrase") or ""
 
 
 def taught_tense_label(value):
@@ -961,10 +1018,7 @@ def taught_tense_label(value):
 
 
 def canonical_tense_code(value):
-    text = clean_value_text(value)
-    if text is None:
-        return None
-    return TENSE_CODE_BY_LABEL.get(text, text)
+    return canonical_morphology_tense_code(value)
 
 
 def fair_tense_choice_codes(correct):
@@ -1062,14 +1116,48 @@ def complete_subjectless_verb_gloss(text):
     if not rendered:
         return rendered
     lower = rendered.lower()
+    nominal_phrase_prefixes = (
+        "the ",
+        "a ",
+        "an ",
+        "this ",
+        "that ",
+        "these ",
+        "those ",
+        "my ",
+        "your ",
+        "his ",
+        "her ",
+        "our ",
+        "their ",
+    )
     if lower.startswith("and "):
         remainder = rendered[4:]
         if remainder.lower().startswith(EXPLICIT_SUBJECT_PREFIXES):
             return rendered
+        if remainder.lower().startswith(nominal_phrase_prefixes):
+            return rendered
+        if remainder.lower().startswith(("let ", "may ")):
+            return rendered
         return f"and he {remainder}"
+    if lower.startswith(("let ", "may ")):
+        return rendered
     if lower.startswith(EXPLICIT_SUBJECT_PREFIXES):
         return rendered
     return rendered
+
+
+def tense_form_details(value, token=""):
+    return classify_tense_form(value, token=token)
+
+
+def tense_question_explanation(target, correct):
+    details = tense_form_details(correct, target["token"])
+    display_phrase = details.get("display_phrase") or tense_form_phrase(correct)
+    word_gloss = usable_translation(target["entry"], target["token"])
+    if word_gloss:
+        return f"{target['token']} means '{word_gloss}', so here it uses {display_phrase}."
+    return f"{target['token']} uses {display_phrase}."
 
 
 def sanitize_entry_translation(value, entry=None, token=None):
@@ -1145,6 +1233,70 @@ def usable_translation(entry, token=None):
     return None
 
 
+AMBIGUOUS_STANDALONE_HAYAH_GLOSSES = {
+    "and it was",
+    "it was",
+    "and there was",
+    "there was",
+}
+
+
+def _standalone_affix_forms(entry, key, legacy_key):
+    forms = []
+    for item in (entry or {}).get(key) or []:
+        if not isinstance(item, dict):
+            continue
+        form = item.get("form")
+        if form and form not in forms:
+            forms.append(form)
+    legacy_form = (entry or {}).get(legacy_key)
+    if legacy_form and legacy_form not in forms:
+        forms.append(legacy_form)
+    return forms
+
+
+def standalone_translation_requires_context(entry, token=None):
+    kind = entry_type(entry)
+    prefix_forms = _standalone_affix_forms(entry, "prefixes", "prefix")
+    suffix_forms = _standalone_affix_forms(entry, "suffixes", "suffix")
+    normalized_prefixes = {normalize_hebrew_key(form) for form in prefix_forms if form}
+    non_conjunction_prefixes = {
+        form
+        for form in normalized_prefixes
+        if form != normalize_hebrew_key("ו")
+    }
+
+    if kind == "noun" and normalize_hebrew_key("ה") in normalized_prefixes:
+        return True
+    if kind != "verb" and (non_conjunction_prefixes or suffix_forms):
+        return True
+    return False
+
+
+def standalone_translation_target(entry, token=None):
+    if usable_translation(entry, token) is None:
+        return False
+    if standalone_translation_requires_context(entry, token):
+        return False
+    if entry_type(entry) != "verb" or not has_leading_vav(token):
+        return True
+    if normalize_hebrew_key((entry or {}).get("shoresh") or "") != normalize_hebrew_key("היה"):
+        return True
+
+    literal = entry.get("translation_literal")
+    context = entry.get("translation_context") or entry.get("context_translation")
+    if is_placeholder_translation(literal, token) or is_placeholder_translation(context, token):
+        return True
+
+    literal = sanitize_entry_translation(literal, entry, token)
+    context = sanitize_entry_translation(context, entry, token)
+    if literal == context:
+        return True
+    if {literal.lower(), context.lower()}.issubset(AMBIGUOUS_STANDALONE_HAYAH_GLOSSES):
+        return False
+    return True
+
+
 def instructional_value(entry, question_type=None):
     if not isinstance(entry, dict):
         return "low"
@@ -1155,7 +1307,10 @@ def instructional_value(entry, question_type=None):
         "subject_identification",
         "object_identification",
     }:
-        if usable_translation(entry, token) is None:
+        if question_type in {"word_meaning", "translation"}:
+            if not standalone_translation_target(entry, token):
+                return "low"
+        elif usable_translation(entry, token) is None:
             return "low"
         if entry.get("entity_type") == "grammatical_particle":
             return "low"
@@ -1485,7 +1640,8 @@ def filtered_translation_values(
     if require_quality_count and correct_entry is not None:
         quality_floor = translation_distractor_quality_floor(correct_entry, question_type)
         high_quality = [value for score, _family, _shape, value in scored_values if score >= quality_floor]
-        return high_quality
+        if len(high_quality) >= require_quality_count:
+            return high_quality
     return [value for _score, _family, _shape, value in scored_values]
 
 
@@ -1509,6 +1665,33 @@ def valid_shorashim(word_bank):
         for entry in word_bank_entries(word_bank, source_derived_only=True)
         if entry.get("type") == "verb" and entry.get("shoresh")
     )
+
+
+def shoresh_similarity_score(correct, candidate):
+    correct_key = normalize_hebrew_key(correct or "")
+    candidate_key = normalize_hebrew_key(candidate or "")
+    if not correct_key or not candidate_key or correct_key == candidate_key:
+        return -1.0
+
+    score = 0.0
+    if len(correct_key) == len(candidate_key):
+        score += 2.0
+    shared_letters = len(set(correct_key) & set(candidate_key))
+    score += float(shared_letters)
+    same_positions = sum(1 for left, right in zip(correct_key, candidate_key) if left == right)
+    score += same_positions * 2.0
+    return score
+
+
+def shoresh_distractors(correct, word_bank):
+    scored = []
+    for shoresh in valid_shorashim(word_bank):
+        score = shoresh_similarity_score(correct, shoresh)
+        if score < 0:
+            continue
+        scored.append((score, shoresh))
+    scored.sort(key=lambda item: (-item[0], item[1]))
+    return [shoresh for _score, shoresh in scored]
 
 
 def translation_distractors(correct, target_entry, by_group, word_bank=None, require_quality_count=0):
@@ -2140,7 +2323,7 @@ def make_question(
     payload.update({
         key: value
         for key, value in extra_fields.items()
-        if value not in {None, ""}
+        if value is not None and value != ""
     })
     return validate_question_payload(payload)
 
@@ -2176,7 +2359,7 @@ def get_suffixed_word(analyzed, word_bank=None):
 
 
 def get_translatable_word(analyzed):
-    return find_first(analyzed, lambda entry, token: usable_translation(entry, token) is not None)
+    return find_first(analyzed, lambda entry, token: standalone_translation_target(entry, token))
 
 
 def get_part_of_speech_word(analyzed):
@@ -2531,11 +2714,67 @@ def shoresh_validation_result(token, entry, correct_answer=None, choices=None, c
     if not expected_shoresh:
         return invalid_result("no_clear_shoresh")
 
-    if entry_type(entry) != "verb" or entry.get("confidence") == "generated_alternate":
+    prefix_types = [
+        prefix.get("type")
+        for prefix in (entry.get("prefixes") or [])
+        if isinstance(prefix, dict) and prefix.get("type")
+    ]
+    allowed_prefix_types = {
+        "conjunction",
+        "verb_prefix_vav_consecutive",
+        "verb_prefix_future",
+    }
+
+    if not clearly_finite_verb_entry(entry, token):
         return invalid_result(
             "shoresh_not_supported",
             entry_type=entry_type(entry),
             confidence=entry.get("confidence"),
+        )
+
+    if any(prefix_type not in allowed_prefix_types for prefix_type in prefix_types):
+        return invalid_result(
+            "shoresh_not_supported",
+            prefix_types=prefix_types,
+            entry_type=entry_type(entry),
+        )
+
+    if runtime_tense_label(entry, token) is None:
+        return invalid_result(
+            "shoresh_not_supported",
+            entry_type=entry_type(entry),
+            confidence=entry.get("confidence"),
+            tense=entry.get("tense"),
+        )
+
+    normalized_token = normalize_hebrew_key(token or "")
+    normalized_shoresh = normalize_hebrew_key(expected_shoresh or "")
+    if "verb_prefix_future" in prefix_types:
+        stripped_future_surface = (
+            normalized_token[1:]
+            if normalized_token[:1] in {"י", "ת", "א", "נ"}
+            else normalized_token
+        )
+        if (
+            len(stripped_future_surface) < 2
+            or (
+                stripped_future_surface != normalized_shoresh
+                and not stripped_future_surface.startswith(normalized_shoresh[:2])
+                and not normalized_shoresh.startswith(stripped_future_surface[:2])
+            )
+        ):
+            return invalid_result(
+                "shoresh_not_supported",
+                prefix_types=prefix_types,
+                token=token,
+                expected_shoresh=expected_shoresh,
+            )
+
+    if len(normalized_shoresh) > 4:
+        return invalid_result(
+            "shoresh_not_supported",
+            token=token,
+            expected_shoresh=expected_shoresh,
         )
 
     if len(_known_prefix_forms(entry)) > 1 or _known_suffix_forms(entry):
@@ -2899,7 +3138,7 @@ def skill_question_payload(
     payload.update({
         key: value
         for key, value in extra_fields.items()
-        if value not in {None, ""}
+        if value is not None and value != ""
     })
     return validate_question_payload(payload)
 
@@ -3021,6 +3260,16 @@ def generate_question(
         except ValueError:
             analyzed = normalize_analyzed_pasuk(analyze_pasuk(pasuk), word_bank)
     pasuk = pasuk_text
+
+    if mode in {"direct", "context"} and analyzed_override is None:
+        reviewed_question = reviewed_question_for_pasuk_skill(
+            pasuk_text,
+            skill,
+            prefix_level=prefix_level,
+        )
+        if reviewed_question is not None:
+            return reviewed_question
+
     asked_set = set(asked_tokens or [])
     used_types = set(asked_question_types or [])
     asked_suffixes = [
@@ -3081,6 +3330,41 @@ def generate_question(
             return selection_text
         return direct_text
 
+    def target_preference_score(item):
+        token = item["token"]
+        entry = item["entry"]
+        kind = entry_type(entry)
+
+        if skill == "translation":
+            score = 0.0
+            if standalone_translation_requires_context(entry, token):
+                score -= 3.0
+            if semantic_group(entry) == "unknown":
+                score -= 0.5
+            return score
+
+        if skill == "shoresh":
+            normalized = normalize_hebrew_key(token)
+            score = 0.0
+            if not normalized.startswith("ו"):
+                score += 2.0
+            elif normalized.startswith(("וי", "ות")):
+                score -= 1.5
+            else:
+                score -= 1.0
+            if normalize_hebrew_key(entry.get("shoresh") or "") == normalize_hebrew_key("היה"):
+                score -= 1.0
+            return score
+
+        return 0.0
+
+    def preferred_target_pool(items):
+        if not items:
+            return []
+        scores = [target_preference_score(item) for item in items]
+        best_score = max(scores)
+        return [item for item, score in zip(items, scores) if score == best_score]
+
     def choose_target(predicate, fallback=None):
         candidates = [item for item in analyzed if predicate(item["entry"], item["token"])]
         if not candidates and fallback is not None:
@@ -3093,7 +3377,7 @@ def generate_question(
             return None
 
         unused = [item for item in candidates if item["token"] not in asked_set]
-        pool = unused or candidates
+        pool = preferred_target_pool(unused or candidates) or (unused or candidates)
         selected_word = pick_word_for_skill(
             [item["token"] for item in pool],
             skill,
@@ -3174,7 +3458,7 @@ def generate_question(
             return None
 
         unused = [item for item in candidates if item["token"] not in asked_set]
-        pool = unused or candidates
+        pool = preferred_target_pool(unused or candidates) or (unused or candidates)
         selected_word = pick_word_for_skill(
             [item["token"] for item in pool],
             skill,
@@ -3562,6 +3846,7 @@ def generate_question(
                 pasuk_word_choices(target["token"]),
                 f"{target['token']} has shoresh {correct}.",
             ))
+        choices = shoresh_distractors(correct, word_bank)
         return validated_question_payload(
             "shoresh",
             target,
@@ -3571,11 +3856,7 @@ def generate_question(
                 "",
             ),
             correct,
-            [
-                entry.get("shoresh")
-                for entry in word_bank.values()
-                if entry.get("type") == "verb"
-            ],
+            choices,
             f"The shoresh of {target['token']} is {correct}.",
         )
 
@@ -3691,6 +3972,8 @@ def generate_question(
         correct = infer_tense(target["entry"], target["token"])
         if correct is None:
             return skip_question_payload(skill, pasuk_text, "No confidently classified verb tense found in this pasuk.")
+        tense_details = tense_form_details(correct, target["token"])
+        display_phrase = tense_details.get("display_phrase") or tense_form_phrase(correct)
         fair_choices = fair_tense_choice_codes(correct)
         if fair_choices is None:
             return skip_question_payload(
@@ -3701,8 +3984,8 @@ def generate_question(
         if mode == "selection":
             prompt_text = (
                 "Which word shows the 'to do' form?"
-                if student_tense_label(correct) == "to do form"
-                else f"Which word shows {tense_form_phrase(correct)}?"
+                if tense_details.get("displayed_label") == "to do form"
+                else f"Which word shows {display_phrase}?"
             )
             return finish(validated_question_payload(
                 "verb_tense",
@@ -3710,7 +3993,11 @@ def generate_question(
                 prompt_text,
                 target["token"],
                 pasuk_word_choices(target["token"]),
-                f"{target['token']} shows {tense_form_phrase(correct)}.",
+                tense_question_explanation(target, correct),
+                tense_display_phrase=display_phrase,
+                base_conjugation=tense_details.get("base_conjugation"),
+                vav_prefix_type=tense_details.get("vav_prefix_type"),
+                accepted_answer_aliases=tense_details.get("accepted_answer_aliases"),
             ))
         return validated_question_payload(
             "verb_tense",
@@ -3722,7 +4009,11 @@ def generate_question(
             ),
             correct,
             fair_choices,
-            f"{target['token']} is read as {tense_form_phrase(correct)}.",
+            tense_question_explanation(target, correct),
+            tense_display_phrase=display_phrase,
+            base_conjugation=tense_details.get("base_conjugation"),
+            vav_prefix_type=tense_details.get("vav_prefix_type"),
+            accepted_answer_aliases=tense_details.get("accepted_answer_aliases"),
         )
 
     if skill == "part_of_speech":
@@ -4130,7 +4421,7 @@ def generate_question(
         )
 
     target = choose_target(
-        lambda entry, token: usable_translation(entry, token) is not None,
+        lambda entry, token: standalone_translation_target(entry, token),
         lambda: get_translatable_word(analyzed),
     )
     if target is None:
@@ -4460,13 +4751,27 @@ def build_translation_question(step, pasuk, analyzed, by_group, word_bank=None):
         )
     entry = target["entry"]
     correct = usable_translation(entry, target["token"])
-    distractors = translation_distractors(correct, entry, by_group, word_bank)
-    choices = build_choices(
+    distractors = translation_distractors(
         correct,
-        distractors,
-        "not the meaning here",
-        f"{pasuk}|wm",
+        entry,
+        by_group,
+        word_bank,
+        require_quality_count=3,
     )
+    try:
+        choices = build_parallel_choices(
+            correct,
+            distractors,
+            f"{pasuk}|wm",
+            token=target["token"],
+        )
+    except ValueError:
+        return skip_question_payload(
+            "translation",
+            pasuk,
+            "No quiz-ready translation choices found in this pasuk.",
+            source="generated pasuk flow",
+        )
     return make_question(
         step,
         "translation",
@@ -4780,17 +5085,21 @@ def build_shoresh_question(step, pasuk, analyzed, word_bank=None):
             source="generated pasuk flow",
         )
     correct = target["entry"].get("shoresh")
-    distractors = [
-        shoresh
-        for shoresh in valid_shorashim(word_bank)
-        if shoresh != correct
-    ]
-    choices = build_choices(
-        correct,
-        distractors,
-        "not a verb",
-        f"{pasuk}|shoresh",
-    )
+    distractors = shoresh_distractors(correct, word_bank)
+    try:
+        choices = build_parallel_choices(
+            correct,
+            distractors,
+            f"{pasuk}|shoresh",
+            token=target["token"],
+        )
+    except ValueError:
+        return skip_question_payload(
+            "shoresh",
+            pasuk,
+            "No quiz-ready shoresh choices found in this pasuk.",
+            source="generated pasuk flow",
+        )
     validation = validate_question_candidate(
         "shoresh",
         target["token"],
@@ -4864,6 +5173,7 @@ def build_tense_question(step, pasuk, analyzed):
             source="generated pasuk flow",
             details=validation,
         )
+    tense_details = tense_form_details(correct, target["token"])
     return make_question(
         step,
         "verb_tense",
@@ -4874,8 +5184,12 @@ def build_tense_question(step, pasuk, analyzed):
         "What form is shown?",
         choices,
         correct,
-        f"{target['token']} is read as {tense_form_phrase(correct)}.",
+        tense_question_explanation(target, correct),
         3,
+        tense_display_phrase=tense_details.get("display_phrase"),
+        base_conjugation=tense_details.get("base_conjugation"),
+        vav_prefix_type=tense_details.get("vav_prefix_type"),
+        accepted_answer_aliases=tense_details.get("accepted_answer_aliases"),
     )
 
 

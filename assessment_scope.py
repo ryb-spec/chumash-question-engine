@@ -69,6 +69,7 @@ def _default_corpus_manifest():
         "data/source/bereishis_1_1_to_1_30.json",
         "data/source/bereishis_1_31_to_2_9.json",
         "data/source/bereishis_2_10_to_2_17.json",
+        "data/source/bereishis_2_18_to_2_25.json",
     ]
     parsed_files = {
         "pesukim": "data/pesukim_100.json",
@@ -91,34 +92,34 @@ def _default_corpus_manifest():
         },
         "source_corpora": [
             {
-                "corpus_id": "source_bereishis_1_1_to_2_17_local",
+                "corpus_id": "source_bereishis_1_1_to_2_25_local",
                 "type": "source_corpus",
                 "sefer": "Bereishis",
                 "range": {
                     "start": {"perek": 1, "pasuk": 1},
-                    "end": {"perek": 2, "pasuk": 17},
+                    "end": {"perek": 2, "pasuk": 25},
                 },
-                "pesukim_count": 48,
+                "pesukim_count": 56,
                 "source_files": list(source_files),
                 "parsed_files": {},
                 "status": "source",
-                "declared_source_range": "1:1-2:17",
+                "declared_source_range": "1:1-2:25",
                 "notes": [
                     "Current local source file backing the active parsed dataset.",
-                    "Current local source corpus spans Bereishis 1:1 through 2:17.",
+                    "Current local source corpus spans Bereishis 1:1 through 2:25.",
                 ],
             }
         ],
         "parsed_corpora": [
             {
-                "corpus_id": "parsed_bereishis_1_1_to_2_17_root",
+                "corpus_id": "parsed_bereishis_1_1_to_2_25_root",
                 "type": "parsed_corpus",
                 "sefer": "Bereishis",
                 "range": {
                     "start": {"perek": 1, "pasuk": 1},
-                    "end": {"perek": 2, "pasuk": 17},
+                    "end": {"perek": 2, "pasuk": 25},
                 },
-                "pesukim_count": 48,
+                "pesukim_count": 56,
                 "source_files": list(source_files),
                 "parsed_files": dict(parsed_files),
                 "status": "active",
@@ -131,16 +132,16 @@ def _default_corpus_manifest():
         ],
         "scopes": [
             {
-                "scope_id": "local_parsed_bereishis_1_1_to_2_17",
+                "scope_id": "local_parsed_bereishis_1_1_to_2_25",
                 "type": "runtime_scope",
                 "sefer": "Bereishis",
                 "range": {
                     "start": {"perek": 1, "pasuk": 1},
-                    "end": {"perek": 2, "pasuk": 17},
+                    "end": {"perek": 2, "pasuk": 25},
                 },
-                "pesukim_count": 48,
-                "source_corpus_id": "source_bereishis_1_1_to_2_17_local",
-                "parsed_corpus_id": "parsed_bereishis_1_1_to_2_17_root",
+                "pesukim_count": 56,
+                "source_corpus_id": "source_bereishis_1_1_to_2_25_local",
+                "parsed_corpus_id": "parsed_bereishis_1_1_to_2_25_root",
                 "source_files": list(source_files),
                 "parsed_files": dict(parsed_files),
                 "status": "active",
@@ -236,6 +237,7 @@ ACTIVE_TRANSLATION_REVIEWS_PATH = resolve_repo_path(
 )
 ACTIVE_SCOPE_OVERRIDES_PATH = resolve_repo_path("data/active_scope_overrides.json")
 ACTIVE_SCOPE_GOLD_ANNOTATIONS_PATH = resolve_repo_path("data/active_scope_gold_annotations.json")
+ACTIVE_SCOPE_REVIEWED_QUESTIONS_PATH = resolve_repo_path("data/active_scope_reviewed_questions.json")
 
 PREVIEW_ARTIFACTS_DIR = repo_path("artifacts", "preview")
 LEGACY_DIR = repo_path("legacy")
@@ -259,6 +261,7 @@ ACTIVE_DATASET_PATHS = {
     "translation_reviews": ACTIVE_TRANSLATION_REVIEWS_PATH,
     "active_scope_overrides": ACTIVE_SCOPE_OVERRIDES_PATH,
     "active_scope_gold_annotations": ACTIVE_SCOPE_GOLD_ANNOTATIONS_PATH,
+    "active_scope_reviewed_questions": ACTIVE_SCOPE_REVIEWED_QUESTIONS_PATH,
 }
 
 
@@ -439,6 +442,17 @@ def _default_active_scope_gold_annotations():
     }
 
 
+def _default_active_scope_reviewed_questions():
+    return {
+        "metadata": {
+            "title": "Active Scope Reviewed Questions",
+            "scope_id": ACTIVE_ASSESSMENT_SCOPE,
+            "status": "active",
+        },
+        "questions": [],
+    }
+
+
 def _canonicalize_active_scope_overrides(payload):
     canonical = deepcopy(payload or {})
     metadata = canonical.setdefault("metadata", {})
@@ -507,6 +521,46 @@ def _canonicalize_active_scope_gold_annotations(payload):
     return canonical
 
 
+def _canonicalize_active_scope_reviewed_questions(payload):
+    canonical = deepcopy(payload or {})
+    metadata = canonical.setdefault("metadata", {})
+    metadata.setdefault("title", "Active Scope Reviewed Questions")
+    metadata.setdefault("scope_id", ACTIVE_ASSESSMENT_SCOPE)
+    metadata.setdefault("status", "active")
+
+    raw_questions = canonical.get("questions", [])
+    if not isinstance(raw_questions, list):
+        raise ValueError("Active scope reviewed questions must store questions as a list.")
+
+    normalized = []
+    seen_ids = set()
+    for item in raw_questions:
+        if not isinstance(item, dict):
+            raise ValueError("Each reviewed question must be an object.")
+        question = deepcopy(item)
+        reviewed_id = str(question.get("reviewed_id") or "").strip()
+        if not reviewed_id:
+            raise ValueError("Each reviewed question must include reviewed_id.")
+        if reviewed_id in seen_ids:
+            raise ValueError(f"Duplicate reviewed question id: {reviewed_id}")
+        seen_ids.add(reviewed_id)
+        skill = str(question.get("skill") or "").strip()
+        if not skill:
+            raise ValueError(f"Reviewed question {reviewed_id} must include skill.")
+        pasuk_id = str(question.get("pasuk_id") or "").strip()
+        if not pasuk_id:
+            raise ValueError(f"Reviewed question {reviewed_id} must include pasuk_id.")
+        alias_skills = question.get("alias_skills") or []
+        if not isinstance(alias_skills, list):
+            raise ValueError(f"Reviewed question {reviewed_id} alias_skills must be a list.")
+        question["alias_skills"] = [str(value).strip() for value in alias_skills if str(value).strip()]
+        question["review_family"] = str(question.get("review_family") or skill).strip()
+        normalized.append(question)
+
+    canonical["questions"] = normalized
+    return canonical
+
+
 @lru_cache(maxsize=1)
 def load_active_scope_overrides_data():
     if not ACTIVE_SCOPE_OVERRIDES_PATH.exists():
@@ -523,12 +577,24 @@ def load_active_scope_gold_annotations_data():
         return _canonicalize_active_scope_gold_annotations(json.load(file))
 
 
+@lru_cache(maxsize=1)
+def load_active_scope_reviewed_questions_data():
+    if not ACTIVE_SCOPE_REVIEWED_QUESTIONS_PATH.exists():
+        return _canonicalize_active_scope_reviewed_questions(_default_active_scope_reviewed_questions())
+    with ACTIVE_SCOPE_REVIEWED_QUESTIONS_PATH.open("r", encoding="utf-8-sig") as file:
+        return _canonicalize_active_scope_reviewed_questions(json.load(file))
+
+
 def active_scope_override_records():
     return dict(load_active_scope_overrides_data().get("overrides", {}))
 
 
 def active_scope_gold_annotation_records():
     return dict(load_active_scope_gold_annotations_data().get("annotations", {}))
+
+
+def active_scope_reviewed_question_records():
+    return tuple(load_active_scope_reviewed_questions_data().get("questions", []))
 
 
 def active_scope_override_for_pasuk_id(pasuk_id):
@@ -562,6 +628,30 @@ def gold_skill_record_for_text(text, skill):
     if not annotation:
         return None
     return (annotation.get("skills") or {}).get(skill)
+
+
+def active_scope_reviewed_questions_for_pasuk_id(pasuk_id, skill=None):
+    if pasuk_id not in active_pasuk_id_set():
+        return tuple()
+    requested_skill = str(skill or "").strip()
+    matches = []
+    for question in active_scope_reviewed_question_records():
+        if question.get("pasuk_id") != pasuk_id:
+            continue
+        if not requested_skill:
+            matches.append(deepcopy(question))
+            continue
+        supported_skills = {str(question.get("skill") or "").strip(), *question.get("alias_skills", [])}
+        if requested_skill in supported_skills:
+            matches.append(deepcopy(question))
+    return tuple(matches)
+
+
+def active_scope_reviewed_questions_for_text(text, skill=None):
+    record = active_pasuk_record_for_text(text)
+    if not record:
+        return tuple()
+    return active_scope_reviewed_questions_for_pasuk_id(record.get("pasuk_id"), skill=skill)
 
 
 def _normalize_gold_translation(text):

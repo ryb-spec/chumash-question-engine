@@ -39,6 +39,7 @@ from runtime.pilot_logging import (
     TEACHER_FLAG_NOTE_MAX_LENGTH,
     build_pilot_review_export,
     current_session_review,
+    end_pilot_session,
     record_pilot_answer,
     record_teacher_flag_label,
     record_teacher_flag_note,
@@ -58,6 +59,7 @@ from runtime.presentation import (
     next_goal_message,
     plain_skill,
     skill_path_label,
+    student_skill_context,
     thinking_tip,
 )
 from runtime.question_flow import (
@@ -83,6 +85,7 @@ from runtime.question_flow import (
     summarize_debug_rejection_counts,
     timed_question_generation,
     answer_to_next_ready_ms,
+    validate_question_for_serve,
     choose_weighted_pasuk_question,
     select_pasuk_first_question,
 )
@@ -246,6 +249,7 @@ def save_progress(progress):
 
 
 def reset_assessment_state():
+    end_pilot_session(reason="restart_assessment")
     for path in [PROGRESS_PATH, SKILL_PROGRESS_PATH]:
         if path.exists():
             path.unlink()
@@ -1416,8 +1420,13 @@ def main():
 
     current_skill = progress["current_skill"]
     next_skill = get_next_skill(current_skill)
+    current_question = st.session_state.get("current_question")
+    sidebar_skill_context = student_skill_context(
+        question=current_question if isinstance(current_question, dict) else None,
+        current_skill=current_skill,
+    )
     st.sidebar.markdown("### Skill path")
-    st.sidebar.write(f"Current skill: **{skill_path_label(current_skill)}**")
+    st.sidebar.write(f"Current skill: **{sidebar_skill_context['student_label']}**")
     st.sidebar.write(f"Next skill: **{skill_path_label(next_skill)}**")
     render_teacher_pilot_monitor(progress)
 

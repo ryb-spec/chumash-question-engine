@@ -29,6 +29,7 @@ def prepare_run(label: str) -> None:
     payload = {
         "isolated_log_path": str(log_path),
         "suggested_export_path": str(export_path),
+        "fresh_run_only_expected": True,
         "powershell_env_command": f"$env:{PILOT_EVENT_LOG_ENV_VAR} = '{log_path}'",
         "streamlit_command": "python -m streamlit run streamlit_app.py",
         "export_command": (
@@ -39,13 +40,41 @@ def prepare_run(label: str) -> None:
     print(json.dumps(payload, ensure_ascii=False, indent=2))
 
 
-def export_run(input_path: Path, output_path: Path, max_sessions: int) -> None:
+def export_run(
+    input_path: Path,
+    output_path: Path,
+    max_sessions: int,
+    *,
+    session_start_since: str | None = None,
+    session_start_until: str | None = None,
+    scope_id: str | None = None,
+    trusted_active_scope_only: bool = False,
+) -> None:
     written_path = write_pilot_review_export(
         output_path,
         max_sessions=max_sessions,
         path=input_path,
+        session_start_since=session_start_since,
+        session_start_until=session_start_until,
+        scope_id=scope_id,
+        trusted_active_scope_only=trusted_active_scope_only,
     )
-    print(json.dumps({"input_log_path": str(input_path), "export_path": str(written_path)}, ensure_ascii=False, indent=2))
+    print(
+        json.dumps(
+            {
+                "input_log_path": str(input_path),
+                "export_path": str(written_path),
+                "filters": {
+                    "session_start_since_utc": session_start_since,
+                    "session_start_until_utc": session_start_until,
+                    "scope_id": scope_id,
+                    "trusted_active_scope_only": trusted_active_scope_only,
+                },
+            },
+            ensure_ascii=False,
+            indent=2,
+        )
+    )
 
 
 def parse_args() -> argparse.Namespace:
@@ -59,6 +88,26 @@ def parse_args() -> argparse.Namespace:
     export_parser.add_argument("--input", required=True, type=Path, help="Input pilot event log path.")
     export_parser.add_argument("--output", required=True, type=Path, help="Output JSON export path.")
     export_parser.add_argument("--max-sessions", type=int, default=20, help="Number of recent sessions to include.")
+    export_parser.add_argument(
+        "--session-start-since",
+        default=None,
+        help="Optional inclusive ISO timestamp; include only sessions that started at or after this time.",
+    )
+    export_parser.add_argument(
+        "--session-start-until",
+        default=None,
+        help="Optional inclusive ISO timestamp; include only sessions that started at or before this time.",
+    )
+    export_parser.add_argument(
+        "--scope-id",
+        default=None,
+        help="Optional scope_id filter for the export.",
+    )
+    export_parser.add_argument(
+        "--trusted-active-scope-only",
+        action="store_true",
+        help="Include only trusted active-scope sessions in the export.",
+    )
     return parser.parse_args()
 
 
@@ -67,7 +116,15 @@ def main() -> None:
     if args.command == "prepare":
         prepare_run(args.label)
         return
-    export_run(args.input, args.output, args.max_sessions)
+    export_run(
+        args.input,
+        args.output,
+        args.max_sessions,
+        session_start_since=args.session_start_since,
+        session_start_until=args.session_start_until,
+        scope_id=args.scope_id,
+        trusted_active_scope_only=bool(args.trusted_active_scope_only),
+    )
 
 
 if __name__ == "__main__":

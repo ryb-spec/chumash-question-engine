@@ -1,0 +1,4 @@
+- [completed] Audit remaining reviewed shoresh/tense candidate pool and identify only high-value backfill opportunities
+- [completed] Backfill reviewed shoresh/tense items with no duplicate-feel padding and only minimal morphology support if needed
+- [completed] Tighten reviewed-bank summary/tests for before-vs-after counts, shortfall reasons, and validator integrity
+- [completed] Run reviewed-bank build, targeted tests, validate-only, and full pytest

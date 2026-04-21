@@ -24,6 +24,7 @@ from assessment_scope import (
 PILOT_EVENT_LOG_ENV_VAR = "CHUMASH_PILOT_EVENT_LOG_PATH"
 DEFAULT_PILOT_EVENT_LOG_PATH = data_path("pilot/pilot_session_events.jsonl")
 PILOT_EVENT_LOG_PATH = DEFAULT_PILOT_EVENT_LOG_PATH
+PILOT_SESSION_QUERY_PARAM = "pilot_session_id"
 TRUSTED_ACTIVE_SCOPE_MODE = "trusted_active_scope"
 OUTSIDE_ACTIVE_PARSED_LABEL = "not in active parsed dataset"
 TEACHER_FLAG_LABELS = (
@@ -79,9 +80,25 @@ def ensure_pilot_log_file(path=None):
     return resolved_path
 
 
-def write_pilot_review_export(output_path, *, max_sessions=5, path=None):
+def write_pilot_review_export(
+    output_path,
+    *,
+    max_sessions=5,
+    path=None,
+    session_start_since=None,
+    session_start_until=None,
+    scope_id=None,
+    trusted_active_scope_only=False,
+):
     resolved_output_path = Path(output_path)
-    export = build_pilot_review_export(max_sessions=max_sessions, path=path)
+    export = build_pilot_review_export(
+        max_sessions=max_sessions,
+        path=path,
+        session_start_since=session_start_since,
+        session_start_until=session_start_until,
+        scope_id=scope_id,
+        trusted_active_scope_only=trusted_active_scope_only,
+    )
     resolved_output_path.parent.mkdir(parents=True, exist_ok=True)
     resolved_output_path.write_text(
         json.dumps(export, ensure_ascii=False, indent=2),
@@ -95,16 +112,137 @@ def new_pilot_session_id():
     return f"pilot-{timestamp}-{uuid4().hex[:8]}"
 
 
+def _pilot_query_params_proxy():
+    try:
+        return st.query_params
+    except Exception:
+        return None
+
+
+def _pilot_query_param_value(key):
+    query_params = _pilot_query_params_proxy()
+    if query_params is None:
+        return None
+    try:
+        value = query_params.get(key)
+    except Exception:
+        return None
+    if isinstance(value, (list, tuple)):
+        value = value[0] if value else None
+    cleaned = str(value or "").strip()
+    return cleaned or None
+
+
+def _set_pilot_query_param(key, value):
+    query_params = _pilot_query_params_proxy()
+    if query_params is None:
+        return False
+    try:
+        query_params[key] = str(value)
+    except Exception:
+        return False
+    return True
+
+
+def _clear_pilot_query_param(key):
+    query_params = _pilot_query_params_proxy()
+    if query_params is None:
+        return False
+    try:
+        if key in query_params:
+            del query_params[key]
+            return True
+    except Exception:
+        try:
+            query_params.pop(key, None)
+            return True
+        except Exception:
+            return False
+    return False
+
+
+def persisted_pilot_session_id():
+    return _pilot_query_param_value(PILOT_SESSION_QUERY_PARAM)
+
+
+def persist_pilot_session_id(session_id):
+    if not session_id:
+        return False
+    return _set_pilot_query_param(PILOT_SESSION_QUERY_PARAM, session_id)
+
+
+def clear_pilot_session_persistence():
+    return _clear_pilot_query_param(PILOT_SESSION_QUERY_PARAM)
+
+
+def build_session_lifecycle_event(*, session_id, lifecycle, reason=""):
+    return {
+        "event_type": "session_lifecycle",
+        "timestamp_utc": utc_now_iso(),
+        "session_id": session_id,
+        "scope_id": ACTIVE_ASSESSMENT_SCOPE,
+        "lifecycle": lifecycle,
+        "reason": reason,
+        "trusted_scope_mode": pilot_scope_mode(),
+        "trusted_active_scope_requested": trusted_active_scope_requested(),
+        "trusted_active_scope_session": trusted_active_scope_session(),
+    }
+
+
 def ensure_pilot_session_id():
     session_id = st.session_state.get("pilot_session_id")
     st.session_state.setdefault("pilot_scope_mode", TRUSTED_ACTIVE_SCOPE_MODE)
     st.session_state.setdefault("pilot_trusted_active_scope_session", True)
+    st.session_state.setdefault("pilot_session_origin", "")
     if session_id:
         return session_id
+    persisted_session_id = persisted_pilot_session_id()
+    if persisted_session_id:
+        st.session_state.pilot_session_id = persisted_session_id
+        st.session_state.pilot_trusted_active_scope_session = True
+        st.session_state.pilot_session_origin = "resumed"
+        append_pilot_event(
+            build_session_lifecycle_event(
+                session_id=persisted_session_id,
+                lifecycle="resumed",
+                reason="browser_refresh_or_streamlit_reconnect",
+            )
+        )
+        return persisted_session_id
     session_id = new_pilot_session_id()
     st.session_state.pilot_session_id = session_id
     st.session_state.pilot_trusted_active_scope_session = True
+    st.session_state.pilot_session_origin = "started"
+    persist_pilot_session_id(session_id)
+    append_pilot_event(
+        build_session_lifecycle_event(
+            session_id=session_id,
+            lifecycle="started",
+            reason="runtime_initialized",
+        )
+    )
     return session_id
+
+
+def end_pilot_session(*, reason="explicit_restart"):
+    session_id = st.session_state.get("pilot_session_id") or persisted_pilot_session_id()
+    if not session_id:
+        clear_pilot_session_persistence()
+        return False
+    append_pilot_event(
+        build_session_lifecycle_event(
+            session_id=session_id,
+            lifecycle="ended",
+            reason=reason,
+        )
+    )
+    clear_pilot_session_persistence()
+    st.session_state.pilot_session_id = None
+    st.session_state.pilot_session_origin = ""
+    st.session_state.pilot_current_question_signature = ""
+    st.session_state.pilot_current_question_log_id = None
+    st.session_state.pilot_current_question_started_at = None
+    return True
 
 
 def pilot_scope_mode():
@@ -200,6 +338,7 @@ def build_question_served_event(
 ):
     pasuk_ref = active_pasuk_ref_for_question(question)
     scope_membership = scope_membership_for_ref(pasuk_ref)
+    debug_trace = question.get("_debug_trace") or {}
     if scope_membership != "active_parsed":
         note_trusted_scope_violation()
     return {
@@ -228,6 +367,17 @@ def build_question_served_event(
         "question_generation_ms": question.get("question_generation_ms"),
         "served_status": "suppressed" if question.get("status") == "skipped" else "served",
         "skip_reason": question.get("reason"),
+        "debug_fallback_path": debug_trace.get("fallback_path", ""),
+        "debug_transition_reason": debug_trace.get("transition_reason", ""),
+        "debug_candidate_filter_reasons": list(debug_trace.get("candidate_filter_reasons") or []),
+        "debug_rejection_counts": dict(debug_trace.get("rejection_counts") or {}),
+        "debug_pre_serve_validation_passed": bool(debug_trace.get("pre_serve_validation_passed")),
+        "debug_pre_serve_validation_path": debug_trace.get("pre_serve_validation_path", ""),
+        "debug_pre_serve_validation_codes": list(debug_trace.get("pre_serve_validation_codes") or []),
+        "debug_reuse_mode": debug_trace.get("reuse_mode", ""),
+        "debug_variety_guard_applied": bool(debug_trace.get("variety_guard_applied")),
+        "debug_variety_guard_source": debug_trace.get("variety_guard_source", ""),
+        "debug_selection_mode": debug_trace.get("selection_mode", ""),
     }
 
 
@@ -435,6 +585,198 @@ def load_pilot_events(*, path=None):
     return events
 
 
+def parse_pilot_timestamp(value):
+    cleaned = str(value or "").strip()
+    if not cleaned:
+        return None
+    try:
+        return datetime.fromisoformat(cleaned)
+    except ValueError:
+        return None
+
+
+def session_start_times(events):
+    starts = {}
+    for event in events:
+        session_id = event.get("session_id")
+        timestamp = parse_pilot_timestamp(event.get("timestamp_utc"))
+        if not session_id or timestamp is None:
+            continue
+        current = starts.get(session_id)
+        if current is None or timestamp < current:
+            starts[session_id] = timestamp
+    return starts
+
+
+def _normalize_review_filter_timestamp(value):
+    if value is None:
+        return None
+    if isinstance(value, datetime):
+        return value
+    return parse_pilot_timestamp(value)
+
+
+def filter_pilot_events(
+    events,
+    *,
+    session_start_since=None,
+    session_start_until=None,
+    scope_id=None,
+    trusted_active_scope_only=False,
+):
+    session_start_since = _normalize_review_filter_timestamp(session_start_since)
+    session_start_until = _normalize_review_filter_timestamp(session_start_until)
+    scope_id = str(scope_id or "").strip() or None
+    source_events = list(events or [])
+    starts = session_start_times(source_events)
+
+    trusted_session_ids = set()
+    if trusted_active_scope_only:
+        for event in source_events:
+            event_scope_mode = event.get("trusted_scope_mode")
+            if bool(event.get("trusted_active_scope_requested")) or bool(event.get("trusted_active_scope_session")):
+                trusted_session_ids.add(event.get("session_id"))
+            elif event_scope_mode == TRUSTED_ACTIVE_SCOPE_MODE:
+                trusted_session_ids.add(event.get("session_id"))
+
+    filtered = []
+    for event in source_events:
+        event_session_id = event.get("session_id")
+        session_started_at = starts.get(event_session_id)
+        event_timestamp = parse_pilot_timestamp(event.get("timestamp_utc"))
+        effective_timestamp = session_started_at or event_timestamp
+
+        if session_start_since is not None and effective_timestamp is not None and effective_timestamp < session_start_since:
+            continue
+        if session_start_until is not None and effective_timestamp is not None and effective_timestamp > session_start_until:
+            continue
+        if scope_id and (event.get("scope_id") or "") != scope_id:
+            continue
+        if trusted_active_scope_only and event_session_id not in trusted_session_ids:
+            continue
+        filtered.append(event)
+
+    return filtered
+
+
+def _event_scope_ids(events):
+    return sorted({event.get("scope_id") for event in events if event.get("scope_id")})
+
+
+def _session_start_range(events):
+    starts = sorted(session_start_times(events).values())
+    if not starts:
+        return {"first": None, "last": None}
+    return {
+        "first": starts[0].isoformat(),
+        "last": starts[-1].isoformat(),
+    }
+
+
+def _is_isolated_pilot_log_path(path):
+    resolved_path = resolve_pilot_event_log_path(path)
+    return resolved_path.parent.name == "runs"
+
+
+def _review_warnings(
+    source_events,
+    filtered_events,
+    *,
+    resolved_path,
+    session_start_since=None,
+    session_start_until=None,
+    scope_id=None,
+    trusted_active_scope_only=False,
+):
+    warnings = []
+    source_scope_ids = _event_scope_ids(source_events)
+    source_session_range = _session_start_range(source_events)
+    excluded_count = max(0, len(source_events) - len(filtered_events))
+
+    if not _is_isolated_pilot_log_path(resolved_path):
+        warnings.append(
+            {
+                "code": "source_log_not_isolated",
+                "message": "This review was built from a non-isolated pilot log path. Older sessions may be present unless filters were applied.",
+            }
+        )
+    if len(source_scope_ids) > 1:
+        warnings.append(
+            {
+                "code": "source_log_multiple_scope_ids",
+                "message": f"This source log contains multiple scope ids: {', '.join(source_scope_ids)}.",
+            }
+        )
+    first_start = source_session_range.get("first")
+    last_start = source_session_range.get("last")
+    if first_start and last_start and first_start[:10] != last_start[:10]:
+        warnings.append(
+            {
+                "code": "source_log_multiple_session_dates",
+                "message": f"This source log spans multiple session start dates ({first_start[:10]} to {last_start[:10]}).",
+            }
+        )
+    if excluded_count:
+        warnings.append(
+            {
+                "code": "filters_excluded_source_events",
+                "message": f"The active review filters excluded {excluded_count} source events from the selected artifact.",
+            }
+        )
+    if session_start_since or session_start_until or scope_id or trusted_active_scope_only:
+        warnings.append(
+            {
+                "code": "review_filters_applied",
+                "message": "This review artifact was generated with explicit filters. Use the included review_window metadata when interpreting counts.",
+            }
+        )
+    return warnings
+
+
+def build_validation_signal_summary(events, *, example_limit=5):
+    served_events = [
+        event for event in events
+        if event.get("event_type") == "question_served"
+    ]
+    rejection_counts = Counter()
+    missing_validation_examples = []
+
+    for event in served_events:
+        for code, count in (event.get("debug_rejection_counts") or {}).items():
+            rejection_counts[code] += count
+        if event.get("served_status") == "served" and not event.get("debug_pre_serve_validation_passed"):
+            if len(missing_validation_examples) < example_limit:
+                missing_validation_examples.append(
+                    {
+                        "session_id": event.get("session_id"),
+                        "question_log_id": event.get("question_log_id"),
+                        "question_type": event.get("question_type"),
+                        "selected_word": event.get("selected_word"),
+                        "pasuk_ref": (event.get("pasuk_ref") or {}).get("label"),
+                    }
+                )
+
+    served_with_validation_flag = sum(
+        1
+        for event in served_events
+        if event.get("served_status") == "served" and event.get("debug_pre_serve_validation_passed")
+    )
+    served_without_validation_flag = sum(
+        1
+        for event in served_events
+        if event.get("served_status") == "served" and not event.get("debug_pre_serve_validation_passed")
+    )
+    return {
+        "served_with_validation_flag": served_with_validation_flag,
+        "served_without_validation_flag": served_without_validation_flag,
+        "served_without_validation_examples": missing_validation_examples,
+        "top_pre_serve_rejection_codes": [
+            {"code": code, "count": count}
+            for code, count in rejection_counts.most_common(8)
+        ],
+    }
+
+
 def latest_teacher_labels_by_question(events):
     labels = {}
     for event in events:
@@ -517,12 +859,13 @@ def build_flagged_review_queue(events, *, max_items=20):
     return flagged_items[:max_items]
 
 
-def build_pilot_summary(sessions, flagged_review_queue):
+def build_pilot_summary(sessions, flagged_review_queue, *, validation_signals=None):
     served_family_counts = Counter()
     top_repeated_flagged_items = []
     seen_fingerprints = set()
+    substantive_sessions = [session for session in sessions if session.get("is_substantive_session")]
 
-    for session in sessions:
+    for session in substantive_sessions:
         served_family_counts.update(session.get("served_question_types", {}))
 
     for item in flagged_review_queue:
@@ -551,7 +894,7 @@ def build_pilot_summary(sessions, flagged_review_queue):
     )
 
     high_unclear_sessions = []
-    for session in sessions:
+    for session in substantive_sessions:
         served = session.get("served_questions", 0) or 0
         flagged = session.get("flagged_unclear", 0) or 0
         unclear_rate = round(flagged / served, 2) if served else 0.0
@@ -578,12 +921,28 @@ def build_pilot_summary(sessions, flagged_review_queue):
         if session.get("session_scope_status") == "outside_active_scope_detected"
     ]
 
-    return {
+    summary = {
         "top_repeated_flagged_items": top_repeated_flagged_items[:5],
+        "top_flagged_unclear_items": top_repeated_flagged_items[:5],
         "highest_unclear_rate_sessions": high_unclear_sessions[:5],
         "dominant_served_question_families": dict(served_family_counts.most_common(6)),
+        "top_served_question_families": dict(served_family_counts.most_common(6)),
         "trusted_scope_violations": trusted_scope_violations,
+        "substantive_session_count": len(substantive_sessions),
+        "shell_session_count": sum(1 for session in sessions if session.get("is_shell_session")),
     }
+    if validation_signals:
+        summary["served_without_validation_signals"] = {
+            "served_with_validation_flag": validation_signals.get("served_with_validation_flag", 0),
+            "served_without_validation_flag": validation_signals.get("served_without_validation_flag", 0),
+            "served_without_validation_examples": list(
+                validation_signals.get("served_without_validation_examples") or []
+            ),
+        }
+        summary["top_pre_serve_rejection_codes"] = list(
+            validation_signals.get("top_pre_serve_rejection_codes") or []
+        )
+    return summary
 
 
 def summarize_pilot_sessions(events, *, max_sessions=5):
@@ -622,6 +981,8 @@ def summarize_pilot_sessions(events, *, max_sessions=5):
                 "response_times_ms": [],
                 "recent_unclear_flags": [],
                 "recent_scope_issues": [],
+                "lifecycle_events": Counter(),
+                "lifecycle_reasons": [],
             },
         )
         timestamp = event.get("timestamp_utc")
@@ -639,7 +1000,13 @@ def summarize_pilot_sessions(events, *, max_sessions=5):
         if trusted_requested and has_scope_signal and scope_membership != "active_parsed":
             session["trusted_active_scope_session"] = False
 
-        if event.get("event_type") == "question_served":
+        if event.get("event_type") == "session_lifecycle":
+            lifecycle = event.get("lifecycle")
+            if lifecycle:
+                session["lifecycle_events"][lifecycle] += 1
+            if event.get("reason"):
+                session["lifecycle_reasons"].append(event.get("reason"))
+        elif event.get("event_type") == "question_served":
             session["served_questions"] += 1
             practice_type = event.get("practice_type")
             if practice_type:
@@ -702,6 +1069,8 @@ def summarize_pilot_sessions(events, *, max_sessions=5):
         answered_question_types = dict(session["answered_question_types"])
         flagged_unclear_question_types = dict(session["flagged_unclear_question_types"])
         served_pasuk_refs = dict(session["served_pasuk_refs"])
+        lifecycle_events = dict(session.pop("lifecycle_events"))
+        lifecycle_reasons = session.pop("lifecycle_reasons")[-5:]
         session_scope_status = "open_pilot_scope"
         if session["trusted_active_scope_requested"]:
             session_scope_status = (
@@ -709,6 +1078,18 @@ def summarize_pilot_sessions(events, *, max_sessions=5):
                 if session["trusted_active_scope_session"]
                 else "outside_active_scope_detected"
             )
+        is_shell_session = (
+            session["answered_questions"] == 0
+            and session["flagged_unclear"] == 0
+            and session["served_questions"] <= 1
+        )
+        shell_session_reason = ""
+        if is_shell_session:
+            if session["served_questions"] == 0:
+                shell_session_reason = "startup_only"
+            elif session["served_questions"] == 1:
+                shell_session_reason = "single_question_no_answer"
+        is_substantive_session = not is_shell_session
         normalized.append(
             {
                 **session,
@@ -722,6 +1103,16 @@ def summarize_pilot_sessions(events, *, max_sessions=5):
                 "flagged_unclear_question_type_total": sum(flagged_unclear_question_types.values()),
                 "served_pasuk_refs": served_pasuk_refs,
                 "session_scope_status": session_scope_status,
+                "session_lifecycle_events": lifecycle_events,
+                "session_lifecycle_reasons": lifecycle_reasons,
+                "session_origin": (
+                    "resumed"
+                    if lifecycle_events.get("resumed")
+                    else ("started" if lifecycle_events.get("started") else "legacy_or_inferred")
+                ),
+                "is_shell_session": is_shell_session,
+                "shell_session_reason": shell_session_reason,
+                "is_substantive_session": is_substantive_session,
                 "recent_unclear_flags": session["recent_unclear_flags"][-5:],
                 "recent_scope_issues": session["recent_scope_issues"][-5:],
             }
@@ -729,16 +1120,87 @@ def summarize_pilot_sessions(events, *, max_sessions=5):
     return normalized
 
 
-def build_pilot_review_export(*, max_sessions=5, path=None):
+def build_pilot_review_export(
+    *,
+    max_sessions=5,
+    path=None,
+    session_start_since=None,
+    session_start_until=None,
+    scope_id=None,
+    trusted_active_scope_only=False,
+):
     resolved_path = resolve_pilot_event_log_path(path)
-    events = load_pilot_events(path=resolved_path)
+    source_events = load_pilot_events(path=resolved_path)
+    events = filter_pilot_events(
+        source_events,
+        session_start_since=session_start_since,
+        session_start_until=session_start_until,
+        scope_id=scope_id,
+        trusted_active_scope_only=trusted_active_scope_only,
+    )
     sessions = summarize_pilot_sessions(events, max_sessions=max_sessions)
     flagged_review_queue = build_flagged_review_queue(events)
+    validation_signals = build_validation_signal_summary(events)
+    source_session_ids = {event.get("session_id") for event in source_events if event.get("session_id")}
+    included_session_ids = {event.get("session_id") for event in events if event.get("session_id")}
+    included_scope_ids = _event_scope_ids(events)
+    review_scope_id = (str(scope_id or "").strip() or None)
+    if not review_scope_id and len(included_scope_ids) == 1:
+        review_scope_id = included_scope_ids[0]
+    review_warnings = _review_warnings(
+        source_events,
+        events,
+        resolved_path=resolved_path,
+        session_start_since=session_start_since,
+        session_start_until=session_start_until,
+        scope_id=scope_id,
+        trusted_active_scope_only=trusted_active_scope_only,
+    )
+    if review_scope_id and review_scope_id != ACTIVE_ASSESSMENT_SCOPE:
+        review_warnings.append(
+            {
+                "code": "runtime_scope_differs_from_review_scope",
+                "message": (
+                    f"The current runtime scope is {ACTIVE_ASSESSMENT_SCOPE}, "
+                    f"but this review artifact is scoped to {review_scope_id}."
+                ),
+            }
+        )
+    review_window = {
+        "session_start_since_utc": (
+            _normalize_review_filter_timestamp(session_start_since).isoformat()
+            if _normalize_review_filter_timestamp(session_start_since) is not None
+            else None
+        ),
+        "session_start_until_utc": (
+            _normalize_review_filter_timestamp(session_start_until).isoformat()
+            if _normalize_review_filter_timestamp(session_start_until) is not None
+            else None
+        ),
+        "scope_id": str(scope_id or "").strip() or None,
+        "trusted_active_scope_only": bool(trusted_active_scope_only),
+        "source_event_count": len(source_events),
+        "included_event_count": len(events),
+        "excluded_event_count": max(0, len(source_events) - len(events)),
+        "source_session_count": len(source_session_ids),
+        "included_session_count": len(included_session_ids),
+        "source_scope_ids": _event_scope_ids(source_events),
+        "included_scope_ids": included_scope_ids,
+        "source_session_start_range_utc": _session_start_range(source_events),
+        "included_session_start_range_utc": _session_start_range(events),
+        "source_log_is_isolated_run": _is_isolated_pilot_log_path(resolved_path),
+        "fresh_run_only": _is_isolated_pilot_log_path(resolved_path),
+        "warnings": review_warnings,
+    }
     return {
         "generated_at_utc": utc_now_iso(),
         "scope_id": ACTIVE_ASSESSMENT_SCOPE,
+        "runtime_scope_id": ACTIVE_ASSESSMENT_SCOPE,
+        "review_scope_id": review_scope_id,
+        "review_scope_ids": included_scope_ids,
         "log_path": str(resolved_path),
         "configured_log_env_var": PILOT_EVENT_LOG_ENV_VAR,
+        "review_window": review_window,
         "accounting_model": {
             "served_question_types": "question_served events only",
             "answered_question_types": "question_answered events only",
@@ -747,10 +1209,16 @@ def build_pilot_review_export(*, max_sessions=5, path=None):
         "teacher_flag_labels": list(TEACHER_FLAG_LABELS),
         "student_flag_note_max_length": STUDENT_FLAG_NOTE_MAX_LENGTH,
         "teacher_flag_note_max_length": TEACHER_FLAG_NOTE_MAX_LENGTH,
-        "session_count": len({event.get("session_id") for event in events if event.get("session_id")}),
+        "session_count": len(included_session_ids),
+        "substantive_session_count": sum(1 for session in sessions if session.get("is_substantive_session")),
+        "shell_session_count": sum(1 for session in sessions if session.get("is_shell_session")),
         "sessions": sessions,
         "flagged_review_queue": flagged_review_queue,
-        "summary": build_pilot_summary(sessions, flagged_review_queue),
+        "summary": build_pilot_summary(
+            sessions,
+            flagged_review_queue,
+            validation_signals=validation_signals,
+        ),
     }
 
 
@@ -794,6 +1262,12 @@ def current_session_review(*, path=None):
         "flagged_unclear_question_type_total": 0,
         "served_pasuk_refs": {},
         "average_response_time_ms": None,
+        "session_lifecycle_events": {},
+        "session_lifecycle_reasons": [],
+        "session_origin": st.session_state.get("pilot_session_origin") or "legacy_or_inferred",
+        "is_shell_session": True,
+        "shell_session_reason": "startup_only",
+        "is_substantive_session": False,
         "recent_unclear_flags": [],
         "recent_scope_issues": [],
     }

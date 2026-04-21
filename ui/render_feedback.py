@@ -6,7 +6,7 @@ from runtime.pilot_logging import (
     mark_current_question_unclear,
     question_is_flagged_unclear,
 )
-from runtime.presentation import get_next_skill, plain_skill, skill_path_label
+from runtime.presentation import get_next_skill, skill_path_label
 from runtime.runtime_support import last_answer_was_correct, mixed_text_html
 from ui.question_support import clue_sentence, render_grammar_clues
 
@@ -18,22 +18,33 @@ def render_feedback(question, progress):
     status_class = "correct" if is_correct else "incorrect"
     selected = st.session_state.selected_answer or ""
     practice_type = st.session_state.get("practice_type", "Learn Mode")
-    skill_label = plain_skill(question)
+    current_skill = progress.get("current_skill", question.get("skill", ""))
     feedback = build_feedback_context(
         question=question,
         selected_answer=selected,
         is_correct=is_correct,
         clue_text=clue_sentence(question),
         practice_type=practice_type,
-        skill_label=skill_label,
-        next_skill_label=skill_path_label(get_next_skill(progress.get("current_skill", question.get("skill", "")))),
+        skill_label=skill_path_label(current_skill or question.get("skill", "")),
+        current_skill=current_skill,
+        next_skill_label=skill_path_label(get_next_skill(current_skill or question.get("skill", ""))),
     )
-    short_clue = feedback["grammar_feedback"] or feedback["clue_that_mattered"]
-    short_explanation = feedback["explanation"]
-    if short_explanation == short_clue:
-        short_explanation = feedback["clue_that_mattered"]
-    if short_explanation == short_clue:
-        short_explanation = ""
+    main_lines = [
+        ("Rule", feedback.get("rule_text", "")),
+        ("Core", feedback.get("core_text", "")),
+        ("Here", feedback.get("here_text", "")),
+        ("Why Not", feedback.get("tempting_wrong_text", "")),
+    ]
+    main_lines = [(label, value) for label, value in main_lines if value]
+    primary_detail_html = "".join(
+        f"""
+        <div class="feedback-line">
+            <span>{label}</span>
+            <div>{mixed_text_html(value)}</div>
+        </div>
+        """
+        for label, value in main_lines
+    )
 
     st.markdown(
         f"""
@@ -42,6 +53,7 @@ def render_feedback(question, progress):
                 <strong>{feedback['title']}</strong>
                 <span>{point_change}</span>
             </div>
+            <div class="section-label feedback-heading">{feedback['student_skill_label']}</div>
             <div class="feedback-line">
                 <span>Your answer</span>
                 <b>{mixed_text_html(feedback['selected_answer'])}</b>
@@ -50,22 +62,19 @@ def render_feedback(question, progress):
                 <span>Correct answer</span>
                 <b>{mixed_text_html(feedback['correct_answer'])}</b>
             </div>
-            <div class="section-label feedback-heading">Grammar</div>
-            <div class="feedback-line feedback-clue">
-                <span>Clue</span>
-                <div>{mixed_text_html(short_clue)}</div>
-            </div>
-            <div class="feedback-line feedback-note">
-                <span>Why</span>
-                <div>{mixed_text_html(short_explanation)}</div>
-            </div>
+            {primary_detail_html}
         </section>
         """,
         unsafe_allow_html=True,
     )
-    extra_detail = bool(feedback["clue_that_mattered"] or feedback["explanation"] or feedback["likely_confusion"])
+    extra_detail = bool(
+        feedback["clue_that_mattered"]
+        or feedback["explanation"]
+        or feedback["likely_confusion"]
+        or feedback.get("secondary_detail")
+    )
     if extra_detail:
-        with st.expander("More grammar detail", expanded=False):
+        with st.expander("More detail", expanded=False):
             if feedback["clue_that_mattered"]:
                 st.markdown(
                     f"""
@@ -78,7 +87,25 @@ def render_feedback(question, progress):
                     """,
                     unsafe_allow_html=True,
                 )
-            if feedback["explanation"] and feedback["explanation"] not in {short_clue, short_explanation}:
+            if feedback.get("secondary_detail"):
+                st.markdown(
+                    f"""
+                    <section class="feedback-detail-grid">
+                        <div class="feedback-detail">
+                            <span>More To Know</span>
+                            <div>{mixed_text_html(feedback['secondary_detail'])}</div>
+                        </div>
+                    </section>
+                    """,
+                    unsafe_allow_html=True,
+                )
+            if feedback["explanation"] and feedback["explanation"] not in {
+                feedback.get("rule_text", ""),
+                feedback.get("core_text", ""),
+                feedback.get("here_text", ""),
+                feedback.get("tempting_wrong_text", ""),
+                feedback.get("secondary_detail", ""),
+            }:
                 st.markdown(
                     f"""
                     <section class="feedback-detail-grid">

@@ -11,9 +11,8 @@ from runtime.presentation import (
     QUESTION_TYPE_NAMES,
     get_next_skill,
     get_skill_level,
-    learning_goal,
-    plain_skill,
     skill_path_label,
+    student_skill_context,
     thinking_tip,
 )
 from runtime.question_flow import build_quiz_debug_payload, display_context_policy
@@ -455,7 +454,7 @@ def render_quiz_debug_panel(question, progress=None, flow=None):
             st.caption(f"Answer to next ready: {debug['answer_to_next_ready_ms']} ms")
 
 
-def render_debug(question):
+def render_debug(question, progress=None):
     word_bank_metadata = load_word_bank_metadata()
     selected_word = question.get("selected_word") or question.get("word", "")
     word_entry = word_bank_metadata.get(selected_word)
@@ -475,10 +474,12 @@ def render_debug(question):
         difficulty = word_entry.get("difficulty")
 
     difficulty = difficulty or question.get("difficulty", 1)
+    current_skill = (progress or {}).get("current_skill", question.get("skill", ""))
+    skill_context = student_skill_context(question=question, current_skill=current_skill)
     st.markdown(
         f"""
         <div class="learning-chips">
-            <span>{escape(learning_goal(question))}</span>
+            <span>{escape(skill_context['student_label'])}</span>
             <span>Level {escape(str(difficulty))}</span>
             <span dir="rtl" lang="he">{mixed_text_html(selected_word)}</span>
         </div>
@@ -494,6 +495,10 @@ def render_learning_header(question, progress, flow=None):
     level = get_skill_level(xp)
     skill_state = st.session_state.get("last_skill_state")
     mastery_score = skill_state["score"] if skill_state else score
+    source = get_source_label(question, flow)
+    practice_type = "Pasuk Flow" if flow is not None else st.session_state.get("practice_type", "Learn Mode")
+    current_skill = progress.get("current_skill", question.get("skill", standard))
+    skill_context = student_skill_context(question=question, current_skill=current_skill)
 
     if flow is not None:
         steps = flow.get("questions") or flow.get("steps", [])
@@ -503,17 +508,14 @@ def render_learning_header(question, progress, flow=None):
         step_text = f"Step {step_index} of {len(steps)}"
     else:
         progress_value = mastery_score / 100
-        progress_text = f"You're building {plain_skill(question).lower()}."
+        progress_text = f"You're building {skill_context['current_label']}."
         step_text = f"Practice level {level}"
 
-    source = get_source_label(question, flow)
-    practice_type = "Pasuk Flow" if flow is not None else st.session_state.get("practice_type", "Learn Mode")
-    current_skill = progress.get("current_skill", question.get("skill", standard))
     next_skill_label = skill_path_label(get_next_skill(current_skill))
     header_context = build_learning_context(
         practice_type=practice_type,
-        skill_label=plain_skill(question),
-        current_skill_label=skill_path_label(current_skill),
+        skill_label=skill_context["focus_label"],
+        current_skill_label=skill_context["current_label"],
         next_skill_label=next_skill_label,
         source_label=source,
         focus_tip=thinking_tip(question),
@@ -524,7 +526,7 @@ def render_learning_header(question, progress, flow=None):
             <div class="meta-row quiz-meta-row">
                 <span>{escape(source)}</span>
                 <span>{escape(step_text)}</span>
-                <span>{escape(plain_skill(question))}</span>
+                <span>{escape(skill_context['student_label'])}</span>
                 <span class="mastery-chip">Mastery {escape(str(mastery_score))}/100</span>
             </div>
             <p class="focus-line">{escape(header_context['what_to_focus_on'])}</p>
@@ -654,7 +656,7 @@ def render_question(question, progress, button_prefix, flow=None):
     render_learning_header(question, progress, flow)
     with st.container():
         render_pasukh_panel(question, flow)
-        render_debug(question)
+        render_debug(question, progress=progress)
         st.markdown(
             f"""
             <section
