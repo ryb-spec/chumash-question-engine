@@ -41,7 +41,7 @@ def current_expansion_chunk_records():
         record
         for record in active_pesukim_records()
         if record.get("ref", {}).get("perek") == 2
-        and 10 <= record.get("ref", {}).get("pasuk", 0) <= 17
+        and 18 <= record.get("ref", {}).get("pasuk", 0) <= 25
     ]
 
 
@@ -217,6 +217,18 @@ class ActiveRuntimeQualityTests(unittest.TestCase):
             (2, 9): {
                 "object_identification": "every tree",
             },
+            (2, 11): {
+                "phrase_translation": "the name of the first is Pishon",
+            },
+            (2, 12): {
+                "phrase_translation": "and the gold of that land is good",
+            },
+            (2, 13): {
+                "phrase_translation": "and the name of the second river is Gichon",
+            },
+            (2, 14): {
+                "phrase_translation": "and the fourth river is Phrat",
+            },
             (2, 15): {
                 "phrase_translation": "and the LORD God took the man",
             },
@@ -247,32 +259,51 @@ class ActiveRuntimeQualityTests(unittest.TestCase):
         }
         taught_tense_labels = {"past", "future", "present", "to do form"}
 
-        translation = generate_question("translation", by_ref[(2, 10)])
-        self.assertNotEqual(translation.get("status"), "skipped")
-        self.assertEqual(translation.get("correct_answer"), "the garden")
+        rich_support = generate_question("translation", by_ref[(2, 18)])
+        self.assertNotEqual(rich_support.get("status"), "skipped")
+        self.assertFalse(is_placeholder_translation(rich_support.get("correct_answer"), rich_support.get("selected_word")))
 
-        for ref, expected_phrase in {
-            (2, 15): "and the LORD God took the man",
-            (2, 16): "and the LORD God commanded",
-            (2, 17): "you shall surely die",
-        }.items():
+        for ref in ((2, 18), (2, 19), (2, 20), (2, 21), (2, 22), (2, 23), (2, 25)):
             pasuk = by_ref[ref]
-            phrase_question = generate_question("phrase_translation", pasuk)
             shoresh_question = generate_question("shoresh", pasuk)
             identify_tense_question = generate_question("identify_tense", pasuk)
             verb_tense_question = generate_question("verb_tense", pasuk)
-            prefix_question = generate_question("identify_prefix_meaning", pasuk)
+            prefix_question = generate_question("identify_prefix_meaning", pasuk, prefix_level=3)
 
-            self.assertNotEqual(phrase_question.get("status"), "skipped")
-            self.assertEqual(phrase_question.get("correct_answer"), expected_phrase)
-            self.assertEqual(phrase_question.get("analysis_source"), "active_scope_override")
-
-            self.assertNotEqual(shoresh_question.get("status"), "skipped")
-            self.assertNotEqual(identify_tense_question.get("status"), "skipped")
-            self.assertNotEqual(verb_tense_question.get("status"), "skipped")
-            self.assertNotEqual(prefix_question.get("status"), "skipped")
+            self.assertNotEqual(shoresh_question.get("status"), "skipped", f"Expected shoresh support for {ref}")
+            self.assertNotEqual(identify_tense_question.get("status"), "skipped", f"Expected identify_tense support for {ref}")
+            self.assertNotEqual(verb_tense_question.get("status"), "skipped", f"Expected verb_tense support for {ref}")
+            self.assertNotEqual(prefix_question.get("status"), "skipped", f"Expected prefix support for {ref}")
             self.assertTrue(set(identify_tense_question.get("choices", [])).issubset(taught_tense_labels))
             self.assertTrue(set(verb_tense_question.get("choices", [])).issubset(taught_tense_labels))
+
+        for ref in ((2, 18), (2, 19), (2, 20), (2, 21), (2, 22), (2, 23), (2, 24), (2, 25)):
+            phrase_question = generate_question("phrase_translation", by_ref[ref])
+            self.assertEqual(phrase_question.get("status"), "skipped", f"Expected honest phrase skip for {ref}")
+            self.assertEqual(
+                phrase_question.get("reason"),
+                "No quiz-ready phrase target found in this pasuk.",
+            )
+
+        for ref in ((2, 19), (2, 20), (2, 21), (2, 22), (2, 23), (2, 25)):
+            translation_question = generate_question("translation", by_ref[ref])
+            self.assertNotEqual(translation_question.get("status"), "skipped", f"Expected translation support for {ref}")
+            self.assertFalse(
+                is_placeholder_translation(
+                    translation_question.get("correct_answer"),
+                    translation_question.get("selected_word"),
+                )
+            )
+
+        skipped_translation = generate_question("translation", by_ref[(2, 24)])
+        self.assertEqual(skipped_translation.get("status"), "skipped")
+        self.assertEqual(
+            skipped_translation.get("reason"),
+            "No usable translation target found in this pasuk.",
+        )
+
+        limited_prefix_only = generate_question("identify_prefix_meaning", by_ref[(2, 24)], prefix_level=3)
+        self.assertNotEqual(limited_prefix_only.get("status"), "skipped")
 
     def test_active_scope_verb_tense_filters_known_nonfinite_article_forms(self):
         expected_bad = {
@@ -954,6 +985,69 @@ class ActiveRuntimeQualityTests(unittest.TestCase):
             result["_debug_trace"]["transition_reason"],
             "Learn Mode moved back to clearer word work before more grammar labels.",
         )
+
+    def test_generate_mastery_question_rebalances_same_skill_when_short_run_gets_stale(self):
+        st.session_state.pilot_scope_mode = "open_pilot_scope"
+        st.session_state.practice_type = "Learn Mode"
+        st.session_state.questions_answered = 5
+        st.session_state.recent_questions = [
+            {"skill": "translation"},
+            {"skill": "shoresh"},
+            {"skill": "translation"},
+            {"skill": "identify_prefix_meaning"},
+            {"skill": "translation"},
+        ]
+        st.session_state.recent_instructional_groups = ["meaning", "mechanical", "meaning", "meaning"]
+
+        progress = {"current_skill": "translation", "prefix_level": 1}
+        translation_question = {
+            "skill": "translation",
+            "question_type": "translation",
+            "question": "What does בָּרָא mean?",
+            "selected_word": "בָּרָא",
+            "correct_answer": "created",
+            "choices": ["created", "light", "earth", "water"],
+            "pasuk": "translation_pasuk",
+        }
+        shoresh_question = {
+            "skill": "shoresh",
+            "question_type": "shoresh",
+            "question": "What is the shoresh of בָּרָא?",
+            "selected_word": "בָּרָא",
+            "correct_answer": "ברא",
+            "choices": ["ברא", "אמר", "ראה", "עשה"],
+            "pasuk": "shoresh_pasuk",
+        }
+
+        def ready_rows(skill):
+            if skill == "translation":
+                return [{"pasuk": "translation_pasuk"}]
+            if skill == "shoresh":
+                return [{"pasuk": "shoresh_pasuk"}]
+            return []
+
+        def generate_question(skill, candidate_source, **kwargs):
+            if skill == "translation":
+                return dict(translation_question)
+            if skill == "shoresh":
+                return dict(shoresh_question)
+            return None
+
+        with patch.object(question_flow, "get_skill_ready_pasuks", side_effect=ready_rows), \
+             patch.object(question_flow, "analyze_generator_pasuk", side_effect=lambda pasuk: pasuk), \
+             patch.object(question_flow, "generate_skill_question", side_effect=generate_question), \
+             patch.object(session_state, "record_selected_pasuk"), \
+             patch.object(session_state, "record_question_feature"), \
+             patch.object(session_state, "record_question_prefix"):
+            result = streamlit_app.generate_mastery_question(progress)
+
+        self.assertEqual(result["skill"], "shoresh")
+        self.assertEqual(result["_debug_trace"]["variety_guard_source"], "translation")
+        self.assertEqual(
+            result["_debug_trace"]["transition_reason"],
+            "Short-run sequencing widened the run after one skill had already appeared several times.",
+        )
+        self.assertIn("translation", result["_debug_trace"]["sequencing_saturated_skills"])
 
 
 if __name__ == "__main__":

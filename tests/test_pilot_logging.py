@@ -429,6 +429,95 @@ class PilotLoggingTests(unittest.TestCase):
         self.assertIsNone(queue_item.get("student_note"))
         self.assertIsNone(queue_item.get("teacher_note"))
 
+    def test_resolve_pilot_event_log_path_supports_env_override(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            configured_path = Path(tmpdir) / "isolated_events.jsonl"
+            explicit_path = Path(tmpdir) / "explicit_events.jsonl"
+
+            with patch.dict(
+                "os.environ",
+                {pilot_logging.PILOT_EVENT_LOG_ENV_VAR: str(configured_path)},
+                clear=False,
+            ):
+                self.assertEqual(
+                    pilot_logging.resolve_pilot_event_log_path(),
+                    configured_path,
+                )
+                self.assertEqual(
+                    pilot_logging.resolve_pilot_event_log_path(explicit_path),
+                    explicit_path,
+                )
+
+    def test_write_pilot_review_export_reads_only_specified_input_log(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            base = Path(tmpdir)
+            first_log = base / "first.jsonl"
+            second_log = base / "second.jsonl"
+            output_path = base / "review.json"
+
+            first_events = [
+                {
+                    "event_type": "question_served",
+                    "timestamp_utc": "2026-04-21T10:00:00+00:00",
+                    "session_id": "pilot-one",
+                    "question_log_id": "q1",
+                    "scope_id": "local_parsed_bereishis_1_1_to_2_17",
+                    "trusted_scope_mode": "trusted_active_scope",
+                    "trusted_active_scope_requested": True,
+                    "trusted_active_scope_session": True,
+                    "practice_type": "Learn Mode",
+                    "pasuk_ref": {"label": "Bereishis 1:1", "pasuk_id": "bereishis_1_1"},
+                    "scope_membership": "active_parsed",
+                    "question_type": "translation",
+                    "served_status": "served",
+                },
+            ]
+            second_events = [
+                {
+                    "event_type": "question_served",
+                    "timestamp_utc": "2026-04-21T11:00:00+00:00",
+                    "session_id": "pilot-two",
+                    "question_log_id": "q2",
+                    "scope_id": "local_parsed_bereishis_1_1_to_2_17",
+                    "trusted_scope_mode": "trusted_active_scope",
+                    "trusted_active_scope_requested": True,
+                    "trusted_active_scope_session": True,
+                    "practice_type": "Practice Mode",
+                    "pasuk_ref": {"label": "Bereishis 1:2", "pasuk_id": "bereishis_1_2"},
+                    "scope_membership": "active_parsed",
+                    "question_type": "shoresh",
+                    "served_status": "served",
+                },
+            ]
+            first_log.write_text(
+                "\n".join(json.dumps(event, ensure_ascii=False) for event in first_events) + "\n",
+                encoding="utf-8",
+            )
+            second_log.write_text(
+                "\n".join(json.dumps(event, ensure_ascii=False) for event in second_events) + "\n",
+                encoding="utf-8",
+            )
+
+            pilot_logging.write_pilot_review_export(output_path, path=second_log, max_sessions=5)
+            export = json.loads(output_path.read_text(encoding="utf-8"))
+
+        self.assertEqual(export["session_count"], 1)
+        self.assertEqual(export["sessions"][0]["session_id"], "pilot-two")
+        self.assertEqual(export["log_path"], str(second_log))
+
+    def test_build_isolated_pilot_log_path_and_file_creation(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            runs_dir = Path(tmpdir)
+            first_path = pilot_logging.build_isolated_pilot_log_path("Fresh Check", base_dir=runs_dir)
+            created_path = pilot_logging.ensure_pilot_log_file(first_path)
+            second_path = pilot_logging.build_isolated_pilot_log_path("Fresh Check", base_dir=runs_dir)
+
+            self.assertEqual(created_path, first_path)
+            self.assertTrue(created_path.exists())
+            self.assertEqual(created_path.read_text(encoding="utf-8"), "")
+            self.assertNotEqual(first_path, second_path)
+            self.assertIn("fresh-check", first_path.stem)
+
 
 if __name__ == "__main__":
     unittest.main()

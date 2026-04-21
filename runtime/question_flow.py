@@ -45,6 +45,7 @@ DEBUG_REJECTION_LABELS = {
     "tense_followup_continue_blocked": "tense follow-up held for broader variety",
     "tense_family_short_run_capped": "tense-family short-run cap blocked",
     "grammar_taxonomy_short_run_capped": "grammar-taxonomy short-run cap blocked",
+    "same_skill_short_run_saturated": "same skill short-run saturation rebalanced",
     "recent_exact_word_repeat": "recent exact-word repeat blocked",
     "recent_same_pasuk_intent_repeat": "same pasuk intent repeat blocked",
     "recent_semantic_sibling_repeat": "semantic sibling repeat blocked",
@@ -137,6 +138,7 @@ MAX_SEQUENCE_SKILLS_PER_GROUP = 2
 MAX_FULL_GENERATION_ROWS_PER_PASS = 8
 SHORT_RUN_TENSE_WINDOW = 10
 SHORT_RUN_TENSE_CAP = 3
+SHORT_RUN_SAME_SKILL_CAP = 3
 
 
 def attach_debug_trace(question, **updates):
@@ -551,6 +553,26 @@ def grammar_taxonomy_selection_block_reason(skill, recent_questions):
     return ""
 
 
+def recent_skill_count(skill, recent_questions, window=LEARN_MODE_SEQUENCE_WINDOW):
+    if not skill:
+        return 0
+    recent_questions = list(recent_questions or [])
+    normalized_skill = (skill or "").lower()
+    return sum(
+        1
+        for item in recent_questions[-window:]
+        if (item or {}).get("skill", "").lower() == normalized_skill
+    )
+
+
+def same_skill_is_saturated(skill, recent_questions, *, question_number=None):
+    if current_routing_mode() != "Learn Mode" or not skill:
+        return False
+    if (question_number or short_run_question_number()) > LEARN_MODE_SEQUENCE_WINDOW:
+        return False
+    return recent_skill_count(skill, recent_questions) >= SHORT_RUN_SAME_SKILL_CAP
+
+
 def trusted_active_scope_selection_enabled():
     return st.session_state.get("pilot_scope_mode", "trusted_active_scope") == "trusted_active_scope"
 
@@ -603,6 +625,7 @@ def sequence_skill_attempt_order(current_skill, recent_instructional_groups):
     current_skill = current_skill or ""
     current_group = get_instructional_group(current_skill)
     question_number = short_run_question_number()
+    recent_questions = list(st.session_state.setdefault("recent_questions", []))
     stage, group_preferences = sequencing_group_preferences(question_number, recent_instructional_groups)
 
     attempted = []
@@ -636,12 +659,29 @@ def sequence_skill_attempt_order(current_skill, recent_instructional_groups):
     if current_skill and current_skill not in attempted:
         attempted.append(current_skill)
 
+    saturated_skills = [
+        skill for skill in attempted
+        if same_skill_is_saturated(skill, recent_questions, question_number=question_number)
+    ]
+    if current_skill in saturated_skills:
+        for sibling_skill in SEQUENCING_GROUP_SKILLS.get(current_group, []):
+            if (
+                sibling_skill != current_skill
+                and sibling_skill in SKILL_ORDER
+                and sibling_skill not in attempted
+            ):
+                attempted = [sibling_skill] + attempted
+                break
+    if saturated_skills:
+        attempted = [skill for skill in attempted if skill not in saturated_skills] + saturated_skills
+
     return {
         "question_number": question_number,
         "stage": stage,
         "group_preferences": group_preferences,
         "attempted_skills": attempted[:MAX_SEQUENCE_SKILL_ATTEMPTS],
         "current_group": current_group,
+        "saturated_skills": saturated_skills,
     }
 
 
@@ -1278,6 +1318,7 @@ def generate_mastery_question(progress):
         stage = sequence_plan["stage"]
         question_number = sequence_plan["question_number"]
         group_preferences = sequence_plan["group_preferences"]
+        saturated_skills = sequence_plan.get("saturated_skills") or []
 
         for skill_to_try in attempted_skills:
             question = select_pasuk_first_question(
@@ -1307,6 +1348,8 @@ def generate_mastery_question(progress):
                 )
             elif skill_to_try != current_skill and is_grammar_taxonomy_skill(current_skill):
                 transition_reason = "Learn Mode moved back to clearer word work before more grammar labels."
+            elif skill_to_try != current_skill and current_skill in saturated_skills:
+                transition_reason = "Short-run sequencing widened the run after one skill had already appeared several times."
 
             question = attach_debug_trace(
                 question,
@@ -1317,6 +1360,7 @@ def generate_mastery_question(progress):
                 sequencing_attempted_skills=attempted_skills,
                 sequencing_selected_group=selected_group,
                 sequencing_source_skill=current_skill,
+                sequencing_saturated_skills=saturated_skills,
                 transition_reason=transition_reason,
             )
             if skill_to_try != current_skill and current_skill in OPENING_MECHANICAL_SKILLS:
@@ -1324,6 +1368,16 @@ def generate_mastery_question(progress):
                     question,
                     variety_guard_applied=True,
                     variety_guard_source=current_skill,
+                )
+            elif skill_to_try != current_skill and current_skill in saturated_skills:
+                question = attach_debug_trace(
+                    question,
+                    variety_guard_applied=True,
+                    variety_guard_source=current_skill,
+                    rejection_counts=increment_debug_rejection_count(
+                        question.get("_debug_trace", {}).get("rejection_counts") or {},
+                        "same_skill_short_run_saturated",
+                    ),
                 )
             return question
         return None

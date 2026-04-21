@@ -30,7 +30,7 @@ class QuestionTargetSelectionTests(unittest.TestCase):
                 self.assertEqual(question.get("pasuk"), pasuk)
                 selected = question.get("selected_word") or question.get("word")
                 self.assertIsNotNone(selected, f"Missing target for {skill} in {pasuk!r}")
-                for token in selected.split():
+                for token in tokenize_pasuk(selected):
                     self.assertIn(
                         token,
                         pasuk_tokens,

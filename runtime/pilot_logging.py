@@ -1,8 +1,11 @@
 from __future__ import annotations
 
 import json
+import os
+import re
 from collections import Counter
 from datetime import datetime, timezone
+from pathlib import Path
 from statistics import mean
 from time import perf_counter
 from uuid import uuid4
@@ -18,7 +21,9 @@ from assessment_scope import (
 )
 
 
-PILOT_EVENT_LOG_PATH = data_path("pilot/pilot_session_events.jsonl")
+PILOT_EVENT_LOG_ENV_VAR = "CHUMASH_PILOT_EVENT_LOG_PATH"
+DEFAULT_PILOT_EVENT_LOG_PATH = data_path("pilot/pilot_session_events.jsonl")
+PILOT_EVENT_LOG_PATH = DEFAULT_PILOT_EVENT_LOG_PATH
 TRUSTED_ACTIVE_SCOPE_MODE = "trusted_active_scope"
 OUTSIDE_ACTIVE_PARSED_LABEL = "not in active parsed dataset"
 TEACHER_FLAG_LABELS = (
@@ -35,6 +40,54 @@ TEACHER_FLAG_NOTE_MAX_LENGTH = 280
 
 def utc_now_iso():
     return datetime.now(timezone.utc).isoformat()
+
+
+def resolve_pilot_event_log_path(path=None):
+    if path:
+        return Path(path)
+    configured_path = os.environ.get(PILOT_EVENT_LOG_ENV_VAR, "").strip()
+    if configured_path:
+        return Path(configured_path)
+    return DEFAULT_PILOT_EVENT_LOG_PATH
+
+
+def _pilot_run_slug(label=""):
+    cleaned = re.sub(r"[^a-zA-Z0-9]+", "-", str(label or "").strip()).strip("-").lower()
+    return cleaned[:40]
+
+
+def build_isolated_pilot_log_path(label="", *, base_dir=None):
+    runs_dir = Path(base_dir) if base_dir else data_path("pilot/runs")
+    stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+    slug = _pilot_run_slug(label)
+    stem = f"pilot_session_events_{stamp}"
+    if slug:
+        stem = f"{stem}_{slug}"
+    path = runs_dir / f"{stem}.jsonl"
+    suffix = 1
+    while path.exists():
+        path = runs_dir / f"{stem}_{suffix}.jsonl"
+        suffix += 1
+    return path
+
+
+def ensure_pilot_log_file(path=None):
+    resolved_path = resolve_pilot_event_log_path(path)
+    resolved_path.parent.mkdir(parents=True, exist_ok=True)
+    if not resolved_path.exists():
+        resolved_path.write_text("", encoding="utf-8")
+    return resolved_path
+
+
+def write_pilot_review_export(output_path, *, max_sessions=5, path=None):
+    resolved_output_path = Path(output_path)
+    export = build_pilot_review_export(max_sessions=max_sessions, path=path)
+    resolved_output_path.parent.mkdir(parents=True, exist_ok=True)
+    resolved_output_path.write_text(
+        json.dumps(export, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+    return resolved_output_path
 
 
 def new_pilot_session_id():
@@ -118,10 +171,11 @@ def question_log_signature(question, *, practice_type="", flow_label="", flow_st
     )
 
 
-def append_pilot_event(record, *, path=PILOT_EVENT_LOG_PATH):
+def append_pilot_event(record, *, path=None):
+    resolved_path = resolve_pilot_event_log_path(path)
     try:
-        path.parent.mkdir(parents=True, exist_ok=True)
-        with path.open("a", encoding="utf-8") as handle:
+        resolved_path.parent.mkdir(parents=True, exist_ok=True)
+        with resolved_path.open("a", encoding="utf-8") as handle:
             handle.write(json.dumps(record, ensure_ascii=False) + "\n")
     except Exception:
         return False
@@ -337,7 +391,7 @@ def mark_current_question_unclear(question, note_text=""):
     return True
 
 
-def record_teacher_flag_label(question_log_id, label, *, session_id=None, path=PILOT_EVENT_LOG_PATH):
+def record_teacher_flag_label(question_log_id, label, *, session_id=None, path=None):
     if label not in TEACHER_FLAG_LABELS:
         return False
     if not question_log_id:
@@ -352,7 +406,7 @@ def record_teacher_flag_label(question_log_id, label, *, session_id=None, path=P
     )
 
 
-def record_teacher_flag_note(question_log_id, note_text, *, session_id=None, path=PILOT_EVENT_LOG_PATH):
+def record_teacher_flag_note(question_log_id, note_text, *, session_id=None, path=None):
     cleaned_note = clean_optional_note(note_text, max_length=TEACHER_FLAG_NOTE_MAX_LENGTH)
     if not question_log_id or not cleaned_note:
         return False
@@ -367,11 +421,12 @@ def record_teacher_flag_note(question_log_id, note_text, *, session_id=None, pat
     )
 
 
-def load_pilot_events(*, path=PILOT_EVENT_LOG_PATH):
-    if not path.exists():
+def load_pilot_events(*, path=None):
+    resolved_path = resolve_pilot_event_log_path(path)
+    if not resolved_path.exists():
         return []
     events = []
-    with path.open("r", encoding="utf-8") as handle:
+    with resolved_path.open("r", encoding="utf-8") as handle:
         for line in handle:
             line = line.strip()
             if not line:
@@ -674,14 +729,16 @@ def summarize_pilot_sessions(events, *, max_sessions=5):
     return normalized
 
 
-def build_pilot_review_export(*, max_sessions=5, path=PILOT_EVENT_LOG_PATH):
-    events = load_pilot_events(path=path)
+def build_pilot_review_export(*, max_sessions=5, path=None):
+    resolved_path = resolve_pilot_event_log_path(path)
+    events = load_pilot_events(path=resolved_path)
     sessions = summarize_pilot_sessions(events, max_sessions=max_sessions)
     flagged_review_queue = build_flagged_review_queue(events)
     return {
         "generated_at_utc": utc_now_iso(),
         "scope_id": ACTIVE_ASSESSMENT_SCOPE,
-        "log_path": str(path),
+        "log_path": str(resolved_path),
+        "configured_log_env_var": PILOT_EVENT_LOG_ENV_VAR,
         "accounting_model": {
             "served_question_types": "question_served events only",
             "answered_question_types": "question_answered events only",
@@ -697,7 +754,7 @@ def build_pilot_review_export(*, max_sessions=5, path=PILOT_EVENT_LOG_PATH):
     }
 
 
-def current_session_review(*, path=PILOT_EVENT_LOG_PATH):
+def current_session_review(*, path=None):
     session_id = st.session_state.get("pilot_session_id")
     if not session_id:
         return None
