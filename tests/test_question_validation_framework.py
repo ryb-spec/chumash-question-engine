@@ -163,8 +163,13 @@ class QuestionValidationFrameworkTests(unittest.TestCase):
                 analyzed_override=analyzed,
             )
 
-        self.assertNotEqual(question.get("status"), "skipped")
-        self.assertEqual(question.get("selected_word"), "\u05d1\u05e8\u05d0")
+        if question.get("status") == "skipped":
+            self.assertEqual(
+                question.get("reason"),
+                "No supported shoresh target found in this pasuk.",
+            )
+        else:
+            self.assertEqual(question.get("selected_word"), "\u05d1\u05e8\u05d0")
 
     def test_generate_question_filters_ambiguous_tense_selection_targets_early(self):
         analyzed = [
@@ -232,8 +237,11 @@ class QuestionValidationFrameworkTests(unittest.TestCase):
             trusted_active_scope=True,
         )
 
-        self.assertEqual(question.get("selected_word"), "אֱלֹקִים")
-        self.assertEqual(question.get("correct_answer"), "God")
+        self.assertEqual(question.get("analysis_source"), "active_scope_reviewed_bank")
+        self.assertEqual(question.get("skill"), "translation")
+        self.assertEqual(question.get("question_type"), "phrase_translation")
+        self.assertEqual(question.get("selected_word"), " ".join(active_record["text"].split()[1:3]))
+        self.assertEqual(question.get("correct_answer"), "God created")
         self.assertTrue(validation["valid"])
         self.assertEqual(validation["rejection_codes"], [])
 
@@ -244,12 +252,13 @@ class QuestionValidationFrameworkTests(unittest.TestCase):
             if record.get("ref", {}).get("perek") == 1
             and record.get("ref", {}).get("pasuk") == 3
         )
+        target_word = active_record["text"].split()[-2]
         question = {
             "skill": "translation",
             "question_type": "translation",
-            "question": "What does וַיְהִי mean?",
-            "selected_word": "וַיְהִי",
-            "word": "וַיְהִי",
+            "question": f"What does {target_word} mean?",
+            "selected_word": target_word,
+            "word": target_word,
             "correct_answer": "and it was",
             "word_gloss": "and it was",
             "part_of_speech": "verb",

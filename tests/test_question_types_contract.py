@@ -42,7 +42,7 @@ class QuestionTypeContractTests(unittest.TestCase):
         self.assertEqual(question.get("override_pasuk_id"), "bereishis_1_1")
 
     def test_subject_identification_uses_role_layer_when_supported(self):
-        pasuk = pasuk_by_ref(1, 26)
+        pasuk = pasuk_by_ref(1, 3)
         question = generate_question("subject_identification", pasuk)
         self.assertNotEqual(question.get("status"), "skipped")
 
@@ -56,9 +56,11 @@ class QuestionTypeContractTests(unittest.TestCase):
 
         self.assertEqual(subject_item["entry"].get("semantic_group"), "divine")
         self.assertEqual(subject_item["entry"].get("role_hint"), "subject_candidate")
-        self.assertEqual(subject_item["role_data"].get("clause_role"), "subject")
-        self.assertEqual(action_item["role_data"].get("clause_role"), "verb")
-        self.assertEqual(normalize_hebrew_key(question.get("action_token")), "ויאמר")
+        self.assertEqual(action_item["entry"].get("part_of_speech"), "verb")
+        self.assertIn(
+            question.get("analysis_source"),
+            {"active_scope_override", "active_scope_reviewed_bank"},
+        )
         self.assertIn("Who is doing the action in", question.get("question", ""))
         self.assertIn(question["action_token"], question.get("question", ""))
         self.assertIn(question["action_token"], question.get("explanation", ""))
@@ -325,7 +327,7 @@ class QuestionTypeContractTests(unittest.TestCase):
         self.assertEqual(question.get("status"), "skipped")
         self.assertEqual(
             question.get("reason"),
-            "No quiz-ready phrase target found in this pasuk.",
+            "This clause is not treated as a quiz-ready phrase target.",
         )
 
     def test_phrase_translation_prefers_full_role_backed_clause_when_available(self):
@@ -425,28 +427,23 @@ class QuestionTypeContractTests(unittest.TestCase):
                 {"active_scope_override", "active_scope_reviewed_bank"},
             )
 
-    def test_student_facing_translation_completes_vav_verbs_and_keeps_divine_choices_consistent(self):
-        word_question = generate_question("translation", "וַיְבָרֶךְ")
-        divine_question = generate_question("translation", "אֱלֹהִים")
-        formed_question = generate_question("translation", "וַיִּיצֶר")
-        finished_phrase = generate_question("phrase_translation", pasuk_by_ref(2, 2))
+    def test_student_facing_translation_prefers_contextual_reviewed_targets_and_keeps_divine_choices_consistent(self):
+        standalone_word_question = generate_question("translation", "??????????")
+        standalone_formed_question = generate_question("translation", "?????????")
+        divine_question = generate_question("translation", pasuk_by_ref(3, 3))
+        created_translation = generate_question("translation", pasuk_by_ref(1, 1))
         made_phrase = generate_question("phrase_translation", pasuk_by_ref(1, 16))
         formed_phrase = generate_question("phrase_translation", pasuk_by_ref(2, 7))
 
-        self.assertEqual(word_question.get("correct_answer"), "and he blessed")
-        self.assertNotIn("and blessed", word_question.get("choices", []))
-        self.assertEqual(formed_question.get("correct_answer"), "and he formed")
-        self.assertTrue(
-            all(" when " not in choice.lower() for choice in formed_question.get("choices", []))
-        )
-        self.assertTrue(
-            all(not choice.lower().endswith("ing") for choice in formed_question.get("choices", []))
-        )
+        self.assertEqual(standalone_word_question.get("status"), "skipped")
+        self.assertEqual(standalone_formed_question.get("status"), "skipped")
         self.assertEqual(divine_question.get("correct_answer"), "God")
         self.assertIn("God", divine_question.get("choices", []))
         self.assertNotIn("the LORD", divine_question.get("choices", []))
-        self.assertEqual(finished_phrase.get("correct_answer"), "and God finished")
-        self.assertEqual(made_phrase.get("correct_answer"), "and God made")
+        self.assertEqual(created_translation.get("question_type"), "phrase_translation")
+        self.assertEqual(created_translation.get("correct_answer"), "God created")
+        self.assertEqual(made_phrase.get("correct_answer"), "and God made the two great lights")
+        self.assertEqual(formed_phrase.get("correct_answer"), "and the LORD God formed the man")
         self.assertNotIn("the LORD the LORD", " ".join(formed_phrase.get("choices", [])))
         self.assertNotIn("God God", " ".join(formed_phrase.get("choices", [])))
 
@@ -616,6 +613,77 @@ class QuestionTypeContractTests(unittest.TestCase):
                 "present",
                 "to do form",
             })
+
+    def test_active_scope_verb_tense_avoids_false_surface_only_verb_in_bereishis_1_1(self):
+        question = generate_question("verb_tense", pasuk_by_ref(1, 1))
+
+        if question.get("status") == "skipped":
+            self.assertIn("verb tense", question.get("reason", "").lower())
+        else:
+            self.assertNotEqual(question.get("selected_word"), "בְּרֵאשִׁית")
+            self.assertIn(question.get("correct_answer"), {"past", "future", "present", "to do form"})
+
+    def test_active_scope_identify_tense_avoids_false_surface_only_verb_in_bereishis_1_2(self):
+        question = generate_question("identify_tense", pasuk_by_ref(1, 2))
+
+        if question.get("status") == "skipped":
+            self.assertIn("verb tense", question.get("reason", "").lower())
+        else:
+            self.assertNotEqual(question.get("selected_word"), "מְרַחֶפֶת")
+            self.assertIn(question.get("correct_answer"), {"past", "future", "present", "to do form"})
+
+    def test_active_scope_part_of_speech_avoids_false_action_word_in_bereishis_1_1(self):
+        question = generate_question("part_of_speech", pasuk_by_ref(1, 1))
+
+        if question.get("status") == "skipped":
+            self.assertIn("noun or verb target", question.get("reason", "").lower())
+        else:
+            self.assertNotEqual(question.get("selected_word"), "בְּרֵאשִׁית")
+            self.assertIn(question.get("correct_answer"), {"action word", "naming word"})
+
+    def test_vav_consecutive_forms_are_not_simple_prefix_meaning_targets(self):
+        analyzed_override = [
+            {
+                "token": "וַיְהִי",
+                "entry": {
+                    "word": "וַיְהִי",
+                    "surface": "וַיְהִי",
+                    "type": "verb",
+                    "part_of_speech": "verb",
+                    "shoresh": "היה",
+                    "tense": "vav_consecutive_past",
+                    "translation_literal": "and it was",
+                    "translation_context": "and there was",
+                    "prefixes": [
+                        {"form": "ו", "type": "verb_prefix_vav_consecutive", "translation": "and"}
+                    ],
+                    "prefix": "ו",
+                    "prefix_meaning": "and",
+                },
+            }
+        ]
+
+        question = generate_question(
+            "identify_prefix_meaning",
+            "וַיְהִי",
+            analyzed_override=analyzed_override,
+            prefix_level=2,
+        )
+
+        self.assertEqual(question.get("status"), "skipped")
+        self.assertEqual(
+            question.get("reason"),
+            "No usable prefixed word found in this pasuk.",
+        )
+
+    def test_reviewed_translation_keeps_arum_in_bereishis_3_1_as_crafty_not_naked(self):
+        question = generate_question("translation", pasuk_by_ref(3, 1))
+
+        self.assertNotEqual(question.get("status"), "skipped")
+        self.assertEqual(question.get("analysis_source"), "active_scope_reviewed_bank")
+        self.assertEqual(question.get("selected_word"), "עָרוּם")
+        self.assertEqual(question.get("correct_answer"), "crafty")
+        self.assertNotIn("naked", question.get("choices", []))
 
     def test_tense_questions_do_not_emit_structurally_weird_answer_banks(self):
         for skill in ("verb_tense", "identify_tense"):

@@ -1,4 +1,4 @@
-- [completed] Audit remaining reviewed shoresh/tense candidate pool and identify only high-value backfill opportunities
-- [completed] Backfill reviewed shoresh/tense items with no duplicate-feel padding and only minimal morphology support if needed
-- [completed] Tighten reviewed-bank summary/tests for before-vs-after counts, shortfall reasons, and validator integrity
-- [completed] Run reviewed-bank build, targeted tests, validate-only, and full pytest
+- [completed] Review the two flagged isolated-pilot unclear items against current runtime behavior and decide accept / reframe / block strictly
+- [completed] Apply only the smallest safe fix if one unclear item is clearly a runtime-quality defect
+- [completed] Add focused regressions for the exact unclear-item pattern(s) touched in this pass
+- [completed] Run targeted tests, full pytest, and prepare one more fresh isolated pilot on the unchanged active scope

@@ -18,6 +18,8 @@ from pasuk_flow_generator import (
     analyze_pasuk as validate_analyze_pasuk,
     canonical_tense_code as question_canonical_tense_code,
     entry_type as question_entry_type,
+    is_placeholder_translation,
+    part_of_speech_target_supported as question_part_of_speech_target_supported,
     runtime_tense_label as question_runtime_tense_label,
     standalone_translation_target as question_standalone_translation_target,
     student_part_of_speech_label as question_student_part_of_speech_label,
@@ -429,13 +431,15 @@ def question_answer_pattern(question):
 def question_signature(question):
     question = question or {}
     pasuk = question.get("pasuk") or ""
+    foundation = dict(question.get("dikduk_foundation") or {})
+    foundation_repeat_key = foundation.get("repeat_key") or ""
 
     return {
         "skill": question.get("skill") or question.get("question_type") or "",
         "repeat_family": question_repeat_family(question),
         "question_type": question_type_key(question),
         "target_word": _signature_text(question.get("selected_word") or question.get("word") or ""),
-        "target_family": question_target_family(question),
+        "target_family": foundation_repeat_key or question_target_family(question),
         "prompt_family": question_prompt_family(question),
         "correct_answer": _signature_text(question.get("correct_answer") or ""),
         "meaning_key": question_meaning_key(question),
@@ -444,6 +448,7 @@ def question_signature(question):
         "surface_pattern": question_surface_pattern(question),
         "source_pasuk": _signature_text(get_active_pasuk_ref(pasuk) if pasuk else ""),
         "prefix_letter": _signature_text(question.get("prefix") or ""),
+        "foundation_repeat_key": foundation_repeat_key,
     }
 
 
@@ -505,6 +510,12 @@ def recent_question_repeat_reason(question, recent_questions):
         if (
             previous.get("concept_key")
             and previous.get("concept_key") == signature.get("concept_key")
+            and previous.get("target_word") != signature["target_word"]
+        ):
+            return "recent_target_family_repeat"
+        if (
+            previous.get("foundation_repeat_key")
+            and previous.get("foundation_repeat_key") == signature.get("foundation_repeat_key")
             and previous.get("target_word") != signature["target_word"]
         ):
             return "recent_target_family_repeat"
@@ -623,6 +634,12 @@ def _question_validation_skill(question):
         "suffix",
     }:
         return "identify_suffix_meaning"
+    if key in {"translation", "word_meaning", "phrase_translation"} or skill in {
+        "translation",
+        "word_meaning",
+        "phrase_translation",
+    }:
+        return "translation"
     if key in {"verb_tense", "identify_tense"} or skill in {"verb_tense", "identify_tense"}:
         return "verb_tense"
     if key == "shoresh" or skill == "shoresh":
@@ -633,6 +650,8 @@ def _question_validation_skill(question):
 def _question_requires_target_analysis(question):
     key = question_type_key(question)
     skill = question.get("skill") or ""
+    if key == "phrase_translation":
+        return False
     return key in TOKEN_ANALYSIS_SKILLS or skill in TOKEN_ANALYSIS_SKILLS or key.startswith("prefix_level_")
 
 
@@ -783,12 +802,15 @@ def _validate_part_of_speech_target(question, target_item):
         return ["invalid_part_of_speech_target"]
 
     entry = target_item["entry"]
+    token = target_item.get("token") or question.get("selected_word") or question.get("word")
     entry_type = _entry_type_for_validation(entry)
     if entry_type not in {"noun", "verb"}:
         return ["invalid_part_of_speech_target"]
 
     if entry.get("confidence") == "generated_alternate":
         return ["low_confidence_target_analysis", "invalid_part_of_speech_target"]
+    if not question_part_of_speech_target_supported(entry, token):
+        return ["invalid_part_of_speech_target"]
 
     expected_label = question_student_part_of_speech_label(entry_type)
     actual_label = question_student_part_of_speech_label(question.get("correct_answer"))
@@ -884,9 +906,34 @@ def _validate_translation_target(question, target_item):
     return list(dict.fromkeys(codes))
 
 
+def _validate_phrase_translation_question(question):
+    target_text = question.get("selected_word") or question.get("word") or ""
+    correct_answer = question.get("correct_answer") or ""
+    if not target_text or not correct_answer:
+        return ["incompatible_skill_target"]
+
+    codes = []
+    if is_placeholder_translation(correct_answer, target_text):
+        codes.append("incompatible_skill_target")
+
+    metadata_gloss = question.get("word_gloss")
+    if metadata_gloss:
+        answer_signature = _choice_signature(correct_answer)
+        gloss_signature = _choice_signature(metadata_gloss)
+        bare_answer_signature = _choice_signature(re.sub(r"^and\s+", "", str(correct_answer), flags=re.IGNORECASE))
+        if gloss_signature not in {answer_signature, bare_answer_signature}:
+            codes.append("explanation_target_conflict")
+
+    return list(dict.fromkeys(codes))
+
+
 def _validate_lane_target(question, target_item, analyzed_items):
     validation_skill = _question_validation_skill(question)
     if validation_skill:
+        if validation_skill == "translation" and question_type_key(question) == "phrase_translation":
+            return _validate_phrase_translation_question(question)
+        if validation_skill == "translation":
+            return _validate_translation_target(question, target_item)
         if not target_item or not target_item.get("entry"):
             invalid_code = GENERATOR_VALIDATION_REASON_CODE_MAP.get(validation_skill, {}).get("invalid_code")
             return [invalid_code or "incompatible_skill_target"]

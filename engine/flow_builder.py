@@ -13,6 +13,7 @@ from copy import deepcopy
 from functools import lru_cache
 from pathlib import Path
 
+from foundation_dikduk import dikduk_foundation_metadata
 from engine.morphology_labels import (
     canonical_tense_code as canonical_morphology_tense_code,
     classify_tense_form,
@@ -24,6 +25,7 @@ from assessment_scope import (
     LEGACY_PASUK_FLOW_PREVIEW_PATH,
     active_parsed_pasuk_record_for_text,
     active_pasuk_ref_payload,
+    gold_skill_record_for_text,
     active_scope_override_for_text,
     active_scope_reviewed_questions_for_text,
     active_pasuk_record_for_text,
@@ -537,6 +539,10 @@ def with_suffix_metadata(item, word_bank=None):
 
 
 def is_suffix_candidate(entry, token, word_bank=None):
+    if entity_type(entry) in {"pronoun", "grammatical_particle"}:
+        return False
+    if entry_type(entry) in {"pronoun", "particle"}:
+        return False
     suffix = entry.get("suffix") or extract_suffix(token)
     if not suffix:
         return False
@@ -724,7 +730,14 @@ def reviewed_question_skill_aliases(question):
 
 def reviewed_question_matches_request(question, skill, *, prefix_level=None):
     requested_skill = str(skill or "").strip()
-    if requested_skill not in reviewed_question_skill_aliases(question):
+    supported_skills = reviewed_question_skill_aliases(question)
+    if (
+        requested_skill == "translation"
+        and str(question.get("review_family") or "").strip() == "translation"
+        and str(question.get("skill") or "").strip() == "phrase_translation"
+    ):
+        supported_skills.add("translation")
+    if requested_skill not in supported_skills:
         return False
     if requested_skill == "identify_prefix_meaning" and question.get("prefix_level") is not None:
         return int(question.get("prefix_level")) == int(prefix_level or 1)
@@ -733,14 +746,22 @@ def reviewed_question_matches_request(question, skill, *, prefix_level=None):
 
 def clone_reviewed_question(question, requested_skill):
     cloned = deepcopy(question)
+    review_family = str(cloned.get("review_family") or "").strip()
+    original_skill = str(cloned.get("skill") or "").strip()
     cloned.pop("reviewed_id", None)
     cloned.pop("review_family", None)
     cloned.pop("alias_skills", None)
     requested_skill = str(requested_skill or "").strip()
     if requested_skill and requested_skill != cloned.get("skill"):
+        if (
+            requested_skill == "translation"
+            and review_family == "translation"
+            and original_skill == "phrase_translation"
+        ):
+            cloned["skill"] = requested_skill
         if {
             requested_skill,
-            str(cloned.get("skill") or "").strip(),
+            original_skill,
         }.issubset({"identify_tense", "verb_tense"}):
             cloned["skill"] = requested_skill
             cloned["question_type"] = requested_skill
@@ -1094,6 +1115,34 @@ def clearly_finite_verb_entry(entry, token):
     return True
 
 
+def weak_surface_only_verb_analysis(entry, token):
+    entry = entry or {}
+    if entry_type(entry) != "verb":
+        return False
+    normalized_token = normalize_hebrew_key(token or "")
+    normalized_shoresh = normalize_hebrew_key(clean_shoresh_value(entry.get("shoresh")) or "")
+    if not normalized_token:
+        return False
+    if normalized_shoresh and normalized_token != normalized_shoresh:
+        return False
+    if _known_prefix_forms(entry) or _known_suffix_forms(entry):
+        return False
+    if any(str(entry.get(field) or "").strip() for field in ("person", "number", "gender")):
+        return False
+    return usable_translation(entry, token) is None
+
+
+def part_of_speech_target_supported(entry, token):
+    kind = entry_type(entry)
+    if kind not in {"noun", "verb"}:
+        return False
+    if (entry or {}).get("confidence") == "generated_alternate":
+        return False
+    if kind == "verb" and weak_surface_only_verb_analysis(entry, token):
+        return False
+    return True
+
+
 def is_student_safe_vav_finite_gloss(text):
     rendered = clean_value_text(text)
     if rendered is None:
@@ -1255,6 +1304,14 @@ def _standalone_affix_forms(entry, key, legacy_key):
     return forms
 
 
+def low_value_standalone_translation_class(entry):
+    entry = entry or {}
+    if entity_type(entry) in {"pronoun", "grammatical_particle"}:
+        return True
+    kind = entry_type(entry)
+    return kind == "particle" or str(entry.get("part_of_speech") or "").strip() == "particle"
+
+
 def standalone_translation_requires_context(entry, token=None):
     kind = entry_type(entry)
     prefix_forms = _standalone_affix_forms(entry, "prefixes", "prefix")
@@ -1269,6 +1326,16 @@ def standalone_translation_requires_context(entry, token=None):
     if kind == "noun" and normalize_hebrew_key("ה") in normalized_prefixes:
         return True
     if kind != "verb" and (non_conjunction_prefixes or suffix_forms):
+        return True
+    if low_value_standalone_translation_class(entry):
+        return True
+    foundation = dikduk_foundation_metadata(
+        token,
+        entry,
+        skill="translation",
+        question_type="translation",
+    )
+    if foundation.get("weak_standalone_translation") or foundation.get("ambiguous_without_context"):
         return True
     return False
 
@@ -1320,6 +1387,8 @@ def instructional_value(entry, question_type=None):
         if entry.get("type") != "verb" or entry.get("confidence") == "generated_alternate":
             return "low"
         if question_type == "shoresh" and not clean_shoresh_value(entry.get("shoresh")):
+            return "low"
+        if question_type == "shoresh" and low_value_shoresh_target(entry, token):
             return "low"
         if question_type == "verb_tense" and not runtime_tense_label(entry, token):
             return "low"
@@ -1377,6 +1446,8 @@ def is_object_candidate_entry(entry, token, word_bank=None):
 
 def runtime_tense_label(entry, token):
     if not clearly_finite_verb_entry(entry, token):
+        return None
+    if weak_surface_only_verb_analysis(entry, token):
         return None
     if not clean_shoresh_value(entry.get("shoresh")) and usable_translation(entry, token) is None:
         return None
@@ -2254,6 +2325,7 @@ def normalize_student_facing_question(question):
 
 
 def validate_question_payload(question):
+    attach_dikduk_foundation_metadata(question)
     normalize_student_facing_question(question)
     choices = list(question.get("choices", []))
     question_type = str(question.get("question_type", ""))
@@ -2282,6 +2354,35 @@ def validate_question_payload(question):
     random.shuffle(choices)
     question["choices"] = choices
     question.setdefault("id", question_id_for(question))
+    return question
+
+
+def foundation_entry_hint(question):
+    entry = {}
+    part_of_speech = question.get("part_of_speech")
+    if part_of_speech:
+        entry["type"] = part_of_speech
+        entry["part_of_speech"] = part_of_speech
+    for field in ("prefix", "suffix", "shoresh", "tense", "person", "gender", "number"):
+        value = question.get(field)
+        if value:
+            entry[field] = value
+    return entry
+
+
+def attach_dikduk_foundation_metadata(question):
+    if not isinstance(question, dict) or question.get("status") == "skipped":
+        return question
+    token = question.get("selected_word") or question.get("word")
+    if not token:
+        return question
+    entry = foundation_entry_hint(question)
+    question["dikduk_foundation"] = dikduk_foundation_metadata(
+        token,
+        entry or None,
+        skill=question.get("skill"),
+        question_type=question.get("question_type"),
+    )
     return question
 
 
@@ -2459,6 +2560,24 @@ def _known_suffix_forms(entry):
     return suffix_forms
 
 
+def low_value_shoresh_target(entry, token):
+    entry = entry or {}
+    normalized_token = normalize_hebrew_key(token or "")
+    normalized_shoresh = normalize_hebrew_key(clean_shoresh_value(entry.get("shoresh")) or "")
+    if not normalized_token or not normalized_shoresh:
+        return False
+    if normalized_token != normalized_shoresh:
+        return False
+    if _known_prefix_forms(entry) or _known_suffix_forms(entry):
+        return False
+    return (
+        str(entry.get("tense") or "").strip() == "past"
+        and str(entry.get("person") or "").strip() == "3"
+        and str(entry.get("number") or "").strip() == "singular"
+        and str(entry.get("gender") or "").strip() == "masculine"
+    )
+
+
 def _normalized_match(left, right):
     if left is None or right is None:
         return False
@@ -2502,6 +2621,8 @@ def format_validation_reason(token, result):
         return f"{token} has multiple defensible suffixes, so the question would be ambiguous."
     if code == "suffix_answer_mismatch":
         return f"{token} does not have one clearly defensible suffix answer."
+    if code == "low_value_shoresh_target":
+        return f"{token} is already a bare past form, so this shoresh question would add little."
     if code == "suffix_meaning_mismatch":
         return f"{token} does not have one clearly defensible suffix meaning."
     if code == "suffix_distractor_leak":
@@ -2564,6 +2685,19 @@ def prefix_validation_result(token, entry, correct_answer=None, choices=None, ch
 
     expected_prefix = prefix_forms[0]
     expected_meaning = PREFIX_MEANINGS.get(expected_prefix, "")
+    prefix_types = {
+        prefix_data.get("type")
+        for prefix_data in (entry.get("prefixes") or [])
+        if isinstance(prefix_data, dict) and prefix_data.get("type")
+    }
+
+    if "verb_prefix_vav_consecutive" in prefix_types:
+        return invalid_result(
+            "compound_morphology",
+            prefix_forms=prefix_forms,
+            prefix_types=sorted(prefix_types),
+            tense=entry.get("tense"),
+        )
 
     if correct_answer in PREFIX_MEANINGS and correct_answer != expected_prefix:
         return invalid_result(
@@ -2613,6 +2747,18 @@ def prefix_validation_result(token, entry, correct_answer=None, choices=None, ch
 
 def suffix_validation_result(token, entry, correct_answer=None, choices=None, choice_entries=None):
     entry = entry or {}
+    if entity_type(entry) in {"pronoun", "grammatical_particle"}:
+        return invalid_result(
+            "non_suffix_lexical_form",
+            entry_type=entry_type(entry),
+            entity_type=entity_type(entry),
+        )
+    if entry_type(entry) in {"pronoun", "particle"}:
+        return invalid_result(
+            "non_suffix_lexical_form",
+            entry_type=entry_type(entry),
+            entity_type=entity_type(entry),
+        )
     suffix_forms = _known_suffix_forms(entry)
 
     if not suffix_forms:
@@ -2745,6 +2891,17 @@ def shoresh_validation_result(token, entry, correct_answer=None, choices=None, c
             entry_type=entry_type(entry),
             confidence=entry.get("confidence"),
             tense=entry.get("tense"),
+        )
+
+    if low_value_shoresh_target(entry, token):
+        return invalid_result(
+            "low_value_shoresh_target",
+            token=token,
+            expected_shoresh=expected_shoresh,
+            tense=entry.get("tense"),
+            person=entry.get("person"),
+            number=entry.get("number"),
+            gender=entry.get("gender"),
         )
 
     normalized_token = normalize_hebrew_key(token or "")
@@ -3196,6 +3353,8 @@ def generate_question(
     recent_prefixes=None,
     progress=None,
     analyzed_override=None,
+    word_bank_override=None,
+    by_group_override=None,
 ):
     skill = resolve_skill_id(skill) or skill
     if pasuk is None or (isinstance(pasuk, (list, tuple)) and not is_structured_pasuk(pasuk)):
@@ -3219,6 +3378,8 @@ def generate_question(
                     recent_prefixes=recent_prefixes,
                     progress=progress,
                     analyzed_override=None,
+                    word_bank_override=word_bank_override,
+                    by_group_override=by_group_override,
                 )
                 if is_skip_payload(question):
                     last_error = ValueError(question.get("reason", f"{skill} skipped"))
@@ -3246,7 +3407,11 @@ def generate_question(
             f"{ACTIVE_ASSESSMENT_SCOPE}"
         )
 
-    word_bank, by_group = load_word_bank()
+    if word_bank_override is None and by_group_override is None:
+        word_bank, by_group = load_word_bank()
+    else:
+        word_bank = word_bank_override or {}
+        by_group = by_group_override or {}
     if analyzed_override is not None:
         pasuk_text = pasuk or structured_pasuk_text(analyzed_override)
         analyzed = prebuilt_analyzed_pasuk(analyzed_override)
@@ -4018,8 +4183,7 @@ def generate_question(
 
     if skill == "part_of_speech":
         target = choose_target(
-            lambda entry, _token: entry_type(entry) in {"verb", "noun"},
-            lambda: get_part_of_speech_word(analyzed),
+            lambda entry, token: part_of_speech_target_supported(entry, token),
         )
         if target is None:
             return skip_question_payload(skill, pasuk_text, "No noun or verb target found in this pasuk.")
@@ -4058,59 +4222,39 @@ def generate_question(
 
     if skill == "subject_identification":
         override = subject_override_components(pasuk_text)
+        gold_skill = gold_skill_record_for_text(pasuk_text, "subject_identification")
+        if gold_skill and gold_skill.get("status") == "suppressed" and override is None:
+            return skip_question_payload(
+                skill,
+                pasuk_text,
+                gold_skill.get("reason") or "No subject candidate is supported by this pasuk.",
+                source="active scope gold suppression",
+            )
+        if override is not None:
+            return skill_question_payload(
+                skill,
+                override["target"],
+                override["question"],
+                override["choices"],
+                override["correct_answer"],
+                override["explanation"],
+                action_token=override["action_token"],
+                role_focus=override["role_focus"],
+                source="active scope override",
+                analysis_source="active_scope_override",
+                override_pasuk_id=override["pasuk_id"],
+            )
         target = choose_target(
             lambda entry, _token: is_subject_candidate_entry(entry),
             lambda: get_subject(analyzed),
         )
         if target is None:
-            if override is not None:
-                return skill_question_payload(
-                    skill,
-                    override["target"],
-                    override["question"],
-                    override["choices"],
-                    override["correct_answer"],
-                    override["explanation"],
-                    action_token=override["action_token"],
-                    role_focus=override["role_focus"],
-                    source="active scope override",
-                    analysis_source="active_scope_override",
-                    override_pasuk_id=override["pasuk_id"],
-                )
             return skip_question_payload(skill, pasuk_text, "No subject candidate is supported by this pasuk.")
         correct = usable_translation(target["entry"], target["token"])
         if correct is None:
-            if override is not None:
-                return skill_question_payload(
-                    skill,
-                    override["target"],
-                    override["question"],
-                    override["choices"],
-                    override["correct_answer"],
-                    override["explanation"],
-                    action_token=override["action_token"],
-                    role_focus=override["role_focus"],
-                    source="active scope override",
-                    analysis_source="active_scope_override",
-                    override_pasuk_id=override["pasuk_id"],
-                )
             return skip_question_payload(skill, pasuk_text, "No usable subject translation is available for this pasuk.")
         action = get_action_anchor(analyzed, target)
         if action is None:
-            if override is not None:
-                return skill_question_payload(
-                    skill,
-                    override["target"],
-                    override["question"],
-                    override["choices"],
-                    override["correct_answer"],
-                    override["explanation"],
-                    action_token=override["action_token"],
-                    role_focus=override["role_focus"],
-                    source="active scope override",
-                    analysis_source="active_scope_override",
-                    override_pasuk_id=override["pasuk_id"],
-                )
             return skip_question_payload(skill, pasuk_text, "No clear action anchor is available for this pasuk.")
         if mode == "selection":
             return finish(skill_question_payload(
@@ -4130,20 +4274,6 @@ def generate_question(
                 question_type="subject_identification",
             )
         except ValueError:
-            if override is not None:
-                return skill_question_payload(
-                    skill,
-                    override["target"],
-                    override["question"],
-                    override["choices"],
-                    override["correct_answer"],
-                    override["explanation"],
-                    action_token=override["action_token"],
-                    role_focus=override["role_focus"],
-                    source="active scope override",
-                    analysis_source="active_scope_override",
-                    override_pasuk_id=override["pasuk_id"],
-                )
             return skip_question_payload(
                 skill,
                 pasuk_text,
@@ -4166,60 +4296,40 @@ def generate_question(
 
     if skill == "object_identification":
         override = object_override_components(pasuk_text)
+        gold_skill = gold_skill_record_for_text(pasuk_text, "object_identification")
+        if gold_skill and gold_skill.get("status") == "suppressed" and override is None:
+            return skip_question_payload(
+                skill,
+                pasuk_text,
+                gold_skill.get("reason") or "No supported object target found in this pasuk.",
+                source="active scope gold suppression",
+            )
+        if override is not None:
+            return skill_question_payload(
+                skill,
+                override["target"],
+                override["question"],
+                override["choices"],
+                override["correct_answer"],
+                override["explanation"],
+                action_token=override["action_token"],
+                role_focus=override["role_focus"],
+                source="active scope override",
+                analysis_source="active_scope_override",
+                override_pasuk_id=override["pasuk_id"],
+            )
         target = get_action_recipient(analyzed, word_bank) or get_direct_object(analyzed)
         if target is None:
-            if override is not None:
-                return skill_question_payload(
-                    skill,
-                    override["target"],
-                    override["question"],
-                    override["choices"],
-                    override["correct_answer"],
-                    override["explanation"],
-                    action_token=override["action_token"],
-                    role_focus=override["role_focus"],
-                    source="active scope override",
-                    analysis_source="active_scope_override",
-                    override_pasuk_id=override["pasuk_id"],
-                )
             return skip_question_payload(skill, pasuk_text, "No supported object target found in this pasuk.")
         target.setdefault("source_pasuk", pasuk_text)
         remember_selected_word(progress, target["token"], target["entry"])
         action = get_action_anchor(analyzed, target)
         if action is None:
-            if override is not None:
-                return skill_question_payload(
-                    skill,
-                    override["target"],
-                    override["question"],
-                    override["choices"],
-                    override["correct_answer"],
-                    override["explanation"],
-                    action_token=override["action_token"],
-                    role_focus=override["role_focus"],
-                    source="active scope override",
-                    analysis_source="active_scope_override",
-                    override_pasuk_id=override["pasuk_id"],
-                )
             return skip_question_payload(skill, pasuk_text, "No clear action anchor is available for this pasuk.")
 
         is_person_object = is_person_like_entry(target["entry"])
         correct = usable_translation(target["entry"], target["token"])
         if correct is None:
-            if override is not None:
-                return skill_question_payload(
-                    skill,
-                    override["target"],
-                    override["question"],
-                    override["choices"],
-                    override["correct_answer"],
-                    override["explanation"],
-                    action_token=override["action_token"],
-                    role_focus=override["role_focus"],
-                    source="active scope override",
-                    analysis_source="active_scope_override",
-                    override_pasuk_id=override["pasuk_id"],
-                )
             return skip_question_payload(skill, pasuk_text, "No usable object translation is available for this pasuk.")
         correct = normalize_role_translation(correct)
         if is_person_object:
@@ -4231,20 +4341,6 @@ def generate_question(
                     key="object_people",
                 )
             except ValueError:
-                if override is not None:
-                    return skill_question_payload(
-                        skill,
-                        override["target"],
-                        override["question"],
-                        override["choices"],
-                        override["correct_answer"],
-                        override["explanation"],
-                        action_token=override["action_token"],
-                        role_focus=override["role_focus"],
-                        source="active scope override",
-                        analysis_source="active_scope_override",
-                        override_pasuk_id=override["pasuk_id"],
-                    )
                 return skip_question_payload(
                     skill,
                     pasuk_text,
@@ -4255,20 +4351,6 @@ def generate_question(
             role_focus = "recipient"
         else:
             if role_hint(target["entry"]) != "object_candidate":
-                if override is not None:
-                    return skill_question_payload(
-                        skill,
-                        override["target"],
-                        override["question"],
-                        override["choices"],
-                        override["correct_answer"],
-                        override["explanation"],
-                        action_token=override["action_token"],
-                        role_focus=override["role_focus"],
-                        source="active scope override",
-                        analysis_source="active_scope_override",
-                        override_pasuk_id=override["pasuk_id"],
-                    )
                 return skip_question_payload(
                     skill,
                     pasuk_text,
@@ -4282,20 +4364,6 @@ def generate_question(
                     key="object_nouns",
                 )
             except ValueError:
-                if override is not None:
-                    return skill_question_payload(
-                        skill,
-                        override["target"],
-                        override["question"],
-                        override["choices"],
-                        override["correct_answer"],
-                        override["explanation"],
-                        action_token=override["action_token"],
-                        role_focus=override["role_focus"],
-                        source="active scope override",
-                        analysis_source="active_scope_override",
-                        override_pasuk_id=override["pasuk_id"],
-                    )
                 return skip_question_payload(
                     skill,
                     pasuk_text,
@@ -4348,13 +4416,21 @@ def generate_question(
                 override["reason"],
                 source="active scope override",
             )
-        phrase, correct, candidates = phrase_parts()
-        if not phrase or not correct:
-            if override:
-                phrase = override["phrase"]
-                correct = override["correct_answer"]
-                candidates = [choice for choice in override["choices"] if choice != correct]
-            else:
+        gold_skill = gold_skill_record_for_text(pasuk_text, "phrase_translation")
+        if gold_skill and gold_skill.get("status") == "suppressed" and not override:
+            return skip_question_payload(
+                skill,
+                pasuk_text,
+                gold_skill.get("reason") or "No quiz-ready phrase target found in this pasuk.",
+                source="active scope gold suppression",
+            )
+        if override:
+            phrase = override["phrase"]
+            correct = override["correct_answer"]
+            candidates = [choice for choice in override["choices"] if choice != correct]
+        else:
+            phrase, correct, candidates = phrase_parts()
+            if not phrase or not correct:
                 return skip_question_payload(
                     skill,
                     pasuk_text,
@@ -5414,8 +5490,19 @@ def build_reasoning_question(step, pasuk, analyzed):
     )
 
 
-def generate_pasuk_flow(pasuk: str, asked_question_types=None, recent_phrases=None, analyzed_override=None):
-    word_bank, by_group = load_word_bank()
+def generate_pasuk_flow(
+    pasuk: str,
+    asked_question_types=None,
+    recent_phrases=None,
+    analyzed_override=None,
+    word_bank_override=None,
+    by_group_override=None,
+):
+    if word_bank_override is None and by_group_override is None:
+        word_bank, by_group = load_word_bank()
+    else:
+        word_bank = word_bank_override or {}
+        by_group = by_group_override or {}
     analyzed = (
         prebuilt_analyzed_pasuk(analyzed_override)
         if analyzed_override is not None
