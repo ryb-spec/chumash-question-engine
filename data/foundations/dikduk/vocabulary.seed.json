@@ -1,0 +1,1269 @@
+[
+  {
+    "vocab_id": "vocab_vav",
+    "hebrew": "?",
+    "normalized_hebrew": "?",
+    "transliteration_optional": null,
+    "gloss_primary": "and",
+    "gloss_alternates": [],
+    "shoresh": null,
+    "part_of_speech": "conjunction",
+    "function_vs_content": "function",
+    "priority_band": "must_master_first",
+    "frequency_signal": "recurring_across_resources",
+    "linked_skill_ids": [
+      "skill_function_word_recognition",
+      "skill_prefix_handling",
+      "skill_vav_hahipuch_recognition"
+    ],
+    "source_refs": [
+      "R1:worksheets",
+      "R2:worksheets",
+      "R3:pp8-35"
+    ],
+    "notes": "High-value function word; may also participate in tense-sensitive verb patterns."
+  },
+  {
+    "vocab_id": "vocab_bet_prefix",
+    "hebrew": "?",
+    "normalized_hebrew": "?",
+    "transliteration_optional": null,
+    "gloss_primary": "in / with",
+    "gloss_alternates": [],
+    "shoresh": null,
+    "part_of_speech": "prefix_morpheme",
+    "function_vs_content": "function",
+    "priority_band": "must_master_first",
+    "frequency_signal": "recurring_across_resources",
+    "linked_skill_ids": [
+      "skill_function_word_recognition",
+      "skill_prefix_handling"
+    ],
+    "source_refs": [
+      "R1:worksheets",
+      "R2:worksheets"
+    ],
+    "notes": null
+  },
+  {
+    "vocab_id": "vocab_lamed_prefix",
+    "hebrew": "?",
+    "normalized_hebrew": "?",
+    "transliteration_optional": null,
+    "gloss_primary": "to / for",
+    "gloss_alternates": [],
+    "shoresh": null,
+    "part_of_speech": "prefix_morpheme",
+    "function_vs_content": "function",
+    "priority_band": "must_master_first",
+    "frequency_signal": "recurring_across_resources",
+    "linked_skill_ids": [
+      "skill_function_word_recognition",
+      "skill_prefix_handling"
+    ],
+    "source_refs": [
+      "R1:worksheets",
+      "R2:worksheets"
+    ],
+    "notes": null
+  },
+  {
+    "vocab_id": "vocab_mem_prefix",
+    "hebrew": "?",
+    "normalized_hebrew": "?",
+    "transliteration_optional": null,
+    "gloss_primary": "from",
+    "gloss_alternates": [],
+    "shoresh": null,
+    "part_of_speech": "prefix_morpheme",
+    "function_vs_content": "function",
+    "priority_band": "must_master_first",
+    "frequency_signal": "recurring_across_resources",
+    "linked_skill_ids": [
+      "skill_function_word_recognition",
+      "skill_prefix_handling"
+    ],
+    "source_refs": [
+      "R1:worksheets",
+      "R2:worksheets"
+    ],
+    "notes": "Often appears as a reduced form of ??."
+  },
+  {
+    "vocab_id": "vocab_min",
+    "hebrew": "??",
+    "normalized_hebrew": "??",
+    "transliteration_optional": null,
+    "gloss_primary": "from",
+    "gloss_alternates": [],
+    "shoresh": null,
+    "part_of_speech": "preposition",
+    "function_vs_content": "function",
+    "priority_band": "must_master_first",
+    "frequency_signal": "recurring_across_resources",
+    "linked_skill_ids": [
+      "skill_function_word_recognition",
+      "skill_prefix_handling"
+    ],
+    "source_refs": [
+      "R1:worksheets",
+      "R2:p1"
+    ],
+    "notes": "Useful because it alternates with reduced prefix forms."
+  },
+  {
+    "vocab_id": "vocab_el",
+    "hebrew": "??",
+    "normalized_hebrew": "??",
+    "transliteration_optional": null,
+    "gloss_primary": "to",
+    "gloss_alternates": [
+      "toward"
+    ],
+    "shoresh": null,
+    "part_of_speech": "preposition",
+    "function_vs_content": "function",
+    "priority_band": "must_master_first",
+    "frequency_signal": "recurring_across_resources",
+    "linked_skill_ids": [
+      "skill_function_word_recognition",
+      "skill_phrase_translation"
+    ],
+    "source_refs": [
+      "R1:worksheets",
+      "R2:worksheets"
+    ],
+    "notes": null
+  },
+  {
+    "vocab_id": "vocab_et",
+    "hebrew": "??",
+    "normalized_hebrew": "??",
+    "transliteration_optional": null,
+    "gloss_primary": "object marker",
+    "gloss_alternates": [
+      "with"
+    ],
+    "shoresh": null,
+    "part_of_speech": "particle",
+    "function_vs_content": "function",
+    "priority_band": "must_master_first",
+    "frequency_signal": "recurring_across_resources",
+    "linked_skill_ids": [
+      "skill_function_word_recognition",
+      "skill_phrase_translation"
+    ],
+    "source_refs": [
+      "R2:worksheets",
+      "R3:review_structure"
+    ],
+    "notes": "Context decides whether to render it or leave it implicit in English."
+  },
+  {
+    "vocab_id": "vocab_ki",
+    "hebrew": "??",
+    "normalized_hebrew": "??",
+    "transliteration_optional": null,
+    "gloss_primary": "that / because / for",
+    "gloss_alternates": [],
+    "shoresh": null,
+    "part_of_speech": "particle",
+    "function_vs_content": "function",
+    "priority_band": "early_useful",
+    "frequency_signal": "contextual_only",
+    "linked_skill_ids": [
+      "skill_function_word_recognition",
+      "skill_contextual_translation"
+    ],
+    "source_refs": [
+      "R3:throughout"
+    ],
+    "notes": "Low standalone value; stronger in phrase context."
+  },
+  {
+    "vocab_id": "vocab_lo",
+    "hebrew": "??",
+    "normalized_hebrew": "??",
+    "transliteration_optional": null,
+    "gloss_primary": "not",
+    "gloss_alternates": [],
+    "shoresh": null,
+    "part_of_speech": "particle",
+    "function_vs_content": "function",
+    "priority_band": "must_master_first",
+    "frequency_signal": "recurring_across_resources",
+    "linked_skill_ids": [
+      "skill_function_word_recognition",
+      "skill_phrase_translation"
+    ],
+    "source_refs": [
+      "R1:worksheets",
+      "R3:throughout"
+    ],
+    "notes": null
+  },
+  {
+    "vocab_id": "vocab_amar",
+    "hebrew": "???",
+    "normalized_hebrew": "???",
+    "transliteration_optional": null,
+    "gloss_primary": "say",
+    "gloss_alternates": [
+      "speak"
+    ],
+    "shoresh": "???",
+    "part_of_speech": "verb",
+    "function_vs_content": "content",
+    "priority_band": "must_master_first",
+    "frequency_signal": "recurring_across_resources",
+    "linked_skill_ids": [
+      "skill_shoresh_identification",
+      "skill_tense_recognition",
+      "skill_literal_translation"
+    ],
+    "source_refs": [
+      "R2:worksheets",
+      "R3:p60"
+    ],
+    "notes": "Core grammar carrier; low-value as a bare-form shoresh item."
+  },
+  {
+    "vocab_id": "vocab_shamar",
+    "hebrew": "???",
+    "normalized_hebrew": "???",
+    "transliteration_optional": null,
+    "gloss_primary": "guard / keep",
+    "gloss_alternates": [],
+    "shoresh": "???",
+    "part_of_speech": "verb",
+    "function_vs_content": "content",
+    "priority_band": "must_master_first",
+    "frequency_signal": "recurring_across_resources",
+    "linked_skill_ids": [
+      "skill_shoresh_identification",
+      "skill_tense_recognition",
+      "skill_present_habitual_recognition"
+    ],
+    "source_refs": [
+      "R3:p27",
+      "R3:pp118-124"
+    ],
+    "notes": "Used repeatedly as a clean teaching verb in the extracted rule spine."
+  },
+  {
+    "vocab_id": "vocab_raah",
+    "hebrew": "???",
+    "normalized_hebrew": "???",
+    "transliteration_optional": null,
+    "gloss_primary": "see",
+    "gloss_alternates": [],
+    "shoresh": "???",
+    "part_of_speech": "verb",
+    "function_vs_content": "content",
+    "priority_band": "early_useful",
+    "frequency_signal": "recurring_across_resources",
+    "linked_skill_ids": [
+      "skill_shoresh_identification",
+      "skill_nikud_sensitive_distinction",
+      "skill_literal_translation"
+    ],
+    "source_refs": [
+      "R2:worksheets",
+      "R3:throughout"
+    ],
+    "notes": "Useful for guttural-aware parsing."
+  },
+  {
+    "vocab_id": "vocab_halakh",
+    "hebrew": "???",
+    "normalized_hebrew": "???",
+    "transliteration_optional": null,
+    "gloss_primary": "go / walk",
+    "gloss_alternates": [],
+    "shoresh": "???",
+    "part_of_speech": "verb",
+    "function_vs_content": "content",
+    "priority_band": "must_master_first",
+    "frequency_signal": "recurring_across_resources",
+    "linked_skill_ids": [
+      "skill_shoresh_identification",
+      "skill_literal_translation"
+    ],
+    "source_refs": [
+      "R2:worksheets",
+      "R3:throughout"
+    ],
+    "notes": null
+  },
+  {
+    "vocab_id": "vocab_bo",
+    "hebrew": "???",
+    "normalized_hebrew": "???",
+    "transliteration_optional": null,
+    "gloss_primary": "come",
+    "gloss_alternates": [],
+    "shoresh": "???",
+    "part_of_speech": "verb",
+    "function_vs_content": "content",
+    "priority_band": "early_useful",
+    "frequency_signal": "recurring_across_resources",
+    "linked_skill_ids": [
+      "skill_shoresh_identification",
+      "skill_literal_translation"
+    ],
+    "source_refs": [
+      "R2:worksheets",
+      "R3:throughout"
+    ],
+    "notes": null
+  },
+  {
+    "vocab_id": "vocab_hayah",
+    "hebrew": "???",
+    "normalized_hebrew": "???",
+    "transliteration_optional": null,
+    "gloss_primary": "be",
+    "gloss_alternates": [
+      "become"
+    ],
+    "shoresh": "???",
+    "part_of_speech": "verb",
+    "function_vs_content": "content",
+    "priority_band": "early_useful",
+    "frequency_signal": "recurring_across_resources",
+    "linked_skill_ids": [
+      "skill_shoresh_identification",
+      "skill_irregular_ambiguous_form_handling"
+    ],
+    "source_refs": [
+      "R2:worksheets",
+      "R3:throughout"
+    ],
+    "notes": "High-frequency but often context-sensitive."
+  },
+  {
+    "vocab_id": "vocab_asah",
+    "hebrew": "???",
+    "normalized_hebrew": "???",
+    "transliteration_optional": null,
+    "gloss_primary": "do / make",
+    "gloss_alternates": [],
+    "shoresh": "???",
+    "part_of_speech": "verb",
+    "function_vs_content": "content",
+    "priority_band": "must_master_first",
+    "frequency_signal": "recurring_across_resources",
+    "linked_skill_ids": [
+      "skill_shoresh_identification",
+      "skill_literal_translation"
+    ],
+    "source_refs": [
+      "R2:worksheets",
+      "R3:throughout"
+    ],
+    "notes": "Bare-form shoresh questions on this token are usually low-value."
+  },
+  {
+    "vocab_id": "vocab_yatza",
+    "hebrew": "???",
+    "normalized_hebrew": "???",
+    "transliteration_optional": null,
+    "gloss_primary": "go out / leave",
+    "gloss_alternates": [],
+    "shoresh": "???",
+    "part_of_speech": "verb",
+    "function_vs_content": "content",
+    "priority_band": "early_useful",
+    "frequency_signal": "recurring_across_resources",
+    "linked_skill_ids": [
+      "skill_shoresh_identification",
+      "skill_literal_translation"
+    ],
+    "source_refs": [
+      "R2:worksheets"
+    ],
+    "notes": null
+  },
+  {
+    "vocab_id": "vocab_banah",
+    "hebrew": "???",
+    "normalized_hebrew": "???",
+    "transliteration_optional": null,
+    "gloss_primary": "build",
+    "gloss_alternates": [],
+    "shoresh": "???",
+    "part_of_speech": "verb",
+    "function_vs_content": "content",
+    "priority_band": "early_useful",
+    "frequency_signal": "contextual_only",
+    "linked_skill_ids": [
+      "skill_shoresh_identification",
+      "skill_literal_translation"
+    ],
+    "source_refs": [
+      "R2:worksheets"
+    ],
+    "notes": null
+  },
+  {
+    "vocab_id": "vocab_nasa",
+    "hebrew": "???",
+    "normalized_hebrew": "???",
+    "transliteration_optional": null,
+    "gloss_primary": "travel / journey",
+    "gloss_alternates": [],
+    "shoresh": "???",
+    "part_of_speech": "verb",
+    "function_vs_content": "content",
+    "priority_band": "later_useful",
+    "frequency_signal": "contextual_only",
+    "linked_skill_ids": [
+      "skill_shoresh_identification",
+      "skill_literal_translation"
+    ],
+    "source_refs": [
+      "R2:worksheets"
+    ],
+    "notes": null
+  },
+  {
+    "vocab_id": "vocab_berakh",
+    "hebrew": "???",
+    "normalized_hebrew": "???",
+    "transliteration_optional": null,
+    "gloss_primary": "bless",
+    "gloss_alternates": [],
+    "shoresh": "???",
+    "part_of_speech": "verb",
+    "function_vs_content": "content",
+    "priority_band": "early_useful",
+    "frequency_signal": "recurring_across_resources",
+    "linked_skill_ids": [
+      "skill_shoresh_identification",
+      "skill_literal_translation"
+    ],
+    "source_refs": [
+      "R2:worksheets",
+      "R1:worksheets"
+    ],
+    "notes": null
+  },
+  {
+    "vocab_id": "vocab_qillel",
+    "hebrew": "???",
+    "normalized_hebrew": "???",
+    "transliteration_optional": null,
+    "gloss_primary": "curse",
+    "gloss_alternates": [],
+    "shoresh": "???",
+    "part_of_speech": "verb",
+    "function_vs_content": "content",
+    "priority_band": "later_useful",
+    "frequency_signal": "contextual_only",
+    "linked_skill_ids": [
+      "skill_shoresh_identification",
+      "skill_literal_translation"
+    ],
+    "source_refs": [
+      "R2:worksheets"
+    ],
+    "notes": null
+  },
+  {
+    "vocab_id": "vocab_yalad",
+    "hebrew": "???",
+    "normalized_hebrew": "???",
+    "transliteration_optional": null,
+    "gloss_primary": "bear / give birth",
+    "gloss_alternates": [
+      "child when nominalized"
+    ],
+    "shoresh": "???",
+    "part_of_speech": "verb",
+    "function_vs_content": "mixed",
+    "priority_band": "later_useful",
+    "frequency_signal": "contextual_only",
+    "linked_skill_ids": [
+      "skill_noun_verb_recognition",
+      "skill_literal_translation"
+    ],
+    "source_refs": [
+      "R2:worksheets"
+    ],
+    "notes": "Included because OCR evidence shows the surface; part-of-speech can vary by context in Hebrew more broadly."
+  },
+  {
+    "vocab_id": "vocab_eretz",
+    "hebrew": "???",
+    "normalized_hebrew": "???",
+    "transliteration_optional": null,
+    "gloss_primary": "land",
+    "gloss_alternates": [
+      "earth"
+    ],
+    "shoresh": null,
+    "part_of_speech": "noun",
+    "function_vs_content": "content",
+    "priority_band": "must_master_first",
+    "frequency_signal": "recurring_across_resources",
+    "linked_skill_ids": [
+      "skill_literal_translation",
+      "skill_phrase_translation"
+    ],
+    "source_refs": [
+      "R2:worksheets",
+      "R1:worksheets"
+    ],
+    "notes": null
+  },
+  {
+    "vocab_id": "vocab_bayit",
+    "hebrew": "???",
+    "normalized_hebrew": "???",
+    "transliteration_optional": null,
+    "gloss_primary": "house",
+    "gloss_alternates": [],
+    "shoresh": null,
+    "part_of_speech": "noun",
+    "function_vs_content": "content",
+    "priority_band": "must_master_first",
+    "frequency_signal": "recurring_across_resources",
+    "linked_skill_ids": [
+      "skill_noun_possessive_suffix_recognition",
+      "skill_literal_translation"
+    ],
+    "source_refs": [
+      "R2:worksheets",
+      "R3:pp5-19"
+    ],
+    "notes": "High-value carrier noun for possessive suffix practice."
+  },
+  {
+    "vocab_id": "vocab_av",
+    "hebrew": "??",
+    "normalized_hebrew": "??",
+    "transliteration_optional": null,
+    "gloss_primary": "father",
+    "gloss_alternates": [],
+    "shoresh": null,
+    "part_of_speech": "noun",
+    "function_vs_content": "content",
+    "priority_band": "early_useful",
+    "frequency_signal": "recurring_across_resources",
+    "linked_skill_ids": [
+      "skill_literal_translation",
+      "skill_noun_possessive_suffix_recognition"
+    ],
+    "source_refs": [
+      "R2:worksheets"
+    ],
+    "notes": null
+  },
+  {
+    "vocab_id": "vocab_ben",
+    "hebrew": "??",
+    "normalized_hebrew": "??",
+    "transliteration_optional": null,
+    "gloss_primary": "son",
+    "gloss_alternates": [],
+    "shoresh": null,
+    "part_of_speech": "noun",
+    "function_vs_content": "content",
+    "priority_band": "early_useful",
+    "frequency_signal": "recurring_across_resources",
+    "linked_skill_ids": [
+      "skill_plural_handling",
+      "skill_noun_possessive_suffix_recognition"
+    ],
+    "source_refs": [
+      "R2:worksheets",
+      "R3:p15",
+      "R3:p19"
+    ],
+    "notes": "Useful for plural possession families such as ???? and ????."
+  },
+  {
+    "vocab_id": "vocab_shem",
+    "hebrew": "??",
+    "normalized_hebrew": "??",
+    "transliteration_optional": null,
+    "gloss_primary": "name",
+    "gloss_alternates": [],
+    "shoresh": null,
+    "part_of_speech": "noun",
+    "function_vs_content": "content",
+    "priority_band": "early_useful",
+    "frequency_signal": "recurring_across_resources",
+    "linked_skill_ids": [
+      "skill_literal_translation"
+    ],
+    "source_refs": [
+      "R2:worksheets"
+    ],
+    "notes": null
+  },
+  {
+    "vocab_id": "vocab_mishpachah",
+    "hebrew": "?????",
+    "normalized_hebrew": "?????",
+    "transliteration_optional": null,
+    "gloss_primary": "family",
+    "gloss_alternates": [],
+    "shoresh": null,
+    "part_of_speech": "noun",
+    "function_vs_content": "content",
+    "priority_band": "early_useful",
+    "frequency_signal": "contextual_only",
+    "linked_skill_ids": [
+      "skill_literal_translation",
+      "skill_phrase_translation"
+    ],
+    "source_refs": [
+      "R2:worksheets"
+    ],
+    "notes": null
+  },
+  {
+    "vocab_id": "vocab_goy",
+    "hebrew": "???",
+    "normalized_hebrew": "???",
+    "transliteration_optional": null,
+    "gloss_primary": "nation",
+    "gloss_alternates": [],
+    "shoresh": null,
+    "part_of_speech": "noun",
+    "function_vs_content": "content",
+    "priority_band": "later_useful",
+    "frequency_signal": "contextual_only",
+    "linked_skill_ids": [
+      "skill_literal_translation"
+    ],
+    "source_refs": [
+      "R2:worksheets"
+    ],
+    "notes": "Included because the OCR-extractable worksheet text preserves this noun family."
+  },
+  {
+    "vocab_id": "vocab_ishah",
+    "hebrew": "???",
+    "normalized_hebrew": "???",
+    "transliteration_optional": null,
+    "gloss_primary": "woman",
+    "gloss_alternates": [
+      "wife"
+    ],
+    "shoresh": null,
+    "part_of_speech": "noun",
+    "function_vs_content": "content",
+    "priority_band": "early_useful",
+    "frequency_signal": "contextual_only",
+    "linked_skill_ids": [
+      "skill_literal_translation",
+      "skill_phrase_translation"
+    ],
+    "source_refs": [
+      "R3:throughout"
+    ],
+    "notes": "Context may shift English rendering."
+  },
+  {
+    "vocab_id": "vocab_mayim",
+    "hebrew": "???",
+    "normalized_hebrew": "???",
+    "transliteration_optional": null,
+    "gloss_primary": "water",
+    "gloss_alternates": [],
+    "shoresh": null,
+    "part_of_speech": "noun",
+    "function_vs_content": "content",
+    "priority_band": "early_useful",
+    "frequency_signal": "contextual_only",
+    "linked_skill_ids": [
+      "skill_plural_handling",
+      "skill_irregular_ambiguous_form_handling"
+    ],
+    "source_refs": [
+      "R3:p37"
+    ],
+    "notes": "Explicitly taught as a plural-looking exception."
+  },
+  {
+    "vocab_id": "vocab_panim",
+    "hebrew": "????",
+    "normalized_hebrew": "????",
+    "transliteration_optional": null,
+    "gloss_primary": "face / face-of",
+    "gloss_alternates": [],
+    "shoresh": null,
+    "part_of_speech": "noun",
+    "function_vs_content": "content",
+    "priority_band": "later_useful",
+    "frequency_signal": "contextual_only",
+    "linked_skill_ids": [
+      "skill_plural_handling",
+      "skill_irregular_ambiguous_form_handling"
+    ],
+    "source_refs": [
+      "R3:p37"
+    ],
+    "notes": "Explicitly taught as a plural-looking exception."
+  },
+  {
+    "vocab_id": "vocab_elokim",
+    "hebrew": "?????",
+    "normalized_hebrew": "?????",
+    "transliteration_optional": null,
+    "gloss_primary": "God",
+    "gloss_alternates": [],
+    "shoresh": null,
+    "part_of_speech": "noun",
+    "function_vs_content": "content",
+    "priority_band": "must_master_first",
+    "frequency_signal": "contextual_only",
+    "linked_skill_ids": [
+      "skill_plural_handling",
+      "skill_irregular_ambiguous_form_handling",
+      "skill_phrase_translation"
+    ],
+    "source_refs": [
+      "R3:p16"
+    ],
+    "notes": "Explicitly flagged as a form whose surface can mislead simple plural parsing."
+  },
+  {
+    "vocab_id": "vocab_yad",
+    "hebrew": "??",
+    "normalized_hebrew": "??",
+    "transliteration_optional": null,
+    "gloss_primary": "hand",
+    "gloss_alternates": [],
+    "shoresh": null,
+    "part_of_speech": "noun",
+    "function_vs_content": "content",
+    "priority_band": "early_useful",
+    "frequency_signal": "contextual_only",
+    "linked_skill_ids": [
+      "skill_noun_possessive_suffix_recognition",
+      "skill_literal_translation"
+    ],
+    "source_refs": [
+      "R3:p68"
+    ],
+    "notes": "Useful carrier noun for feminine possessive examples."
+  },
+  {
+    "vocab_id": "vocab_yom",
+    "hebrew": "???",
+    "normalized_hebrew": "???",
+    "transliteration_optional": null,
+    "gloss_primary": "day",
+    "gloss_alternates": [],
+    "shoresh": null,
+    "part_of_speech": "noun",
+    "function_vs_content": "content",
+    "priority_band": "early_useful",
+    "frequency_signal": "contextual_only",
+    "linked_skill_ids": [
+      "skill_literal_translation"
+    ],
+    "source_refs": [
+      "R1:worksheets"
+    ],
+    "notes": null
+  },
+  {
+    "vocab_id": "vocab_qol",
+    "hebrew": "???",
+    "normalized_hebrew": "???",
+    "transliteration_optional": null,
+    "gloss_primary": "voice / sound",
+    "gloss_alternates": [],
+    "shoresh": null,
+    "part_of_speech": "noun",
+    "function_vs_content": "content",
+    "priority_band": "later_useful",
+    "frequency_signal": "contextual_only",
+    "linked_skill_ids": [
+      "skill_literal_translation",
+      "skill_phrase_translation"
+    ],
+    "source_refs": [
+      "R3:throughout"
+    ],
+    "notes": null
+  },
+  {
+    "vocab_id": "vocab_etz",
+    "hebrew": "??",
+    "normalized_hebrew": "??",
+    "transliteration_optional": null,
+    "gloss_primary": "tree",
+    "gloss_alternates": [],
+    "shoresh": null,
+    "part_of_speech": "noun",
+    "function_vs_content": "content",
+    "priority_band": "early_useful",
+    "frequency_signal": "contextual_only",
+    "linked_skill_ids": [
+      "skill_literal_translation"
+    ],
+    "source_refs": [
+      "R3:throughout"
+    ],
+    "notes": null
+  },
+  {
+    "vocab_id": "vocab_shanah",
+    "hebrew": "???",
+    "normalized_hebrew": "???",
+    "transliteration_optional": null,
+    "gloss_primary": "year",
+    "gloss_alternates": [],
+    "shoresh": null,
+    "part_of_speech": "noun",
+    "function_vs_content": "content",
+    "priority_band": "later_useful",
+    "frequency_signal": "contextual_only",
+    "linked_skill_ids": [
+      "skill_literal_translation"
+    ],
+    "source_refs": [
+      "R2:worksheets"
+    ],
+    "notes": null
+  },
+  {
+    "vocab_id": "vocab_umimoladetekha",
+    "hebrew": "????????",
+    "normalized_hebrew": "????????",
+    "transliteration_optional": null,
+    "gloss_primary": "and from your birthplace",
+    "gloss_alternates": [],
+    "shoresh": null,
+    "part_of_speech": "noun_phrase",
+    "function_vs_content": "mixed",
+    "priority_band": "early_useful",
+    "frequency_signal": "explicit_list",
+    "linked_skill_ids": [
+      "skill_affix_segmentation",
+      "skill_prefix_handling",
+      "skill_noun_possessive_suffix_recognition",
+      "skill_phrase_translation"
+    ],
+    "source_refs": [
+      "R2:p1"
+    ],
+    "notes": "Explicitly cited in the resource intro as a segmentation example."
+  },
+  {
+    "vocab_id": "vocab_beytkha",
+    "hebrew": "????",
+    "normalized_hebrew": "????",
+    "transliteration_optional": null,
+    "gloss_primary": "your house",
+    "gloss_alternates": [],
+    "shoresh": null,
+    "part_of_speech": "noun",
+    "function_vs_content": "content",
+    "priority_band": "must_master_first",
+    "frequency_signal": "contextual_only",
+    "linked_skill_ids": [
+      "skill_noun_possessive_suffix_recognition"
+    ],
+    "source_refs": [
+      "R3:p5"
+    ],
+    "notes": "Pedagogical carrier token for the 2ms noun-possessive family."
+  },
+  {
+    "vocab_id": "vocab_banekha",
+    "hebrew": "????",
+    "normalized_hebrew": "????",
+    "transliteration_optional": null,
+    "gloss_primary": "your sons",
+    "gloss_alternates": [],
+    "shoresh": null,
+    "part_of_speech": "noun",
+    "function_vs_content": "content",
+    "priority_band": "early_useful",
+    "frequency_signal": "contextual_only",
+    "linked_skill_ids": [
+      "skill_noun_possessive_suffix_recognition",
+      "skill_plural_handling"
+    ],
+    "source_refs": [
+      "R3:p15"
+    ],
+    "notes": "Pedagogical carrier token for plural owned-object parsing."
+  },
+  {
+    "vocab_id": "vocab_beyto",
+    "hebrew": "????",
+    "normalized_hebrew": "????",
+    "transliteration_optional": null,
+    "gloss_primary": "his house",
+    "gloss_alternates": [],
+    "shoresh": null,
+    "part_of_speech": "noun",
+    "function_vs_content": "content",
+    "priority_band": "early_useful",
+    "frequency_signal": "contextual_only",
+    "linked_skill_ids": [
+      "skill_noun_possessive_suffix_recognition"
+    ],
+    "source_refs": [
+      "R3:p17"
+    ],
+    "notes": null
+  },
+  {
+    "vocab_id": "vocab_banav",
+    "hebrew": "????",
+    "normalized_hebrew": "????",
+    "transliteration_optional": null,
+    "gloss_primary": "his sons",
+    "gloss_alternates": [],
+    "shoresh": null,
+    "part_of_speech": "noun",
+    "function_vs_content": "content",
+    "priority_band": "early_useful",
+    "frequency_signal": "contextual_only",
+    "linked_skill_ids": [
+      "skill_noun_possessive_suffix_recognition",
+      "skill_plural_handling"
+    ],
+    "source_refs": [
+      "R3:p19"
+    ],
+    "notes": null
+  },
+  {
+    "vocab_id": "vocab_beytenu",
+    "hebrew": "?????",
+    "normalized_hebrew": "?????",
+    "transliteration_optional": null,
+    "gloss_primary": "our house",
+    "gloss_alternates": [],
+    "shoresh": null,
+    "part_of_speech": "noun",
+    "function_vs_content": "content",
+    "priority_band": "early_useful",
+    "frequency_signal": "contextual_only",
+    "linked_skill_ids": [
+      "skill_noun_possessive_suffix_recognition"
+    ],
+    "source_refs": [
+      "R3:p59"
+    ],
+    "notes": null
+  },
+  {
+    "vocab_id": "vocab_beytah",
+    "hebrew": "????",
+    "normalized_hebrew": "????",
+    "transliteration_optional": null,
+    "gloss_primary": "her house",
+    "gloss_alternates": [],
+    "shoresh": null,
+    "part_of_speech": "noun",
+    "function_vs_content": "content",
+    "priority_band": "later_useful",
+    "frequency_signal": "contextual_only",
+    "linked_skill_ids": [
+      "skill_noun_possessive_suffix_recognition"
+    ],
+    "source_refs": [
+      "R3:p68"
+    ],
+    "notes": null
+  },
+  {
+    "vocab_id": "vocab_beytam",
+    "hebrew": "????",
+    "normalized_hebrew": "????",
+    "transliteration_optional": null,
+    "gloss_primary": "their house",
+    "gloss_alternates": [],
+    "shoresh": null,
+    "part_of_speech": "noun",
+    "function_vs_content": "content",
+    "priority_band": "later_useful",
+    "frequency_signal": "contextual_only",
+    "linked_skill_ids": [
+      "skill_noun_possessive_suffix_recognition"
+    ],
+    "source_refs": [
+      "R3:p72"
+    ],
+    "notes": null
+  },
+  {
+    "vocab_id": "vocab_amarta",
+    "hebrew": "????",
+    "normalized_hebrew": "????",
+    "transliteration_optional": null,
+    "gloss_primary": "you said",
+    "gloss_alternates": [],
+    "shoresh": "???",
+    "part_of_speech": "verb",
+    "function_vs_content": "content",
+    "priority_band": "early_useful",
+    "frequency_signal": "contextual_only",
+    "linked_skill_ids": [
+      "skill_verb_past_suffix_recognition",
+      "skill_person_gender_number_recognition",
+      "skill_tense_recognition"
+    ],
+    "source_refs": [
+      "R3:p7"
+    ],
+    "notes": "Pedagogical carrier form for past 2ms."
+  },
+  {
+    "vocab_id": "vocab_yomar",
+    "hebrew": "????",
+    "normalized_hebrew": "????",
+    "transliteration_optional": null,
+    "gloss_primary": "he will say",
+    "gloss_alternates": [],
+    "shoresh": "???",
+    "part_of_speech": "verb",
+    "function_vs_content": "content",
+    "priority_band": "early_useful",
+    "frequency_signal": "contextual_only",
+    "linked_skill_ids": [
+      "skill_verb_future_prefix_recognition",
+      "skill_tense_recognition"
+    ],
+    "source_refs": [
+      "R3:p22"
+    ],
+    "notes": "Pedagogical carrier form for future 3ms."
+  },
+  {
+    "vocab_id": "vocab_vayomer",
+    "hebrew": "?????",
+    "normalized_hebrew": "?????",
+    "transliteration_optional": null,
+    "gloss_primary": "and he said",
+    "gloss_alternates": [],
+    "shoresh": "???",
+    "part_of_speech": "verb",
+    "function_vs_content": "content",
+    "priority_band": "must_master_first",
+    "frequency_signal": "contextual_only",
+    "linked_skill_ids": [
+      "skill_vav_hahipuch_recognition",
+      "skill_tense_recognition",
+      "skill_phrase_translation"
+    ],
+    "source_refs": [
+      "R3:p24"
+    ],
+    "notes": "Key narrative carrier form."
+  },
+  {
+    "vocab_id": "vocab_yishmeru",
+    "hebrew": "?????",
+    "normalized_hebrew": "?????",
+    "transliteration_optional": null,
+    "gloss_primary": "they will guard",
+    "gloss_alternates": [],
+    "shoresh": "???",
+    "part_of_speech": "verb",
+    "function_vs_content": "content",
+    "priority_band": "later_useful",
+    "frequency_signal": "contextual_only",
+    "linked_skill_ids": [
+      "skill_verb_future_prefix_recognition",
+      "skill_person_gender_number_recognition",
+      "skill_tense_recognition"
+    ],
+    "source_refs": [
+      "R3:p27"
+    ],
+    "notes": null
+  },
+  {
+    "vocab_id": "vocab_tishmor",
+    "hebrew": "????",
+    "normalized_hebrew": "????",
+    "transliteration_optional": null,
+    "gloss_primary": "you will guard / she will guard",
+    "gloss_alternates": [],
+    "shoresh": "???",
+    "part_of_speech": "verb",
+    "function_vs_content": "content",
+    "priority_band": "later_useful",
+    "frequency_signal": "contextual_only",
+    "linked_skill_ids": [
+      "skill_verb_future_prefix_recognition",
+      "skill_phrase_context_disambiguation",
+      "skill_irregular_ambiguous_form_handling"
+    ],
+    "source_refs": [
+      "R3:p29",
+      "R3:p73"
+    ],
+    "notes": "Seeded explicitly as an ambiguity carrier, not as a one-answer token."
+  },
+  {
+    "vocab_id": "vocab_eshmor",
+    "hebrew": "?????",
+    "normalized_hebrew": "?????",
+    "transliteration_optional": null,
+    "gloss_primary": "I will guard",
+    "gloss_alternates": [],
+    "shoresh": "???",
+    "part_of_speech": "verb",
+    "function_vs_content": "content",
+    "priority_band": "later_useful",
+    "frequency_signal": "contextual_only",
+    "linked_skill_ids": [
+      "skill_verb_future_prefix_recognition",
+      "skill_tense_recognition"
+    ],
+    "source_refs": [
+      "R3:p33"
+    ],
+    "notes": null
+  },
+  {
+    "vocab_id": "vocab_nishmor",
+    "hebrew": "?????",
+    "normalized_hebrew": "?????",
+    "transliteration_optional": null,
+    "gloss_primary": "we will guard",
+    "gloss_alternates": [],
+    "shoresh": "???",
+    "part_of_speech": "verb",
+    "function_vs_content": "content",
+    "priority_band": "later_useful",
+    "frequency_signal": "contextual_only",
+    "linked_skill_ids": [
+      "skill_verb_future_prefix_recognition",
+      "skill_irregular_ambiguous_form_handling",
+      "skill_passive_causative_pattern_recognition"
+    ],
+    "source_refs": [
+      "R3:p57",
+      "R3:p126"
+    ],
+    "notes": "Carries the nun-prefix ambiguity family in later instruction."
+  },
+  {
+    "vocab_id": "vocab_shamru",
+    "hebrew": "????",
+    "normalized_hebrew": "????",
+    "transliteration_optional": null,
+    "gloss_primary": "they guarded / guard! (many men)",
+    "gloss_alternates": [],
+    "shoresh": "???",
+    "part_of_speech": "verb",
+    "function_vs_content": "content",
+    "priority_band": "later_useful",
+    "frequency_signal": "contextual_only",
+    "linked_skill_ids": [
+      "skill_direct_command_recognition",
+      "skill_phrase_context_disambiguation",
+      "skill_irregular_ambiguous_form_handling"
+    ],
+    "source_refs": [
+      "R3:p61",
+      "R3:p85"
+    ],
+    "notes": "Best used in contrastive context."
+  },
+  {
+    "vocab_id": "vocab_shomer",
+    "hebrew": "????",
+    "normalized_hebrew": "????",
+    "transliteration_optional": null,
+    "gloss_primary": "guarding / guards",
+    "gloss_alternates": [
+      "is guarding"
+    ],
+    "shoresh": "???",
+    "part_of_speech": "verb",
+    "function_vs_content": "content",
+    "priority_band": "later_useful",
+    "frequency_signal": "contextual_only",
+    "linked_skill_ids": [
+      "skill_present_habitual_recognition",
+      "skill_contextual_translation"
+    ],
+    "source_refs": [
+      "R3:p118"
+    ],
+    "notes": "Present/habitual carrier form."
+  },
+  {
+    "vocab_id": "vocab_shomrim",
+    "hebrew": "??????",
+    "normalized_hebrew": "??????",
+    "transliteration_optional": null,
+    "gloss_primary": "guarding / guard (many men)",
+    "gloss_alternates": [
+      "are guarding"
+    ],
+    "shoresh": "???",
+    "part_of_speech": "verb",
+    "function_vs_content": "content",
+    "priority_band": "later_useful",
+    "frequency_signal": "contextual_only",
+    "linked_skill_ids": [
+      "skill_present_habitual_recognition",
+      "skill_plural_handling"
+    ],
+    "source_refs": [
+      "R3:p119"
+    ],
+    "notes": "Present/habitual masculine plural carrier form."
+  },
+  {
+    "vocab_id": "vocab_shomeret",
+    "hebrew": "?????",
+    "normalized_hebrew": "?????",
+    "transliteration_optional": null,
+    "gloss_primary": "guarding / guards (one female)",
+    "gloss_alternates": [
+      "is guarding"
+    ],
+    "shoresh": "???",
+    "part_of_speech": "verb",
+    "function_vs_content": "content",
+    "priority_band": "later_useful",
+    "frequency_signal": "contextual_only",
+    "linked_skill_ids": [
+      "skill_present_habitual_recognition",
+      "skill_person_gender_number_recognition"
+    ],
+    "source_refs": [
+      "R3:p123"
+    ],
+    "notes": "Present/habitual feminine singular carrier form."
+  },
+  {
+    "vocab_id": "vocab_shomerot",
+    "hebrew": "??????",
+    "normalized_hebrew": "??????",
+    "transliteration_optional": null,
+    "gloss_primary": "guarding / guard (many females)",
+    "gloss_alternates": [
+      "are guarding"
+    ],
+    "shoresh": "???",
+    "part_of_speech": "verb",
+    "function_vs_content": "content",
+    "priority_band": "later_useful",
+    "frequency_signal": "contextual_only",
+    "linked_skill_ids": [
+      "skill_present_habitual_recognition",
+      "skill_person_gender_number_recognition"
+    ],
+    "source_refs": [
+      "R3:p124"
+    ],
+    "notes": "Present/habitual feminine plural carrier form."
+  }
+]

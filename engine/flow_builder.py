@@ -770,7 +770,56 @@ def clone_reviewed_question(question, requested_skill):
     return cloned
 
 
-def reviewed_question_for_pasuk_skill(pasuk_text, skill, *, prefix_level=None):
+REVIEWED_TRANSLATION_SELECTION_WINDOW = 20
+
+
+def _reviewed_translation_answer_key(text):
+    return " ".join(str(text or "").split()).strip().lower()
+
+
+def _reviewed_translation_recent_penalty(question, recent_questions=None):
+    token_key = normalize_hebrew_key(question.get("selected_word") or question.get("word") or "")
+    answer_key = _reviewed_translation_answer_key(question.get("correct_answer"))
+    penalty = 0
+    recent_items = list(recent_questions or [])[-REVIEWED_TRANSLATION_SELECTION_WINDOW:]
+    for distance, previous in enumerate(reversed(recent_items), start=1):
+        if not isinstance(previous, dict):
+            continue
+        previous_skill = str(previous.get("repeat_family") or previous.get("skill") or "").strip()
+        if previous_skill != "translation":
+            continue
+        previous_target = normalize_hebrew_key(
+            previous.get("target_word") or previous.get("selected_word") or previous.get("word") or ""
+        )
+        previous_answer = _reviewed_translation_answer_key(previous.get("correct_answer"))
+        if token_key and previous_target == token_key:
+            penalty += max(0, 100 - distance)
+            continue
+        if answer_key and previous_answer == answer_key:
+            penalty += max(0, 20 - distance)
+    return penalty
+
+
+def _best_reviewed_translation_match(matches, recent_questions=None):
+    standalone_matches = [
+        question
+        for question in matches
+        if str(question.get("question_type") or question.get("skill") or "").strip() == "translation"
+    ]
+    if not standalone_matches:
+        return matches[0]
+
+    best_question = standalone_matches[0]
+    best_penalty = _reviewed_translation_recent_penalty(best_question, recent_questions)
+    for question in standalone_matches[1:]:
+        penalty = _reviewed_translation_recent_penalty(question, recent_questions)
+        if penalty < best_penalty:
+            best_question = question
+            best_penalty = penalty
+    return best_question
+
+
+def reviewed_question_for_pasuk_skill(pasuk_text, skill, *, prefix_level=None, recent_questions=None):
     matches = [
         question
         for question in active_scope_reviewed_questions_for_text(pasuk_text, skill=skill)
@@ -778,7 +827,12 @@ def reviewed_question_for_pasuk_skill(pasuk_text, skill, *, prefix_level=None):
     ]
     if not matches:
         return None
-    question = clone_reviewed_question(matches[0], skill)
+    requested_skill = str(skill or "").strip()
+    if requested_skill == "translation":
+        selected_match = _best_reviewed_translation_match(matches, recent_questions)
+    else:
+        selected_match = matches[0]
+    question = clone_reviewed_question(selected_match, skill)
     record = active_pasuk_record_for_text(pasuk_text)
     if record:
         question.setdefault("pasuk", record.get("text"))
@@ -1132,11 +1186,22 @@ def weak_surface_only_verb_analysis(entry, token):
     return usable_translation(entry, token) is None
 
 
+def low_value_part_of_speech_target(entry, token):
+    entry = entry or {}
+    if entry_type(entry) != "noun":
+        return False
+    # Context-heavy noun forms with instructional prefixes/suffixes read more
+    # like morphology drills than clean word-kind questions for this cohort.
+    return standalone_translation_requires_context(entry, token)
+
+
 def part_of_speech_target_supported(entry, token):
     kind = entry_type(entry)
     if kind not in {"noun", "verb"}:
         return False
     if (entry or {}).get("confidence") == "generated_alternate":
+        return False
+    if kind == "noun" and low_value_part_of_speech_target(entry, token):
         return False
     if kind == "verb" and weak_surface_only_verb_analysis(entry, token):
         return False
@@ -1304,16 +1369,45 @@ def _standalone_affix_forms(entry, key, legacy_key):
     return forms
 
 
-def low_value_standalone_translation_class(entry):
+def low_value_standalone_translation_class(entry, token=None):
     entry = entry or {}
+    normalized_surface = normalize_hebrew_key(
+        token
+        or entry.get("surface")
+        or entry.get("word")
+        or entry.get("menukad")
+        or ""
+    )
+    if normalized_surface in {
+        normalize_hebrew_key("אֱלֹהִים"),
+        normalize_hebrew_key("אֱלֹקִים"),
+        normalize_hebrew_key("יְהוָה"),
+    }:
+        return True
+    if (entry.get("semantic_group") or "") == "divine" or entity_type(entry) == "divine_being":
+        return True
     if entity_type(entry) in {"pronoun", "grammatical_particle"}:
         return True
     kind = entry_type(entry)
     return kind == "particle" or str(entry.get("part_of_speech") or "").strip() == "particle"
 
 
+CONTEXT_DEPENDENT_STANDALONE_TRANSLATION_FORMS = {
+    normalize_hebrew_key("אֲכָל"),
+    normalize_hebrew_key("יְשׁוּפְךָ"),
+    normalize_hebrew_key("תְּשׁוּפֶנּוּ"),
+}
+
+
 def standalone_translation_requires_context(entry, token=None):
     kind = entry_type(entry)
+    normalized_surface = normalize_hebrew_key(
+        token
+        or entry.get("surface")
+        or entry.get("word")
+        or entry.get("menukad")
+        or ""
+    )
     prefix_forms = _standalone_affix_forms(entry, "prefixes", "prefix")
     suffix_forms = _standalone_affix_forms(entry, "suffixes", "suffix")
     normalized_prefixes = {normalize_hebrew_key(form) for form in prefix_forms if form}
@@ -1327,7 +1421,12 @@ def standalone_translation_requires_context(entry, token=None):
         return True
     if kind != "verb" and (non_conjunction_prefixes or suffix_forms):
         return True
-    if low_value_standalone_translation_class(entry):
+    if normalized_surface in CONTEXT_DEPENDENT_STANDALONE_TRANSLATION_FORMS:
+        return True
+    if low_value_standalone_translation_class(entry, token):
+        return True
+    gloss = usable_translation(entry, token)
+    if kind != "verb" and gloss and gloss.lower().endswith(" of"):
         return True
     foundation = dikduk_foundation_metadata(
         token,
@@ -3351,6 +3450,7 @@ def generate_question(
     prefix_level=1,
     recent_question_formats=None,
     recent_prefixes=None,
+    recent_questions=None,
     progress=None,
     analyzed_override=None,
     word_bank_override=None,
@@ -3376,6 +3476,7 @@ def generate_question(
                     prefix_level=prefix_level,
                     recent_question_formats=recent_question_formats,
                     recent_prefixes=recent_prefixes,
+                    recent_questions=recent_questions,
                     progress=progress,
                     analyzed_override=None,
                     word_bank_override=word_bank_override,
@@ -3431,6 +3532,7 @@ def generate_question(
             pasuk_text,
             skill,
             prefix_level=prefix_level,
+            recent_questions=recent_questions,
         )
         if reviewed_question is not None:
             return reviewed_question

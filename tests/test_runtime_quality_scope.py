@@ -5,11 +5,13 @@ from pathlib import Path
 
 import streamlit as st
 
+import engine.flow_builder as flow_builder
 import runtime.question_flow as question_flow
 import runtime.session_state as session_state
 import streamlit_app
 from assessment_scope import active_pesukim_records
 from pasuk_flow_generator import generate_pasuk_flow, generate_question, is_placeholder_translation
+from torah_parser.word_bank_adapter import normalize_hebrew_key
 
 
 def newly_active_scope_pesukim():
@@ -74,7 +76,7 @@ class ActiveRuntimeQualityTests(unittest.TestCase):
                 len(set(prompts)),
                 f"Repeated prompt found in flow for {pasuk}",
             )
-        self.assertGreaterEqual(supported, 8)
+        self.assertGreaterEqual(supported, 7)
 
     def test_newly_active_translation_like_questions_avoid_placeholder_answers(self):
         translation_like_types = {
@@ -109,7 +111,7 @@ class ActiveRuntimeQualityTests(unittest.TestCase):
                     ),
                     f"Placeholder distractor found for {token} in {pasuk}",
                 )
-        self.assertGreaterEqual(supported, 8)
+        self.assertGreaterEqual(supported, 7)
 
     def test_promoted_scope_translation_like_questions_avoid_placeholder_answers(self):
         for pasuk in promoted_scope_pesukim():
@@ -173,6 +175,132 @@ class ActiveRuntimeQualityTests(unittest.TestCase):
         self.assertEqual(question.get("question_type"), "phrase_translation")
         self.assertNotEqual(question.get("selected_word"), "הוּא")
         self.assertEqual(question.get("analysis_source"), "active_scope_reviewed_bank")
+
+    def test_audited_translation_and_part_of_speech_refs_now_use_reviewed_bank(self):
+        expected_translation = {
+            (1, 5): normalize_hebrew_key("וַיִּקְרָא"),
+            (1, 6): normalize_hebrew_key("וִיהִי"),
+            (2, 4): normalize_hebrew_key("עֲשׂוֹת"),
+            (2, 15): normalize_hebrew_key("\u05d5\u05b7\u05d9\u05bc\u05b4\u05e7\u05bc\u05b7\u05d7"),
+            (2, 23): normalize_hebrew_key("וַיֹּאמֶר"),
+            (3, 3): normalize_hebrew_key("\u05ea\u05b0\u05bc\u05de\u05bb\u05ea\u05d5\u05bc\u05df"),
+        }
+        expected_part_of_speech = {
+            (1, 3): (normalize_hebrew_key("וַיְהִי"), "action word"),
+            (1, 4): (normalize_hebrew_key("וַיַּבְדֵּל"), "action word"),
+            (1, 9): (normalize_hebrew_key("וְתֵרָאֶה"), "action word"),
+            (1, 10): (normalize_hebrew_key("וַיִּקְרָא"), "action word"),
+            (1, 11): (normalize_hebrew_key("עֵץ"), "naming word"),
+            (1, 12): (normalize_hebrew_key("וַיַּרְא"), "action word"),
+            (2, 8): (normalize_hebrew_key("וַיִּטַּע"), "action word"),
+            (2, 23): (normalize_hebrew_key("וַיֹּאמֶר"), "action word"),
+            (3, 8): (normalize_hebrew_key("קוֹל"), "naming word"),
+        }
+
+        for record in active_pesukim_records():
+            ref = record.get("ref", {})
+            key = (ref.get("perek"), ref.get("pasuk"))
+
+            if key in expected_translation:
+                question = generate_question("translation", record["text"])
+                self.assertEqual(question.get("analysis_source"), "active_scope_reviewed_bank")
+                self.assertEqual(question.get("question_type"), "translation")
+                self.assertEqual(normalize_hebrew_key(question.get("selected_word")), expected_translation[key])
+
+            if key in expected_part_of_speech:
+                question = generate_question("part_of_speech", record["text"])
+                self.assertEqual(question.get("analysis_source"), "active_scope_reviewed_bank")
+                self.assertEqual(question.get("question_type"), "part_of_speech")
+                expected_token, expected_answer = expected_part_of_speech[key]
+                self.assertEqual(question.get("correct_answer"), expected_answer)
+                self.assertEqual(normalize_hebrew_key(question.get("selected_word")), expected_token)
+
+    def test_low_value_standalone_translation_targets_are_suppressed_or_replaced(self):
+        by_ref = {
+            (record["ref"]["perek"], record["ref"]["pasuk"]): record["text"]
+            for record in active_pesukim_records()
+        }
+
+        divine_or_low_value_targets = {
+            normalize_hebrew_key("אֱלֹהִים"),
+            normalize_hebrew_key("אֱלֹקִים"),
+            normalize_hebrew_key("יְהוָה"),
+            normalize_hebrew_key("חַיַּת"),
+        }
+
+        for ref in ((2, 4), (2, 5), (2, 18), (2, 19), (2, 21), (2, 22), (2, 23), (3, 3)):
+            question = generate_question("translation", by_ref[ref])
+            if question.get("status") == "skipped":
+                self.assertEqual(question.get("reason"), "No usable translation target found in this pasuk.")
+                continue
+            self.assertNotIn(
+                normalize_hebrew_key(question.get("selected_word") or ""),
+                divine_or_low_value_targets,
+            )
+            self.assertFalse(
+                is_placeholder_translation(
+                    question.get("correct_answer"),
+                    question.get("selected_word"),
+                )
+            )
+
+    def test_staged_placeholder_replacements_keep_context_heavy_targets_blocked(self):
+        from corpus_metrics import bundle_word_bank_lookup, load_staged_corpus_bundle, parsed_pasuk_to_analyzed
+
+        bundle = load_staged_corpus_bundle("data/staged/parsed_bereishis_3_9_to_3_16_staged")
+        _word_bank, _by_group = bundle_word_bank_lookup(bundle)
+        by_id = {
+            record["pasuk_id"]: parsed_pasuk_to_analyzed(record)
+            for record in bundle["parsed_pesukim"]["parsed_pesukim"]
+        }
+
+        def entry_for(pasuk_id, token):
+            return next(item["entry"] for item in by_id[pasuk_id] if item["token"] == token)
+
+        self.assertTrue(
+            flow_builder.standalone_translation_target(
+                entry_for("bereishis_3_11", "צִוִּיתִיךָ"),
+                "צִוִּיתִיךָ",
+            )
+        )
+        self.assertTrue(
+            flow_builder.standalone_translation_target(
+                entry_for("bereishis_3_13", "הִשִּׁיאַנִי"),
+                "הִשִּׁיאַנִי",
+            )
+        )
+        for pasuk_id, token in (
+            ("bereishis_3_11", "אֲכָל"),
+            ("bereishis_3_15", "יְשׁוּפְךָ"),
+            ("bereishis_3_15", "תְּשׁוּפֶנּוּ"),
+        ):
+            self.assertFalse(
+                flow_builder.standalone_translation_target(entry_for(pasuk_id, token), token),
+                f"Expected {pasuk_id} {token} to remain context-bound.",
+            )
+
+    def test_staged_reviewed_phrase_and_role_support_keeps_pronoun_heavy_targets_out(self):
+        reviewed_path = Path("data/staged/parsed_bereishis_3_9_to_3_16_staged/reviewed_questions.json")
+        payload = json.loads(reviewed_path.read_text(encoding="utf-8"))
+        staged_targets = {
+            (
+                question.get("skill"),
+                question.get("pasuk_id"),
+                normalize_hebrew_key(question.get("selected_word") or ""),
+            )
+            for question in payload.get("questions", [])
+            if question.get("skill") in {"phrase_translation", "subject_identification", "object_identification"}
+        }
+
+        blocked = {
+            ("phrase_translation", "bereishis_3_15", normalize_hebrew_key("הוּא יְשׁוּפְךָ רֹאשׁ")),
+            ("phrase_translation", "bereishis_3_15", normalize_hebrew_key("וְאַתָּה תְּשׁוּפֶנּוּ עָקֵב")),
+            ("subject_identification", "bereishis_3_15", normalize_hebrew_key("הוּא")),
+            ("object_identification", "bereishis_3_14", normalize_hebrew_key("זֹּאת")),
+        }
+
+        for item in blocked:
+            self.assertNotIn(item, staged_targets)
 
     def test_active_scope_question_includes_safe_seed_only_dikduk_foundation_metadata(self):
         record = next(
@@ -353,8 +481,15 @@ class ActiveRuntimeQualityTests(unittest.TestCase):
             self.assertEqual(phrase_question.get("status"), "skipped", f"Expected honest phrase skip for {ref}")
             self.assertIn(phrase_question.get("reason"), HONEST_PHRASE_SKIP_REASONS)
 
+        translation_support_refs = {(2, 20), (2, 21), (2, 22), (2, 23)}
         for ref in ((2, 19), (2, 20), (2, 21), (2, 22), (2, 23)):
             translation_question = generate_question("translation", by_ref[ref])
+            if ref not in translation_support_refs and translation_question.get("status") == "skipped":
+                self.assertEqual(
+                    translation_question.get("reason"),
+                    "No usable translation target found in this pasuk.",
+                )
+                continue
             self.assertNotEqual(translation_question.get("status"), "skipped", f"Expected translation support for {ref}")
             self.assertFalse(
                 is_placeholder_translation(

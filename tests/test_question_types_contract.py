@@ -437,8 +437,9 @@ class QuestionTypeContractTests(unittest.TestCase):
 
         self.assertEqual(standalone_word_question.get("status"), "skipped")
         self.assertEqual(standalone_formed_question.get("status"), "skipped")
-        self.assertEqual(divine_question.get("correct_answer"), "God")
-        self.assertIn("God", divine_question.get("choices", []))
+        self.assertEqual(divine_question.get("correct_answer"), "you will die")
+        self.assertEqual(divine_question.get("selected_word"), "תְּמֻתוּן")
+        self.assertNotIn("God", divine_question.get("choices", []))
         self.assertNotIn("the LORD", divine_question.get("choices", []))
         self.assertEqual(created_translation.get("question_type"), "phrase_translation")
         self.assertEqual(created_translation.get("correct_answer"), "God created")

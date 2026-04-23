@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "skill.schema.json",
+  "title": "Skill",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "skill_id",
+    "skill_name",
+    "category",
+    "subcategory",
+    "description",
+    "prerequisite_skill_ids",
+    "assessment_context",
+    "difficulty_band",
+    "mastery_signal_type",
+    "source_refs",
+    "notes"
+  ],
+  "properties": {
+    "skill_id": {
+      "type": "string",
+      "pattern": "^skill_[a-z0-9_]+$"
+    },
+    "skill_name": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string"
+    },
+    "subcategory": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "prerequisite_skill_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^skill_[a-z0-9_]+$"
+      },
+      "uniqueItems": true
+    },
+    "assessment_context": {
+      "type": "string",
+      "enum": [
+        "isolated",
+        "phrase",
+        "pasuk"
+      ]
+    },
+    "difficulty_band": {
+      "type": "string",
+      "enum": [
+        "early_elementary",
+        "late_elementary",
+        "middle_school",
+        "advanced"
+      ]
+    },
+    "mastery_signal_type": {
+      "type": "string",
+      "enum": [
+        "recognition",
+        "parsing",
+        "translation",
+        "production",
+        "mixed"
+      ]
+    },
+    "source_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "notes": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  }
+}

@@ -39,13 +39,13 @@ class StreamlitRuntimeScopeTests(unittest.TestCase):
             ("Learn Mode", "Practice Mode", "Pasuk Flow"),
         )
         self.assertEqual(contract["active_scope"], ACTIVE_ASSESSMENT_SCOPE)
-        self.assertEqual(contract["active_pesukim_count"], 56)
+        self.assertEqual(contract["active_pesukim_count"], 64)
 
     def test_active_pasuk_helpers_match_active_dataset(self):
         pasuk_texts = active_pasuk_texts()
         pasuk_text_set = active_pasuk_text_set()
 
-        self.assertEqual(len(pasuk_texts), 56)
+        self.assertEqual(len(pasuk_texts), 64)
         self.assertEqual(len(pasuk_text_set), len(pasuk_texts))
         self.assertTrue(all(is_active_pasuk_text(text) for text in pasuk_texts))
 

@@ -19,6 +19,13 @@ import runtime.session_state as session_state
 import streamlit_app
 
 
+def pasuk_text_by_id(pasuk_id):
+    for record in active_pesukim_records():
+        if record.get("pasuk_id") == pasuk_id:
+            return record["text"]
+    raise AssertionError(f"Missing active pasuk {pasuk_id}")
+
+
 class RuntimeQuestionFlowTests(unittest.TestCase):
     def setUp(self):
         st.session_state.clear()
@@ -46,6 +53,19 @@ class RuntimeQuestionFlowTests(unittest.TestCase):
         self.assertEqual(signature["correct_answer"], "created")
         self.assertEqual(signature["source_pasuk"], "not in active parsed dataset")
 
+    def test_question_signature_prefers_dikduk_foundation_repeat_key_when_present(self):
+        question = self._translation_question(word="יאמר", prompt="What form is shown?")
+        question["skill"] = "identify_tense"
+        question["question_type"] = "identify_tense"
+        question["correct_answer"] = "future"
+        question["choices"] = ["future", "past", "present", "to do form"]
+        question["dikduk_foundation"] = {"repeat_key": "shoresh:אמר"}
+
+        signature = question_signature(question)
+
+        self.assertEqual(signature["target_family"], "shoresh:אמר")
+        self.assertEqual(signature["foundation_repeat_key"], "shoresh:אמר")
+
     def test_recent_question_repeat_reason_blocks_exact_and_near_duplicates(self):
         first = self._translation_question()
         recent = [question_signature(first)]
@@ -71,6 +91,34 @@ class RuntimeQuestionFlowTests(unittest.TestCase):
         translation = self._translation_question()
 
         reason = recent_question_repeat_reason(translation, [question_signature(previous)])
+
+        self.assertEqual(reason, "recent_exact_word_repeat")
+
+    def test_recent_question_repeat_reason_blocks_translation_exact_word_across_longer_window(self):
+        previous = self._translation_question(word="אָמַר", prompt="What does אָמַר mean?")
+        previous["correct_answer"] = "said"
+        previous["choices"] = ["said", "made", "saw", "called"]
+
+        fillers = []
+        for index in range(8):
+            filler = {
+                "skill": "part_of_speech",
+                "question_type": "part_of_speech",
+                "question": f"What kind of word is filler-{index}?",
+                "selected_word": f"מִלָּה{index}",
+                "word": f"מִלָּה{index}",
+                "correct_answer": "naming word",
+                "choices": ["naming word", "action word", "small helper word", "direction word"],
+                "pasuk": f"dummy pasuk {index}",
+            }
+            fillers.append(question_signature(filler))
+
+        repeated = self._translation_question(word="אָמַר", prompt="What does אָמַר mean?")
+        repeated["correct_answer"] = "said"
+        repeated["choices"] = ["said", "made", "saw", "called"]
+
+        recent = [question_signature(previous), *fillers]
+        reason = recent_question_repeat_reason(repeated, recent)
 
         self.assertEqual(reason, "recent_exact_word_repeat")
 
@@ -159,6 +207,52 @@ class RuntimeQuestionFlowTests(unittest.TestCase):
 
         self.assertEqual(reason, "recent_meaning_repeat")
 
+    def test_recent_question_repeat_reason_blocks_translation_phrase_pattern_repeat(self):
+        previous_record = next(
+            record for record in active_pesukim_records()
+            if record.get("pasuk_id") == "bereishis_1_22"
+        )
+        repeated_record = next(
+            record for record in active_pesukim_records()
+            if record.get("pasuk_id") == "bereishis_1_17"
+        )
+        previous = {
+            "skill": "translation",
+            "question_type": "phrase_translation",
+            "question": "What does this phrase mean?",
+            "selected_word": "×•Ö·×™Ö°×‘Ö¸×¨Ö¶×šÖ° ×Ö¹×ªÖ¸× ×Ö±×œÖ¹×§Ö´×™×",
+            "word": "×•Ö·×™Ö°×‘Ö¸×¨Ö¶×šÖ° ×Ö¹×ªÖ¸× ×Ö±×œÖ¹×§Ö´×™×",
+            "correct_answer": "and God blessed them",
+            "choices": [
+                "and God blessed them",
+                "and God placed them",
+                "and God made them",
+                "and God saw them",
+            ],
+            "pasuk": previous_record["text"],
+            "pasuk_ref": {"label": "Bereishis 1:22", "pasuk_id": "bereishis_1_22"},
+        }
+        repeated_pattern = {
+            "skill": "translation",
+            "question_type": "phrase_translation",
+            "question": "What does this phrase mean?",
+            "selected_word": "×•Ö·×™Ö¼Ö´×ªÖ¼Öµ×Ÿ ×Ö¹×ªÖ¸× ×Ö±×œÖ¹×§Ö´×™×",
+            "word": "×•Ö·×™Ö¼Ö´×ªÖ¼Öµ×Ÿ ×Ö¹×ªÖ¸× ×Ö±×œÖ¹×§Ö´×™×",
+            "correct_answer": "and God placed them",
+            "choices": [
+                "and God placed them",
+                "and God blessed them",
+                "and God made them",
+                "and God saw them",
+            ],
+            "pasuk": repeated_record["text"],
+            "pasuk_ref": {"label": "Bereishis 1:17", "pasuk_id": "bereishis_1_17"},
+        }
+
+        reason = recent_question_repeat_reason(repeated_pattern, [question_signature(previous)])
+
+        self.assertEqual(reason, "recent_translation_phrase_pattern_repeat")
+
     def test_recent_question_repeat_reason_blocks_tense_lane_overlap_on_same_target(self):
         previous = {
             "skill": "identify_tense",
@@ -214,6 +308,37 @@ class RuntimeQuestionFlowTests(unittest.TestCase):
         reason = recent_question_repeat_reason(repeated_surface, [question_signature(previous)])
 
         self.assertEqual(reason, "recent_same_pasuk_intent_repeat")
+
+    def test_recent_question_repeat_reason_uses_dikduk_foundation_repeat_key(self):
+        previous = {
+            "skill": "identify_tense",
+            "question_type": "identify_tense",
+            "question": "What form is shown?",
+            "selected_word": "יאמר",
+            "word": "יאמר",
+            "correct_answer": "future",
+            "choices": ["future", "past", "present", "to do form"],
+            "pasuk": "מקור א",
+            "dikduk_foundation": {"repeat_key": "shoresh:אמר"},
+        }
+        repeated_family = {
+            "skill": "verb_tense",
+            "question_type": "verb_tense",
+            "question": "What form is shown?",
+            "selected_word": "תאמר",
+            "word": "תאמר",
+            "correct_answer": "future",
+            "choices": ["future", "past", "present", "to do form"],
+            "pasuk": "מקור ב",
+            "dikduk_foundation": {"repeat_key": "shoresh:אמר"},
+        }
+
+        reason = recent_question_repeat_reason(
+            repeated_family,
+            [question_signature(previous)],
+        )
+
+        self.assertEqual(reason, "recent_target_family_repeat")
 
     def test_display_context_policy_keeps_simple_word_questions_compact(self):
         question = {
@@ -280,6 +405,38 @@ class RuntimeQuestionFlowTests(unittest.TestCase):
 
         self.assertTrue(ranked[0]["reviewed"])
         self.assertFalse(ranked[1]["reviewed"])
+
+    def test_rank_ready_rows_prefers_reviewed_standalone_translation_rows_for_translation_skill(self):
+        ready_rows = [
+            {
+                "pasuk": "phrase_pasuk",
+                "word": "×•Ö·×™Ö°×‘Ö¸×¨Ö¶×šÖ° ×Ö¹×ªÖ¸× ×Ö±×œÖ¹×§Ö´×™×",
+                "reviewed": True,
+                "question_type": "phrase_translation",
+                "analysis_source": "active_scope_reviewed_bank",
+            },
+            {
+                "pasuk": "word_pasuk",
+                "word": "×•Ö·×™Ö¹Ö¼××žÖ¶×¨",
+                "reviewed": True,
+                "question_type": "translation",
+                "analysis_source": "active_scope_reviewed_bank",
+            },
+        ]
+
+        with patch.object(question_flow, "candidate_weight", return_value=1.0):
+            ranked = rank_ready_rows(
+                ready_rows,
+                recent_pesukim=[],
+                recent_words=[],
+                skill="translation",
+                recent_questions=[],
+                progress={},
+                adaptive_context={},
+            )
+
+        self.assertEqual(ranked[0]["question_type"], "translation")
+        self.assertEqual(ranked[1]["question_type"], "phrase_translation")
 
     def test_select_pasuk_first_question_shortlists_before_full_generation(self):
         st.session_state.pilot_scope_mode = "open_pilot_scope"
@@ -375,6 +532,261 @@ class RuntimeQuestionFlowTests(unittest.TestCase):
 
         self.assertIsNotNone(result)
         self.assertEqual(result["selected_word"], "אֱלֹקִים")
+
+    def test_select_pasuk_first_question_blocks_translation_exact_word_seen_longer_window_and_uses_fresh_word(self):
+        st.session_state.pilot_scope_mode = "open_pilot_scope"
+        previous = {
+            "skill": "translation",
+            "question_type": "translation",
+            "question": "What does אָמַר mean?",
+            "selected_word": "אָמַר",
+            "word": "אָמַר",
+            "correct_answer": "said",
+            "choices": ["said", "made", "saw", "called"],
+            "pasuk": "repeat_previous_pasuk",
+        }
+        filler_signatures = []
+        for index in range(8):
+            filler = {
+                "skill": "part_of_speech",
+                "question_type": "part_of_speech",
+                "question": f"What kind of word is filler-{index}?",
+                "selected_word": f"מִלָּה{index}",
+                "word": f"מִלָּה{index}",
+                "correct_answer": "naming word",
+                "choices": ["naming word", "action word", "small helper word", "direction word"],
+                "pasuk": f"filler pasuk {index}",
+            }
+            filler_signatures.append(question_signature(filler))
+        st.session_state.recent_questions = [question_signature(previous), *filler_signatures]
+
+        ready_rows = [
+            {"pasuk": "repeat_pasuk", "word": "אָמַר", "feature": "translation", "prefix": "", "morpheme_family": ""},
+            {"pasuk": "fresh_pasuk", "word": "קוֹל", "feature": "translation", "prefix": "", "morpheme_family": ""},
+        ]
+
+        def generate_question(skill, candidate_source, **kwargs):
+            if candidate_source == "repeat_pasuk":
+                return {
+                    "skill": "translation",
+                    "question_type": "translation",
+                    "question": "What does אָמַר mean?",
+                    "selected_word": "אָמַר",
+                    "word": "אָמַר",
+                    "correct_answer": "said",
+                    "choices": ["said", "made", "saw", "called"],
+                    "pasuk": "repeat_pasuk",
+                }
+            return {
+                "skill": "translation",
+                "question_type": "translation",
+                "question": "What does קוֹל mean?",
+                "selected_word": "קוֹל",
+                "word": "קוֹל",
+                "correct_answer": "voice / sound",
+                "choices": ["voice / sound", "said", "light", "earth"],
+                "pasuk": "fresh_pasuk",
+            }
+
+        with patch.object(question_flow, "get_skill_ready_pasuks", return_value=ready_rows), \
+             patch.object(question_flow, "generate_skill_question", side_effect=generate_question), \
+             patch.object(question_flow, "analyze_generator_pasuk", side_effect=lambda pasuk: pasuk), \
+             patch.object(session_state, "record_selected_pasuk"), \
+             patch.object(session_state, "record_question_feature"), \
+             patch.object(session_state, "record_question_prefix"):
+            result = select_pasuk_first_question("translation", progress={"prefix_level": 1}, adaptive_context={})
+
+        self.assertIsNotNone(result)
+        self.assertEqual(result["selected_word"], "קוֹל")
+
+    def test_select_pasuk_first_question_prefers_reviewed_standalone_translation_when_reviewed_phrase_exists(self):
+        st.session_state.pilot_scope_mode = "open_pilot_scope"
+        ready_rows = [
+            {
+                "pasuk": "phrase_pasuk",
+                "word": "×•Ö·×™Ö°×‘Ö¸×¨Ö¶×šÖ° ×Ö¹×ªÖ¸× ×Ö±×œÖ¹×§Ö´×™×",
+                "feature": "translation",
+                "prefix": "",
+                "morpheme_family": "",
+                "reviewed": True,
+                "question_type": "phrase_translation",
+                "analysis_source": "active_scope_reviewed_bank",
+            },
+            {
+                "pasuk": "word_pasuk",
+                "word": "×•Ö·×™Ö¹Ö¼××žÖ¶×¨",
+                "feature": "translation",
+                "prefix": "",
+                "morpheme_family": "",
+                "reviewed": True,
+                "question_type": "translation",
+                "analysis_source": "active_scope_reviewed_bank",
+            },
+        ]
+
+        def generate_question(skill, candidate_source, **kwargs):
+            if candidate_source == "phrase_pasuk":
+                return {
+                    "skill": "translation",
+                    "question_type": "phrase_translation",
+                    "question": "What does this phrase mean?",
+                    "selected_word": "×•Ö·×™Ö°×‘Ö¸×¨Ö¶×šÖ° ×Ö¹×ªÖ¸× ×Ö±×œÖ¹×§Ö´×™×",
+                    "word": "×•Ö·×™Ö°×‘Ö¸×¨Ö¶×šÖ° ×Ö¹×ªÖ¸× ×Ö±×œÖ¹×§Ö´×™×",
+                    "correct_answer": "and God blessed them",
+                    "choices": [
+                        "and God blessed them",
+                        "and God placed them",
+                        "and God made them",
+                        "and God saw them",
+                    ],
+                    "pasuk": "phrase_pasuk",
+                    "analysis_source": "active_scope_reviewed_bank",
+                }
+            return {
+                "skill": "translation",
+                "question_type": "translation",
+                "question": "What does ×•Ö·×™Ö¹Ö¼××žÖ¶×¨ mean?",
+                "selected_word": "×•Ö·×™Ö¹Ö¼××žÖ¶×¨",
+                "word": "×•Ö·×™Ö¹Ö¼××žÖ¶×¨",
+                "correct_answer": "and he said",
+                "choices": ["and he said", "and he made", "and he saw", "and he called"],
+                "pasuk": "word_pasuk",
+                "analysis_source": "active_scope_reviewed_bank",
+            }
+
+        with patch.object(question_flow, "get_skill_ready_pasuks", return_value=ready_rows), \
+             patch.object(question_flow, "generate_skill_question", side_effect=generate_question), \
+             patch.object(question_flow, "analyze_generator_pasuk", side_effect=lambda pasuk: pasuk), \
+             patch.object(session_state, "record_selected_pasuk"), \
+             patch.object(session_state, "record_question_feature"), \
+             patch.object(session_state, "record_question_prefix"):
+            result = select_pasuk_first_question("translation", progress={"prefix_level": 1}, adaptive_context={})
+
+        self.assertIsNotNone(result)
+        self.assertEqual(result["question_type"], "translation")
+        self.assertEqual(result["selected_word"], "×•Ö·×™Ö¹Ö¼××žÖ¶×¨")
+
+    def test_select_pasuk_first_question_can_surface_alternate_reviewed_translation_from_same_pasuk(self):
+        st.session_state.pilot_scope_mode = "open_pilot_scope"
+        pasuk = pasuk_text_by_id("bereishis_3_7")
+        previous = {
+            "skill": "translation",
+            "question_type": "translation",
+            "question": "What does עֵירֻמִּם mean?",
+            "selected_word": "עֵירֻמִּם",
+            "word": "עֵירֻמִּם",
+            "correct_answer": "naked",
+            "choices": ["naked", "fig", "belts", "good"],
+            "pasuk": pasuk,
+        }
+        st.session_state.recent_questions = [question_signature(previous)]
+        ready_rows = [
+            {
+                "pasuk": pasuk,
+                "word": "עֵירֻמִּם",
+                "feature": "translation",
+                "prefix": "",
+                "morpheme_family": "",
+                "reviewed": True,
+                "question_type": "translation",
+                "analysis_source": "active_scope_reviewed_bank",
+            }
+        ]
+
+        with patch.object(question_flow, "get_skill_ready_pasuks", return_value=ready_rows), \
+             patch.object(session_state, "record_selected_pasuk"), \
+             patch.object(session_state, "record_question_feature"), \
+             patch.object(session_state, "record_question_prefix"):
+            result = select_pasuk_first_question("translation", progress={"prefix_level": 1}, adaptive_context={})
+
+        self.assertIsNotNone(result)
+        self.assertEqual(result["question_type"], "translation")
+        self.assertEqual(result["analysis_source"], "active_scope_reviewed_bank")
+        self.assertEqual(result["selected_word"], "תְאֵנָה")
+        self.assertEqual(result["correct_answer"], "fig")
+
+    def test_select_pasuk_first_question_suppresses_phrase_pattern_when_reviewed_standalone_exists(self):
+        st.session_state.pilot_scope_mode = "open_pilot_scope"
+        previous = {
+            "skill": "translation",
+            "question_type": "phrase_translation",
+            "question": "What does this phrase mean?",
+            "selected_word": "×•Ö·×™Ö°×‘Ö¸×¨Ö¶×šÖ° ×Ö¹×ªÖ¸× ×Ö±×œÖ¹×§Ö´×™×",
+            "word": "×•Ö·×™Ö°×‘Ö¸×¨Ö¶×šÖ° ×Ö¹×ªÖ¸× ×Ö±×œÖ¹×§Ö´×™×",
+            "correct_answer": "and God blessed them",
+            "choices": [
+                "and God blessed them",
+                "and God placed them",
+                "and God made them",
+                "and God saw them",
+            ],
+            "pasuk": "phrase repeat previous",
+        }
+        st.session_state.recent_questions = [question_signature(previous)]
+        ready_rows = [
+            {
+                "pasuk": "phrase_pasuk",
+                "word": "×•Ö·×™Ö¼Ö´×ªÖ¼Öµ×Ÿ ×Ö¹×ªÖ¸× ×Ö±×œÖ¹×§Ö´×™×",
+                "feature": "translation",
+                "prefix": "",
+                "morpheme_family": "",
+                "reviewed": True,
+                "question_type": "phrase_translation",
+                "analysis_source": "active_scope_reviewed_bank",
+            },
+            {
+                "pasuk": "word_pasuk",
+                "word": "×•Ö·×™Ö¹Ö¼××žÖ¶×¨",
+                "feature": "translation",
+                "prefix": "",
+                "morpheme_family": "",
+                "reviewed": True,
+                "question_type": "translation",
+                "analysis_source": "active_scope_reviewed_bank",
+            },
+        ]
+
+        def generate_question(skill, candidate_source, **kwargs):
+            if candidate_source == "phrase_pasuk":
+                return {
+                    "skill": "translation",
+                    "question_type": "phrase_translation",
+                    "question": "What does this phrase mean?",
+                    "selected_word": "×•Ö·×™Ö¼Ö´×ªÖ¼Öµ×Ÿ ×Ö¹×ªÖ¸× ×Ö±×œÖ¹×§Ö´×™×",
+                    "word": "×•Ö·×™Ö¼Ö´×ªÖ¼Öµ×Ÿ ×Ö¹×ªÖ¸× ×Ö±×œÖ¹×§Ö´×™×",
+                    "correct_answer": "and God placed them",
+                    "choices": [
+                        "and God placed them",
+                        "and God blessed them",
+                        "and God made them",
+                        "and God saw them",
+                    ],
+                    "pasuk": "phrase_pasuk",
+                    "analysis_source": "active_scope_reviewed_bank",
+                }
+            return {
+                "skill": "translation",
+                "question_type": "translation",
+                "question": "What does ×•Ö·×™Ö¹Ö¼××žÖ¶×¨ mean?",
+                "selected_word": "×•Ö·×™Ö¹Ö¼××žÖ¶×¨",
+                "word": "×•Ö·×™Ö¹Ö¼××žÖ¶×¨",
+                "correct_answer": "and he said",
+                "choices": ["and he said", "and he made", "and he saw", "and he called"],
+                "pasuk": "word_pasuk",
+                "analysis_source": "active_scope_reviewed_bank",
+            }
+
+        with patch.object(question_flow, "get_skill_ready_pasuks", return_value=ready_rows), \
+             patch.object(question_flow, "generate_skill_question", side_effect=generate_question), \
+             patch.object(question_flow, "analyze_generator_pasuk", side_effect=lambda pasuk: pasuk), \
+             patch.object(session_state, "record_selected_pasuk"), \
+             patch.object(session_state, "record_question_feature"), \
+             patch.object(session_state, "record_question_prefix"):
+            result = select_pasuk_first_question("translation", progress={"prefix_level": 1}, adaptive_context={})
+
+        self.assertIsNotNone(result)
+        self.assertEqual(result["question_type"], "translation")
+        self.assertEqual(result["selected_word"], "×•Ö·×™Ö¹Ö¼××žÖ¶×¨")
 
     def test_select_pasuk_first_question_skips_repeated_translation_meaning_when_fresh_option_exists(self):
         st.session_state.pilot_scope_mode = "open_pilot_scope"

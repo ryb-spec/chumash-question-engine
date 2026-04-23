@@ -3,7 +3,7 @@ from unittest.mock import patch
 
 from engine import flow_builder, question_builders, skill_logic, token_analysis
 import runtime.question_flow as question_flow
-from assessment_scope import active_pesukim_records
+from assessment_scope import active_pasuk_record_for_text, active_pesukim_records
 from runtime.question_flow import build_followup_question
 
 
@@ -42,7 +42,8 @@ class EngineModuleTests(unittest.TestCase):
         pasuk = "וַיֹּאמֶר אֱלֹקִים יְהִי אוֹר וַיְהִי אוֹר"
         question = question_builders.generate_question("translation", pasuk)
 
-        self.assertEqual(question.get("pasuk"), pasuk)
+        self.assertIsNotNone(active_pasuk_record_for_text(question.get("pasuk")))
+        self.assertEqual(question.get("pasuk_ref", {}).get("label"), "Bereishis 1:3")
         self.assertEqual(question.get("skill"), "translation")
 
     def test_prefix_and_suffix_validation_available_from_skill_logic_module(self):

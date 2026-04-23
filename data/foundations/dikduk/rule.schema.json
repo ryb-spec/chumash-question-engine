@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "rule.schema.json",
+  "title": "Rule",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "rule_id",
+    "rule_statement",
+    "category",
+    "applies_to_part_of_speech",
+    "markers",
+    "meaning_effect",
+    "example_tokens",
+    "exception_notes",
+    "confusion_pattern_ids",
+    "progression_order",
+    "confidence",
+    "source_refs"
+  ],
+  "properties": {
+    "rule_id": {
+      "type": "string",
+      "pattern": "^rule_[a-z0-9_]+$"
+    },
+    "rule_statement": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string"
+    },
+    "applies_to_part_of_speech": {
+      "type": "string"
+    },
+    "markers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "meaning_effect": {
+      "type": "string"
+    },
+    "example_tokens": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "exception_notes": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "confusion_pattern_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^conf_[a-z0-9_]+$"
+      },
+      "uniqueItems": true
+    },
+    "progression_order": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "confidence": {
+      "type": "string",
+      "enum": [
+        "explicit",
+        "inferred_strong",
+        "inferred_tentative"
+      ]
+    },
+    "source_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    }
+  }
+}

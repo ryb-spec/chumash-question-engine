@@ -65,11 +65,16 @@ def _canonicalize_manifest(manifest):
 
 
 def _default_corpus_manifest():
-    source_files = [
+    active_runtime_source_files = [
         "data/source/bereishis_1_1_to_1_30.json",
         "data/source/bereishis_1_31_to_2_9.json",
         "data/source/bereishis_2_10_to_2_17.json",
         "data/source/bereishis_2_18_to_2_25.json",
+        "data/source/bereishis_3_1_to_3_8.json",
+    ]
+    prepared_source_files = [
+        *active_runtime_source_files,
+        "data/source/bereishis_3_9_to_3_16.json",
     ]
     parsed_files = {
         "pesukim": "data/pesukim_100.json",
@@ -77,6 +82,22 @@ def _default_corpus_manifest():
         "word_bank": "data/word_bank.json",
         "word_occurrences": "data/word_occurrences.json",
         "translation_reviews": "data/translation_reviews.json",
+    }
+    staged_next_chunk_files = {
+        "pesukim": "data/staged/parsed_bereishis_3_9_to_3_16_staged/pesukim.json",
+        "parsed_pesukim": "data/staged/parsed_bereishis_3_9_to_3_16_staged/parsed_pesukim.json",
+        "word_bank": "data/staged/parsed_bereishis_3_9_to_3_16_staged/word_bank.json",
+        "word_occurrences": "data/staged/parsed_bereishis_3_9_to_3_16_staged/word_occurrences.json",
+        "translation_reviews": "data/staged/parsed_bereishis_3_9_to_3_16_staged/translation_reviews.json",
+        "reviewed_questions": "data/staged/parsed_bereishis_3_9_to_3_16_staged/reviewed_questions.json",
+    }
+    promoted_staged_chunk_files = {
+        "pesukim": "data/staged/parsed_bereishis_3_1_to_3_8_staged/pesukim.json",
+        "parsed_pesukim": "data/staged/parsed_bereishis_3_1_to_3_8_staged/parsed_pesukim.json",
+        "word_bank": "data/staged/parsed_bereishis_3_1_to_3_8_staged/word_bank.json",
+        "word_occurrences": "data/staged/parsed_bereishis_3_1_to_3_8_staged/word_occurrences.json",
+        "translation_reviews": "data/staged/parsed_bereishis_3_1_to_3_8_staged/translation_reviews.json",
+        "reviewed_questions": "data/staged/parsed_bereishis_3_1_to_3_8_staged/reviewed_questions.json",
     }
     return {
         "metadata": {
@@ -92,67 +113,126 @@ def _default_corpus_manifest():
         },
         "source_corpora": [
             {
-                "corpus_id": "source_bereishis_1_1_to_2_25_local",
+                "corpus_id": "source_bereishis_1_1_to_3_16_local",
                 "type": "source_corpus",
                 "sefer": "Bereishis",
                 "range": {
                     "start": {"perek": 1, "pasuk": 1},
-                    "end": {"perek": 2, "pasuk": 25},
+                    "end": {"perek": 3, "pasuk": 16},
                 },
-                "pesukim_count": 56,
-                "source_files": list(source_files),
+                "pesukim_count": 72,
+                "source_files": list(prepared_source_files),
                 "parsed_files": {},
                 "status": "source",
-                "declared_source_range": "1:1-2:25",
+                "declared_source_range": "1:1-3:16",
                 "notes": [
-                    "Current local source file backing the active parsed dataset.",
-                    "Current local source corpus spans Bereishis 1:1 through 2:25.",
+                    "Current local source corpus is prepared through Bereishis 3:16.",
+                    "The active parsed runtime still ends at Bereishis 3:8 while Bereishis 3:9-3:16 remains staged for later hardening.",
                 ],
             }
         ],
         "parsed_corpora": [
             {
-                "corpus_id": "parsed_bereishis_1_1_to_2_25_root",
+                "corpus_id": "parsed_bereishis_1_1_to_3_8_root",
                 "type": "parsed_corpus",
                 "sefer": "Bereishis",
                 "range": {
                     "start": {"perek": 1, "pasuk": 1},
-                    "end": {"perek": 2, "pasuk": 25},
+                    "end": {"perek": 3, "pasuk": 8},
                 },
-                "pesukim_count": 56,
-                "source_files": list(source_files),
+                "pesukim_count": 64,
+                "source_files": list(active_runtime_source_files),
                 "parsed_files": dict(parsed_files),
                 "status": "active",
                 "storage_layer": "data_root",
                 "notes": [
                     "Current blessed parsed runtime layer stored in data/ root.",
-                    "Contains reviewed and parsed-only enrichment used by the active app.",
+                    "Contains reviewed and parsed-only enrichment used by the active app through Bereishis 3:8.",
                 ],
-            }
+            },
+            {
+                "corpus_id": "parsed_bereishis_3_1_to_3_8_staged",
+                "type": "parsed_corpus",
+                "sefer": "Bereishis",
+                "range": {
+                    "start": {"perek": 3, "pasuk": 1},
+                    "end": {"perek": 3, "pasuk": 8},
+                },
+                "pesukim_count": 8,
+                "source_files": ["data/source/bereishis_3_1_to_3_8.json"],
+                "parsed_files": dict(promoted_staged_chunk_files),
+                "status": "active",
+                "storage_layer": "data_staged",
+                "readiness_report": "data/validation/bereishis_3_1_to_3_8_readiness.json",
+                "notes": [
+                    "Promoted contiguous parsed bundle retained as staged-source provenance for Bereishis 3:1-3:8.",
+                    "The active runtime now includes this slice via the root parsed runtime corpus.",
+                ],
+            },
+            {
+                "corpus_id": "parsed_bereishis_3_9_to_3_16_staged",
+                "type": "parsed_corpus",
+                "sefer": "Bereishis",
+                "range": {
+                    "start": {"perek": 3, "pasuk": 9},
+                    "end": {"perek": 3, "pasuk": 16},
+                },
+                "pesukim_count": 8,
+                "source_files": ["data/source/bereishis_3_9_to_3_16.json"],
+                "parsed_files": dict(staged_next_chunk_files),
+                "status": "active_candidate",
+                "storage_layer": "data_staged",
+                "readiness_report": "data/validation/bereishis_3_9_to_3_16_readiness.json",
+                "notes": [
+                    "Next contiguous parsed bundle staged after the Bereishis 3:1-3:8 promotion.",
+                    "This chunk now clears the active-candidate bar, but it remains out of the active runtime until a later explicit promotion pass.",
+                ],
+            },
         ],
         "scopes": [
             {
-                "scope_id": "local_parsed_bereishis_1_1_to_2_25",
+                "scope_id": "local_parsed_bereishis_1_1_to_3_8",
                 "type": "runtime_scope",
                 "sefer": "Bereishis",
                 "range": {
                     "start": {"perek": 1, "pasuk": 1},
-                    "end": {"perek": 2, "pasuk": 25},
+                    "end": {"perek": 3, "pasuk": 8},
                 },
-                "pesukim_count": 56,
-                "source_corpus_id": "source_bereishis_1_1_to_2_25_local",
-                "parsed_corpus_id": "parsed_bereishis_1_1_to_2_25_root",
-                "source_files": list(source_files),
+                "pesukim_count": 64,
+                "source_corpus_id": "source_bereishis_1_1_to_3_16_local",
+                "parsed_corpus_id": "parsed_bereishis_1_1_to_3_8_root",
+                "source_files": list(active_runtime_source_files),
                 "parsed_files": dict(parsed_files),
                 "status": "active",
                 "supported_runtime": True,
                 "notes": [
                     "Current supported Streamlit runtime scope.",
-                    "Backward-compatible with existing data/ root runtime paths.",
+                    "Backward-compatible with existing data/ root runtime paths while extending through Bereishis 3:8.",
                 ],
             }
         ],
-        "future_scopes": [],
+        "future_scopes": [
+            {
+                "scope_id": "local_parsed_bereishis_1_1_to_3_16",
+                "type": "runtime_scope",
+                "sefer": "Bereishis",
+                "range": {
+                    "start": {"perek": 1, "pasuk": 1},
+                    "end": {"perek": 3, "pasuk": 16},
+                },
+                "pesukim_count": 72,
+                "source_corpus_id": "source_bereishis_1_1_to_3_16_local",
+                "parsed_corpus_id": "parsed_bereishis_3_9_to_3_16_staged",
+                "staged_next_chunk_corpus_id": "parsed_bereishis_3_9_to_3_16_staged",
+                "status": "active_candidate",
+                "supported_runtime": False,
+                "readiness_report": "data/validation/bereishis_3_9_to_3_16_readiness.json",
+                "notes": [
+                    "Future contiguous active scope if Bereishis 3:9-3:16 is hardened enough to promote.",
+                    "The staged next chunk is now an active candidate, but it is still not active until a later explicit promotion pass.",
+                ],
+            }
+        ],
     }
 
 
@@ -215,7 +295,7 @@ _MANIFEST_ACTIVE_SCOPE = _resolve_manifest_active_scope()
 
 ACTIVE_ASSESSMENT_SCOPE = _MANIFEST_ACTIVE_SCOPE.get(
     "scope_id",
-    "local_parsed_bereishis_1_1_to_2_17",
+    "local_parsed_bereishis_1_1_to_3_8",
 )
 
 _ACTIVE_PARSED_FILES = _MANIFEST_ACTIVE_SCOPE.get("parsed_files", {})
@@ -642,6 +722,12 @@ def active_scope_reviewed_questions_for_pasuk_id(pasuk_id, skill=None):
             matches.append(deepcopy(question))
             continue
         supported_skills = {str(question.get("skill") or "").strip(), *question.get("alias_skills", [])}
+        if (
+            requested_skill == "translation"
+            and str(question.get("review_family") or "").strip() == "translation"
+            and str(question.get("skill") or "").strip() == "phrase_translation"
+        ):
+            supported_skills.add("translation")
         if requested_skill in supported_skills:
             matches.append(deepcopy(question))
     return tuple(matches)

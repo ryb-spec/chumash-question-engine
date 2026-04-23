@@ -1,0 +1,281 @@
+[
+  {
+    "mapping_id": "map_morphological_awareness_root_affix",
+    "standard_framework": "inferred_chumash_mastery_framework",
+    "standard_area": "Morphological Awareness",
+    "standard_subarea": "Root and Affix Analysis",
+    "linked_skill_ids": [
+      "skill_shoresh_identification",
+      "skill_affix_segmentation",
+      "skill_prefix_handling",
+      "skill_suffix_handling"
+    ],
+    "linked_rule_ids": [
+      "rule_noun_suffix_2ms_singular",
+      "rule_verb_future_3ms_prefix"
+    ],
+    "rationale": "R2 is explicitly built around splitting words into shoresh and affixes, and R3 sequences later grammar on top of that foundation.",
+    "confidence": "inferred_strong",
+    "source_refs": [
+      "R2:p1",
+      "R2:worksheets",
+      "R3:pp5-24"
+    ]
+  },
+  {
+    "mapping_id": "map_grammatical_classification_part_of_speech",
+    "standard_framework": "inferred_chumash_mastery_framework",
+    "standard_area": "Grammatical Classification",
+    "standard_subarea": "Part of Speech",
+    "linked_skill_ids": [
+      "skill_noun_verb_recognition"
+    ],
+    "linked_rule_ids": [
+      "rule_classify_noun_vs_verb_first"
+    ],
+    "rationale": "The curriculum explicitly starts by separating nouns from verbs before suffix interpretation.",
+    "confidence": "inferred_strong",
+    "source_refs": [
+      "R3:p5",
+      "R1:p1"
+    ]
+  },
+  {
+    "mapping_id": "map_noun_morphology_possessive_suffixes",
+    "standard_framework": "inferred_chumash_mastery_framework",
+    "standard_area": "Noun Morphology",
+    "standard_subarea": "Possessive Suffixes",
+    "linked_skill_ids": [
+      "skill_noun_possessive_suffix_recognition",
+      "skill_plural_handling"
+    ],
+    "linked_rule_ids": [
+      "rule_noun_suffix_2ms_singular",
+      "rule_noun_suffix_2ms_plural_objects",
+      "rule_noun_suffix_2mp_family",
+      "rule_noun_suffix_3ms_family",
+      "rule_noun_suffix_1cs_family",
+      "rule_noun_suffix_1cp_family",
+      "rule_noun_suffix_3fs_family",
+      "rule_noun_suffix_2fs_family",
+      "rule_noun_suffix_3mp_family"
+    ],
+    "rationale": "A large early portion of R3 is an explicit noun-suffix curriculum organized by owner and plurality.",
+    "confidence": "inferred_strong",
+    "source_refs": [
+      "R3:pp5-19",
+      "R3:pp36-37",
+      "R3:pp59",
+      "R3:pp68-72"
+    ]
+  },
+  {
+    "mapping_id": "map_verb_morphology_tense_markers",
+    "standard_framework": "inferred_chumash_mastery_framework",
+    "standard_area": "Verb Morphology",
+    "standard_subarea": "Past and Future Markers",
+    "linked_skill_ids": [
+      "skill_verb_past_suffix_recognition",
+      "skill_verb_future_prefix_recognition",
+      "skill_tense_recognition"
+    ],
+    "linked_rule_ids": [
+      "rule_verb_past_2ms_suffix",
+      "rule_verb_future_3ms_prefix",
+      "rule_verb_future_3mp_circumfix",
+      "rule_verb_future_tav_ambiguous",
+      "rule_verb_future_1cs_1cp_prefixes",
+      "rule_verb_past_3ms_base"
+    ],
+    "rationale": "R3 treats tense marking as an explicit rule sequence, not an incidental translation skill.",
+    "confidence": "inferred_strong",
+    "source_refs": [
+      "R3:pp7",
+      "R3:pp22-35",
+      "R3:pp57-61"
+    ]
+  },
+  {
+    "mapping_id": "map_verb_agreement_person_gender_number",
+    "standard_framework": "inferred_chumash_mastery_framework",
+    "standard_area": "Verb Morphology",
+    "standard_subarea": "Subject Agreement",
+    "linked_skill_ids": [
+      "skill_person_gender_number_recognition"
+    ],
+    "linked_rule_ids": [
+      "rule_verb_past_2ms_suffix",
+      "rule_verb_future_3ms_prefix",
+      "rule_verb_future_3mp_circumfix",
+      "rule_verb_future_tav_ambiguous",
+      "rule_verb_future_1cs_1cp_prefixes",
+      "rule_imperative_system"
+    ],
+    "rationale": "The rule spine repeatedly encodes person, gender, and number distinctions directly in form markers.",
+    "confidence": "inferred_strong",
+    "source_refs": [
+      "R3:pp22-35",
+      "R3:pp67-88"
+    ]
+  },
+  {
+    "mapping_id": "map_narrative_vav_patterns",
+    "standard_framework": "inferred_chumash_mastery_framework",
+    "standard_area": "Verb Morphology",
+    "standard_subarea": "Narrative Vav Patterns",
+    "linked_skill_ids": [
+      "skill_vav_hahipuch_recognition",
+      "skill_nikud_sensitive_distinction"
+    ],
+    "linked_rule_ids": [
+      "rule_vav_future_connector",
+      "rule_vav_hahipuch_past"
+    ],
+    "rationale": "The curriculum isolates vav pattern families and warns that vocalization matters.",
+    "confidence": "inferred_strong",
+    "source_refs": [
+      "R3:p8",
+      "R3:pp23-24",
+      "R3:pp34-35"
+    ]
+  },
+  {
+    "mapping_id": "map_mood_imperative",
+    "standard_framework": "inferred_chumash_mastery_framework",
+    "standard_area": "Verb Morphology",
+    "standard_subarea": "Imperative / Direct Command",
+    "linked_skill_ids": [
+      "skill_direct_command_recognition"
+    ],
+    "linked_rule_ids": [
+      "rule_imperative_system",
+      "rule_verb_past_3mp_or_imperative_mp"
+    ],
+    "rationale": "R3 gives direct command its own sequence and explicitly contrasts it with overlapping past forms.",
+    "confidence": "inferred_strong",
+    "source_refs": [
+      "R3:pp78-89"
+    ]
+  },
+  {
+    "mapping_id": "map_present_habitual_recognition",
+    "standard_framework": "inferred_chumash_mastery_framework",
+    "standard_area": "Verb Morphology",
+    "standard_subarea": "Present / Habitual Aspect",
+    "linked_skill_ids": [
+      "skill_present_habitual_recognition"
+    ],
+    "linked_rule_ids": [
+      "rule_present_habitual_system"
+    ],
+    "rationale": "R3 explicitly introduces present/habitual forms as a distinct system late in the sequence.",
+    "confidence": "inferred_strong",
+    "source_refs": [
+      "R3:pp118-124"
+    ]
+  },
+  {
+    "mapping_id": "map_attached_pronouns_on_verbs",
+    "standard_framework": "inferred_chumash_mastery_framework",
+    "standard_area": "Verb Morphology",
+    "standard_subarea": "Attached Object Pronouns",
+    "linked_skill_ids": [
+      "skill_verb_object_suffix_recognition"
+    ],
+    "linked_rule_ids": [
+      "rule_verb_object_suffix_system"
+    ],
+    "rationale": "The source explicitly teaches attached-object endings on verbs as a later morphology topic.",
+    "confidence": "inferred_strong",
+    "source_refs": [
+      "R3:pp89",
+      "R3:pp107-125"
+    ]
+  },
+  {
+    "mapping_id": "map_translation_literal_to_contextual",
+    "standard_framework": "inferred_chumash_mastery_framework",
+    "standard_area": "Translation",
+    "standard_subarea": "Literal to Contextual Meaning",
+    "linked_skill_ids": [
+      "skill_literal_translation",
+      "skill_contextual_translation",
+      "skill_phrase_translation"
+    ],
+    "linked_rule_ids": [
+      "rule_context_resolves_ambiguity"
+    ],
+    "rationale": "R1 provides scaffolded translation work, while R3 repeatedly requires context to choose the right meaning.",
+    "confidence": "inferred_strong",
+    "source_refs": [
+      "R1:worksheets",
+      "R3:throughout"
+    ]
+  },
+  {
+    "mapping_id": "map_pasuk_comprehension_integrated_parsing",
+    "standard_framework": "inferred_chumash_mastery_framework",
+    "standard_area": "Text Comprehension",
+    "standard_subarea": "Pasuk-Integrated Parsing",
+    "linked_skill_ids": [
+      "skill_pasuk_integrated_parsing",
+      "skill_phrase_context_disambiguation"
+    ],
+    "linked_rule_ids": [
+      "rule_context_resolves_ambiguity"
+    ],
+    "rationale": "The worksheet and weekly-review structures assume students must bring token parsing into the pasuk.",
+    "confidence": "inferred_strong",
+    "source_refs": [
+      "R1:worksheets",
+      "R3:weekly_reviews"
+    ]
+  },
+  {
+    "mapping_id": "map_orthographic_awareness_nikud",
+    "standard_framework": "inferred_chumash_mastery_framework",
+    "standard_area": "Orthographic Awareness",
+    "standard_subarea": "Nikud-Sensitive Parsing",
+    "linked_skill_ids": [
+      "skill_nikud_sensitive_distinction",
+      "skill_present_habitual_recognition",
+      "skill_vav_hahipuch_recognition"
+    ],
+    "linked_rule_ids": [
+      "rule_vav_hahipuch_past",
+      "rule_present_habitual_system",
+      "rule_passive_or_causative_patterns"
+    ],
+    "rationale": "Several rule families depend on vocalization changes rather than only added letters.",
+    "confidence": "inferred_strong",
+    "source_refs": [
+      "R3:pp22-24",
+      "R3:pp118-126"
+    ]
+  },
+  {
+    "mapping_id": "map_ambiguity_resolution",
+    "standard_framework": "inferred_chumash_mastery_framework",
+    "standard_area": "Ambiguity Resolution",
+    "standard_subarea": "Context-Based Disambiguation",
+    "linked_skill_ids": [
+      "skill_irregular_ambiguous_form_handling",
+      "skill_phrase_context_disambiguation",
+      "skill_plural_handling"
+    ],
+    "linked_rule_ids": [
+      "rule_verb_future_tav_ambiguous",
+      "rule_verb_past_3mp_or_imperative_mp",
+      "rule_false_plural_exceptions",
+      "rule_context_resolves_ambiguity"
+    ],
+    "rationale": "The curriculum repeatedly teaches that morphology alone does not always settle the answer.",
+    "confidence": "inferred_strong",
+    "source_refs": [
+      "R3:p16",
+      "R3:p29",
+      "R3:p61",
+      "R3:throughout"
+    ]
+  }
+]

@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "morphology_pattern.schema.json",
+  "title": "MorphologyPattern",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "pattern_id",
+    "pattern_type",
+    "part_of_speech",
+    "prefix_markers",
+    "suffix_markers",
+    "stem_behavior",
+    "person",
+    "gender",
+    "number",
+    "tense_aspect",
+    "translation_template",
+    "ambiguity_notes",
+    "linked_rule_ids",
+    "source_refs"
+  ],
+  "properties": {
+    "pattern_id": {
+      "type": "string",
+      "pattern": "^pat_[a-z0-9_]+$"
+    },
+    "pattern_type": {
+      "type": "string"
+    },
+    "part_of_speech": {
+      "type": "string"
+    },
+    "prefix_markers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "suffix_markers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "stem_behavior": {
+      "type": "string"
+    },
+    "person": {
+      "type": "string",
+      "enum": [
+        "first",
+        "second",
+        "third",
+        "ambiguous",
+        "not_applicable"
+      ]
+    },
+    "gender": {
+      "type": "string",
+      "enum": [
+        "masculine",
+        "feminine",
+        "common",
+        "ambiguous",
+        "not_applicable"
+      ]
+    },
+    "number": {
+      "type": "string",
+      "enum": [
+        "singular",
+        "plural",
+        "ambiguous",
+        "not_applicable"
+      ]
+    },
+    "tense_aspect": {
+      "type": "string",
+      "enum": [
+        "past",
+        "future",
+        "present_habitual",
+        "imperative",
+        "possessive",
+        "attached_object",
+        "derived_stem",
+        "ambiguous",
+        "not_applicable"
+      ]
+    },
+    "translation_template": {
+      "type": "string"
+    },
+    "ambiguity_notes": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "linked_rule_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^rule_[a-z0-9_]+$"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "source_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    }
+  }
+}

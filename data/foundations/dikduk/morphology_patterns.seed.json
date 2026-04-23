@@ -1,0 +1,560 @@
+[
+  {
+    "pattern_id": "pat_noun_poss_2ms_sg",
+    "pattern_type": "possessive_suffix",
+    "part_of_speech": "noun",
+    "prefix_markers": [],
+    "suffix_markers": [
+      "?",
+      "??"
+    ],
+    "stem_behavior": "suffix_attached",
+    "person": "second",
+    "gender": "masculine",
+    "number": "singular",
+    "tense_aspect": "possessive",
+    "translation_template": "your (one man's) {noun}",
+    "ambiguity_notes": "Only high-confidence when the host word is a noun.",
+    "linked_rule_ids": [
+      "rule_noun_suffix_2ms_singular"
+    ],
+    "source_refs": [
+      "R3:p5"
+    ]
+  },
+  {
+    "pattern_id": "pat_noun_poss_2ms_pl",
+    "pattern_type": "possessive_suffix",
+    "part_of_speech": "noun",
+    "prefix_markers": [],
+    "suffix_markers": [
+      "??"
+    ],
+    "stem_behavior": "suffix_attached",
+    "person": "second",
+    "gender": "masculine",
+    "number": "singular",
+    "tense_aspect": "possessive",
+    "translation_template": "your (one man's) {plural_noun}",
+    "ambiguity_notes": "Plural-looking tokens still require noun confirmation.",
+    "linked_rule_ids": [
+      "rule_noun_suffix_2ms_plural_objects"
+    ],
+    "source_refs": [
+      "R3:p15"
+    ]
+  },
+  {
+    "pattern_id": "pat_noun_poss_2mp_family",
+    "pattern_type": "possessive_suffix",
+    "part_of_speech": "noun",
+    "prefix_markers": [],
+    "suffix_markers": [
+      "??",
+      "???"
+    ],
+    "stem_behavior": "suffix_attached",
+    "person": "second",
+    "gender": "masculine",
+    "number": "plural",
+    "tense_aspect": "possessive",
+    "translation_template": "your (many men's) {noun}",
+    "ambiguity_notes": "Longer forms can mark plural owned objects.",
+    "linked_rule_ids": [
+      "rule_noun_suffix_2mp_family"
+    ],
+    "source_refs": [
+      "R3:p12",
+      "R3:p14"
+    ]
+  },
+  {
+    "pattern_id": "pat_noun_poss_3ms_sg",
+    "pattern_type": "possessive_suffix",
+    "part_of_speech": "noun",
+    "prefix_markers": [],
+    "suffix_markers": [
+      "?",
+      "??"
+    ],
+    "stem_behavior": "suffix_attached",
+    "person": "third",
+    "gender": "masculine",
+    "number": "singular",
+    "tense_aspect": "possessive",
+    "translation_template": "his {noun}",
+    "ambiguity_notes": "Short vav endings need noun confirmation.",
+    "linked_rule_ids": [
+      "rule_noun_suffix_3ms_family"
+    ],
+    "source_refs": [
+      "R3:p17"
+    ]
+  },
+  {
+    "pattern_id": "pat_noun_poss_3ms_pl",
+    "pattern_type": "possessive_suffix",
+    "part_of_speech": "noun",
+    "prefix_markers": [],
+    "suffix_markers": [
+      "??"
+    ],
+    "stem_behavior": "suffix_attached",
+    "person": "third",
+    "gender": "masculine",
+    "number": "singular",
+    "tense_aspect": "possessive",
+    "translation_template": "his {plural_noun}",
+    "ambiguity_notes": null,
+    "linked_rule_ids": [
+      "rule_noun_suffix_3ms_family"
+    ],
+    "source_refs": [
+      "R3:p19"
+    ]
+  },
+  {
+    "pattern_id": "pat_noun_poss_1cs",
+    "pattern_type": "possessive_suffix",
+    "part_of_speech": "noun",
+    "prefix_markers": [],
+    "suffix_markers": [
+      "?"
+    ],
+    "stem_behavior": "suffix_attached",
+    "person": "first",
+    "gender": "common",
+    "number": "singular",
+    "tense_aspect": "possessive",
+    "translation_template": "my {noun}",
+    "ambiguity_notes": "Can resemble stem letters or plural-looking surface shapes.",
+    "linked_rule_ids": [
+      "rule_noun_suffix_1cs_family"
+    ],
+    "source_refs": [
+      "R3:p36",
+      "R3:p37"
+    ]
+  },
+  {
+    "pattern_id": "pat_noun_poss_1cp",
+    "pattern_type": "possessive_suffix",
+    "part_of_speech": "noun",
+    "prefix_markers": [],
+    "suffix_markers": [
+      "??",
+      "???"
+    ],
+    "stem_behavior": "suffix_attached",
+    "person": "first",
+    "gender": "common",
+    "number": "plural",
+    "tense_aspect": "possessive",
+    "translation_template": "our {noun}",
+    "ambiguity_notes": "Do not confuse with verb subject or object suffixes.",
+    "linked_rule_ids": [
+      "rule_noun_suffix_1cp_family"
+    ],
+    "source_refs": [
+      "R3:p59"
+    ]
+  },
+  {
+    "pattern_id": "pat_noun_poss_3fs_family",
+    "pattern_type": "possessive_suffix",
+    "part_of_speech": "noun",
+    "prefix_markers": [],
+    "suffix_markers": [
+      "?",
+      "??",
+      "??"
+    ],
+    "stem_behavior": "suffix_attached",
+    "person": "third",
+    "gender": "feminine",
+    "number": "singular",
+    "tense_aspect": "possessive",
+    "translation_template": "her {noun}",
+    "ambiguity_notes": "The family includes short and long variants.",
+    "linked_rule_ids": [
+      "rule_noun_suffix_3fs_family"
+    ],
+    "source_refs": [
+      "R3:p68"
+    ]
+  },
+  {
+    "pattern_id": "pat_noun_poss_2fs_family",
+    "pattern_type": "possessive_suffix",
+    "part_of_speech": "noun",
+    "prefix_markers": [],
+    "suffix_markers": [
+      "??",
+      "???"
+    ],
+    "stem_behavior": "suffix_attached",
+    "person": "second",
+    "gender": "feminine",
+    "number": "singular",
+    "tense_aspect": "possessive",
+    "translation_template": "your (one lady's) {noun}",
+    "ambiguity_notes": "Unpointed text can hide the gender distinction.",
+    "linked_rule_ids": [
+      "rule_noun_suffix_2fs_family"
+    ],
+    "source_refs": [
+      "R3:p69"
+    ]
+  },
+  {
+    "pattern_id": "pat_noun_poss_3mp_family",
+    "pattern_type": "possessive_suffix",
+    "part_of_speech": "noun",
+    "prefix_markers": [],
+    "suffix_markers": [
+      "?",
+      "???"
+    ],
+    "stem_behavior": "suffix_attached",
+    "person": "third",
+    "gender": "masculine",
+    "number": "plural",
+    "tense_aspect": "possessive",
+    "translation_template": "their (many men's) {noun}",
+    "ambiguity_notes": "Short ? forms may compress fuller plural-possessive forms.",
+    "linked_rule_ids": [
+      "rule_noun_suffix_3mp_family"
+    ],
+    "source_refs": [
+      "R3:p72"
+    ]
+  },
+  {
+    "pattern_id": "pat_verb_past_2ms",
+    "pattern_type": "subject_suffix",
+    "part_of_speech": "verb",
+    "prefix_markers": [],
+    "suffix_markers": [
+      "??"
+    ],
+    "stem_behavior": "suffix_attached",
+    "person": "second",
+    "gender": "masculine",
+    "number": "singular",
+    "tense_aspect": "past",
+    "translation_template": "you (one man) {verb_past}",
+    "ambiguity_notes": "Requires noun/verb classification first.",
+    "linked_rule_ids": [
+      "rule_verb_past_2ms_suffix"
+    ],
+    "source_refs": [
+      "R3:p7"
+    ]
+  },
+  {
+    "pattern_id": "pat_verb_future_3ms",
+    "pattern_type": "subject_prefix",
+    "part_of_speech": "verb",
+    "prefix_markers": [
+      "?"
+    ],
+    "suffix_markers": [],
+    "stem_behavior": "prefix_attached",
+    "person": "third",
+    "gender": "masculine",
+    "number": "singular",
+    "tense_aspect": "future",
+    "translation_template": "he will {verb}",
+    "ambiguity_notes": "Yod-initial roots may require nikud-sensitive review.",
+    "linked_rule_ids": [
+      "rule_verb_future_3ms_prefix"
+    ],
+    "source_refs": [
+      "R3:p22"
+    ]
+  },
+  {
+    "pattern_id": "pat_vav_future_connector",
+    "pattern_type": "vav_transformation",
+    "part_of_speech": "verb",
+    "prefix_markers": [
+      "??"
+    ],
+    "suffix_markers": [],
+    "stem_behavior": "vav_attached",
+    "person": "ambiguous",
+    "gender": "ambiguous",
+    "number": "ambiguous",
+    "tense_aspect": "future",
+    "translation_template": "and {subject} will {verb}",
+    "ambiguity_notes": "Must be kept separate from vav-hahipuch forms with different vocalization.",
+    "linked_rule_ids": [
+      "rule_vav_future_connector"
+    ],
+    "source_refs": [
+      "R3:p8"
+    ]
+  },
+  {
+    "pattern_id": "pat_vav_hahipuch_3ms",
+    "pattern_type": "vav_transformation",
+    "part_of_speech": "verb",
+    "prefix_markers": [
+      "??",
+      "??",
+      "??"
+    ],
+    "suffix_markers": [],
+    "stem_behavior": "vav_transformed",
+    "person": "third",
+    "gender": "masculine",
+    "number": "singular",
+    "tense_aspect": "past",
+    "translation_template": "and he {verb_past}",
+    "ambiguity_notes": "Guttural-initial roots may surface with alternate vocalization.",
+    "linked_rule_ids": [
+      "rule_vav_hahipuch_past"
+    ],
+    "source_refs": [
+      "R3:p23",
+      "R3:p24",
+      "R3:p34"
+    ]
+  },
+  {
+    "pattern_id": "pat_verb_future_3mp",
+    "pattern_type": "subject_circumfix",
+    "part_of_speech": "verb",
+    "prefix_markers": [
+      "?"
+    ],
+    "suffix_markers": [
+      "??"
+    ],
+    "stem_behavior": "circumfix",
+    "person": "third",
+    "gender": "masculine",
+    "number": "plural",
+    "tense_aspect": "future",
+    "translation_template": "they (many men) will {verb}",
+    "ambiguity_notes": "Best contrasted with past plural and imperative plural families.",
+    "linked_rule_ids": [
+      "rule_verb_future_3mp_circumfix"
+    ],
+    "source_refs": [
+      "R3:p27"
+    ]
+  },
+  {
+    "pattern_id": "pat_verb_future_tav_ambiguous",
+    "pattern_type": "ambiguous_prefix",
+    "part_of_speech": "verb",
+    "prefix_markers": [
+      "?"
+    ],
+    "suffix_markers": [],
+    "stem_behavior": "prefix_attached",
+    "person": "ambiguous",
+    "gender": "ambiguous",
+    "number": "singular",
+    "tense_aspect": "future",
+    "translation_template": "you (one man) will {verb} / she will {verb}",
+    "ambiguity_notes": "Context must decide between second masculine singular and third feminine singular.",
+    "linked_rule_ids": [
+      "rule_verb_future_tav_ambiguous",
+      "rule_context_resolves_ambiguity"
+    ],
+    "source_refs": [
+      "R3:p29",
+      "R3:p73"
+    ]
+  },
+  {
+    "pattern_id": "pat_verb_future_1cs",
+    "pattern_type": "subject_prefix",
+    "part_of_speech": "verb",
+    "prefix_markers": [
+      "?"
+    ],
+    "suffix_markers": [],
+    "stem_behavior": "prefix_attached",
+    "person": "first",
+    "gender": "common",
+    "number": "singular",
+    "tense_aspect": "future",
+    "translation_template": "I will {verb}",
+    "ambiguity_notes": null,
+    "linked_rule_ids": [
+      "rule_verb_future_1cs_1cp_prefixes"
+    ],
+    "source_refs": [
+      "R3:p33"
+    ]
+  },
+  {
+    "pattern_id": "pat_verb_future_1cp",
+    "pattern_type": "subject_prefix",
+    "part_of_speech": "verb",
+    "prefix_markers": [
+      "?"
+    ],
+    "suffix_markers": [],
+    "stem_behavior": "prefix_attached",
+    "person": "first",
+    "gender": "common",
+    "number": "plural",
+    "tense_aspect": "future",
+    "translation_template": "we will {verb}",
+    "ambiguity_notes": "Some nun-prefixed forms overlap with passive-like families and need context or review.",
+    "linked_rule_ids": [
+      "rule_verb_future_1cs_1cp_prefixes",
+      "rule_context_resolves_ambiguity"
+    ],
+    "source_refs": [
+      "R3:p57",
+      "R3:p126"
+    ]
+  },
+  {
+    "pattern_id": "pat_verb_past_3ms",
+    "pattern_type": "base_form_past",
+    "part_of_speech": "verb",
+    "prefix_markers": [],
+    "suffix_markers": [],
+    "stem_behavior": "base_stem",
+    "person": "third",
+    "gender": "masculine",
+    "number": "singular",
+    "tense_aspect": "past",
+    "translation_template": "he {verb_past}",
+    "ambiguity_notes": "Real parsing pattern, but often a low-value shoresh item when used as a bare citation-like form.",
+    "linked_rule_ids": [
+      "rule_verb_past_3ms_base"
+    ],
+    "source_refs": [
+      "R3:p60"
+    ]
+  },
+  {
+    "pattern_id": "pat_verb_past_3mp_or_imperative_mp",
+    "pattern_type": "ambiguous_suffix",
+    "part_of_speech": "verb",
+    "prefix_markers": [],
+    "suffix_markers": [
+      "??"
+    ],
+    "stem_behavior": "suffix_attached",
+    "person": "ambiguous",
+    "gender": "masculine",
+    "number": "plural",
+    "tense_aspect": "ambiguous",
+    "translation_template": "they {verb_past} / {command} (many men)",
+    "ambiguity_notes": "Past 3mp and imperative mp need context to separate.",
+    "linked_rule_ids": [
+      "rule_verb_past_3mp_or_imperative_mp",
+      "rule_context_resolves_ambiguity"
+    ],
+    "source_refs": [
+      "R3:p61",
+      "R3:p85"
+    ]
+  },
+  {
+    "pattern_id": "pat_imperative_family",
+    "pattern_type": "imperative_pattern",
+    "part_of_speech": "verb",
+    "prefix_markers": [],
+    "suffix_markers": [
+      "??",
+      "?",
+      "??"
+    ],
+    "stem_behavior": "vowel_shift",
+    "person": "second",
+    "gender": "ambiguous",
+    "number": "ambiguous",
+    "tense_aspect": "imperative",
+    "translation_template": "{command}",
+    "ambiguity_notes": "Audience is resolved by the specific ending family and sometimes by context.",
+    "linked_rule_ids": [
+      "rule_imperative_system"
+    ],
+    "source_refs": [
+      "R3:pp78-89"
+    ]
+  },
+  {
+    "pattern_id": "pat_present_habitual_family",
+    "pattern_type": "present_habitual_pattern",
+    "part_of_speech": "verb",
+    "prefix_markers": [],
+    "suffix_markers": [
+      "??",
+      "?",
+      "??"
+    ],
+    "stem_behavior": "present_pattern",
+    "person": "third",
+    "gender": "ambiguous",
+    "number": "ambiguous",
+    "tense_aspect": "present_habitual",
+    "translation_template": "{is/does} {verb}",
+    "ambiguity_notes": "Subforms split by gender and number; the family is seeded as a high-confidence system rather than as every subcase.",
+    "linked_rule_ids": [
+      "rule_present_habitual_system"
+    ],
+    "source_refs": [
+      "R3:pp118-124"
+    ]
+  },
+  {
+    "pattern_id": "pat_verb_object_suffix_family",
+    "pattern_type": "object_suffix_family",
+    "part_of_speech": "verb",
+    "prefix_markers": [],
+    "suffix_markers": [
+      "??",
+      "?",
+      "?",
+      "?",
+      "??"
+    ],
+    "stem_behavior": "suffix_attached",
+    "person": "ambiguous",
+    "gender": "ambiguous",
+    "number": "ambiguous",
+    "tense_aspect": "attached_object",
+    "translation_template": "{verb} {attached_object}",
+    "ambiguity_notes": "Specific attached-object values depend on the exact ending; the family itself is high-confidence.",
+    "linked_rule_ids": [
+      "rule_verb_object_suffix_system"
+    ],
+    "source_refs": [
+      "R3:pp107-125"
+    ]
+  },
+  {
+    "pattern_id": "pat_passive_or_causative_family",
+    "pattern_type": "derived_stem_family",
+    "part_of_speech": "verb",
+    "prefix_markers": [
+      "?",
+      "?",
+      "?"
+    ],
+    "suffix_markers": [],
+    "stem_behavior": "derived_stem",
+    "person": "ambiguous",
+    "gender": "ambiguous",
+    "number": "ambiguous",
+    "tense_aspect": "derived_stem",
+    "translation_template": "{be_done_to_or_cause_to_do}",
+    "ambiguity_notes": "Seeded only at a family level because subcases are only partly extractable from OCR.",
+    "linked_rule_ids": [
+      "rule_passive_or_causative_patterns"
+    ],
+    "source_refs": [
+      "R3:pp123-126"
+    ]
+  }
+]

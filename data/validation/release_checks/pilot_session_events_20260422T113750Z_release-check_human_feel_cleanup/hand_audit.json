@@ -1,0 +1,363 @@
+{
+  "generated_at_utc": "2026-04-22T11:55:59.876099+00:00",
+  "scope": {
+    "scope_id": "local_parsed_bereishis_1_1_to_3_8",
+    "sefer": "Bereishis",
+    "range": {
+      "start": {
+        "perek": 1,
+        "pasuk": 1
+      },
+      "end": {
+        "perek": 3,
+        "pasuk": 8
+      }
+    },
+    "status": "active",
+    "pesukim_count": 64
+  },
+  "requested_question_count": 12,
+  "question_count": 12,
+  "lane_counts": {
+    "translation": 3,
+    "shoresh": 3,
+    "tense": 2,
+    "affix": 2,
+    "part_of_speech": 2
+  },
+  "question_type_counts": {
+    "phrase_translation": 2,
+    "shoresh": 3,
+    "verb_tense": 1,
+    "prefix_level_2_identify_prefix_meaning": 2,
+    "part_of_speech": 2,
+    "identify_tense": 1,
+    "translation": 1
+  },
+  "provenance_counts": {
+    "reviewed": 5,
+    "generated": 7
+  },
+  "duplicate_feel_warning_count": 0,
+  "warnings": [],
+  "questions": [
+    {
+      "index": 1,
+      "lane": "translation",
+      "skill": "translation",
+      "question_type": "phrase_translation",
+      "pasuk_ref": {
+        "sefer": "Bereishis",
+        "perek": 1,
+        "pasuk": 1,
+        "label": "Bereishis 1:1",
+        "pasuk_id": "bereishis_1_1"
+      },
+      "target_word": "בָּרָא אֱלֹקִים",
+      "prompt": "What does this phrase mean?",
+      "choices": [
+        "God made",
+        "someone else created",
+        "God blessed",
+        "God created"
+      ],
+      "correct_answer": "God created",
+      "explanation": "Here, בָּרָא אֱלֹקִים is the curated quiz-ready phrase and means 'God created'.",
+      "provenance": "reviewed",
+      "source": "active scope reviewed bank",
+      "analysis_source": "active_scope_reviewed_bank"
+    },
+    {
+      "index": 2,
+      "lane": "shoresh",
+      "skill": "shoresh",
+      "question_type": "shoresh",
+      "pasuk_ref": {
+        "sefer": "Bereishis",
+        "perek": 1,
+        "pasuk": 3,
+        "label": "Bereishis 1:3",
+        "pasuk_id": "bereishis_1_3"
+      },
+      "target_word": "וַיֹּאמֶר",
+      "prompt": "What is the shoresh of וַיֹּאמֶר?",
+      "choices": [
+        "יצר",
+        "צמח",
+        "אמר",
+        "אכל"
+      ],
+      "correct_answer": "אמר",
+      "explanation": "The shoresh of וַיֹּאמֶר is אמר.",
+      "provenance": "generated",
+      "source": "generated skill question",
+      "analysis_source": null
+    },
+    {
+      "index": 3,
+      "lane": "tense",
+      "skill": "verb_tense",
+      "question_type": "verb_tense",
+      "pasuk_ref": {
+        "sefer": "Bereishis",
+        "perek": 1,
+        "pasuk": 1,
+        "label": "Bereishis 1:1",
+        "pasuk_id": "bereishis_1_1"
+      },
+      "target_word": "בְּרֵאשִׁית",
+      "prompt": "What form is shown?",
+      "choices": [
+        "future",
+        "past",
+        "to do form",
+        "present"
+      ],
+      "correct_answer": "past",
+      "explanation": "בְּרֵאשִׁית uses the past form.",
+      "provenance": "generated",
+      "source": "generated skill question",
+      "analysis_source": null
+    },
+    {
+      "index": 4,
+      "lane": "affix",
+      "skill": "identify_prefix_meaning",
+      "question_type": "prefix_level_2_identify_prefix_meaning",
+      "pasuk_ref": {
+        "sefer": "Bereishis",
+        "perek": 1,
+        "pasuk": 1,
+        "label": "Bereishis 1:1",
+        "pasuk_id": "bereishis_1_1"
+      },
+      "target_word": "הַשָּׁמַיִם",
+      "prompt": "What does the prefix ה add?",
+      "choices": [
+        "in / with",
+        "and",
+        "that / which",
+        "to / for",
+        "from",
+        "the",
+        "like / as"
+      ],
+      "correct_answer": "the",
+      "explanation": "In הַשָּׁמַיִם, ה means 'the'.",
+      "provenance": "generated",
+      "source": "generated skill question",
+      "analysis_source": null
+    },
+    {
+      "index": 5,
+      "lane": "part_of_speech",
+      "skill": "part_of_speech",
+      "question_type": "part_of_speech",
+      "pasuk_ref": {
+        "sefer": "Bereishis",
+        "perek": 1,
+        "pasuk": 1,
+        "label": "Bereishis 1:1",
+        "pasuk_id": "bereishis_1_1"
+      },
+      "target_word": "בְּרֵאשִׁית",
+      "prompt": "What kind of word is בְּרֵאשִׁית?",
+      "choices": [
+        "direction word",
+        "action word",
+        "naming word",
+        "small helper word"
+      ],
+      "correct_answer": "action word",
+      "explanation": "בְּרֵאשִׁית is an action word.",
+      "provenance": "generated",
+      "source": "generated skill question",
+      "analysis_source": null
+    },
+    {
+      "index": 6,
+      "lane": "translation",
+      "skill": "translation",
+      "question_type": "phrase_translation",
+      "pasuk_ref": {
+        "sefer": "Bereishis",
+        "perek": 1,
+        "pasuk": 3,
+        "label": "Bereishis 1:3",
+        "pasuk_id": "bereishis_1_3"
+      },
+      "target_word": "וַיֹּאמֶר אֱלֹקִים",
+      "prompt": "What does this phrase mean?",
+      "choices": [
+        "and God called",
+        "and someone else said",
+        "and God said",
+        "and God made"
+      ],
+      "correct_answer": "and God said",
+      "explanation": "Here, וַיֹּאמֶר אֱלֹקִים is the curated quiz-ready phrase and means 'and God said'.",
+      "provenance": "reviewed",
+      "source": "active scope reviewed bank",
+      "analysis_source": "active_scope_reviewed_bank"
+    },
+    {
+      "index": 7,
+      "lane": "shoresh",
+      "skill": "shoresh",
+      "question_type": "shoresh",
+      "pasuk_ref": {
+        "sefer": "Bereishis",
+        "perek": 1,
+        "pasuk": 4,
+        "label": "Bereishis 1:4",
+        "pasuk_id": "bereishis_1_4"
+      },
+      "target_word": "וַיַּבְדֵּל",
+      "prompt": "What is the shoresh of וַיַּבְדֵּל?",
+      "choices": [
+        "בנה",
+        "אכל",
+        "בדל",
+        "ברא"
+      ],
+      "correct_answer": "בדל",
+      "explanation": "The shoresh of וַיַּבְדֵּל is בדל.",
+      "provenance": "reviewed",
+      "source": "active scope reviewed bank",
+      "analysis_source": "active_scope_reviewed_bank"
+    },
+    {
+      "index": 8,
+      "lane": "tense",
+      "skill": "identify_tense",
+      "question_type": "identify_tense",
+      "pasuk_ref": {
+        "sefer": "Bereishis",
+        "perek": 1,
+        "pasuk": 2,
+        "label": "Bereishis 1:2",
+        "pasuk_id": "bereishis_1_2"
+      },
+      "target_word": "מְרַחֶפֶת",
+      "prompt": "What form is shown?",
+      "choices": [
+        "to do form",
+        "present",
+        "future",
+        "past"
+      ],
+      "correct_answer": "past",
+      "explanation": "מְרַחֶפֶת uses the past form.",
+      "provenance": "generated",
+      "source": "generated skill question",
+      "analysis_source": null
+    },
+    {
+      "index": 9,
+      "lane": "affix",
+      "skill": "identify_prefix_meaning",
+      "question_type": "prefix_level_2_identify_prefix_meaning",
+      "pasuk_ref": {
+        "sefer": "Bereishis",
+        "perek": 1,
+        "pasuk": 2,
+        "label": "Bereishis 1:2",
+        "pasuk_id": "bereishis_1_2"
+      },
+      "target_word": "הַמָּיִם",
+      "prompt": "What does the prefix ה add?",
+      "choices": [
+        "from",
+        "like / as",
+        "that / which",
+        "in / with",
+        "the",
+        "to / for",
+        "and"
+      ],
+      "correct_answer": "the",
+      "explanation": "In הַמָּיִם, ה means 'the'.",
+      "provenance": "generated",
+      "source": "generated skill question",
+      "analysis_source": null
+    },
+    {
+      "index": 10,
+      "lane": "part_of_speech",
+      "skill": "part_of_speech",
+      "question_type": "part_of_speech",
+      "pasuk_ref": {
+        "sefer": "Bereishis",
+        "perek": 1,
+        "pasuk": 2,
+        "label": "Bereishis 1:2",
+        "pasuk_id": "bereishis_1_2"
+      },
+      "target_word": "מְרַחֶפֶת",
+      "prompt": "What kind of word is מְרַחֶפֶת?",
+      "choices": [
+        "action word",
+        "direction word",
+        "small helper word",
+        "naming word"
+      ],
+      "correct_answer": "action word",
+      "explanation": "מְרַחֶפֶת is an action word.",
+      "provenance": "generated",
+      "source": "generated skill question",
+      "analysis_source": null
+    },
+    {
+      "index": 11,
+      "lane": "translation",
+      "skill": "translation",
+      "question_type": "translation",
+      "pasuk_ref": {
+        "sefer": "Bereishis",
+        "perek": 1,
+        "pasuk": 4,
+        "label": "Bereishis 1:4",
+        "pasuk_id": "bereishis_1_4"
+      },
+      "target_word": "טוֹב",
+      "prompt": "What does טוֹב mean?",
+      "choices": [
+        "belts",
+        "desire",
+        "crafty",
+        "good"
+      ],
+      "correct_answer": "good",
+      "explanation": "טוֹב means 'good'.",
+      "provenance": "reviewed",
+      "source": "active scope reviewed bank",
+      "analysis_source": "active_scope_reviewed_bank"
+    },
+    {
+      "index": 12,
+      "lane": "shoresh",
+      "skill": "shoresh",
+      "question_type": "shoresh",
+      "pasuk_ref": {
+        "sefer": "Bereishis",
+        "perek": 1,
+        "pasuk": 9,
+        "label": "Bereishis 1:9",
+        "pasuk_id": "bereishis_1_9"
+      },
+      "target_word": "יִקָּווּ",
+      "prompt": "What is the shoresh of יִקָּווּ?",
+      "choices": [
+        "קוה",
+        "היה",
+        "צוה",
+        "בנה"
+      ],
+      "correct_answer": "קוה",
+      "explanation": "The shoresh of יִקָּווּ is קוה.",
+      "provenance": "reviewed",
+      "source": "active scope reviewed bank",
+      "analysis_source": "active_scope_reviewed_bank"
+    }
+  ]
+}

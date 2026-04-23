@@ -3,9 +3,9 @@
     "title": "Generated Torah Word Occurrences",
     "version": "0.1",
     "artifact_type": "word_occurrences",
-    "corpus_id": "parsed_bereishis_1_1_to_2_17_root",
+    "corpus_id": "parsed_bereishis_1_1_to_3_8_root",
     "status": "active",
-    "pesukim_count": 48,
+    "pesukim_count": 64,
     "sefer": "Bereishis",
     "range": {
       "start": {
@@ -15,16 +15,18 @@
       },
       "end": {
         "sefer": "Bereishis",
-        "perek": 2,
-        "pasuk": 17
+        "perek": 3,
+        "pasuk": 8
       }
     },
     "source_files": [
       "data/source/bereishis_1_1_to_1_30.json",
       "data/source/bereishis_1_31_to_2_9.json",
-      "data/source/bereishis_2_10_to_2_17.json"
+      "data/source/bereishis_2_10_to_2_17.json",
+      "data/source/bereishis_2_18_to_2_25.json",
+      "data/source/bereishis_3_1_to_3_8.json"
     ],
-    "declared_source_range": "1:1-2:17"
+    "declared_source_range": null
   },
   "occurrences": [
     {
@@ -4547,6 +4549,1644 @@
       "token_index": 12,
       "surface": "תָּמוּת",
       "normalized": "תמות",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_18",
+      "token_index": 0,
+      "surface": "וַיֹּאמֶר",
+      "normalized": "ויאמר",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_18",
+      "token_index": 1,
+      "surface": "יְהוָה",
+      "normalized": "יהוה",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_18",
+      "token_index": 2,
+      "surface": "אֱלֹהִים",
+      "normalized": "אלהים",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_18",
+      "token_index": 3,
+      "surface": "לֹא",
+      "normalized": "לא",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_18",
+      "token_index": 4,
+      "surface": "טוֹב",
+      "normalized": "טוב",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_18",
+      "token_index": 5,
+      "surface": "הֱיוֹת",
+      "normalized": "היות",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_18",
+      "token_index": 6,
+      "surface": "הָאָדָם",
+      "normalized": "האדם",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_18",
+      "token_index": 7,
+      "surface": "לְבַדּוֹ",
+      "normalized": "לבדו",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_18",
+      "token_index": 8,
+      "surface": "אֶעֱשֶׂה",
+      "normalized": "אעשה",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_18",
+      "token_index": 9,
+      "surface": "לּוֹ",
+      "normalized": "לו",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_18",
+      "token_index": 10,
+      "surface": "עֵזֶר",
+      "normalized": "עזר",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_18",
+      "token_index": 11,
+      "surface": "כְּנֶגְדּוֹ",
+      "normalized": "כנגדו",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_19",
+      "token_index": 0,
+      "surface": "וַיִּצֶר",
+      "normalized": "ויצר",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_19",
+      "token_index": 1,
+      "surface": "יְהוָה",
+      "normalized": "יהוה",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_19",
+      "token_index": 2,
+      "surface": "אֱלֹהִים",
+      "normalized": "אלהים",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_19",
+      "token_index": 3,
+      "surface": "מִן",
+      "normalized": "מן",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_19",
+      "token_index": 4,
+      "surface": "הָאֲדָמָה",
+      "normalized": "האדמה",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_19",
+      "token_index": 5,
+      "surface": "כָּל",
+      "normalized": "כל",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_19",
+      "token_index": 6,
+      "surface": "חַיַּת",
+      "normalized": "חית",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_19",
+      "token_index": 7,
+      "surface": "הַשָּׂדֶה",
+      "normalized": "השדה",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_19",
+      "token_index": 8,
+      "surface": "וְאֵת",
+      "normalized": "ואת",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_19",
+      "token_index": 9,
+      "surface": "כָּל",
+      "normalized": "כל",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_19",
+      "token_index": 10,
+      "surface": "עוֹף",
+      "normalized": "עוף",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_19",
+      "token_index": 11,
+      "surface": "הַשָּׁמַיִם",
+      "normalized": "השמים",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_19",
+      "token_index": 12,
+      "surface": "וַיָּבֵא",
+      "normalized": "ויבא",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_19",
+      "token_index": 13,
+      "surface": "אֶל",
+      "normalized": "אל",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_19",
+      "token_index": 14,
+      "surface": "הָאָדָם",
+      "normalized": "האדם",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_19",
+      "token_index": 15,
+      "surface": "לִרְאוֹת",
+      "normalized": "לראות",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_19",
+      "token_index": 16,
+      "surface": "מַה",
+      "normalized": "מה",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_19",
+      "token_index": 17,
+      "surface": "יִּקְרָא",
+      "normalized": "יקרא",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_19",
+      "token_index": 18,
+      "surface": "לוֹ",
+      "normalized": "לו",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_19",
+      "token_index": 19,
+      "surface": "וְכֹל",
+      "normalized": "וכל",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_19",
+      "token_index": 20,
+      "surface": "אֲשֶׁר",
+      "normalized": "אשר",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_19",
+      "token_index": 21,
+      "surface": "יִקְרָא",
+      "normalized": "יקרא",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_19",
+      "token_index": 22,
+      "surface": "לוֹ",
+      "normalized": "לו",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_19",
+      "token_index": 23,
+      "surface": "הָאָדָם",
+      "normalized": "האדם",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_19",
+      "token_index": 24,
+      "surface": "נֶפֶשׁ",
+      "normalized": "נפש",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_19",
+      "token_index": 25,
+      "surface": "חַיָּה",
+      "normalized": "חיה",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_19",
+      "token_index": 26,
+      "surface": "הוּא",
+      "normalized": "הוא",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_19",
+      "token_index": 27,
+      "surface": "שְׁמוֹ",
+      "normalized": "שמו",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_20",
+      "token_index": 0,
+      "surface": "וַיִּקְרָא",
+      "normalized": "ויקרא",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_20",
+      "token_index": 1,
+      "surface": "הָאָדָם",
+      "normalized": "האדם",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_20",
+      "token_index": 2,
+      "surface": "שֵׁמוֹת",
+      "normalized": "שמות",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_20",
+      "token_index": 3,
+      "surface": "לְכָל",
+      "normalized": "לכל",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_20",
+      "token_index": 4,
+      "surface": "הַבְּהֵמָה",
+      "normalized": "הבהמה",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_20",
+      "token_index": 5,
+      "surface": "וּלְעוֹף",
+      "normalized": "ולעוף",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_20",
+      "token_index": 6,
+      "surface": "הַשָּׁמַיִם",
+      "normalized": "השמים",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_20",
+      "token_index": 7,
+      "surface": "וּלְכֹל",
+      "normalized": "ולכל",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_20",
+      "token_index": 8,
+      "surface": "חַיַּת",
+      "normalized": "חית",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_20",
+      "token_index": 9,
+      "surface": "הַשָּׂדֶה",
+      "normalized": "השדה",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_20",
+      "token_index": 10,
+      "surface": "וּלְאָדָם",
+      "normalized": "ולאדם",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_20",
+      "token_index": 11,
+      "surface": "לֹא",
+      "normalized": "לא",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_20",
+      "token_index": 12,
+      "surface": "מָצָא",
+      "normalized": "מצא",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_20",
+      "token_index": 13,
+      "surface": "עֵזֶר",
+      "normalized": "עזר",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_20",
+      "token_index": 14,
+      "surface": "כְּנֶגְדּוֹ",
+      "normalized": "כנגדו",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_21",
+      "token_index": 0,
+      "surface": "וַיַּפֵּל",
+      "normalized": "ויפל",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_21",
+      "token_index": 1,
+      "surface": "יְהוָה",
+      "normalized": "יהוה",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_21",
+      "token_index": 2,
+      "surface": "אֱלֹהִים",
+      "normalized": "אלהים",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_21",
+      "token_index": 3,
+      "surface": "תַּרְדֵּמָה",
+      "normalized": "תרדמה",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_21",
+      "token_index": 4,
+      "surface": "עַל",
+      "normalized": "על",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_21",
+      "token_index": 5,
+      "surface": "הָאָדָם",
+      "normalized": "האדם",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_21",
+      "token_index": 6,
+      "surface": "וַיִּישָׁן",
+      "normalized": "ויישן",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_21",
+      "token_index": 7,
+      "surface": "וַיִּקַּח",
+      "normalized": "ויקח",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_21",
+      "token_index": 8,
+      "surface": "אַחַת",
+      "normalized": "אחת",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_21",
+      "token_index": 9,
+      "surface": "מִצַּלְעֹתָיו",
+      "normalized": "מצלעתיו",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_21",
+      "token_index": 10,
+      "surface": "וַיִּסְגֹּר",
+      "normalized": "ויסגר",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_21",
+      "token_index": 11,
+      "surface": "בָּשָׂר",
+      "normalized": "בשר",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_21",
+      "token_index": 12,
+      "surface": "תַּחְתֶּנָּה",
+      "normalized": "תחתנה",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_22",
+      "token_index": 0,
+      "surface": "וַיִּבֶן",
+      "normalized": "ויבן",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_22",
+      "token_index": 1,
+      "surface": "יְהוָה",
+      "normalized": "יהוה",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_22",
+      "token_index": 2,
+      "surface": "אֱלֹהִים",
+      "normalized": "אלהים",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_22",
+      "token_index": 3,
+      "surface": "אֶת",
+      "normalized": "את",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_22",
+      "token_index": 4,
+      "surface": "הַצֵּלָע",
+      "normalized": "הצלע",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_22",
+      "token_index": 5,
+      "surface": "אֲשֶׁר",
+      "normalized": "אשר",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_22",
+      "token_index": 6,
+      "surface": "לָקַח",
+      "normalized": "לקח",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_22",
+      "token_index": 7,
+      "surface": "מִן",
+      "normalized": "מן",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_22",
+      "token_index": 8,
+      "surface": "הָאָדָם",
+      "normalized": "האדם",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_22",
+      "token_index": 9,
+      "surface": "לְאִשָּׁה",
+      "normalized": "לאשה",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_22",
+      "token_index": 10,
+      "surface": "וַיְבִאֶהָ",
+      "normalized": "ויבאה",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_22",
+      "token_index": 11,
+      "surface": "אֶל",
+      "normalized": "אל",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_22",
+      "token_index": 12,
+      "surface": "הָאָדָם",
+      "normalized": "האדם",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_23",
+      "token_index": 0,
+      "surface": "וַיֹּאמֶר",
+      "normalized": "ויאמר",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_23",
+      "token_index": 1,
+      "surface": "הָאָדָם",
+      "normalized": "האדם",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_23",
+      "token_index": 2,
+      "surface": "זֹאת",
+      "normalized": "זאת",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_23",
+      "token_index": 3,
+      "surface": "הַפַּעַם",
+      "normalized": "הפעם",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_23",
+      "token_index": 4,
+      "surface": "עֶצֶם",
+      "normalized": "עצם",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_23",
+      "token_index": 5,
+      "surface": "מֵעֲצָמַי",
+      "normalized": "מעצמי",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_23",
+      "token_index": 6,
+      "surface": "וּבָשָׂר",
+      "normalized": "ובשר",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_23",
+      "token_index": 7,
+      "surface": "מִבְּשָׂרִי",
+      "normalized": "מבשרי",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_23",
+      "token_index": 8,
+      "surface": "לְזֹאת",
+      "normalized": "לזאת",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_23",
+      "token_index": 9,
+      "surface": "יִקָּרֵא",
+      "normalized": "יקרא",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_23",
+      "token_index": 10,
+      "surface": "אִשָּׁה",
+      "normalized": "אשה",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_23",
+      "token_index": 11,
+      "surface": "כִּי",
+      "normalized": "כי",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_23",
+      "token_index": 12,
+      "surface": "מֵאִישׁ",
+      "normalized": "מאיש",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_23",
+      "token_index": 13,
+      "surface": "לֻקֳחָה",
+      "normalized": "לקחה",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_23",
+      "token_index": 14,
+      "surface": "זֹּאת",
+      "normalized": "זאת",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_24",
+      "token_index": 0,
+      "surface": "עַל",
+      "normalized": "על",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_24",
+      "token_index": 1,
+      "surface": "כֵּן",
+      "normalized": "כן",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_24",
+      "token_index": 2,
+      "surface": "יַעֲזָב",
+      "normalized": "יעזב",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_24",
+      "token_index": 3,
+      "surface": "אִישׁ",
+      "normalized": "איש",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_24",
+      "token_index": 4,
+      "surface": "אֶת",
+      "normalized": "את",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_24",
+      "token_index": 5,
+      "surface": "אָבִיו",
+      "normalized": "אביו",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_24",
+      "token_index": 6,
+      "surface": "וְאֶת",
+      "normalized": "ואת",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_24",
+      "token_index": 7,
+      "surface": "אִמּוֹ",
+      "normalized": "אמו",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_24",
+      "token_index": 8,
+      "surface": "וְדָבַק",
+      "normalized": "ודבק",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_24",
+      "token_index": 9,
+      "surface": "בְּאִשְׁתּוֹ",
+      "normalized": "באשתו",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_24",
+      "token_index": 10,
+      "surface": "וְהָיוּ",
+      "normalized": "והיו",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_24",
+      "token_index": 11,
+      "surface": "לְבָשָׂר",
+      "normalized": "לבשר",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_24",
+      "token_index": 12,
+      "surface": "אֶחָד",
+      "normalized": "אחד",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_25",
+      "token_index": 0,
+      "surface": "וַיִּהְיוּ",
+      "normalized": "ויהיו",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_25",
+      "token_index": 1,
+      "surface": "שְׁנֵיהֶם",
+      "normalized": "שניהם",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_25",
+      "token_index": 2,
+      "surface": "עֲרוּמִּים",
+      "normalized": "ערומים",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_25",
+      "token_index": 3,
+      "surface": "הָאָדָם",
+      "normalized": "האדם",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_25",
+      "token_index": 4,
+      "surface": "וְאִשְׁתּוֹ",
+      "normalized": "ואשתו",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_25",
+      "token_index": 5,
+      "surface": "וְלֹא",
+      "normalized": "ולא",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_2_25",
+      "token_index": 6,
+      "surface": "יִתְבֹּשָׁשׁוּ",
+      "normalized": "יתבששו",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_1",
+      "token_index": 0,
+      "surface": "וְהַנָּחָשׁ",
+      "normalized": "והנחש",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_1",
+      "token_index": 1,
+      "surface": "הָיָה",
+      "normalized": "היה",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_1",
+      "token_index": 2,
+      "surface": "עָרוּם",
+      "normalized": "ערום",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_1",
+      "token_index": 3,
+      "surface": "מִכֹּל",
+      "normalized": "מכל",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_1",
+      "token_index": 4,
+      "surface": "חַיַּת",
+      "normalized": "חית",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_1",
+      "token_index": 5,
+      "surface": "הַשָּׂדֶה",
+      "normalized": "השדה",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_1",
+      "token_index": 6,
+      "surface": "אֲשֶׁר",
+      "normalized": "אשר",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_1",
+      "token_index": 7,
+      "surface": "עָשָׂה",
+      "normalized": "עשה",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_1",
+      "token_index": 8,
+      "surface": "יְהוָה",
+      "normalized": "יהוה",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_1",
+      "token_index": 9,
+      "surface": "אֱלֹהִים",
+      "normalized": "אלהים",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_1",
+      "token_index": 10,
+      "surface": "וַיֹּאמֶר",
+      "normalized": "ויאמר",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_1",
+      "token_index": 11,
+      "surface": "אֶל",
+      "normalized": "אל",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_1",
+      "token_index": 12,
+      "surface": "הָאִשָּׁה",
+      "normalized": "האשה",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_1",
+      "token_index": 13,
+      "surface": "אַף",
+      "normalized": "אף",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_1",
+      "token_index": 14,
+      "surface": "כִּי",
+      "normalized": "כי",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_1",
+      "token_index": 15,
+      "surface": "אָמַר",
+      "normalized": "אמר",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_1",
+      "token_index": 16,
+      "surface": "אֱלֹהִים",
+      "normalized": "אלהים",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_1",
+      "token_index": 17,
+      "surface": "לֹא",
+      "normalized": "לא",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_1",
+      "token_index": 18,
+      "surface": "תֹאכְלוּ",
+      "normalized": "תאכלו",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_1",
+      "token_index": 19,
+      "surface": "מִכֹּל",
+      "normalized": "מכל",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_1",
+      "token_index": 20,
+      "surface": "עֵץ",
+      "normalized": "עץ",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_1",
+      "token_index": 21,
+      "surface": "הַגָּן",
+      "normalized": "הגן",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_2",
+      "token_index": 0,
+      "surface": "וַתֹּאמֶר",
+      "normalized": "ותאמר",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_2",
+      "token_index": 1,
+      "surface": "הָאִשָּׁה",
+      "normalized": "האשה",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_2",
+      "token_index": 2,
+      "surface": "אֶל",
+      "normalized": "אל",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_2",
+      "token_index": 3,
+      "surface": "הַנָּחָשׁ",
+      "normalized": "הנחש",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_2",
+      "token_index": 4,
+      "surface": "מִפְּרִי",
+      "normalized": "מפרי",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_2",
+      "token_index": 5,
+      "surface": "עֵץ",
+      "normalized": "עץ",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_2",
+      "token_index": 6,
+      "surface": "הַגָּן",
+      "normalized": "הגן",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_2",
+      "token_index": 7,
+      "surface": "נֹאכֵל",
+      "normalized": "נאכל",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_3",
+      "token_index": 0,
+      "surface": "וּמִפְּרִי",
+      "normalized": "ומפרי",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_3",
+      "token_index": 1,
+      "surface": "הָעֵץ",
+      "normalized": "העץ",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_3",
+      "token_index": 2,
+      "surface": "אֲשֶׁר",
+      "normalized": "אשר",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_3",
+      "token_index": 3,
+      "surface": "בְּתוֹךְ",
+      "normalized": "בתוך",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_3",
+      "token_index": 4,
+      "surface": "הַגָּן",
+      "normalized": "הגן",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_3",
+      "token_index": 5,
+      "surface": "אָמַר",
+      "normalized": "אמר",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_3",
+      "token_index": 6,
+      "surface": "אֱלֹהִים",
+      "normalized": "אלהים",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_3",
+      "token_index": 7,
+      "surface": "לֹא",
+      "normalized": "לא",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_3",
+      "token_index": 8,
+      "surface": "תֹאכְלוּ",
+      "normalized": "תאכלו",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_3",
+      "token_index": 9,
+      "surface": "מִמֶּנּוּ",
+      "normalized": "ממנו",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_3",
+      "token_index": 10,
+      "surface": "וְלֹא",
+      "normalized": "ולא",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_3",
+      "token_index": 11,
+      "surface": "תִגְּעוּ",
+      "normalized": "תגעו",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_3",
+      "token_index": 12,
+      "surface": "בּוֹ",
+      "normalized": "בו",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_3",
+      "token_index": 13,
+      "surface": "פֶּן",
+      "normalized": "פן",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_3",
+      "token_index": 14,
+      "surface": "תְּמֻתוּן",
+      "normalized": "תמתון",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_4",
+      "token_index": 0,
+      "surface": "וַיֹּאמֶר",
+      "normalized": "ויאמר",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_4",
+      "token_index": 1,
+      "surface": "הַנָּחָשׁ",
+      "normalized": "הנחש",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_4",
+      "token_index": 2,
+      "surface": "אֶל",
+      "normalized": "אל",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_4",
+      "token_index": 3,
+      "surface": "הָאִשָּׁה",
+      "normalized": "האשה",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_4",
+      "token_index": 4,
+      "surface": "לֹא",
+      "normalized": "לא",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_4",
+      "token_index": 5,
+      "surface": "מוֹת",
+      "normalized": "מות",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_4",
+      "token_index": 6,
+      "surface": "תְּמֻתוּן",
+      "normalized": "תמתון",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_5",
+      "token_index": 0,
+      "surface": "כִּי",
+      "normalized": "כי",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_5",
+      "token_index": 1,
+      "surface": "יֹדֵעַ",
+      "normalized": "ידע",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_5",
+      "token_index": 2,
+      "surface": "אֱלֹהִים",
+      "normalized": "אלהים",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_5",
+      "token_index": 3,
+      "surface": "כִּי",
+      "normalized": "כי",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_5",
+      "token_index": 4,
+      "surface": "בְּיוֹם",
+      "normalized": "ביום",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_5",
+      "token_index": 5,
+      "surface": "אֲכָלְכֶם",
+      "normalized": "אכלכם",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_5",
+      "token_index": 6,
+      "surface": "מִמֶּנּוּ",
+      "normalized": "ממנו",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_5",
+      "token_index": 7,
+      "surface": "וְנִפְקְחוּ",
+      "normalized": "ונפקחו",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_5",
+      "token_index": 8,
+      "surface": "עֵינֵיכֶם",
+      "normalized": "עיניכם",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_5",
+      "token_index": 9,
+      "surface": "וִהְיִיתֶם",
+      "normalized": "והייתם",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_5",
+      "token_index": 10,
+      "surface": "כֵּאלֹהִים",
+      "normalized": "כאלהים",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_5",
+      "token_index": 11,
+      "surface": "יֹדְעֵי",
+      "normalized": "ידעי",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_5",
+      "token_index": 12,
+      "surface": "טוֹב",
+      "normalized": "טוב",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_5",
+      "token_index": 13,
+      "surface": "וָרָע",
+      "normalized": "ורע",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_6",
+      "token_index": 0,
+      "surface": "וַתֵּרֶא",
+      "normalized": "ותרא",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_6",
+      "token_index": 1,
+      "surface": "הָאִשָּׁה",
+      "normalized": "האשה",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_6",
+      "token_index": 2,
+      "surface": "כִּי",
+      "normalized": "כי",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_6",
+      "token_index": 3,
+      "surface": "טוֹב",
+      "normalized": "טוב",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_6",
+      "token_index": 4,
+      "surface": "הָעֵץ",
+      "normalized": "העץ",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_6",
+      "token_index": 5,
+      "surface": "לְמַאֲכָל",
+      "normalized": "למאכל",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_6",
+      "token_index": 6,
+      "surface": "וְכִי",
+      "normalized": "וכי",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_6",
+      "token_index": 7,
+      "surface": "תַאֲוָה",
+      "normalized": "תאוה",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_6",
+      "token_index": 8,
+      "surface": "הוּא",
+      "normalized": "הוא",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_6",
+      "token_index": 9,
+      "surface": "לָעֵינַיִם",
+      "normalized": "לעינים",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_6",
+      "token_index": 10,
+      "surface": "וְנֶחְמָד",
+      "normalized": "ונחמד",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_6",
+      "token_index": 11,
+      "surface": "הָעֵץ",
+      "normalized": "העץ",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_6",
+      "token_index": 12,
+      "surface": "לְהַשְׂכִּיל",
+      "normalized": "להשכיל",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_6",
+      "token_index": 13,
+      "surface": "וַתִּקַּח",
+      "normalized": "ותקח",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_6",
+      "token_index": 14,
+      "surface": "מִפִּרְיוֹ",
+      "normalized": "מפריו",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_6",
+      "token_index": 15,
+      "surface": "וַתֹּאכַל",
+      "normalized": "ותאכל",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_6",
+      "token_index": 16,
+      "surface": "וַתִּתֵּן",
+      "normalized": "ותתן",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_6",
+      "token_index": 17,
+      "surface": "גַּם",
+      "normalized": "גם",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_6",
+      "token_index": 18,
+      "surface": "לְאִישָׁהּ",
+      "normalized": "לאישה",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_6",
+      "token_index": 19,
+      "surface": "עִמָּהּ",
+      "normalized": "עמה",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_6",
+      "token_index": 20,
+      "surface": "וַיֹּאכַל",
+      "normalized": "ויאכל",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_7",
+      "token_index": 0,
+      "surface": "וַתִּפָּקַחְנָה",
+      "normalized": "ותפקחנה",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_7",
+      "token_index": 1,
+      "surface": "עֵינֵי",
+      "normalized": "עיני",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_7",
+      "token_index": 2,
+      "surface": "שְׁנֵיהֶם",
+      "normalized": "שניהם",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_7",
+      "token_index": 3,
+      "surface": "וַיֵּדְעוּ",
+      "normalized": "וידעו",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_7",
+      "token_index": 4,
+      "surface": "כִּי",
+      "normalized": "כי",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_7",
+      "token_index": 5,
+      "surface": "עֵירֻמִּם",
+      "normalized": "עירמם",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_7",
+      "token_index": 6,
+      "surface": "הֵם",
+      "normalized": "הם",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_7",
+      "token_index": 7,
+      "surface": "וַיִּתְפְּרוּ",
+      "normalized": "ויתפרו",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_7",
+      "token_index": 8,
+      "surface": "עֲלֵה",
+      "normalized": "עלה",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_7",
+      "token_index": 9,
+      "surface": "תְאֵנָה",
+      "normalized": "תאנה",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_7",
+      "token_index": 10,
+      "surface": "וַיַּעֲשׂוּ",
+      "normalized": "ויעשו",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_7",
+      "token_index": 11,
+      "surface": "לָהֶם",
+      "normalized": "להם",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_7",
+      "token_index": 12,
+      "surface": "חֲגֹרֹת",
+      "normalized": "חגרת",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_8",
+      "token_index": 0,
+      "surface": "וַיִּשְׁמְעוּ",
+      "normalized": "וישמעו",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_8",
+      "token_index": 1,
+      "surface": "אֶת",
+      "normalized": "את",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_8",
+      "token_index": 2,
+      "surface": "קוֹל",
+      "normalized": "קול",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_8",
+      "token_index": 3,
+      "surface": "יְהוָה",
+      "normalized": "יהוה",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_8",
+      "token_index": 4,
+      "surface": "אֱלֹהִים",
+      "normalized": "אלהים",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_8",
+      "token_index": 5,
+      "surface": "מִתְהַלֵּךְ",
+      "normalized": "מתהלך",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_8",
+      "token_index": 6,
+      "surface": "בַּגָּן",
+      "normalized": "בגן",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_8",
+      "token_index": 7,
+      "surface": "לְרוּחַ",
+      "normalized": "לרוח",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_8",
+      "token_index": 8,
+      "surface": "הַיּוֹם",
+      "normalized": "היום",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_8",
+      "token_index": 9,
+      "surface": "וַיִּתְחַבֵּא",
+      "normalized": "ויתחבא",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_8",
+      "token_index": 10,
+      "surface": "הָאָדָם",
+      "normalized": "האדם",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_8",
+      "token_index": 11,
+      "surface": "וְאִשְׁתּוֹ",
+      "normalized": "ואשתו",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_8",
+      "token_index": 12,
+      "surface": "מִפְּנֵי",
+      "normalized": "מפני",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_8",
+      "token_index": 13,
+      "surface": "יְהוָה",
+      "normalized": "יהוה",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_8",
+      "token_index": 14,
+      "surface": "אֱלֹהִים",
+      "normalized": "אלהים",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_8",
+      "token_index": 15,
+      "surface": "בְּתוֹךְ",
+      "normalized": "בתוך",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_8",
+      "token_index": 16,
+      "surface": "עֵץ",
+      "normalized": "עץ",
+      "analysis_index": 0
+    },
+    {
+      "pasuk_id": "bereishis_3_8",
+      "token_index": 17,
+      "surface": "הַגָּן",
+      "normalized": "הגן",
       "analysis_index": 0
     }
   ]

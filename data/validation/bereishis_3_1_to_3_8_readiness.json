@@ -1,0 +1,159 @@
+{
+  "scope_under_evaluation": {
+    "active_runtime_scope_unchanged": "local_parsed_bereishis_1_1_to_2_25",
+    "bundle_status": "staged",
+    "sefer": "Bereishis",
+    "range": {
+      "start": {
+        "sefer": "Bereishis",
+        "perek": 3,
+        "pasuk": 1
+      },
+      "end": {
+        "sefer": "Bereishis",
+        "perek": 3,
+        "pasuk": 8
+      }
+    }
+  },
+  "structural_summary": {
+    "pesukim_count": 8,
+    "token_count": 118,
+    "selected_analysis_count": 118,
+    "selected_analysis_pct": 1.0,
+    "tokens_with_placeholder_context_count": 0
+  },
+  "generation_summary": {
+    "question_ready_pesukim": 8,
+    "question_ready_pct": 1.0,
+    "stable_flow_pesukim": 8,
+    "stable_flow_pct": 1.0
+  },
+  "per_skill_support": {
+    "identify_prefix_meaning": {
+      "supported_pesukim": 8,
+      "support_rate": 1.0
+    },
+    "identify_suffix_meaning": {
+      "supported_pesukim": 2,
+      "support_rate": 0.25
+    },
+    "identify_pronoun_suffix": {
+      "supported_pesukim": 2,
+      "support_rate": 0.25
+    },
+    "identify_verb_marker": {
+      "supported_pesukim": 7,
+      "support_rate": 0.875
+    },
+    "segment_word_parts": {
+      "supported_pesukim": 8,
+      "support_rate": 1.0
+    },
+    "identify_tense": {
+      "supported_pesukim": 8,
+      "support_rate": 1.0
+    },
+    "part_of_speech": {
+      "supported_pesukim": 8,
+      "support_rate": 1.0
+    },
+    "shoresh": {
+      "supported_pesukim": 8,
+      "support_rate": 1.0
+    },
+    "prefix": {
+      "supported_pesukim": 0,
+      "support_rate": 0.0
+    },
+    "suffix": {
+      "supported_pesukim": 2,
+      "support_rate": 0.25
+    },
+    "translation": {
+      "supported_pesukim": 8,
+      "support_rate": 1.0
+    },
+    "verb_tense": {
+      "supported_pesukim": 8,
+      "support_rate": 1.0
+    },
+    "subject_identification": {
+      "supported_pesukim": 0,
+      "support_rate": 0.0
+    },
+    "object_identification": {
+      "supported_pesukim": 0,
+      "support_rate": 0.0
+    },
+    "preposition_meaning": {
+      "supported_pesukim": 8,
+      "support_rate": 1.0
+    },
+    "phrase_translation": {
+      "supported_pesukim": 0,
+      "support_rate": 0.0
+    }
+  },
+  "review_summary": {
+    "review_records_count": 0,
+    "unresolved_review_records_count": 0
+  },
+  "staged_reviewed_support": {
+    "available": true,
+    "question_count": 24,
+    "lane_counts": {
+      "translation": 6,
+      "shoresh": 6,
+      "tense": 5,
+      "affix": 7
+    },
+    "skill_counts": {
+      "translation": 6,
+      "shoresh": 6,
+      "identify_tense": 5,
+      "identify_prefix_meaning": 5,
+      "identify_pronoun_suffix": 2
+    }
+  },
+  "thresholds": {
+    "analysis_coverage_review_needed_min": 0.9,
+    "analysis_coverage_active_candidate_min": 0.98,
+    "question_support_review_needed_min": 0.5,
+    "question_support_active_candidate_min": 0.8,
+    "flow_support_review_needed_min": 0.5,
+    "flow_support_active_candidate_min": 0.8
+  },
+  "excluded_skills": [
+    "convert_future_to_command",
+    "identify_prefix_future",
+    "identify_present_pattern",
+    "identify_suffix_past",
+    "match_pronoun_to_verb"
+  ],
+  "readiness_recommendation": "active_candidate",
+  "diagnostic_summary": {
+    "blocker_categories": [],
+    "flow_review_needed_min_pesukim": 4,
+    "question_review_needed_min_pesukim": 4
+  },
+  "lifecycle": {
+    "bundle_state": "staged",
+    "promotion_gate": "only active_candidate bundles may be promoted into the active runtime",
+    "next_recommended_state": "active_candidate"
+  },
+  "comparison_to_previous": {
+    "previous_readiness_recommendation": "review_needed",
+    "current_readiness_recommendation": "active_candidate",
+    "previous_tokens_with_placeholder_context_count": 5,
+    "current_tokens_with_placeholder_context_count": 0,
+    "previous_stable_flow_pesukim": 8,
+    "current_stable_flow_pesukim": 8
+  },
+  "change_notes": [
+    "Added exact staged support for the final five placeholder-dependent Bereishis 3:1-3:8 forms.",
+    "Regenerated the staged parsed bundle so the final blocker forms now carry explicit context translations.",
+    "Verified the staged chunk now meets the active_candidate readiness gate without changing active runtime scope."
+  ],
+  "remaining_blockers": []
+}

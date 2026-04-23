@@ -1,0 +1,87 @@
+{
+  "generated_at_utc": "2026-04-22T11:35:13.946803+00:00",
+  "input_log_path": "data\\pilot\\runs\\pilot_session_events_20260422T113243Z_release-check.jsonl",
+  "scope_id": "local_parsed_bereishis_1_1_to_3_8",
+  "artifacts": {
+    "pilot_review_json": "data\\validation\\release_checks\\pilot_session_events_20260422T113243Z_release-check\\pilot_review.json",
+    "hand_audit_json": "data\\validation\\release_checks\\pilot_session_events_20260422T113243Z_release-check\\hand_audit.json",
+    "hand_audit_markdown": "data\\validation\\release_checks\\pilot_session_events_20260422T113243Z_release-check\\hand_audit.md",
+    "summary_json": "data\\validation\\release_checks\\pilot_session_events_20260422T113243Z_release-check\\release_check_summary.json",
+    "summary_markdown": "data\\validation\\release_checks\\pilot_session_events_20260422T113243Z_release-check\\release_check_summary.md"
+  },
+  "release_gate_checks": [
+    {
+      "code": "fresh_run_only",
+      "status": "pass",
+      "value": true
+    },
+    {
+      "code": "mixed_log_clear",
+      "status": "pass",
+      "value": true
+    },
+    {
+      "code": "trusted_scope_violations_clear",
+      "status": "pass",
+      "value": 0
+    },
+    {
+      "code": "served_without_validation_clear",
+      "status": "pass",
+      "value": 0
+    },
+    {
+      "code": "unclear_flags_clear",
+      "status": "pass",
+      "value": 0
+    }
+  ],
+  "pilot_review_summary": {
+    "scope_id": "local_parsed_bereishis_1_1_to_3_8",
+    "runtime_scope_id": "local_parsed_bereishis_1_1_to_3_8",
+    "fresh_run_only": true,
+    "source_log_is_isolated_run": true,
+    "session_count": 0,
+    "substantive_session_count": 0,
+    "shell_session_count": 0,
+    "trusted_scope_violation_count": 0,
+    "trusted_scope_violations": [],
+    "served_without_validation_flag": 0,
+    "served_with_validation_flag": 0,
+    "unclear_flag_count": 0,
+    "top_unclear_items": [],
+    "top_served_question_families": {},
+    "top_pre_serve_rejection_codes": [],
+    "repeated_target_feel": {
+      "repeated_target_warning_count": 0,
+      "top_repeated_targets": []
+    },
+    "warnings": [
+      {
+        "code": "review_filters_applied",
+        "message": "This review artifact was generated with explicit filters. Use the included review_window metadata when interpreting counts."
+      }
+    ],
+    "warning_codes": [
+      "review_filters_applied"
+    ],
+    "flagged_review_queue_count": 0
+  },
+  "hand_audit_summary": {
+    "scope_id": "local_parsed_bereishis_1_1_to_3_8",
+    "question_count": 12,
+    "requested_question_count": 12,
+    "lane_counts": {
+      "translation": 3,
+      "shoresh": 3,
+      "tense": 2,
+      "affix": 2,
+      "part_of_speech": 2
+    },
+    "provenance_counts": {
+      "reviewed": 5,
+      "generated": 7
+    },
+    "duplicate_feel_warning_count": 0
+  }
+}

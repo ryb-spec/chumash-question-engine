@@ -1,0 +1,202 @@
+{
+  "generated_at_utc": "2026-04-22T16:16:44.771407+00:00",
+  "current_active_scope": "local_parsed_bereishis_1_1_to_3_8",
+  "staged_slice_status": "review_needed",
+  "readiness": {
+    "active_scope_release_readiness": "cleanup_mode_only",
+    "staged_next_slice_readiness": "review_needed"
+  },
+  "trusted_scope_violations": [],
+  "served_without_validation_flag": 0,
+  "unclear_flags": {
+    "count": 2,
+    "items": [
+      {
+        "pasuk_ref": "Bereishis 3:3",
+        "question_type": "shoresh",
+        "question_text": "What is the shoresh of אָמַר?",
+        "selected_word": "אָמַר",
+        "repeat_count": 1,
+        "teacher_label": null
+      },
+      {
+        "pasuk_ref": "Bereishis 2:11",
+        "question_type": "translation",
+        "question_text": "What does הוּא mean?",
+        "selected_word": "הוּא",
+        "repeat_count": 1,
+        "teacher_label": null
+      }
+    ],
+    "evidence_status": "historical_real_pilot_only"
+  },
+  "top_served_question_families": {
+    "phrase_translation": 5,
+    "shoresh": 5,
+    "identify_tense": 3,
+    "prefix_level_1_identify_prefix_letter": 1,
+    "translation": 1
+  },
+  "top_rejection_codes": [
+    {
+      "code": "feature_repeat_blocked",
+      "count": 366
+    },
+    {
+      "code": "recent_surface_pattern_repeat",
+      "count": 16
+    },
+    {
+      "code": "diversity_redirect",
+      "count": 9
+    }
+  ],
+  "repeated_target_signals": {
+    "historical_pilot_repeated_target_warning_count": 0,
+    "historical_pilot_top_repeated_targets": [],
+    "current_hand_audit_duplicate_feel_warning_count": 0,
+    "current_hand_audit_repeat_related_warnings": [],
+    "reviewed_bank_repeated_targets_sample": [
+      {
+        "family": "translation",
+        "target": "טוב",
+        "count": 2
+      },
+      {
+        "family": "affix",
+        "target": "מפרי",
+        "count": 2
+      },
+      {
+        "family": "affix",
+        "target": "כאלהים",
+        "count": 2
+      },
+      {
+        "family": "shoresh",
+        "target": "ויברא",
+        "count": 2
+      },
+      {
+        "family": "shoresh",
+        "target": "מות",
+        "count": 2
+      },
+      {
+        "family": "shoresh",
+        "target": "ויבדל",
+        "count": 2
+      },
+      {
+        "family": "tense",
+        "target": "ויאמר",
+        "count": 2
+      },
+      {
+        "family": "affix",
+        "target": "בארץ",
+        "count": 3
+      }
+    ]
+  },
+  "ambiguity_rejection_signals": {
+    "fresh_post_cleanup_pilot_evidence_available": false,
+    "current_hand_audit_concerns": [
+      {
+        "pasuk_ref": "Bereishis 1:1",
+        "question_type": "verb_tense",
+        "target_word": "בְּרֵאשִׁית",
+        "issue": "non-verb served as a single-answer tense item",
+        "correct_answer": "past",
+        "provenance": "generated"
+      },
+      {
+        "pasuk_ref": "Bereishis 1:1",
+        "question_type": "part_of_speech",
+        "target_word": "בְּרֵאשִׁית",
+        "issue": "served as an action word; this looks wrong rather than merely thin",
+        "correct_answer": "action word",
+        "provenance": "generated"
+      },
+      {
+        "pasuk_ref": "Bereishis 1:2",
+        "question_type": "identify_tense",
+        "target_word": "מְרַחֶפֶת",
+        "issue": "served as a past-only tense item; this looks structurally weak",
+        "correct_answer": "past",
+        "provenance": "generated"
+      },
+      {
+        "pasuk_ref": "Bereishis 1:3",
+        "question_type": "prefix_level_2_identify_prefix_meaning",
+        "target_word": "וַיְהִי",
+        "issue": "flattens a vav-hahipuch form into a simple prefix-meaning item",
+        "correct_answer": "and",
+        "provenance": "generated"
+      }
+    ],
+    "overall_read": "partially_fail_closed",
+    "note": "Scope and validation gates look fail-closed in the historical pilot log, but the fresh hand audit still shows some generated grammar items that should likely have been blocked or reshaped."
+  },
+  "weak_standalone_value_signals": {
+    "historical_live_unclear_items": [
+      {
+        "pasuk_ref": "Bereishis 3:3",
+        "question_type": "shoresh",
+        "question_text": "What is the shoresh of אָמַר?",
+        "selected_word": "אָמַר",
+        "repeat_count": 1,
+        "teacher_label": null
+      },
+      {
+        "pasuk_ref": "Bereishis 2:11",
+        "question_type": "translation",
+        "question_text": "What does הוּא mean?",
+        "selected_word": "הוּא",
+        "repeat_count": 1,
+        "teacher_label": null
+      }
+    ],
+    "current_hand_audit_same_classes_reappeared": false,
+    "current_hand_audit_note": "The earlier weak standalone translation and bare-form shoresh classes did not reappear in the fresh 25-question hand audit packet, but no fresh post-cleanup pilot confirms live serving behavior yet."
+  },
+  "evidence_window_used": {
+    "historical_pilot_log_path": "data\\pilot\\runs\\pilot_session_events_20260422T113750Z_release-check.jsonl",
+    "historical_pilot_review_generated_with_current_code_at_utc": "2026-04-22T16:16:44.776181+00:00",
+    "historical_pilot_latest_session_started_at_utc": "2026-04-22T11:38:56.930709+00:00",
+    "historical_pilot_latest_session_only": true,
+    "historical_pilot_source_log_is_isolated_run": true,
+    "historical_pilot_fresh_run_only": true,
+    "current_hand_audit_generated_at_utc": "2026-04-22T16:16:46.757739+00:00",
+    "current_hand_audit_question_count": 25,
+    "staged_readiness_report_path": "data\\validation\\bereishis_3_9_to_3_16_readiness.json",
+    "reviewed_bank_summary_path": "data\\validation\\reviewed_question_bank_summary.json"
+  },
+  "evidence_strength": {
+    "rating": "limited_current_build_evidence",
+    "reason": [
+      "Only one substantive real pilot session was available, and it predates the recent dikduk-foundation cleanup work.",
+      "The fresh current-build hand audit is useful but synthetic; it is not a substitute for fresh live pilot evidence."
+    ]
+  },
+  "promotion_recommendation": {
+    "decision": "hold_do_not_promote",
+    "reason": [
+      "The staged next slice remains review_needed, not active_candidate.",
+      "The fresh hand audit still shows structurally weak generated grammar items in the current active scope.",
+      "There is no fresh post-cleanup pilot evidence for the current build."
+    ]
+  },
+  "expansion_recommendation": {
+    "decision": "hold_do_not_expand",
+    "reason": [
+      "This release check is for the current active scope only.",
+      "Current-build evidence is not strong enough to justify widening scope or moving past the staged review-needed slice."
+    ]
+  },
+  "notes": [
+    "Reviewed translation and reviewed shoresh items still look materially stronger than the generated grammar lanes in the fresh hand audit packet.",
+    "Historical pilot evidence is clean on trusted-scope and validation gates, but it is too thin and too stale to prove current-build runtime readiness by itself.",
+    "The current build looks ready for another cleanup-oriented pilot, not for staged-slice promotion or scope expansion."
+  ]
+}

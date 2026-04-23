@@ -33,7 +33,7 @@ class ActiveScopeGoldAnnotationTests(unittest.TestCase):
 
         self.assertEqual(
             data.get("metadata", {}).get("scope_id"),
-            "local_parsed_bereishis_1_1_to_2_25",
+            "local_parsed_bereishis_1_1_to_3_8",
         )
         self.assertEqual(
             set(active_scope_gold_annotation_records().keys()),
@@ -61,6 +61,7 @@ class ActiveScopeGoldAnnotationTests(unittest.TestCase):
             ("subject_identification", pasuk_by_ref(1, 2)),
             ("object_identification", pasuk_by_ref(1, 5)),
             ("phrase_translation", pasuk_by_ref(2, 1)),
+            ("phrase_translation", pasuk_by_ref(3, 1)),
         ]
 
         for skill, pasuk in cases:
@@ -74,20 +75,35 @@ class ActiveScopeGoldAnnotationTests(unittest.TestCase):
         audit = build_role_layer_audit()
 
         self.assertIn("1:3", audit["parser_vs_gold"]["subject_identification"]["missed_gold_refs"])
-        self.assertIn("1:3", audit["override_vs_gold"]["subject_identification"]["matched_approved_refs"])
+        self.assertEqual(
+            audit["override_vs_gold"]["subject_identification"]["matched_approved_count"],
+            13,
+        )
+        self.assertIn("1:21", audit["override_vs_gold"]["subject_identification"]["matched_approved_refs"])
+        self.assertIn("2:9", audit["override_vs_gold"]["subject_identification"]["matched_approved_refs"])
+        self.assertIn("1:6", audit["override_vs_gold"]["subject_identification"]["missed_gold_refs"])
         self.assertEqual(
             audit["override_vs_gold"]["object_identification"]["matched_approved_count"],
-            12,
+            14,
         )
+        self.assertIn("1:21", audit["override_vs_gold"]["object_identification"]["matched_approved_refs"])
+        self.assertIn("1:31", audit["override_vs_gold"]["object_identification"]["matched_approved_refs"])
         self.assertIn("1:17", audit["override_vs_gold"]["object_identification"]["matched_approved_refs"])
-        self.assertIn("2:20", audit["override_vs_gold"]["object_identification"]["matched_approved_refs"])
-        self.assertIn("1:21", audit["override_vs_gold"]["object_identification"]["missed_gold_refs"])
-        self.assertIn("1:31", audit["override_vs_gold"]["phrase_translation"]["missed_gold_refs"])
+        self.assertIn("2:20", audit["override_vs_gold"]["object_identification"]["missed_gold_refs"])
+        self.assertIn("1:28", audit["override_vs_gold"]["object_identification"]["missed_gold_refs"])
+        self.assertEqual(
+            audit["override_vs_gold"]["phrase_translation"]["matched_approved_count"],
+            22,
+        )
+        self.assertIn("1:31", audit["override_vs_gold"]["phrase_translation"]["matched_approved_refs"])
+        self.assertIn("1:21", audit["override_vs_gold"]["phrase_translation"]["matched_approved_refs"])
+        self.assertIn("2:9", audit["override_vs_gold"]["phrase_translation"]["missed_gold_refs"])
         self.assertIn("2:15", audit["override_vs_gold"]["phrase_translation"]["matched_approved_refs"])
         self.assertIn("2:16", audit["override_vs_gold"]["phrase_translation"]["matched_approved_refs"])
         self.assertIn("2:17", audit["override_vs_gold"]["phrase_translation"]["matched_approved_refs"])
         self.assertIn("1:2", audit["override_vs_gold"]["subject_identification"]["unsupported_in_gold_refs"])
         self.assertIn("2:1", audit["override_vs_gold"]["phrase_translation"]["unsupported_in_gold_refs"])
+        self.assertIn("3:1", audit["override_vs_gold"]["phrase_translation"]["unsupported_in_gold_refs"])
 
 
 if __name__ == "__main__":

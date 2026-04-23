@@ -1,0 +1,133 @@
+{
+  "generated_at_utc": "2026-04-22T17:33:14.383073+00:00",
+  "input_log_path": "data\\pilot\\runs\\pilot_session_events_20260422T170810Z_post-cleanup-active-scope.jsonl",
+  "scope_id": "local_parsed_bereishis_1_1_to_3_8",
+  "artifacts": {
+    "pilot_review_json": "C:\\Users\\ybassman\\Documents\\GitHub\\chumash-question-engine\\data\\validation\\release_checks\\pilot_session_events_20260422T170810Z_post-cleanup-active-scope\\pilot_review.json",
+    "hand_audit_json": "C:\\Users\\ybassman\\Documents\\GitHub\\chumash-question-engine\\data\\validation\\release_checks\\pilot_session_events_20260422T170810Z_post-cleanup-active-scope\\hand_audit.json",
+    "hand_audit_markdown": "C:\\Users\\ybassman\\Documents\\GitHub\\chumash-question-engine\\data\\validation\\release_checks\\pilot_session_events_20260422T170810Z_post-cleanup-active-scope\\hand_audit.md",
+    "summary_json": "C:\\Users\\ybassman\\Documents\\GitHub\\chumash-question-engine\\data\\validation\\release_checks\\pilot_session_events_20260422T170810Z_post-cleanup-active-scope\\release_check_summary.json",
+    "summary_markdown": "C:\\Users\\ybassman\\Documents\\GitHub\\chumash-question-engine\\data\\validation\\release_checks\\pilot_session_events_20260422T170810Z_post-cleanup-active-scope\\release_check_summary.md"
+  },
+  "release_gate_checks": [
+    {
+      "code": "fresh_run_only",
+      "status": "pass",
+      "value": true
+    },
+    {
+      "code": "mixed_log_clear",
+      "status": "pass",
+      "value": true
+    },
+    {
+      "code": "trusted_scope_violations_clear",
+      "status": "pass",
+      "value": 0
+    },
+    {
+      "code": "served_without_validation_clear",
+      "status": "pass",
+      "value": 0
+    },
+    {
+      "code": "unclear_flags_clear",
+      "status": "warn",
+      "value": 2
+    }
+  ],
+  "pilot_review_summary": {
+    "scope_id": "local_parsed_bereishis_1_1_to_3_8",
+    "runtime_scope_id": "local_parsed_bereishis_1_1_to_3_8",
+    "fresh_run_only": true,
+    "source_log_is_isolated_run": true,
+    "session_count": 1,
+    "substantive_session_count": 1,
+    "shell_session_count": 0,
+    "trusted_scope_violation_count": 0,
+    "trusted_scope_violations": [],
+    "served_without_validation_flag": 0,
+    "served_with_validation_flag": 16,
+    "unclear_flag_count": 2,
+    "top_unclear_items": [
+      {
+        "pasuk_ref": "Bereishis 2:7",
+        "question_type": "phrase_translation",
+        "question_text": "What does this phrase mean?",
+        "selected_word": "וַיִּיצֶר יְהוָה אֱלֹהִים אֶת הָאָדָם",
+        "repeat_count": 1,
+        "teacher_label": "unclear wording"
+      },
+      {
+        "pasuk_ref": "Bereishis 3:1",
+        "question_type": "translation",
+        "question_text": "What does עָרוּם mean?",
+        "selected_word": "עָרוּם",
+        "repeat_count": 1,
+        "teacher_label": null
+      }
+    ],
+    "top_served_question_families": {
+      "shoresh": 5,
+      "translation": 3,
+      "phrase_translation": 3,
+      "identify_tense": 3,
+      "prefix_level_1_identify_prefix_letter": 1,
+      "verb_tense": 1
+    },
+    "top_pre_serve_rejection_codes": [
+      {
+        "code": "feature_repeat_blocked",
+        "count": 410
+      },
+      {
+        "code": "recent_surface_pattern_repeat",
+        "count": 17
+      },
+      {
+        "code": "diversity_redirect",
+        "count": 9
+      },
+      {
+        "code": "recent_exact_word_repeat",
+        "count": 3
+      }
+    ],
+    "repeated_target_feel": {
+      "repeated_target_warning_count": 0,
+      "top_repeated_targets": []
+    },
+    "warnings": [
+      {
+        "code": "review_filters_applied",
+        "message": "This review artifact was generated with explicit filters. Use the included review_window metadata when interpreting counts."
+      },
+      {
+        "code": "latest_session_only_applied",
+        "message": "This review artifact is limited to the latest included session window (1 session)."
+      }
+    ],
+    "warning_codes": [
+      "latest_session_only_applied",
+      "review_filters_applied"
+    ],
+    "flagged_review_queue_count": 2
+  },
+  "hand_audit_summary": {
+    "scope_id": "local_parsed_bereishis_1_1_to_3_8",
+    "question_count": 25,
+    "requested_question_count": 25,
+    "lane_counts": {
+      "translation": 5,
+      "shoresh": 5,
+      "tense": 5,
+      "affix": 5,
+      "part_of_speech": 5
+    },
+    "provenance_counts": {
+      "reviewed": 10,
+      "generated": 15
+    },
+    "duplicate_feel_warning_count": 0
+  }
+}

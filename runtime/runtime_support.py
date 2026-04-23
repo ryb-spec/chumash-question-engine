@@ -49,6 +49,7 @@ WORD_BANK_PATH = data_path("word_bank.json")
 ATTEMPT_LOG_PATH = data_path("attempt_log.jsonl")
 HEBREW_WORD_RE = re.compile(r"[\u0590-\u05ff]+")
 HEBREW_MARK_RE = re.compile(r"[\u0591-\u05c7]")
+HEBREW_FOCUS_SEPARATOR_RE = re.compile(r"[\s\u05be\u05c3,;:.]+")
 OPTION_LABELS = [chr(ord("A") + index) for index in range(26)]
 
 MENUKAD_FALLBACK = {
@@ -153,16 +154,50 @@ def menukad_text(text):
 
 
 def rtl_hebrew_html(text, focus=None, class_name="hebrew-text"):
+    return (
+        f"<div class='{class_name} hebrew-block' dir='rtl' lang='he'>"
+        f"{highlighted_hebrew_html(text, focus)}"
+        "</div>"
+    )
+
+
+def _loose_hebrew_focus_match(display, focus_display):
+    if not display or not focus_display:
+        return None
+    exact_start = display.find(focus_display)
+    if exact_start >= 0:
+        return exact_start, exact_start + len(focus_display)
+
+    focus_words = [word for word in focus_display.split() if word]
+    if len(focus_words) < 2:
+        return None
+
+    separator_pattern = HEBREW_FOCUS_SEPARATOR_RE.pattern
+    pattern = re.compile(separator_pattern.join(re.escape(word) for word in focus_words))
+    match = pattern.search(display)
+    if not match:
+        return None
+    return match.span()
+
+
+def highlighted_hebrew_html(text, focus=None):
     display = menukad_text(text)
-    safe_text = escape(display)
-    if focus:
-        safe_focus = escape(menukad_text(focus))
-        safe_text = safe_text.replace(
-            safe_focus,
-            f"<mark>{safe_focus}</mark>",
-            1,
-        )
-    return f"<div class='{class_name} hebrew-block' dir='rtl' lang='he'>{safe_text}</div>"
+    focus_display = menukad_text(focus or "")
+    if not focus_display:
+        return escape(display)
+
+    match_span = _loose_hebrew_focus_match(display, focus_display)
+    if not match_span:
+        return escape(display)
+
+    start, end = match_span
+    return "".join(
+        [
+            escape(display[:start]),
+            f"<mark>{escape(display[start:end])}</mark>",
+            escape(display[end:]),
+        ]
+    )
 
 
 def mixed_text_html(text):

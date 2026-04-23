@@ -1,0 +1,28 @@
+{
+  "metadata": {
+    "title": "Generated Torah Translation Reviews",
+    "version": "0.1",
+    "artifact_type": "translation_reviews",
+    "corpus_id": "parsed_bereishis_3_9_to_3_16_staged",
+    "status": "staged",
+    "pesukim_count": 8,
+    "sefer": "Bereishis",
+    "range": {
+      "start": {
+        "sefer": "Bereishis",
+        "perek": 3,
+        "pasuk": 9
+      },
+      "end": {
+        "sefer": "Bereishis",
+        "perek": 3,
+        "pasuk": 16
+      }
+    },
+    "source_files": [
+      "data/source/bereishis_3_9_to_3_16.json"
+    ],
+    "notes": "Stub review artifact created during parsed corpus ingestion. Human review records can be added incrementally."
+  },
+  "reviews": []
+}
