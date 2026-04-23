@@ -43,17 +43,17 @@ class NextSourceSliceReadinessTests(unittest.TestCase):
         )
         self.assertEqual(assessment_scope.ACTIVE_ASSESSMENT_SCOPE, "local_parsed_bereishis_1_1_to_3_24")
 
-    def test_repo_truth_reports_no_further_contiguous_slice_after_the_live_3_24_boundary(self):
+    def test_repo_truth_reports_no_further_contiguous_slice_after_the_current_source_boundary(self):
         result = evaluate_next_source_block(block_size=10)
 
         self.assertEqual(result["status"], "no_next_block")
-        self.assertEqual(result["source_declared_range"], "1:1-3:24")
+        self.assertEqual(result["source_declared_range"], "1:1-3:16")
         self.assertEqual(result["next_block"]["status"], "no_next_block")
         self.assertEqual(
             result["next_block"]["current_end"],
             {"sefer": "Bereishis", "perek": 3, "pasuk": 24},
         )
-        self.assertEqual(result["blockers"][0]["code"], "source_corpus_exhausted_at_active_scope")
+        self.assertEqual(result["blockers"][0]["code"], "next_source_block_unavailable")
 
     def test_readiness_report_retains_the_pre_promotion_active_candidate_evidence_for_3_17_to_3_24(self):
         readiness_path = assessment_scope.repo_path(

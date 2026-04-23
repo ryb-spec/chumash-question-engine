@@ -46,14 +46,14 @@ class CorpusManifestTests(unittest.TestCase):
         self.assertEqual(active_scope["pesukim_count"], 80)
         self.assertEqual(active_scope["status"], "active")
 
-    def test_source_corpus_metadata_tracks_prepared_local_source_boundary_beyond_active_scope(self):
+    def test_source_corpus_metadata_tracks_prepared_local_source_boundary(self):
         source_corpus = assessment_scope.corpus_source_corpora()[0]
 
-        self.assertEqual(source_corpus["corpus_id"], "source_bereishis_1_1_to_3_24_local")
+        self.assertEqual(source_corpus["corpus_id"], "source_bereishis_1_1_to_3_16_local")
         self.assertEqual(source_corpus["status"], "source")
         self.assertEqual(source_corpus["range"]["start"], {"perek": 1, "pasuk": 1})
-        self.assertEqual(source_corpus["range"]["end"], {"perek": 3, "pasuk": 24})
-        self.assertEqual(source_corpus["pesukim_count"], 80)
+        self.assertEqual(source_corpus["range"]["end"], {"perek": 3, "pasuk": 16})
+        self.assertEqual(source_corpus["pesukim_count"], 72)
         self.assertEqual(
             source_corpus["source_files"],
             [
@@ -63,10 +63,9 @@ class CorpusManifestTests(unittest.TestCase):
                 "data/source/bereishis_2_18_to_2_25.json",
                 "data/source/bereishis_3_1_to_3_8.json",
                 "data/source/bereishis_3_9_to_3_16.json",
-                "data/source/bereishis_3_17_to_3_24.json",
             ],
         )
-        self.assertEqual(source_corpus["declared_source_range"], "1:1-3:24")
+        self.assertEqual(source_corpus["declared_source_range"], "1:1-3:16")
 
     def test_no_future_scope_remains_once_3_17_to_3_24_is_live(self):
         future_scopes = assessment_scope.load_corpus_manifest()["future_scopes"]

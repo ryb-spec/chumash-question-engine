@@ -74,7 +74,14 @@ def _default_corpus_manifest():
         "data/source/bereishis_3_9_to_3_16.json",
         "data/source/bereishis_3_17_to_3_24.json",
     ]
-    prepared_source_files = list(active_runtime_source_files)
+    prepared_source_files = [
+        "data/source/bereishis_1_1_to_1_30.json",
+        "data/source/bereishis_1_31_to_2_9.json",
+        "data/source/bereishis_2_10_to_2_17.json",
+        "data/source/bereishis_2_18_to_2_25.json",
+        "data/source/bereishis_3_1_to_3_8.json",
+        "data/source/bereishis_3_9_to_3_16.json",
+    ]
     parsed_files = {
         "pesukim": "data/pesukim_100.json",
         "parsed_pesukim": "data/parsed_pesukim.json",
@@ -120,21 +127,21 @@ def _default_corpus_manifest():
         },
         "source_corpora": [
             {
-                "corpus_id": "source_bereishis_1_1_to_3_24_local",
+                "corpus_id": "source_bereishis_1_1_to_3_16_local",
                 "type": "source_corpus",
                 "sefer": "Bereishis",
                 "range": {
                     "start": {"perek": 1, "pasuk": 1},
-                    "end": {"perek": 3, "pasuk": 24},
+                    "end": {"perek": 3, "pasuk": 16},
                 },
-                "pesukim_count": 80,
+                "pesukim_count": 72,
                 "source_files": list(prepared_source_files),
                 "parsed_files": {},
                 "status": "source",
-                "declared_source_range": "1:1-3:24",
+                "declared_source_range": "1:1-3:16",
                 "notes": [
-                    "Current local source corpus is prepared through Bereishis 3:24.",
-                    "The active parsed runtime now includes Bereishis 3:17-3:24.",
+                    "Current local source corpus is prepared through Bereishis 3:16.",
+                    "The active parsed runtime includes Bereishis 3:17-3:24, pending source corpus backfill.",
                 ],
             }
         ],

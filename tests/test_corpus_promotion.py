@@ -19,19 +19,19 @@ class CorpusPromotionTests(unittest.TestCase):
         self.assertEqual(result["current_active_scope"], assessment_scope.ACTIVE_ASSESSMENT_SCOPE)
         self.assertEqual(result["status"], "no_next_block")
         self.assertFalse(result["promoted"])
-        self.assertEqual(result["source_declared_range"], "1:1-3:24")
+        self.assertEqual(result["source_declared_range"], "1:1-3:16")
         self.assertEqual(result["next_block"]["status"], "no_next_block")
         self.assertEqual(
             result["source_actual_range"]["end"],
-            {"sefer": "Bereishis", "perek": 3, "pasuk": 24},
+            {"sefer": "Bereishis", "perek": 3, "pasuk": 16},
         )
-        self.assertEqual(result["source_pesukim_count"], 80)
+        self.assertEqual(result["source_pesukim_count"], 72)
         self.assertEqual(
             result["next_block"]["current_end"],
             {"sefer": "Bereishis", "perek": 3, "pasuk": 24},
         )
         self.assertEqual(result["blocking_stage"], "source_material")
-        self.assertEqual(result["blockers"][0]["code"], "source_corpus_exhausted_at_active_scope")
+        self.assertEqual(result["blockers"][0]["code"], "next_source_block_unavailable")
         self.assertEqual(
             result["blockers"][0]["active_scope_end"],
             {"perek": 3, "pasuk": 24},
