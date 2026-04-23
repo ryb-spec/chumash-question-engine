@@ -120,6 +120,29 @@ class CandidateGenerationTests(unittest.TestCase):
                 expected,
             )
 
+    def test_next_staged_expansion_forms_now_have_exact_surface_support(self):
+        cases = {
+            "\u05e9\u05b8\u05c1\u05de\u05b7\u05e2\u05b0\u05ea\u05b8\u05bc": ("verb", "past", "\u05e9\u05de\u05e2", "you heard"),
+            "\u05ea\u05b7\u05bc\u05e6\u05b0\u05de\u05b4\u05d9\u05d7\u05b7": ("verb", "future", "\u05e6\u05de\u05d7", "it will sprout"),
+            "\u05dc\u05bb\u05e7\u05b8\u05bc\u05d7\u05b0\u05ea\u05b8\u05bc": ("verb", "past", "\u05dc\u05e7\u05d7", "you were taken"),
+            "\u05d5\u05b7\u05d9\u05b0\u05e9\u05b7\u05c1\u05dc\u05b0\u05bc\u05d7\u05b5\u05d4\u05d5\u05bc": ("verb", "vav_consecutive_past", "\u05e9\u05dc\u05d7", "and He sent him out"),
+            "\u05d5\u05b7\u05d9\u05b0\u05d2\u05b8\u05e8\u05b6\u05e9\u05c1": ("verb", "vav_consecutive_past", "\u05d2\u05e8\u05e9", "and He drove out"),
+            "\u05d0\u05b4\u05e9\u05b0\u05c1\u05ea\u05b6\u05bc\u05da\u05b8": ("noun", None, None, "your wife"),
+            "\u05d4\u05b7\u05db\u05b0\u05bc\u05e8\u05bb\u05d1\u05b4\u05d9\u05dd": ("noun", None, None, "the cherubim"),
+        }
+
+        for token, expected in cases.items():
+            primary = generate_candidate_analyses(token)[0]
+            self.assertEqual(
+                (
+                    primary.get("part_of_speech"),
+                    primary.get("tense"),
+                    primary.get("shoresh"),
+                    primary.get("translation_context"),
+                ),
+                expected,
+            )
+
     def test_active_generator_uses_torah_parser_tokenizer(self):
         with patch.object(
             pasuk_flow_generator,

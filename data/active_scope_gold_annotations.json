@@ -1,7 +1,7 @@
 {
   "metadata": {
     "title": "Active Scope Gold Annotations",
-    "scope_id": "local_parsed_bereishis_1_1_to_3_8",
+    "scope_id": "local_parsed_bereishis_1_1_to_3_24",
     "status": "active",
     "notes": [
       "This file defines teacher-defensible gold targets for the current active runtime scope only.",
@@ -1842,6 +1842,539 @@
         "phrase_translation": {
           "status": "suppressed",
           "reason": "No compact quiz-ready phrase target is preferred in this verse at the current quality bar."
+        }
+      }
+    },
+    "bereishis_3_9": {
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 3,
+        "pasuk": 9
+      },
+      "skills": {
+        "subject_identification": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "main_verb_token": "וַיִּקְרָא",
+              "surface": "יְהוָה אֱלֹהִים",
+              "translation": "the LORD God"
+            }
+          ]
+        },
+        "object_identification": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "main_verb_token": "וַיִּקְרָא",
+              "role": "recipient",
+              "surface": "הָאָדָם",
+              "translation": "the man"
+            }
+          ]
+        },
+        "phrase_translation": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "surface": "וַיִּקְרָא יְהוָה אֱלֹהִים אֶל הָאָדָם",
+              "translation": "and the LORD God called to the man"
+            }
+          ]
+        }
+      }
+    },
+    "bereishis_3_10": {
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 3,
+        "pasuk": 10
+      },
+      "skills": {
+        "subject_identification": {
+          "status": "suppressed",
+          "reason": "This first-person response clause does not have one clean explicit subject target."
+        },
+        "object_identification": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "main_verb_token": "שָׁמַעְתִּי",
+              "role": "direct_object",
+              "surface": "קֹלְךָ",
+              "translation": "your voice"
+            }
+          ]
+        },
+        "phrase_translation": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "surface": "אֶת קֹלְךָ שָׁמַעְתִּי",
+              "translation": "I heard your voice"
+            }
+          ]
+        }
+      }
+    },
+    "bereishis_3_11": {
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 3,
+        "pasuk": 11
+      },
+      "skills": {
+        "subject_identification": {
+          "status": "suppressed",
+          "reason": "The question-word clause is not treated as a clean subject-identification target."
+        },
+        "object_identification": {
+          "status": "suppressed",
+          "reason": "No clean direct-object or recipient target is preferred here."
+        },
+        "phrase_translation": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "surface": "מִי הִגִּיד לְךָ",
+              "translation": "who told you"
+            }
+          ]
+        }
+      }
+    },
+    "bereishis_3_12": {
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 3,
+        "pasuk": 12
+      },
+      "skills": {
+        "subject_identification": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "main_verb_token": "נָתְנָה",
+              "surface": "הָאִשָּׁה",
+              "translation": "the woman"
+            }
+          ]
+        },
+        "object_identification": {
+          "status": "suppressed",
+          "reason": "This recipient-pronoun clause does not have one compact preferred object target."
+        },
+        "phrase_translation": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "surface": "הִוא נָתְנָה לִּי",
+              "translation": "she gave me"
+            }
+          ]
+        }
+      }
+    },
+    "bereishis_3_13": {
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 3,
+        "pasuk": 13
+      },
+      "skills": {
+        "subject_identification": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "main_verb_token": "הִשִּׁיאַנִי",
+              "surface": "הַנָּחָשׁ",
+              "translation": "the snake"
+            }
+          ]
+        },
+        "object_identification": {
+          "status": "suppressed",
+          "reason": "The first-person suffix is not treated as a clean object-identification target here."
+        },
+        "phrase_translation": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "surface": "הַנָּחָשׁ הִשִּׁיאַנִי",
+              "translation": "the snake deceived me"
+            }
+          ]
+        }
+      }
+    },
+    "bereishis_3_14": {
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 3,
+        "pasuk": 14
+      },
+      "skills": {
+        "subject_identification": {
+          "status": "suppressed",
+          "reason": "This curse clause does not have one clean explicit subject target for this lane."
+        },
+        "object_identification": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "main_verb_token": "תֹּאכַל",
+              "role": "direct_object",
+              "surface": "וְעָפָר",
+              "translation": "dust"
+            }
+          ]
+        },
+        "phrase_translation": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "surface": "עַל גְּחֹנְךָ תֵלֵךְ",
+              "translation": "on your belly you shall go"
+            }
+          ]
+        }
+      }
+    },
+    "bereishis_3_15": {
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 3,
+        "pasuk": 15
+      },
+      "skills": {
+        "subject_identification": {
+          "status": "suppressed",
+          "reason": "The pronoun-heavy conflict clause does not have one clean explicit subject target."
+        },
+        "object_identification": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "main_verb_token": "אָשִׁית",
+              "role": "direct_object",
+              "surface": "וְאֵיבָה",
+              "translation": "enmity"
+            }
+          ]
+        },
+        "phrase_translation": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "surface": "וְאֵיבָה אָשִׁית",
+              "translation": "and I will put enmity"
+            }
+          ]
+        }
+      }
+    },
+    "bereishis_3_16": {
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 3,
+        "pasuk": 16
+      },
+      "skills": {
+        "subject_identification": {
+          "status": "suppressed",
+          "reason": "This birth-pain clause does not have one clean explicit subject target."
+        },
+        "object_identification": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "main_verb_token": "תֵּלְדִי",
+              "role": "direct_object",
+              "surface": "בָנִים",
+              "translation": "children"
+            }
+          ]
+        },
+        "phrase_translation": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "surface": "בְּעֶצֶב תֵּלְדִי בָנִים",
+              "translation": "in pain you will bear children"
+            }
+          ]
+        }
+      }
+    },
+    "bereishis_3_17": {
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 3,
+        "pasuk": 17
+      },
+      "skills": {
+        "subject_identification": {
+          "status": "suppressed",
+          "reason": "This multi-clause consequence pasuk does not have one clean explicit subject target."
+        },
+        "object_identification": {
+          "status": "suppressed",
+          "reason": "No clean single direct-object or recipient target is preferred here."
+        },
+        "phrase_translation": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "surface": "כִּי־שָׁמַעְתָּ לְקוֹל אִשְׁתֶּךָ",
+              "translation": "because you listened to the voice of your wife"
+            }
+          ]
+        }
+      }
+    },
+    "bereishis_3_18": {
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 3,
+        "pasuk": 18
+      },
+      "skills": {
+        "subject_identification": {
+          "status": "suppressed",
+          "reason": "This consequence clause does not have one clean explicit subject target."
+        },
+        "object_identification": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "main_verb_token": "וְאָכַלְתָּ",
+              "role": "direct_object",
+              "surface": "עֵשֶׂב הַשָּׂדֶה",
+              "translation": "the grass of the field"
+            }
+          ]
+        },
+        "phrase_translation": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "surface": "וְאָכַלְתָּ אֶת־עֵשֶׂב הַשָּׂדֶה",
+              "translation": "and you shall eat the grass of the field"
+            }
+          ]
+        }
+      }
+    },
+    "bereishis_3_19": {
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 3,
+        "pasuk": 19
+      },
+      "skills": {
+        "subject_identification": {
+          "status": "suppressed",
+          "reason": "This consequence clause does not have one clean explicit subject target."
+        },
+        "object_identification": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "main_verb_token": "תֹּאכַל",
+              "role": "direct_object",
+              "surface": "לֶחֶם",
+              "translation": "bread"
+            }
+          ]
+        },
+        "phrase_translation": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "surface": "בְּזֵעַת אַפֶּיךָ",
+              "translation": "by the sweat of your brow"
+            }
+          ]
+        }
+      }
+    },
+    "bereishis_3_20": {
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 3,
+        "pasuk": 20
+      },
+      "skills": {
+        "subject_identification": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "main_verb_token": "וַיִּקְרָא",
+              "surface": "הָאָדָם",
+              "translation": "the man"
+            },
+            {
+              "main_verb_token": "הָיְתָה",
+              "surface": "הִוא",
+              "translation": "she"
+            }
+          ]
+        },
+        "object_identification": {
+          "status": "suppressed",
+          "reason": "Naming targets are not treated as clean direct-object questions here."
+        },
+        "phrase_translation": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "surface": "אֵם כָּל־חָי",
+              "translation": "mother of all living"
+            }
+          ]
+        }
+      }
+    },
+    "bereishis_3_21": {
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 3,
+        "pasuk": 21
+      },
+      "skills": {
+        "subject_identification": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "main_verb_token": "וַיַּעַשׂ",
+              "surface": "יְהוָה אֱלֹהִים",
+              "translation": "the LORD God"
+            }
+          ]
+        },
+        "object_identification": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "main_verb_token": "וַיַּעַשׂ",
+              "role": "direct_object",
+              "surface": "כָּתְנוֹת עוֹר",
+              "translation": "garments of skin"
+            }
+          ]
+        },
+        "phrase_translation": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "surface": "כָּתְנוֹת עוֹר",
+              "translation": "garments of skin"
+            }
+          ]
+        }
+      }
+    },
+    "bereishis_3_22": {
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 3,
+        "pasuk": 22
+      },
+      "skills": {
+        "subject_identification": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "main_verb_token": "הָיָה",
+              "surface": "הָאָדָם",
+              "translation": "the man"
+            }
+          ]
+        },
+        "object_identification": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "main_verb_token": "יִשְׁלַח",
+              "role": "direct_object",
+              "surface": "יָדוֹ",
+              "translation": "his hand"
+            }
+          ]
+        },
+        "phrase_translation": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "surface": "מֵעֵץ הַחַיִּים",
+              "translation": "from the tree of life"
+            }
+          ]
+        }
+      }
+    },
+    "bereishis_3_23": {
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 3,
+        "pasuk": 23
+      },
+      "skills": {
+        "subject_identification": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "main_verb_token": "וַיְשַׁלְּחֵהוּ",
+              "surface": "יְהוָה אֱלֹהִים",
+              "translation": "the LORD God"
+            }
+          ]
+        },
+        "object_identification": {
+          "status": "suppressed",
+          "reason": "This work-assignment clause does not have one compact preferred object target."
+        },
+        "phrase_translation": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "surface": "מִגַּן־עֵדֶן",
+              "translation": "from the Garden of Eden"
+            }
+          ]
+        }
+      }
+    },
+    "bereishis_3_24": {
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 3,
+        "pasuk": 24
+      },
+      "skills": {
+        "subject_identification": {
+          "status": "suppressed",
+          "reason": "This expulsion-and-guard clause does not have one clean explicit subject target."
+        },
+        "object_identification": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "main_verb_token": "וַיְגָרֶשׁ",
+              "role": "direct_object",
+              "surface": "הָאָדָם",
+              "translation": "the man"
+            }
+          ]
+        },
+        "phrase_translation": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "surface": "לִשְׁמֹר אֶת־דֶּרֶךְ עֵץ הַחַיִּים",
+              "translation": "to guard the way to the tree of life"
+            }
+          ]
         }
       }
     }

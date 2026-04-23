@@ -217,19 +217,18 @@ class QuestionValidationFrameworkTests(unittest.TestCase):
         self.assertFalse(validation["valid"])
         self.assertIn("invalid_tense_target", validation["rejection_codes"])
 
-    def test_runtime_pre_serve_validation_accepts_safe_generated_translation_question(self):
+    def test_runtime_pre_serve_validation_accepts_safe_reviewed_translation_question(self):
         active_record = next(
             record
             for record in active_pesukim_records()
             if record.get("ref", {}).get("perek") == 1
-            and record.get("ref", {}).get("pasuk") == 1
+            and record.get("ref", {}).get("pasuk") == 3
         )
 
-        with patch.object(pasuk_flow_generator, "pick_word_for_skill", return_value="אֱלֹקִים"):
-            question = question_flow.generate_skill_question(
-                "translation",
-                question_flow.candidate_source_for_pasuk(active_record["text"]),
-            )
+        question = question_flow.generate_skill_question(
+            "translation",
+            question_flow.candidate_source_for_pasuk(active_record["text"]),
+        )
 
         validation = question_flow.validate_question_for_serve(
             question,
@@ -240,8 +239,8 @@ class QuestionValidationFrameworkTests(unittest.TestCase):
         self.assertEqual(question.get("analysis_source"), "active_scope_reviewed_bank")
         self.assertEqual(question.get("skill"), "translation")
         self.assertEqual(question.get("question_type"), "phrase_translation")
-        self.assertEqual(question.get("selected_word"), " ".join(active_record["text"].split()[1:3]))
-        self.assertEqual(question.get("correct_answer"), "God created")
+        self.assertEqual(question.get("selected_word"), "וַיֹּאמֶר אֱלֹקִים")
+        self.assertEqual(question.get("correct_answer"), "and God said")
         self.assertTrue(validation["valid"])
         self.assertEqual(validation["rejection_codes"], [])
 

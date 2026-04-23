@@ -62,23 +62,17 @@ class StreamlitRuntimeCharacterizationTests(unittest.TestCase):
             for record in active_pesukim_records()
         }
         partial_support_refs = {
-            (1, 2),
             (1, 13),
             (1, 15),
             (1, 19),
-            (1, 22),
             (1, 23),
-            (1, 30),
             (2, 1),
             (2, 6),
-            (2, 11),
-            (2, 13),
             (2, 14),
-            (2, 19),
             (2, 24),
         }
 
-        self.assertEqual(len(flows), 50)
+        self.assertEqual(len(flows), 72)
         self.assertTrue(flow_refs.issubset(active_refs))
         self.assertEqual(active_refs - flow_refs, partial_support_refs)
         self.assertTrue(

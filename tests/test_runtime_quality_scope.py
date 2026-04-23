@@ -32,6 +32,15 @@ def promoted_scope_pesukim():
     ]
 
 
+def latest_promoted_scope_pesukim():
+    return [
+        record["text"]
+        for record in active_pesukim_records()
+        if record.get("ref", {}).get("perek") == 3
+        and 17 <= record.get("ref", {}).get("pasuk", 0) <= 24
+    ]
+
+
 def current_expansion_chunk_records():
     return [
         record
@@ -165,6 +174,26 @@ class ActiveRuntimeQualityTests(unittest.TestCase):
             self.assertNotIn("the LORD God making", answer)
 
         self.assertGreaterEqual(supported, 0)
+
+    def test_latest_promoted_scope_translation_and_role_questions_stay_placeholder_free(self):
+        for pasuk in latest_promoted_scope_pesukim():
+            translation_question = generate_question("translation", pasuk)
+            token = translation_question.get("selected_word") or translation_question.get("word")
+            self.assertNotEqual(translation_question.get("status"), "skipped")
+            self.assertFalse(
+                is_placeholder_translation(translation_question.get("correct_answer"), token),
+                f"Weak newly promoted translation output for {token} in {pasuk}",
+            )
+
+            for skill in ("subject_identification", "object_identification", "phrase_translation"):
+                question = generate_question(skill, pasuk)
+                if question.get("status") == "skipped":
+                    continue
+                token = question.get("selected_word") or question.get("word")
+                self.assertFalse(
+                    is_placeholder_translation(question.get("correct_answer"), token),
+                    f"Weak newly promoted {skill} output for {token} in {pasuk}",
+                )
 
     def test_translation_on_low_information_pronoun_prefers_phrase_context(self):
         record = next(record for record in active_pesukim_records() if record.get("pasuk_id") == "bereishis_2_11")
@@ -302,17 +331,41 @@ class ActiveRuntimeQualityTests(unittest.TestCase):
         for item in blocked:
             self.assertNotIn(item, staged_targets)
 
+    def test_next_staged_reviewed_phrase_and_role_support_keeps_implicit_or_context_heavy_targets_out(self):
+        reviewed_path = Path("data/staged/parsed_bereishis_3_17_to_3_24_staged/reviewed_questions.json")
+        payload = json.loads(reviewed_path.read_text(encoding="utf-8"))
+        staged_targets = {
+            (
+                question.get("skill"),
+                question.get("pasuk_id"),
+                normalize_hebrew_key(question.get("selected_word") or ""),
+            )
+            for question in payload.get("questions", [])
+            if question.get("skill") in {"phrase_translation", "subject_identification", "object_identification"}
+        }
+
+        blocked = {
+            ("phrase_translation", "bereishis_3_22", normalize_hebrew_key("הָיָה כְּאַחַד מִמֶּנּוּ")),
+            ("subject_identification", "bereishis_3_24", normalize_hebrew_key("הַכְּרֻבִים")),
+            ("object_identification", "bereishis_3_23", normalize_hebrew_key("הָאֲדָמָה")),
+        }
+
+        for item in blocked:
+            self.assertNotIn(item, staged_targets)
+
     def test_active_scope_question_includes_safe_seed_only_dikduk_foundation_metadata(self):
         record = next(
             record
             for record in active_pesukim_records()
             if record.get("ref", {}).get("perek") == 1
-            and record.get("ref", {}).get("pasuk") == 1
+            and record.get("ref", {}).get("pasuk") == 3
         )
 
         question = generate_question("translation", record["text"])
 
         self.assertNotEqual(question.get("status"), "skipped")
+        self.assertEqual(question.get("analysis_source"), "active_scope_reviewed_bank")
+        self.assertEqual(question.get("question_type"), "phrase_translation")
         self.assertIn("dikduk_foundation", question)
         self.assertTrue(question["dikduk_foundation"]["safe_seed_only"])
         self.assertNotIn("unresolved_candidates", question["dikduk_foundation"])
