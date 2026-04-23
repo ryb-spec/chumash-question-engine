@@ -365,6 +365,27 @@ class ActiveScopeReviewedQuestionTests(unittest.TestCase):
         self.assertEqual(normalize_hebrew_key(question.get("selected_word")), normalize_hebrew_key("\u05ea\u05b0\u05d0\u05b5\u05e0\u05b8\u05d4"))
         self.assertEqual(question.get("correct_answer"), "fig")
 
+    def test_generate_question_rotates_away_from_recent_higid_in_bereishis_3_11(self):
+        recent_questions = [
+            {
+                "skill": "translation",
+                "question_type": "translation",
+                "selected_word": "\u05d4\u05b4\u05d2\u05b4\u05bc\u05d9\u05d3",
+                "correct_answer": "told",
+            }
+        ]
+
+        question = generate_question(
+            "translation",
+            pasuk_by_id("bereishis_3_11"),
+            recent_questions=recent_questions,
+        )
+
+        self.assertEqual(question.get("analysis_source"), "active_scope_reviewed_bank")
+        self.assertEqual(question.get("question_type"), "translation")
+        self.assertEqual(normalize_hebrew_key(question.get("selected_word")), normalize_hebrew_key("\u05e6\u05b4\u05d5\u05b4\u05bc\u05d9\u05ea\u05b4\u05d9\u05da\u05b8"))
+        self.assertEqual(question.get("correct_answer"), "I commanded you")
+
     def test_runtime_prefers_reviewed_part_of_speech_for_audited_target(self):
         question = generate_question("part_of_speech", pasuk_by_id("bereishis_1_3"))
 
@@ -423,6 +444,22 @@ class ActiveScopeReviewedQuestionTests(unittest.TestCase):
             question.get("correct_answer"),
             "and God created the great sea creatures",
         )
+
+    def test_runtime_prefers_reviewed_role_and_phrase_targets_for_newly_promoted_slice(self):
+        expected = {
+            ("subject_identification", "bereishis_3_21"): ("יְהוָה אֱלֹהִים", "the LORD God"),
+            ("object_identification", "bereishis_3_24"): ("הָאָדָם", "the man"),
+            ("phrase_translation", "bereishis_3_24"): (
+                "לִשְׁמֹר אֶת־דֶּרֶךְ עֵץ הַחַיִּים",
+                "to guard the way to the tree of life",
+            ),
+        }
+
+        for (skill, pasuk_id), (token, answer) in expected.items():
+            question = generate_question(skill, pasuk_by_id(pasuk_id))
+            self.assertEqual(question.get("analysis_source"), "active_scope_reviewed_bank")
+            self.assertEqual(normalize_hebrew_key(question.get("selected_word")), normalize_hebrew_key(token))
+            self.assertEqual(question.get("correct_answer"), answer)
 
     def test_phrase_translation_still_skips_non_contiguous_gold_target(self):
         question = generate_question("phrase_translation", pasuk_by_id("bereishis_2_9"))
