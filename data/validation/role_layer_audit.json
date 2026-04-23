@@ -1,18 +1,18 @@
 {
   "active_scope": {
-    "pesukim_count": 64,
-    "parsed_pesukim_count": 64,
+    "pesukim_count": 80,
+    "parsed_pesukim_count": 80,
     "parsed_role_status_counts": {
-      "no_main_verb": 14,
-      "ambiguous_main_verbs": 29,
-      "resolved": 21
+      "no_main_verb": 12,
+      "resolved": 20,
+      "ambiguous_main_verbs": 48
     }
   },
   "parsed_artifact_without_overrides": {
     "support": {
       "subject_identification": {
-        "supported": 8,
-        "skipped": 56,
+        "supported": 15,
+        "skipped": 65,
         "skip_reasons": {
           "No usable subject translation is available for this pasuk.": 20,
           "This descriptive multi-clause pasuk does not have one clean quiz-ready action anchor.": 1,
@@ -25,7 +25,15 @@
           "The negated multi-clause explanation is not treated as one clean subject target.": 1,
           "This clause does not have a preferred who-does-the-action target.": 1,
           "No clean student-ready subject target is approved for this expansion pass.": 8,
-          "No clean subject-identification target is preferred in this verse at the current quality bar.": 15
+          "No clean subject-identification target is preferred in this verse at the current quality bar.": 15,
+          "This first-person response clause does not have one clean explicit subject target.": 1,
+          "The question-word clause is not treated as a clean subject-identification target.": 1,
+          "This curse clause does not have one clean explicit subject target for this lane.": 1,
+          "The pronoun-heavy conflict clause does not have one clean explicit subject target.": 1,
+          "This birth-pain clause does not have one clean explicit subject target.": 1,
+          "This multi-clause consequence pasuk does not have one clean explicit subject target.": 1,
+          "This consequence clause does not have one clean explicit subject target.": 2,
+          "This expulsion-and-guard clause does not have one clean explicit subject target.": 1
         },
         "supported_refs": [
           "1:17",
@@ -36,23 +44,26 @@
         ]
       },
       "object_identification": {
-        "supported": 5,
-        "skipped": 59,
+        "supported": 16,
+        "skipped": 64,
         "skip_reasons": {
           "No clean single direct-object target is preferred here.": 1,
-          "No clean direct-object or recipient target is preferred here.": 7,
+          "No clean direct-object or recipient target is preferred here.": 8,
           "The speech content is not treated as a direct-object target in this lane.": 1,
-          "No supported object target found in this pasuk.": 10,
-          "Naming targets are not treated as clean direct-object questions here.": 3,
+          "No supported object target found in this pasuk.": 9,
+          "Naming targets are not treated as clean direct-object questions here.": 4,
           "The command content is not treated as a direct-object target in this lane.": 6,
-          "No clean single direct-object or recipient target is preferred here.": 1,
+          "No clean single direct-object or recipient target is preferred here.": 2,
           "The day-label formula has no clean object target.": 3,
           "The infinitive chain is not treated as a clean object question.": 1,
           "The command content is not treated as a clean direct-object target in this lane.": 1,
           "This gift clause does not yet have one compact preferred object target.": 1,
           "No clean student-ready object target is approved for this expansion pass.": 8,
           "No clean object-identification target is preferred in this verse at the current quality bar.": 15,
-          "No clearly supported direct object target found in this pasuk.": 1
+          "No clearly supported direct object target found in this pasuk.": 1,
+          "This recipient-pronoun clause does not have one compact preferred object target.": 1,
+          "The first-person suffix is not treated as a clean object-identification target here.": 1,
+          "This work-assignment clause does not have one compact preferred object target.": 1
         },
         "supported_refs": [
           "1:16",
@@ -63,12 +74,12 @@
         ]
       },
       "phrase_translation": {
-        "supported": 21,
-        "skipped": 43,
+        "supported": 38,
+        "skipped": 42,
         "skip_reasons": {
           "No compact quiz-ready phrase is preferred here.": 5,
-          "No quiz-ready phrase target found in this pasuk.": 13,
           "The naming clause is not yet preferred as a quiz-ready phrase target.": 3,
+          "No quiz-ready phrase target found in this pasuk.": 12,
           "The day-label formula is not treated as a quiz-ready phrase target.": 3,
           "This clause is not treated as a quiz-ready phrase target.": 1,
           "This continuation clause is not treated as a quiz-ready phrase target.": 1,
@@ -78,9 +89,9 @@
         "supported_refs": [
           "1:1",
           "1:3",
+          "1:4",
           "1:7",
-          "1:16",
-          "1:17"
+          "1:16"
         ]
       }
     },
@@ -276,6 +287,14 @@
             "analysis_source": "active_scope_reviewed_bank"
           },
           {
+            "ref": "1:4",
+            "question": "What does this phrase mean?",
+            "correct_answer": "and God saw the light",
+            "reason": null,
+            "source": "active scope reviewed bank",
+            "analysis_source": "active_scope_reviewed_bank"
+          },
+          {
             "ref": "1:7",
             "question": "What does this phrase mean?",
             "correct_answer": "and God made the expanse",
@@ -290,14 +309,6 @@
             "reason": null,
             "source": "active scope reviewed bank",
             "analysis_source": "active_scope_reviewed_bank"
-          },
-          {
-            "ref": "1:17",
-            "question": "What does this phrase mean?",
-            "correct_answer": "and God placed them",
-            "reason": null,
-            "source": "active scope reviewed bank",
-            "analysis_source": "active_scope_reviewed_bank"
           }
         ],
         "skipped_examples": [
@@ -307,14 +318,6 @@
             "correct_answer": null,
             "reason": "No compact quiz-ready phrase is preferred here.",
             "source": "active scope gold suppression",
-            "analysis_source": null
-          },
-          {
-            "ref": "1:4",
-            "question": null,
-            "correct_answer": null,
-            "reason": "No quiz-ready phrase target found in this pasuk.",
-            "source": "generated skill question",
             "analysis_source": null
           },
           {
@@ -340,6 +343,14 @@
             "reason": "The naming clause is not yet preferred as a quiz-ready phrase target.",
             "source": "active scope gold suppression",
             "analysis_source": null
+          },
+          {
+            "ref": "1:9",
+            "question": null,
+            "correct_answer": null,
+            "reason": "No quiz-ready phrase target found in this pasuk.",
+            "source": "generated skill question",
+            "analysis_source": null
           }
         ]
       }
@@ -348,8 +359,8 @@
   "parsed_artifact_with_overrides": {
     "support": {
       "subject_identification": {
-        "supported": 13,
-        "skipped": 51,
+        "supported": 20,
+        "skipped": 60,
         "skip_reasons": {
           "This descriptive multi-clause pasuk does not have one clean quiz-ready action anchor.": 1,
           "No usable subject translation is available for this pasuk.": 16,
@@ -362,7 +373,15 @@
           "The negated multi-clause explanation is not treated as one clean subject target.": 1,
           "This clause does not have a preferred who-does-the-action target.": 1,
           "No clean student-ready subject target is approved for this expansion pass.": 8,
-          "No clean subject-identification target is preferred in this verse at the current quality bar.": 15
+          "No clean subject-identification target is preferred in this verse at the current quality bar.": 15,
+          "This first-person response clause does not have one clean explicit subject target.": 1,
+          "The question-word clause is not treated as a clean subject-identification target.": 1,
+          "This curse clause does not have one clean explicit subject target for this lane.": 1,
+          "The pronoun-heavy conflict clause does not have one clean explicit subject target.": 1,
+          "This birth-pain clause does not have one clean explicit subject target.": 1,
+          "This multi-clause consequence pasuk does not have one clean explicit subject target.": 1,
+          "This consequence clause does not have one clean explicit subject target.": 2,
+          "This expulsion-and-guard clause does not have one clean explicit subject target.": 1
         },
         "supported_refs": [
           "1:1",
@@ -373,15 +392,15 @@
         ]
       },
       "object_identification": {
-        "supported": 14,
-        "skipped": 50,
+        "supported": 24,
+        "skipped": 56,
         "skip_reasons": {
           "No clean single direct-object target is preferred here.": 1,
-          "No clean direct-object or recipient target is preferred here.": 7,
+          "No clean direct-object or recipient target is preferred here.": 8,
           "The speech content is not treated as a direct-object target in this lane.": 1,
-          "Naming targets are not treated as clean direct-object questions here.": 3,
+          "Naming targets are not treated as clean direct-object questions here.": 4,
           "The command content is not treated as a direct-object target in this lane.": 6,
-          "No clean single direct-object or recipient target is preferred here.": 1,
+          "No clean single direct-object or recipient target is preferred here.": 2,
           "The day-label formula has no clean object target.": 3,
           "The infinitive chain is not treated as a clean object question.": 1,
           "The command content is not treated as a clean direct-object target in this lane.": 1,
@@ -389,7 +408,10 @@
           "This gift clause does not yet have one compact preferred object target.": 1,
           "No clean student-ready object target is approved for this expansion pass.": 8,
           "No clean object-identification target is preferred in this verse at the current quality bar.": 15,
-          "No clearly supported direct object target found in this pasuk.": 1
+          "No clearly supported direct object target found in this pasuk.": 1,
+          "This recipient-pronoun clause does not have one compact preferred object target.": 1,
+          "The first-person suffix is not treated as a clean object-identification target here.": 1,
+          "This work-assignment clause does not have one compact preferred object target.": 1
         },
         "supported_refs": [
           "1:4",
@@ -400,7 +422,7 @@
         ]
       },
       "phrase_translation": {
-        "supported": 22,
+        "supported": 38,
         "skipped": 42,
         "skip_reasons": {
           "No compact quiz-ready phrase is preferred here.": 4,
@@ -617,8 +639,8 @@
             "question": "What does this phrase mean?",
             "correct_answer": "and God saw the light",
             "reason": null,
-            "source": "active scope override",
-            "analysis_source": "active_scope_override"
+            "source": "active scope reviewed bank",
+            "analysis_source": "active_scope_reviewed_bank"
           },
           {
             "ref": "1:7",
@@ -684,8 +706,8 @@
   },
   "gold_truth": {
     "subject_identification": {
-      "approved": 31,
-      "suppressed": 33,
+      "approved": 38,
+      "suppressed": 42,
       "approved_refs": [
         "1:1",
         "1:3",
@@ -717,7 +739,14 @@
         "2:7",
         "2:8",
         "2:9",
-        "2:18"
+        "2:18",
+        "3:9",
+        "3:12",
+        "3:13",
+        "3:20",
+        "3:21",
+        "3:22",
+        "3:23"
       ],
       "suppressed_refs": [
         "1:2",
@@ -752,12 +781,21 @@
         "3:5",
         "3:6",
         "3:7",
-        "3:8"
+        "3:8",
+        "3:10",
+        "3:11",
+        "3:14",
+        "3:15",
+        "3:16",
+        "3:17",
+        "3:18",
+        "3:19",
+        "3:24"
       ]
     },
     "object_identification": {
-      "approved": 16,
-      "suppressed": 48,
+      "approved": 26,
+      "suppressed": 54,
       "approved_refs": [
         "1:4",
         "1:7",
@@ -774,7 +812,17 @@
         "2:7",
         "2:8",
         "2:9",
-        "2:20"
+        "2:20",
+        "3:9",
+        "3:10",
+        "3:14",
+        "3:15",
+        "3:16",
+        "3:18",
+        "3:19",
+        "3:21",
+        "3:22",
+        "3:24"
       ],
       "suppressed_refs": [
         "1:1",
@@ -824,11 +872,17 @@
         "3:5",
         "3:6",
         "3:7",
-        "3:8"
+        "3:8",
+        "3:11",
+        "3:12",
+        "3:13",
+        "3:17",
+        "3:20",
+        "3:23"
       ]
     },
     "phrase_translation": {
-      "approved": 34,
+      "approved": 50,
       "suppressed": 30,
       "approved_refs": [
         "1:1",
@@ -864,7 +918,23 @@
         "2:14",
         "2:15",
         "2:16",
-        "2:17"
+        "2:17",
+        "3:9",
+        "3:10",
+        "3:11",
+        "3:12",
+        "3:13",
+        "3:14",
+        "3:15",
+        "3:16",
+        "3:17",
+        "3:18",
+        "3:19",
+        "3:20",
+        "3:21",
+        "3:22",
+        "3:23",
+        "3:24"
       ],
       "suppressed_refs": [
         "1:2",
@@ -909,9 +979,16 @@
         "1:25",
         "1:31",
         "2:2",
-        "2:9"
+        "2:9",
+        "3:9",
+        "3:12",
+        "3:13",
+        "3:20",
+        "3:21",
+        "3:22",
+        "3:23"
       ],
-      "matched_approved_count": 7,
+      "matched_approved_count": 14,
       "missed_gold_refs": [
         "1:1",
         "1:3",
@@ -972,9 +1049,18 @@
         "3:5",
         "3:6",
         "3:7",
-        "3:8"
+        "3:8",
+        "3:10",
+        "3:11",
+        "3:14",
+        "3:15",
+        "3:16",
+        "3:17",
+        "3:18",
+        "3:19",
+        "3:24"
       ],
-      "matched_suppressed_count": 33,
+      "matched_suppressed_count": 42,
       "unsupported_in_gold_refs": [
         "1:2",
         "1:13",
@@ -1008,18 +1094,37 @@
         "3:5",
         "3:6",
         "3:7",
-        "3:8"
+        "3:8",
+        "3:10",
+        "3:11",
+        "3:14",
+        "3:15",
+        "3:16",
+        "3:17",
+        "3:18",
+        "3:19",
+        "3:24"
       ],
-      "unsupported_in_gold_count": 33
+      "unsupported_in_gold_count": 42
     },
     "object_identification": {
       "matched_approved_refs": [
         "1:21",
         "1:22",
         "1:25",
-        "1:31"
+        "1:31",
+        "3:9",
+        "3:10",
+        "3:14",
+        "3:15",
+        "3:16",
+        "3:18",
+        "3:19",
+        "3:21",
+        "3:22",
+        "3:24"
       ],
-      "matched_approved_count": 4,
+      "matched_approved_count": 14,
       "missed_gold_refs": [
         "1:4",
         "1:7",
@@ -1083,9 +1188,15 @@
         "3:5",
         "3:6",
         "3:7",
-        "3:8"
+        "3:8",
+        "3:11",
+        "3:12",
+        "3:13",
+        "3:17",
+        "3:20",
+        "3:23"
       ],
-      "matched_suppressed_count": 48,
+      "matched_suppressed_count": 54,
       "unsupported_in_gold_refs": [
         "1:1",
         "1:2",
@@ -1134,14 +1245,21 @@
         "3:5",
         "3:6",
         "3:7",
-        "3:8"
+        "3:8",
+        "3:11",
+        "3:12",
+        "3:13",
+        "3:17",
+        "3:20",
+        "3:23"
       ],
-      "unsupported_in_gold_count": 48
+      "unsupported_in_gold_count": 54
     },
     "phrase_translation": {
       "matched_approved_refs": [
         "1:1",
         "1:3",
+        "1:4",
         "1:7",
         "1:16",
         "1:17",
@@ -1153,18 +1271,31 @@
         "2:2",
         "2:3",
         "2:7",
-        "2:8",
         "2:11",
         "2:12",
         "2:13",
         "2:14",
-        "2:15",
         "2:16",
-        "2:17"
+        "2:17",
+        "3:9",
+        "3:10",
+        "3:11",
+        "3:12",
+        "3:13",
+        "3:14",
+        "3:15",
+        "3:16",
+        "3:17",
+        "3:18",
+        "3:19",
+        "3:20",
+        "3:21",
+        "3:22",
+        "3:23",
+        "3:24"
       ],
-      "matched_approved_count": 21,
+      "matched_approved_count": 36,
       "missed_gold_refs": [
-        "1:4",
         "1:6",
         "1:9",
         "1:11",
@@ -1176,9 +1307,11 @@
         "1:26",
         "1:28",
         "1:29",
-        "2:9"
+        "2:8",
+        "2:9",
+        "2:15"
       ],
-      "missed_gold_count": 13,
+      "missed_gold_count": 14,
       "matched_suppressed_refs": [
         "1:2",
         "1:5",
@@ -1262,9 +1395,16 @@
         "2:2",
         "2:7",
         "2:8",
-        "2:9"
+        "2:9",
+        "3:9",
+        "3:12",
+        "3:13",
+        "3:20",
+        "3:21",
+        "3:22",
+        "3:23"
       ],
-      "matched_approved_count": 13,
+      "matched_approved_count": 20,
       "missed_gold_refs": [
         "1:5",
         "1:6",
@@ -1319,9 +1459,18 @@
         "3:5",
         "3:6",
         "3:7",
-        "3:8"
+        "3:8",
+        "3:10",
+        "3:11",
+        "3:14",
+        "3:15",
+        "3:16",
+        "3:17",
+        "3:18",
+        "3:19",
+        "3:24"
       ],
-      "matched_suppressed_count": 33,
+      "matched_suppressed_count": 42,
       "unsupported_in_gold_refs": [
         "1:2",
         "1:13",
@@ -1355,9 +1504,18 @@
         "3:5",
         "3:6",
         "3:7",
-        "3:8"
+        "3:8",
+        "3:10",
+        "3:11",
+        "3:14",
+        "3:15",
+        "3:16",
+        "3:17",
+        "3:18",
+        "3:19",
+        "3:24"
       ],
-      "unsupported_in_gold_count": 33
+      "unsupported_in_gold_count": 42
     },
     "object_identification": {
       "matched_approved_refs": [
@@ -1374,9 +1532,19 @@
         "2:3",
         "2:7",
         "2:8",
-        "2:9"
+        "2:9",
+        "3:9",
+        "3:10",
+        "3:14",
+        "3:15",
+        "3:16",
+        "3:18",
+        "3:19",
+        "3:21",
+        "3:22",
+        "3:24"
       ],
-      "matched_approved_count": 14,
+      "matched_approved_count": 24,
       "missed_gold_refs": [
         "1:28",
         "2:20"
@@ -1430,9 +1598,15 @@
         "3:5",
         "3:6",
         "3:7",
-        "3:8"
+        "3:8",
+        "3:11",
+        "3:12",
+        "3:13",
+        "3:17",
+        "3:20",
+        "3:23"
       ],
-      "matched_suppressed_count": 48,
+      "matched_suppressed_count": 54,
       "unsupported_in_gold_refs": [
         "1:1",
         "1:2",
@@ -1481,9 +1655,15 @@
         "3:5",
         "3:6",
         "3:7",
-        "3:8"
+        "3:8",
+        "3:11",
+        "3:12",
+        "3:13",
+        "3:17",
+        "3:20",
+        "3:23"
       ],
-      "unsupported_in_gold_count": 48
+      "unsupported_in_gold_count": 54
     },
     "phrase_translation": {
       "matched_approved_refs": [
@@ -1508,9 +1688,25 @@
         "2:14",
         "2:15",
         "2:16",
-        "2:17"
+        "2:17",
+        "3:9",
+        "3:10",
+        "3:11",
+        "3:12",
+        "3:13",
+        "3:14",
+        "3:15",
+        "3:16",
+        "3:17",
+        "3:18",
+        "3:19",
+        "3:20",
+        "3:21",
+        "3:22",
+        "3:23",
+        "3:24"
       ],
-      "matched_approved_count": 22,
+      "matched_approved_count": 38,
       "missed_gold_refs": [
         "1:6",
         "1:9",
@@ -1596,8 +1792,8 @@
   },
   "override_delta_supported": {
     "subject_identification": 5,
-    "object_identification": 9,
-    "phrase_translation": 1
+    "object_identification": 8,
+    "phrase_translation": 0
   },
   "override_improvements": {
     "subject_identification": [
@@ -1615,12 +1811,9 @@
       "2:2",
       "2:3",
       "2:7",
-      "2:8",
       "2:9"
     ],
-    "phrase_translation": [
-      "1:4"
-    ]
+    "phrase_translation": []
   },
   "still_skipped_after_overrides": {
     "subject_identification": [
@@ -1668,7 +1861,16 @@
       "2:5",
       "2:6",
       "3:1",
+      "3:10",
+      "3:11",
+      "3:14",
+      "3:15",
+      "3:16",
+      "3:17",
+      "3:18",
+      "3:19",
       "3:2",
+      "3:24",
       "3:3",
       "3:4",
       "3:5",
@@ -1720,7 +1922,13 @@
       "2:5",
       "2:6",
       "3:1",
+      "3:11",
+      "3:12",
+      "3:13",
+      "3:17",
       "3:2",
+      "3:20",
+      "3:23",
       "3:3",
       "3:4",
       "3:5",

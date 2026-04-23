@@ -1,6 +1,6 @@
 {
-  "scope_id": "local_parsed_bereishis_1_1_to_3_8",
-  "question_count": 155,
+  "scope_id": "local_parsed_bereishis_1_1_to_3_24",
+  "question_count": 238,
   "baseline_lane_counts": {
     "translation": 25,
     "shoresh": 17,
@@ -8,28 +8,28 @@
     "affix": 25
   },
   "lane_counts": {
-    "translation": 52,
-    "shoresh": 26,
-    "tense": 25,
-    "affix": 32,
-    "role": 11,
+    "translation": 84,
+    "shoresh": 33,
+    "tense": 35,
+    "affix": 48,
+    "role": 29,
     "part_of_speech": 9
   },
   "lane_count_delta": {
-    "translation": 27,
-    "shoresh": 9,
-    "tense": 7,
-    "affix": 7
+    "translation": 59,
+    "shoresh": 16,
+    "tense": 17,
+    "affix": 23
   },
   "skill_counts": {
-    "translation": 31,
-    "shoresh": 26,
-    "identify_tense": 25,
-    "identify_prefix_meaning": 20,
-    "identify_pronoun_suffix": 7,
-    "subject_identification": 7,
-    "object_identification": 4,
-    "phrase_translation": 21,
+    "translation": 48,
+    "shoresh": 33,
+    "identify_tense": 35,
+    "identify_prefix_meaning": 29,
+    "identify_pronoun_suffix": 14,
+    "phrase_translation": 36,
+    "subject_identification": 15,
+    "object_identification": 14,
     "part_of_speech": 9,
     "identify_suffix_meaning": 5
   },
@@ -38,18 +38,43 @@
   "duplicate_reviewed_ids": [],
   "repeated_targets": [
     {
-      "family": "translation",
-      "target": "טוב",
-      "count": 2
-    },
-    {
-      "family": "affix",
-      "target": "מפרי",
-      "count": 2
-    },
-    {
       "family": "affix",
       "target": "כאלהים",
+      "count": 2
+    },
+    {
+      "family": "affix",
+      "target": "בגן",
+      "count": 2
+    },
+    {
+      "family": "tense",
+      "target": "היתה",
+      "count": 2
+    },
+    {
+      "family": "affix",
+      "target": "לאדם",
+      "count": 3
+    },
+    {
+      "family": "role",
+      "target": "האדם",
+      "count": 4
+    },
+    {
+      "family": "role",
+      "target": "יהוה אלהים",
+      "count": 4
+    },
+    {
+      "family": "translation",
+      "target": "ויקרא",
+      "count": 2
+    },
+    {
+      "family": "affix",
+      "target": "זרעה",
       "count": 2
     },
     {
@@ -69,33 +94,18 @@
     },
     {
       "family": "shoresh",
-      "target": "ויברא",
-      "count": 2
-    },
-    {
-      "family": "shoresh",
       "target": "מות",
-      "count": 2
-    },
-    {
-      "family": "shoresh",
-      "target": "ויבדל",
-      "count": 2
-    },
-    {
-      "family": "tense",
-      "target": "ויאמר",
       "count": 2
     },
     {
       "family": "affix",
       "target": "בארץ",
-      "count": 3
+      "count": 2
     },
     {
       "family": "affix",
-      "target": "ביום",
-      "count": 3
+      "target": "באשתו",
+      "count": 2
     },
     {
       "family": "affix",
@@ -104,7 +114,7 @@
     },
     {
       "family": "affix",
-      "target": "לאמר",
+      "target": "החיה",
       "count": 2
     },
     {
@@ -120,16 +130,6 @@
     {
       "family": "affix",
       "target": "לעבדה",
-      "count": 2
-    },
-    {
-      "family": "affix",
-      "target": "לקחה",
-      "count": 2
-    },
-    {
-      "family": "affix",
-      "target": "וחיתו",
       "count": 2
     }
   ],
@@ -152,13 +152,14 @@
     "תַּדְשֵׁא",
     "יִשְׁרְצוּ"
   ],
-  "imported_promoted_seed_count": 22,
-  "promoted_slice_question_count": 44,
+  "imported_promoted_seed_count": 115,
+  "promoted_slice_question_count": 142,
   "promoted_slice_lane_counts": {
-    "translation": 20,
-    "shoresh": 6,
-    "tense": 6,
-    "affix": 11,
+    "translation": 53,
+    "shoresh": 18,
+    "tense": 20,
+    "affix": 32,
+    "role": 18,
     "part_of_speech": 1
   },
   "valid": true

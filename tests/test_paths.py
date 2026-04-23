@@ -50,9 +50,9 @@ class PathResolutionTests(unittest.TestCase):
                 ) in expected_flow_refs
             }
 
-            self.assertEqual(len(pesukim.get("pesukim", [])), 64)
-            self.assertEqual(len(parsed_pesukim.get("parsed_pesukim", [])), 64)
-            self.assertLessEqual(len(flows), 64)
+            self.assertEqual(len(pesukim.get("pesukim", [])), 80)
+            self.assertEqual(len(parsed_pesukim.get("parsed_pesukim", [])), 80)
+            self.assertLessEqual(len(flows), 80)
             self.assertTrue(flow_pesukim.issubset(active_texts))
             self.assertTrue(expected_flow_texts.issubset(flow_pesukim))
         finally:

@@ -432,6 +432,7 @@ class QuestionTypeContractTests(unittest.TestCase):
         standalone_formed_question = generate_question("translation", "?????????")
         divine_question = generate_question("translation", pasuk_by_ref(3, 3))
         created_translation = generate_question("translation", pasuk_by_ref(1, 1))
+        created_phrase = generate_question("phrase_translation", pasuk_by_ref(1, 1))
         made_phrase = generate_question("phrase_translation", pasuk_by_ref(1, 16))
         formed_phrase = generate_question("phrase_translation", pasuk_by_ref(2, 7))
 
@@ -443,6 +444,8 @@ class QuestionTypeContractTests(unittest.TestCase):
         self.assertNotIn("the LORD", divine_question.get("choices", []))
         self.assertEqual(created_translation.get("question_type"), "phrase_translation")
         self.assertEqual(created_translation.get("correct_answer"), "God created")
+        self.assertEqual(created_phrase.get("question_type"), "phrase_translation")
+        self.assertEqual(created_phrase.get("correct_answer"), "God created")
         self.assertEqual(made_phrase.get("correct_answer"), "and God made the two great lights")
         self.assertEqual(formed_phrase.get("correct_answer"), "and the LORD God formed the man")
         self.assertNotIn("the LORD the LORD", " ".join(formed_phrase.get("choices", [])))

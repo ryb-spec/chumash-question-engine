@@ -1,66 +1,67 @@
 import unittest
+from subprocess import CompletedProcess
+from unittest.mock import patch
 
 import assessment_scope
 from corpus_promotion import (
     apply_promotion_to_manifest,
     evaluate_next_source_block,
     find_next_source_block,
+    refresh_post_promotion_artifacts,
 )
 from torah_parser.export_bank import load_source_corpora
 
 
 class CorpusPromotionTests(unittest.TestCase):
-    def test_current_repo_exposes_the_next_review_needed_block_after_3_8_without_promoting_it(self):
+    def test_current_repo_reports_source_exhaustion_once_3_17_to_3_24_is_live(self):
         result = evaluate_next_source_block(block_size=10)
 
         self.assertEqual(result["current_active_scope"], assessment_scope.ACTIVE_ASSESSMENT_SCOPE)
-        self.assertEqual(result["status"], "evaluated")
+        self.assertEqual(result["status"], "no_next_block")
         self.assertFalse(result["promoted"])
         self.assertEqual(result["source_declared_range"], "1:1-3:16")
-        self.assertEqual(result["next_block"]["status"], "found")
-        self.assertEqual(
-            result["next_block"]["range"],
-            {
-                "start": {"sefer": "Bereishis", "perek": 3, "pasuk": 9},
-                "end": {"sefer": "Bereishis", "perek": 3, "pasuk": 16},
-            },
-        )
+        self.assertEqual(result["next_block"]["status"], "no_next_block")
         self.assertEqual(
             result["source_actual_range"]["end"],
             {"sefer": "Bereishis", "perek": 3, "pasuk": 16},
         )
         self.assertEqual(result["source_pesukim_count"], 72)
-        self.assertEqual(result["evaluation_source"], "existing_staged_bundle")
-        self.assertEqual(result["readiness"]["readiness_recommendation"], "active_candidate")
         self.assertEqual(
-            result["readiness"]["structural_summary"]["tokens_with_placeholder_context_count"],
-            0,
+            result["next_block"]["current_end"],
+            {"sefer": "Bereishis", "perek": 3, "pasuk": 24},
         )
-        self.assertEqual(result["readiness"]["generation_summary"]["stable_flow_pesukim"], 8)
-        self.assertEqual(result["readiness"]["per_skill_support"]["shoresh"]["supported_pesukim"], 8)
+        self.assertEqual(result["blocking_stage"], "source_material")
+        self.assertEqual(result["blockers"][0]["code"], "next_source_block_unavailable")
         self.assertEqual(
-            result["readiness"]["staged_reviewed_support"]["skill_supported_pesukim"]["phrase_translation"],
-            8,
-        )
-        self.assertEqual(
-            result["readiness"]["staged_reviewed_support"]["lane_supported_pesukim"]["role"],
-            7,
-        )
-        self.assertEqual(
-            [blocker["code"] for blocker in result["readiness"]["diagnostic_summary"]["blocker_categories"]],
-            [],
+            result["blockers"][0]["active_scope_end"],
+            {"perek": 3, "pasuk": 24},
         )
 
-    def test_active_scope_remains_unchanged_when_the_next_block_is_only_staged(self):
+    def test_active_scope_remains_unchanged_when_repo_truth_has_no_further_contiguous_block(self):
         before = assessment_scope.active_scope_summary()
         result = evaluate_next_source_block(block_size=10)
         after = assessment_scope.active_scope_summary()
 
-        self.assertEqual(result["status"], "evaluated")
+        self.assertEqual(result["status"], "no_next_block")
         self.assertFalse(result["promoted"])
         self.assertEqual(before["scope"], after["scope"])
         self.assertEqual(before["range"], after["range"])
         self.assertEqual(before["pesukim_count"], after["pesukim_count"])
+
+    def test_post_promotion_artifact_refresh_runs_reviewed_bank_and_role_audit_scripts(self):
+        completed = CompletedProcess(args=[], returncode=0, stdout='{"ok": true}\n', stderr="")
+
+        with patch("corpus_promotion.subprocess.run", return_value=completed) as mocked:
+            refreshed = refresh_post_promotion_artifacts()
+
+        self.assertEqual(mocked.call_count, 2)
+        self.assertEqual(len(refreshed), 2)
+        commands = [call.args[0] for call in mocked.call_args_list]
+        self.assertTrue(commands[0][1].endswith("scripts\\build_reviewed_question_bank.py"))
+        self.assertTrue(commands[1][1].endswith("scripts\\audit_role_layer.py"))
+        for call in mocked.call_args_list:
+            self.assertTrue(call.kwargs["check"])
+            self.assertTrue(call.kwargs["capture_output"])
 
     def test_combined_source_files_expose_new_contiguous_block_after_bereishis_1_30(self):
         source_corpus = load_source_corpora(

@@ -71,7 +71,7 @@ class DikdukRuntimeIntegrationTests(unittest.TestCase):
         self.assertTrue(standalone_translation_requires_context(entry, "תשמר"))
 
     def test_active_scope_remains_current_promoted_scope(self):
-        self.assertEqual(ACTIVE_ASSESSMENT_SCOPE, "local_parsed_bereishis_1_1_to_3_8")
+        self.assertEqual(ACTIVE_ASSESSMENT_SCOPE, "local_parsed_bereishis_1_1_to_3_24")
 
 
 if __name__ == "__main__":
