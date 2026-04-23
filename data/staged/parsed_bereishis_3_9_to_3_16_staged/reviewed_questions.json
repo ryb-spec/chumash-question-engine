@@ -31,10 +31,10 @@
       "question_text": "What does וַיִּקְרָא mean?",
       "question": "What does וַיִּקְרָא mean?",
       "choices": [
+        "and he I hid",
         "and he said",
-        "and he called",
         "and he I ate",
-        "and he I hid"
+        "and he called"
       ],
       "correct_answer": "and he called",
       "skill": "translation",
@@ -87,9 +87,9 @@
       "question_text": "What does עֵירֹם mean?",
       "question": "What does עֵירֹם mean?",
       "choices": [
+        "children",
         "cursed",
         "all",
-        "children",
         "naked"
       ],
       "correct_answer": "naked",
@@ -199,10 +199,10 @@
       "question_text": "What does צִוִּיתִיךָ mean?",
       "question": "What does צִוִּיתִיךָ mean?",
       "choices": [
-        "I will put",
         "I commanded you",
-        "he will rule",
-        "I will greatly increase"
+        "I will put",
+        "I will greatly increase",
+        "he will rule"
       ],
       "correct_answer": "I commanded you",
       "skill": "translation",
@@ -255,9 +255,9 @@
       "question_text": "What does נָתְנָה mean?",
       "question": "What does נָתְנָה mean?",
       "choices": [
-        "she gave",
-        "you did",
         "deceived me",
+        "you did",
+        "she gave",
         "you ate"
       ],
       "correct_answer": "she gave",
@@ -311,9 +311,9 @@
       "question_text": "What does הִשִּׁיאַנִי mean?",
       "question": "What does הִשִּׁיאַנִי mean?",
       "choices": [
-        "you did",
-        "you ate",
         "deceived me",
+        "you ate",
+        "you did",
         "you gave"
       ],
       "correct_answer": "deceived me",
@@ -369,8 +369,8 @@
       "choices": [
         "cursed",
         "all",
-        "head",
-        "children"
+        "children",
+        "head"
       ],
       "correct_answer": "cursed",
       "skill": "translation",
@@ -425,8 +425,8 @@
       "choices": [
         "children",
         "heel",
-        "all",
-        "cursed"
+        "cursed",
+        "all"
       ],
       "correct_answer": "heel",
       "skill": "translation",
@@ -479,10 +479,10 @@
       "question_text": "What does יִמְשָׁל mean?",
       "question": "What does יִמְשָׁל mean?",
       "choices": [
+        "I commanded you",
         "he will rule",
         "I will greatly increase",
-        "I will put",
-        "I commanded you"
+        "I will put"
       ],
       "correct_answer": "he will rule",
       "skill": "translation",
@@ -536,8 +536,8 @@
       "question": "What is the shoresh of שָׁמַעְתִּי?",
       "choices": [
         "משל",
-        "אמר",
         "שית",
+        "אמר",
         "שמע"
       ],
       "correct_answer": "שמע",
@@ -591,9 +591,9 @@
       "question_text": "What is the shoresh of נָתְנָה?",
       "question": "What is the shoresh of נָתְנָה?",
       "choices": [
-        "נגד",
-        "שית",
         "נתן",
+        "שית",
+        "נגד",
         "אכל"
       ],
       "correct_answer": "נתן",
@@ -647,9 +647,9 @@
       "question_text": "What is the shoresh of עָשִׂיתָ?",
       "question": "What is the shoresh of עָשִׂיתָ?",
       "choices": [
-        "צוה",
-        "עשה",
         "רבה",
+        "עשה",
+        "צוה",
         "משל"
       ],
       "correct_answer": "עשה",
@@ -704,8 +704,8 @@
       "question": "What is the shoresh of אָשִׁית?",
       "choices": [
         "ילד",
-        "ירא",
         "שמע",
+        "ירא",
         "שית"
       ],
       "correct_answer": "שית",
@@ -759,10 +759,10 @@
       "question_text": "What is the shoresh of אַרְבֶּה?",
       "question": "What is the shoresh of אַרְבֶּה?",
       "choices": [
-        "חבא",
         "רבה",
+        "צוה",
         "עשה",
-        "צוה"
+        "חבא"
       ],
       "correct_answer": "רבה",
       "skill": "shoresh",
@@ -815,10 +815,10 @@
       "question_text": "What form is shown?",
       "question": "What form is shown?",
       "choices": [
-        "present",
         "to do form",
-        "past",
-        "future"
+        "present",
+        "future",
+        "past"
       ],
       "correct_answer": "past",
       "skill": "identify_tense",
@@ -878,9 +878,9 @@
       "question": "What form is shown?",
       "choices": [
         "future",
-        "past",
         "present",
-        "to do form"
+        "to do form",
+        "past"
       ],
       "correct_answer": "past",
       "skill": "identify_tense",
@@ -939,10 +939,10 @@
       "question_text": "What form is shown?",
       "question": "What form is shown?",
       "choices": [
-        "present",
-        "past",
         "future",
-        "to do form"
+        "to do form",
+        "past",
+        "present"
       ],
       "correct_answer": "future",
       "skill": "identify_tense",
@@ -1012,9 +1012,9 @@
       "question": "What form is shown?",
       "choices": [
         "future",
+        "present",
         "to do form",
-        "past",
-        "present"
+        "past"
       ],
       "correct_answer": "future",
       "skill": "identify_tense",
@@ -1073,10 +1073,10 @@
       "question_text": "What form is shown?",
       "question": "What form is shown?",
       "choices": [
-        "future",
+        "to do form",
         "present",
-        "past",
-        "to do form"
+        "future",
+        "past"
       ],
       "correct_answer": "future",
       "skill": "identify_tense",
@@ -1136,8 +1136,8 @@
       "question": "What does the prefix ל mean in לוֹ?",
       "choices": [
         "to / for",
-        "from",
         "in / with",
+        "from",
         "and"
       ],
       "correct_answer": "to / for",
@@ -1193,9 +1193,9 @@
       "question_text": "What does the prefix ב mean in בַּגָּן?",
       "question": "What does the prefix ב mean in בַּגָּן?",
       "choices": [
-        "to / for",
         "from",
         "in / with",
+        "to / for",
         "and"
       ],
       "correct_answer": "in / with",
@@ -1251,8 +1251,8 @@
       "question_text": "What does the prefix מ mean in מִכָּל?",
       "question": "What does the prefix מ mean in מִכָּל?",
       "choices": [
-        "and",
         "in / with",
+        "and",
         "to / for",
         "from"
       ],
@@ -1309,9 +1309,9 @@
       "question_text": "What does the prefix ו mean in וְאֶל?",
       "question": "What does the prefix ו mean in וְאֶל?",
       "choices": [
+        "from",
         "to / for",
         "in / with",
-        "from",
         "and"
       ],
       "correct_answer": "and",
@@ -1431,9 +1431,9 @@
       "question": "What does the suffix ךָ mean in גְּחֹנְךָ?",
       "choices": [
         "your",
+        "my",
         "your (m)",
-        "your (f)",
-        "my"
+        "your (f)"
       ],
       "correct_answer": "your (m)",
       "skill": "identify_pronoun_suffix",
@@ -1493,10 +1493,10 @@
       "question_text": "What does the suffix ה mean in זַרְעָהּ?",
       "question": "What does the suffix ה mean in זַרְעָהּ?",
       "choices": [
-        "her",
-        "your (f)",
         "my",
-        "your (m)"
+        "her",
+        "your (m)",
+        "your (f)"
       ],
       "correct_answer": "her",
       "skill": "identify_pronoun_suffix",
@@ -1549,9 +1549,9 @@
       "question_text": "What does the suffix ךְ mean in תְּשׁוּקָתֵךְ?",
       "question": "What does the suffix ךְ mean in תְּשׁוּקָתֵךְ?",
       "choices": [
-        "your (f)",
-        "your",
         "your (m)",
+        "your",
+        "your (f)",
         "my"
       ],
       "correct_answer": "your (f)",
@@ -1612,10 +1612,10 @@
       "question_text": "What does this phrase mean?",
       "question": "What does this phrase mean?",
       "choices": [
-        "and he I heard your voice",
-        "and he I will put enmity",
         "and the snake deceived me",
-        "and the LORD God called to the man"
+        "and the LORD God called to the man",
+        "and I will put enmity",
+        "and I heard your voice"
       ],
       "correct_answer": "and the LORD God called to the man",
       "skill": "phrase_translation",
@@ -1668,9 +1668,9 @@
       "question_text": "What does this phrase mean?",
       "question": "What does this phrase mean?",
       "choices": [
+        "the snake deceived me",
         "in pain you will bear children",
         "on your belly you shall go",
-        "the snake deceived me",
         "I heard your voice"
       ],
       "correct_answer": "I heard your voice",
@@ -1724,9 +1724,9 @@
       "question_text": "What does this phrase mean?",
       "question": "What does this phrase mean?",
       "choices": [
-        "who told you",
-        "she gave me",
         "the snake deceived me",
+        "she gave me",
+        "who told you",
         "I heard your voice"
       ],
       "correct_answer": "who told you",
@@ -1780,10 +1780,10 @@
       "question_text": "What does this phrase mean?",
       "question": "What does this phrase mean?",
       "choices": [
-        "she gave me",
-        "who told you",
+        "I heard your voice",
         "the snake deceived me",
-        "I heard your voice"
+        "she gave me",
+        "who told you"
       ],
       "correct_answer": "she gave me",
       "skill": "phrase_translation",
@@ -1837,9 +1837,9 @@
       "question": "What does this phrase mean?",
       "choices": [
         "in pain you will bear children",
-        "the snake deceived me",
         "on your belly you shall go",
-        "I heard your voice"
+        "I heard your voice",
+        "the snake deceived me"
       ],
       "correct_answer": "the snake deceived me",
       "skill": "phrase_translation",
@@ -1893,8 +1893,8 @@
       "question": "What does this phrase mean?",
       "choices": [
         "I heard your voice",
-        "on your belly you shall go",
         "the snake deceived me",
+        "on your belly you shall go",
         "in pain you will bear children"
       ],
       "correct_answer": "on your belly you shall go",
@@ -1949,11 +1949,11 @@
       "question": "What does this phrase mean?",
       "choices": [
         "and the LORD God called to the man",
-        "and he I heard your voice",
+        "and I will put enmity",
         "and the snake deceived me",
-        "and he I will put enmity"
+        "and I heard your voice"
       ],
-      "correct_answer": "and he I will put enmity",
+      "correct_answer": "and I will put enmity",
       "skill": "phrase_translation",
       "mode": "pasuk",
       "translation_mode": "natural",
@@ -1970,7 +1970,7 @@
       "shoresh": "",
       "tense": "",
       "part_of_speech": "noun",
-      "explanation": "Here, וְאֵיבָה אָשִׁית means 'and he I will put enmity'.",
+      "explanation": "Here, וְאֵיבָה אָשִׁית means 'and I will put enmity'.",
       "word_gloss": "and I will put enmity",
       "source": "staged reviewed support",
       "pasuk": "וְאֵיבָה אָשִׁית, בֵּינְךָ וּבֵין הָאִשָּׁה, וּבֵין זַרְעֲךָ, וּבֵין זַרְעָהּ: הוּא יְשׁוּפְךָ רֹאשׁ, וְאַתָּה תְּשׁוּפֶנּוּ עָקֵב.",
@@ -1987,7 +1987,7 @@
         "ambiguous_without_context": false,
         "repeat_key": ""
       },
-      "id": "20deb1671816",
+      "id": "862e2a5dc4f2",
       "pasuk_id": "bereishis_3_15",
       "pasuk_ref": {
         "sefer": "Bereishis",
@@ -1997,7 +1997,7 @@
         "pasuk_id": "bereishis_3_15"
       },
       "review_family": "translation",
-      "reviewed_id": "staged_translation_phrase_translation_bereishis_3_15_ואיבה אשית_and_he_i_will_put_enmity",
+      "reviewed_id": "staged_translation_phrase_translation_bereishis_3_15_ואיבה אשית_and_i_will_put_enmity",
       "analysis_source": "staged_reviewed_support"
     },
     {
@@ -2005,9 +2005,9 @@
       "question": "What does this phrase mean?",
       "choices": [
         "on your belly you shall go",
+        "I heard your voice",
         "the snake deceived me",
-        "in pain you will bear children",
-        "I heard your voice"
+        "in pain you will bear children"
       ],
       "correct_answer": "in pain you will bear children",
       "skill": "phrase_translation",
@@ -2060,10 +2060,10 @@
       "question_text": "Who is doing the action in וַיִּקְרָא?",
       "question": "Who is doing the action in וַיִּקְרָא?",
       "choices": [
-        "the snake",
+        "someone else",
         "the LORD God",
         "the woman",
-        "someone else"
+        "the snake"
       ],
       "correct_answer": "the LORD God",
       "skill": "subject_identification",
@@ -2118,10 +2118,10 @@
       "question_text": "Who is doing the action in נָתְנָה?",
       "question": "Who is doing the action in נָתְנָה?",
       "choices": [
-        "someone else",
         "the snake",
+        "the woman",
         "the LORD God",
-        "the woman"
+        "someone else"
       ],
       "correct_answer": "the woman",
       "skill": "subject_identification",
@@ -2177,9 +2177,9 @@
       "question": "Who is doing the action in הִשִּׁיאַנִי?",
       "choices": [
         "the LORD God",
+        "the woman",
         "the snake",
-        "someone else",
-        "the woman"
+        "someone else"
       ],
       "correct_answer": "the snake",
       "skill": "subject_identification",
@@ -2234,10 +2234,10 @@
       "question_text": "Who receives the action in וַיִּקְרָא?",
       "question": "Who receives the action in וַיִּקְרָא?",
       "choices": [
-        "someone else",
         "the man",
-        "children",
-        "your voice"
+        "someone else",
+        "your voice",
+        "children"
       ],
       "correct_answer": "the man",
       "skill": "object_identification",
@@ -2293,9 +2293,9 @@
       "question": "What receives the action in שָׁמַעְתִּי?",
       "choices": [
         "your voice",
+        "something else",
         "the man",
-        "children",
-        "something else"
+        "children"
       ],
       "correct_answer": "your voice",
       "skill": "object_identification",
@@ -2352,8 +2352,8 @@
       "choices": [
         "children",
         "enmity",
-        "something else",
-        "dust"
+        "dust",
+        "something else"
       ],
       "correct_answer": "dust",
       "skill": "object_identification",
@@ -2363,8 +2363,8 @@
       "micro_standard": "SS3",
       "difficulty": 4,
       "question_type": "object_identification",
-      "word": "עָפָר",
-      "selected_word": "עָפָר",
+      "word": "וְעָפָר",
+      "selected_word": "וְעָפָר",
       "prefix": "",
       "prefix_meaning": "",
       "suffix": "",
@@ -2372,7 +2372,7 @@
       "shoresh": "",
       "tense": "",
       "part_of_speech": "noun",
-      "explanation": "In תֹּאכַל, עָפָר is what receives the action.",
+      "explanation": "In תֹּאכַל, וְעָפָר is what receives the action.",
       "word_gloss": "dust",
       "source": "staged reviewed support",
       "pasuk": "וַיֹּאמֶר יְהוָה אֱלֹהִים אֶל־הַנָּחָשׁ, כִּי עָשִׂיתָ זֹּאת, אָרוּר אַתָּה מִכָּל־הַבְּהֵמָה, וּמִכֹּל חַיַּת הַשָּׂדֶה; עַל־גְּחֹנְךָ תֵלֵךְ, וְעָפָר תֹּאכַל, כָּל־יְמֵי חַיֶּיךָ.",
@@ -2391,7 +2391,7 @@
         "ambiguous_without_context": false,
         "repeat_key": ""
       },
-      "id": "80d90b25a3c8",
+      "id": "8c34f6cdca5d",
       "pasuk_id": "bereishis_3_14",
       "pasuk_ref": {
         "sefer": "Bereishis",
@@ -2401,17 +2401,17 @@
         "pasuk_id": "bereishis_3_14"
       },
       "review_family": "role",
-      "reviewed_id": "staged_role_object_identification_bereishis_3_14_עפר_dust",
+      "reviewed_id": "staged_role_object_identification_bereishis_3_14_ועפר_dust",
       "analysis_source": "staged_reviewed_support"
     },
     {
       "question_text": "What receives the action in אָשִׁית?",
       "question": "What receives the action in אָשִׁית?",
       "choices": [
-        "something else",
-        "dust",
         "enmity",
-        "children"
+        "children",
+        "something else",
+        "dust"
       ],
       "correct_answer": "enmity",
       "skill": "object_identification",
@@ -2421,8 +2421,8 @@
       "micro_standard": "SS3",
       "difficulty": 4,
       "question_type": "object_identification",
-      "word": "אֵיבָה",
-      "selected_word": "אֵיבָה",
+      "word": "וְאֵיבָה",
+      "selected_word": "וְאֵיבָה",
       "prefix": "",
       "prefix_meaning": "",
       "suffix": "",
@@ -2430,7 +2430,7 @@
       "shoresh": "",
       "tense": "",
       "part_of_speech": "noun",
-      "explanation": "In אָשִׁית, אֵיבָה is what receives the action.",
+      "explanation": "In אָשִׁית, וְאֵיבָה is what receives the action.",
       "word_gloss": "enmity",
       "source": "staged reviewed support",
       "pasuk": "וְאֵיבָה אָשִׁית, בֵּינְךָ וּבֵין הָאִשָּׁה, וּבֵין זַרְעֲךָ, וּבֵין זַרְעָהּ: הוּא יְשׁוּפְךָ רֹאשׁ, וְאַתָּה תְּשׁוּפֶנּוּ עָקֵב.",
@@ -2449,7 +2449,7 @@
         "ambiguous_without_context": false,
         "repeat_key": ""
       },
-      "id": "c59260c2331e",
+      "id": "fb81f5de43c2",
       "pasuk_id": "bereishis_3_15",
       "pasuk_ref": {
         "sefer": "Bereishis",
@@ -2459,16 +2459,16 @@
         "pasuk_id": "bereishis_3_15"
       },
       "review_family": "role",
-      "reviewed_id": "staged_role_object_identification_bereishis_3_15_איבה_enmity",
+      "reviewed_id": "staged_role_object_identification_bereishis_3_15_ואיבה_enmity",
       "analysis_source": "staged_reviewed_support"
     },
     {
       "question_text": "What receives the action in תֵּלְדִי?",
       "question": "What receives the action in תֵּלְדִי?",
       "choices": [
+        "something else",
         "dust",
         "children",
-        "something else",
         "enmity"
       ],
       "correct_answer": "children",

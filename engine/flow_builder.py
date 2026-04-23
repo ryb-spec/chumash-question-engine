@@ -1304,7 +1304,7 @@ def sanitize_question_translation_text(
     if question_type in {"translation", "phrase_translation"} and has_leading_vav(surface):
         if not rendered.lower().startswith("and "):
             rendered = f"and {rendered}"
-    if part_of_speech == "verb" or question_type == "phrase_translation":
+    if part_of_speech == "verb" and question_type == "translation":
         rendered = complete_subjectless_verb_gloss(rendered)
     return " ".join(rendered.split())
 

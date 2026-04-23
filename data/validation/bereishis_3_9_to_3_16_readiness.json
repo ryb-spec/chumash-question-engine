@@ -1,6 +1,6 @@
 {
   "scope_under_evaluation": {
-    "active_runtime_scope_unchanged": "local_parsed_bereishis_1_1_to_3_8",
+    "active_runtime_scope_unchanged": "local_parsed_bereishis_1_1_to_3_16",
     "bundle_status": "staged",
     "sefer": "Bereishis",
     "range": {
@@ -173,6 +173,8 @@
     "previous_shoresh_supported_pesukim": 8,
     "current_shoresh_supported_pesukim": 8
   },
-  "change_notes": [],
+  "change_notes": [
+    "Post-promotion surface-form cleanup refreshed staged reviewed support."
+  ],
   "remaining_blockers": []
 }
