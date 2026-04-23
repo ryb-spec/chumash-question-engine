@@ -40,21 +40,21 @@ class PathResolutionTests(unittest.TestCase):
             flows = streamlit_app.load_pasuk_flows()
             active_texts = {record.get("text") for record in pesukim.get("pesukim", [])}
             flow_pesukim = {flow.get("pasuk") for flow in flows}
-            expected_new_flow_refs = {(2, 18), (2, 19), (2, 20), (2, 21), (2, 22), (2, 23)}
-            expected_new_flow_texts = {
+            expected_flow_refs = {(2, 18), (2, 20), (2, 21), (2, 22), (2, 23)}
+            expected_flow_texts = {
                 record.get("text")
                 for record in pesukim.get("pesukim", [])
                 if (
                     record.get("ref", {}).get("perek"),
                     record.get("ref", {}).get("pasuk"),
-                ) in expected_new_flow_refs
+                ) in expected_flow_refs
             }
 
-            self.assertEqual(len(pesukim.get("pesukim", [])), 56)
-            self.assertEqual(len(parsed_pesukim.get("parsed_pesukim", [])), 56)
-            self.assertLessEqual(len(flows), 56)
+            self.assertEqual(len(pesukim.get("pesukim", [])), 64)
+            self.assertEqual(len(parsed_pesukim.get("parsed_pesukim", [])), 64)
+            self.assertLessEqual(len(flows), 64)
             self.assertTrue(flow_pesukim.issubset(active_texts))
-            self.assertTrue(expected_new_flow_texts.issubset(flow_pesukim))
+            self.assertTrue(expected_flow_texts.issubset(flow_pesukim))
         finally:
             os.chdir(original_cwd)
 

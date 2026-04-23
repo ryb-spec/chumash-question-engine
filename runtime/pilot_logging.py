@@ -89,6 +89,7 @@ def write_pilot_review_export(
     session_start_until=None,
     scope_id=None,
     trusted_active_scope_only=False,
+    latest_session_only=False,
 ):
     resolved_output_path = Path(output_path)
     export = build_pilot_review_export(
@@ -98,6 +99,7 @@ def write_pilot_review_export(
         session_start_until=session_start_until,
         scope_id=scope_id,
         trusted_active_scope_only=trusted_active_scope_only,
+        latest_session_only=latest_session_only,
     )
     resolved_output_path.parent.mkdir(parents=True, exist_ok=True)
     resolved_output_path.write_text(
@@ -339,6 +341,7 @@ def build_question_served_event(
     pasuk_ref = active_pasuk_ref_for_question(question)
     scope_membership = scope_membership_for_ref(pasuk_ref)
     debug_trace = question.get("_debug_trace") or {}
+    dikduk_foundation = question.get("dikduk_foundation") or {}
     if scope_membership != "active_parsed":
         note_trusted_scope_violation()
     return {
@@ -378,6 +381,19 @@ def build_question_served_event(
         "debug_variety_guard_applied": bool(debug_trace.get("variety_guard_applied")),
         "debug_variety_guard_source": debug_trace.get("variety_guard_source", ""),
         "debug_selection_mode": debug_trace.get("selection_mode", ""),
+        "dikduk_foundation_used": bool(dikduk_foundation.get("used")),
+        "dikduk_foundation_repeat_key": dikduk_foundation.get("repeat_key", ""),
+        "dikduk_foundation_pattern_ids": list(dikduk_foundation.get("pattern_ids") or []),
+        "dikduk_foundation_rule_ids": list(dikduk_foundation.get("rule_ids") or []),
+        "dikduk_foundation_confusion_pattern_ids": list(
+            dikduk_foundation.get("confusion_pattern_ids") or []
+        ),
+        "dikduk_foundation_weak_standalone_translation": bool(
+            dikduk_foundation.get("weak_standalone_translation")
+        ),
+        "dikduk_foundation_ambiguous_without_context": bool(
+            dikduk_foundation.get("ambiguous_without_context")
+        ),
     }
 
 
@@ -623,6 +639,7 @@ def filter_pilot_events(
     session_start_until=None,
     scope_id=None,
     trusted_active_scope_only=False,
+    latest_session_only=False,
 ):
     session_start_since = _normalize_review_filter_timestamp(session_start_since)
     session_start_until = _normalize_review_filter_timestamp(session_start_until)
@@ -656,7 +673,43 @@ def filter_pilot_events(
             continue
         filtered.append(event)
 
-    return filtered
+    if not latest_session_only:
+        return filtered
+
+    latest_session_ids = _latest_session_ids(filtered)
+    if not latest_session_ids:
+        return filtered
+    return [event for event in filtered if event.get("session_id") in latest_session_ids]
+
+
+def _latest_session_ids(events):
+    starts = session_start_times(events)
+    if not starts:
+        return []
+    latest_started_at = max(starts.values())
+    return sorted(
+        session_id
+        for session_id, started_at in starts.items()
+        if started_at == latest_started_at
+    )
+
+
+def _latest_session_start_utc(events):
+    starts = session_start_times(events)
+    if not starts:
+        return None
+    return max(starts.values()).isoformat()
+
+
+def _review_warning(code, message):
+    return {
+        "code": code,
+        "message": message,
+    }
+
+
+def _warning_codes(warnings):
+    return {item.get("code") for item in warnings}
 
 
 def _event_scope_ids(events):
@@ -687,6 +740,7 @@ def _review_warnings(
     session_start_until=None,
     scope_id=None,
     trusted_active_scope_only=False,
+    latest_session_only=False,
 ):
     warnings = []
     source_scope_ids = _event_scope_ids(source_events)
@@ -695,40 +749,49 @@ def _review_warnings(
 
     if not _is_isolated_pilot_log_path(resolved_path):
         warnings.append(
-            {
-                "code": "source_log_not_isolated",
-                "message": "This review was built from a non-isolated pilot log path. Older sessions may be present unless filters were applied.",
-            }
+            _review_warning(
+                "source_log_not_isolated",
+                "This review was built from a non-isolated pilot log path. Older sessions may be present unless filters were applied.",
+            )
         )
     if len(source_scope_ids) > 1:
         warnings.append(
-            {
-                "code": "source_log_multiple_scope_ids",
-                "message": f"This source log contains multiple scope ids: {', '.join(source_scope_ids)}.",
-            }
+            _review_warning(
+                "source_log_multiple_scope_ids",
+                f"This source log contains multiple scope ids: {', '.join(source_scope_ids)}.",
+            )
         )
     first_start = source_session_range.get("first")
     last_start = source_session_range.get("last")
     if first_start and last_start and first_start[:10] != last_start[:10]:
         warnings.append(
-            {
-                "code": "source_log_multiple_session_dates",
-                "message": f"This source log spans multiple session start dates ({first_start[:10]} to {last_start[:10]}).",
-            }
+            _review_warning(
+                "source_log_multiple_session_dates",
+                f"This source log spans multiple session start dates ({first_start[:10]} to {last_start[:10]}).",
+            )
         )
     if excluded_count:
         warnings.append(
-            {
-                "code": "filters_excluded_source_events",
-                "message": f"The active review filters excluded {excluded_count} source events from the selected artifact.",
-            }
+            _review_warning(
+                "filters_excluded_source_events",
+                f"The active review filters excluded {excluded_count} source events from the selected artifact.",
+            )
         )
-    if session_start_since or session_start_until or scope_id or trusted_active_scope_only:
+    if session_start_since or session_start_until or scope_id or trusted_active_scope_only or latest_session_only:
         warnings.append(
-            {
-                "code": "review_filters_applied",
-                "message": "This review artifact was generated with explicit filters. Use the included review_window metadata when interpreting counts.",
-            }
+            _review_warning(
+                "review_filters_applied",
+                "This review artifact was generated with explicit filters. Use the included review_window metadata when interpreting counts.",
+            )
+        )
+    if latest_session_only:
+        latest_session_ids = _latest_session_ids(filtered_events)
+        warnings.append(
+            _review_warning(
+                "latest_session_only_applied",
+                "This review artifact is limited to the latest included session window"
+                f" ({len(latest_session_ids)} session{'s' if len(latest_session_ids) != 1 else ''}).",
+            )
         )
     return warnings
 
@@ -865,7 +928,7 @@ def build_pilot_summary(sessions, flagged_review_queue, *, validation_signals=No
     seen_fingerprints = set()
     substantive_sessions = [session for session in sessions if session.get("is_substantive_session")]
 
-    for session in substantive_sessions:
+    for session in sessions:
         served_family_counts.update(session.get("served_question_types", {}))
 
     for item in flagged_review_queue:
@@ -943,6 +1006,100 @@ def build_pilot_summary(sessions, flagged_review_queue, *, validation_signals=No
             validation_signals.get("top_pre_serve_rejection_codes") or []
         )
     return summary
+
+
+def build_repeated_target_summary(events, *, limit=5):
+    served_events = [
+        event
+        for event in events
+        if event.get("event_type") == "question_served" and event.get("served_status") == "served"
+    ]
+    repeated_target_counts = Counter()
+    repeated_target_meta = {}
+
+    for event in served_events:
+        question_type = str(event.get("question_type") or "").strip()
+        target = str(event.get("selected_word") or event.get("word") or "").strip()
+        correct_answer = str(event.get("correct_answer") or "").strip()
+        if not question_type and not target:
+            continue
+        fingerprint = (question_type, target, correct_answer)
+        repeated_target_counts[fingerprint] += 1
+        metadata = repeated_target_meta.setdefault(
+            fingerprint,
+            {
+                "question_type": question_type or None,
+                "target": target or None,
+                "correct_answer": correct_answer or None,
+                "pasuk_refs": Counter(),
+            },
+        )
+        pasuk_ref = (event.get("pasuk_ref") or {}).get("label")
+        if pasuk_ref:
+            metadata["pasuk_refs"][pasuk_ref] += 1
+
+    top_repeated_targets = []
+    for fingerprint, count in repeated_target_counts.most_common():
+        if count < 2:
+            continue
+        metadata = repeated_target_meta[fingerprint]
+        top_repeated_targets.append(
+            {
+                "question_type": metadata["question_type"],
+                "target": metadata["target"],
+                "correct_answer": metadata["correct_answer"],
+                "count": count,
+                "pasuk_refs": [
+                    ref
+                    for ref, _ in metadata["pasuk_refs"].most_common(3)
+                ],
+            }
+        )
+        if len(top_repeated_targets) >= limit:
+            break
+
+    repeated_target_warning_count = sum(
+        1 for count in repeated_target_counts.values() if count >= 2
+    )
+    return {
+        "repeated_target_warning_count": repeated_target_warning_count,
+        "top_repeated_targets": top_repeated_targets,
+    }
+
+
+def build_release_review_summary(
+    *,
+    sessions,
+    flagged_review_queue,
+    summary,
+    review_window,
+    repeated_target_summary,
+    review_scope_id,
+):
+    served_without_validation = dict(summary.get("served_without_validation_signals") or {})
+    total_unclear_flags = sum(session.get("flagged_unclear", 0) or 0 for session in sessions)
+    warnings = list(review_window.get("warnings") or [])
+    return {
+        "scope_id": review_scope_id or ACTIVE_ASSESSMENT_SCOPE,
+        "runtime_scope_id": ACTIVE_ASSESSMENT_SCOPE,
+        "fresh_run_only": bool(review_window.get("fresh_run_only")),
+        "source_log_is_isolated_run": bool(review_window.get("source_log_is_isolated_run")),
+        "session_count": len(sessions),
+        "substantive_session_count": sum(1 for session in sessions if session.get("is_substantive_session")),
+        "shell_session_count": sum(1 for session in sessions if session.get("is_shell_session")),
+        "trusted_scope_violation_count": len(summary.get("trusted_scope_violations") or []),
+        "trusted_scope_violations": list(summary.get("trusted_scope_violations") or []),
+        "served_without_validation_flag": served_without_validation.get("served_without_validation_flag", 0),
+        "served_with_validation_flag": served_without_validation.get("served_with_validation_flag", 0),
+        "unclear_flag_count": total_unclear_flags,
+        "top_unclear_items": list(summary.get("top_flagged_unclear_items") or []),
+        "top_served_question_families": dict(summary.get("top_served_question_families") or {}),
+        "top_pre_serve_rejection_codes": list(summary.get("top_pre_serve_rejection_codes") or []),
+        "repeated_target_feel": repeated_target_summary,
+        "warnings": warnings,
+        "warning_codes": sorted(_warning_codes(warnings)),
+        "flagged_review_queue_count": len(flagged_review_queue),
+    }
 
 
 def summarize_pilot_sessions(events, *, max_sessions=5):
@@ -1128,21 +1285,29 @@ def build_pilot_review_export(
     session_start_until=None,
     scope_id=None,
     trusted_active_scope_only=False,
+    latest_session_only=False,
 ):
     resolved_path = resolve_pilot_event_log_path(path)
     source_events = load_pilot_events(path=resolved_path)
-    events = filter_pilot_events(
+    filtered_events = filter_pilot_events(
         source_events,
         session_start_since=session_start_since,
         session_start_until=session_start_until,
         scope_id=scope_id,
         trusted_active_scope_only=trusted_active_scope_only,
     )
-    sessions = summarize_pilot_sessions(events, max_sessions=max_sessions)
+    events = filter_pilot_events(
+        filtered_events,
+        latest_session_only=latest_session_only,
+    )
+    included_session_ids = {event.get("session_id") for event in events if event.get("session_id")}
+    summary_session_limit = max(max_sessions, len(included_session_ids) or 0)
+    all_sessions = summarize_pilot_sessions(events, max_sessions=summary_session_limit)
+    sessions = all_sessions[:max_sessions]
     flagged_review_queue = build_flagged_review_queue(events)
     validation_signals = build_validation_signal_summary(events)
+    repeated_target_summary = build_repeated_target_summary(events)
     source_session_ids = {event.get("session_id") for event in source_events if event.get("session_id")}
-    included_session_ids = {event.get("session_id") for event in events if event.get("session_id")}
     included_scope_ids = _event_scope_ids(events)
     review_scope_id = (str(scope_id or "").strip() or None)
     if not review_scope_id and len(included_scope_ids) == 1:
@@ -1155,16 +1320,17 @@ def build_pilot_review_export(
         session_start_until=session_start_until,
         scope_id=scope_id,
         trusted_active_scope_only=trusted_active_scope_only,
+        latest_session_only=latest_session_only,
     )
     if review_scope_id and review_scope_id != ACTIVE_ASSESSMENT_SCOPE:
         review_warnings.append(
-            {
-                "code": "runtime_scope_differs_from_review_scope",
-                "message": (
+            _review_warning(
+                "runtime_scope_differs_from_review_scope",
+                (
                     f"The current runtime scope is {ACTIVE_ASSESSMENT_SCOPE}, "
                     f"but this review artifact is scoped to {review_scope_id}."
                 ),
-            }
+            )
         )
     review_window = {
         "session_start_since_utc": (
@@ -1179,6 +1345,9 @@ def build_pilot_review_export(
         ),
         "scope_id": str(scope_id or "").strip() or None,
         "trusted_active_scope_only": bool(trusted_active_scope_only),
+        "latest_session_only": bool(latest_session_only),
+        "latest_included_session_ids": _latest_session_ids(events),
+        "latest_included_session_started_at_utc": _latest_session_start_utc(events),
         "source_event_count": len(source_events),
         "included_event_count": len(events),
         "excluded_event_count": max(0, len(source_events) - len(events)),
@@ -1192,6 +1361,11 @@ def build_pilot_review_export(
         "fresh_run_only": _is_isolated_pilot_log_path(resolved_path),
         "warnings": review_warnings,
     }
+    summary = build_pilot_summary(
+        all_sessions,
+        flagged_review_queue,
+        validation_signals=validation_signals,
+    )
     return {
         "generated_at_utc": utc_now_iso(),
         "scope_id": ACTIVE_ASSESSMENT_SCOPE,
@@ -1210,14 +1384,18 @@ def build_pilot_review_export(
         "student_flag_note_max_length": STUDENT_FLAG_NOTE_MAX_LENGTH,
         "teacher_flag_note_max_length": TEACHER_FLAG_NOTE_MAX_LENGTH,
         "session_count": len(included_session_ids),
-        "substantive_session_count": sum(1 for session in sessions if session.get("is_substantive_session")),
-        "shell_session_count": sum(1 for session in sessions if session.get("is_shell_session")),
+        "substantive_session_count": sum(1 for session in all_sessions if session.get("is_substantive_session")),
+        "shell_session_count": sum(1 for session in all_sessions if session.get("is_shell_session")),
         "sessions": sessions,
         "flagged_review_queue": flagged_review_queue,
-        "summary": build_pilot_summary(
-            sessions,
-            flagged_review_queue,
-            validation_signals=validation_signals,
+        "summary": summary,
+        "release_review_summary": build_release_review_summary(
+            sessions=all_sessions,
+            flagged_review_queue=flagged_review_queue,
+            summary=summary,
+            review_window=review_window,
+            repeated_target_summary=repeated_target_summary,
+            review_scope_id=review_scope_id,
         ),
     }
 

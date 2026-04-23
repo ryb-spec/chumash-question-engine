@@ -1,0 +1,132 @@
+{
+  "rules": [
+    {
+      "candidate_id": "cand_rule_object_suffix_him_subfamilies",
+      "candidate_type": "rule",
+      "proposed_id": "rule_object_suffix_him_subfamilies",
+      "description": "Separate subrules for multiple him endings on verbs in the later object-suffix section.",
+      "reason_not_seeded": "The source clearly teaches this area, but the exact orthographic subfamilies and examples are OCR-degraded enough that a finer split would risk fake precision.",
+      "source_refs": [
+        "R3:pp107-125"
+      ]
+    },
+    {
+      "candidate_id": "cand_rule_verb_nu_us_vs_we_did",
+      "candidate_type": "rule",
+      "proposed_id": "rule_verb_nu_us_vs_we_did_subsplit",
+      "description": "Detailed split between verb forms ending in ?? meaning us and forms meaning we did.",
+      "reason_not_seeded": "High instructional value, but the extracted examples are not clean enough for exact machine seeding without human review.",
+      "source_refs": [
+        "R3:pp107-125"
+      ]
+    },
+    {
+      "candidate_id": "cand_rule_many_ladies_object_suffixes",
+      "candidate_type": "rule",
+      "proposed_id": "rule_verb_object_suffix_many_ladies_family",
+      "description": "Specific attached-object endings for many-female recipients in the late object-suffix section.",
+      "reason_not_seeded": "Rule family is present, but the exact forms are OCR-corrupted in the available extraction.",
+      "source_refs": [
+        "R3:p124",
+        "R3:p125"
+      ]
+    },
+    {
+      "candidate_id": "cand_rule_davening_vav_exception",
+      "candidate_type": "rule",
+      "proposed_id": "rule_davening_vav_exception",
+      "description": "Special warning that vav-reading assumptions may differ in davening contexts.",
+      "reason_not_seeded": "Mentioned in the curriculum framing, but not extractable as a stable software rule from the provided files alone.",
+      "source_refs": [
+        "R3:framing_notes"
+      ]
+    }
+  ],
+  "morphology_patterns": [
+    {
+      "candidate_id": "cand_pat_future_2fp_vs_3fp_split",
+      "candidate_type": "morphology_pattern",
+      "proposed_id": "pat_verb_future_2fp_vs_3fp",
+      "description": "Separate future feminine plural subject patterns into 2fp and 3fp instead of a shared ambiguity family.",
+      "reason_not_seeded": "The curriculum clearly flags the ambiguity, but the extracted evidence does not support a clean exact split without more reviewed examples.",
+      "source_refs": [
+        "R3:p75",
+        "R3:p76"
+      ]
+    },
+    {
+      "candidate_id": "cand_pat_article_he_vs_causative_he",
+      "candidate_type": "morphology_pattern",
+      "proposed_id": "pat_prefix_he_function_split",
+      "description": "Separate the prefixed ? article from causative-like ? on verbs in a unified morpheme bank.",
+      "reason_not_seeded": "Both functions are source-supported, but a single high-confidence seed pattern would over-collapse two different systems.",
+      "source_refs": [
+        "R3:pp123-126",
+        "R1:worksheets"
+      ]
+    },
+    {
+      "candidate_id": "cand_pat_passive_like_subtypes",
+      "candidate_type": "morphology_pattern",
+      "proposed_id": "pat_passive_like_subtypes",
+      "description": "Split passive-like patterns into finer subtypes rather than one family.",
+      "reason_not_seeded": "The family is clear; the exact subtype boundaries are not clean enough in OCR.",
+      "source_refs": [
+        "R3:pp125-126"
+      ]
+    }
+  ],
+  "vocabulary": [
+    {
+      "candidate_id": "cand_vocab_pronoun_set",
+      "candidate_type": "vocabulary",
+      "proposed_id": "vocab_pronoun_core_set",
+      "description": "Standalone Hebrew pronoun set such as ???, ???, ???, ???, ??, ??.",
+      "reason_not_seeded": "Pedagogically useful, but the provided resources did not supply a clean enough explicit standalone-pronoun list to seed without importing outside assumptions.",
+      "source_refs": [
+        "R1:worksheets",
+        "R3:throughout"
+      ]
+    },
+    {
+      "candidate_id": "cand_vocab_bereishis_starter_list",
+      "candidate_type": "vocabulary",
+      "proposed_id": "vocab_bereishis_curated_starter_list",
+      "description": "A broader curated Bereishis starter vocabulary list.",
+      "reason_not_seeded": "No standalone Bereishis starter word list was found in the provided resources.",
+      "source_refs": []
+    }
+  ],
+  "examples": [
+    {
+      "candidate_id": "cand_example_r1_ocr_lines",
+      "candidate_type": "ocr_example",
+      "proposed_id": null,
+      "description": "Many worksheet lines in Resource 1 are structurally useful but textually too corrupted for direct example seeding.",
+      "reason_not_seeded": "OCR corruption.",
+      "source_refs": [
+        "R1:worksheets"
+      ]
+    },
+    {
+      "candidate_id": "cand_example_r2_garbled_tokens",
+      "candidate_type": "ocr_example",
+      "proposed_id": null,
+      "description": "Some R2 worksheet tokens appear with broken vowels or partially damaged letters.",
+      "reason_not_seeded": "Example-level cleanup needed before use as canonical seed data.",
+      "source_refs": [
+        "R2:worksheets"
+      ]
+    }
+  ],
+  "standards": [
+    {
+      "candidate_id": "cand_external_standards_framework",
+      "candidate_type": "standards_mapping",
+      "proposed_id": "map_external_framework_exact_codes",
+      "description": "Mapping to an external formal Judaic studies standards document with exact code-level precision.",
+      "reason_not_seeded": "No standalone standards document was present in the provided files, so exact-code mapping would be fabricated.",
+      "source_refs": []
+    }
+  ]
+}

@@ -275,6 +275,122 @@ class QuestionValidationFrameworkTests(unittest.TestCase):
         self.assertFalse(validation["valid"])
         self.assertIn("incompatible_skill_target", validation["rejection_codes"])
 
+    def test_runtime_pre_serve_validation_rejects_context_heavy_standalone_translation_target(self):
+        active_record = next(
+            record
+            for record in active_pesukim_records()
+            if record.get("ref", {}).get("perek") == 1
+            and record.get("ref", {}).get("pasuk") == 18
+        )
+        question = {
+            "skill": "translation",
+            "question_type": "translation",
+            "question": "What does בַּיּוֹם mean?",
+            "selected_word": "בַּיּוֹם",
+            "word": "בַּיּוֹם",
+            "correct_answer": "on the day",
+            "word_gloss": "on the day",
+            "part_of_speech": "noun",
+            "choices": ["on the day", "the day", "in the night", "the light"],
+            "pasuk": active_record["text"],
+        }
+
+        validation = question_flow.validate_question_for_serve(
+            question,
+            validation_path="framework_test",
+            trusted_active_scope=True,
+        )
+
+        self.assertFalse(validation["valid"])
+        self.assertIn("incompatible_skill_target", validation["rejection_codes"])
+
+    def test_runtime_pre_serve_validation_rejects_divine_name_standalone_translation_target(self):
+        active_record = next(
+            record
+            for record in active_pesukim_records()
+            if record.get("ref", {}).get("perek") == 2
+            and record.get("ref", {}).get("pasuk") == 5
+        )
+        question = {
+            "skill": "translation",
+            "question_type": "translation",
+            "question": "What does אֱלֹהִים mean?",
+            "selected_word": "אֱלֹהִים",
+            "word": "אֱלֹהִים",
+            "correct_answer": "God",
+            "word_gloss": "God",
+            "part_of_speech": "noun",
+            "choices": ["God", "the LORD", "earth", "tree"],
+            "pasuk": active_record["text"],
+        }
+
+        validation = question_flow.validate_question_for_serve(
+            question,
+            validation_path="framework_test",
+            trusted_active_scope=True,
+        )
+
+        self.assertFalse(validation["valid"])
+        self.assertIn("incompatible_skill_target", validation["rejection_codes"])
+
+    def test_runtime_pre_serve_validation_rejects_construct_style_standalone_translation_target(self):
+        active_record = next(
+            record
+            for record in active_pesukim_records()
+            if record.get("ref", {}).get("perek") == 2
+            and record.get("ref", {}).get("pasuk") == 19
+        )
+        question = {
+            "skill": "translation",
+            "question_type": "translation",
+            "question": "What does חַיַּת mean?",
+            "selected_word": "חַיַּת",
+            "word": "חַיַּת",
+            "correct_answer": "animal of",
+            "word_gloss": "animal of",
+            "part_of_speech": "noun",
+            "choices": ["animal of", "animals", "creature", "beast"],
+            "pasuk": active_record["text"],
+        }
+
+        validation = question_flow.validate_question_for_serve(
+            question,
+            validation_path="framework_test",
+            trusted_active_scope=True,
+        )
+
+        self.assertFalse(validation["valid"])
+        self.assertIn("incompatible_skill_target", validation["rejection_codes"])
+
+    def test_runtime_pre_serve_validation_rejects_context_heavy_part_of_speech_target(self):
+        active_record = next(
+            record
+            for record in active_pesukim_records()
+            if record.get("ref", {}).get("perek") == 1
+            and record.get("ref", {}).get("pasuk") == 26
+        )
+        question = {
+            "skill": "part_of_speech",
+            "question_type": "part_of_speech",
+            "question": "What kind of word is בְּצַלְמֵנוּ?",
+            "selected_word": "בְּצַלְמֵנוּ",
+            "word": "בְּצַלְמֵנוּ",
+            "correct_answer": "naming word",
+            "part_of_speech": "noun",
+            "word_gloss": "in our image",
+            "choices": ["naming word", "action word", "small helper word", "direction word"],
+            "pasuk": active_record["text"],
+        }
+
+        validation = question_flow.validate_question_for_serve(
+            question,
+            validation_path="framework_test",
+            trusted_active_scope=True,
+        )
+
+        self.assertFalse(validation["valid"])
+        self.assertIn("invalid_part_of_speech_target", validation["rejection_codes"])
+
 
 if __name__ == "__main__":
     unittest.main()

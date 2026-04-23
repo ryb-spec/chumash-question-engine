@@ -10,26 +10,54 @@ from torah_parser.export_bank import load_source_corpora
 
 
 class CorpusPromotionTests(unittest.TestCase):
-    def test_current_repo_has_no_next_contiguous_block_after_active_scope(self):
+    def test_current_repo_exposes_the_next_review_needed_block_after_3_8_without_promoting_it(self):
         result = evaluate_next_source_block(block_size=10)
 
         self.assertEqual(result["current_active_scope"], assessment_scope.ACTIVE_ASSESSMENT_SCOPE)
-        self.assertEqual(result["status"], "no_next_block")
+        self.assertEqual(result["status"], "evaluated")
         self.assertFalse(result["promoted"])
-        self.assertIn("ends at the current active scope", result["reason"])
-        self.assertEqual(result["source_declared_range"], "1:1-2:25")
+        self.assertEqual(result["source_declared_range"], "1:1-3:16")
+        self.assertEqual(result["next_block"]["status"], "found")
+        self.assertEqual(
+            result["next_block"]["range"],
+            {
+                "start": {"sefer": "Bereishis", "perek": 3, "pasuk": 9},
+                "end": {"sefer": "Bereishis", "perek": 3, "pasuk": 16},
+            },
+        )
         self.assertEqual(
             result["source_actual_range"]["end"],
-            {"sefer": "Bereishis", "perek": 2, "pasuk": 25},
+            {"sefer": "Bereishis", "perek": 3, "pasuk": 16},
         )
-        self.assertEqual(result["source_pesukim_count"], 56)
+        self.assertEqual(result["source_pesukim_count"], 72)
+        self.assertEqual(result["evaluation_source"], "existing_staged_bundle")
+        self.assertEqual(result["readiness"]["readiness_recommendation"], "active_candidate")
+        self.assertEqual(
+            result["readiness"]["structural_summary"]["tokens_with_placeholder_context_count"],
+            0,
+        )
+        self.assertEqual(result["readiness"]["generation_summary"]["stable_flow_pesukim"], 8)
+        self.assertEqual(result["readiness"]["per_skill_support"]["shoresh"]["supported_pesukim"], 8)
+        self.assertEqual(
+            result["readiness"]["staged_reviewed_support"]["skill_supported_pesukim"]["phrase_translation"],
+            8,
+        )
+        self.assertEqual(
+            result["readiness"]["staged_reviewed_support"]["lane_supported_pesukim"]["role"],
+            7,
+        )
+        self.assertEqual(
+            [blocker["code"] for blocker in result["readiness"]["diagnostic_summary"]["blocker_categories"]],
+            [],
+        )
 
-    def test_active_scope_remains_unchanged_when_no_promotion_occurs(self):
+    def test_active_scope_remains_unchanged_when_the_next_block_is_only_staged(self):
         before = assessment_scope.active_scope_summary()
         result = evaluate_next_source_block(block_size=10)
         after = assessment_scope.active_scope_summary()
 
-        self.assertEqual(result["status"], "no_next_block")
+        self.assertEqual(result["status"], "evaluated")
+        self.assertFalse(result["promoted"])
         self.assertEqual(before["scope"], after["scope"])
         self.assertEqual(before["range"], after["range"])
         self.assertEqual(before["pesukim_count"], after["pesukim_count"])

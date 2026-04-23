@@ -1,7 +1,7 @@
 {
   "metadata": {
     "title": "Active Scope Curated Overrides",
-    "scope_id": "local_parsed_bereishis_1_1_to_2_17",
+    "scope_id": "local_parsed_bereishis_1_1_to_3_8",
     "status": "active",
     "notes": [
       "These overrides apply only inside the current active runtime scope.",
@@ -173,6 +173,17 @@
             "semantic_group": "object",
             "entity_type": "natural_feature"
           }
+        },
+        "phrase_translation": {
+          "preferred_phrase": {
+            "surface": "וַיַּעַשׂ אֱלֹקִים אֶת שְׁנֵי הַמְּאֹרֹת הַגְּדֹלִים",
+            "translation": "God made the two great lights",
+            "distractors": [
+              "God made the lights",
+              "God created the two great lights",
+              "the LORD made the two great lights"
+            ]
+          }
         }
       }
     },
@@ -214,6 +225,17 @@
             "translation": "the man",
             "semantic_group": "object",
             "entity_type": "person"
+          }
+        },
+        "phrase_translation": {
+          "preferred_phrase": {
+            "surface": "וַיִּבְרָא אֱלֹקִים אֶת הָאָדָם",
+            "translation": "God created the man",
+            "distractors": [
+              "God created the woman",
+              "God formed the man",
+              "the LORD created the man"
+            ]
           }
         }
       }
@@ -387,6 +409,98 @@
             "translation": "every tree",
             "semantic_group": "object",
             "entity_type": "common_noun"
+          }
+        }
+      }
+    },
+    "bereishis_2_11": {
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 2,
+        "pasuk": 11
+      },
+      "notes": [
+        "Recover the compact river-name clause for this verse."
+      ],
+      "skills": {
+        "phrase_translation": {
+          "preferred_phrase": {
+            "surface": "שֵׁם הָאֶחָד פִּישׁוֹן",
+            "translation": "the name of the first is Pishon",
+            "distractors": [
+              "and the name of the second river is Gichon",
+              "and the third river is Chiddekel",
+              "and the fourth river is Phrat"
+            ]
+          }
+        }
+      }
+    },
+    "bereishis_2_12": {
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 2,
+        "pasuk": 12
+      },
+      "notes": [
+        "Recover the clean first-clause description for this verse."
+      ],
+      "skills": {
+        "phrase_translation": {
+          "preferred_phrase": {
+            "surface": "וּזֲהַב הָאָרֶץ הַהִוא טוֹב",
+            "translation": "and the gold of that land is good",
+            "distractors": [
+              "and the gold of that river is good",
+              "and the stone of that land is good",
+              "and the gold of that land is there"
+            ]
+          }
+        }
+      }
+    },
+    "bereishis_2_13": {
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 2,
+        "pasuk": 13
+      },
+      "notes": [
+        "Recover the compact river-name clause for this verse."
+      ],
+      "skills": {
+        "phrase_translation": {
+          "preferred_phrase": {
+            "surface": "וְשֵׁם־הַנָּהָר הַשֵּׁנִי גִּיחוֹן",
+            "translation": "and the name of the second river is Gichon",
+            "distractors": [
+              "the name of the first is Pishon",
+              "and the third river is Chiddekel",
+              "and the fourth river is Phrat"
+            ]
+          }
+        }
+      }
+    },
+    "bereishis_2_14": {
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 2,
+        "pasuk": 14
+      },
+      "notes": [
+        "Recover the compact named-river clause for this verse."
+      ],
+      "skills": {
+        "phrase_translation": {
+          "preferred_phrase": {
+            "surface": "וְהַנָּהָר הָרְבִיעִי הוּא פְרָת",
+            "translation": "and the fourth river is Phrat",
+            "distractors": [
+              "the name of the first is Pishon",
+              "and the name of the second river is Gichon",
+              "and the third river is Chiddekel"
+            ]
           }
         }
       }

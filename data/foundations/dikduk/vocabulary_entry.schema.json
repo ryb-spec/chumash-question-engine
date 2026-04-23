@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "vocabulary_entry.schema.json",
+  "title": "VocabularyEntry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "vocab_id",
+    "hebrew",
+    "normalized_hebrew",
+    "transliteration_optional",
+    "gloss_primary",
+    "gloss_alternates",
+    "shoresh",
+    "part_of_speech",
+    "function_vs_content",
+    "priority_band",
+    "frequency_signal",
+    "linked_skill_ids",
+    "source_refs",
+    "notes"
+  ],
+  "properties": {
+    "vocab_id": {
+      "type": "string",
+      "pattern": "^vocab_[a-z0-9_]+$"
+    },
+    "hebrew": {
+      "type": "string"
+    },
+    "normalized_hebrew": {
+      "type": "string"
+    },
+    "transliteration_optional": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "gloss_primary": {
+      "type": "string"
+    },
+    "gloss_alternates": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "shoresh": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "part_of_speech": {
+      "type": "string"
+    },
+    "function_vs_content": {
+      "type": "string",
+      "enum": [
+        "function",
+        "content",
+        "mixed"
+      ]
+    },
+    "priority_band": {
+      "type": "string",
+      "enum": [
+        "must_master_first",
+        "early_useful",
+        "later_useful"
+      ]
+    },
+    "frequency_signal": {
+      "type": "string",
+      "enum": [
+        "explicit_list",
+        "recurring_across_resources",
+        "contextual_only"
+      ]
+    },
+    "linked_skill_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^skill_[a-z0-9_]+$"
+      },
+      "uniqueItems": true
+    },
+    "source_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "notes": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  }
+}

@@ -7,6 +7,7 @@ import sys
 from collections import Counter
 from copy import deepcopy
 from datetime import datetime, timezone
+from functools import lru_cache
 from pathlib import Path
 from unittest.mock import patch
 
@@ -24,7 +25,11 @@ from assessment_scope import (
     active_pesukim_records,
     active_pasuk_record_for_text,
     active_pasuk_ref_payload,
+    active_scope_gold_annotation_for_pasuk_id,
     data_path,
+    load_corpus_manifest,
+    question_matches_gold_skill_record,
+    resolve_repo_path,
 )
 from engine import flow_builder
 from pasuk_flow_generator import analyze_pasuk as runtime_analyze_pasuk
@@ -33,6 +38,11 @@ from torah_parser.word_bank_adapter import normalize_hebrew_key
 
 OUTPUT_PATH = data_path("active_scope_reviewed_questions.json")
 SUMMARY_PATH = data_path("validation", "reviewed_question_bank_summary.json")
+HIGH_FREQUENCY_LEXICON_PATH = data_path(
+    "lexicon",
+    "high_frequency",
+    "high_frequency_lexicon.seed.v1.json",
+)
 
 TRANSLATION_TARGET_COUNT = 25
 SHORESH_TARGET_COUNT = 25
@@ -56,6 +66,213 @@ REVIEWED_BACKFILL_MORPHOLOGY_SUPPORT_ADDITIONS = (
     "תַּדְשֵׁא",
     "יִשְׁרְצוּ",
 )
+
+# Narrow, gold-backed role/context lifts inside the current active scope.
+# These are deliberately limited to richer approved targets that materially
+# strengthen comprehension support without widening the skill surface.
+REVIEWED_ROLE_CONTEXT_LIFTS = {
+    "subject_identification": (
+        {"pasuk_id": "bereishis_1_17", "target_index": 0},
+        {"pasuk_id": "bereishis_1_21", "target_index": 0},
+        {"pasuk_id": "bereishis_1_22", "target_index": 0},
+        {"pasuk_id": "bereishis_1_25", "target_index": 0},
+        {"pasuk_id": "bereishis_1_31", "target_index": 0},
+        {"pasuk_id": "bereishis_2_2", "target_index": 0},
+        {"pasuk_id": "bereishis_2_9", "target_index": 0},
+    ),
+    "object_identification": (
+        {"pasuk_id": "bereishis_1_21", "target_index": 0},
+        {"pasuk_id": "bereishis_1_22", "target_index": 0},
+        {"pasuk_id": "bereishis_1_25", "target_index": 0},
+        {"pasuk_id": "bereishis_1_31", "target_index": 0},
+    ),
+    "phrase_translation": (
+        {
+            "pasuk_id": "bereishis_1_17",
+            "target_index": 0,
+            "distractors": [
+                "God blessed them",
+                "God created them",
+                "God placed the light",
+            ],
+        },
+        {
+            "pasuk_id": "bereishis_1_21",
+            "target_index": 0,
+            "distractors": [
+                "God blessed the great sea creatures",
+                "God created the two great lights",
+                "God saw the great sea creatures",
+            ],
+        },
+        {
+            "pasuk_id": "bereishis_1_22",
+            "target_index": 0,
+            "distractors": [
+                "God created them",
+                "God blessed the earth",
+                "God placed them",
+            ],
+        },
+        {
+            "pasuk_id": "bereishis_1_25",
+            "target_index": 0,
+            "distractors": [
+                "God blessed the beasts of the earth",
+                "God made the great sea creatures",
+                "God saw the beasts of the earth",
+            ],
+        },
+        {
+            "pasuk_id": "bereishis_1_31",
+            "target_index": 0,
+            "distractors": [
+                "God made all that He had seen",
+                "God saw the beasts of the earth",
+                "God blessed all that He had made",
+            ],
+        },
+        {
+            "pasuk_id": "bereishis_2_2",
+            "target_index": 0,
+            "distractors": [
+                "God blessed",
+                "God created",
+                "God rested",
+            ],
+        },
+        {
+            "pasuk_id": "bereishis_2_9",
+            "target_index": 0,
+            "distractors": [
+                "the LORD God planted every tree",
+                "God caused every tree to grow",
+                "the LORD God caused every beast to grow",
+            ],
+        },
+    ),
+}
+
+# Conservative reviewed-foundation lifts drawn from the current-scope hand audit.
+# These promote a small set of already-clean meaning/POS targets so runtime can
+# prefer reviewed support over thinner generated fallbacks.
+REVIEWED_FOUNDATION_LIFTS = {
+    "translation": (
+        {
+            "pasuk_id": "bereishis_1_5",
+            "token": "וַיִּקְרָא",
+        },
+        {
+            "pasuk_id": "bereishis_1_6",
+            "token": "וִיהִי",
+            "extra_distractors": (
+                "and there was",
+                "and he said",
+                "and let it appear",
+            ),
+        },
+        {
+            "pasuk_id": "bereishis_2_4",
+            "token": "עֲשׂוֹת",
+            "extra_distractors": (
+                "to see",
+                "to build",
+                "to call",
+            ),
+        },
+        {
+            "pasuk_id": "bereishis_2_23",
+            "token": "וַיֹּאמֶר",
+            "extra_distractors": (
+                "and he saw",
+                "and he built",
+                "and he planted",
+            ),
+        },
+        {
+            "pasuk_id": "bereishis_2_15",
+            "token": "\u05d5\u05b7\u05d9\u05bc\u05b4\u05e7\u05bc\u05b7\u05d7",
+        },
+        {
+            "pasuk_id": "bereishis_1_4",
+            "token": "\u05d5\u05b7\u05d9\u05bc\u05b7\u05e8\u05b0\u05d0",
+        },
+        {
+            "pasuk_id": "bereishis_1_4",
+            "token": "\u05d5\u05b7\u05d9\u05bc\u05b7\u05d1\u05b0\u05d3\u05bc\u05b5\u05dc",
+        },
+        {
+            "pasuk_id": "bereishis_3_1",
+            "token": "\u05d4\u05b8\u05d9\u05b8\u05d4",
+        },
+        {
+            "pasuk_id": "bereishis_3_1",
+            "token": "\u05ea\u05b9\u05d0\u05db\u05b0\u05dc\u05d5\u05bc",
+        },
+        {
+            "pasuk_id": "bereishis_3_1",
+            "token": "\u05e2\u05b8\u05e9\u05b8\u05c2\u05d4",
+        },
+        {
+            "pasuk_id": "bereishis_3_3",
+            "token": "\u05ea\u05b0\u05bc\u05de\u05bb\u05ea\u05d5\u05bc\u05df",
+        },
+        {
+            "pasuk_id": "bereishis_3_3",
+            "token": "\u05ea\u05b4\u05d2\u05b0\u05bc\u05e2\u05d5\u05bc",
+        },
+        {
+            "pasuk_id": "bereishis_3_6",
+            "token": "\u05dc\u05b0\u05d4\u05b7\u05e9\u05b0\u05c2\u05db\u05b4\u05bc\u05d9\u05dc",
+        },
+        {
+            "pasuk_id": "bereishis_3_5",
+            "token": "\u05d9\u05b9\u05d3\u05b5\u05e2\u05b7",
+        },
+        {
+            "pasuk_id": "bereishis_3_7",
+            "token": "\u05ea\u05b0\u05d0\u05b5\u05e0\u05b8\u05d4",
+        },
+        {
+            "pasuk_id": "bereishis_3_7",
+            "token": "\u05d7\u05b2\u05d2\u05b9\u05e8\u05b9\u05ea",
+        },
+        {
+            "pasuk_id": "bereishis_3_7",
+            "token": "\u05d5\u05b7\u05d9\u05b4\u05bc\u05ea\u05b0\u05e4\u05b0\u05bc\u05e8\u05d5\u05bc",
+        },
+        {
+            "pasuk_id": "bereishis_3_8",
+            "token": "\u05de\u05b4\u05ea\u05b0\u05d4\u05b7\u05dc\u05b5\u05bc\u05da\u05b0",
+        },
+        {
+            "pasuk_id": "bereishis_3_8",
+            "token": "\u05d5\u05b7\u05d9\u05bc\u05b4\u05ea\u05b0\u05d7\u05b7\u05d1\u05b5\u05bc\u05d0",
+        },
+        {
+            "pasuk_id": "bereishis_3_8",
+            "token": "\u05e2\u05b5\u05e5",
+        },
+    ),
+    "part_of_speech": (
+        {"pasuk_id": "bereishis_1_3", "token": "וַיְהִי"},
+        {"pasuk_id": "bereishis_1_4", "token": "וַיַּבְדֵּל"},
+        {"pasuk_id": "bereishis_1_9", "token": "וְתֵרָאֶה"},
+        {"pasuk_id": "bereishis_1_10", "token": "וַיִּקְרָא"},
+        {"pasuk_id": "bereishis_1_12", "token": "וַיַּרְא"},
+        {"pasuk_id": "bereishis_1_11", "token": "עֵץ"},
+        {"pasuk_id": "bereishis_2_8", "token": "וַיִּטַּע"},
+        {"pasuk_id": "bereishis_2_23", "token": "וַיֹּאמֶר"},
+        {"pasuk_id": "bereishis_3_8", "token": "קוֹל"},
+    ),
+}
+
+LEXICON_TIER_BONUS = {
+    "A": 3.5,
+    "B": 2.0,
+    "C": 1.0,
+    "D": 0.0,
+}
 
 AWKWARD_SHORESH_ROOTS = {
     "יקדש",
@@ -124,6 +341,9 @@ TENSE_PRIORITY_TOKENS_BY_PASUK = {
     "bereishis_2_21": ("וַיִּקַּח",),
     "bereishis_2_22": ("וַיִּבֶן",),
 }
+TRANSLATION_PRIORITY_TOKENS_BY_PASUK = {
+    "bereishis_2_7": ("נִשְׁמַת",),
+}
 REMAINING_SHORTFALL_EXPLANATIONS = {
     "shoresh": [
         "Remaining active-scope verb targets were skipped because they stayed too duplicate-feel, object-suffix heavy, or morphologically weak under the current fail-closed validator.",
@@ -144,6 +364,39 @@ def normalized_english(text: str | None) -> str:
                 rendered = rendered[len(prefix):]
                 break
     return rendered
+
+
+@lru_cache(maxsize=1)
+def high_frequency_lexicon_index():
+    payload = json.loads(HIGH_FREQUENCY_LEXICON_PATH.read_text(encoding="utf-8"))
+    index = {}
+    for entry in payload.get("seed_entries", []):
+        tier = str(entry.get("tier") or "").strip().upper()
+        hebrew = str(entry.get("hebrew") or "").strip()
+        if not hebrew or not tier:
+            continue
+        for variant in re.split(r"\s*/\s*", hebrew):
+            key = normalize_hebrew_key(variant)
+            if key:
+                index[key] = tier
+    return index
+
+
+def lexicon_tier_for_token_entry(token: str, entry: dict | None):
+    index = high_frequency_lexicon_index()
+    candidates = [
+        normalize_hebrew_key(token),
+        normalize_hebrew_key((entry or {}).get("lemma") or ""),
+        normalize_hebrew_key(flow_builder.clean_shoresh_value((entry or {}).get("shoresh")) or ""),
+    ]
+    best = None
+    for candidate in candidates:
+        tier = index.get(candidate)
+        if not tier:
+            continue
+        if best is None or LEXICON_TIER_BONUS.get(tier, 0.0) > LEXICON_TIER_BONUS.get(best, 0.0):
+            best = tier
+    return best
 
 
 def stable_fragment(value: str | None) -> str:
@@ -190,6 +443,80 @@ def lane_counts_from_payload(payload):
     return dict(lane_counts)
 
 
+def reviewed_bank_duplicate_key(question):
+    return (
+        question.get("review_family") or question.get("skill") or "unknown",
+        question.get("skill"),
+        question.get("pasuk_id"),
+        normalize_hebrew_key(question.get("selected_word") or question.get("word") or ""),
+        normalized_english(question.get("correct_answer")),
+    )
+
+
+def active_scope_reviewed_seed_paths():
+    manifest = load_corpus_manifest()
+    paths = []
+    for corpus in manifest.get("parsed_corpora", []):
+        reviewed_path = (corpus.get("parsed_files") or {}).get("reviewed_questions")
+        if not reviewed_path:
+            continue
+        resolved = resolve_repo_path(reviewed_path)
+        if resolved.exists():
+            paths.append(resolved)
+    return paths
+
+
+def gold_suppresses_reviewed_skill(pasuk_id: str | None, skill: str | None) -> bool:
+    if not pasuk_id or not skill:
+        return False
+    annotation = active_scope_gold_annotation_for_pasuk_id(pasuk_id) or {}
+    skill_record = (annotation.get("skills") or {}).get(str(skill))
+    return bool(skill_record and skill_record.get("status") == "suppressed")
+
+
+def load_promoted_seed_questions():
+    active_ids = {
+        record.get("pasuk_id")
+        for record in active_pesukim_records()
+        if record.get("pasuk_id")
+    }
+    imported = []
+    for path in active_scope_reviewed_seed_paths():
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        for question in payload.get("questions", []):
+            if question.get("pasuk_id") not in active_ids:
+                continue
+            if gold_suppresses_reviewed_skill(question.get("pasuk_id"), question.get("skill")):
+                continue
+            validation = validate_question_for_serve(
+                deepcopy(question),
+                fallback_text=question.get("pasuk"),
+                validation_path="reviewed_bank_promoted_seed",
+                trusted_active_scope=True,
+            )
+            if not validation["valid"]:
+                continue
+            item = deepcopy(validation["question"])
+            family = str(item.get("review_family") or question.get("review_family") or item.get("skill") or "unknown")
+            alias_skills = [str(value).strip() for value in question.get("alias_skills") or [] if str(value).strip()]
+            if family == "tense" and item.get("skill") == "identify_tense" and "verb_tense" not in alias_skills:
+                alias_skills.append("verb_tense")
+            item["review_family"] = family
+            item["alias_skills"] = alias_skills
+            item["reviewed_id"] = reviewed_id(
+                family,
+                str(item.get("skill") or ""),
+                str(item.get("pasuk_id") or ""),
+                str(item.get("selected_word") or item.get("word") or item.get("correct_answer") or ""),
+                question_type=str(item.get("question_type") or ""),
+                correct_answer=str(item.get("correct_answer") or ""),
+            )
+            item["source"] = "active scope reviewed bank"
+            item["analysis_source"] = "promoted_staged_reviewed_support"
+            imported.append(item)
+    return imported
+
+
 def write_json(path: Path, payload):
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
@@ -225,6 +552,234 @@ def build_generated_question(skill: str, pasuk_text: str, *, target_token: str |
     return validated_question(question, pasuk_text=pasuk_text, validation_path="reviewed_bank_build")
 
 
+def active_record_for_pasuk_id(pasuk_id: str):
+    return next(
+        (record for record in active_pesukim_records() if record.get("pasuk_id") == pasuk_id),
+        None,
+    )
+
+
+def gold_skill_target_for_pasuk(pasuk_id: str, skill: str, target_index: int = 0):
+    annotation = active_scope_gold_annotation_for_pasuk_id(pasuk_id) or {}
+    skill_record = (annotation.get("skills") or {}).get(skill) or {}
+    if skill_record.get("status") != "approved":
+        return None
+    approved_targets = list(skill_record.get("approved_targets") or [])
+    if not approved_targets:
+        return None
+    if target_index >= len(approved_targets):
+        return None
+    return skill_record, deepcopy(approved_targets[target_index])
+
+
+def role_entity_defaults(translation: str):
+    lowered = normalized_english(translation)
+    if "lord god" in lowered or lowered == "god" or lowered == "the lord":
+        return {
+            "semantic_group": "divine",
+            "entity_type": "divine_being",
+        }
+    return {
+        "semantic_group": "person",
+        "entity_type": "person",
+    }
+
+
+def build_gold_subject_reviewed_question(record, target):
+    action_token = target.get("main_verb_token")
+    surface = target.get("surface")
+    translation = target.get("translation")
+    if not action_token or not surface or not translation:
+        return None
+    entity_defaults = role_entity_defaults(translation)
+    question = flow_builder.skill_question_payload(
+        "subject_identification",
+        {
+            "token": surface,
+            "entry": flow_builder.override_target_entry(
+                surface,
+                translation,
+                semantic_group=entity_defaults["semantic_group"],
+                role_hint="subject_candidate",
+                entity_type=entity_defaults["entity_type"],
+            ),
+            "source_pasuk": record["text"],
+        },
+        f"Who is doing the action in {action_token}?",
+        flow_builder.build_parallel_choices(
+            translation,
+            flow_builder.override_distractors(
+                flow_builder.SUBJECT_OVERRIDE_DISTRACTOR_POOL,
+                translation,
+            ),
+            f"{record['pasuk_id']}|reviewed_subject",
+            token=surface,
+        ),
+        translation,
+        f"In {action_token}, {surface} is doing the action.",
+        action_token=action_token,
+        role_focus="subject",
+    )
+    question = validated_question(
+        question,
+        pasuk_text=record["text"],
+        validation_path="reviewed_bank_gold_subject",
+    )
+    if not question:
+        return None
+    skill_record = (active_scope_gold_annotation_for_pasuk_id(record["pasuk_id"]) or {}).get("skills", {}).get("subject_identification")
+    if not question_matches_gold_skill_record(question, skill_record):
+        return None
+    return question
+
+
+def build_gold_object_reviewed_question(record, target):
+    action_token = target.get("main_verb_token")
+    surface = target.get("surface")
+    translation = target.get("translation")
+    role_focus = target.get("role") or "direct_object"
+    if not action_token or not surface or not translation:
+        return None
+    question = flow_builder.skill_question_payload(
+        "object_identification",
+        {
+            "token": surface,
+            "entry": flow_builder.override_target_entry(
+                surface,
+                translation,
+                semantic_group="object",
+                role_hint="object_candidate",
+                entity_type="common_noun",
+            ),
+            "source_pasuk": record["text"],
+        },
+        (
+            f"Who receives the action in {action_token}?"
+            if role_focus == "recipient"
+            else f"What receives the action in {action_token}?"
+        ),
+        flow_builder.build_parallel_choices(
+            translation,
+            flow_builder.override_distractors(
+                flow_builder.RECIPIENT_OVERRIDE_DISTRACTOR_POOL if role_focus == "recipient" else flow_builder.OBJECT_OVERRIDE_DISTRACTOR_POOL,
+                translation,
+            ),
+            f"{record['pasuk_id']}|reviewed_object|{role_focus}",
+            token=surface,
+        ),
+        translation,
+        (
+            f"In {action_token}, {surface} is the one receiving the action."
+            if role_focus == "recipient"
+            else f"In {action_token}, {surface} is what receives the action."
+        ),
+        action_token=action_token,
+        role_focus=role_focus,
+    )
+    question = validated_question(
+        question,
+        pasuk_text=record["text"],
+        validation_path="reviewed_bank_gold_object",
+    )
+    if not question:
+        return None
+    skill_record = (active_scope_gold_annotation_for_pasuk_id(record["pasuk_id"]) or {}).get("skills", {}).get("object_identification")
+    if not question_matches_gold_skill_record(question, skill_record):
+        return None
+    return question
+
+
+def build_gold_phrase_reviewed_question(record, target, distractors):
+    surface = target.get("surface")
+    translation = target.get("translation")
+    if not surface or not translation:
+        return None
+    question = flow_builder.skill_question_payload(
+        "phrase_translation",
+        {
+            "token": surface,
+            "entry": {
+                "translation": translation,
+                "type": "phrase",
+                "part_of_speech": "phrase",
+            },
+            "source_pasuk": record["text"],
+        },
+        "What does this phrase mean?",
+        flow_builder.build_parallel_choices(
+            translation,
+            list(distractors or []),
+            f"{record['pasuk_id']}|reviewed_phrase",
+            token=surface,
+        ),
+        translation,
+        f"Here, {surface} means '{translation}'.",
+    )
+    question = validated_question(
+        question,
+        pasuk_text=record["text"],
+        validation_path="reviewed_bank_gold_phrase",
+    )
+    if not question:
+        return None
+    skill_record = (active_scope_gold_annotation_for_pasuk_id(record["pasuk_id"]) or {}).get("skills", {}).get("phrase_translation")
+    if not question_matches_gold_skill_record(question, skill_record):
+        return None
+    return question
+
+
+def build_gold_role_context_reviewed_items():
+    questions = []
+
+    for spec in REVIEWED_ROLE_CONTEXT_LIFTS["subject_identification"]:
+        record = active_record_for_pasuk_id(spec["pasuk_id"])
+        target_data = gold_skill_target_for_pasuk(
+            spec["pasuk_id"],
+            "subject_identification",
+            spec.get("target_index", 0),
+        )
+        if not record or not target_data:
+            continue
+        _skill_record, target = target_data
+        question = build_gold_subject_reviewed_question(record, target)
+        if question:
+            questions.append((question, "role", []))
+
+    for spec in REVIEWED_ROLE_CONTEXT_LIFTS["object_identification"]:
+        record = active_record_for_pasuk_id(spec["pasuk_id"])
+        target_data = gold_skill_target_for_pasuk(
+            spec["pasuk_id"],
+            "object_identification",
+            spec.get("target_index", 0),
+        )
+        if not record or not target_data:
+            continue
+        _skill_record, target = target_data
+        question = build_gold_object_reviewed_question(record, target)
+        if question:
+            questions.append((question, "role", []))
+
+    for spec in REVIEWED_ROLE_CONTEXT_LIFTS["phrase_translation"]:
+        record = active_record_for_pasuk_id(spec["pasuk_id"])
+        target_data = gold_skill_target_for_pasuk(
+            spec["pasuk_id"],
+            "phrase_translation",
+            spec.get("target_index", 0),
+        )
+        if not record or not target_data:
+            continue
+        _skill_record, target = target_data
+        question = build_gold_phrase_reviewed_question(
+            record,
+            target,
+            spec.get("distractors") or [],
+        )
+        if question:
+            questions.append((question, "translation", []))
+
+    return questions
+
+
 def preferred_runtime_analysis_entry(item):
     analyses = list(item.get("analyses") or [])
     if not analyses and isinstance(item.get("entry"), dict):
@@ -254,6 +809,14 @@ def analyzed_items_for_record(record):
         if token and entry:
             items.append({"token": token, "entry": entry})
     return items
+
+
+def analyzed_item_for_record_token(record, token):
+    token_key = normalize_hebrew_key(token)
+    for item in analyzed_items_for_record(record):
+        if normalize_hebrew_key(item["token"]) == token_key:
+            return item
+    return None
 
 
 def build_manual_shoresh_question(record, item, word_bank):
@@ -310,6 +873,102 @@ def build_manual_tense_question(record, item):
     return validated_question(question, pasuk_text=record["text"], validation_path="reviewed_bank_build")
 
 
+def build_manual_translation_question(record, item, word_bank, by_group, *, extra_distractors=()):
+    token = item["token"]
+    entry = item["entry"]
+    if not flow_builder.standalone_translation_target(entry, token):
+        return None
+    correct = flow_builder.usable_translation(entry, token)
+    if not correct:
+        return None
+    distractors = flow_builder.translation_distractors(
+        correct,
+        entry,
+        by_group,
+        word_bank,
+        require_quality_count=3,
+    )
+    try:
+        choices = flow_builder.build_parallel_choices(
+            correct,
+            distractors,
+            f"{record['pasuk_id']}|reviewed_translation|{normalize_hebrew_key(token)}",
+            extra=list(extra_distractors or []),
+            token=token,
+        )
+    except ValueError:
+        return None
+    question = flow_builder.skill_question_payload(
+        "translation",
+        {"token": token, "entry": entry, "source_pasuk": record["text"]},
+        f"What does {token} mean?",
+        choices,
+        correct,
+        f"{token} means '{correct}'.",
+    )
+    return validated_question(question, pasuk_text=record["text"], validation_path="reviewed_bank_build")
+
+
+def build_manual_part_of_speech_question(record, item):
+    token = item["token"]
+    entry = item["entry"]
+    if not flow_builder.part_of_speech_target_supported(entry, token):
+        return None
+    correct = flow_builder.entry_type(entry)
+    student_correct = flow_builder.student_part_of_speech_label(correct)
+    choices = flow_builder.cohort_safe_part_of_speech_choices(correct)
+    if not student_correct or choices is None:
+        return None
+    word_gloss = flow_builder.usable_translation(entry, token)
+    explanation = (
+        f"{token} means '{word_gloss}', so here it is {flow_builder.part_of_speech_with_article(student_correct)}."
+        if word_gloss
+        else f"{token} is {flow_builder.part_of_speech_with_article(student_correct)}."
+    )
+    question = flow_builder.skill_question_payload(
+        "part_of_speech",
+        {"token": token, "entry": entry, "source_pasuk": record["text"]},
+        f"What kind of word is {token}?",
+        choices,
+        student_correct,
+        explanation,
+    )
+    return validated_question(question, pasuk_text=record["text"], validation_path="reviewed_bank_build")
+
+
+def build_reviewed_foundation_items(word_bank, by_group):
+    questions = []
+    for spec in REVIEWED_FOUNDATION_LIFTS["translation"]:
+        record = active_record_for_pasuk_id(spec["pasuk_id"])
+        if not record:
+            continue
+        item = analyzed_item_for_record_token(record, spec["token"])
+        if not item:
+            continue
+        question = build_manual_translation_question(
+            record,
+            item,
+            word_bank,
+            by_group,
+            extra_distractors=spec.get("extra_distractors", ()),
+        )
+        if question:
+            questions.append((question, "translation", []))
+
+    for spec in REVIEWED_FOUNDATION_LIFTS["part_of_speech"]:
+        record = active_record_for_pasuk_id(spec["pasuk_id"])
+        if not record:
+            continue
+        item = analyzed_item_for_record_token(record, spec["token"])
+        if not item:
+            continue
+        question = build_manual_part_of_speech_question(record, item)
+        if question:
+            questions.append((question, "part_of_speech", []))
+
+    return questions
+
+
 def phrase_candidates():
     candidates = []
     for record in active_pesukim_records():
@@ -359,17 +1018,23 @@ def translation_candidates(word_bank):
                 score -= 1.0
             if str(gloss).lower().startswith("and "):
                 score -= 1.0
+            lexicon_tier = lexicon_tier_for_token_entry(token, entry)
+            score += LEXICON_TIER_BONUS.get(lexicon_tier, 0.0)
             semantic_group = entry.get("semantic_group") or ""
             if semantic_group in {"object", "place", "abstract", "description", "quantity", "person_reference"}:
                 score += 1.5
             if semantic_group == "divine":
                 score -= 2.0
+            if normalized_english(gloss) in {"god", "the lord", "the lord god"}:
+                score -= 5.0
+            score += token_priority_bonus(record, token, TRANSLATION_PRIORITY_TOKENS_BY_PASUK)
             candidates.append(
                 {
                     "record": record,
                     "token": token,
                     "gloss": gloss,
                     "kind": kind,
+                    "lexicon_tier": lexicon_tier,
                     "meaning_key": normalized_english(gloss),
                     "semantic_group": semantic_group,
                     "score": score,
@@ -717,10 +1382,84 @@ def select_affix_family(word_bank):
 
 
 def build_reviewed_items(*, baseline_lane_counts=None):
-    word_bank, _ = flow_builder.load_word_bank()
+    word_bank, by_group = flow_builder.load_word_bank()
     questions = []
     lane_counts = Counter()
     skill_counts = Counter()
+    seen_duplicate_keys = set()
+    imported_promoted_seed_count = 0
+    family_pasuks_with_single_slot = {"shoresh", "tense"}
+    seen_single_slot_family_pasuks = set()
+
+    def append_reviewed_item(item):
+        family = item.get("review_family") or item.get("skill") or "unknown"
+        pasuk_id = item.get("pasuk_id")
+        skill = item.get("skill")
+        duplicate_key = reviewed_bank_duplicate_key(item)
+        family_pasuk_key = (family, pasuk_id)
+        if gold_suppresses_reviewed_skill(pasuk_id, skill):
+            return False
+        if duplicate_key in seen_duplicate_keys:
+            return False
+        if family in family_pasuks_with_single_slot and family_pasuk_key in seen_single_slot_family_pasuks:
+            return False
+        questions.append(item)
+        lane_counts[family] += 1
+        skill_counts[item.get("skill") or "unknown"] += 1
+        seen_duplicate_keys.add(duplicate_key)
+        if family in family_pasuks_with_single_slot:
+            seen_single_slot_family_pasuks.add(family_pasuk_key)
+        return True
+
+    for item in load_promoted_seed_questions():
+        if append_reviewed_item(item):
+            imported_promoted_seed_count += 1
+
+    for question, family, alias_skills in build_gold_role_context_reviewed_items():
+        record = active_pasuk_record_for_text(question.get("pasuk"))
+        if not record:
+            continue
+        item = deepcopy(question)
+        item.pop("id", None)
+        item.pop("_debug_trace", None)
+        item["reviewed_id"] = reviewed_id(
+            family,
+            str(item.get("skill") or ""),
+            record.get("pasuk_id"),
+            str(item.get("selected_word") or item.get("word") or item.get("correct_answer") or ""),
+            question_type=str(item.get("question_type") or ""),
+            correct_answer=str(item.get("correct_answer") or ""),
+        )
+        item["review_family"] = family
+        item["alias_skills"] = list(alias_skills)
+        item["pasuk_id"] = record.get("pasuk_id")
+        item["pasuk_ref"] = active_pasuk_ref_payload(record)
+        item["source"] = "active scope reviewed bank"
+        item["analysis_source"] = "active_scope_reviewed_bank"
+        append_reviewed_item(item)
+
+    for question, family, alias_skills in build_reviewed_foundation_items(word_bank, by_group):
+        record = active_pasuk_record_for_text(question.get("pasuk"))
+        if not record:
+            continue
+        item = deepcopy(question)
+        item.pop("id", None)
+        item.pop("_debug_trace", None)
+        item["reviewed_id"] = reviewed_id(
+            family,
+            str(item.get("skill") or ""),
+            record.get("pasuk_id"),
+            str(item.get("selected_word") or item.get("word") or item.get("correct_answer") or ""),
+            question_type=str(item.get("question_type") or ""),
+            correct_answer=str(item.get("correct_answer") or ""),
+        )
+        item["review_family"] = family
+        item["alias_skills"] = list(alias_skills)
+        item["pasuk_id"] = record.get("pasuk_id")
+        item["pasuk_ref"] = active_pasuk_ref_payload(record)
+        item["source"] = "active scope reviewed bank"
+        item["analysis_source"] = "active_scope_reviewed_bank"
+        append_reviewed_item(item)
 
     families = [
         *select_translation_family(word_bank),
@@ -750,9 +1489,7 @@ def build_reviewed_items(*, baseline_lane_counts=None):
         item["pasuk_ref"] = active_pasuk_ref_payload(record)
         item["source"] = "active scope reviewed bank"
         item["analysis_source"] = "active_scope_reviewed_bank"
-        questions.append(item)
-        lane_counts[family] += 1
-        skill_counts[item.get("skill") or "unknown"] += 1
+        append_reviewed_item(item)
 
     payload = {
         "metadata": {
@@ -764,9 +1501,11 @@ def build_reviewed_items(*, baseline_lane_counts=None):
                 "This file is a repo-curated reviewed question bank for the current active runtime scope.",
                 "The runtime may prefer these questions over merely generated candidates when the requested lane matches.",
                 "Alias skills are used only where student-facing lane content is intentionally shared, such as tense-family items.",
+                "Imported promoted staged reviewed-support items are kept when they still validate inside the active runtime scope.",
             ],
             "backfill_baseline_lane_counts": dict(baseline_lane_counts or {}),
             "morphology_support_additions": list(REVIEWED_BACKFILL_MORPHOLOGY_SUPPORT_ADDITIONS),
+            "imported_promoted_seed_count": imported_promoted_seed_count,
             "lane_counts": dict(lane_counts),
             "skill_counts": dict(skill_counts),
         },
@@ -827,6 +1566,15 @@ def validate_reviewed_bank(payload, *, baseline_lane_counts=None):
         for (family, target), count in target_duplicates.items()
         if count > 1
     ]
+    promoted_slice_questions = [
+        item
+        for item in payload.get("questions", [])
+        if str(item.get("pasuk_id") or "").startswith("bereishis_3_")
+    ]
+    promoted_slice_lane_counts = Counter(
+        item.get("review_family") or "unknown"
+        for item in promoted_slice_questions
+    )
     expected_targets = {
         "translation": TRANSLATION_TARGET_COUNT,
         "shoresh": SHORESH_TARGET_COUNT,
@@ -871,6 +1619,9 @@ def validate_reviewed_bank(payload, *, baseline_lane_counts=None):
             payload.get("metadata", {}).get("morphology_support_additions")
             or REVIEWED_BACKFILL_MORPHOLOGY_SUPPORT_ADDITIONS
         ),
+        "imported_promoted_seed_count": int(payload.get("metadata", {}).get("imported_promoted_seed_count") or 0),
+        "promoted_slice_question_count": len(promoted_slice_questions),
+        "promoted_slice_lane_counts": dict(promoted_slice_lane_counts),
         "valid": not issues and not duplicate_items and not duplicate_reviewed_ids,
     }
 

@@ -1,0 +1,282 @@
+{
+  "generated_at_utc": "2026-04-22T20:41:36.748347+00:00",
+  "scope_id": "local_parsed_bereishis_1_1_to_3_8",
+  "runtime_scope_id": "local_parsed_bereishis_1_1_to_3_8",
+  "review_scope_id": "local_parsed_bereishis_1_1_to_3_8",
+  "review_scope_ids": [
+    "local_parsed_bereishis_1_1_to_3_8"
+  ],
+  "log_path": "C:\\Users\\ybassman\\Documents\\GitHub\\chumash-question-engine\\data\\pilot\\runs\\pilot_session_events_20260422T203958Z_translation-routing-active-scope-pilot5.jsonl",
+  "configured_log_env_var": "CHUMASH_PILOT_EVENT_LOG_PATH",
+  "review_window": {
+    "session_start_since_utc": null,
+    "session_start_until_utc": null,
+    "scope_id": "local_parsed_bereishis_1_1_to_3_8",
+    "trusted_active_scope_only": true,
+    "latest_session_only": true,
+    "latest_included_session_ids": [
+      "pilot-20260422T204121Z-4333f646"
+    ],
+    "latest_included_session_started_at_utc": "2026-04-22T20:41:21.847001+00:00",
+    "source_event_count": 51,
+    "included_event_count": 51,
+    "excluded_event_count": 0,
+    "source_session_count": 1,
+    "included_session_count": 1,
+    "source_scope_ids": [
+      "local_parsed_bereishis_1_1_to_3_8"
+    ],
+    "included_scope_ids": [
+      "local_parsed_bereishis_1_1_to_3_8"
+    ],
+    "source_session_start_range_utc": {
+      "first": "2026-04-22T20:41:21.847001+00:00",
+      "last": "2026-04-22T20:41:21.847001+00:00"
+    },
+    "included_session_start_range_utc": {
+      "first": "2026-04-22T20:41:21.847001+00:00",
+      "last": "2026-04-22T20:41:21.847001+00:00"
+    },
+    "source_log_is_isolated_run": true,
+    "fresh_run_only": true,
+    "warnings": [
+      {
+        "code": "review_filters_applied",
+        "message": "This review artifact was generated with explicit filters. Use the included review_window metadata when interpreting counts."
+      },
+      {
+        "code": "latest_session_only_applied",
+        "message": "This review artifact is limited to the latest included session window (1 session)."
+      }
+    ]
+  },
+  "accounting_model": {
+    "served_question_types": "question_served events only",
+    "answered_question_types": "question_answered events only",
+    "flagged_unclear_question_types": "question_flagged events with flag=unclear only"
+  },
+  "teacher_flag_labels": [
+    "wrong morphology",
+    "bad distractors",
+    "too repetitive",
+    "wrong pasuk",
+    "unclear wording",
+    "other"
+  ],
+  "student_flag_note_max_length": 120,
+  "teacher_flag_note_max_length": 280,
+  "session_count": 1,
+  "substantive_session_count": 1,
+  "shell_session_count": 0,
+  "sessions": [
+    {
+      "session_id": "pilot-20260422T204121Z-4333f646",
+      "scope_id": "local_parsed_bereishis_1_1_to_3_8",
+      "trusted_scope_mode": "trusted_active_scope",
+      "trusted_active_scope_requested": true,
+      "trusted_active_scope_session": true,
+      "started_at_utc": "2026-04-22T20:41:21.847001+00:00",
+      "last_event_at_utc": "2026-04-22T20:41:25.122154+00:00",
+      "served_questions": 25,
+      "answered_questions": 25,
+      "correct_answers": 25,
+      "incorrect_answers": 0,
+      "flagged_unclear": 0,
+      "suppressed_or_skipped": 0,
+      "served_active_scope_questions": 25,
+      "served_outside_active_scope_questions": 0,
+      "practice_types": {
+        "Practice Mode": 25
+      },
+      "served_question_types": {
+        "translation": 25
+      },
+      "answered_question_types": {
+        "translation": 25
+      },
+      "flagged_unclear_question_types": {},
+      "served_pasuk_refs": {
+        "Bereishis 1:4": 3,
+        "Bereishis 3:7": 3,
+        "Bereishis 1:11": 2,
+        "Bereishis 3:1": 2,
+        "Bereishis 3:8": 2,
+        "Bereishis 2:25": 2,
+        "Bereishis 3:6": 1,
+        "Bereishis 3:3": 1,
+        "Bereishis 2:4": 2,
+        "Bereishis 1:6": 2,
+        "Bereishis 3:2": 2,
+        "Bereishis 2:9": 1,
+        "Bereishis 1:5": 1,
+        "Bereishis 2:23": 1
+      },
+      "recent_unclear_flags": [],
+      "recent_scope_issues": [],
+      "average_response_time_ms": 3.7,
+      "served_question_type_total": 25,
+      "answered_question_type_total": 25,
+      "flagged_unclear_question_type_total": 0,
+      "session_scope_status": "trusted_active_scope",
+      "session_lifecycle_events": {
+        "started": 1
+      },
+      "session_lifecycle_reasons": [
+        "runtime_initialized"
+      ],
+      "session_origin": "started",
+      "is_shell_session": false,
+      "shell_session_reason": "",
+      "is_substantive_session": true
+    }
+  ],
+  "flagged_review_queue": [],
+  "summary": {
+    "top_repeated_flagged_items": [],
+    "top_flagged_unclear_items": [],
+    "highest_unclear_rate_sessions": [
+      {
+        "session_id": "pilot-20260422T204121Z-4333f646",
+        "unclear_rate": 0.0,
+        "flagged_unclear": 0,
+        "served_questions": 25,
+        "practice_types": {
+          "Practice Mode": 25
+        }
+      }
+    ],
+    "dominant_served_question_families": {
+      "translation": 25
+    },
+    "top_served_question_families": {
+      "translation": 25
+    },
+    "trusted_scope_violations": [],
+    "substantive_session_count": 1,
+    "shell_session_count": 0,
+    "served_without_validation_signals": {
+      "served_with_validation_flag": 25,
+      "served_without_validation_flag": 0,
+      "served_without_validation_examples": []
+    },
+    "top_pre_serve_rejection_codes": [
+      {
+        "code": "feature_repeat_blocked",
+        "count": 1084
+      },
+      {
+        "code": "recent_exact_word_repeat",
+        "count": 87
+      },
+      {
+        "code": "recent_exact_repeat",
+        "count": 40
+      },
+      {
+        "code": "recent_target_family_repeat",
+        "count": 10
+      }
+    ]
+  },
+  "release_review_summary": {
+    "scope_id": "local_parsed_bereishis_1_1_to_3_8",
+    "runtime_scope_id": "local_parsed_bereishis_1_1_to_3_8",
+    "fresh_run_only": true,
+    "source_log_is_isolated_run": true,
+    "session_count": 1,
+    "substantive_session_count": 1,
+    "shell_session_count": 0,
+    "trusted_scope_violation_count": 0,
+    "trusted_scope_violations": [],
+    "served_without_validation_flag": 0,
+    "served_with_validation_flag": 25,
+    "unclear_flag_count": 0,
+    "top_unclear_items": [],
+    "top_served_question_families": {
+      "translation": 25
+    },
+    "top_pre_serve_rejection_codes": [
+      {
+        "code": "feature_repeat_blocked",
+        "count": 1084
+      },
+      {
+        "code": "recent_exact_word_repeat",
+        "count": 87
+      },
+      {
+        "code": "recent_exact_repeat",
+        "count": 40
+      },
+      {
+        "code": "recent_target_family_repeat",
+        "count": 10
+      }
+    ],
+    "repeated_target_feel": {
+      "repeated_target_warning_count": 9,
+      "top_repeated_targets": [
+        {
+          "question_type": "translation",
+          "target": "טוֹב",
+          "correct_answer": "good",
+          "count": 3,
+          "pasuk_refs": [
+            "Bereishis 1:4"
+          ]
+        },
+        {
+          "question_type": "translation",
+          "target": "עֵירֻמִּם",
+          "correct_answer": "naked",
+          "count": 3,
+          "pasuk_refs": [
+            "Bereishis 3:7"
+          ]
+        },
+        {
+          "question_type": "translation",
+          "target": "עֵץ",
+          "correct_answer": "a tree",
+          "count": 2,
+          "pasuk_refs": [
+            "Bereishis 1:11"
+          ]
+        },
+        {
+          "question_type": "translation",
+          "target": "עָרוּם",
+          "correct_answer": "crafty",
+          "count": 2,
+          "pasuk_refs": [
+            "Bereishis 3:1"
+          ]
+        },
+        {
+          "question_type": "translation",
+          "target": "קוֹל",
+          "correct_answer": "voice",
+          "count": 2,
+          "pasuk_refs": [
+            "Bereishis 3:8"
+          ]
+        }
+      ]
+    },
+    "warnings": [
+      {
+        "code": "review_filters_applied",
+        "message": "This review artifact was generated with explicit filters. Use the included review_window metadata when interpreting counts."
+      },
+      {
+        "code": "latest_session_only_applied",
+        "message": "This review artifact is limited to the latest included session window (1 session)."
+      }
+    ],
+    "warning_codes": [
+      "latest_session_only_applied",
+      "review_filters_applied"
+    ],
+    "flagged_review_queue_count": 0
+  }
+}

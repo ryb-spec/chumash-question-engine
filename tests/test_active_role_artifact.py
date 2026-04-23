@@ -1,8 +1,8 @@
 import json
 import unittest
 from pathlib import Path
-from uuid import uuid4
 from unittest.mock import patch
+from uuid import uuid4
 
 from engine import flow_builder
 from torah_parser.export_bank import rebuild_active_parsed_pesukim_artifact
@@ -14,7 +14,7 @@ class ActiveRoleArtifactTests(unittest.TestCase):
         temp_path.parent.mkdir(parents=True, exist_ok=True)
         try:
             artifact = rebuild_active_parsed_pesukim_artifact(output_path=temp_path)
-            self.assertEqual(artifact["metadata"]["pesukim_count"], 56)
+            self.assertEqual(artifact["metadata"]["pesukim_count"], 64)
             self.assertTrue(temp_path.exists())
 
             persisted = json.loads(temp_path.read_text(encoding="utf-8"))

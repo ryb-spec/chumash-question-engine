@@ -22,6 +22,7 @@ from runtime.runtime_support import (
     get_pasukh_text,
     get_source_label,
     handle_answer,
+    highlighted_hebrew_html,
     load_word_bank_metadata,
     menukad_text,
     mixed_text_html,
@@ -77,15 +78,7 @@ def split_pasuk_phrases(text, words_per_phrase=4):
 
 
 def highlight_display_text(text, focus):
-    safe_text = escape(menukad_text(text))
-    if focus:
-        safe_focus = escape(menukad_text(focus))
-        safe_text = safe_text.replace(
-            safe_focus,
-            f"<mark>{safe_focus}</mark>",
-            1,
-        )
-    return safe_text
+    return highlighted_hebrew_html(text, focus)
 
 
 def question_key(question, prefix):

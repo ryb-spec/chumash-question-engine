@@ -1,0 +1,629 @@
+[
+  {
+    "rule_id": "rule_classify_noun_vs_verb_first",
+    "rule_statement": "Classify a token as a noun or a verb before applying suffix or tense rules.",
+    "category": "classification",
+    "applies_to_part_of_speech": "noun_or_verb",
+    "markers": [],
+    "meaning_effect": "Prevents noun possession rules from being confused with verb subject or object rules.",
+    "example_tokens": [
+      "????",
+      "????"
+    ],
+    "exception_notes": null,
+    "confusion_pattern_ids": [
+      "conf_noun_suffix_vs_verb_ending",
+      "conf_edge_letter_heuristics"
+    ],
+    "progression_order": 1,
+    "confidence": "inferred_strong",
+    "source_refs": [
+      "R3:p5",
+      "R1:p1"
+    ]
+  },
+  {
+    "rule_id": "rule_noun_suffix_2ms_singular",
+    "rule_statement": "A noun ending in ?/?? can mark your (one man's) object.",
+    "category": "noun_suffix",
+    "applies_to_part_of_speech": "noun",
+    "markers": [
+      "?",
+      "??"
+    ],
+    "meaning_effect": "Adds second-person masculine singular possession to a noun.",
+    "example_tokens": [
+      "????"
+    ],
+    "exception_notes": "Only apply after confirming the token is functioning as a noun.",
+    "confusion_pattern_ids": [
+      "conf_noun_suffix_vs_verb_ending",
+      "conf_suffix_absorbed_into_shoresh"
+    ],
+    "progression_order": 2,
+    "confidence": "explicit",
+    "source_refs": [
+      "R3:p5"
+    ]
+  },
+  {
+    "rule_id": "rule_noun_suffix_2ms_plural_objects",
+    "rule_statement": "A noun ending in ?? can mark your (one man's) plural objects.",
+    "category": "noun_suffix",
+    "applies_to_part_of_speech": "noun",
+    "markers": [
+      "??"
+    ],
+    "meaning_effect": "Adds second-person masculine singular possession to a plural noun target.",
+    "example_tokens": [
+      "????"
+    ],
+    "exception_notes": null,
+    "confusion_pattern_ids": [
+      "conf_suffix_absorbed_into_shoresh",
+      "conf_false_plural_surface"
+    ],
+    "progression_order": 3,
+    "confidence": "explicit",
+    "source_refs": [
+      "R3:p15"
+    ]
+  },
+  {
+    "rule_id": "rule_noun_suffix_2mp_family",
+    "rule_statement": "Noun endings ?? and ??? mark your (many men's) singular or plural objects.",
+    "category": "noun_suffix",
+    "applies_to_part_of_speech": "noun",
+    "markers": [
+      "??",
+      "???"
+    ],
+    "meaning_effect": "Adds second-person masculine plural possession to a noun.",
+    "example_tokens": [
+      "?????",
+      "?????"
+    ],
+    "exception_notes": null,
+    "confusion_pattern_ids": [
+      "conf_suffix_absorbed_into_shoresh"
+    ],
+    "progression_order": 4,
+    "confidence": "explicit",
+    "source_refs": [
+      "R3:p12",
+      "R3:p14"
+    ]
+  },
+  {
+    "rule_id": "rule_noun_suffix_3ms_family",
+    "rule_statement": "Noun endings ?/?? and ?? can mark his singular or plural objects.",
+    "category": "noun_suffix",
+    "applies_to_part_of_speech": "noun",
+    "markers": [
+      "?",
+      "??",
+      "??"
+    ],
+    "meaning_effect": "Adds third-person masculine singular possession to a noun.",
+    "example_tokens": [
+      "????",
+      "????"
+    ],
+    "exception_notes": "The vav can be mistaken for a conjunction if the parser ignores word role.",
+    "confusion_pattern_ids": [
+      "conf_noun_suffix_vs_verb_ending",
+      "conf_suffix_absorbed_into_shoresh"
+    ],
+    "progression_order": 5,
+    "confidence": "explicit",
+    "source_refs": [
+      "R3:p17",
+      "R3:p19"
+    ]
+  },
+  {
+    "rule_id": "rule_noun_suffix_1cs_family",
+    "rule_statement": "A noun ending in ? can mark my singular object, and related variants can mark my plural objects.",
+    "category": "noun_suffix",
+    "applies_to_part_of_speech": "noun",
+    "markers": [
+      "?"
+    ],
+    "meaning_effect": "Adds first-person singular possession to a noun.",
+    "example_tokens": [
+      "????",
+      "???"
+    ],
+    "exception_notes": "Plural-looking forms can still be singular lexical exceptions elsewhere in the curriculum.",
+    "confusion_pattern_ids": [
+      "conf_suffix_absorbed_into_shoresh",
+      "conf_false_plural_surface"
+    ],
+    "progression_order": 6,
+    "confidence": "explicit",
+    "source_refs": [
+      "R3:p36",
+      "R3:p37"
+    ]
+  },
+  {
+    "rule_id": "rule_noun_suffix_1cp_family",
+    "rule_statement": "Noun endings ?? and ??? mark our singular or plural objects.",
+    "category": "noun_suffix",
+    "applies_to_part_of_speech": "noun",
+    "markers": [
+      "??",
+      "???"
+    ],
+    "meaning_effect": "Adds first-person plural possession to a noun.",
+    "example_tokens": [
+      "?????",
+      "?????"
+    ],
+    "exception_notes": "Do not confuse noun possession ?? with verb subject or object suffix uses.",
+    "confusion_pattern_ids": [
+      "conf_noun_suffix_vs_verb_ending",
+      "conf_subject_suffix_vs_object_suffix"
+    ],
+    "progression_order": 7,
+    "confidence": "explicit",
+    "source_refs": [
+      "R3:p59"
+    ]
+  },
+  {
+    "rule_id": "rule_noun_suffix_3fs_family",
+    "rule_statement": "Noun endings ?/?? and ?? can mark her singular or plural objects.",
+    "category": "noun_suffix",
+    "applies_to_part_of_speech": "noun",
+    "markers": [
+      "?",
+      "??",
+      "??"
+    ],
+    "meaning_effect": "Adds third-person feminine singular possession to a noun.",
+    "example_tokens": [
+      "????",
+      "????"
+    ],
+    "exception_notes": null,
+    "confusion_pattern_ids": [
+      "conf_suffix_absorbed_into_shoresh"
+    ],
+    "progression_order": 8,
+    "confidence": "explicit",
+    "source_refs": [
+      "R3:p68"
+    ]
+  },
+  {
+    "rule_id": "rule_noun_suffix_2fs_family",
+    "rule_statement": "Noun endings in the feminine ??-family mark your (one lady's) singular or plural objects.",
+    "category": "noun_suffix",
+    "applies_to_part_of_speech": "noun",
+    "markers": [
+      "??",
+      "???"
+    ],
+    "meaning_effect": "Adds second-person feminine singular possession to a noun.",
+    "example_tokens": [
+      "????"
+    ],
+    "exception_notes": "Unpointed forms can be confused with the masculine singular possessive family.",
+    "confusion_pattern_ids": [
+      "conf_noun_suffix_vs_verb_ending",
+      "conf_suffix_absorbed_into_shoresh"
+    ],
+    "progression_order": 9,
+    "confidence": "explicit",
+    "source_refs": [
+      "R3:p69"
+    ]
+  },
+  {
+    "rule_id": "rule_noun_suffix_3mp_family",
+    "rule_statement": "Noun endings ? and ???/??? mark their (many men or mixed group) singular or plural objects.",
+    "category": "noun_suffix",
+    "applies_to_part_of_speech": "noun",
+    "markers": [
+      "?",
+      "???"
+    ],
+    "meaning_effect": "Adds third-person masculine or mixed plural possession to a noun.",
+    "example_tokens": [
+      "????",
+      "?????"
+    ],
+    "exception_notes": "The short ? ending can be a compressed form of a fuller plural-possessive family.",
+    "confusion_pattern_ids": [
+      "conf_suffix_absorbed_into_shoresh",
+      "conf_false_plural_surface"
+    ],
+    "progression_order": 10,
+    "confidence": "explicit",
+    "source_refs": [
+      "R3:p72"
+    ]
+  },
+  {
+    "rule_id": "rule_verb_past_2ms_suffix",
+    "rule_statement": "A verb ending in ?? marks you (one man) did in the past.",
+    "category": "verb_past",
+    "applies_to_part_of_speech": "verb",
+    "markers": [
+      "??"
+    ],
+    "meaning_effect": "Adds second-person masculine singular subject to a past-tense verb.",
+    "example_tokens": [
+      "????"
+    ],
+    "exception_notes": "Only high-confidence after the token is classified as a verb.",
+    "confusion_pattern_ids": [
+      "conf_noun_suffix_vs_verb_ending"
+    ],
+    "progression_order": 11,
+    "confidence": "explicit",
+    "source_refs": [
+      "R3:p7"
+    ]
+  },
+  {
+    "rule_id": "rule_verb_future_3ms_prefix",
+    "rule_statement": "A prefixed ? on a verb usually marks he will.",
+    "category": "verb_future",
+    "applies_to_part_of_speech": "verb",
+    "markers": [
+      "?"
+    ],
+    "meaning_effect": "Adds third-person masculine singular future subject marking to a verb.",
+    "example_tokens": [
+      "????"
+    ],
+    "exception_notes": "Yod-initial roots may require nikud-sensitive handling.",
+    "confusion_pattern_ids": [
+      "conf_prefix_absorbed_into_shoresh",
+      "conf_edge_letter_heuristics"
+    ],
+    "progression_order": 12,
+    "confidence": "explicit",
+    "source_refs": [
+      "R3:p22"
+    ]
+  },
+  {
+    "rule_id": "rule_vav_future_connector",
+    "rule_statement": "A prefixed ?? before a future-form verb can preserve the future reading rather than forcing a past reading.",
+    "category": "vav_pattern",
+    "applies_to_part_of_speech": "verb",
+    "markers": [
+      "??"
+    ],
+    "meaning_effect": "Adds conjunctional and while keeping the future reading in the curriculum's introductory vav rule family.",
+    "example_tokens": [
+      "??????????"
+    ],
+    "exception_notes": "This rule family must be separated from vav-hahipuch forms with different vocalization.",
+    "confusion_pattern_ids": [
+      "conf_vav_transformation_misread"
+    ],
+    "progression_order": 13,
+    "confidence": "explicit",
+    "source_refs": [
+      "R3:p8"
+    ]
+  },
+  {
+    "rule_id": "rule_vav_hahipuch_past",
+    "rule_statement": "A prefixed ?? on many future-shaped verbs flips the reading to past narrative sequence.",
+    "category": "vav_pattern",
+    "applies_to_part_of_speech": "verb",
+    "markers": [
+      "??",
+      "??",
+      "??"
+    ],
+    "meaning_effect": "Turns many future-shaped verbs into past narrative forms such as and he did.",
+    "example_tokens": [
+      "?????????"
+    ],
+    "exception_notes": "Guttural-initial verbs can shift the vocalization pattern.",
+    "confusion_pattern_ids": [
+      "conf_vav_transformation_misread",
+      "conf_nikud_sensitive_distinction"
+    ],
+    "progression_order": 14,
+    "confidence": "explicit",
+    "source_refs": [
+      "R3:p23",
+      "R3:p24",
+      "R3:p34",
+      "R3:p35"
+    ]
+  },
+  {
+    "rule_id": "rule_verb_future_3mp_circumfix",
+    "rule_statement": "A verb with prefixed ? and suffixed ?? can mean they (many men) will.",
+    "category": "verb_future",
+    "applies_to_part_of_speech": "verb",
+    "markers": [
+      "?",
+      "??"
+    ],
+    "meaning_effect": "Adds third-person masculine plural future subject marking to a verb.",
+    "example_tokens": [
+      "?????"
+    ],
+    "exception_notes": null,
+    "confusion_pattern_ids": [
+      "conf_prefix_absorbed_into_shoresh",
+      "conf_past_plural_vs_imperative_plural"
+    ],
+    "progression_order": 15,
+    "confidence": "explicit",
+    "source_refs": [
+      "R3:p27"
+    ]
+  },
+  {
+    "rule_id": "rule_verb_future_tav_ambiguous",
+    "rule_statement": "A verb with prefixed ? can mean you (one man) will or she will, and context resolves the correct reading.",
+    "category": "verb_future",
+    "applies_to_part_of_speech": "verb",
+    "markers": [
+      "?"
+    ],
+    "meaning_effect": "Marks a future form whose subject reading is ambiguous without context.",
+    "example_tokens": [
+      "????"
+    ],
+    "exception_notes": "This is an intentional ambiguity lane, not a one-answer rule.",
+    "confusion_pattern_ids": [
+      "conf_tav_future_ambiguity",
+      "conf_literal_over_context"
+    ],
+    "progression_order": 16,
+    "confidence": "explicit",
+    "source_refs": [
+      "R3:p29",
+      "R3:p73"
+    ]
+  },
+  {
+    "rule_id": "rule_verb_future_1cs_1cp_prefixes",
+    "rule_statement": "A prefixed ? can mark I will and a prefixed ? can mark we will in the future system.",
+    "category": "verb_future",
+    "applies_to_part_of_speech": "verb",
+    "markers": [
+      "?",
+      "?"
+    ],
+    "meaning_effect": "Adds first-person future subject marking to a verb.",
+    "example_tokens": [
+      "?????",
+      "?????"
+    ],
+    "exception_notes": "The prefixed ? can overlap with passive-like patterns elsewhere in the curriculum.",
+    "confusion_pattern_ids": [
+      "conf_nun_future_vs_passive"
+    ],
+    "progression_order": 17,
+    "confidence": "explicit",
+    "source_refs": [
+      "R3:p33",
+      "R3:p57",
+      "R3:p126"
+    ]
+  },
+  {
+    "rule_id": "rule_verb_past_3ms_base",
+    "rule_statement": "A regular bare verb form can mean he did in the past.",
+    "category": "verb_past",
+    "applies_to_part_of_speech": "verb",
+    "markers": [],
+    "meaning_effect": "Provides the default past 3ms reading for a regular unsuffixed verb form.",
+    "example_tokens": [
+      "???"
+    ],
+    "exception_notes": "This is a real parsing rule, but bare citation-like forms are often low-value shoresh questions.",
+    "confusion_pattern_ids": [
+      "conf_shoresh_equals_surface_word"
+    ],
+    "progression_order": 18,
+    "confidence": "explicit",
+    "source_refs": [
+      "R3:p60"
+    ]
+  },
+  {
+    "rule_id": "rule_verb_past_3mp_or_imperative_mp",
+    "rule_statement": "A verb ending in ?? can mean they did or a direct command to many men, depending on context.",
+    "category": "verb_ambiguity",
+    "applies_to_part_of_speech": "verb",
+    "markers": [
+      "??"
+    ],
+    "meaning_effect": "Creates an ambiguity between past plural and imperative plural readings.",
+    "example_tokens": [
+      "????"
+    ],
+    "exception_notes": "Do not force a single reading without context.",
+    "confusion_pattern_ids": [
+      "conf_past_plural_vs_imperative_plural"
+    ],
+    "progression_order": 19,
+    "confidence": "explicit",
+    "source_refs": [
+      "R3:p61",
+      "R3:p85"
+    ]
+  },
+  {
+    "rule_id": "rule_imperative_system",
+    "rule_statement": "Direct command forms can be recognized by pattern and by audience-marking endings such as ??, ?, and ??.",
+    "category": "imperative",
+    "applies_to_part_of_speech": "verb",
+    "markers": [
+      "vowel_shift",
+      "??",
+      "?",
+      "??"
+    ],
+    "meaning_effect": "Marks direct commands to masculine singular, masculine plural, feminine singular, or feminine plural audiences.",
+    "example_tokens": [
+      "????",
+      "????",
+      "????",
+      "?????"
+    ],
+    "exception_notes": "Some plural command forms overlap with past plural forms and must be disambiguated.",
+    "confusion_pattern_ids": [
+      "conf_past_plural_vs_imperative_plural",
+      "conf_nikud_sensitive_distinction"
+    ],
+    "progression_order": 20,
+    "confidence": "explicit",
+    "source_refs": [
+      "R3:pp78-89"
+    ]
+  },
+  {
+    "rule_id": "rule_present_habitual_system",
+    "rule_statement": "Present or habitual forms are taught with distinct patterning, including masculine singular, masculine plural, feminine singular, and feminine plural variants.",
+    "category": "present_habitual",
+    "applies_to_part_of_speech": "verb",
+    "markers": [
+      "pattern_vowels",
+      "??",
+      "?",
+      "??"
+    ],
+    "meaning_effect": "Marks present or habitual meaning rather than simple past or future.",
+    "example_tokens": [
+      "????",
+      "??????",
+      "?????",
+      "??????"
+    ],
+    "exception_notes": "These forms should not be collapsed into the past/future system.",
+    "confusion_pattern_ids": [
+      "conf_present_habitual_ignored",
+      "conf_nikud_sensitive_distinction"
+    ],
+    "progression_order": 21,
+    "confidence": "explicit",
+    "source_refs": [
+      "R3:pp118-124"
+    ]
+  },
+  {
+    "rule_id": "rule_verb_object_suffix_system",
+    "rule_statement": "Verbs can take attached object pronouns such as me, you, her, them, or us.",
+    "category": "verb_object_suffix",
+    "applies_to_part_of_speech": "verb",
+    "markers": [
+      "??",
+      "?",
+      "?",
+      "?",
+      "??"
+    ],
+    "meaning_effect": "Adds a direct-object pronoun to a verb form without changing the underlying lexical verb.",
+    "example_tokens": [
+      "?????",
+      "????",
+      "????",
+      "????",
+      "?????"
+    ],
+    "exception_notes": "Several exact subfamilies in the source are OCR-degraded, so the seed treats this as a high-confidence family rule only.",
+    "confusion_pattern_ids": [
+      "conf_subject_suffix_vs_object_suffix",
+      "conf_noun_suffix_vs_verb_ending"
+    ],
+    "progression_order": 22,
+    "confidence": "explicit",
+    "source_refs": [
+      "R3:pp89",
+      "R3:pp107-125"
+    ]
+  },
+  {
+    "rule_id": "rule_passive_or_causative_patterns",
+    "rule_statement": "Some prefixed or vowel-shifted verb patterns indicate passive-like meaning or caused action rather than a simple active reading.",
+    "category": "derived_stems",
+    "applies_to_part_of_speech": "verb",
+    "markers": [
+      "?",
+      "?",
+      "?",
+      "passive_vowels"
+    ],
+    "meaning_effect": "Signals passive-like or causative-like meaning in a limited, curriculum-supported way.",
+    "example_tokens": [
+      "????",
+      "????",
+      "????"
+    ],
+    "exception_notes": "Seeded broadly because some exact subrules are OCR-degraded.",
+    "confusion_pattern_ids": [
+      "conf_nun_future_vs_passive",
+      "conf_nikud_sensitive_distinction"
+    ],
+    "progression_order": 23,
+    "confidence": "explicit",
+    "source_refs": [
+      "R3:pp123-126"
+    ]
+  },
+  {
+    "rule_id": "rule_false_plural_exceptions",
+    "rule_statement": "Some forms that look plural on the surface do not behave like ordinary plural nouns for beginner parsing purposes.",
+    "category": "irregulars",
+    "applies_to_part_of_speech": "noun",
+    "markers": [
+      "surface_plural_like"
+    ],
+    "meaning_effect": "Blocks naive plural parsing for a small exception list taught explicitly in the curriculum.",
+    "example_tokens": [
+      "???",
+      "????",
+      "?????"
+    ],
+    "exception_notes": "These are exception-bank items, not productive rules.",
+    "confusion_pattern_ids": [
+      "conf_false_plural_surface"
+    ],
+    "progression_order": 24,
+    "confidence": "explicit",
+    "source_refs": [
+      "R3:p16",
+      "R3:p37"
+    ]
+  },
+  {
+    "rule_id": "rule_context_resolves_ambiguity",
+    "rule_statement": "When a form has more than one plausible parse, phrase or pasuk context determines the correct reading.",
+    "category": "context_resolution",
+    "applies_to_part_of_speech": "multiword_context",
+    "markers": [],
+    "meaning_effect": "Prevents the engine from forcing a single answer when morphology alone is insufficient.",
+    "example_tokens": [
+      "????",
+      "????",
+      "?????"
+    ],
+    "exception_notes": "This is a governing instructional rule, not a morphology trigger.",
+    "confusion_pattern_ids": [
+      "conf_tav_future_ambiguity",
+      "conf_past_plural_vs_imperative_plural",
+      "conf_subject_suffix_vs_object_suffix",
+      "conf_literal_over_context"
+    ],
+    "progression_order": 25,
+    "confidence": "explicit",
+    "source_refs": [
+      "R1:worksheets",
+      "R3:throughout"
+    ]
+  }
+]

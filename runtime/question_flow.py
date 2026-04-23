@@ -77,6 +77,7 @@ DEBUG_REJECTION_LABELS = {
     "recent_same_pasuk_intent_repeat": "same pasuk intent repeat blocked",
     "recent_semantic_sibling_repeat": "semantic sibling repeat blocked",
     "recent_target_family_repeat": "recent target-family repeat blocked",
+    "recent_translation_phrase_pattern_repeat": "translation phrase-pattern repeat blocked",
     "recent_meaning_repeat": "recent meaning repeat blocked",
     "recent_tense_lane_overlap": "tense-lane overlap blocked",
     "recent_surface_pattern_repeat": "recent surface-pattern repeat blocked",
@@ -84,10 +85,12 @@ DEBUG_REJECTION_LABELS = {
     "explicit_reteach_reuse": "explicit reteach reuse allowed",
     "diversity_redirect": "diversity redirect selected a different safe lane",
 }
-RECENT_QUESTION_HISTORY_LIMIT = 12
+RECENT_QUESTION_HISTORY_LIMIT = 20
 EXACT_REPEAT_WINDOW = 8
 NEAR_REPEAT_WINDOW = 5
 EXACT_WORD_REPEAT_WINDOW = 4
+TRANSLATION_EXACT_WORD_REPEAT_WINDOW = 10
+TRANSLATION_PHRASE_PATTERN_WINDOW = 5
 DUPLICATE_FEEL_WINDOW = 8
 TENSE_LANE_OVERLAP_WINDOW = 6
 SHORESH_SURFACE_WINDOW = 4
@@ -452,6 +455,72 @@ def question_signature(question):
     }
 
 
+def _recent_translation_phrase_question_count(recent_questions, *, window=NEAR_REPEAT_WINDOW):
+    recent_questions = list(recent_questions or [])
+    return sum(
+        1
+        for item in recent_questions[-window:]
+        if (item or {}).get("skill") == "translation"
+        and (item or {}).get("question_type") == "phrase_translation"
+    )
+
+
+def translation_practice_route_bonus(question, recent_questions=None):
+    question = question or {}
+    if str(question.get("skill") or "").strip() != "translation":
+        return 0.0
+
+    question_type = question_type_key(question)
+    analysis_source = str(question.get("analysis_source") or "").strip()
+    if analysis_source != "active_scope_reviewed_bank":
+        return 0.0
+
+    if question_type == "translation":
+        return 1.25
+
+    if question_type == "phrase_translation":
+        bonus = -0.75
+        if _recent_translation_phrase_question_count(recent_questions):
+            bonus -= 0.5
+        return bonus
+
+    return 0.0
+
+
+def translation_practice_ready_row_bonus(row, *, requested_skill="", recent_questions=None):
+    if str(requested_skill or "").strip() != "translation":
+        return 0.0
+
+    row = row or {}
+    question_type = str(row.get("question_type") or "").strip()
+    analysis_source = str(row.get("analysis_source") or "").strip()
+    reviewed = bool(row.get("reviewed")) or analysis_source == "active_scope_reviewed_bank"
+    if not reviewed:
+        return 0.0
+
+    if question_type == "translation":
+        return 1.25
+
+    if question_type == "phrase_translation":
+        bonus = -0.75
+        if _recent_translation_phrase_question_count(recent_questions):
+            bonus -= 0.5
+        return bonus
+
+    return 0.0
+
+
+def reviewed_translation_row_can_rotate(row, *, requested_skill=""):
+    row = row or {}
+    if str(requested_skill or "").strip() != "translation":
+        return False
+    if str(row.get("question_type") or "").strip() != "translation":
+        return False
+    analysis_source = str(row.get("analysis_source") or "").strip()
+    reviewed = bool(row.get("reviewed")) or analysis_source == "active_scope_reviewed_bank"
+    return reviewed and analysis_source == "active_scope_reviewed_bank"
+
+
 def recent_question_signature_key(signature):
     signature = signature or {}
     return "|".join(
@@ -552,8 +621,26 @@ def recent_question_repeat_reason(question, recent_questions):
         ):
             return "recent_semantic_sibling_repeat"
 
+    if (
+        signature.get("skill") == "translation"
+        and signature.get("question_type") == "phrase_translation"
+    ):
+        for previous in recent_questions[-TRANSLATION_PHRASE_PATTERN_WINDOW:]:
+            if previous.get("skill") != "translation":
+                continue
+            if previous.get("question_type") != "phrase_translation":
+                continue
+            if previous.get("answer_pattern") and previous.get("answer_pattern") == signature.get("answer_pattern"):
+                return "recent_translation_phrase_pattern_repeat"
+
     if signature.get("target_word"):
-        exact_word_window = recent_questions[-EXACT_WORD_REPEAT_WINDOW:]
+        exact_word_window_size = EXACT_WORD_REPEAT_WINDOW
+        if repeat_family == "translation":
+            exact_word_window_size = max(
+                exact_word_window_size,
+                TRANSLATION_EXACT_WORD_REPEAT_WINDOW,
+            )
+        exact_word_window = recent_questions[-exact_word_window_size:]
         if any(previous.get("target_word") == signature["target_word"] for previous in exact_word_window):
             return "recent_exact_word_repeat"
 
@@ -1140,6 +1227,7 @@ def candidate_quality_breakdown(
         adaptive_context=adaptive_context,
     )
     context_policy = display_context_policy(question)
+    translation_route = translation_practice_route_bonus(question, recent_questions)
 
     clarity = 0.0
     if question.get("selected_word") or question.get("word"):
@@ -1188,6 +1276,10 @@ def candidate_quality_breakdown(
         + display_compactness,
         2,
     )
+    total = round(
+        total + translation_route,
+        2,
+    )
 
     return {
         "total": total,
@@ -1197,6 +1289,7 @@ def candidate_quality_breakdown(
         "novelty": round(novelty, 2),
         "context_dependence": round(context_dependence, 2),
         "display_compactness": round(display_compactness, 2),
+        "translation_route": round(translation_route, 2),
         "display_context_mode": context_policy["mode"],
         "display_context_reason": context_policy["reason"],
     }
@@ -1583,6 +1676,7 @@ def build_followup_question(progress, question):
                 prefix_level=prefix_level,
                 recent_question_formats=recent_question_formats,
                 recent_prefixes=recent_prefixes,
+                recent_questions=recent_questions,
             )
         except Exception:
             candidate_filtered = True
@@ -1735,11 +1829,18 @@ def rank_ready_rows(
     recent_pesukim,
     recent_words,
     *,
+    skill=None,
+    recent_questions=None,
     progress=None,
     adaptive_context=None,
 ):
     scored = []
     for row in ready_rows:
+        route_bonus = translation_practice_ready_row_bonus(
+            row,
+            requested_skill=skill,
+            recent_questions=recent_questions,
+        )
         scored.append(
             {
                 "weight": candidate_weight(
@@ -1748,10 +1849,11 @@ def rank_ready_rows(
                     recent_pesukim,
                     recent_words,
                     adaptive_context=adaptive_context,
-                ),
+                ) + route_bonus,
                 "reviewed": bool(row.get("reviewed")),
                 "word": row.get("word") or "",
                 "pasuk": row.get("pasuk") or "",
+                "route_bonus": route_bonus,
                 "row": row,
             }
         )
@@ -1795,6 +1897,8 @@ def get_skill_ready_pasuks(skill):
                 "prefix": get_question_prefix(question),
                 "morpheme_family": get_morpheme_family(question),
                 "reviewed": question.get("analysis_source") == "active_scope_reviewed_bank",
+                "question_type": question_type_key(question),
+                "analysis_source": question.get("analysis_source") or "",
             }
         )
     return ready
@@ -1874,7 +1978,11 @@ def select_pasuk_first_question(skill, progress=None, adaptive_context=None):
             prefix = ready_row.get("prefix", "")
             morpheme_family = ready_row.get("morpheme_family", "")
             row_word = _signature_text(ready_row.get("word") or "")
-            if row_word and row_word in recent_target_words:
+            if (
+                row_word
+                and row_word in recent_target_words
+                and not reviewed_translation_row_can_rotate(ready_row, requested_skill=skill)
+            ):
                 nonlocal_rejection_counts[0] = increment_debug_rejection_count(
                     nonlocal_rejection_counts[0],
                     "recent_exact_word_repeat",
@@ -1938,6 +2046,8 @@ def select_pasuk_first_question(skill, progress=None, adaptive_context=None):
         eligible_ready_rows,
         recent_pesukim,
         recent_words,
+        skill=skill,
+        recent_questions=recent_questions,
         progress=progress,
         adaptive_context=adaptive_context,
     )
@@ -1945,6 +2055,8 @@ def select_pasuk_first_question(skill, progress=None, adaptive_context=None):
         fallback_ready_rows,
         recent_pesukim,
         recent_words,
+        skill=skill,
+        recent_questions=recent_questions,
         progress=progress,
         adaptive_context=adaptive_context,
     )
@@ -1968,6 +2080,7 @@ def select_pasuk_first_question(skill, progress=None, adaptive_context=None):
                         prefix_level=prefix_level,
                         recent_question_formats=recent_question_formats,
                         recent_prefixes=recent_prefixes,
+                        recent_questions=recent_questions,
                     )
                     full_generation_rows += 1
                 except Exception:

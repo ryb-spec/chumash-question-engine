@@ -1,0 +1,263 @@
+[
+  {
+    "archetype_id": "arch_circle_shoresh",
+    "name": "Circle the Shoresh",
+    "prompt_shape": "Mark the shoresh letters in the token.",
+    "input_type": "single_token",
+    "response_type": "span_selection",
+    "primary_skill_ids": [
+      "skill_shoresh_identification"
+    ],
+    "secondary_skill_ids": [
+      "skill_affix_segmentation"
+    ],
+    "diagnostic_value": "high",
+    "boredom_risk": "medium",
+    "shallow_pattern_risk": "medium",
+    "best_followup_correct": "Strip affixes and explain what each non-root letter is doing.",
+    "best_followup_incorrect": "Show prefix/root/suffix segmentation with one worked example.",
+    "software_notes": "Direct digital replacement for the core R2 worksheet action."
+  },
+  {
+    "archetype_id": "arch_cross_out_non_shoresh",
+    "name": "Cross Out Non-Shoresh Letters",
+    "prompt_shape": "Select the letters that are not part of the shoresh.",
+    "input_type": "single_token",
+    "response_type": "multi_select_exclusion",
+    "primary_skill_ids": [
+      "skill_affix_segmentation",
+      "skill_shoresh_identification"
+    ],
+    "secondary_skill_ids": [
+      "skill_prefix_handling",
+      "skill_suffix_handling"
+    ],
+    "diagnostic_value": "high",
+    "boredom_risk": "medium",
+    "shallow_pattern_risk": "low",
+    "best_followup_correct": "Ask what each removed letter contributes.",
+    "best_followup_incorrect": "Contrast the same root with and without affixes.",
+    "software_notes": "Strong digital fit; cleaner than cut-and-paste."
+  },
+  {
+    "archetype_id": "arch_split_word_parts",
+    "name": "Split Word Into Parts",
+    "prompt_shape": "Break the token into prefix, shoresh, and suffix parts.",
+    "input_type": "single_token",
+    "response_type": "segmentation",
+    "primary_skill_ids": [
+      "skill_affix_segmentation"
+    ],
+    "secondary_skill_ids": [
+      "skill_prefix_handling",
+      "skill_suffix_handling",
+      "skill_shoresh_identification"
+    ],
+    "diagnostic_value": "high",
+    "boredom_risk": "low",
+    "shallow_pattern_risk": "low",
+    "best_followup_correct": "Translate the whole token after naming each segment.",
+    "best_followup_incorrect": "Pre-highlight one segment and ask the learner to finish the split.",
+    "software_notes": "Best software replacement for the physical reassembly workflow in R2."
+  },
+  {
+    "archetype_id": "arch_classify_noun_vs_verb",
+    "name": "Classify Noun vs Verb",
+    "prompt_shape": "Decide whether the token is a noun or a verb.",
+    "input_type": "single_token",
+    "response_type": "binary_classification",
+    "primary_skill_ids": [
+      "skill_noun_verb_recognition"
+    ],
+    "secondary_skill_ids": [
+      "skill_suffix_handling"
+    ],
+    "diagnostic_value": "high",
+    "boredom_risk": "low",
+    "shallow_pattern_risk": "low",
+    "best_followup_correct": "Route to the matching noun or verb morphology lane.",
+    "best_followup_incorrect": "Show how the same ending means different things on nouns and verbs.",
+    "software_notes": "A core routing archetype because later rules depend on this distinction."
+  },
+  {
+    "archetype_id": "arch_classify_tense",
+    "name": "Classify Past / Future / Present",
+    "prompt_shape": "Choose whether the verb is past, future, or present/habitual.",
+    "input_type": "single_token",
+    "response_type": "three_way_classification",
+    "primary_skill_ids": [
+      "skill_tense_recognition"
+    ],
+    "secondary_skill_ids": [
+      "skill_verb_past_suffix_recognition",
+      "skill_verb_future_prefix_recognition",
+      "skill_present_habitual_recognition"
+    ],
+    "diagnostic_value": "high",
+    "boredom_risk": "medium",
+    "shallow_pattern_risk": "medium",
+    "best_followup_correct": "Ask for person/gender/number or a short translation.",
+    "best_followup_incorrect": "Show the specific prefix or suffix cue that drove the correct tense.",
+    "software_notes": "Should be blocked for forms explicitly marked as ambiguous without context."
+  },
+  {
+    "archetype_id": "arch_identify_possessive_owner",
+    "name": "Identify Possessive Owner",
+    "prompt_shape": "Identify who owns the noun from its ending.",
+    "input_type": "single_token",
+    "response_type": "label_selection",
+    "primary_skill_ids": [
+      "skill_noun_possessive_suffix_recognition"
+    ],
+    "secondary_skill_ids": [
+      "skill_plural_handling",
+      "skill_suffix_handling"
+    ],
+    "diagnostic_value": "high",
+    "boredom_risk": "low",
+    "shallow_pattern_risk": "low",
+    "best_followup_correct": "Translate the noun phrase in English.",
+    "best_followup_incorrect": "Contrast the same noun with two different possessive endings.",
+    "software_notes": "Strong fit for reviewed exemplars because the family system is explicit in R3."
+  },
+  {
+    "archetype_id": "arch_identify_subject_from_verb",
+    "name": "Identify Verb Subject",
+    "prompt_shape": "Identify who is doing the action from the verb form.",
+    "input_type": "single_token",
+    "response_type": "label_selection",
+    "primary_skill_ids": [
+      "skill_person_gender_number_recognition"
+    ],
+    "secondary_skill_ids": [
+      "skill_tense_recognition"
+    ],
+    "diagnostic_value": "high",
+    "boredom_risk": "medium",
+    "shallow_pattern_risk": "medium",
+    "best_followup_correct": "Ask for a full gloss with the subject included.",
+    "best_followup_incorrect": "Show the exact affix that encodes the subject slot.",
+    "software_notes": "Best for verbs whose subject slot is not ambiguous."
+  },
+  {
+    "archetype_id": "arch_identify_object_suffix",
+    "name": "Identify Attached Object on Verb",
+    "prompt_shape": "Identify the object pronoun attached to the verb.",
+    "input_type": "single_token",
+    "response_type": "label_selection",
+    "primary_skill_ids": [
+      "skill_verb_object_suffix_recognition"
+    ],
+    "secondary_skill_ids": [
+      "skill_suffix_handling",
+      "skill_phrase_context_disambiguation"
+    ],
+    "diagnostic_value": "high",
+    "boredom_risk": "medium",
+    "shallow_pattern_risk": "low",
+    "best_followup_correct": "Ask who did what to whom in a short phrase.",
+    "best_followup_incorrect": "Contrast subject endings and object suffixes on near-matching forms.",
+    "software_notes": "Use only with clearly supported object-suffix families."
+  },
+  {
+    "archetype_id": "arch_translate_isolated_word",
+    "name": "Translate Isolated Word",
+    "prompt_shape": "Give the base meaning of the token.",
+    "input_type": "single_token",
+    "response_type": "short_text_or_multiple_choice",
+    "primary_skill_ids": [
+      "skill_literal_translation"
+    ],
+    "secondary_skill_ids": [
+      "skill_function_word_recognition"
+    ],
+    "diagnostic_value": "medium",
+    "boredom_risk": "high",
+    "shallow_pattern_risk": "high",
+    "best_followup_correct": "Move immediately to phrase context or morphology explanation.",
+    "best_followup_incorrect": "Provide a short glossary-supported clue rather than repeating the answer.",
+    "software_notes": "Should be suppressed for low-information pronouns, particles, and context-heavy forms."
+  },
+  {
+    "archetype_id": "arch_translate_phrase_in_pasuk",
+    "name": "Translate Phrase in Pasuk",
+    "prompt_shape": "Translate the highlighted Hebrew phrase in context.",
+    "input_type": "phrase_in_pasuk",
+    "response_type": "short_text_or_multiple_choice",
+    "primary_skill_ids": [
+      "skill_phrase_translation",
+      "skill_contextual_translation"
+    ],
+    "secondary_skill_ids": [
+      "skill_function_word_recognition",
+      "skill_tense_recognition",
+      "skill_phrase_context_disambiguation"
+    ],
+    "diagnostic_value": "high",
+    "boredom_risk": "low",
+    "shallow_pattern_risk": "low",
+    "best_followup_correct": "Ask why the contextual English differs from the base gloss if it does.",
+    "best_followup_incorrect": "Annotate the phrase by function word, root, and suffix before retrying.",
+    "software_notes": "Best default replacement for weak standalone translation items."
+  },
+  {
+    "archetype_id": "arch_choose_correct_meaning",
+    "name": "Choose Correct Meaning From Options",
+    "prompt_shape": "Choose the best meaning for the token or phrase from several options.",
+    "input_type": "token_or_phrase_with_choices",
+    "response_type": "multiple_choice",
+    "primary_skill_ids": [
+      "skill_contextual_translation"
+    ],
+    "secondary_skill_ids": [
+      "skill_literal_translation",
+      "skill_phrase_context_disambiguation"
+    ],
+    "diagnostic_value": "medium",
+    "boredom_risk": "medium",
+    "shallow_pattern_risk": "medium",
+    "best_followup_correct": "Ask which distractor was most tempting and why it was wrong.",
+    "best_followup_incorrect": "Explain the rule or context cue that removes the wrong options.",
+    "software_notes": "Distractors should reflect plausible confusion, not random vocabulary."
+  },
+  {
+    "archetype_id": "arch_color_code_shared_shorashim",
+    "name": "Color-Code Shared Shorashim",
+    "prompt_shape": "Group or color tokens that share the same shoresh.",
+    "input_type": "token_set",
+    "response_type": "grouping",
+    "primary_skill_ids": [
+      "skill_shoresh_identification"
+    ],
+    "secondary_skill_ids": [
+      "skill_affix_segmentation"
+    ],
+    "diagnostic_value": "medium",
+    "boredom_risk": "low",
+    "shallow_pattern_risk": "low",
+    "best_followup_correct": "Ask how the affixes changed the role or meaning of each token.",
+    "best_followup_incorrect": "Reduce the set to two obvious matches plus one distractor.",
+    "software_notes": "Good anti-boredom format because it changes interaction shape without changing the skill."
+  },
+  {
+    "archetype_id": "arch_distinguish_command_vs_past_plural",
+    "name": "Distinguish Command vs Past Plural",
+    "prompt_shape": "Decide whether the form means they did or a direct command to many men.",
+    "input_type": "single_token_or_short_phrase",
+    "response_type": "binary_classification",
+    "primary_skill_ids": [
+      "skill_direct_command_recognition",
+      "skill_phrase_context_disambiguation"
+    ],
+    "secondary_skill_ids": [
+      "skill_irregular_ambiguous_form_handling",
+      "skill_tense_recognition"
+    ],
+    "diagnostic_value": "high",
+    "boredom_risk": "low",
+    "shallow_pattern_risk": "low",
+    "best_followup_correct": "Add a short phrase and ask the learner to justify the choice.",
+    "best_followup_incorrect": "Show the same surface form once in each meaning and compare context.",
+    "software_notes": "Good diagnostic lane because the ambiguity is explicitly taught in R3."
+  }
+]

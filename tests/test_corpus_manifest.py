@@ -42,18 +42,18 @@ class CorpusManifestTests(unittest.TestCase):
 
         self.assertEqual(active_scope["sefer"], "Bereishis")
         self.assertEqual(active_scope["range"]["start"], {"perek": 1, "pasuk": 1})
-        self.assertEqual(active_scope["range"]["end"], {"perek": 2, "pasuk": 25})
-        self.assertEqual(active_scope["pesukim_count"], 56)
+        self.assertEqual(active_scope["range"]["end"], {"perek": 3, "pasuk": 8})
+        self.assertEqual(active_scope["pesukim_count"], 64)
         self.assertEqual(active_scope["status"], "active")
 
-    def test_source_corpus_metadata_matches_expanded_local_source_boundary(self):
+    def test_source_corpus_metadata_tracks_prepared_local_source_boundary_beyond_active_scope(self):
         source_corpus = assessment_scope.corpus_source_corpora()[0]
 
-        self.assertEqual(source_corpus["corpus_id"], "source_bereishis_1_1_to_2_25_local")
+        self.assertEqual(source_corpus["corpus_id"], "source_bereishis_1_1_to_3_16_local")
         self.assertEqual(source_corpus["status"], "source")
         self.assertEqual(source_corpus["range"]["start"], {"perek": 1, "pasuk": 1})
-        self.assertEqual(source_corpus["range"]["end"], {"perek": 2, "pasuk": 25})
-        self.assertEqual(source_corpus["pesukim_count"], 56)
+        self.assertEqual(source_corpus["range"]["end"], {"perek": 3, "pasuk": 16})
+        self.assertEqual(source_corpus["pesukim_count"], 72)
         self.assertEqual(
             source_corpus["source_files"],
             [
@@ -61,9 +61,67 @@ class CorpusManifestTests(unittest.TestCase):
                 "data/source/bereishis_1_31_to_2_9.json",
                 "data/source/bereishis_2_10_to_2_17.json",
                 "data/source/bereishis_2_18_to_2_25.json",
+                "data/source/bereishis_3_1_to_3_8.json",
+                "data/source/bereishis_3_9_to_3_16.json",
             ],
         )
-        self.assertEqual(source_corpus["declared_source_range"], "1:1-2:25")
+        self.assertEqual(source_corpus["declared_source_range"], "1:1-3:16")
+
+    def test_future_scope_metadata_tracks_the_active_candidate_3_9_to_3_16_expansion_candidate(self):
+        future_scopes = assessment_scope.load_corpus_manifest()["future_scopes"]
+
+        self.assertEqual(len(future_scopes), 1)
+        self.assertEqual(future_scopes[0]["scope_id"], "local_parsed_bereishis_1_1_to_3_16")
+        self.assertEqual(future_scopes[0]["status"], "active_candidate")
+        self.assertFalse(future_scopes[0]["supported_runtime"])
+        self.assertEqual(
+            future_scopes[0]["staged_next_chunk_corpus_id"],
+            "parsed_bereishis_3_9_to_3_16_staged",
+        )
+        self.assertEqual(
+            future_scopes[0]["readiness_report"],
+            "data/validation/bereishis_3_9_to_3_16_readiness.json",
+        )
+
+    def test_promoted_staged_parsed_corpus_metadata_tracks_provenance_bundle(self):
+        staged_corpus = next(
+            corpus
+            for corpus in assessment_scope.corpus_parsed_corpora()
+            if corpus["corpus_id"] == "parsed_bereishis_3_1_to_3_8_staged"
+        )
+
+        self.assertEqual(staged_corpus["status"], "active")
+        self.assertEqual(staged_corpus["storage_layer"], "data_staged")
+        self.assertEqual(
+            staged_corpus["parsed_files"]["reviewed_questions"],
+            "data/staged/parsed_bereishis_3_1_to_3_8_staged/reviewed_questions.json",
+        )
+        self.assertEqual(
+            staged_corpus["readiness_report"],
+            "data/validation/bereishis_3_1_to_3_8_readiness.json",
+        )
+
+    def test_next_staged_parsed_corpus_metadata_tracks_the_active_candidate_3_9_to_3_16_bundle(self):
+        staged_corpus = next(
+            corpus
+            for corpus in assessment_scope.corpus_parsed_corpora()
+            if corpus["corpus_id"] == "parsed_bereishis_3_9_to_3_16_staged"
+        )
+
+        self.assertEqual(staged_corpus["status"], "active_candidate")
+        self.assertEqual(staged_corpus["storage_layer"], "data_staged")
+        self.assertEqual(
+            staged_corpus["parsed_files"]["parsed_pesukim"],
+            "data/staged/parsed_bereishis_3_9_to_3_16_staged/parsed_pesukim.json",
+        )
+        self.assertEqual(
+            staged_corpus["parsed_files"]["reviewed_questions"],
+            "data/staged/parsed_bereishis_3_9_to_3_16_staged/reviewed_questions.json",
+        )
+        self.assertEqual(
+            staged_corpus["readiness_report"],
+            "data/validation/bereishis_3_9_to_3_16_readiness.json",
+        )
 
     def test_legacy_status_aliases_normalize_to_canonical_lifecycle_states(self):
         self.assertEqual(assessment_scope.normalize_corpus_status("experimental"), "source")
@@ -93,26 +151,25 @@ class CorpusManifestTests(unittest.TestCase):
         active_scope = assessment_scope.active_scope_metadata()
         active_texts = {record.get("text") for record in assessment_scope.active_pesukim_records()}
         flow_pesukim = {flow.get("pasuk") for flow in flows}
-        expected_new_flow_refs = {
+        expected_flow_refs = {
             (2, 18),
-            (2, 19),
             (2, 20),
             (2, 21),
             (2, 22),
             (2, 23),
         }
-        expected_new_flow_texts = {
+        expected_flow_texts = {
             record.get("text")
             for record in assessment_scope.active_pesukim_records()
             if (
                 record.get("ref", {}).get("perek"),
                 record.get("ref", {}).get("pasuk"),
-            ) in expected_new_flow_refs
+            ) in expected_flow_refs
         }
 
         self.assertLessEqual(len(flows), active_scope["pesukim_count"])
         self.assertTrue(flow_pesukim.issubset(active_texts))
-        self.assertTrue(expected_new_flow_texts.issubset(flow_pesukim))
+        self.assertTrue(expected_flow_texts.issubset(flow_pesukim))
         self.assertTrue(
             all(
                 flow.get("source", "").startswith(f"{assessment_scope.ACTIVE_ASSESSMENT_SCOPE}:")

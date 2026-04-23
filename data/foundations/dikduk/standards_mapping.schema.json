@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "standards_mapping.schema.json",
+  "title": "StandardsMapping",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "mapping_id",
+    "standard_framework",
+    "standard_area",
+    "standard_subarea",
+    "linked_skill_ids",
+    "linked_rule_ids",
+    "rationale",
+    "confidence",
+    "source_refs"
+  ],
+  "properties": {
+    "mapping_id": {
+      "type": "string",
+      "pattern": "^map_[a-z0-9_]+$"
+    },
+    "standard_framework": {
+      "type": "string"
+    },
+    "standard_area": {
+      "type": "string"
+    },
+    "standard_subarea": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "linked_skill_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^skill_[a-z0-9_]+$"
+      },
+      "uniqueItems": true
+    },
+    "linked_rule_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^rule_[a-z0-9_]+$"
+      },
+      "uniqueItems": true
+    },
+    "rationale": {
+      "type": "string"
+    },
+    "confidence": {
+      "type": "string",
+      "enum": [
+        "explicit",
+        "inferred_strong",
+        "inferred_tentative"
+      ]
+    },
+    "source_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    }
+  }
+}

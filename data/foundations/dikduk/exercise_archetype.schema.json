@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "exercise_archetype.schema.json",
+  "title": "ExerciseArchetype",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "archetype_id",
+    "name",
+    "prompt_shape",
+    "input_type",
+    "response_type",
+    "primary_skill_ids",
+    "secondary_skill_ids",
+    "diagnostic_value",
+    "boredom_risk",
+    "shallow_pattern_risk",
+    "best_followup_correct",
+    "best_followup_incorrect",
+    "software_notes"
+  ],
+  "properties": {
+    "archetype_id": {
+      "type": "string",
+      "pattern": "^arch_[a-z0-9_]+$"
+    },
+    "name": {
+      "type": "string"
+    },
+    "prompt_shape": {
+      "type": "string"
+    },
+    "input_type": {
+      "type": "string"
+    },
+    "response_type": {
+      "type": "string"
+    },
+    "primary_skill_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^skill_[a-z0-9_]+$"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "secondary_skill_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^skill_[a-z0-9_]+$"
+      },
+      "uniqueItems": true
+    },
+    "diagnostic_value": {
+      "type": "string",
+      "enum": [
+        "high",
+        "medium",
+        "low"
+      ]
+    },
+    "boredom_risk": {
+      "type": "string",
+      "enum": [
+        "high",
+        "medium",
+        "low"
+      ]
+    },
+    "shallow_pattern_risk": {
+      "type": "string",
+      "enum": [
+        "high",
+        "medium",
+        "low"
+      ]
+    },
+    "best_followup_correct": {
+      "type": "string"
+    },
+    "best_followup_incorrect": {
+      "type": "string"
+    },
+    "software_notes": {
+      "type": "string"
+    }
+  }
+}

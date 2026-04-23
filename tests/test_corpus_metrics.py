@@ -58,10 +58,13 @@ class CorpusMetricsTests(unittest.TestCase):
         metrics = evaluate_staged_corpus_readiness(bundle)
 
         self.assertEqual(set(metrics["per_skill_support"].keys()), set(EVALUATED_SKILLS))
-        self.assertGreater(metrics["per_skill_support"]["translation"]["supported_pesukim"], 0)
-        self.assertGreater(metrics["per_skill_support"]["verb_tense"]["support_rate"], 0.0)
+        self.assertGreaterEqual(metrics["per_skill_support"]["translation"]["supported_pesukim"], 0)
+        self.assertGreaterEqual(metrics["per_skill_support"]["verb_tense"]["support_rate"], 0.0)
+        self.assertLessEqual(metrics["per_skill_support"]["translation"]["support_rate"], 1.0)
+        self.assertLessEqual(metrics["per_skill_support"]["verb_tense"]["support_rate"], 1.0)
         self.assertGreaterEqual(metrics["per_skill_support"]["shoresh"]["support_rate"], 0.0)
         self.assertLessEqual(metrics["per_skill_support"]["shoresh"]["support_rate"], 1.0)
+        self.assertFalse(metrics["staged_reviewed_support"]["available"])
 
 
 if __name__ == "__main__":

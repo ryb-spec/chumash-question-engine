@@ -1,0 +1,137 @@
+{
+  "generated_at_utc": "2026-04-22T16:16:44.771407+00:00",
+  "artifact_status": "insufficient_for_current_build",
+  "current_active_scope": "local_parsed_bereishis_1_1_to_3_8",
+  "sufficient_for_current_build_review": false,
+  "evidence_basis": {
+    "real_pilot_log_path": "data\\pilot\\runs\\pilot_session_events_20260422T113750Z_release-check.jsonl",
+    "real_served_export_evidence_present": true,
+    "current_build_post_cleanup_pilot_available": false,
+    "why_insufficient": [
+      "The available real pilot evidence is a single isolated session only.",
+      "That session predates the recent dikduk-foundation cleanup work, so it cannot by itself verify current live serving behavior."
+    ]
+  },
+  "historical_pilot_summary": {
+    "generated_with_current_code_at_utc": "2026-04-22T16:16:44.776181+00:00",
+    "review_window": {
+      "session_start_since_utc": null,
+      "session_start_until_utc": null,
+      "scope_id": null,
+      "trusted_active_scope_only": false,
+      "latest_session_only": true,
+      "latest_included_session_ids": [
+        "pilot-20260422T113856Z-6f1dbb84"
+      ],
+      "latest_included_session_started_at_utc": "2026-04-22T11:38:56.930709+00:00",
+      "source_event_count": 32,
+      "included_event_count": 32,
+      "excluded_event_count": 0,
+      "source_session_count": 1,
+      "included_session_count": 1,
+      "source_scope_ids": [
+        "local_parsed_bereishis_1_1_to_3_8"
+      ],
+      "included_scope_ids": [
+        "local_parsed_bereishis_1_1_to_3_8"
+      ],
+      "source_session_start_range_utc": {
+        "first": "2026-04-22T11:38:56.930709+00:00",
+        "last": "2026-04-22T11:38:56.930709+00:00"
+      },
+      "included_session_start_range_utc": {
+        "first": "2026-04-22T11:38:56.930709+00:00",
+        "last": "2026-04-22T11:38:56.930709+00:00"
+      },
+      "source_log_is_isolated_run": true,
+      "fresh_run_only": true,
+      "warnings": [
+        {
+          "code": "review_filters_applied",
+          "message": "This review artifact was generated with explicit filters. Use the included review_window metadata when interpreting counts."
+        },
+        {
+          "code": "latest_session_only_applied",
+          "message": "This review artifact is limited to the latest included session window (1 session)."
+        }
+      ]
+    },
+    "release_review_summary": {
+      "scope_id": "local_parsed_bereishis_1_1_to_3_8",
+      "runtime_scope_id": "local_parsed_bereishis_1_1_to_3_8",
+      "fresh_run_only": true,
+      "source_log_is_isolated_run": true,
+      "session_count": 1,
+      "substantive_session_count": 1,
+      "shell_session_count": 0,
+      "trusted_scope_violation_count": 0,
+      "trusted_scope_violations": [],
+      "served_without_validation_flag": 0,
+      "served_with_validation_flag": 15,
+      "unclear_flag_count": 2,
+      "top_unclear_items": [
+        {
+          "pasuk_ref": "Bereishis 3:3",
+          "question_type": "shoresh",
+          "question_text": "What is the shoresh of אָמַר?",
+          "selected_word": "אָמַר",
+          "repeat_count": 1,
+          "teacher_label": null
+        },
+        {
+          "pasuk_ref": "Bereishis 2:11",
+          "question_type": "translation",
+          "question_text": "What does הוּא mean?",
+          "selected_word": "הוּא",
+          "repeat_count": 1,
+          "teacher_label": null
+        }
+      ],
+      "top_served_question_families": {
+        "phrase_translation": 5,
+        "shoresh": 5,
+        "identify_tense": 3,
+        "prefix_level_1_identify_prefix_letter": 1,
+        "translation": 1
+      },
+      "top_pre_serve_rejection_codes": [
+        {
+          "code": "feature_repeat_blocked",
+          "count": 366
+        },
+        {
+          "code": "recent_surface_pattern_repeat",
+          "count": 16
+        },
+        {
+          "code": "diversity_redirect",
+          "count": 9
+        }
+      ],
+      "repeated_target_feel": {
+        "repeated_target_warning_count": 0,
+        "top_repeated_targets": []
+      },
+      "warnings": [
+        {
+          "code": "review_filters_applied",
+          "message": "This review artifact was generated with explicit filters. Use the included review_window metadata when interpreting counts."
+        },
+        {
+          "code": "latest_session_only_applied",
+          "message": "This review artifact is limited to the latest included session window (1 session)."
+        }
+      ],
+      "warning_codes": [
+        "latest_session_only_applied",
+        "review_filters_applied"
+      ],
+      "flagged_review_queue_count": 2
+    }
+  },
+  "notes": [
+    "This artifact uses real served/exported evidence only.",
+    "It should be read as historical pilot evidence for the active scope, not as fresh current-build confirmation.",
+    "A new isolated pilot is still needed to confirm whether the recent cleanup work changed live serving quality."
+  ]
+}

@@ -113,6 +113,41 @@ class PilotLoggingTests(unittest.TestCase):
         self.assertFalse(served_event["trusted_active_scope_session"])
         self.assertFalse(st.session_state.get("pilot_trusted_active_scope_session"))
 
+    def test_build_question_served_event_includes_dikduk_foundation_fields(self):
+        active_record = active_pesukim_records()[0]
+        question = {
+            "skill": "translation",
+            "question_type": "word_meaning",
+            "question": "What does this word mean?",
+            "selected_word": "בְּרֵאשִׁית",
+            "correct_answer": "in the beginning",
+            "pasuk": active_record["text"],
+            "pasuk_id": active_record["pasuk_id"],
+            "dikduk_foundation": {
+                "used": True,
+                "repeat_key": "vocab:vocab_bereshit",
+                "pattern_ids": ["pat_verb_future_tav_ambiguous"],
+                "rule_ids": ["rule_verb_future_tav_ambiguous"],
+                "confusion_pattern_ids": ["conf_tav_future_ambiguity"],
+                "weak_standalone_translation": False,
+                "ambiguous_without_context": True,
+            },
+        }
+
+        event = pilot_logging.build_question_served_event(
+            question,
+            session_id="pilot-test",
+            question_log_id="q-foundation",
+        )
+
+        self.assertTrue(event["dikduk_foundation_used"])
+        self.assertEqual(event["dikduk_foundation_repeat_key"], "vocab:vocab_bereshit")
+        self.assertEqual(event["dikduk_foundation_pattern_ids"], ["pat_verb_future_tav_ambiguous"])
+        self.assertEqual(event["dikduk_foundation_rule_ids"], ["rule_verb_future_tav_ambiguous"])
+        self.assertEqual(event["dikduk_foundation_confusion_pattern_ids"], ["conf_tav_future_ambiguity"])
+        self.assertFalse(event["dikduk_foundation_weak_standalone_translation"])
+        self.assertTrue(event["dikduk_foundation_ambiguous_without_context"])
+
     def test_mark_current_question_unclear_is_idempotent(self):
         st.session_state.pilot_session_id = "pilot-test"
         st.session_state.pilot_current_question_log_id = "question-1"
@@ -807,7 +842,7 @@ class PilotLoggingTests(unittest.TestCase):
         )
         self.assertEqual(
             export["summary"]["top_served_question_families"],
-            {"identify_tense": 1},
+            {"translation": 1, "identify_tense": 1},
         )
         self.assertEqual(
             export["summary"]["top_flagged_unclear_items"][0]["question_type"],
@@ -912,6 +947,192 @@ class PilotLoggingTests(unittest.TestCase):
         self.assertEqual(export["review_window"]["scope_id"], "local_parsed_bereishis_1_1_to_2_17")
         self.assertEqual(export["review_scope_id"], "local_parsed_bereishis_1_1_to_2_17")
         self.assertTrue(export["review_window"]["trusted_active_scope_only"])
+
+    def test_build_pilot_review_export_can_limit_to_latest_session_only(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            path = Path(tmpdir) / "pilot_events.jsonl"
+            events = [
+                {
+                    "event_type": "question_served",
+                    "timestamp_utc": "2026-04-21T10:00:00+00:00",
+                    "session_id": "pilot-old",
+                    "question_log_id": "q-old",
+                    "scope_id": "local_parsed_bereishis_1_1_to_2_25",
+                    "trusted_scope_mode": "trusted_active_scope",
+                    "trusted_active_scope_requested": True,
+                    "trusted_active_scope_session": True,
+                    "practice_type": "Learn Mode",
+                    "pasuk_ref": {"label": "Bereishis 1:1", "pasuk_id": "bereishis_1_1"},
+                    "scope_membership": "active_parsed",
+                    "question_type": "translation",
+                    "selected_word": "בְּרֵאשִׁית",
+                    "served_status": "served",
+                    "debug_pre_serve_validation_passed": True,
+                },
+                {
+                    "event_type": "question_served",
+                    "timestamp_utc": "2026-04-21T12:00:00+00:00",
+                    "session_id": "pilot-new",
+                    "question_log_id": "q-new",
+                    "scope_id": "local_parsed_bereishis_1_1_to_2_25",
+                    "trusted_scope_mode": "trusted_active_scope",
+                    "trusted_active_scope_requested": True,
+                    "trusted_active_scope_session": True,
+                    "practice_type": "Learn Mode",
+                    "pasuk_ref": {"label": "Bereishis 1:2", "pasuk_id": "bereishis_1_2"},
+                    "scope_membership": "active_parsed",
+                    "question_type": "shoresh",
+                    "selected_word": "וְהָאָרֶץ",
+                    "served_status": "served",
+                    "debug_pre_serve_validation_passed": True,
+                },
+            ]
+            path.write_text(
+                "\n".join(json.dumps(event, ensure_ascii=False) for event in events) + "\n",
+                encoding="utf-8",
+            )
+
+            export = pilot_logging.build_pilot_review_export(
+                max_sessions=5,
+                path=path,
+                latest_session_only=True,
+            )
+
+        self.assertEqual(export["session_count"], 1)
+        self.assertEqual(export["sessions"][0]["session_id"], "pilot-new")
+        self.assertTrue(export["review_window"]["latest_session_only"])
+        self.assertEqual(export["review_window"]["latest_included_session_ids"], ["pilot-new"])
+        warning_codes = {item["code"] for item in export["review_window"]["warnings"]}
+        self.assertIn("review_filters_applied", warning_codes)
+        self.assertIn("latest_session_only_applied", warning_codes)
+
+    def test_write_pilot_review_export_forwards_latest_session_only_filter(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            path = Path(tmpdir) / "pilot_events.jsonl"
+            output_path = Path(tmpdir) / "review.json"
+            events = [
+                {
+                    "event_type": "question_served",
+                    "timestamp_utc": "2026-04-21T10:00:00+00:00",
+                    "session_id": "pilot-old",
+                    "question_log_id": "q-old",
+                    "scope_id": "local_parsed_bereishis_1_1_to_3_8",
+                    "trusted_scope_mode": "trusted_active_scope",
+                    "trusted_active_scope_requested": True,
+                    "trusted_active_scope_session": True,
+                    "practice_type": "Learn Mode",
+                    "pasuk_ref": {"label": "Bereishis 1:1", "pasuk_id": "bereishis_1_1"},
+                    "scope_membership": "active_parsed",
+                    "question_type": "translation",
+                    "served_status": "served",
+                    "debug_pre_serve_validation_passed": True,
+                },
+                {
+                    "event_type": "question_served",
+                    "timestamp_utc": "2026-04-21T12:00:00+00:00",
+                    "session_id": "pilot-new",
+                    "question_log_id": "q-new",
+                    "scope_id": "local_parsed_bereishis_1_1_to_3_8",
+                    "trusted_scope_mode": "trusted_active_scope",
+                    "trusted_active_scope_requested": True,
+                    "trusted_active_scope_session": True,
+                    "practice_type": "Learn Mode",
+                    "pasuk_ref": {"label": "Bereishis 1:2", "pasuk_id": "bereishis_1_2"},
+                    "scope_membership": "active_parsed",
+                    "question_type": "shoresh",
+                    "served_status": "served",
+                    "debug_pre_serve_validation_passed": True,
+                },
+            ]
+            path.write_text(
+                "\n".join(json.dumps(event, ensure_ascii=False) for event in events) + "\n",
+                encoding="utf-8",
+            )
+
+            pilot_logging.write_pilot_review_export(
+                output_path,
+                path=path,
+                max_sessions=5,
+                latest_session_only=True,
+            )
+            export = json.loads(output_path.read_text(encoding="utf-8"))
+
+        self.assertEqual(export["session_count"], 1)
+        self.assertEqual(export["sessions"][0]["session_id"], "pilot-new")
+        self.assertTrue(export["review_window"]["latest_session_only"])
+
+    def test_build_pilot_review_export_includes_compact_release_review_summary(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            path = Path(tmpdir) / "pilot_events.jsonl"
+            events = [
+                {
+                    "event_type": "question_served",
+                    "timestamp_utc": "2026-04-21T12:00:00+00:00",
+                    "session_id": "pilot-a",
+                    "question_log_id": "q1",
+                    "scope_id": "local_parsed_bereishis_1_1_to_2_25",
+                    "trusted_scope_mode": "trusted_active_scope",
+                    "trusted_active_scope_requested": True,
+                    "trusted_active_scope_session": True,
+                    "practice_type": "Learn Mode",
+                    "pasuk_ref": {"label": "Bereishis 1:1", "pasuk_id": "bereishis_1_1"},
+                    "scope_membership": "active_parsed",
+                    "question_type": "translation",
+                    "selected_word": "אֱלֹקִים",
+                    "correct_answer": "God",
+                    "served_status": "served",
+                    "debug_pre_serve_validation_passed": True,
+                },
+                {
+                    "event_type": "question_served",
+                    "timestamp_utc": "2026-04-21T12:01:00+00:00",
+                    "session_id": "pilot-a",
+                    "question_log_id": "q2",
+                    "scope_id": "local_parsed_bereishis_1_1_to_2_25",
+                    "trusted_scope_mode": "trusted_active_scope",
+                    "trusted_active_scope_requested": True,
+                    "trusted_active_scope_session": True,
+                    "practice_type": "Learn Mode",
+                    "pasuk_ref": {"label": "Bereishis 1:2", "pasuk_id": "bereishis_1_2"},
+                    "scope_membership": "active_parsed",
+                    "question_type": "translation",
+                    "selected_word": "אֱלֹקִים",
+                    "correct_answer": "God",
+                    "served_status": "served",
+                    "debug_pre_serve_validation_passed": False,
+                    "debug_rejection_counts": {"recent_target_repeat": 2},
+                },
+                {
+                    "event_type": "question_flagged",
+                    "timestamp_utc": "2026-04-21T12:01:30+00:00",
+                    "session_id": "pilot-a",
+                    "question_log_id": "q2",
+                    "scope_id": "local_parsed_bereishis_1_1_to_2_25",
+                    "pasuk_ref": {"label": "Bereishis 1:2", "pasuk_id": "bereishis_1_2"},
+                    "scope_membership": "active_parsed",
+                    "question_type": "translation",
+                    "question_text": "What does אֱלֹקִים mean?",
+                    "selected_word": "אֱלֹקִים",
+                    "flag": "unclear",
+                },
+            ]
+            path.write_text(
+                "\n".join(json.dumps(event, ensure_ascii=False) for event in events) + "\n",
+                encoding="utf-8",
+            )
+
+            export = pilot_logging.build_pilot_review_export(max_sessions=5, path=path)
+
+        compact = export["release_review_summary"]
+        self.assertEqual(compact["scope_id"], "local_parsed_bereishis_1_1_to_2_25")
+        self.assertEqual(compact["session_count"], 1)
+        self.assertEqual(compact["served_without_validation_flag"], 1)
+        self.assertEqual(compact["unclear_flag_count"], 1)
+        self.assertEqual(compact["top_served_question_families"], {"translation": 2})
+        self.assertEqual(compact["top_pre_serve_rejection_codes"], [{"code": "recent_target_repeat", "count": 2}])
+        self.assertEqual(compact["repeated_target_feel"]["repeated_target_warning_count"], 1)
+        self.assertEqual(compact["repeated_target_feel"]["top_repeated_targets"][0]["target"], "אֱלֹקִים")
+        self.assertIn("source_log_not_isolated", compact["warning_codes"])
 
 
 if __name__ == "__main__":

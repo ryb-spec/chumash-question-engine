@@ -1,0 +1,3766 @@
+{
+  "metadata": {
+    "title": "Generated Torah Word Bank",
+    "version": "0.1",
+    "artifact_type": "word_bank",
+    "corpus_id": "parsed_bereishis_3_1_to_3_8_staged",
+    "status": "staged",
+    "pesukim_count": 8,
+    "sefer": "Bereishis",
+    "range": {
+      "start": {
+        "sefer": "Bereishis",
+        "perek": 3,
+        "pasuk": 1
+      },
+      "end": {
+        "sefer": "Bereishis",
+        "perek": 3,
+        "pasuk": 8
+      }
+    },
+    "source_files": [
+      "data/source/bereishis_3_1_to_3_8.json"
+    ],
+    "declared_source_range": "3:1-3:8"
+  },
+  "words": {
+    "וְהַנָּחָשׁ": [
+      {
+        "surface": "וְהַנָּחָשׁ",
+        "normalized": "והנחש",
+        "lemma": "נחש",
+        "shoresh": null,
+        "part_of_speech": "noun",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "animal",
+        "role_hint": "subject_candidate",
+        "entity_type": "animal",
+        "group": "animal",
+        "prefixes": [
+          {
+            "form": "ו",
+            "type": "conjunction",
+            "translation": "and"
+          },
+          {
+            "form": "ה",
+            "type": "definite_article",
+            "translation": "the"
+          }
+        ],
+        "suffixes": [],
+        "translation_literal": "and the snake",
+        "translation_context": "and the snake",
+        "confidence": "surface_override",
+        "source_refs": [
+          "bereishis_3_1"
+        ],
+        "prefix": "ו",
+        "prefix_meaning": "and",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "הָיָה": [
+      {
+        "surface": "הָיָה",
+        "normalized": "היה",
+        "lemma": "היה",
+        "shoresh": "היה",
+        "part_of_speech": "verb",
+        "binyan": "qal",
+        "tense": "past",
+        "person": "3",
+        "number": "singular",
+        "gender": "masculine",
+        "semantic_group": "action",
+        "role_hint": "unknown",
+        "entity_type": "verb",
+        "group": "unknown",
+        "prefixes": [],
+        "suffixes": [],
+        "translation_literal": "was",
+        "translation_context": "was",
+        "confidence": "rule_based",
+        "source_refs": [
+          "bereishis_3_1"
+        ],
+        "prefix": "",
+        "prefix_meaning": "",
+        "suffix": "",
+        "suffix_meaning": ""
+      },
+      {
+        "surface": "הָיָה",
+        "normalized": "היה",
+        "lemma": "היה",
+        "shoresh": null,
+        "part_of_speech": "unknown",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "unknown",
+        "role_hint": "unknown",
+        "entity_type": "unknown",
+        "group": "unknown",
+        "prefixes": [
+          {
+            "form": "ה",
+            "type": "definite_article",
+            "translation": "the"
+          }
+        ],
+        "suffixes": [],
+        "translation_literal": "הָיָה",
+        "translation_context": "הָיָה",
+        "confidence": "generated_alternate",
+        "source_refs": [
+          "bereishis_3_1"
+        ],
+        "prefix": "",
+        "prefix_meaning": "",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "עָרוּם": [
+      {
+        "surface": "עָרוּם",
+        "normalized": "ערום",
+        "lemma": "ערום",
+        "shoresh": null,
+        "part_of_speech": "adjective",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "descriptor",
+        "role_hint": "descriptor",
+        "entity_type": "adjective",
+        "group": "descriptor",
+        "prefixes": [],
+        "suffixes": [],
+        "translation_literal": "crafty",
+        "translation_context": "crafty",
+        "confidence": "surface_override",
+        "source_refs": [
+          "bereishis_3_1"
+        ],
+        "prefix": "",
+        "prefix_meaning": "",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "מִכֹּל": [
+      {
+        "surface": "מִכֹּל",
+        "normalized": "מכל",
+        "lemma": "כל",
+        "shoresh": null,
+        "part_of_speech": "preposition",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "abstract",
+        "role_hint": "descriptor",
+        "entity_type": "grammatical_particle",
+        "group": "helper",
+        "prefixes": [
+          {
+            "form": "מ",
+            "type": "preposition_m",
+            "translation": "from"
+          }
+        ],
+        "suffixes": [],
+        "translation_literal": "from all",
+        "translation_context": "from all",
+        "confidence": "surface_override",
+        "source_refs": [
+          "bereishis_3_1"
+        ],
+        "prefix": "מ",
+        "prefix_meaning": "from",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "חַיַּת": [
+      {
+        "surface": "חַיַּת",
+        "normalized": "חית",
+        "lemma": "חיה",
+        "shoresh": null,
+        "part_of_speech": "noun",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "animal",
+        "role_hint": "object_candidate",
+        "entity_type": "animal",
+        "group": "animal",
+        "prefixes": [],
+        "suffixes": [],
+        "translation_literal": "animal of",
+        "translation_context": "animal of",
+        "confidence": "surface_override",
+        "source_refs": [
+          "bereishis_3_1"
+        ],
+        "prefix": "",
+        "prefix_meaning": "",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "הַשָּׂדֶה": [
+      {
+        "surface": "הַשָּׂדֶה",
+        "normalized": "השדה",
+        "lemma": "שדה",
+        "shoresh": null,
+        "part_of_speech": "noun",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "place",
+        "role_hint": "location_candidate",
+        "entity_type": "place",
+        "group": "place",
+        "prefixes": [
+          {
+            "form": "ה",
+            "type": "definite_article",
+            "translation": "the"
+          }
+        ],
+        "suffixes": [],
+        "translation_literal": "the field",
+        "translation_context": "the field",
+        "confidence": "surface_override",
+        "source_refs": [
+          "bereishis_3_1"
+        ],
+        "prefix": "ה",
+        "prefix_meaning": "the",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "אֲשֶׁר": [
+      {
+        "surface": "אֲשֶׁר",
+        "normalized": "אשר",
+        "lemma": "אשר",
+        "shoresh": null,
+        "part_of_speech": "particle",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "abstract",
+        "role_hint": "descriptor",
+        "entity_type": "grammatical_particle",
+        "group": "helper",
+        "prefixes": [],
+        "suffixes": [],
+        "translation_literal": "that / which",
+        "translation_context": "that / which",
+        "confidence": "surface_override",
+        "source_refs": [
+          "bereishis_3_1",
+          "bereishis_3_3"
+        ],
+        "prefix": "",
+        "prefix_meaning": "",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "עָשָׂה": [
+      {
+        "surface": "עָשָׂה",
+        "normalized": "עשה",
+        "lemma": "עשה",
+        "shoresh": "עשה",
+        "part_of_speech": "verb",
+        "binyan": "qal",
+        "tense": "past",
+        "person": "3",
+        "number": "singular",
+        "gender": "masculine",
+        "semantic_group": "action",
+        "role_hint": "unknown",
+        "entity_type": "verb",
+        "group": "unknown",
+        "prefixes": [],
+        "suffixes": [],
+        "translation_literal": "made",
+        "translation_context": "made",
+        "confidence": "rule_based",
+        "source_refs": [
+          "bereishis_3_1"
+        ],
+        "prefix": "",
+        "prefix_meaning": "",
+        "suffix": "",
+        "suffix_meaning": ""
+      },
+      {
+        "surface": "עָשָׂה",
+        "normalized": "עשה",
+        "lemma": "עשה",
+        "shoresh": null,
+        "part_of_speech": "unknown",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "unknown",
+        "role_hint": "unknown",
+        "entity_type": "unknown",
+        "group": "unknown",
+        "prefixes": [],
+        "suffixes": [],
+        "translation_literal": "עָשָׂה",
+        "translation_context": "עָשָׂה",
+        "confidence": "generated_alternate",
+        "source_refs": [
+          "bereishis_3_1"
+        ],
+        "prefix": "",
+        "prefix_meaning": "",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "יְהוָה": [
+      {
+        "surface": "יְהוָה",
+        "normalized": "יהוה",
+        "lemma": "יהוה",
+        "shoresh": null,
+        "part_of_speech": "proper_noun",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "divine",
+        "role_hint": "subject_candidate",
+        "entity_type": "divine_name",
+        "group": "divine",
+        "prefixes": [],
+        "suffixes": [],
+        "translation_literal": "the LORD",
+        "translation_context": "the LORD",
+        "confidence": "surface_override",
+        "source_refs": [
+          "bereishis_3_1",
+          "bereishis_3_8"
+        ],
+        "prefix": "",
+        "prefix_meaning": "",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "אֱלֹהִים": [
+      {
+        "surface": "אֱלֹהִים",
+        "normalized": "אלהים",
+        "lemma": "אלהים",
+        "shoresh": null,
+        "part_of_speech": "proper_noun",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "divine",
+        "role_hint": "subject_candidate",
+        "entity_type": "divine_name",
+        "group": "divine",
+        "prefixes": [],
+        "suffixes": [],
+        "translation_literal": "God",
+        "translation_context": "God",
+        "confidence": "surface_override",
+        "source_refs": [
+          "bereishis_3_1",
+          "bereishis_3_3",
+          "bereishis_3_5",
+          "bereishis_3_8"
+        ],
+        "prefix": "",
+        "prefix_meaning": "",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "וַיֹּאמֶר": [
+      {
+        "surface": "וַיֹּאמֶר",
+        "normalized": "ויאמר",
+        "lemma": "אמר",
+        "shoresh": "אמר",
+        "part_of_speech": "verb",
+        "binyan": "qal",
+        "tense": "vav_consecutive_past",
+        "person": "3",
+        "number": "singular",
+        "gender": "masculine",
+        "semantic_group": "action",
+        "role_hint": "unknown",
+        "entity_type": "verb",
+        "group": "unknown",
+        "prefixes": [
+          {
+            "form": "ו",
+            "type": "verb_prefix_vav_consecutive",
+            "translation": "and"
+          }
+        ],
+        "suffixes": [],
+        "translation_literal": "and he said",
+        "translation_context": "said",
+        "confidence": "rule_based",
+        "source_refs": [
+          "bereishis_3_1",
+          "bereishis_3_4"
+        ],
+        "prefix": "ו",
+        "prefix_meaning": "and",
+        "suffix": "",
+        "suffix_meaning": ""
+      },
+      {
+        "surface": "וַיֹּאמֶר",
+        "normalized": "ויאמר",
+        "lemma": "ויאמר",
+        "shoresh": null,
+        "part_of_speech": "unknown",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "unknown",
+        "role_hint": "unknown",
+        "entity_type": "unknown",
+        "group": "unknown",
+        "prefixes": [
+          {
+            "form": "ו",
+            "type": "conjunction",
+            "translation": "and"
+          }
+        ],
+        "suffixes": [],
+        "translation_literal": "וַיֹּאמֶר",
+        "translation_context": "וַיֹּאמֶר",
+        "confidence": "generated_alternate",
+        "source_refs": [
+          "bereishis_3_1",
+          "bereishis_3_4"
+        ],
+        "prefix": "ו",
+        "prefix_meaning": "and",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "אֶל": [
+      {
+        "surface": "אֶל",
+        "normalized": "אל",
+        "lemma": "אל",
+        "shoresh": null,
+        "part_of_speech": "preposition",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "place",
+        "role_hint": "location_candidate",
+        "entity_type": "grammatical_particle",
+        "group": "helper",
+        "prefixes": [],
+        "suffixes": [],
+        "translation_literal": "to",
+        "translation_context": "to",
+        "confidence": "surface_override",
+        "source_refs": [
+          "bereishis_3_1",
+          "bereishis_3_2",
+          "bereishis_3_4"
+        ],
+        "prefix": "",
+        "prefix_meaning": "",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "הָאִשָּׁה": [
+      {
+        "surface": "הָאִשָּׁה",
+        "normalized": "האשה",
+        "lemma": "אשה",
+        "shoresh": null,
+        "part_of_speech": "noun",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": "feminine",
+        "semantic_group": "person",
+        "role_hint": "subject_candidate",
+        "entity_type": "person",
+        "group": "person",
+        "prefixes": [
+          {
+            "form": "ה",
+            "type": "definite_article",
+            "translation": "the"
+          }
+        ],
+        "suffixes": [],
+        "translation_literal": "the woman",
+        "translation_context": "the woman",
+        "confidence": "surface_override",
+        "source_refs": [
+          "bereishis_3_1",
+          "bereishis_3_2",
+          "bereishis_3_4",
+          "bereishis_3_6"
+        ],
+        "prefix": "ה",
+        "prefix_meaning": "the",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "אַף": [
+      {
+        "surface": "אַף",
+        "normalized": "אף",
+        "lemma": "אף",
+        "shoresh": null,
+        "part_of_speech": "particle",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "abstract",
+        "role_hint": "descriptor",
+        "entity_type": "grammatical_particle",
+        "group": "helper",
+        "prefixes": [],
+        "suffixes": [],
+        "translation_literal": "indeed",
+        "translation_context": "indeed",
+        "confidence": "surface_override",
+        "source_refs": [
+          "bereishis_3_1"
+        ],
+        "prefix": "",
+        "prefix_meaning": "",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "כִּי": [
+      {
+        "surface": "כִּי",
+        "normalized": "כי",
+        "lemma": "כי",
+        "shoresh": null,
+        "part_of_speech": "particle",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "abstract",
+        "role_hint": "descriptor",
+        "entity_type": "grammatical_particle",
+        "group": "helper",
+        "prefixes": [],
+        "suffixes": [],
+        "translation_literal": "that / because",
+        "translation_context": "that / because",
+        "confidence": "surface_override",
+        "source_refs": [
+          "bereishis_3_1",
+          "bereishis_3_5",
+          "bereishis_3_6",
+          "bereishis_3_7"
+        ],
+        "prefix": "",
+        "prefix_meaning": "",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "אָמַר": [
+      {
+        "surface": "אָמַר",
+        "normalized": "אמר",
+        "lemma": "אמר",
+        "shoresh": "אמר",
+        "part_of_speech": "verb",
+        "binyan": "qal",
+        "tense": "past",
+        "person": "3",
+        "number": "singular",
+        "gender": "masculine",
+        "semantic_group": "action",
+        "role_hint": "unknown",
+        "entity_type": "verb",
+        "group": "unknown",
+        "prefixes": [],
+        "suffixes": [],
+        "translation_literal": "he said",
+        "translation_context": "said",
+        "confidence": "rule_based",
+        "source_refs": [
+          "bereishis_3_1",
+          "bereishis_3_3"
+        ],
+        "prefix": "",
+        "prefix_meaning": "",
+        "suffix": "",
+        "suffix_meaning": ""
+      },
+      {
+        "surface": "אָמַר",
+        "normalized": "אמר",
+        "lemma": "אמר",
+        "shoresh": null,
+        "part_of_speech": "unknown",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "unknown",
+        "role_hint": "unknown",
+        "entity_type": "unknown",
+        "group": "unknown",
+        "prefixes": [],
+        "suffixes": [],
+        "translation_literal": "אָמַר",
+        "translation_context": "אָמַר",
+        "confidence": "generated_alternate",
+        "source_refs": [
+          "bereishis_3_1",
+          "bereishis_3_3"
+        ],
+        "prefix": "",
+        "prefix_meaning": "",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "לֹא": [
+      {
+        "surface": "לֹא",
+        "normalized": "לא",
+        "lemma": "לא",
+        "shoresh": null,
+        "part_of_speech": "particle",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "abstract",
+        "role_hint": "descriptor",
+        "entity_type": "grammatical_particle",
+        "group": "helper",
+        "prefixes": [],
+        "suffixes": [],
+        "translation_literal": "not",
+        "translation_context": "not",
+        "confidence": "surface_override",
+        "source_refs": [
+          "bereishis_3_1",
+          "bereishis_3_3",
+          "bereishis_3_4"
+        ],
+        "prefix": "",
+        "prefix_meaning": "",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "תֹאכְלוּ": [
+      {
+        "surface": "תֹאכְלוּ",
+        "normalized": "תאכלו",
+        "lemma": "אכל",
+        "shoresh": "אכל",
+        "part_of_speech": "verb",
+        "binyan": "qal",
+        "tense": "future",
+        "person": "2",
+        "number": "plural",
+        "gender": "masculine",
+        "semantic_group": "action",
+        "role_hint": "unknown",
+        "entity_type": "verb",
+        "group": "unknown",
+        "prefixes": [
+          {
+            "form": "ת",
+            "type": "verb_prefix_future",
+            "translation": "future / jussive marker"
+          }
+        ],
+        "suffixes": [],
+        "translation_literal": "you will eat",
+        "translation_context": "you will eat",
+        "confidence": "rule_based",
+        "source_refs": [
+          "bereishis_3_1",
+          "bereishis_3_3"
+        ],
+        "prefix": "ת",
+        "prefix_meaning": "future / jussive marker",
+        "suffix": "",
+        "suffix_meaning": ""
+      },
+      {
+        "surface": "תֹאכְלוּ",
+        "normalized": "תאכלו",
+        "lemma": "תאכלו",
+        "shoresh": null,
+        "part_of_speech": "unknown",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "unknown",
+        "role_hint": "unknown",
+        "entity_type": "unknown",
+        "group": "unknown",
+        "prefixes": [],
+        "suffixes": [],
+        "translation_literal": "תֹאכְלוּ",
+        "translation_context": "תֹאכְלוּ",
+        "confidence": "generated_alternate",
+        "source_refs": [
+          "bereishis_3_1",
+          "bereishis_3_3"
+        ],
+        "prefix": "ת",
+        "prefix_meaning": "future / jussive marker",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "עֵץ": [
+      {
+        "surface": "עֵץ",
+        "normalized": "עץ",
+        "lemma": "עץ",
+        "shoresh": null,
+        "part_of_speech": "noun",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "object",
+        "role_hint": "object_candidate",
+        "entity_type": "plant",
+        "group": "object",
+        "prefixes": [],
+        "suffixes": [],
+        "translation_literal": "a tree",
+        "translation_context": "a tree",
+        "confidence": "surface_override",
+        "source_refs": [
+          "bereishis_3_1",
+          "bereishis_3_2",
+          "bereishis_3_8"
+        ],
+        "prefix": "",
+        "prefix_meaning": "",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "הַגָּן": [
+      {
+        "surface": "הַגָּן",
+        "normalized": "הגן",
+        "lemma": "גן",
+        "shoresh": null,
+        "part_of_speech": "noun",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "place",
+        "role_hint": "location_candidate",
+        "entity_type": "place",
+        "group": "place",
+        "prefixes": [
+          {
+            "form": "ה",
+            "type": "definite_article",
+            "translation": "the"
+          }
+        ],
+        "suffixes": [],
+        "translation_literal": "the garden",
+        "translation_context": "the garden",
+        "confidence": "surface_override",
+        "source_refs": [
+          "bereishis_3_1",
+          "bereishis_3_2",
+          "bereishis_3_3",
+          "bereishis_3_8"
+        ],
+        "prefix": "ה",
+        "prefix_meaning": "the",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "וַתֹּאמֶר": [
+      {
+        "surface": "וַתֹּאמֶר",
+        "normalized": "ותאמר",
+        "lemma": "אמר",
+        "shoresh": "אמר",
+        "part_of_speech": "verb",
+        "binyan": "qal",
+        "tense": "vav_consecutive_past",
+        "person": "3",
+        "number": "singular",
+        "gender": "feminine",
+        "semantic_group": "action",
+        "role_hint": "unknown",
+        "entity_type": "verb",
+        "group": "unknown",
+        "prefixes": [
+          {
+            "form": "ו",
+            "type": "verb_prefix_vav_consecutive",
+            "translation": "and"
+          }
+        ],
+        "suffixes": [],
+        "translation_literal": "and she said",
+        "translation_context": "said",
+        "confidence": "rule_based",
+        "source_refs": [
+          "bereishis_3_2"
+        ],
+        "prefix": "ו",
+        "prefix_meaning": "and",
+        "suffix": "",
+        "suffix_meaning": ""
+      },
+      {
+        "surface": "וַתֹּאמֶר",
+        "normalized": "ותאמר",
+        "lemma": "ותאמר",
+        "shoresh": null,
+        "part_of_speech": "unknown",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "unknown",
+        "role_hint": "unknown",
+        "entity_type": "unknown",
+        "group": "unknown",
+        "prefixes": [
+          {
+            "form": "ו",
+            "type": "conjunction",
+            "translation": "and"
+          }
+        ],
+        "suffixes": [],
+        "translation_literal": "וַתֹּאמֶר",
+        "translation_context": "וַתֹּאמֶר",
+        "confidence": "generated_alternate",
+        "source_refs": [
+          "bereishis_3_2"
+        ],
+        "prefix": "ו",
+        "prefix_meaning": "and",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "הַנָּחָשׁ": [
+      {
+        "surface": "הַנָּחָשׁ",
+        "normalized": "הנחש",
+        "lemma": "נחש",
+        "shoresh": null,
+        "part_of_speech": "noun",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "animal",
+        "role_hint": "subject_candidate",
+        "entity_type": "animal",
+        "group": "animal",
+        "prefixes": [
+          {
+            "form": "ה",
+            "type": "definite_article",
+            "translation": "the"
+          }
+        ],
+        "suffixes": [],
+        "translation_literal": "the snake",
+        "translation_context": "the snake",
+        "confidence": "surface_override",
+        "source_refs": [
+          "bereishis_3_2",
+          "bereishis_3_4"
+        ],
+        "prefix": "ה",
+        "prefix_meaning": "the",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "מִפְּרִי": [
+      {
+        "surface": "מִפְּרִי",
+        "normalized": "מפרי",
+        "lemma": "פרי",
+        "shoresh": null,
+        "part_of_speech": "noun",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "food",
+        "role_hint": "object_candidate",
+        "entity_type": "food",
+        "group": "food",
+        "prefixes": [
+          {
+            "form": "מ",
+            "type": "preposition_m",
+            "translation": "from"
+          }
+        ],
+        "suffixes": [],
+        "translation_literal": "from fruit of",
+        "translation_context": "from fruit of",
+        "confidence": "surface_override",
+        "source_refs": [
+          "bereishis_3_2"
+        ],
+        "prefix": "מ",
+        "prefix_meaning": "from",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "נֹאכֵל": [
+      {
+        "surface": "נֹאכֵל",
+        "normalized": "נאכל",
+        "lemma": "אכל",
+        "shoresh": "אכל",
+        "part_of_speech": "verb",
+        "binyan": "qal",
+        "tense": "future",
+        "person": "1",
+        "number": "plural",
+        "gender": null,
+        "semantic_group": "action",
+        "role_hint": "unknown",
+        "entity_type": "verb",
+        "group": "unknown",
+        "prefixes": [
+          {
+            "form": "נ",
+            "type": "verb_prefix_future",
+            "translation": "future / jussive marker"
+          }
+        ],
+        "suffixes": [],
+        "translation_literal": "we will eat",
+        "translation_context": "we will eat",
+        "confidence": "rule_based",
+        "source_refs": [
+          "bereishis_3_2"
+        ],
+        "prefix": "נ",
+        "prefix_meaning": "future / jussive marker",
+        "suffix": "",
+        "suffix_meaning": ""
+      },
+      {
+        "surface": "נֹאכֵל",
+        "normalized": "נאכל",
+        "lemma": "נאכל",
+        "shoresh": null,
+        "part_of_speech": "unknown",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "unknown",
+        "role_hint": "unknown",
+        "entity_type": "unknown",
+        "group": "unknown",
+        "prefixes": [],
+        "suffixes": [],
+        "translation_literal": "נֹאכֵל",
+        "translation_context": "נֹאכֵל",
+        "confidence": "generated_alternate",
+        "source_refs": [
+          "bereishis_3_2"
+        ],
+        "prefix": "נ",
+        "prefix_meaning": "future / jussive marker",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "וּמִפְּרִי": [
+      {
+        "surface": "וּמִפְּרִי",
+        "normalized": "ומפרי",
+        "lemma": "פרי",
+        "shoresh": null,
+        "part_of_speech": "noun",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "food",
+        "role_hint": "object_candidate",
+        "entity_type": "food",
+        "group": "food",
+        "prefixes": [
+          {
+            "form": "ו",
+            "type": "conjunction",
+            "translation": "and"
+          },
+          {
+            "form": "מ",
+            "type": "preposition_m",
+            "translation": "from"
+          }
+        ],
+        "suffixes": [],
+        "translation_literal": "and from fruit of",
+        "translation_context": "and from fruit of",
+        "confidence": "surface_override",
+        "source_refs": [
+          "bereishis_3_3"
+        ],
+        "prefix": "ו",
+        "prefix_meaning": "and",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "הָעֵץ": [
+      {
+        "surface": "הָעֵץ",
+        "normalized": "העץ",
+        "lemma": "עץ",
+        "shoresh": null,
+        "part_of_speech": "noun",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "object",
+        "role_hint": "object_candidate",
+        "entity_type": "plant",
+        "group": "object",
+        "prefixes": [
+          {
+            "form": "ה",
+            "type": "definite_article",
+            "translation": "the"
+          }
+        ],
+        "suffixes": [],
+        "translation_literal": "the tree",
+        "translation_context": "the tree",
+        "confidence": "surface_override",
+        "source_refs": [
+          "bereishis_3_3",
+          "bereishis_3_6"
+        ],
+        "prefix": "ה",
+        "prefix_meaning": "the",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "בְּתוֹךְ": [
+      {
+        "surface": "בְּתוֹךְ",
+        "normalized": "בתוך",
+        "lemma": "תוך",
+        "shoresh": null,
+        "part_of_speech": "preposition",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "place",
+        "role_hint": "location_candidate",
+        "entity_type": "grammatical_particle",
+        "group": "helper",
+        "prefixes": [
+          {
+            "form": "ב",
+            "type": "preposition_b",
+            "translation": "in / with"
+          }
+        ],
+        "suffixes": [],
+        "translation_literal": "inside",
+        "translation_context": "inside",
+        "confidence": "surface_override",
+        "source_refs": [
+          "bereishis_3_3",
+          "bereishis_3_8"
+        ],
+        "prefix": "ב",
+        "prefix_meaning": "in / with",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "מִמֶּנּוּ": [
+      {
+        "surface": "מִמֶּנּוּ",
+        "normalized": "ממנו",
+        "lemma": "ממנו",
+        "shoresh": null,
+        "part_of_speech": "preposition",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "abstract",
+        "role_hint": "descriptor",
+        "entity_type": "grammatical_particle",
+        "group": "helper",
+        "prefixes": [
+          {
+            "form": "מ",
+            "type": "preposition_m",
+            "translation": "from"
+          }
+        ],
+        "suffixes": [],
+        "translation_literal": "from it",
+        "translation_context": "from it",
+        "confidence": "surface_override",
+        "source_refs": [
+          "bereishis_3_3",
+          "bereishis_3_5"
+        ],
+        "prefix": "מ",
+        "prefix_meaning": "from",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "וְלֹא": [
+      {
+        "surface": "וְלֹא",
+        "normalized": "ולא",
+        "lemma": "לא",
+        "shoresh": null,
+        "part_of_speech": "particle",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "abstract",
+        "role_hint": "descriptor",
+        "entity_type": "grammatical_particle",
+        "group": "helper",
+        "prefixes": [
+          {
+            "form": "ו",
+            "type": "conjunction",
+            "translation": "and"
+          }
+        ],
+        "suffixes": [],
+        "translation_literal": "and not",
+        "translation_context": "and not",
+        "confidence": "surface_override",
+        "source_refs": [
+          "bereishis_3_3"
+        ],
+        "prefix": "ו",
+        "prefix_meaning": "and",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "תִגְּעוּ": [
+      {
+        "surface": "תִגְּעוּ",
+        "normalized": "תגעו",
+        "lemma": "נגע",
+        "shoresh": "נגע",
+        "part_of_speech": "verb",
+        "binyan": "qal",
+        "tense": "future",
+        "person": "2",
+        "number": "plural",
+        "gender": "masculine",
+        "semantic_group": "action",
+        "role_hint": "unknown",
+        "entity_type": "verb",
+        "group": "unknown",
+        "prefixes": [
+          {
+            "form": "ת",
+            "type": "verb_prefix_future",
+            "translation": "future / jussive marker"
+          }
+        ],
+        "suffixes": [],
+        "translation_literal": "you will touch",
+        "translation_context": "you will touch",
+        "confidence": "rule_based",
+        "source_refs": [
+          "bereishis_3_3"
+        ],
+        "prefix": "ת",
+        "prefix_meaning": "future / jussive marker",
+        "suffix": "",
+        "suffix_meaning": ""
+      },
+      {
+        "surface": "תִגְּעוּ",
+        "normalized": "תגעו",
+        "lemma": "תגעו",
+        "shoresh": null,
+        "part_of_speech": "unknown",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "unknown",
+        "role_hint": "unknown",
+        "entity_type": "unknown",
+        "group": "unknown",
+        "prefixes": [],
+        "suffixes": [],
+        "translation_literal": "תִגְּעוּ",
+        "translation_context": "תִגְּעוּ",
+        "confidence": "generated_alternate",
+        "source_refs": [
+          "bereishis_3_3"
+        ],
+        "prefix": "ת",
+        "prefix_meaning": "future / jussive marker",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "בּוֹ": [
+      {
+        "surface": "בּוֹ",
+        "normalized": "בו",
+        "lemma": "בו",
+        "shoresh": null,
+        "part_of_speech": "preposition",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "abstract",
+        "role_hint": "descriptor",
+        "entity_type": "grammatical_particle",
+        "group": "helper",
+        "prefixes": [
+          {
+            "form": "ב",
+            "type": "preposition_b",
+            "translation": "in / with"
+          }
+        ],
+        "suffixes": [],
+        "translation_literal": "in it",
+        "translation_context": "in it",
+        "confidence": "surface_override",
+        "source_refs": [
+          "bereishis_3_3"
+        ],
+        "prefix": "ב",
+        "prefix_meaning": "in / with",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "פֶּן": [
+      {
+        "surface": "פֶּן",
+        "normalized": "פן",
+        "lemma": "פן",
+        "shoresh": null,
+        "part_of_speech": "particle",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "abstract",
+        "role_hint": "descriptor",
+        "entity_type": "grammatical_particle",
+        "group": "helper",
+        "prefixes": [],
+        "suffixes": [],
+        "translation_literal": "lest",
+        "translation_context": "lest",
+        "confidence": "surface_override",
+        "source_refs": [
+          "bereishis_3_3"
+        ],
+        "prefix": "",
+        "prefix_meaning": "",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "תְּמֻתוּן": [
+      {
+        "surface": "תְּמֻתוּן",
+        "normalized": "תמתון",
+        "lemma": "מות",
+        "shoresh": "מות",
+        "part_of_speech": "verb",
+        "binyan": "qal",
+        "tense": "future",
+        "person": "2",
+        "number": "plural",
+        "gender": "masculine",
+        "semantic_group": "action",
+        "role_hint": "unknown",
+        "entity_type": "verb",
+        "group": "unknown",
+        "prefixes": [
+          {
+            "form": "ת",
+            "type": "verb_prefix_future",
+            "translation": "future / jussive marker"
+          }
+        ],
+        "suffixes": [],
+        "translation_literal": "you will die",
+        "translation_context": "you will die",
+        "confidence": "rule_based",
+        "source_refs": [
+          "bereishis_3_3",
+          "bereishis_3_4"
+        ],
+        "prefix": "ת",
+        "prefix_meaning": "future / jussive marker",
+        "suffix": "",
+        "suffix_meaning": ""
+      },
+      {
+        "surface": "תְּמֻתוּן",
+        "normalized": "תמתון",
+        "lemma": "תמתון",
+        "shoresh": null,
+        "part_of_speech": "unknown",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "unknown",
+        "role_hint": "unknown",
+        "entity_type": "unknown",
+        "group": "unknown",
+        "prefixes": [],
+        "suffixes": [],
+        "translation_literal": "תְּמֻתוּן",
+        "translation_context": "תְּמֻתוּן",
+        "confidence": "generated_alternate",
+        "source_refs": [
+          "bereishis_3_3",
+          "bereishis_3_4"
+        ],
+        "prefix": "ת",
+        "prefix_meaning": "future / jussive marker",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "מוֹת": [
+      {
+        "surface": "מוֹת",
+        "normalized": "מות",
+        "lemma": "מות",
+        "shoresh": "מות",
+        "part_of_speech": "verb",
+        "binyan": "qal",
+        "tense": "infinitive",
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "action",
+        "role_hint": "unknown",
+        "entity_type": "verb",
+        "group": "unknown",
+        "prefixes": [],
+        "suffixes": [],
+        "translation_literal": "to die",
+        "translation_context": "surely die",
+        "confidence": "rule_based",
+        "source_refs": [
+          "bereishis_3_4"
+        ],
+        "prefix": "",
+        "prefix_meaning": "",
+        "suffix": "",
+        "suffix_meaning": ""
+      },
+      {
+        "surface": "מוֹת",
+        "normalized": "מות",
+        "lemma": "מות",
+        "shoresh": null,
+        "part_of_speech": "unknown",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "unknown",
+        "role_hint": "unknown",
+        "entity_type": "unknown",
+        "group": "unknown",
+        "prefixes": [],
+        "suffixes": [],
+        "translation_literal": "מוֹת",
+        "translation_context": "מוֹת",
+        "confidence": "generated_alternate",
+        "source_refs": [
+          "bereishis_3_4"
+        ],
+        "prefix": "",
+        "prefix_meaning": "",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "יֹדֵעַ": [
+      {
+        "surface": "יֹדֵעַ",
+        "normalized": "ידע",
+        "lemma": "ידע",
+        "shoresh": "ידע",
+        "part_of_speech": "verb",
+        "binyan": "qal",
+        "tense": "present",
+        "person": "3",
+        "number": "singular",
+        "gender": "masculine",
+        "semantic_group": "action",
+        "role_hint": "unknown",
+        "entity_type": "verb",
+        "group": "unknown",
+        "prefixes": [],
+        "suffixes": [],
+        "translation_literal": "knowing",
+        "translation_context": "knows",
+        "confidence": "rule_based",
+        "source_refs": [
+          "bereishis_3_5"
+        ],
+        "prefix": "",
+        "prefix_meaning": "",
+        "suffix": "",
+        "suffix_meaning": ""
+      },
+      {
+        "surface": "יֹדֵעַ",
+        "normalized": "ידע",
+        "lemma": "ידע",
+        "shoresh": null,
+        "part_of_speech": "unknown",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "unknown",
+        "role_hint": "unknown",
+        "entity_type": "unknown",
+        "group": "unknown",
+        "prefixes": [],
+        "suffixes": [],
+        "translation_literal": "יֹדֵעַ",
+        "translation_context": "יֹדֵעַ",
+        "confidence": "generated_alternate",
+        "source_refs": [
+          "bereishis_3_5"
+        ],
+        "prefix": "",
+        "prefix_meaning": "",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "בְּיוֹם": [
+      {
+        "surface": "בְּיוֹם",
+        "normalized": "ביום",
+        "lemma": "יום",
+        "shoresh": null,
+        "part_of_speech": "noun",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "time",
+        "role_hint": "time_candidate",
+        "entity_type": "time",
+        "group": "time",
+        "prefixes": [
+          {
+            "form": "ב",
+            "type": "preposition_b",
+            "translation": "in / with"
+          }
+        ],
+        "suffixes": [],
+        "translation_literal": "on the day",
+        "translation_context": "on the day",
+        "confidence": "surface_override",
+        "source_refs": [
+          "bereishis_3_5"
+        ],
+        "prefix": "ב",
+        "prefix_meaning": "in / with",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "אֲכָלְכֶם": [
+      {
+        "surface": "אֲכָלְכֶם",
+        "normalized": "אכלכם",
+        "lemma": "אכל",
+        "shoresh": "אכל",
+        "part_of_speech": "verb",
+        "binyan": "qal",
+        "tense": "infinitive",
+        "person": "2",
+        "number": "plural",
+        "gender": "masculine",
+        "semantic_group": "action",
+        "role_hint": "unknown",
+        "entity_type": "verb",
+        "group": "unknown",
+        "prefixes": [],
+        "suffixes": [],
+        "translation_literal": "your eating",
+        "translation_context": "when you eat",
+        "confidence": "rule_based",
+        "source_refs": [
+          "bereishis_3_5"
+        ],
+        "prefix": "",
+        "prefix_meaning": "",
+        "suffix": "",
+        "suffix_meaning": ""
+      },
+      {
+        "surface": "אֲכָלְכֶם",
+        "normalized": "אכלכם",
+        "lemma": "אכלכם",
+        "shoresh": null,
+        "part_of_speech": "unknown",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "unknown",
+        "role_hint": "unknown",
+        "entity_type": "unknown",
+        "group": "unknown",
+        "prefixes": [],
+        "suffixes": [],
+        "translation_literal": "אֲכָלְכֶם",
+        "translation_context": "אֲכָלְכֶם",
+        "confidence": "generated_alternate",
+        "source_refs": [
+          "bereishis_3_5"
+        ],
+        "prefix": "",
+        "prefix_meaning": "",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "וְנִפְקְחוּ": [
+      {
+        "surface": "וְנִפְקְחוּ",
+        "normalized": "ונפקחו",
+        "lemma": "פקח",
+        "shoresh": "פקח",
+        "part_of_speech": "verb",
+        "binyan": "nifal",
+        "tense": "future",
+        "person": "3",
+        "number": "plural",
+        "gender": null,
+        "semantic_group": "action",
+        "role_hint": "unknown",
+        "entity_type": "verb",
+        "group": "unknown",
+        "prefixes": [
+          {
+            "form": "ו",
+            "type": "conjunction",
+            "translation": "and"
+          },
+          {
+            "form": "נ",
+            "type": "verb_prefix_future",
+            "translation": "future / jussive marker"
+          }
+        ],
+        "suffixes": [],
+        "translation_literal": "and they will be opened",
+        "translation_context": "and they will be opened",
+        "confidence": "rule_based",
+        "source_refs": [
+          "bereishis_3_5"
+        ],
+        "prefix": "ו",
+        "prefix_meaning": "and",
+        "suffix": "",
+        "suffix_meaning": ""
+      },
+      {
+        "surface": "וְנִפְקְחוּ",
+        "normalized": "ונפקחו",
+        "lemma": "ונפקחו",
+        "shoresh": null,
+        "part_of_speech": "unknown",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "unknown",
+        "role_hint": "unknown",
+        "entity_type": "unknown",
+        "group": "unknown",
+        "prefixes": [
+          {
+            "form": "ו",
+            "type": "conjunction",
+            "translation": "and"
+          }
+        ],
+        "suffixes": [],
+        "translation_literal": "וְנִפְקְחוּ",
+        "translation_context": "וְנִפְקְחוּ",
+        "confidence": "generated_alternate",
+        "source_refs": [
+          "bereishis_3_5"
+        ],
+        "prefix": "ו",
+        "prefix_meaning": "and",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "עֵינֵיכֶם": [
+      {
+        "surface": "עֵינֵיכֶם",
+        "normalized": "עיניכם",
+        "lemma": "עין",
+        "shoresh": null,
+        "part_of_speech": "noun",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "body_part",
+        "role_hint": "object_candidate",
+        "entity_type": "body_part",
+        "group": "body_part",
+        "prefixes": [],
+        "suffixes": [
+          {
+            "form": "כם",
+            "type": "pronominal_suffix",
+            "translation": "your (m plural)"
+          }
+        ],
+        "translation_literal": "your eyes",
+        "translation_context": "your eyes",
+        "confidence": "surface_override",
+        "source_refs": [
+          "bereishis_3_5"
+        ],
+        "prefix": "",
+        "prefix_meaning": "",
+        "suffix": "כם",
+        "suffix_meaning": "your (m plural)"
+      }
+    ],
+    "וִהְיִיתֶם": [
+      {
+        "surface": "וִהְיִיתֶם",
+        "normalized": "והייתם",
+        "lemma": "היה",
+        "shoresh": "היה",
+        "part_of_speech": "verb",
+        "binyan": "qal",
+        "tense": "future",
+        "person": "2",
+        "number": "plural",
+        "gender": "masculine",
+        "semantic_group": "action",
+        "role_hint": "unknown",
+        "entity_type": "verb",
+        "group": "unknown",
+        "prefixes": [
+          {
+            "form": "ו",
+            "type": "conjunction",
+            "translation": "and"
+          }
+        ],
+        "suffixes": [],
+        "translation_literal": "and you will be",
+        "translation_context": "and you will be",
+        "confidence": "rule_based",
+        "source_refs": [
+          "bereishis_3_5"
+        ],
+        "prefix": "ו",
+        "prefix_meaning": "and",
+        "suffix": "",
+        "suffix_meaning": ""
+      },
+      {
+        "surface": "וִהְיִיתֶם",
+        "normalized": "והייתם",
+        "lemma": "והייתם",
+        "shoresh": null,
+        "part_of_speech": "unknown",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "unknown",
+        "role_hint": "unknown",
+        "entity_type": "unknown",
+        "group": "unknown",
+        "prefixes": [
+          {
+            "form": "ו",
+            "type": "conjunction",
+            "translation": "and"
+          },
+          {
+            "form": "ה",
+            "type": "definite_article",
+            "translation": "the"
+          }
+        ],
+        "suffixes": [],
+        "translation_literal": "וִהְיִיתֶם",
+        "translation_context": "וִהְיִיתֶם",
+        "confidence": "generated_alternate",
+        "source_refs": [
+          "bereishis_3_5"
+        ],
+        "prefix": "ו",
+        "prefix_meaning": "and",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "כֵּאלֹהִים": [
+      {
+        "surface": "כֵּאלֹהִים",
+        "normalized": "כאלהים",
+        "lemma": "אלהים",
+        "shoresh": null,
+        "part_of_speech": "proper_noun",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "divine",
+        "role_hint": "descriptor",
+        "entity_type": "divine_name",
+        "group": "divine",
+        "prefixes": [
+          {
+            "form": "כ",
+            "type": "preposition_k",
+            "translation": "like / as"
+          }
+        ],
+        "suffixes": [],
+        "translation_literal": "like God",
+        "translation_context": "like God",
+        "confidence": "surface_override",
+        "source_refs": [
+          "bereishis_3_5"
+        ],
+        "prefix": "כ",
+        "prefix_meaning": "like / as",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "יֹדְעֵי": [
+      {
+        "surface": "יֹדְעֵי",
+        "normalized": "ידעי",
+        "lemma": "ידע",
+        "shoresh": null,
+        "part_of_speech": "adjective",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "descriptor",
+        "role_hint": "descriptor",
+        "entity_type": "adjective",
+        "group": "descriptor",
+        "prefixes": [],
+        "suffixes": [],
+        "translation_literal": "knowers of",
+        "translation_context": "knowers of",
+        "confidence": "surface_override",
+        "source_refs": [
+          "bereishis_3_5"
+        ],
+        "prefix": "",
+        "prefix_meaning": "",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "טוֹב": [
+      {
+        "surface": "טוֹב",
+        "normalized": "טוב",
+        "lemma": "טוב",
+        "shoresh": null,
+        "part_of_speech": "adjective",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "descriptor",
+        "role_hint": "descriptor",
+        "entity_type": "adjective",
+        "group": "descriptor",
+        "prefixes": [],
+        "suffixes": [],
+        "translation_literal": "good",
+        "translation_context": "good",
+        "confidence": "surface_override",
+        "source_refs": [
+          "bereishis_3_5",
+          "bereishis_3_6"
+        ],
+        "prefix": "",
+        "prefix_meaning": "",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "וָרָע": [
+      {
+        "surface": "וָרָע",
+        "normalized": "ורע",
+        "lemma": "רע",
+        "shoresh": null,
+        "part_of_speech": "noun",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "abstract",
+        "role_hint": "descriptor",
+        "entity_type": "common_noun",
+        "group": "abstract",
+        "prefixes": [
+          {
+            "form": "ו",
+            "type": "conjunction",
+            "translation": "and"
+          }
+        ],
+        "suffixes": [],
+        "translation_literal": "and evil",
+        "translation_context": "and evil",
+        "confidence": "surface_override",
+        "source_refs": [
+          "bereishis_3_5"
+        ],
+        "prefix": "ו",
+        "prefix_meaning": "and",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "וַתֵּרֶא": [
+      {
+        "surface": "וַתֵּרֶא",
+        "normalized": "ותרא",
+        "lemma": "ראה",
+        "shoresh": "ראה",
+        "part_of_speech": "verb",
+        "binyan": "qal",
+        "tense": "vav_consecutive_past",
+        "person": "3",
+        "number": "singular",
+        "gender": "feminine",
+        "semantic_group": "action",
+        "role_hint": "unknown",
+        "entity_type": "verb",
+        "group": "unknown",
+        "prefixes": [
+          {
+            "form": "ו",
+            "type": "verb_prefix_vav_consecutive",
+            "translation": "and"
+          }
+        ],
+        "suffixes": [],
+        "translation_literal": "and she saw",
+        "translation_context": "saw",
+        "confidence": "rule_based",
+        "source_refs": [
+          "bereishis_3_6"
+        ],
+        "prefix": "ו",
+        "prefix_meaning": "and",
+        "suffix": "",
+        "suffix_meaning": ""
+      },
+      {
+        "surface": "וַתֵּרֶא",
+        "normalized": "ותרא",
+        "lemma": "ותרא",
+        "shoresh": null,
+        "part_of_speech": "unknown",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "unknown",
+        "role_hint": "unknown",
+        "entity_type": "unknown",
+        "group": "unknown",
+        "prefixes": [
+          {
+            "form": "ו",
+            "type": "conjunction",
+            "translation": "and"
+          }
+        ],
+        "suffixes": [],
+        "translation_literal": "וַתֵּרֶא",
+        "translation_context": "וַתֵּרֶא",
+        "confidence": "generated_alternate",
+        "source_refs": [
+          "bereishis_3_6"
+        ],
+        "prefix": "ו",
+        "prefix_meaning": "and",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "לְמַאֲכָל": [
+      {
+        "surface": "לְמַאֲכָל",
+        "normalized": "למאכל",
+        "lemma": "מאכל",
+        "shoresh": null,
+        "part_of_speech": "noun",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "food",
+        "role_hint": "object_candidate",
+        "entity_type": "food",
+        "group": "food",
+        "prefixes": [
+          {
+            "form": "ל",
+            "type": "preposition_l",
+            "translation": "to / for"
+          }
+        ],
+        "suffixes": [],
+        "translation_literal": "for food",
+        "translation_context": "for food",
+        "confidence": "surface_override",
+        "source_refs": [
+          "bereishis_3_6"
+        ],
+        "prefix": "ל",
+        "prefix_meaning": "to / for",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "וְכִי": [
+      {
+        "surface": "וְכִי",
+        "normalized": "וכי",
+        "lemma": "כי",
+        "shoresh": null,
+        "part_of_speech": "particle",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "abstract",
+        "role_hint": "descriptor",
+        "entity_type": "grammatical_particle",
+        "group": "helper",
+        "prefixes": [
+          {
+            "form": "ו",
+            "type": "conjunction",
+            "translation": "and"
+          }
+        ],
+        "suffixes": [],
+        "translation_literal": "and that",
+        "translation_context": "and that",
+        "confidence": "surface_override",
+        "source_refs": [
+          "bereishis_3_6"
+        ],
+        "prefix": "ו",
+        "prefix_meaning": "and",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "תַאֲוָה": [
+      {
+        "surface": "תַאֲוָה",
+        "normalized": "תאוה",
+        "lemma": "תאוה",
+        "shoresh": null,
+        "part_of_speech": "noun",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "abstract",
+        "role_hint": "descriptor",
+        "entity_type": "common_noun",
+        "group": "abstract",
+        "prefixes": [],
+        "suffixes": [],
+        "translation_literal": "desire",
+        "translation_context": "desire",
+        "confidence": "surface_override",
+        "source_refs": [
+          "bereishis_3_6"
+        ],
+        "prefix": "",
+        "prefix_meaning": "",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "הוּא": [
+      {
+        "surface": "הוּא",
+        "normalized": "הוא",
+        "lemma": "הוא",
+        "shoresh": null,
+        "part_of_speech": "noun",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "object",
+        "role_hint": "subject_candidate",
+        "entity_type": "pronoun",
+        "group": "person",
+        "prefixes": [],
+        "suffixes": [],
+        "translation_literal": "it",
+        "translation_context": "it",
+        "confidence": "surface_override",
+        "source_refs": [
+          "bereishis_3_6"
+        ],
+        "prefix": "",
+        "prefix_meaning": "",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "לָעֵינַיִם": [
+      {
+        "surface": "לָעֵינַיִם",
+        "normalized": "לעינים",
+        "lemma": "עין",
+        "shoresh": null,
+        "part_of_speech": "noun",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "body_part",
+        "role_hint": "object_candidate",
+        "entity_type": "body_part",
+        "group": "body_part",
+        "prefixes": [
+          {
+            "form": "ל",
+            "type": "preposition_l",
+            "translation": "to / for"
+          }
+        ],
+        "suffixes": [],
+        "translation_literal": "to the eyes",
+        "translation_context": "to the eyes",
+        "confidence": "surface_override",
+        "source_refs": [
+          "bereishis_3_6"
+        ],
+        "prefix": "ל",
+        "prefix_meaning": "to / for",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "וְנֶחְמָד": [
+      {
+        "surface": "וְנֶחְמָד",
+        "normalized": "ונחמד",
+        "lemma": "חמד",
+        "shoresh": null,
+        "part_of_speech": "adjective",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "descriptor",
+        "role_hint": "descriptor",
+        "entity_type": "adjective",
+        "group": "descriptor",
+        "prefixes": [
+          {
+            "form": "ו",
+            "type": "conjunction",
+            "translation": "and"
+          }
+        ],
+        "suffixes": [],
+        "translation_literal": "and delightful",
+        "translation_context": "and delightful",
+        "confidence": "surface_override",
+        "source_refs": [
+          "bereishis_3_6"
+        ],
+        "prefix": "ו",
+        "prefix_meaning": "and",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "לְהַשְׂכִּיל": [
+      {
+        "surface": "לְהַשְׂכִּיל",
+        "normalized": "להשכיל",
+        "lemma": "שכל",
+        "shoresh": "שכל",
+        "part_of_speech": "verb",
+        "binyan": "qal",
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "action",
+        "role_hint": "unknown",
+        "entity_type": "verb",
+        "group": "action",
+        "prefixes": [
+          {
+            "form": "ל",
+            "type": "preposition_l",
+            "translation": "to / for"
+          }
+        ],
+        "suffixes": [],
+        "translation_literal": "to make wise",
+        "translation_context": "to make wise",
+        "confidence": "surface_override",
+        "source_refs": [
+          "bereishis_3_6"
+        ],
+        "prefix": "ל",
+        "prefix_meaning": "to / for",
+        "suffix": "",
+        "suffix_meaning": ""
+      },
+      {
+        "surface": "לְהַשְׂכִּיל",
+        "normalized": "להשכיל",
+        "lemma": "להשכיל",
+        "shoresh": null,
+        "part_of_speech": "unknown",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "unknown",
+        "role_hint": "unknown",
+        "entity_type": "unknown",
+        "group": "action",
+        "prefixes": [
+          {
+            "form": "ל",
+            "type": "preposition_l",
+            "translation": "to / for"
+          }
+        ],
+        "suffixes": [],
+        "translation_literal": "לְהַשְׂכִּיל",
+        "translation_context": "לְהַשְׂכִּיל",
+        "confidence": "generated_alternate",
+        "source_refs": [
+          "bereishis_3_6"
+        ],
+        "prefix": "ל",
+        "prefix_meaning": "to / for",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "וַתִּקַּח": [
+      {
+        "surface": "וַתִּקַּח",
+        "normalized": "ותקח",
+        "lemma": "לקח",
+        "shoresh": "לקח",
+        "part_of_speech": "verb",
+        "binyan": "qal",
+        "tense": "vav_consecutive_past",
+        "person": "3",
+        "number": "singular",
+        "gender": "feminine",
+        "semantic_group": "action",
+        "role_hint": "unknown",
+        "entity_type": "verb",
+        "group": "unknown",
+        "prefixes": [
+          {
+            "form": "ו",
+            "type": "verb_prefix_vav_consecutive",
+            "translation": "and"
+          }
+        ],
+        "suffixes": [],
+        "translation_literal": "and she took",
+        "translation_context": "took",
+        "confidence": "rule_based",
+        "source_refs": [
+          "bereishis_3_6"
+        ],
+        "prefix": "ו",
+        "prefix_meaning": "and",
+        "suffix": "",
+        "suffix_meaning": ""
+      },
+      {
+        "surface": "וַתִּקַּח",
+        "normalized": "ותקח",
+        "lemma": "ותקח",
+        "shoresh": null,
+        "part_of_speech": "unknown",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "unknown",
+        "role_hint": "unknown",
+        "entity_type": "unknown",
+        "group": "unknown",
+        "prefixes": [
+          {
+            "form": "ו",
+            "type": "conjunction",
+            "translation": "and"
+          }
+        ],
+        "suffixes": [],
+        "translation_literal": "וַתִּקַּח",
+        "translation_context": "וַתִּקַּח",
+        "confidence": "generated_alternate",
+        "source_refs": [
+          "bereishis_3_6"
+        ],
+        "prefix": "ו",
+        "prefix_meaning": "and",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "מִפִּרְיוֹ": [
+      {
+        "surface": "מִפִּרְיוֹ",
+        "normalized": "מפריו",
+        "lemma": "פרי",
+        "shoresh": null,
+        "part_of_speech": "noun",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "food",
+        "role_hint": "object_candidate",
+        "entity_type": "food",
+        "group": "food",
+        "prefixes": [
+          {
+            "form": "מ",
+            "type": "preposition_m",
+            "translation": "from"
+          }
+        ],
+        "suffixes": [
+          {
+            "form": "ו",
+            "type": "pronominal_suffix",
+            "translation": "his"
+          }
+        ],
+        "translation_literal": "from its fruit",
+        "translation_context": "from its fruit",
+        "confidence": "surface_override",
+        "source_refs": [
+          "bereishis_3_6"
+        ],
+        "prefix": "מ",
+        "prefix_meaning": "from",
+        "suffix": "ו",
+        "suffix_meaning": "his"
+      }
+    ],
+    "וַתֹּאכַל": [
+      {
+        "surface": "וַתֹּאכַל",
+        "normalized": "ותאכל",
+        "lemma": "אכל",
+        "shoresh": "אכל",
+        "part_of_speech": "verb",
+        "binyan": "qal",
+        "tense": "vav_consecutive_past",
+        "person": "3",
+        "number": "singular",
+        "gender": "feminine",
+        "semantic_group": "action",
+        "role_hint": "unknown",
+        "entity_type": "verb",
+        "group": "unknown",
+        "prefixes": [
+          {
+            "form": "ו",
+            "type": "verb_prefix_vav_consecutive",
+            "translation": "and"
+          }
+        ],
+        "suffixes": [],
+        "translation_literal": "and she ate",
+        "translation_context": "ate",
+        "confidence": "rule_based",
+        "source_refs": [
+          "bereishis_3_6"
+        ],
+        "prefix": "ו",
+        "prefix_meaning": "and",
+        "suffix": "",
+        "suffix_meaning": ""
+      },
+      {
+        "surface": "וַתֹּאכַל",
+        "normalized": "ותאכל",
+        "lemma": "ותאכל",
+        "shoresh": null,
+        "part_of_speech": "unknown",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "unknown",
+        "role_hint": "unknown",
+        "entity_type": "unknown",
+        "group": "unknown",
+        "prefixes": [
+          {
+            "form": "ו",
+            "type": "conjunction",
+            "translation": "and"
+          }
+        ],
+        "suffixes": [],
+        "translation_literal": "וַתֹּאכַל",
+        "translation_context": "וַתֹּאכַל",
+        "confidence": "generated_alternate",
+        "source_refs": [
+          "bereishis_3_6"
+        ],
+        "prefix": "ו",
+        "prefix_meaning": "and",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "וַתִּתֵּן": [
+      {
+        "surface": "וַתִּתֵּן",
+        "normalized": "ותתן",
+        "lemma": "נתן",
+        "shoresh": "נתן",
+        "part_of_speech": "verb",
+        "binyan": "qal",
+        "tense": "vav_consecutive_past",
+        "person": "3",
+        "number": "singular",
+        "gender": "feminine",
+        "semantic_group": "action",
+        "role_hint": "unknown",
+        "entity_type": "verb",
+        "group": "unknown",
+        "prefixes": [
+          {
+            "form": "ו",
+            "type": "verb_prefix_vav_consecutive",
+            "translation": "and"
+          }
+        ],
+        "suffixes": [],
+        "translation_literal": "and she gave",
+        "translation_context": "gave",
+        "confidence": "rule_based",
+        "source_refs": [
+          "bereishis_3_6"
+        ],
+        "prefix": "ו",
+        "prefix_meaning": "and",
+        "suffix": "",
+        "suffix_meaning": ""
+      },
+      {
+        "surface": "וַתִּתֵּן",
+        "normalized": "ותתן",
+        "lemma": "ותתן",
+        "shoresh": null,
+        "part_of_speech": "unknown",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "unknown",
+        "role_hint": "unknown",
+        "entity_type": "unknown",
+        "group": "unknown",
+        "prefixes": [
+          {
+            "form": "ו",
+            "type": "conjunction",
+            "translation": "and"
+          }
+        ],
+        "suffixes": [],
+        "translation_literal": "וַתִּתֵּן",
+        "translation_context": "וַתִּתֵּן",
+        "confidence": "generated_alternate",
+        "source_refs": [
+          "bereishis_3_6"
+        ],
+        "prefix": "ו",
+        "prefix_meaning": "and",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "גַּם": [
+      {
+        "surface": "גַּם",
+        "normalized": "גם",
+        "lemma": "גם",
+        "shoresh": null,
+        "part_of_speech": "particle",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "abstract",
+        "role_hint": "descriptor",
+        "entity_type": "grammatical_particle",
+        "group": "helper",
+        "prefixes": [],
+        "suffixes": [],
+        "translation_literal": "also",
+        "translation_context": "also",
+        "confidence": "surface_override",
+        "source_refs": [
+          "bereishis_3_6"
+        ],
+        "prefix": "",
+        "prefix_meaning": "",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "לְאִישָׁהּ": [
+      {
+        "surface": "לְאִישָׁהּ",
+        "normalized": "לאישה",
+        "lemma": "איש",
+        "shoresh": null,
+        "part_of_speech": "noun",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "person",
+        "role_hint": "object_candidate",
+        "entity_type": "person",
+        "group": "person",
+        "prefixes": [
+          {
+            "form": "ל",
+            "type": "preposition_l",
+            "translation": "to / for"
+          }
+        ],
+        "suffixes": [
+          {
+            "form": "ה",
+            "type": "pronominal_suffix",
+            "translation": "her"
+          }
+        ],
+        "translation_literal": "to her husband",
+        "translation_context": "to her husband",
+        "confidence": "surface_override",
+        "source_refs": [
+          "bereishis_3_6"
+        ],
+        "prefix": "ל",
+        "prefix_meaning": "to / for",
+        "suffix": "ה",
+        "suffix_meaning": "her"
+      }
+    ],
+    "עִמָּהּ": [
+      {
+        "surface": "עִמָּהּ",
+        "normalized": "עמה",
+        "lemma": "עם",
+        "shoresh": null,
+        "part_of_speech": "preposition",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "abstract",
+        "role_hint": "descriptor",
+        "entity_type": "grammatical_particle",
+        "group": "helper",
+        "prefixes": [],
+        "suffixes": [
+          {
+            "form": "ה",
+            "type": "pronominal_suffix",
+            "translation": "her"
+          }
+        ],
+        "translation_literal": "with her",
+        "translation_context": "with her",
+        "confidence": "surface_override",
+        "source_refs": [
+          "bereishis_3_6"
+        ],
+        "prefix": "",
+        "prefix_meaning": "",
+        "suffix": "ה",
+        "suffix_meaning": "her"
+      }
+    ],
+    "וַיֹּאכַל": [
+      {
+        "surface": "וַיֹּאכַל",
+        "normalized": "ויאכל",
+        "lemma": "אכל",
+        "shoresh": "אכל",
+        "part_of_speech": "verb",
+        "binyan": "qal",
+        "tense": "vav_consecutive_past",
+        "person": "3",
+        "number": "singular",
+        "gender": "masculine",
+        "semantic_group": "action",
+        "role_hint": "unknown",
+        "entity_type": "verb",
+        "group": "unknown",
+        "prefixes": [
+          {
+            "form": "ו",
+            "type": "verb_prefix_vav_consecutive",
+            "translation": "and"
+          }
+        ],
+        "suffixes": [],
+        "translation_literal": "and he ate",
+        "translation_context": "ate",
+        "confidence": "rule_based",
+        "source_refs": [
+          "bereishis_3_6"
+        ],
+        "prefix": "ו",
+        "prefix_meaning": "and",
+        "suffix": "",
+        "suffix_meaning": ""
+      },
+      {
+        "surface": "וַיֹּאכַל",
+        "normalized": "ויאכל",
+        "lemma": "ויאכל",
+        "shoresh": null,
+        "part_of_speech": "unknown",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "unknown",
+        "role_hint": "unknown",
+        "entity_type": "unknown",
+        "group": "unknown",
+        "prefixes": [
+          {
+            "form": "ו",
+            "type": "conjunction",
+            "translation": "and"
+          }
+        ],
+        "suffixes": [],
+        "translation_literal": "וַיֹּאכַל",
+        "translation_context": "וַיֹּאכַל",
+        "confidence": "generated_alternate",
+        "source_refs": [
+          "bereishis_3_6"
+        ],
+        "prefix": "ו",
+        "prefix_meaning": "and",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "וַתִּפָּקַחְנָה": [
+      {
+        "surface": "וַתִּפָּקַחְנָה",
+        "normalized": "ותפקחנה",
+        "lemma": "פקח",
+        "shoresh": "פקח",
+        "part_of_speech": "verb",
+        "binyan": "nifal",
+        "tense": "vav_consecutive_past",
+        "person": "3",
+        "number": "plural",
+        "gender": "feminine",
+        "semantic_group": "action",
+        "role_hint": "unknown",
+        "entity_type": "verb",
+        "group": "unknown",
+        "prefixes": [
+          {
+            "form": "ו",
+            "type": "verb_prefix_vav_consecutive",
+            "translation": "and"
+          }
+        ],
+        "suffixes": [],
+        "translation_literal": "and they were opened",
+        "translation_context": "were opened",
+        "confidence": "rule_based",
+        "source_refs": [
+          "bereishis_3_7"
+        ],
+        "prefix": "ו",
+        "prefix_meaning": "and",
+        "suffix": "",
+        "suffix_meaning": ""
+      },
+      {
+        "surface": "וַתִּפָּקַחְנָה",
+        "normalized": "ותפקחנה",
+        "lemma": "ותפקחנה",
+        "shoresh": null,
+        "part_of_speech": "unknown",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "unknown",
+        "role_hint": "unknown",
+        "entity_type": "unknown",
+        "group": "unknown",
+        "prefixes": [
+          {
+            "form": "ו",
+            "type": "conjunction",
+            "translation": "and"
+          }
+        ],
+        "suffixes": [],
+        "translation_literal": "וַתִּפָּקַחְנָה",
+        "translation_context": "וַתִּפָּקַחְנָה",
+        "confidence": "generated_alternate",
+        "source_refs": [
+          "bereishis_3_7"
+        ],
+        "prefix": "ו",
+        "prefix_meaning": "and",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "עֵינֵי": [
+      {
+        "surface": "עֵינֵי",
+        "normalized": "עיני",
+        "lemma": "עין",
+        "shoresh": null,
+        "part_of_speech": "noun",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "body_part",
+        "role_hint": "object_candidate",
+        "entity_type": "body_part",
+        "group": "body_part",
+        "prefixes": [],
+        "suffixes": [],
+        "translation_literal": "eyes of",
+        "translation_context": "eyes of",
+        "confidence": "surface_override",
+        "source_refs": [
+          "bereishis_3_7"
+        ],
+        "prefix": "",
+        "prefix_meaning": "",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "שְׁנֵיהֶם": [
+      {
+        "surface": "שְׁנֵיהֶם",
+        "normalized": "שניהם",
+        "lemma": "שנים",
+        "shoresh": null,
+        "part_of_speech": "noun",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "person",
+        "role_hint": "subject_candidate",
+        "entity_type": "person",
+        "group": "person",
+        "prefixes": [],
+        "suffixes": [],
+        "translation_literal": "the two of them",
+        "translation_context": "the two of them",
+        "confidence": "surface_override",
+        "source_refs": [
+          "bereishis_3_7"
+        ],
+        "prefix": "",
+        "prefix_meaning": "",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "וַיֵּדְעוּ": [
+      {
+        "surface": "וַיֵּדְעוּ",
+        "normalized": "וידעו",
+        "lemma": "ידע",
+        "shoresh": "ידע",
+        "part_of_speech": "verb",
+        "binyan": "qal",
+        "tense": "vav_consecutive_past",
+        "person": "3",
+        "number": "plural",
+        "gender": "masculine",
+        "semantic_group": "action",
+        "role_hint": "unknown",
+        "entity_type": "verb",
+        "group": "unknown",
+        "prefixes": [
+          {
+            "form": "ו",
+            "type": "verb_prefix_vav_consecutive",
+            "translation": "and"
+          }
+        ],
+        "suffixes": [],
+        "translation_literal": "and they knew",
+        "translation_context": "knew",
+        "confidence": "rule_based",
+        "source_refs": [
+          "bereishis_3_7"
+        ],
+        "prefix": "ו",
+        "prefix_meaning": "and",
+        "suffix": "",
+        "suffix_meaning": ""
+      },
+      {
+        "surface": "וַיֵּדְעוּ",
+        "normalized": "וידעו",
+        "lemma": "וידעו",
+        "shoresh": null,
+        "part_of_speech": "unknown",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "unknown",
+        "role_hint": "unknown",
+        "entity_type": "unknown",
+        "group": "unknown",
+        "prefixes": [
+          {
+            "form": "ו",
+            "type": "conjunction",
+            "translation": "and"
+          }
+        ],
+        "suffixes": [],
+        "translation_literal": "וַיֵּדְעוּ",
+        "translation_context": "וַיֵּדְעוּ",
+        "confidence": "generated_alternate",
+        "source_refs": [
+          "bereishis_3_7"
+        ],
+        "prefix": "ו",
+        "prefix_meaning": "and",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "עֵירֻמִּם": [
+      {
+        "surface": "עֵירֻמִּם",
+        "normalized": "עירמם",
+        "lemma": "ערם",
+        "shoresh": null,
+        "part_of_speech": "adjective",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "descriptor",
+        "role_hint": "descriptor",
+        "entity_type": "adjective",
+        "group": "descriptor",
+        "prefixes": [],
+        "suffixes": [],
+        "translation_literal": "naked",
+        "translation_context": "naked",
+        "confidence": "surface_override",
+        "source_refs": [
+          "bereishis_3_7"
+        ],
+        "prefix": "",
+        "prefix_meaning": "",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "הֵם": [
+      {
+        "surface": "הֵם",
+        "normalized": "הם",
+        "lemma": "הם",
+        "shoresh": null,
+        "part_of_speech": "pronoun",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": "plural",
+        "gender": "masculine",
+        "semantic_group": "person",
+        "role_hint": "subject_candidate",
+        "entity_type": "pronoun",
+        "group": "person",
+        "prefixes": [],
+        "suffixes": [],
+        "translation_literal": "they",
+        "translation_context": "they",
+        "confidence": "surface_override",
+        "source_refs": [
+          "bereishis_3_7"
+        ],
+        "prefix": "",
+        "prefix_meaning": "",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "וַיִּתְפְּרוּ": [
+      {
+        "surface": "וַיִּתְפְּרוּ",
+        "normalized": "ויתפרו",
+        "lemma": "תפר",
+        "shoresh": "תפר",
+        "part_of_speech": "verb",
+        "binyan": "qal",
+        "tense": "vav_consecutive_past",
+        "person": "3",
+        "number": "plural",
+        "gender": "masculine",
+        "semantic_group": "action",
+        "role_hint": "unknown",
+        "entity_type": "verb",
+        "group": "unknown",
+        "prefixes": [
+          {
+            "form": "ו",
+            "type": "verb_prefix_vav_consecutive",
+            "translation": "and"
+          }
+        ],
+        "suffixes": [],
+        "translation_literal": "and they sewed",
+        "translation_context": "sewed",
+        "confidence": "rule_based",
+        "source_refs": [
+          "bereishis_3_7"
+        ],
+        "prefix": "ו",
+        "prefix_meaning": "and",
+        "suffix": "",
+        "suffix_meaning": ""
+      },
+      {
+        "surface": "וַיִּתְפְּרוּ",
+        "normalized": "ויתפרו",
+        "lemma": "ויתפרו",
+        "shoresh": null,
+        "part_of_speech": "unknown",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "unknown",
+        "role_hint": "unknown",
+        "entity_type": "unknown",
+        "group": "unknown",
+        "prefixes": [
+          {
+            "form": "ו",
+            "type": "conjunction",
+            "translation": "and"
+          }
+        ],
+        "suffixes": [],
+        "translation_literal": "וַיִּתְפְּרוּ",
+        "translation_context": "וַיִּתְפְּרוּ",
+        "confidence": "generated_alternate",
+        "source_refs": [
+          "bereishis_3_7"
+        ],
+        "prefix": "ו",
+        "prefix_meaning": "and",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "עֲלֵה": [
+      {
+        "surface": "עֲלֵה",
+        "normalized": "עלה",
+        "lemma": "עלה",
+        "shoresh": null,
+        "part_of_speech": "noun",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "object",
+        "role_hint": "object_candidate",
+        "entity_type": "plant",
+        "group": "object",
+        "prefixes": [],
+        "suffixes": [],
+        "translation_literal": "leaf of",
+        "translation_context": "leaf of",
+        "confidence": "surface_override",
+        "source_refs": [
+          "bereishis_3_7"
+        ],
+        "prefix": "",
+        "prefix_meaning": "",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "תְאֵנָה": [
+      {
+        "surface": "תְאֵנָה",
+        "normalized": "תאנה",
+        "lemma": "תאנה",
+        "shoresh": null,
+        "part_of_speech": "noun",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "food",
+        "role_hint": "object_candidate",
+        "entity_type": "food",
+        "group": "food",
+        "prefixes": [],
+        "suffixes": [],
+        "translation_literal": "fig",
+        "translation_context": "fig",
+        "confidence": "surface_override",
+        "source_refs": [
+          "bereishis_3_7"
+        ],
+        "prefix": "",
+        "prefix_meaning": "",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "וַיַּעֲשׂוּ": [
+      {
+        "surface": "וַיַּעֲשׂוּ",
+        "normalized": "ויעשו",
+        "lemma": "עשה",
+        "shoresh": "עשה",
+        "part_of_speech": "verb",
+        "binyan": "qal",
+        "tense": "vav_consecutive_past",
+        "person": "3",
+        "number": "plural",
+        "gender": "masculine",
+        "semantic_group": "action",
+        "role_hint": "unknown",
+        "entity_type": "verb",
+        "group": "unknown",
+        "prefixes": [
+          {
+            "form": "ו",
+            "type": "verb_prefix_vav_consecutive",
+            "translation": "and"
+          }
+        ],
+        "suffixes": [],
+        "translation_literal": "and they made",
+        "translation_context": "made",
+        "confidence": "rule_based",
+        "source_refs": [
+          "bereishis_3_7"
+        ],
+        "prefix": "ו",
+        "prefix_meaning": "and",
+        "suffix": "",
+        "suffix_meaning": ""
+      },
+      {
+        "surface": "וַיַּעֲשׂוּ",
+        "normalized": "ויעשו",
+        "lemma": "ויעשו",
+        "shoresh": null,
+        "part_of_speech": "unknown",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "unknown",
+        "role_hint": "unknown",
+        "entity_type": "unknown",
+        "group": "unknown",
+        "prefixes": [
+          {
+            "form": "ו",
+            "type": "conjunction",
+            "translation": "and"
+          }
+        ],
+        "suffixes": [],
+        "translation_literal": "וַיַּעֲשׂוּ",
+        "translation_context": "וַיַּעֲשׂוּ",
+        "confidence": "generated_alternate",
+        "source_refs": [
+          "bereishis_3_7"
+        ],
+        "prefix": "ו",
+        "prefix_meaning": "and",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "לָהֶם": [
+      {
+        "surface": "לָהֶם",
+        "normalized": "להם",
+        "lemma": "להם",
+        "shoresh": null,
+        "part_of_speech": "preposition",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "abstract",
+        "role_hint": "descriptor",
+        "entity_type": "grammatical_particle",
+        "group": "helper",
+        "prefixes": [
+          {
+            "form": "ל",
+            "type": "preposition_l",
+            "translation": "to / for"
+          }
+        ],
+        "suffixes": [
+          {
+            "form": "ם",
+            "type": "pronominal_suffix",
+            "translation": "their"
+          }
+        ],
+        "translation_literal": "for them",
+        "translation_context": "for them",
+        "confidence": "surface_override",
+        "source_refs": [
+          "bereishis_3_7"
+        ],
+        "prefix": "ל",
+        "prefix_meaning": "to / for",
+        "suffix": "ם",
+        "suffix_meaning": "their"
+      }
+    ],
+    "חֲגֹרֹת": [
+      {
+        "surface": "חֲגֹרֹת",
+        "normalized": "חגרת",
+        "lemma": "חגורה",
+        "shoresh": null,
+        "part_of_speech": "noun",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": "plural",
+        "gender": null,
+        "semantic_group": "object",
+        "role_hint": "object_candidate",
+        "entity_type": "object",
+        "group": "object",
+        "prefixes": [],
+        "suffixes": [],
+        "translation_literal": "belts",
+        "translation_context": "belts",
+        "confidence": "surface_override",
+        "source_refs": [
+          "bereishis_3_7"
+        ],
+        "prefix": "",
+        "prefix_meaning": "",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "וַיִּשְׁמְעוּ": [
+      {
+        "surface": "וַיִּשְׁמְעוּ",
+        "normalized": "וישמעו",
+        "lemma": "שמע",
+        "shoresh": "שמע",
+        "part_of_speech": "verb",
+        "binyan": "qal",
+        "tense": "vav_consecutive_past",
+        "person": "3",
+        "number": "plural",
+        "gender": "masculine",
+        "semantic_group": "action",
+        "role_hint": "unknown",
+        "entity_type": "verb",
+        "group": "unknown",
+        "prefixes": [
+          {
+            "form": "ו",
+            "type": "verb_prefix_vav_consecutive",
+            "translation": "and"
+          }
+        ],
+        "suffixes": [],
+        "translation_literal": "and they heard",
+        "translation_context": "heard",
+        "confidence": "rule_based",
+        "source_refs": [
+          "bereishis_3_8"
+        ],
+        "prefix": "ו",
+        "prefix_meaning": "and",
+        "suffix": "",
+        "suffix_meaning": ""
+      },
+      {
+        "surface": "וַיִּשְׁמְעוּ",
+        "normalized": "וישמעו",
+        "lemma": "וישמעו",
+        "shoresh": null,
+        "part_of_speech": "unknown",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "unknown",
+        "role_hint": "unknown",
+        "entity_type": "unknown",
+        "group": "unknown",
+        "prefixes": [
+          {
+            "form": "ו",
+            "type": "conjunction",
+            "translation": "and"
+          }
+        ],
+        "suffixes": [],
+        "translation_literal": "וַיִּשְׁמְעוּ",
+        "translation_context": "וַיִּשְׁמְעוּ",
+        "confidence": "generated_alternate",
+        "source_refs": [
+          "bereishis_3_8"
+        ],
+        "prefix": "ו",
+        "prefix_meaning": "and",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "אֶת": [
+      {
+        "surface": "אֶת",
+        "normalized": "את",
+        "lemma": "את",
+        "shoresh": null,
+        "part_of_speech": "particle",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "abstract",
+        "role_hint": "object_candidate",
+        "entity_type": "grammatical_particle",
+        "group": "helper",
+        "prefixes": [],
+        "suffixes": [],
+        "translation_literal": "object-marking word",
+        "translation_context": "object-marking word",
+        "confidence": "surface_override",
+        "source_refs": [
+          "bereishis_3_8"
+        ],
+        "prefix": "",
+        "prefix_meaning": "",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "קוֹל": [
+      {
+        "surface": "קוֹל",
+        "normalized": "קול",
+        "lemma": "קול",
+        "shoresh": null,
+        "part_of_speech": "noun",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "abstract",
+        "role_hint": "object_candidate",
+        "entity_type": "common_noun",
+        "group": "abstract",
+        "prefixes": [],
+        "suffixes": [],
+        "translation_literal": "voice",
+        "translation_context": "voice",
+        "confidence": "surface_override",
+        "source_refs": [
+          "bereishis_3_8"
+        ],
+        "prefix": "",
+        "prefix_meaning": "",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "מִתְהַלֵּךְ": [
+      {
+        "surface": "מִתְהַלֵּךְ",
+        "normalized": "מתהלך",
+        "lemma": "הלך",
+        "shoresh": "הלך",
+        "part_of_speech": "verb",
+        "binyan": "hitpael",
+        "tense": "present",
+        "person": "3",
+        "number": "singular",
+        "gender": "masculine",
+        "semantic_group": "action",
+        "role_hint": "unknown",
+        "entity_type": "verb",
+        "group": "unknown",
+        "prefixes": [],
+        "suffixes": [],
+        "translation_literal": "walking",
+        "translation_context": "walking",
+        "confidence": "rule_based",
+        "source_refs": [
+          "bereishis_3_8"
+        ],
+        "prefix": "",
+        "prefix_meaning": "",
+        "suffix": "",
+        "suffix_meaning": ""
+      },
+      {
+        "surface": "מִתְהַלֵּךְ",
+        "normalized": "מתהלך",
+        "lemma": "מתהלך",
+        "shoresh": null,
+        "part_of_speech": "unknown",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "unknown",
+        "role_hint": "unknown",
+        "entity_type": "unknown",
+        "group": "unknown",
+        "prefixes": [
+          {
+            "form": "מ",
+            "type": "preposition_m",
+            "translation": "from"
+          }
+        ],
+        "suffixes": [],
+        "translation_literal": "מִתְהַלֵּךְ",
+        "translation_context": "מִתְהַלֵּךְ",
+        "confidence": "generated_alternate",
+        "source_refs": [
+          "bereishis_3_8"
+        ],
+        "prefix": "",
+        "prefix_meaning": "",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "בַּגָּן": [
+      {
+        "surface": "בַּגָּן",
+        "normalized": "בגן",
+        "lemma": "גן",
+        "shoresh": null,
+        "part_of_speech": "noun",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "place",
+        "role_hint": "location_candidate",
+        "entity_type": "place",
+        "group": "place",
+        "prefixes": [
+          {
+            "form": "ב",
+            "type": "preposition_b",
+            "translation": "in / with"
+          }
+        ],
+        "suffixes": [],
+        "translation_literal": "in the garden",
+        "translation_context": "in the garden",
+        "confidence": "surface_override",
+        "source_refs": [
+          "bereishis_3_8"
+        ],
+        "prefix": "ב",
+        "prefix_meaning": "in / with",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "לְרוּחַ": [
+      {
+        "surface": "לְרוּחַ",
+        "normalized": "לרוח",
+        "lemma": "רוח",
+        "shoresh": "רוח",
+        "part_of_speech": "noun",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": "feminine",
+        "semantic_group": "time",
+        "role_hint": "time_candidate",
+        "entity_type": "time",
+        "group": "time",
+        "prefixes": [
+          {
+            "form": "ל",
+            "type": "preposition_l",
+            "translation": "to / for"
+          }
+        ],
+        "suffixes": [],
+        "translation_literal": "to the breeze of",
+        "translation_context": "at the breezy time of",
+        "confidence": "surface_override",
+        "source_refs": [
+          "bereishis_3_8"
+        ],
+        "prefix": "ל",
+        "prefix_meaning": "to / for",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "הַיּוֹם": [
+      {
+        "surface": "הַיּוֹם",
+        "normalized": "היום",
+        "lemma": "יום",
+        "shoresh": null,
+        "part_of_speech": "noun",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "time",
+        "role_hint": "time_candidate",
+        "entity_type": "time",
+        "group": "time",
+        "prefixes": [
+          {
+            "form": "ה",
+            "type": "definite_article",
+            "translation": "the"
+          }
+        ],
+        "suffixes": [],
+        "translation_literal": "the day",
+        "translation_context": "the day",
+        "confidence": "surface_override",
+        "source_refs": [
+          "bereishis_3_8"
+        ],
+        "prefix": "ה",
+        "prefix_meaning": "the",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "וַיִּתְחַבֵּא": [
+      {
+        "surface": "וַיִּתְחַבֵּא",
+        "normalized": "ויתחבא",
+        "lemma": "חבא",
+        "shoresh": "חבא",
+        "part_of_speech": "verb",
+        "binyan": "hitpael",
+        "tense": "vav_consecutive_past",
+        "person": "3",
+        "number": "singular",
+        "gender": "masculine",
+        "semantic_group": "action",
+        "role_hint": "unknown",
+        "entity_type": "verb",
+        "group": "unknown",
+        "prefixes": [
+          {
+            "form": "ו",
+            "type": "verb_prefix_vav_consecutive",
+            "translation": "and"
+          }
+        ],
+        "suffixes": [],
+        "translation_literal": "and he hid himself",
+        "translation_context": "hid himself",
+        "confidence": "rule_based",
+        "source_refs": [
+          "bereishis_3_8"
+        ],
+        "prefix": "ו",
+        "prefix_meaning": "and",
+        "suffix": "",
+        "suffix_meaning": ""
+      },
+      {
+        "surface": "וַיִּתְחַבֵּא",
+        "normalized": "ויתחבא",
+        "lemma": "ויתחבא",
+        "shoresh": null,
+        "part_of_speech": "unknown",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "unknown",
+        "role_hint": "unknown",
+        "entity_type": "unknown",
+        "group": "unknown",
+        "prefixes": [
+          {
+            "form": "ו",
+            "type": "conjunction",
+            "translation": "and"
+          }
+        ],
+        "suffixes": [],
+        "translation_literal": "וַיִּתְחַבֵּא",
+        "translation_context": "וַיִּתְחַבֵּא",
+        "confidence": "generated_alternate",
+        "source_refs": [
+          "bereishis_3_8"
+        ],
+        "prefix": "ו",
+        "prefix_meaning": "and",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "הָאָדָם": [
+      {
+        "surface": "הָאָדָם",
+        "normalized": "האדם",
+        "lemma": "אדם",
+        "shoresh": null,
+        "part_of_speech": "noun",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": "masculine",
+        "semantic_group": "person",
+        "role_hint": "subject_candidate",
+        "entity_type": "person",
+        "group": "person",
+        "prefixes": [
+          {
+            "form": "ה",
+            "type": "definite_article",
+            "translation": "the"
+          }
+        ],
+        "suffixes": [],
+        "translation_literal": "the man",
+        "translation_context": "the man",
+        "confidence": "surface_override",
+        "source_refs": [
+          "bereishis_3_8"
+        ],
+        "prefix": "ה",
+        "prefix_meaning": "the",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ],
+    "וְאִשְׁתּוֹ": [
+      {
+        "surface": "וְאִשְׁתּוֹ",
+        "normalized": "ואשתו",
+        "lemma": "אשה",
+        "shoresh": null,
+        "part_of_speech": "noun",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": "feminine",
+        "semantic_group": "person",
+        "role_hint": "subject_candidate",
+        "entity_type": "person",
+        "group": "person",
+        "prefixes": [
+          {
+            "form": "ו",
+            "type": "conjunction",
+            "translation": "and"
+          }
+        ],
+        "suffixes": [
+          {
+            "form": "ו",
+            "type": "pronominal_suffix",
+            "translation": "his"
+          }
+        ],
+        "translation_literal": "and his wife",
+        "translation_context": "and his wife",
+        "confidence": "surface_override",
+        "source_refs": [
+          "bereishis_3_8"
+        ],
+        "prefix": "ו",
+        "prefix_meaning": "and",
+        "suffix": "ו",
+        "suffix_meaning": "his"
+      }
+    ],
+    "מִפְּנֵי": [
+      {
+        "surface": "מִפְּנֵי",
+        "normalized": "מפני",
+        "lemma": "פנים",
+        "shoresh": null,
+        "part_of_speech": "preposition",
+        "binyan": null,
+        "tense": null,
+        "person": null,
+        "number": null,
+        "gender": null,
+        "semantic_group": "place",
+        "role_hint": "location_candidate",
+        "entity_type": "grammatical_particle",
+        "group": "helper",
+        "prefixes": [
+          {
+            "form": "מ",
+            "type": "preposition_m",
+            "translation": "from"
+          }
+        ],
+        "suffixes": [],
+        "translation_literal": "from before",
+        "translation_context": "from before",
+        "confidence": "surface_override",
+        "source_refs": [
+          "bereishis_3_8"
+        ],
+        "prefix": "מ",
+        "prefix_meaning": "from",
+        "suffix": "",
+        "suffix_meaning": ""
+      }
+    ]
+  }
+}

@@ -1,7 +1,7 @@
 {
   "metadata": {
     "title": "Active Scope Gold Annotations",
-    "scope_id": "local_parsed_bereishis_1_1_to_2_17",
+    "scope_id": "local_parsed_bereishis_1_1_to_3_8",
     "status": "active",
     "notes": [
       "This file defines teacher-defensible gold targets for the current active runtime scope only.",
@@ -1330,8 +1330,13 @@
           "reason": "No clean student-ready object target is approved for this expansion pass."
         },
         "phrase_translation": {
-          "status": "suppressed",
-          "reason": "No compact quiz-ready phrase is approved for this verse in this expansion pass."
+          "status": "approved",
+          "approved_targets": [
+            {
+              "surface": "שֵׁם הָאֶחָד פִּישׁוֹן",
+              "translation": "the name of the first is Pishon"
+            }
+          ]
         }
       }
     },
@@ -1351,8 +1356,13 @@
           "reason": "No clean student-ready object target is approved for this expansion pass."
         },
         "phrase_translation": {
-          "status": "suppressed",
-          "reason": "No compact quiz-ready phrase is approved for this verse in this expansion pass."
+          "status": "approved",
+          "approved_targets": [
+            {
+              "surface": "וּזֲהַב הָאָרֶץ הַהִוא טוֹב",
+              "translation": "and the gold of that land is good"
+            }
+          ]
         }
       }
     },
@@ -1372,8 +1382,13 @@
           "reason": "No clean student-ready object target is approved for this expansion pass."
         },
         "phrase_translation": {
-          "status": "suppressed",
-          "reason": "No compact quiz-ready phrase is approved for this verse in this expansion pass."
+          "status": "approved",
+          "approved_targets": [
+            {
+              "surface": "וְשֵׁם־הַנָּהָר הַשֵּׁנִי גִּיחוֹן",
+              "translation": "and the name of the second river is Gichon"
+            }
+          ]
         }
       }
     },
@@ -1393,8 +1408,13 @@
           "reason": "No clean student-ready object target is approved for this expansion pass."
         },
         "phrase_translation": {
-          "status": "suppressed",
-          "reason": "No compact quiz-ready phrase is approved for this verse in this expansion pass."
+          "status": "approved",
+          "approved_targets": [
+            {
+              "surface": "וְהַנָּהָר הָרְבִיעִי הוּא פְרָת",
+              "translation": "and the fourth river is Phrat"
+            }
+          ]
         }
       }
     },
@@ -1473,6 +1493,355 @@
               "translation": "you shall surely die"
             }
           ]
+        }
+      }
+    },
+    "bereishis_2_18": {
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 2,
+        "pasuk": 18
+      },
+      "skills": {
+        "subject_identification": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "main_verb_token": "וַיֹּאמֶר",
+              "surface": "אֱלֹהִים",
+              "translation": "God"
+            }
+          ]
+        },
+        "object_identification": {
+          "status": "suppressed",
+          "reason": "No clean object-identification target is preferred in this verse at the current quality bar."
+        },
+        "phrase_translation": {
+          "status": "suppressed",
+          "reason": "No compact quiz-ready phrase target is preferred in this verse at the current quality bar."
+        }
+      }
+    },
+    "bereishis_2_19": {
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 2,
+        "pasuk": 19
+      },
+      "skills": {
+        "subject_identification": {
+          "status": "suppressed",
+          "reason": "No clean subject-identification target is preferred in this verse at the current quality bar."
+        },
+        "object_identification": {
+          "status": "suppressed",
+          "reason": "No clean object-identification target is preferred in this verse at the current quality bar."
+        },
+        "phrase_translation": {
+          "status": "suppressed",
+          "reason": "No compact quiz-ready phrase target is preferred in this verse at the current quality bar."
+        }
+      }
+    },
+    "bereishis_2_20": {
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 2,
+        "pasuk": 20
+      },
+      "skills": {
+        "subject_identification": {
+          "status": "suppressed",
+          "reason": "No clean subject-identification target is preferred in this verse at the current quality bar."
+        },
+        "object_identification": {
+          "status": "approved",
+          "approved_targets": [
+            {
+              "main_verb_token": "וַיִּקְרָא",
+              "role": "direct_object",
+              "surface": "הַשָּׁמַיִם",
+              "translation": "the heavens"
+            }
+          ]
+        },
+        "phrase_translation": {
+          "status": "suppressed",
+          "reason": "No compact quiz-ready phrase target is preferred in this verse at the current quality bar."
+        }
+      }
+    },
+    "bereishis_2_21": {
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 2,
+        "pasuk": 21
+      },
+      "skills": {
+        "subject_identification": {
+          "status": "suppressed",
+          "reason": "No clean subject-identification target is preferred in this verse at the current quality bar."
+        },
+        "object_identification": {
+          "status": "suppressed",
+          "reason": "No clean object-identification target is preferred in this verse at the current quality bar."
+        },
+        "phrase_translation": {
+          "status": "suppressed",
+          "reason": "No compact quiz-ready phrase target is preferred in this verse at the current quality bar."
+        }
+      }
+    },
+    "bereishis_2_22": {
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 2,
+        "pasuk": 22
+      },
+      "skills": {
+        "subject_identification": {
+          "status": "suppressed",
+          "reason": "No clean subject-identification target is preferred in this verse at the current quality bar."
+        },
+        "object_identification": {
+          "status": "suppressed",
+          "reason": "No clean object-identification target is preferred in this verse at the current quality bar."
+        },
+        "phrase_translation": {
+          "status": "suppressed",
+          "reason": "No compact quiz-ready phrase target is preferred in this verse at the current quality bar."
+        }
+      }
+    },
+    "bereishis_2_23": {
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 2,
+        "pasuk": 23
+      },
+      "skills": {
+        "subject_identification": {
+          "status": "suppressed",
+          "reason": "No clean subject-identification target is preferred in this verse at the current quality bar."
+        },
+        "object_identification": {
+          "status": "suppressed",
+          "reason": "No clean object-identification target is preferred in this verse at the current quality bar."
+        },
+        "phrase_translation": {
+          "status": "suppressed",
+          "reason": "No compact quiz-ready phrase target is preferred in this verse at the current quality bar."
+        }
+      }
+    },
+    "bereishis_2_24": {
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 2,
+        "pasuk": 24
+      },
+      "skills": {
+        "subject_identification": {
+          "status": "suppressed",
+          "reason": "No clean subject-identification target is preferred in this verse at the current quality bar."
+        },
+        "object_identification": {
+          "status": "suppressed",
+          "reason": "No clean object-identification target is preferred in this verse at the current quality bar."
+        },
+        "phrase_translation": {
+          "status": "suppressed",
+          "reason": "No compact quiz-ready phrase target is preferred in this verse at the current quality bar."
+        }
+      }
+    },
+    "bereishis_2_25": {
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 2,
+        "pasuk": 25
+      },
+      "skills": {
+        "subject_identification": {
+          "status": "suppressed",
+          "reason": "No clean subject-identification target is preferred in this verse at the current quality bar."
+        },
+        "object_identification": {
+          "status": "suppressed",
+          "reason": "No clean object-identification target is preferred in this verse at the current quality bar."
+        },
+        "phrase_translation": {
+          "status": "suppressed",
+          "reason": "No compact quiz-ready phrase target is preferred in this verse at the current quality bar."
+        }
+      }
+    },
+    "bereishis_3_1": {
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 3,
+        "pasuk": 1
+      },
+      "skills": {
+        "subject_identification": {
+          "status": "suppressed",
+          "reason": "No clean subject-identification target is preferred in this verse at the current quality bar."
+        },
+        "object_identification": {
+          "status": "suppressed",
+          "reason": "No clean object-identification target is preferred in this verse at the current quality bar."
+        },
+        "phrase_translation": {
+          "status": "suppressed",
+          "reason": "No compact quiz-ready phrase target is preferred in this verse at the current quality bar."
+        }
+      }
+    },
+    "bereishis_3_2": {
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 3,
+        "pasuk": 2
+      },
+      "skills": {
+        "subject_identification": {
+          "status": "suppressed",
+          "reason": "No clean subject-identification target is preferred in this verse at the current quality bar."
+        },
+        "object_identification": {
+          "status": "suppressed",
+          "reason": "No clean object-identification target is preferred in this verse at the current quality bar."
+        },
+        "phrase_translation": {
+          "status": "suppressed",
+          "reason": "No compact quiz-ready phrase target is preferred in this verse at the current quality bar."
+        }
+      }
+    },
+    "bereishis_3_3": {
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 3,
+        "pasuk": 3
+      },
+      "skills": {
+        "subject_identification": {
+          "status": "suppressed",
+          "reason": "No clean subject-identification target is preferred in this verse at the current quality bar."
+        },
+        "object_identification": {
+          "status": "suppressed",
+          "reason": "No clean object-identification target is preferred in this verse at the current quality bar."
+        },
+        "phrase_translation": {
+          "status": "suppressed",
+          "reason": "No compact quiz-ready phrase target is preferred in this verse at the current quality bar."
+        }
+      }
+    },
+    "bereishis_3_4": {
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 3,
+        "pasuk": 4
+      },
+      "skills": {
+        "subject_identification": {
+          "status": "suppressed",
+          "reason": "No clean subject-identification target is preferred in this verse at the current quality bar."
+        },
+        "object_identification": {
+          "status": "suppressed",
+          "reason": "No clean object-identification target is preferred in this verse at the current quality bar."
+        },
+        "phrase_translation": {
+          "status": "suppressed",
+          "reason": "No compact quiz-ready phrase target is preferred in this verse at the current quality bar."
+        }
+      }
+    },
+    "bereishis_3_5": {
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 3,
+        "pasuk": 5
+      },
+      "skills": {
+        "subject_identification": {
+          "status": "suppressed",
+          "reason": "No clean subject-identification target is preferred in this verse at the current quality bar."
+        },
+        "object_identification": {
+          "status": "suppressed",
+          "reason": "No clean object-identification target is preferred in this verse at the current quality bar."
+        },
+        "phrase_translation": {
+          "status": "suppressed",
+          "reason": "No compact quiz-ready phrase target is preferred in this verse at the current quality bar."
+        }
+      }
+    },
+    "bereishis_3_6": {
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 3,
+        "pasuk": 6
+      },
+      "skills": {
+        "subject_identification": {
+          "status": "suppressed",
+          "reason": "No clean subject-identification target is preferred in this verse at the current quality bar."
+        },
+        "object_identification": {
+          "status": "suppressed",
+          "reason": "No clean object-identification target is preferred in this verse at the current quality bar."
+        },
+        "phrase_translation": {
+          "status": "suppressed",
+          "reason": "No compact quiz-ready phrase target is preferred in this verse at the current quality bar."
+        }
+      }
+    },
+    "bereishis_3_7": {
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 3,
+        "pasuk": 7
+      },
+      "skills": {
+        "subject_identification": {
+          "status": "suppressed",
+          "reason": "No clean subject-identification target is preferred in this verse at the current quality bar."
+        },
+        "object_identification": {
+          "status": "suppressed",
+          "reason": "No clean object-identification target is preferred in this verse at the current quality bar."
+        },
+        "phrase_translation": {
+          "status": "suppressed",
+          "reason": "No compact quiz-ready phrase target is preferred in this verse at the current quality bar."
+        }
+      }
+    },
+    "bereishis_3_8": {
+      "ref": {
+        "sefer": "Bereishis",
+        "perek": 3,
+        "pasuk": 8
+      },
+      "skills": {
+        "subject_identification": {
+          "status": "suppressed",
+          "reason": "No clean subject-identification target is preferred in this verse at the current quality bar."
+        },
+        "object_identification": {
+          "status": "suppressed",
+          "reason": "No clean object-identification target is preferred in this verse at the current quality bar."
+        },
+        "phrase_translation": {
+          "status": "suppressed",
+          "reason": "No compact quiz-ready phrase target is preferred in this verse at the current quality bar."
         }
       }
     }

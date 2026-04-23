@@ -12,12 +12,13 @@ from pathlib import Path
 
 from assessment_scope import (
     CORPUS_MANIFEST_PATH,
+    REPO_ROOT,
     load_corpus_manifest,
     manifest_active_scope_metadata,
     normalize_corpus_status,
     resolve_repo_path,
 )
-from corpus_metrics import evaluate_staged_corpus_readiness
+from corpus_metrics import evaluate_staged_corpus_readiness, load_staged_corpus_bundle
 from torah_parser.export_bank import (
     build_parsed_corpus_artifacts,
     load_source_corpus,
@@ -38,6 +39,45 @@ def _make_scope_id(sefer, start_ref, end_ref):
         f"{start_ref.get('perek')}_{start_ref.get('pasuk')}_to_"
         f"{end_ref.get('perek')}_{end_ref.get('pasuk')}"
     )
+
+
+def _range_matches(candidate_range, target_range):
+    candidate_range = candidate_range or {}
+    target_range = target_range or {}
+    candidate_start = candidate_range.get("start") or {}
+    candidate_end = candidate_range.get("end") or {}
+    target_start = target_range.get("start") or {}
+    target_end = target_range.get("end") or {}
+    return (
+        candidate_start.get("perek") == target_start.get("perek")
+        and candidate_start.get("pasuk") == target_start.get("pasuk")
+        and candidate_end.get("perek") == target_end.get("perek")
+        and candidate_end.get("pasuk") == target_end.get("pasuk")
+    )
+
+
+def _existing_staged_bundle_dir_for_next_block(manifest, next_block):
+    target_range = (next_block or {}).get("range") or {}
+    for parsed_corpus in manifest.get("parsed_corpora", []):
+        if not _range_matches(parsed_corpus.get("range"), target_range):
+            continue
+        files = parsed_corpus.get("files") or parsed_corpus.get("parsed_files") or {}
+        parsed_path = files.get("parsed_pesukim")
+        if not parsed_path:
+            continue
+        bundle_dir = resolve_repo_path(parsed_path).parent
+        reviewed_path = bundle_dir / "reviewed_questions.json"
+        if bundle_dir.exists() and reviewed_path.exists():
+            return bundle_dir
+    return None
+
+
+def _manifest_repo_path(path_like):
+    path = resolve_repo_path(path_like)
+    try:
+        return path.relative_to(REPO_ROOT).as_posix()
+    except ValueError:
+        return path.as_posix()
 
 
 def source_corpus_actual_summary(source_corpus):
@@ -179,6 +219,21 @@ def evaluate_next_source_block(source_path=None, block_size=DEFAULT_NEXT_BLOCK_S
         },
         "pesukim": list(next_block["records"]),
     }
+    existing_bundle_dir = _existing_staged_bundle_dir_for_next_block(manifest, next_block)
+    if existing_bundle_dir is not None:
+        staged = load_staged_corpus_bundle(existing_bundle_dir)
+        readiness = evaluate_staged_corpus_readiness(existing_bundle_dir)
+        result.update(
+            {
+                "status": "evaluated",
+                "staged_chunk": staged,
+                "readiness": readiness,
+                "evaluation_source": "existing_staged_bundle",
+                "staged_bundle_dir": str(existing_bundle_dir),
+            }
+        )
+        return result
+
     corpus_id = _make_scope_id(
         active_scope.get("sefer"),
         next_block["range"]["start"],
@@ -196,6 +251,7 @@ def evaluate_next_source_block(source_path=None, block_size=DEFAULT_NEXT_BLOCK_S
             "status": "evaluated",
             "staged_chunk": staged,
             "readiness": readiness,
+            "evaluation_source": "fresh_source_rebuild",
         }
     )
     return result
@@ -212,11 +268,17 @@ def apply_promotion_to_manifest(manifest, evaluation):
         scope for scope in manifest.get("scopes", [])
         if scope.get("status") == "active" and scope.get("supported_runtime")
     )
+    previous_scope_id = active_scope.get("scope_id")
+    previous_parsed_corpus_id = active_scope.get("parsed_corpus_id")
     new_start = active_scope["range"]["start"]
     new_end = next_block["range"]["end"]
     new_count = active_scope.get("pesukim_count", 0) + next_block.get("pesukim_count", 0)
     new_scope_id = _make_scope_id(active_scope.get("sefer"), new_start, new_end)
-    new_source_files = list(evaluation.get("source_paths") or active_scope.get("source_files") or [])
+    new_parsed_corpus_id = f"parsed_{new_scope_id.removeprefix('local_parsed_')}_root"
+    new_source_files = [
+        _manifest_repo_path(path)
+        for path in (evaluation.get("source_paths") or active_scope.get("source_files") or [])
+    ]
 
     active_scope["scope_id"] = new_scope_id
     active_scope["range"]["end"] = {
@@ -224,11 +286,13 @@ def apply_promotion_to_manifest(manifest, evaluation):
         "pasuk": new_end.get("pasuk"),
     }
     active_scope["pesukim_count"] = new_count
+    active_scope["parsed_corpus_id"] = new_parsed_corpus_id
     if new_source_files:
         active_scope["source_files"] = new_source_files
 
     for parsed_corpus in manifest.get("parsed_corpora", []):
-        if parsed_corpus.get("corpus_id") == active_scope.get("parsed_corpus_id"):
+        if parsed_corpus.get("corpus_id") == previous_parsed_corpus_id:
+            parsed_corpus["corpus_id"] = new_parsed_corpus_id
             parsed_corpus["range"]["end"] = {
                 "perek": new_end.get("perek"),
                 "pasuk": new_end.get("pasuk"),
@@ -237,7 +301,6 @@ def apply_promotion_to_manifest(manifest, evaluation):
             parsed_corpus["status"] = "active"
             if new_source_files:
                 parsed_corpus["source_files"] = new_source_files
-
     for source_corpus in manifest.get("source_corpora", []):
         if source_corpus.get("corpus_id") == active_scope.get("source_corpus_id"):
             source_corpus["range"]["end"] = {
@@ -247,6 +310,22 @@ def apply_promotion_to_manifest(manifest, evaluation):
             source_corpus["pesukim_count"] = new_count
             if new_source_files:
                 source_corpus["source_files"] = new_source_files
+
+    staged_chunk_corpus_id = None
+    for future_scope in manifest.get("future_scopes", []):
+        if future_scope.get("scope_id") == new_scope_id:
+            staged_chunk_corpus_id = future_scope.get("staged_next_chunk_corpus_id")
+            break
+
+    for parsed_corpus in manifest.get("parsed_corpora", []):
+        if parsed_corpus.get("corpus_id") == staged_chunk_corpus_id:
+            parsed_corpus["status"] = "active"
+
+    manifest["future_scopes"] = [
+        future_scope
+        for future_scope in manifest.get("future_scopes", [])
+        if future_scope.get("scope_id") != new_scope_id
+    ]
 
     return manifest
 

@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "confusion_pattern.schema.json",
+  "title": "ConfusionPattern",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "confusion_pattern_id",
+    "label",
+    "description",
+    "likely_causes",
+    "affected_skill_ids",
+    "affected_rule_ids",
+    "suggested_reteach_moves",
+    "source_refs"
+  ],
+  "properties": {
+    "confusion_pattern_id": {
+      "type": "string",
+      "pattern": "^conf_[a-z0-9_]+$"
+    },
+    "label": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "likely_causes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "affected_skill_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^skill_[a-z0-9_]+$"
+      },
+      "uniqueItems": true
+    },
+    "affected_rule_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^rule_[a-z0-9_]+$"
+      },
+      "uniqueItems": true
+    },
+    "suggested_reteach_moves": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "source_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    }
+  }
+}

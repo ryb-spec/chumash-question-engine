@@ -100,6 +100,34 @@ class StreamlitPasukSyncTests(unittest.TestCase):
 
         self.assertEqual(st.session_state.current_question["pasuk"], records[0]["text"])
 
+    def test_phrase_translation_highlight_survives_maqaf_difference_between_focus_and_pasuk(self):
+        record = next(
+            record
+            for record in active_pesukim_records()
+            if record.get("ref", {}).get("perek") == 2
+            and record.get("ref", {}).get("pasuk") == 7
+        )
+        question = {
+            "skill": "phrase_translation",
+            "question_type": "phrase_translation",
+            "question": "What does this phrase mean?",
+            "selected_word": "וַיִּיצֶר יְהוָה אֱלֹהִים אֶת הָאָדָם",
+            "word": "וַיִּיצֶר יְהוָה אֱלֹהִים אֶת הָאָדָם",
+            "correct_answer": "and the LORD God formed the man",
+            "choices": [
+                "and the LORD God formed the man",
+                "and the LORD God formed the garden",
+                "and the LORD God placed the man",
+                "and someone else formed the man",
+            ],
+            "pasuk": record["text"],
+        }
+
+        rendered_html = self._rendered_pasuk_html(question)
+
+        self.assertIn("<mark>", rendered_html)
+        self.assertIn("וַיִּיצֶר יְהוָה אֱלֹהִים אֶת־הָאָדָם", rendered_html)
+
 
 if __name__ == "__main__":
     unittest.main()

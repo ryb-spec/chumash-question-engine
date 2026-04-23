@@ -32,14 +32,8 @@ def promoted_scope_pesukim():
     return [
         record["text"]
         for record in active_pesukim_records()
-        if (
-            record.get("ref", {}).get("perek") == 1
-            and record.get("ref", {}).get("pasuk", 0) == 31
-        )
-        or (
-            record.get("ref", {}).get("perek") == 2
-            and 1 <= record.get("ref", {}).get("pasuk", 0) <= 9
-        )
+        if record.get("ref", {}).get("perek") == 3
+        and 1 <= record.get("ref", {}).get("pasuk", 0) <= 8
     ]
 
 
@@ -68,19 +62,23 @@ class StreamlitRuntimeCharacterizationTests(unittest.TestCase):
             for record in active_pesukim_records()
         }
         partial_support_refs = {
+            (1, 2),
             (1, 13),
             (1, 15),
             (1, 19),
+            (1, 22),
             (1, 23),
             (1, 30),
-            (2, 10),
-            (2, 12),
+            (2, 1),
+            (2, 6),
+            (2, 11),
+            (2, 13),
             (2, 14),
+            (2, 19),
             (2, 24),
-            (2, 25),
         }
 
-        self.assertEqual(len(flows), 46)
+        self.assertEqual(len(flows), 50)
         self.assertTrue(flow_refs.issubset(active_refs))
         self.assertEqual(active_refs - flow_refs, partial_support_refs)
         self.assertTrue(

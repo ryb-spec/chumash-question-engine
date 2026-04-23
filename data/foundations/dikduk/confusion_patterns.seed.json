@@ -1,0 +1,378 @@
+[
+  {
+    "confusion_pattern_id": "conf_shoresh_equals_surface_word",
+    "label": "Shoresh = Full Surface Word",
+    "description": "Students treat the entire visible word as the shoresh instead of stripping non-root material or recognizing that a bare past form may already be too obvious.",
+    "likely_causes": [
+      "Overgeneralizing from bare citation-like past forms",
+      "Insufficient segmentation practice before shoresh questions"
+    ],
+    "affected_skill_ids": [
+      "skill_shoresh_identification",
+      "skill_affix_segmentation"
+    ],
+    "affected_rule_ids": [
+      "rule_verb_past_3ms_base"
+    ],
+    "suggested_reteach_moves": [
+      "Show the same shoresh in one bare form and one affixed form",
+      "Ask which letters keep the meaning across both forms"
+    ],
+    "source_refs": [
+      "R2:worksheets",
+      "R3:p60"
+    ]
+  },
+  {
+    "confusion_pattern_id": "conf_prefix_absorbed_into_shoresh",
+    "label": "Prefix Absorbed Into Shoresh",
+    "description": "Students mistake a meaningful prefixed letter for part of the shoresh.",
+    "likely_causes": [
+      "Weak segmentation habits",
+      "Over-reliance on first-letter matching"
+    ],
+    "affected_skill_ids": [
+      "skill_affix_segmentation",
+      "skill_prefix_handling",
+      "skill_shoresh_identification"
+    ],
+    "affected_rule_ids": [
+      "rule_verb_future_3ms_prefix",
+      "rule_verb_future_3mp_circumfix"
+    ],
+    "suggested_reteach_moves": [
+      "Use split-word exercises with the prefix already isolated",
+      "Compare a base form and its prefixed future form"
+    ],
+    "source_refs": [
+      "R2:p1",
+      "R2:worksheets",
+      "R3:pp22-27"
+    ]
+  },
+  {
+    "confusion_pattern_id": "conf_suffix_absorbed_into_shoresh",
+    "label": "Suffix Absorbed Into Shoresh",
+    "description": "Students leave possessive or subject endings inside the shoresh.",
+    "likely_causes": [
+      "Weak end-of-word attention",
+      "Insufficient contrast between root letters and endings"
+    ],
+    "affected_skill_ids": [
+      "skill_affix_segmentation",
+      "skill_suffix_handling",
+      "skill_shoresh_identification"
+    ],
+    "affected_rule_ids": [
+      "rule_noun_suffix_2ms_singular",
+      "rule_noun_suffix_2ms_plural_objects",
+      "rule_noun_suffix_2mp_family",
+      "rule_noun_suffix_3ms_family"
+    ],
+    "suggested_reteach_moves": [
+      "Have the learner remove the ending and then say the remaining shoresh aloud",
+      "Color-code endings across several examples from the same family"
+    ],
+    "source_refs": [
+      "R2:worksheets",
+      "R3:pp5-19"
+    ]
+  },
+  {
+    "confusion_pattern_id": "conf_noun_suffix_vs_verb_ending",
+    "label": "Noun Suffix vs Verb Ending",
+    "description": "Students confuse noun possession endings with verb subject or object endings.",
+    "likely_causes": [
+      "Skipping noun/verb classification",
+      "Over-reading a familiar ending without checking part of speech"
+    ],
+    "affected_skill_ids": [
+      "skill_noun_verb_recognition",
+      "skill_noun_possessive_suffix_recognition",
+      "skill_verb_past_suffix_recognition",
+      "skill_verb_object_suffix_recognition"
+    ],
+    "affected_rule_ids": [
+      "rule_classify_noun_vs_verb_first",
+      "rule_noun_suffix_2ms_singular",
+      "rule_verb_past_2ms_suffix",
+      "rule_verb_object_suffix_system"
+    ],
+    "suggested_reteach_moves": [
+      "Force a noun/verb choice before asking about the ending",
+      "Use matched pairs with the same final letters on a noun and a verb"
+    ],
+    "source_refs": [
+      "R3:p5",
+      "R3:p7",
+      "R3:pp107-125"
+    ]
+  },
+  {
+    "confusion_pattern_id": "conf_tav_future_ambiguity",
+    "label": "Tav-Future Ambiguity",
+    "description": "Students assume a prefixed ? has one fixed subject value instead of recognizing the she-will / you-will ambiguity.",
+    "likely_causes": [
+      "Over-memorizing one translation for a marker",
+      "Not using context to settle subject identity"
+    ],
+    "affected_skill_ids": [
+      "skill_verb_future_prefix_recognition",
+      "skill_person_gender_number_recognition",
+      "skill_phrase_context_disambiguation"
+    ],
+    "affected_rule_ids": [
+      "rule_verb_future_tav_ambiguous",
+      "rule_context_resolves_ambiguity"
+    ],
+    "suggested_reteach_moves": [
+      "Show the same form in two short phrases with different subjects",
+      "Ask what extra context would settle the reading"
+    ],
+    "source_refs": [
+      "R3:p29",
+      "R3:p73"
+    ]
+  },
+  {
+    "confusion_pattern_id": "conf_vav_transformation_misread",
+    "label": "Misreading Vav Transformations",
+    "description": "Students read every prefixed vav as simple and without noticing its interaction with tense.",
+    "likely_causes": [
+      "Ignoring nikud changes",
+      "Treating all vav-prefixed verbs as one pattern"
+    ],
+    "affected_skill_ids": [
+      "skill_vav_hahipuch_recognition",
+      "skill_nikud_sensitive_distinction",
+      "skill_tense_recognition"
+    ],
+    "affected_rule_ids": [
+      "rule_vav_future_connector",
+      "rule_vav_hahipuch_past"
+    ],
+    "suggested_reteach_moves": [
+      "Contrast a ?? future-reading form with a ?? past-reading form side by side",
+      "Highlight the vowel difference before asking for translation"
+    ],
+    "source_refs": [
+      "R3:p8",
+      "R3:pp23-24",
+      "R3:pp34-35"
+    ]
+  },
+  {
+    "confusion_pattern_id": "conf_past_plural_vs_imperative_plural",
+    "label": "Past Plural vs Imperative Plural",
+    "description": "Students confuse a ??-ending past plural form with a direct command to many men.",
+    "likely_causes": [
+      "Surface-form matching without syntax",
+      "Insufficient exposure to imperative families in phrase context"
+    ],
+    "affected_skill_ids": [
+      "skill_direct_command_recognition",
+      "skill_irregular_ambiguous_form_handling",
+      "skill_phrase_context_disambiguation"
+    ],
+    "affected_rule_ids": [
+      "rule_verb_past_3mp_or_imperative_mp",
+      "rule_imperative_system",
+      "rule_context_resolves_ambiguity"
+    ],
+    "suggested_reteach_moves": [
+      "Use one token in two mini-sentences and compare the reading",
+      "Ask which English sentence sounds like a command"
+    ],
+    "source_refs": [
+      "R3:p61",
+      "R3:p85"
+    ]
+  },
+  {
+    "confusion_pattern_id": "conf_subject_suffix_vs_object_suffix",
+    "label": "Subject Ending vs Object Suffix",
+    "description": "Students treat attached object pronouns as if they were subject markers or vice versa.",
+    "likely_causes": [
+      "Reusing noun-suffix logic on verbs",
+      "Not separating who did from done to whom"
+    ],
+    "affected_skill_ids": [
+      "skill_verb_object_suffix_recognition",
+      "skill_person_gender_number_recognition",
+      "skill_suffix_handling"
+    ],
+    "affected_rule_ids": [
+      "rule_verb_object_suffix_system",
+      "rule_context_resolves_ambiguity",
+      "rule_noun_suffix_1cp_family"
+    ],
+    "suggested_reteach_moves": [
+      "Annotate verb core, subject, and attached object as separate slots",
+      "Ask the learner to state both subject and object in English"
+    ],
+    "source_refs": [
+      "R3:pp89",
+      "R3:pp107-125"
+    ]
+  },
+  {
+    "confusion_pattern_id": "conf_false_plural_surface",
+    "label": "False Plural Surface Reading",
+    "description": "Students assume every ??-looking or similar plural-looking surface is an ordinary plural noun.",
+    "likely_causes": [
+      "Overgeneralizing plural endings",
+      "Lack of explicit exception memory"
+    ],
+    "affected_skill_ids": [
+      "skill_plural_handling",
+      "skill_irregular_ambiguous_form_handling"
+    ],
+    "affected_rule_ids": [
+      "rule_false_plural_exceptions",
+      "rule_noun_suffix_1cs_family",
+      "rule_noun_suffix_3mp_family"
+    ],
+    "suggested_reteach_moves": [
+      "Teach a short reviewed exception bank",
+      "Contrast a true plural with a false-plural-looking form"
+    ],
+    "source_refs": [
+      "R3:p16",
+      "R3:p37",
+      "R3:p72"
+    ]
+  },
+  {
+    "confusion_pattern_id": "conf_literal_over_context",
+    "label": "Literal Translation Over Context",
+    "description": "Students keep the base gloss even when phrase or pasuk context requires a different English rendering or word order.",
+    "likely_causes": [
+      "Over-reliance on glossary recall",
+      "Not separating base meaning from here meaning"
+    ],
+    "affected_skill_ids": [
+      "skill_literal_translation",
+      "skill_contextual_translation",
+      "skill_phrase_translation",
+      "skill_phrase_context_disambiguation"
+    ],
+    "affected_rule_ids": [
+      "rule_context_resolves_ambiguity",
+      "rule_verb_future_tav_ambiguous"
+    ],
+    "suggested_reteach_moves": [
+      "Show base meaning and in-context meaning side by side",
+      "Ask why the literal gloss sounds wrong in the phrase"
+    ],
+    "source_refs": [
+      "R1:worksheets",
+      "R3:throughout"
+    ]
+  },
+  {
+    "confusion_pattern_id": "conf_present_habitual_ignored",
+    "label": "Present/Habitual Ignored",
+    "description": "Students force a present/habitual form into a past or future bucket because those are more familiar.",
+    "likely_causes": [
+      "Binary tense habit",
+      "Weak attention to pattern-based present forms"
+    ],
+    "affected_skill_ids": [
+      "skill_present_habitual_recognition",
+      "skill_tense_recognition"
+    ],
+    "affected_rule_ids": [
+      "rule_present_habitual_system"
+    ],
+    "suggested_reteach_moves": [
+      "Contrast one shoresh across past, future, and present/habitual forms",
+      "Use classification tasks before translation tasks"
+    ],
+    "source_refs": [
+      "R3:pp118-124"
+    ]
+  },
+  {
+    "confusion_pattern_id": "conf_nun_future_vs_passive",
+    "label": "Nun Future vs Passive-Like Pattern",
+    "description": "Students over-assign prefixed ? to we will or to passive-like meaning without enough evidence.",
+    "likely_causes": [
+      "Marker memorization without pattern context",
+      "Weak differentiation between first-person plural and passive-like stem behavior"
+    ],
+    "affected_skill_ids": [
+      "skill_verb_future_prefix_recognition",
+      "skill_passive_causative_pattern_recognition",
+      "skill_phrase_context_disambiguation"
+    ],
+    "affected_rule_ids": [
+      "rule_verb_future_1cs_1cp_prefixes",
+      "rule_passive_or_causative_patterns"
+    ],
+    "suggested_reteach_moves": [
+      "Keep nun-prefixed forms in reviewed phrase context until stable",
+      "Explain why the same consonant marker can belong to different systems"
+    ],
+    "source_refs": [
+      "R3:p57",
+      "R3:p126"
+    ]
+  },
+  {
+    "confusion_pattern_id": "conf_edge_letter_heuristics",
+    "label": "Over-Reliance on First/Last-Letter Cues",
+    "description": "Students answer from the first or last visible letter instead of identifying the full pattern family.",
+    "likely_causes": [
+      "Worksheet gaming",
+      "Insufficient comparison across near-miss forms"
+    ],
+    "affected_skill_ids": [
+      "skill_shoresh_identification",
+      "skill_prefix_handling",
+      "skill_suffix_handling",
+      "skill_nikud_sensitive_distinction"
+    ],
+    "affected_rule_ids": [
+      "rule_classify_noun_vs_verb_first",
+      "rule_verb_future_3ms_prefix",
+      "rule_vav_hahipuch_past"
+    ],
+    "suggested_reteach_moves": [
+      "Use contrastive sets that share first letters but differ in pattern",
+      "Require the learner to name the full marker family, not just one letter"
+    ],
+    "source_refs": [
+      "R2:worksheets",
+      "R3:throughout"
+    ]
+  },
+  {
+    "confusion_pattern_id": "conf_nikud_sensitive_distinction",
+    "label": "Nikud-Sensitive Distinction Missed",
+    "description": "Students ignore vowels that differentiate tense, pattern family, or derived-stem reading.",
+    "likely_causes": [
+      "Over-reliance on consonants only",
+      "Weak comparison of near-identical forms with different vowels"
+    ],
+    "affected_skill_ids": [
+      "skill_nikud_sensitive_distinction",
+      "skill_vav_hahipuch_recognition",
+      "skill_present_habitual_recognition",
+      "skill_passive_causative_pattern_recognition"
+    ],
+    "affected_rule_ids": [
+      "rule_vav_hahipuch_past",
+      "rule_imperative_system",
+      "rule_present_habitual_system",
+      "rule_passive_or_causative_patterns"
+    ],
+    "suggested_reteach_moves": [
+      "Show minimally different pointed forms side by side",
+      "Highlight the vowel that changes the reading before asking for translation"
+    ],
+    "source_refs": [
+      "R3:pp22-24",
+      "R3:pp118-126"
+    ]
+  }
+]
