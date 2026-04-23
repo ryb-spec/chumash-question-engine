@@ -1,4 +1,5 @@
 import unittest
+from pathlib import Path
 from subprocess import CompletedProcess
 from unittest.mock import patch
 
@@ -57,8 +58,8 @@ class CorpusPromotionTests(unittest.TestCase):
         self.assertEqual(mocked.call_count, 2)
         self.assertEqual(len(refreshed), 2)
         commands = [call.args[0] for call in mocked.call_args_list]
-        self.assertTrue(commands[0][1].endswith("scripts\\build_reviewed_question_bank.py"))
-        self.assertTrue(commands[1][1].endswith("scripts\\audit_role_layer.py"))
+        self.assertEqual(Path(commands[0][1]).name, "build_reviewed_question_bank.py")
+        self.assertEqual(Path(commands[1][1]).name, "audit_role_layer.py")
         for call in mocked.call_args_list:
             self.assertTrue(call.kwargs["check"])
             self.assertTrue(call.kwargs["capture_output"])
