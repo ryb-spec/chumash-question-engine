@@ -1395,13 +1395,13 @@
 - Alias/context cleanup resolution in this branch: the accepted alias sets and future-generation context notes for `עָרוּם / עֵירֹם / עֵירֻמִּם`, `מוֹת תָּמוּת / לֹא מוֹת תְּמֻתוּן`, `עֵץ הַדַּעַת טוֹב וָרָע`, `חַוָּה`, and `גַּן עֵדֶן` are now stated explicitly in the watchlist.
 - Prompt/readability review: The preview questions are structurally readable and the answer keys match their source snippets. However, the phrase-translation preview items have empty distractors, so they are suitable as preview/flashcard-style items but not yet as robust multiple-choice questions.
 - Distractor review: Hebrew-to-English and English-to-Hebrew distractors are generally reasonable and mostly non-overlapping. Some distractors are from later pesukim while the prompt is from earlier pesukim; that is acceptable for inactive preview, but future adaptive generation should tag whether distractors are same-pasuk, same-perek, or cross-pasuk.
-- Watchlist formatting issue: Resolved in this cleanup pass by replacing the garbled Hebrew placeholders with readable watchlist labels. The remaining follow-up is the alias/context cleanup itself, not the packet formatting.
-- Recommendation basis: No severe blocker was found because the packet is explicitly inactive, source-traced, and review-labeled. The remaining issue is now repo-state closeout rather than watchlist wording: the alias/context notes are resolved in the review artifacts, but Batch 004 still remains under the current `needs_review` / `extracted_needs_review` manifest and validation contract.
+- Watchlist formatting issue: Resolved in this cleanup pass by replacing the garbled Hebrew placeholders with readable watchlist labels, and the accepted alias/context guidance is now captured explicitly in the watchlist and linked resolution report.
+- Recommendation basis: No severe blocker was found because the packet is explicitly inactive, source-traced, and review-labeled. The alias/context notes are resolved in the review artifacts, and the review-status contract now allows Batch 004 to be cleared for future curriculum planning while staying non-runtime.
 
 ## Final Recommendation
 
-Remaining blocker: the alias/context decisions and student-facing wording guidance are now documented in the review artifacts, but the repo still treats Batch 004 as `needs_review` / `extracted_needs_review`, and the current curriculum-extraction validation contract expects that state to remain in place.
+Approval note: Batch 004 is approved for inactive merge and for future Batch 005 planning. This approval does not promote any extraction data into runtime. The extracted JSONL payload remains unchanged and still carries record-level `needs_review` flags.
 
-- [ ] APPROVE_BATCH_004_FOR_INACTIVE_MERGE
-- [x] NEEDS_MINOR_CLEANUP
+- [x] APPROVE_BATCH_004_FOR_INACTIVE_MERGE
+- [ ] NEEDS_MINOR_CLEANUP
 - [ ] BLOCK_BATCH_004

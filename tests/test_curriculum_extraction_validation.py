@@ -1,3 +1,4 @@
+import copy
 import json
 import unittest
 from unittest import mock
@@ -12,6 +13,18 @@ MANIFEST_PATH = ROOT / "data" / "curriculum_extraction" / "curriculum_extraction
 
 def load_manifest():
     return json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
+
+
+def validate_with_manifest(manifest):
+    original_load_json = validator.load_json
+
+    def side_effect(path):
+        if path == validator.MANIFEST_PATH:
+            return manifest
+        return original_load_json(path)
+
+    with mock.patch.object(validator, "load_json", side_effect=side_effect):
+        return validator.validate_curriculum_extraction()
 
 
 def load_all_sample_records():
@@ -92,8 +105,8 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
             ["data/curriculum_extraction/generated_questions_preview/batch_003_preview.jsonl"],
         )
         self.assertIn("batch_004_linear_bereishis_3_1_to_3_24", batches)
-        self.assertEqual(batches["batch_004_linear_bereishis_3_1_to_3_24"]["review_status"], "needs_review")
-        self.assertEqual(batches["batch_004_linear_bereishis_3_1_to_3_24"]["status"], "extracted_needs_review")
+        self.assertEqual(batches["batch_004_linear_bereishis_3_1_to_3_24"]["review_status"], "reviewed")
+        self.assertEqual(batches["batch_004_linear_bereishis_3_1_to_3_24"]["status"], "reviewed_for_planning_non_runtime")
         self.assertEqual(
             batches["batch_004_linear_bereishis_3_1_to_3_24"]["raw_source_files"],
             ["data/curriculum_extraction/raw_sources/batch_004/linear_chumash_bereishis_3_1_to_3_24_cleaned.md"],
@@ -105,6 +118,15 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
         self.assertEqual(
             batches["batch_004_linear_bereishis_3_1_to_3_24"]["generated_question_preview_files"],
             ["data/curriculum_extraction/generated_questions_preview/batch_004_preview.jsonl"],
+        )
+        self.assertEqual(
+            batches["batch_004_linear_bereishis_3_1_to_3_24"]["review_artifacts"],
+            [
+                "data/curriculum_extraction/reports/batch_004_summary.md",
+                "data/curriculum_extraction/reports/batch_004_preview_summary.md",
+                "data/curriculum_extraction/reports/batch_004_manual_review_packet.md",
+                "data/curriculum_extraction/reports/batch_004_review_resolution.md",
+            ],
         )
 
     def test_phase_1_sample_records_stay_needs_review(self):
@@ -142,6 +164,48 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
             self.assertEqual(record["source_trace"]["review_status"], "needs_review", record["id"])
             self.assertEqual(record["confidence"], "low", record["id"])
             self.assertIn("hebrew_aligned_from_local_pasuk_text", record["extraction_quality_flags"], record["id"])
+
+    def test_reviewed_non_runtime_batch_is_valid_when_required_review_artifacts_exist(self):
+        summary = validator.validate_curriculum_extraction()
+        self.assertTrue(summary["valid"], summary["errors"])
+
+    def test_reviewed_non_runtime_batch_missing_review_artifact_fails_validation(self):
+        manifest = copy.deepcopy(load_manifest())
+        batch = next(
+            batch
+            for batch in manifest["resource_batches"]
+            if batch["batch_id"] == "batch_004_linear_bereishis_3_1_to_3_24"
+        )
+        batch["review_artifacts"] = [
+            relative
+            for relative in batch["review_artifacts"]
+            if relative != "data/curriculum_extraction/reports/batch_004_review_resolution.md"
+        ]
+
+        summary = validate_with_manifest(manifest)
+        self.assertFalse(summary["valid"])
+        self.assertIn(
+            "curriculum_extraction_manifest.json: batch_004_linear_bereishis_3_1_to_3_24 "
+            "reviewed_for_planning_non_runtime batches must declare review_artifact "
+            "'data/curriculum_extraction/reports/batch_004_review_resolution.md'",
+            summary["errors"],
+        )
+
+    def test_reviewed_non_runtime_status_does_not_imply_runtime_promotion(self):
+        manifest = copy.deepcopy(load_manifest())
+        batch = next(
+            batch
+            for batch in manifest["resource_batches"]
+            if batch["batch_id"] == "batch_004_linear_bereishis_3_1_to_3_24"
+        )
+        batch["runtime_active"] = True
+
+        summary = validate_with_manifest(manifest)
+        self.assertFalse(summary["valid"])
+        self.assertIn(
+            "curriculum_extraction_manifest.json: batch_004_linear_bereishis_3_1_to_3_24 must have runtime_active=false",
+            summary["errors"],
+        )
 
     def test_no_record_is_runtime_active(self):
         for record in load_all_records():
