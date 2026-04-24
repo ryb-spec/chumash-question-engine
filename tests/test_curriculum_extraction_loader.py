@@ -28,6 +28,8 @@ class CurriculumExtractionLoaderTests(unittest.TestCase):
         self.assertEqual(summary["normalized_record_count"], 75)
         self.assertEqual(summary["batch_counts"]["batch_001_cleaned_seed"], 75)
         self.assertEqual(summary["record_type_counts"]["pasuk_segment"], 26)
+        self.assertEqual(summary["review_status_counts"]["reviewed"], 75)
+        self.assertEqual(summary["review_status_counts"]["needs_review"], 30)
 
     def test_loader_returns_records_for_bereishis_1_1(self):
         records = self.loader.records_for_pasuk("Bereishis", 1, 1)
@@ -36,6 +38,7 @@ class CurriculumExtractionLoaderTests(unittest.TestCase):
             all(record["sefer"] == "Bereishis" and record["perek"] == 1 and record["pasuk"] == 1 for record in records)
         )
         self.assertTrue(any(record["extraction_batch_id"] == "batch_001_cleaned_seed" for record in records))
+        self.assertTrue(any(record["review_status"] == "reviewed" for record in records))
 
     def test_loader_returns_empty_list_for_missing_pasuk(self):
         self.assertEqual(self.loader.records_for_pasuk("Bereishis", 99, 99), [])

@@ -10,7 +10,7 @@ It must not connect directly to runtime from this branch.
 
 Later integration should happen only after extracted records are organized, validated, reviewed, and explicitly approved. A future integration branch can selectively import reviewed outputs from this factory into runtime-facing pipelines.
 
-Batch 001 is intentionally not enough for runtime connection by itself. It is only a cleaned seed ingest with explicit `needs_review` and `not_runtime_active` markers.
+Batch 001 is intentionally not enough for runtime connection by itself. It has now been manually reviewed for isolated non-runtime use, but it still remains outside runtime and outside the active reviewed question bank.
 
 ## Possible Future Integration Points
 

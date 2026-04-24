@@ -184,6 +184,7 @@ TRANSLATION_RULE_REQUIRED_FIELDS = (
 
 SAMPLE_ALLOWED_METHODS = {"manual_sample"}
 NORMALIZED_ALLOWED_METHODS = {"manual_cleaned_excerpt", "manual_sample"}
+ALLOWED_REVIEW_STATUSES = {"needs_review", "reviewed"}
 
 SKILL_TAG_ALIASES = {
     "phrase_translation": {"translation_context", "skill_tag.translation_context"},
@@ -298,7 +299,43 @@ def validate_declared_files(manifest: dict, key: str, errors: list[str]) -> list
     return paths
 
 
-def validate_source_trace(record: dict, errors: list[str], context: str, *, record_origin: str) -> None:
+def expected_batch_review_status(record: dict, record_origin: str, batch_lookup: dict[str, dict]) -> str:
+    batch = batch_lookup.get(str(record.get("extraction_batch_id", "")), {})
+    review_status = batch.get("review_status")
+    if review_status in ALLOWED_REVIEW_STATUSES:
+        return str(review_status)
+    return "needs_review" if record_origin == "sample" else "needs_review"
+
+
+def validate_resource_batches(manifest: dict, errors: list[str]) -> dict[str, dict]:
+    batch_lookup: dict[str, dict] = {}
+    for batch in manifest.get("resource_batches", []):
+        if not isinstance(batch, dict):
+            errors.append("curriculum_extraction_manifest.json: each resource batch must be an object")
+            continue
+        batch_id = batch.get("batch_id")
+        if not batch_id:
+            errors.append("curriculum_extraction_manifest.json: resource batch missing batch_id")
+            continue
+        if batch.get("runtime_active") is not False:
+            errors.append(f"curriculum_extraction_manifest.json: {batch_id} must have runtime_active=false")
+        if batch.get("integration_status") != "not_runtime_active":
+            errors.append(f"curriculum_extraction_manifest.json: {batch_id} must have integration_status=not_runtime_active")
+        review_status = batch.get("review_status")
+        if review_status is not None and review_status not in ALLOWED_REVIEW_STATUSES:
+            errors.append(f"curriculum_extraction_manifest.json: {batch_id} has invalid review_status '{review_status}'")
+        batch_lookup[str(batch_id)] = batch
+    return batch_lookup
+
+
+def validate_source_trace(
+    record: dict,
+    errors: list[str],
+    context: str,
+    *,
+    record_origin: str,
+    expected_review_status: str,
+) -> None:
     source_trace = record.get("source_trace")
     if not isinstance(source_trace, dict):
         errors.append(f"{context}: source_trace must be an object")
@@ -317,21 +354,23 @@ def validate_source_trace(record: dict, errors: list[str], context: str, *, reco
                 f"{context}: normalized records must use extraction_method in {sorted(NORMALIZED_ALLOWED_METHODS)}"
             )
 
-    if source_trace.get("review_status") != "needs_review":
-        errors.append(f"{context}: source_trace.review_status must be 'needs_review'")
+    if source_trace.get("review_status") != expected_review_status:
+        errors.append(f"{context}: source_trace.review_status must be '{expected_review_status}'")
     page_start = source_trace.get("source_page_start")
     page_end = source_trace.get("source_page_end")
     if isinstance(page_start, int) and isinstance(page_end, int) and page_end < page_start:
         errors.append(f"{context}: source_page_end must be >= source_page_start")
 
 
-def validate_review_flags(record: dict, errors: list[str], context: str) -> None:
-    if record.get("review_status") != "needs_review":
-        errors.append(f"{context}: review_status must be 'needs_review'")
+def validate_review_flags(record: dict, errors: list[str], context: str, *, expected_review_status: str) -> None:
+    if record.get("review_status") != expected_review_status:
+        errors.append(f"{context}: review_status must be '{expected_review_status}'")
     if record.get("runtime_status") != "not_runtime_active":
         errors.append(f"{context}: runtime_status must be 'not_runtime_active'")
     if record.get("confidence") == "high":
         errors.append(f"{context}: confidence must not be 'high'")
+    if expected_review_status == "reviewed" and record.get("confidence") == "low":
+        errors.append(f"{context}: reviewed records must not stay at low confidence")
 
 
 def validate_skill_tags(record: dict, valid_skill_refs: set[str], errors: list[str], context: str) -> None:
@@ -539,6 +578,7 @@ def validate_curriculum_extraction(*, check_git_diff: bool = False) -> dict:
         errors.append("curriculum_extraction_manifest.json: integration_status must be not_runtime_active")
 
     registry_lookup = validate_registry(registry, errors)
+    batch_lookup = validate_resource_batches(manifest, errors)
     schema_paths = validate_schema_files(manifest, errors)
     raw_source_paths = validate_declared_files(manifest, "raw_source_files", errors)
     sample_records_by_file, sample_records = collect_records_from_manifest_list(manifest, "sample_files", errors)
@@ -565,10 +605,17 @@ def validate_curriculum_extraction(*, check_git_diff: bool = False) -> dict:
                 line_number = record.pop("_meta_line_number", "?")
                 source_file = record.pop("_meta_source_file", relative_path)
                 context = f"{source_file}:{line_number}"
+                expected_review_status = expected_batch_review_status(record, record_origin, batch_lookup)
 
                 require_fields(record, COMMON_REQUIRED_FIELDS, errors, context)
-                validate_source_trace(record, errors, context, record_origin=record_origin)
-                validate_review_flags(record, errors, context)
+                validate_source_trace(
+                    record,
+                    errors,
+                    context,
+                    record_origin=record_origin,
+                    expected_review_status=expected_review_status,
+                )
+                validate_review_flags(record, errors, context, expected_review_status=expected_review_status)
 
                 record_id = record.get("id")
                 if record_id in seen_ids:

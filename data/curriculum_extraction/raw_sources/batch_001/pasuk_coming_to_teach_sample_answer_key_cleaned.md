@@ -3,7 +3,7 @@
 Source file: `15926V_d_15926_what_is_the_pasuk_skills.pdf`  
 Source pages: 3–4  
 Source package id: `pasuk_coming_to_teach`  
-Status: `needs_review`, `not_runtime_active`
+Status: `reviewed`, `not_runtime_active`
 
 The resource describes three worksheet types: word-by-word translation with prefixes/suffixes/shorashim, phrase/Rashi questions, and multiple-choice tests. The sample answer key shows how to break words into pieces.
 

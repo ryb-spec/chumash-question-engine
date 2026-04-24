@@ -67,8 +67,8 @@
     {
       "batch_id": "batch_001_cleaned_seed",
       "label": "Batch 001 cleaned seed ingestion",
-      "status": "cleaned_seed_ingested_needs_review",
-      "review_status": "needs_review",
+      "status": "cleaned_seed_reviewed_non_runtime",
+      "review_status": "reviewed",
       "integration_status": "not_runtime_active",
       "runtime_active": false,
       "raw_source_files": [
@@ -86,17 +86,23 @@
         "data/curriculum_extraction/normalized/bacharach_vaeira_comprehension_questions.seed.jsonl",
         "data/curriculum_extraction/normalized/vocabulary_priority_pack.seed.jsonl"
       ],
+      "review_artifacts": [
+        "data/curriculum_extraction/reports/batch_001_summary.md",
+        "data/curriculum_extraction/reports/batch_001_manual_review_packet.md"
+      ],
       "notes": [
         "This batch was ingested from a cleaned seed packet only.",
-        "These normalized records are still isolated, still need review, and are not part of runtime or the reviewed question bank."
+        "These normalized records were manually reviewed for isolated non-runtime use.",
+        "They remain outside runtime and outside the reviewed question bank."
       ]
     }
   ],
   "notes": [
     "This curriculum extraction factory is isolated from runtime.",
     "Nothing in this manifest is runtime active.",
+    "Some isolated batches may be manually reviewed without becoming runtime active.",
     "No data in this manifest is reviewed for live use.",
     "No file in this manifest writes to the active reviewed question bank.",
-    "Batch 001 cleaned seeds are ingested for validation and organization only."
+    "Batch 001 cleaned seeds were reviewed for isolated non-runtime use only."
   ]
 }

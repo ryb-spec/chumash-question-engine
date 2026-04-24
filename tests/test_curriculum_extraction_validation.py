@@ -40,18 +40,27 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
         summary = validator.validate_curriculum_extraction(check_git_diff=True)
         self.assertTrue(summary["valid"], summary["errors"])
         self.assertEqual(summary["normalized_record_count"], 75)
+        self.assertEqual(summary["review_status_counts"]["reviewed"], 75)
+        self.assertEqual(summary["review_status_counts"]["needs_review"], 30)
 
     def test_manifest_is_not_runtime_active(self):
         manifest = load_manifest()
         self.assertFalse(manifest["runtime_active"])
         self.assertEqual(manifest["integration_status"], "not_runtime_active")
         self.assertEqual(len(manifest.get("normalized_data_files", [])), 6)
-        batch_ids = {batch["batch_id"] for batch in manifest.get("resource_batches", [])}
-        self.assertIn("batch_001_cleaned_seed", batch_ids)
+        batches = {batch["batch_id"]: batch for batch in manifest.get("resource_batches", [])}
+        self.assertIn("batch_001_cleaned_seed", batches)
+        self.assertEqual(batches["batch_001_cleaned_seed"]["review_status"], "reviewed")
+        self.assertEqual(batches["batch_001_cleaned_seed"]["status"], "cleaned_seed_reviewed_non_runtime")
 
-    def test_no_record_is_reviewed(self):
-        for record in load_all_records():
+    def test_phase_1_sample_records_stay_needs_review(self):
+        for record in load_all_sample_records():
             self.assertEqual(record["review_status"], "needs_review", record["id"])
+
+    def test_batch_001_normalized_records_are_reviewed(self):
+        for record in load_all_normalized_records():
+            self.assertEqual(record["review_status"], "reviewed", record["id"])
+            self.assertEqual(record["source_trace"]["review_status"], "reviewed", record["id"])
 
     def test_no_record_is_runtime_active(self):
         for record in load_all_records():
@@ -61,12 +70,21 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
         for record in load_all_records():
             self.assertNotEqual(record["confidence"], "high", record["id"])
 
+    def test_batch_001_normalized_records_move_to_medium_confidence(self):
+        for record in load_all_normalized_records():
+            self.assertEqual(record["confidence"], "medium", record["id"])
+
     def test_every_record_has_source_package_and_source_trace(self):
         for record in load_all_records():
             self.assertIn("source_package_id", record)
             self.assertTrue(record["source_package_id"])
             self.assertIn("source_trace", record)
             self.assertIsInstance(record["source_trace"], dict)
+
+    def test_batch_001_records_have_manual_review_confirmed_flag(self):
+        for record in load_all_normalized_records():
+            self.assertIn("manual_review_confirmed", record["extraction_quality_flags"], record["id"])
+            self.assertNotIn("requires_manual_review", record["extraction_quality_flags"], record["id"])
 
     def test_batch_001_vocab_entries_without_glosses_are_flagged_for_review(self):
         empty_gloss_ids = []

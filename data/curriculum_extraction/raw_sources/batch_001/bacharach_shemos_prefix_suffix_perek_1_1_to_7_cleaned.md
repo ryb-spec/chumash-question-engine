@@ -3,7 +3,7 @@
 Source file: `12944_b_01757_01_parshas_shemos_shorashim_prefix_suffix.pdf`  
 Source page: 2  
 Source package id: `bacharach_shemos_prefix_suffix`  
-Status: `needs_review`, `not_runtime_active`
+Status: `reviewed`, `not_runtime_active`
 
 The worksheet gives pesukim and asks students to locate each listed shoresh in the pasuk, then fill in:
 - word in pasuk

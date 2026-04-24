@@ -5,7 +5,7 @@ Source files:
 - `HebrewWordList Frequency in chumash.pdf`
 - optional support: `13726D_g_01023_first_150_shorashim_and_keywords_in_chumash.pdf`
 
-Status: `needs_review`, `not_runtime_active`
+Status: `reviewed`, `not_runtime_active`
 
 ## Bereishis 270 high-frequency words — starter excerpt
 

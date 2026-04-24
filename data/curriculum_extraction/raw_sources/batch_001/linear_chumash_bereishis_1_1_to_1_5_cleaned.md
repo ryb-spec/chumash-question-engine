@@ -3,7 +3,7 @@
 Source file: `7984C_b_01409_pshat_of_torah.pdf`  
 Source pages: 2–3  
 Source package id: `linear_chumash_translation`  
-Status: `needs_review`, `not_runtime_active`
+Status: `reviewed`, `not_runtime_active`
 
 This cleaned excerpt is a small Codex-ingest sample. It preserves the useful phrase-level translation structure while avoiding the noisy OCR Hebrew.
 

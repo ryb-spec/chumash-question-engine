@@ -19,6 +19,10 @@ Normalized seed files:
 - `data/curriculum_extraction/normalized/bacharach_vaeira_comprehension_questions.seed.jsonl`
 - `data/curriculum_extraction/normalized/vocabulary_priority_pack.seed.jsonl`
 
+## Batch Status
+
+Batch 001 is now manually reviewed for isolated non-runtime use. It remains outside runtime and outside the active reviewed question bank.
+
 ## Record Counts By Record Type
 
 - `pasuk_segment`: 23
@@ -32,15 +36,15 @@ Total normalized Batch 001 records: 75
 
 ## Source Packages Represented
 
-- `linear_chumash_translation_most_parshiyos_in_torah`: 29
-- `what_is_the_pasuk_coming_to_teach`: 10
 - `eli_bacharach_parshas_shemos_shorashim_prefix_suffix_skills`: 8
 - `eli_bacharach_parshas_vaeira_textual_skills`: 10
+- `linear_chumash_translation_most_parshiyos_in_torah`: 29
 - `vocabulary_priority_pack`: 18
+- `what_is_the_pasuk_coming_to_teach`: 10
 
 ## Review Status Summary
 
-- `needs_review`: 75
+- `reviewed`: 75
 
 ## Runtime Status Summary
 
@@ -48,12 +52,12 @@ Total normalized Batch 001 records: 75
 
 ## Extraction Risks
 
-- Batch 001 is a cleaned seed ingest only, not a reviewed production batch.
+- Batch 001 is manually reviewed for isolated non-runtime use, but it is still not a runtime-approved batch.
 - The cleaned markdown excerpts are partial source traces, not full source PDFs.
-- Some vocabulary records still have empty `english_glosses` and are explicitly flagged with `needs_gloss_review = true`.
-- Some `word_parse_task` records do not have source-provided answers and remain `answer_status = not_extracted`.
-- These records are isolated only and must not be wired into runtime or the reviewed question bank from this branch.
+- Some vocabulary records still have empty `english_glosses` and remain explicitly flagged with `needs_gloss_review = true`.
+- Some `word_parse_task` records do not have source-provided answers and correctly remain `answer_status = not_extracted`.
+- These records remain isolated only and must not be wired into runtime or the reviewed question bank from this branch.
 
 ## Next Recommended Step
 
-Run a manual review pass over the Batch 001 normalized records, especially gloss gaps and task records without source-provided answers, before any preview-generation or integration planning work.
+If desired, use this reviewed non-runtime batch to build preview-generation scaffolding outside runtime, or ingest the next cleaned batch with the same isolated review workflow.

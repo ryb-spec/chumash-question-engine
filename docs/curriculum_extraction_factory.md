@@ -45,8 +45,9 @@ These schemas are still draft scaffolds. They provide the contract shape for lat
 - schema files exist and are valid JSON
 - sample and normalized JSONL records parse correctly
 - every record includes `source_package_id` and `source_trace`
-- every record stays `needs_review`, `not_runtime_active`, and below `high` confidence
-- no record is treated as reviewed or runtime-active
+- Phase 1 samples stay `needs_review`, `not_runtime_active`, and `low`
+- reviewed isolated batches can advance to `reviewed`, remain `not_runtime_active`, and stay below `high`
+- no record is treated as runtime-active
 - skill tag references resolve
 - ids are unique
 - record-type required fields are present
@@ -90,10 +91,12 @@ Phase 2 ingests a cleaned seed packet into the same isolated lane without connec
 - cleaned markdown excerpts live under `data/curriculum_extraction/raw_sources/batch_001/`
 - normalized seed JSONL lives under `data/curriculum_extraction/normalized/`
 - the manifest records the batch as `batch_001_cleaned_seed`
-- every ingested record remains `needs_review` and `not_runtime_active`
+- the batch is now manually reviewed for isolated non-runtime use
+- reviewed Batch 001 records remain `not_runtime_active` and outside the reviewed question bank
 - the batch summary report lives at `data/curriculum_extraction/reports/batch_001_summary.md`
+- the manual review artifact lives at `data/curriculum_extraction/reports/batch_001_manual_review_packet.md`
 
-These records are still seed material only. They are not production-reviewed content, not generated questions, and not reviewed-bank data.
+These records are still isolated seed material only. They are not runtime-approved content, not generated questions, and not reviewed-bank data.
 
 ## What Is Not Live
 
@@ -105,14 +108,14 @@ Nothing in this branch is runtime active.
 - No data is written into the reviewed question bank.
 - No generated question preview pipeline is connected.
 
-## Phase 2 Should Do Next
+## Phase 3 Should Do Next
 
 Phase 3 should stay outside runtime as well and focus on:
 
-1. manual review of the Batch 001 normalized records
+1. non-runtime preview generation scaffolding for reviewed isolated batches
 2. extraction batch report refinement and reviewer notes
 3. richer normalization-field consistency checks where the cleaned seeds are thin
-4. generated question preview scaffolding outside runtime
-5. manual review workflow definitions for extracted records
+4. the next cleaned-batch ingestion pass
+5. explicit runtime-integration gates only after separate approval
 
 Runtime integration should happen only on a later, explicit integration branch after review gates are satisfied.

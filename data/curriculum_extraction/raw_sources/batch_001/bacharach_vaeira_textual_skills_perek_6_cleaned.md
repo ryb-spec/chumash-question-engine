@@ -3,7 +3,7 @@
 Source file: `14016C_b_01758_01_text_skills.pdf`  
 Source pages: 2–3  
 Source package id: `bacharach_vaeira_textual_skills`  
-Status: `needs_review`, `not_runtime_active`
+Status: `reviewed`, `not_runtime_active`
 
 The resource combines:
 - comprehension prompts: מי אמר אל מי / על מי נאמר
