@@ -491,6 +491,15 @@ def release_gate_checks(release_review_summary: dict) -> list[dict]:
             "status": "pass" if release_review_summary.get("unclear_flag_count", 0) == 0 else "warn",
             "value": release_review_summary.get("unclear_flag_count", 0),
         },
+        {
+            "code": "supported_mode_coverage_complete",
+            "status": "pass" if release_review_summary.get("supported_mode_coverage_complete") else "fail",
+            "value": bool(release_review_summary.get("supported_mode_coverage_complete")),
+            "details": {
+                "observed_practice_modes": list(release_review_summary.get("observed_practice_modes") or []),
+                "missing_practice_modes": list(release_review_summary.get("missing_practice_modes") or []),
+            },
+        },
     ]
 
 
@@ -551,6 +560,11 @@ def render_release_check_summary_markdown(summary: dict) -> str:
             f"- Top unclear items: {pilot.get('top_unclear_items')}",
             f"- Top served question families: {pilot.get('top_served_question_families')}",
             f"- Top rejection codes: {pilot.get('top_pre_serve_rejection_codes')}",
+            f"- supported_practice_modes: {pilot.get('supported_practice_modes')}",
+            f"- practice_mode_counts: {pilot.get('practice_mode_counts')}",
+            f"- observed_practice_modes: {pilot.get('observed_practice_modes')}",
+            f"- missing_practice_modes: {pilot.get('missing_practice_modes')}",
+            f"- supported_mode_coverage_complete: {pilot.get('supported_mode_coverage_complete')}",
             f"- Warning codes: {pilot.get('warning_codes')}",
             "",
             "## Hand Audit",
