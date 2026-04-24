@@ -1,5 +1,6 @@
 import json
 import unittest
+from unittest import mock
 from pathlib import Path
 
 from scripts import validate_curriculum_extraction as validator
@@ -25,7 +26,7 @@ def load_all_sample_records():
 def load_all_normalized_records():
     manifest = load_manifest()
     records = []
-    for relative in manifest.get("normalized_data_files", []):
+    for relative in validator.collect_manifest_relative_paths(manifest, "normalized_data_files"):
         path = ROOT / relative
         records.extend(validator.load_jsonl(path))
     return records
@@ -39,13 +40,17 @@ def normalized_records_by_type(record_type):
     return [record for record in load_all_normalized_records() if record["record_type"] == record_type]
 
 
+def normalized_records_for_batch(batch_id):
+    return [record for record in load_all_normalized_records() if record["extraction_batch_id"] == batch_id]
+
+
 class CurriculumExtractionValidationTests(unittest.TestCase):
     def test_validator_passes(self):
         summary = validator.validate_curriculum_extraction(check_git_diff=True)
         self.assertTrue(summary["valid"], summary["errors"])
-        self.assertEqual(summary["normalized_record_count"], 75)
+        self.assertEqual(summary["normalized_record_count"], 198)
         self.assertEqual(summary["review_status_counts"]["reviewed"], 75)
-        self.assertEqual(summary["review_status_counts"]["needs_review"], 30)
+        self.assertEqual(summary["review_status_counts"]["needs_review"], 153)
 
     def test_manifest_is_not_runtime_active(self):
         manifest = load_manifest()
@@ -56,15 +61,39 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
         self.assertIn("batch_001_cleaned_seed", batches)
         self.assertEqual(batches["batch_001_cleaned_seed"]["review_status"], "reviewed")
         self.assertEqual(batches["batch_001_cleaned_seed"]["status"], "cleaned_seed_reviewed_non_runtime")
+        self.assertIn("batch_002_linear_bereishis", batches)
+        self.assertEqual(batches["batch_002_linear_bereishis"]["review_status"], "needs_review")
+        self.assertEqual(batches["batch_002_linear_bereishis"]["status"], "extracted_needs_review")
+        self.assertEqual(
+            batches["batch_002_linear_bereishis"]["raw_source_files"],
+            ["data/curriculum_extraction/raw_sources/batch_002/linear_chumash_bereishis_1_6_to_2_3_cleaned.md"],
+        )
+        self.assertEqual(
+            batches["batch_002_linear_bereishis"]["normalized_data_files"],
+            ["data/curriculum_extraction/normalized/batch_002_linear_chumash_bereishis_1_6_to_2_3_pasuk_segments.jsonl"],
+        )
+        self.assertEqual(
+            batches["batch_002_linear_bereishis"]["generated_question_preview_files"],
+            ["data/curriculum_extraction/generated_questions_preview/batch_002_preview.jsonl"],
+        )
 
     def test_phase_1_sample_records_stay_needs_review(self):
         for record in load_all_sample_records():
             self.assertEqual(record["review_status"], "needs_review", record["id"])
 
     def test_batch_001_normalized_records_are_reviewed(self):
-        for record in load_all_normalized_records():
+        for record in normalized_records_for_batch("batch_001_cleaned_seed"):
             self.assertEqual(record["review_status"], "reviewed", record["id"])
             self.assertEqual(record["source_trace"]["review_status"], "reviewed", record["id"])
+
+    def test_batch_002_normalized_records_stay_needs_review(self):
+        records = normalized_records_for_batch("batch_002_linear_bereishis")
+        self.assertEqual(len(records), 123)
+        for record in records:
+            self.assertEqual(record["review_status"], "needs_review", record["id"])
+            self.assertEqual(record["source_trace"]["review_status"], "needs_review", record["id"])
+            self.assertEqual(record["confidence"], "low", record["id"])
+            self.assertIn("hebrew_aligned_from_local_pasuk_text", record["extraction_quality_flags"], record["id"])
 
     def test_no_record_is_runtime_active(self):
         for record in load_all_records():
@@ -75,7 +104,7 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
             self.assertNotEqual(record["confidence"], "high", record["id"])
 
     def test_batch_001_normalized_records_move_to_medium_confidence(self):
-        for record in load_all_normalized_records():
+        for record in normalized_records_for_batch("batch_001_cleaned_seed"):
             self.assertEqual(record["confidence"], "medium", record["id"])
 
     def test_every_record_has_source_package_and_source_trace(self):
@@ -86,9 +115,15 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
             self.assertIsInstance(record["source_trace"], dict)
 
     def test_batch_001_records_have_manual_review_confirmed_flag(self):
-        for record in load_all_normalized_records():
+        for record in normalized_records_for_batch("batch_001_cleaned_seed"):
             self.assertIn("manual_review_confirmed", record["extraction_quality_flags"], record["id"])
             self.assertNotIn("requires_manual_review", record["extraction_quality_flags"], record["id"])
+
+    def test_batch_002_pasuk_segments_match_expected_count(self):
+        records = normalized_records_for_batch("batch_002_linear_bereishis")
+        pasuk_segments = [record for record in records if record["record_type"] == "pasuk_segment"]
+        self.assertEqual(len(pasuk_segments), 123)
+        self.assertTrue(all(record["source_package_id"] == "linear_chumash_translation_most_parshiyos_in_torah" for record in pasuk_segments))
 
     def test_batch_001_vocab_entries_without_glosses_are_flagged_for_review(self):
         enriched_ids = {
@@ -163,6 +198,53 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
         changed_paths = validator.collect_changed_paths()
         disallowed = [path for path in changed_paths if not validator.is_allowed_change(path)]
         self.assertEqual(disallowed, [], [validator.forbidden_reason(path) for path in disallowed])
+
+    def test_generated_local_log_paths_are_ignored_by_changed_path_collection(self):
+        fake_status = "\n".join(
+            [
+                " M data/attempt_log.jsonl",
+                " M data/pilot/pilot_session_events.jsonl",
+            ]
+        )
+        with mock.patch.object(validator.subprocess, "run") as run_mock:
+            run_mock.return_value = mock.Mock(stdout=fake_status)
+            self.assertEqual(validator.collect_changed_paths(), [])
+
+    def test_unrelated_path_outside_allowlist_still_fails(self):
+        fake_status = " M data/some_other_runtime_like_file.jsonl"
+        with mock.patch.object(validator.subprocess, "run") as run_mock:
+            run_mock.return_value = mock.Mock(stdout=fake_status)
+            changed_paths = validator.collect_changed_paths()
+        self.assertEqual(changed_paths, ["data/some_other_runtime_like_file.jsonl"])
+        self.assertFalse(validator.is_allowed_change(changed_paths[0]))
+        self.assertEqual(
+            validator.forbidden_reason(changed_paths[0]),
+            "path outside isolated curriculum extraction allowlist: data/some_other_runtime_like_file.jsonl",
+        )
+
+    def test_forbidden_runtime_and_scope_paths_still_fail(self):
+        forbidden_paths = [
+            "runtime/question_flow.py",
+            "engine/flow_builder.py",
+            "streamlit_app.py",
+            "assessment_scope.py",
+            "data/corpus_manifest.json",
+        ]
+        for path in forbidden_paths:
+            with self.subTest(path=path):
+                self.assertFalse(validator.is_allowed_change(path))
+                self.assertEqual(validator.forbidden_reason(path), f"forbidden path changed: {path}")
+
+    def test_curriculum_extraction_paths_still_pass_allowlist(self):
+        allowed_paths = [
+            "data/curriculum_extraction/reports/batch_002_merge_readiness.md",
+            "data/curriculum_extraction/normalized/batch_002_linear_chumash_bereishis_1_6_to_2_3_pasuk_segments.jsonl",
+            "scripts/validate_curriculum_extraction.py",
+            "tests/test_curriculum_extraction_validation.py",
+        ]
+        for path in allowed_paths:
+            with self.subTest(path=path):
+                self.assertTrue(validator.is_allowed_change(path))
 
 
 if __name__ == "__main__":

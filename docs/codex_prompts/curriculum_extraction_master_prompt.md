@@ -20,6 +20,85 @@ Everything extracted remains inactive unless a future explicit runtime-integrati
 
 ---
 
+## Operating Addendum: Branch, Noise, Source, CI, and Repo Hygiene
+
+## Branch / Worktree Preconditions
+
+- Current branch is a hard precondition.
+- If the repo’s local policy is to stay on the current branch/worktree, do not ask Codex to switch branches inside the task.
+- Instead, require:
+  1. confirm current branch
+  2. confirm clean worktree
+  3. if either is wrong, stop and report
+
+## Generated Local Noise
+
+Treat only these exact files as generated local test-run noise:
+- data/attempt_log.jsonl
+- data/pilot/pilot_session_events.jsonl
+
+Rules:
+- Before stopping on a dirty worktree, restore these two files if they are the only changes.
+- After any pytest run, restore these two files again if they were modified.
+- Do not broadly exempt other data files.
+- Do not exempt arbitrary `.jsonl` files.
+
+## Source Gate
+
+- Before extraction, confirm the exact local source file exists.
+- If the source is missing, create only the named source-gap report and stop.
+- Do not start extraction, preview generation, or enrichment without source-backed material.
+
+## Repo-Hygiene / CI Fix Tasks
+
+If the task is about CI cleanup, gitlinks, submodules, or `.gitignore`:
+- inspect first:
+  - `git ls-files -s .worktrees`
+  - `git submodule status`
+  - `git ls-files .gitmodules`
+- if `.worktrees/*` are tracked gitlinks without matching `.gitmodules` entries:
+  - remove them from the index only with `git rm --cached`
+  - add `.worktrees/` to `.gitignore`
+  - do not delete local directories from disk
+
+Important:
+- for repo-hygiene tasks that intentionally change tracked git state, do not require dirty-worktree validator checks to pass locally after the change
+- instead:
+  - run focused unit tests for the changed logic
+  - run the broader suite if still meaningful
+  - report if any clean-worktree validator failure is expected locally until the fix is committed
+
+## Validation / Test Discipline
+
+- Run targeted tests first.
+- Run full pytest only after the targeted slice passes.
+- If full pytest dirties the two generated log files, restore them before final git status.
+- If a validator checks forbidden changed paths, distinguish:
+  - real forbidden repo changes
+  - the two allowed generated log artifacts
+  - intentional repo-hygiene changes required by the current task
+
+## Output Discipline
+
+Always report separately:
+1. actual code/data fix result
+2. expected local dirty-worktree effects, if any
+3. whether CI should pass after commit
+
+## Task Type Label
+
+For future prompts, split tasks into one of these categories and say which it is:
+- `content extraction task`
+- `preview/report task`
+- `validator logic task`
+- `repo-hygiene / CI-fix task`
+
+Add this exact line to future CI-fix prompts:
+
+```md
+If this task intentionally changes git tracking state (.gitignore, gitlinks, index-only removals), do not require local clean-worktree validator assertions to pass after the change; instead prove the logic with focused tests and report the expected local dirty-tree condition until commit.
+```
+
 # BATCH VARIABLES
 
 Before doing any work, identify and confirm these variables from the user’s instruction.
