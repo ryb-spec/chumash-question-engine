@@ -439,6 +439,13 @@ def validate_preview_source_trace(record: dict, errors: list[str], context: str)
         errors.append(f"{context}: source_page_end must be >= source_page_start")
 
 
+def has_quality_flag(record: dict, flag: str) -> bool:
+    flags = record.get("extraction_quality_flags")
+    if not isinstance(flags, list):
+        return False
+    return flag in flags
+
+
 def validate_answer_status(record: dict, answer_fields: tuple[str, ...], errors: list[str], context: str) -> None:
     answer_status = record.get("answer_status")
     if answer_status not in ANSWER_STATUS_VALUES:
@@ -457,6 +464,7 @@ def validate_answer_status(record: dict, answer_fields: tuple[str, ...], errors:
 
 def validate_record_type_specific(record: dict, errors: list[str], context: str) -> None:
     record_type = record.get("record_type")
+    batch_id = record.get("extraction_batch_id")
     if record_type == "pasuk_segment":
         require_fields(record, PASUK_SEGMENT_REQUIRED_FIELDS, errors, context)
         for field_name in ("sefer", "perek", "pasuk", "segment_order"):
@@ -477,6 +485,14 @@ def validate_record_type_specific(record: dict, errors: list[str], context: str)
             errors,
             context,
         )
+        if batch_id == "batch_001_cleaned_seed":
+            if not meaningful_value(record.get("target_shoresh_raw")) and not has_quality_flag(
+                record,
+                "missing_explicit_shoresh",
+            ):
+                errors.append(f"{context}: missing explicit shoresh records must carry 'missing_explicit_shoresh'")
+            if not meaningful_value(record.get("suffixes")) and not has_quality_flag(record, "missing_suffix_payload"):
+                errors.append(f"{context}: records without suffix payload must carry 'missing_suffix_payload'")
     elif record_type == "word_parse_task":
         require_fields(record, WORD_PARSE_TASK_REQUIRED_FIELDS, errors, context)
         validate_answer_status(
@@ -497,14 +513,31 @@ def validate_record_type_specific(record: dict, errors: list[str], context: str)
             errors.append(
                 f"{context}: word_parse_task records missing answer content must use not_extracted or not_provided"
             )
+        if (
+            batch_id == "batch_001_cleaned_seed"
+            and missing_answer_payload
+            and not has_quality_flag(record, "answer_key_not_extracted")
+        ):
+            errors.append(f"{context}: missing task answers must carry 'answer_key_not_extracted'")
     elif record_type == "vocab_entry":
         require_fields(record, VOCAB_ENTRY_REQUIRED_FIELDS, errors, context)
         english_glosses = record.get("english_glosses") or []
         if not english_glosses and record.get("needs_gloss_review") is not True:
             errors.append(f"{context}: vocab entries with empty english_glosses must set needs_gloss_review=true")
+        if batch_id == "batch_001_cleaned_seed" and not english_glosses and not has_quality_flag(
+            record,
+            "missing_english_gloss",
+        ):
+            errors.append(f"{context}: missing vocab glosses must carry 'missing_english_gloss'")
     elif record_type == "comprehension_question":
         require_fields(record, COMPREHENSION_REQUIRED_FIELDS, errors, context)
         validate_answer_status(record, ("expected_answer",), errors, context)
+        if (
+            batch_id == "batch_001_cleaned_seed"
+            and not meaningful_value(record.get("expected_answer"))
+            and not has_quality_flag(record, "missing_expected_answer")
+        ):
+            errors.append(f"{context}: missing expected answers must carry 'missing_expected_answer'")
     elif record_type == "question_template":
         require_fields(record, QUESTION_TEMPLATE_REQUIRED_FIELDS, errors, context)
     elif record_type == "skill_tag":

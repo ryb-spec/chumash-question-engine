@@ -35,6 +35,10 @@ def load_all_records():
     return [*load_all_sample_records(), *load_all_normalized_records()]
 
 
+def normalized_records_by_type(record_type):
+    return [record for record in load_all_normalized_records() if record["record_type"] == record_type]
+
+
 class CurriculumExtractionValidationTests(unittest.TestCase):
     def test_validator_passes(self):
         summary = validator.validate_curriculum_extraction(check_git_diff=True)
@@ -88,13 +92,45 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
 
     def test_batch_001_vocab_entries_without_glosses_are_flagged_for_review(self):
         empty_gloss_ids = []
-        for record in load_all_normalized_records():
-            if record["record_type"] != "vocab_entry":
-                continue
+        for record in normalized_records_by_type("vocab_entry"):
             if not record.get("english_glosses"):
                 empty_gloss_ids.append(record["id"])
                 self.assertTrue(record["needs_gloss_review"], record["id"])
-        self.assertGreater(len(empty_gloss_ids), 0)
+                self.assertIn("missing_english_gloss", record["extraction_quality_flags"], record["id"])
+        self.assertEqual(len(empty_gloss_ids), 8)
+
+    def test_batch_001_comprehension_records_without_answers_are_flagged(self):
+        records = normalized_records_by_type("comprehension_question")
+        self.assertEqual(len(records), 10)
+        for record in records:
+            self.assertIsNone(record["expected_answer"], record["id"])
+            self.assertEqual(record["answer_status"], "not_provided", record["id"])
+            self.assertIn("missing_expected_answer", record["extraction_quality_flags"], record["id"])
+
+    def test_batch_001_word_parse_task_records_without_answer_key_are_flagged(self):
+        records = normalized_records_by_type("word_parse_task")
+        self.assertEqual(len(records), 8)
+        for record in records:
+            self.assertEqual(record["answer_status"], "not_extracted", record["id"])
+            self.assertFalse(record["expected_word_in_pasuk"], record["id"])
+            self.assertEqual(record["prefixes"], [], record["id"])
+            self.assertEqual(record["suffixes"], [], record["id"])
+            self.assertIn("answer_key_not_extracted", record["extraction_quality_flags"], record["id"])
+
+    def test_batch_001_word_parse_incomplete_fields_are_flagged(self):
+        records = normalized_records_by_type("word_parse")
+        missing_shoresh = [
+            record["id"]
+            for record in records
+            if "missing_explicit_shoresh" in record["extraction_quality_flags"]
+        ]
+        missing_suffix = [
+            record["id"]
+            for record in records
+            if "missing_suffix_payload" in record["extraction_quality_flags"]
+        ]
+        self.assertEqual(len(missing_shoresh), 4)
+        self.assertEqual(len(missing_suffix), 6)
 
     def test_forbidden_runtime_files_are_not_changed(self):
         changed_paths = validator.collect_changed_paths()
