@@ -365,10 +365,25 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
             "data/curriculum_extraction/normalized/batch_002_linear_chumash_bereishis_1_6_to_2_3_pasuk_segments.jsonl",
             "scripts/validate_curriculum_extraction.py",
             "tests/test_curriculum_extraction_validation.py",
+            "data/source/bereishis_4_1_to_4_16.json",
+            "tests/test_source_corpus_block_4_1_to_4_16.py",
         ]
         for path in allowed_paths:
             with self.subTest(path=path):
                 self.assertTrue(validator.is_allowed_change(path))
+
+    def test_unrelated_source_prep_like_paths_still_fail_allowlist(self):
+        disallowed_paths = [
+            "data/source/bereishis_4_17_to_4_26.json",
+            "tests/test_source_corpus_block_4_17_to_4_26.py",
+        ]
+        for path in disallowed_paths:
+            with self.subTest(path=path):
+                self.assertFalse(validator.is_allowed_change(path))
+                self.assertEqual(
+                    validator.forbidden_reason(path),
+                    f"path outside isolated curriculum extraction allowlist: {path}",
+                )
 
 
 if __name__ == "__main__":
