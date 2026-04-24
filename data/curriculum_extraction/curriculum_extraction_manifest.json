@@ -45,7 +45,8 @@
     "data/curriculum_extraction/generated_questions_preview/batch_001_preview.jsonl",
     "data/curriculum_extraction/generated_questions_preview/batch_001_preview_v2.jsonl",
     "data/curriculum_extraction/generated_questions_preview/batch_002_preview.jsonl",
-    "data/curriculum_extraction/generated_questions_preview/batch_003_preview.jsonl"
+    "data/curriculum_extraction/generated_questions_preview/batch_003_preview.jsonl",
+    "data/curriculum_extraction/generated_questions_preview/batch_004_preview.jsonl"
   ],
   "resource_batches": [
     {
@@ -151,6 +152,33 @@
       ],
       "notes": [
         "Batch 003 extracts Linear Chumash phrase-level translation data for Bereishis 2:4 through 2:25 only.",
+        "The local PDF text layer was noisy, so Hebrew phrase text was aligned to the local canonical pasuk corpus by exact pasuk reference and source phrase order.",
+        "This batch remains isolated, needs review, and is not present in runtime or in the reviewed question bank."
+      ]
+    },
+    {
+      "batch_id": "batch_004_linear_bereishis_3_1_to_3_24",
+      "label": "Batch 004 Linear Chumash Translation excerpt",
+      "status": "extracted_needs_review",
+      "review_status": "needs_review",
+      "integration_status": "not_runtime_active",
+      "runtime_active": false,
+      "source_package_id": "linear_chumash_translation_most_parshiyos_in_torah",
+      "raw_source_files": [
+        "data/curriculum_extraction/raw_sources/batch_004/linear_chumash_bereishis_3_1_to_3_24_cleaned.md"
+      ],
+      "normalized_data_files": [
+        "data/curriculum_extraction/normalized/batch_004_linear_chumash_bereishis_3_1_to_3_24_pasuk_segments.jsonl"
+      ],
+      "generated_question_preview_files": [
+        "data/curriculum_extraction/generated_questions_preview/batch_004_preview.jsonl"
+      ],
+      "review_artifacts": [
+        "data/curriculum_extraction/reports/batch_004_summary.md",
+        "data/curriculum_extraction/reports/batch_004_preview_summary.md"
+      ],
+      "notes": [
+        "Batch 004 extracts Linear Chumash phrase-level translation data for Bereishis 3:1 through 3:24 only.",
         "The local PDF text layer was noisy, so Hebrew phrase text was aligned to the local canonical pasuk corpus by exact pasuk reference and source phrase order.",
         "This batch remains isolated, needs review, and is not present in runtime or in the reviewed question bank."
       ]
