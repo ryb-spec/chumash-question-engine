@@ -81,6 +81,8 @@ EXPECTED_RECORD_TYPES = {
     "data/curriculum_extraction/normalized/bacharach_shemos_prefix_suffix_tasks.seed.jsonl": "word_parse_task",
     "data/curriculum_extraction/normalized/bacharach_vaeira_comprehension_questions.seed.jsonl": "comprehension_question",
     "data/curriculum_extraction/normalized/vocabulary_priority_pack.seed.jsonl": "vocab_entry",
+    "data/curriculum_extraction/normalized/batch_002_linear_chumash_bereishis_1_6_to_2_3_pasuk_segments.jsonl": "pasuk_segment",
+    "data/curriculum_extraction/normalized/batch_002_linear_chumash_translation_rules.jsonl": "translation_rule",
 }
 
 PASUK_SEGMENT_REQUIRED_FIELDS = (
@@ -330,6 +332,38 @@ def require_fields(record: dict, fields: tuple[str, ...], errors: list[str], con
 def validate_declared_files(manifest: dict, key: str, errors: list[str]) -> list[Path]:
     paths: list[Path] = []
     for relative in manifest.get(key, []):
+        path = ROOT / relative
+        paths.append(path)
+        if not path.exists():
+            errors.append(f"manifest file missing under {key}: {relative}")
+    return paths
+
+
+def collect_manifest_relative_paths(manifest: dict, key: str) -> list[str]:
+    ordered_paths: list[str] = []
+    seen: set[str] = set()
+
+    def add_paths(values: object) -> None:
+        if not isinstance(values, list):
+            return
+        for relative in values:
+            if not isinstance(relative, str):
+                continue
+            if relative in seen:
+                continue
+            seen.add(relative)
+            ordered_paths.append(relative)
+
+    add_paths(manifest.get(key, []))
+    for batch in manifest.get("resource_batches", []):
+        if isinstance(batch, dict):
+            add_paths(batch.get(key, []))
+    return ordered_paths
+
+
+def validate_declared_relative_paths(relative_paths: list[str], key: str, errors: list[str]) -> list[Path]:
+    paths: list[Path] = []
+    for relative in relative_paths:
         path = ROOT / relative
         paths.append(path)
         if not path.exists():
@@ -661,14 +695,14 @@ def validate_schema_files(manifest: dict, errors: list[str]) -> list[Path]:
     return schema_paths
 
 
-def collect_records_from_manifest_list(
-    manifest: dict,
+def collect_records_from_relative_paths(
+    relative_paths: list[str],
     key: str,
     errors: list[str],
 ) -> tuple[dict[str, list[dict]], list[dict]]:
     records_by_file: dict[str, list[dict]] = {}
     all_records: list[dict] = []
-    for relative in manifest.get(key, []):
+    for relative in relative_paths:
         path = ROOT / relative
         if not path.exists():
             errors.append(f"manifest {key} file missing: {relative}")
@@ -737,10 +771,25 @@ def validate_curriculum_extraction(*, check_git_diff: bool = False) -> dict:
     registry_lookup = validate_registry(registry, errors)
     batch_lookup = validate_resource_batches(manifest, errors)
     schema_paths = validate_schema_files(manifest, errors)
-    raw_source_paths = validate_declared_files(manifest, "raw_source_files", errors)
-    sample_records_by_file, sample_records = collect_records_from_manifest_list(manifest, "sample_files", errors)
-    normalized_records_by_file, normalized_records = collect_records_from_manifest_list(
-        manifest,
+    raw_source_paths = validate_declared_relative_paths(
+        collect_manifest_relative_paths(manifest, "raw_source_files"),
+        "raw_source_files",
+        errors,
+    )
+    sample_relative_paths = collect_manifest_relative_paths(manifest, "sample_files")
+    normalized_relative_paths = collect_manifest_relative_paths(manifest, "normalized_data_files")
+    validate_declared_relative_paths(
+        collect_manifest_relative_paths(manifest, "generated_question_preview_files"),
+        "generated_question_preview_files",
+        errors,
+    )
+    sample_records_by_file, sample_records = collect_records_from_relative_paths(
+        sample_relative_paths,
+        "sample_files",
+        errors,
+    )
+    normalized_records_by_file, normalized_records = collect_records_from_relative_paths(
+        normalized_relative_paths,
         "normalized_data_files",
         errors,
     )

@@ -41,7 +41,11 @@
     "data/curriculum_extraction/normalized/bacharach_vaeira_comprehension_questions.seed.jsonl",
     "data/curriculum_extraction/normalized/vocabulary_priority_pack.seed.jsonl"
   ],
-  "generated_question_preview_files": [],
+  "generated_question_preview_files": [
+    "data/curriculum_extraction/generated_questions_preview/batch_001_preview.jsonl",
+    "data/curriculum_extraction/generated_questions_preview/batch_001_preview_v2.jsonl",
+    "data/curriculum_extraction/generated_questions_preview/batch_002_preview.jsonl"
+  ],
   "resource_batches": [
     {
       "batch_id": "phase_1_samples",
@@ -94,6 +98,33 @@
         "This batch was ingested from a cleaned seed packet only.",
         "These normalized records were manually reviewed for isolated non-runtime use.",
         "They remain outside runtime and outside the reviewed question bank."
+      ]
+    },
+    {
+      "batch_id": "batch_002_linear_bereishis",
+      "label": "Batch 002 Linear Chumash Translation excerpt",
+      "status": "extracted_needs_review",
+      "review_status": "needs_review",
+      "integration_status": "not_runtime_active",
+      "runtime_active": false,
+      "source_package_id": "linear_chumash_translation_most_parshiyos_in_torah",
+      "raw_source_files": [
+        "data/curriculum_extraction/raw_sources/batch_002/linear_chumash_bereishis_1_6_to_2_3_cleaned.md"
+      ],
+      "normalized_data_files": [
+        "data/curriculum_extraction/normalized/batch_002_linear_chumash_bereishis_1_6_to_2_3_pasuk_segments.jsonl"
+      ],
+      "generated_question_preview_files": [
+        "data/curriculum_extraction/generated_questions_preview/batch_002_preview.jsonl"
+      ],
+      "review_artifacts": [
+        "data/curriculum_extraction/reports/batch_002_summary.md",
+        "data/curriculum_extraction/reports/batch_002_preview_summary.md"
+      ],
+      "notes": [
+        "Batch 002 extracts Linear Chumash phrase-level translation data for Bereishis 1:6 through 2:3 only.",
+        "The local PDF text layer was noisy, so Hebrew phrase text was aligned to the local canonical pasuk corpus by exact pasuk reference and source phrase order.",
+        "This batch remains isolated, needs review, and is not present in runtime or in the reviewed question bank."
       ]
     }
   ],
