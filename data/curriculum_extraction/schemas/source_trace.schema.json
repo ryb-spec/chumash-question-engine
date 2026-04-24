@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Curriculum Extraction Source Trace",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "source_name",
+    "source_file",
+    "source_page_start",
+    "source_page_end",
+    "source_section",
+    "source_ref",
+    "source_snippet_raw",
+    "source_snippet_normalized",
+    "extraction_method",
+    "extraction_note",
+    "source_has_answer_key",
+    "review_status"
+  ],
+  "properties": {
+    "source_name": {
+      "type": "string"
+    },
+    "source_file": {
+      "type": "string"
+    },
+    "source_page_start": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "source_page_end": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "source_section": {
+      "type": "string"
+    },
+    "source_ref": {
+      "type": "string"
+    },
+    "source_snippet_raw": {
+      "type": "string"
+    },
+    "source_snippet_normalized": {
+      "type": "string"
+    },
+    "extraction_method": {
+      "type": "string",
+      "enum": [
+        "manual_sample",
+        "parser_assisted",
+        "pdf_text_parse",
+        "image_review",
+        "ocr"
+      ]
+    },
+    "extraction_note": {
+      "type": "string"
+    },
+    "source_has_answer_key": {
+      "type": "boolean"
+    },
+    "review_status": {
+      "type": "string",
+      "enum": [
+        "needs_review",
+        "reviewed",
+        "blocked"
+      ]
+    }
+  }
+}

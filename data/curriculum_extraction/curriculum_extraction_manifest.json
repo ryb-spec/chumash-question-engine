@@ -1,0 +1,108 @@
+{
+  "version": "0.1",
+  "status": "draft_needs_review",
+  "integration_status": "not_runtime_active",
+  "runtime_active": false,
+  "schema_files": [
+    "data/curriculum_extraction/schemas/source_trace.schema.json",
+    "data/curriculum_extraction/schemas/pasuk_segment.schema.json",
+    "data/curriculum_extraction/schemas/word_parse.schema.json",
+    "data/curriculum_extraction/schemas/word_parse_task.schema.json",
+    "data/curriculum_extraction/schemas/vocab_entry.schema.json",
+    "data/curriculum_extraction/schemas/comprehension_question.schema.json",
+    "data/curriculum_extraction/schemas/question_template.schema.json",
+    "data/curriculum_extraction/schemas/skill_tag.schema.json",
+    "data/curriculum_extraction/schemas/translation_rule.schema.json",
+    "data/curriculum_extraction/schemas/generated_question_preview.schema.json",
+    "data/curriculum_extraction/schemas/extraction_batch_report.schema.json"
+  ],
+  "sample_files": [
+    "data/curriculum_extraction/samples/pasuk_segments.sample.jsonl",
+    "data/curriculum_extraction/samples/word_parse.sample.jsonl",
+    "data/curriculum_extraction/samples/word_parse_tasks.sample.jsonl",
+    "data/curriculum_extraction/samples/vocab_entries.sample.jsonl",
+    "data/curriculum_extraction/samples/comprehension_questions.sample.jsonl",
+    "data/curriculum_extraction/samples/question_templates.sample.jsonl",
+    "data/curriculum_extraction/samples/skill_tags.sample.jsonl",
+    "data/curriculum_extraction/samples/translation_rules.sample.jsonl"
+  ],
+  "raw_source_files": [
+    "data/curriculum_extraction/raw_sources/batch_001/linear_chumash_bereishis_1_1_to_1_5_cleaned.md",
+    "data/curriculum_extraction/raw_sources/batch_001/pasuk_coming_to_teach_sample_answer_key_cleaned.md",
+    "data/curriculum_extraction/raw_sources/batch_001/bacharach_shemos_prefix_suffix_perek_1_1_to_7_cleaned.md",
+    "data/curriculum_extraction/raw_sources/batch_001/bacharach_vaeira_textual_skills_perek_6_cleaned.md",
+    "data/curriculum_extraction/raw_sources/batch_001/vocabulary_priority_pack_cleaned.md"
+  ],
+  "normalized_data_files": [
+    "data/curriculum_extraction/normalized/linear_chumash_bereishis_1_1_to_1_5_pasuk_segments.seed.jsonl",
+    "data/curriculum_extraction/normalized/linear_chumash_translation_rules.seed.jsonl",
+    "data/curriculum_extraction/normalized/pasuk_coming_to_teach_word_parse.seed.jsonl",
+    "data/curriculum_extraction/normalized/bacharach_shemos_prefix_suffix_tasks.seed.jsonl",
+    "data/curriculum_extraction/normalized/bacharach_vaeira_comprehension_questions.seed.jsonl",
+    "data/curriculum_extraction/normalized/vocabulary_priority_pack.seed.jsonl"
+  ],
+  "generated_question_preview_files": [],
+  "resource_batches": [
+    {
+      "batch_id": "phase_1_samples",
+      "label": "Phase 1 isolated manual samples",
+      "status": "draft_needs_review",
+      "integration_status": "not_runtime_active",
+      "runtime_active": false,
+      "sample_files": [
+        "data/curriculum_extraction/samples/pasuk_segments.sample.jsonl",
+        "data/curriculum_extraction/samples/word_parse.sample.jsonl",
+        "data/curriculum_extraction/samples/word_parse_tasks.sample.jsonl",
+        "data/curriculum_extraction/samples/vocab_entries.sample.jsonl",
+        "data/curriculum_extraction/samples/comprehension_questions.sample.jsonl",
+        "data/curriculum_extraction/samples/question_templates.sample.jsonl",
+        "data/curriculum_extraction/samples/skill_tags.sample.jsonl",
+        "data/curriculum_extraction/samples/translation_rules.sample.jsonl"
+      ],
+      "notes": [
+        "This batch is a scaffold only.",
+        "The records in this batch are not live, not reviewed, and not present in the reviewed question bank."
+      ]
+    },
+    {
+      "batch_id": "batch_001_cleaned_seed",
+      "label": "Batch 001 cleaned seed ingestion",
+      "status": "cleaned_seed_reviewed_non_runtime",
+      "review_status": "reviewed",
+      "integration_status": "not_runtime_active",
+      "runtime_active": false,
+      "raw_source_files": [
+        "data/curriculum_extraction/raw_sources/batch_001/linear_chumash_bereishis_1_1_to_1_5_cleaned.md",
+        "data/curriculum_extraction/raw_sources/batch_001/pasuk_coming_to_teach_sample_answer_key_cleaned.md",
+        "data/curriculum_extraction/raw_sources/batch_001/bacharach_shemos_prefix_suffix_perek_1_1_to_7_cleaned.md",
+        "data/curriculum_extraction/raw_sources/batch_001/bacharach_vaeira_textual_skills_perek_6_cleaned.md",
+        "data/curriculum_extraction/raw_sources/batch_001/vocabulary_priority_pack_cleaned.md"
+      ],
+      "normalized_data_files": [
+        "data/curriculum_extraction/normalized/linear_chumash_bereishis_1_1_to_1_5_pasuk_segments.seed.jsonl",
+        "data/curriculum_extraction/normalized/linear_chumash_translation_rules.seed.jsonl",
+        "data/curriculum_extraction/normalized/pasuk_coming_to_teach_word_parse.seed.jsonl",
+        "data/curriculum_extraction/normalized/bacharach_shemos_prefix_suffix_tasks.seed.jsonl",
+        "data/curriculum_extraction/normalized/bacharach_vaeira_comprehension_questions.seed.jsonl",
+        "data/curriculum_extraction/normalized/vocabulary_priority_pack.seed.jsonl"
+      ],
+      "review_artifacts": [
+        "data/curriculum_extraction/reports/batch_001_summary.md",
+        "data/curriculum_extraction/reports/batch_001_manual_review_packet.md"
+      ],
+      "notes": [
+        "This batch was ingested from a cleaned seed packet only.",
+        "These normalized records were manually reviewed for isolated non-runtime use.",
+        "They remain outside runtime and outside the reviewed question bank."
+      ]
+    }
+  ],
+  "notes": [
+    "This curriculum extraction factory is isolated from runtime.",
+    "Nothing in this manifest is runtime active.",
+    "Some isolated batches may be manually reviewed without becoming runtime active.",
+    "No data in this manifest is reviewed for live use.",
+    "No file in this manifest writes to the active reviewed question bank.",
+    "Batch 001 cleaned seeds were reviewed for isolated non-runtime use only."
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Comprehension Question",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "id",
+    "schema_version",
+    "record_type",
+    "extraction_batch_id",
+    "source_package_id",
+    "source_trace",
+    "review_status",
+    "runtime_status",
+    "confidence",
+    "extraction_quality_flags",
+    "question_type",
+    "sefer",
+    "parsha",
+    "perek",
+    "pasuk",
+    "quoted_phrase_raw",
+    "question_text",
+    "expected_answer",
+    "answer_status",
+    "skill_tags"
+  ],
+  "properties": {
+    "id": { "type": "string" },
+    "schema_version": { "type": "string" },
+    "record_type": { "type": "string", "const": "comprehension_question" },
+    "extraction_batch_id": { "type": "string" },
+    "source_package_id": { "type": "string" },
+    "source_trace": { "type": "object" },
+    "review_status": { "type": "string" },
+    "runtime_status": { "type": "string" },
+    "confidence": { "type": "string" },
+    "extraction_quality_flags": { "type": "array", "items": { "type": "string" } },
+    "question_type": { "type": "string" },
+    "sefer": { "type": "string" },
+    "parsha": { "type": "string" },
+    "perek": { "type": "integer" },
+    "pasuk": { "type": "integer" },
+    "quoted_phrase_raw": { "type": "string" },
+    "question_text": { "type": "string" },
+    "expected_answer": { "type": "string" },
+    "answer_status": {
+      "type": "string",
+      "enum": [
+        "source_provided",
+        "inferred_needs_review",
+        "not_provided",
+        "not_extracted",
+        "not_applicable"
+      ]
+    },
+    "skill_tags": { "type": "array", "items": { "type": "string" } }
+  }
+}

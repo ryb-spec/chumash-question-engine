@@ -8,3 +8,5 @@ skill_progress.json
 data/validation/latest_question_replay.json
 data/pilot/runs/
 data/pilot/exports/
+
+local_curriculum_sources/
