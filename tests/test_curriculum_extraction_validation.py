@@ -409,6 +409,11 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
             "tests/test_curriculum_extraction_validation.py",
             "data/source/bereishis_4_1_to_4_16.json",
             "tests/test_source_corpus_block_4_1_to_4_16.py",
+            "data/source_texts/bereishis_hebrew_menukad_taamim.tsv",
+            "data/source_texts/reports/bereishis_hebrew_menukad_taamim_validation.md",
+            "data/source_texts/README.md",
+            "scripts/validate_source_texts.py",
+            "tests/test_source_texts_validation.py",
         ]
         for path in allowed_paths:
             with self.subTest(path=path):
@@ -418,6 +423,9 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
         disallowed_paths = [
             "data/source/bereishis_4_17_to_4_26.json",
             "tests/test_source_corpus_block_4_17_to_4_26.py",
+            "data/source_texts/shemos_hebrew_menukad_taamim.tsv",
+            "data/source_texts/reports/shemos_hebrew_menukad_taamim_validation.md",
+            "tests/test_source_texts_validation_shemos.py",
         ]
         for path in disallowed_paths:
             with self.subTest(path=path):
