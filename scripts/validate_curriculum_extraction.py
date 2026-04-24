@@ -256,6 +256,7 @@ ALLOWED_CHANGE_EXACT = {
     "docs/curriculum_extraction_factory.md",
     "docs/curriculum_extraction_integration_plan.md",
     "local_curriculum_sources/source_key_excerpt_batch_001.md",
+    "data/source/bereishis_4_1_to_4_16.json",
     "scripts/generate_curriculum_question_preview.py",
     "scripts/validate_curriculum_extraction.py",
     "scripts/load_curriculum_extraction.py",
@@ -263,6 +264,7 @@ ALLOWED_CHANGE_EXACT = {
     "tests/test_curriculum_extraction_schemas.py",
     "tests/test_curriculum_extraction_validation.py",
     "tests/test_curriculum_extraction_loader.py",
+    "tests/test_source_corpus_block_4_1_to_4_16.py",
     "README_CHROMEBOOK.md",
 }
 
