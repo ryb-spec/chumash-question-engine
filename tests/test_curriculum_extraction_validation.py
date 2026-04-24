@@ -118,7 +118,6 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
             self.assertEqual(record["source_trace"]["review_status"], "needs_review", record["id"])
             self.assertEqual(record["confidence"], "low", record["id"])
             self.assertIn("hebrew_aligned_from_local_pasuk_text", record["extraction_quality_flags"], record["id"])
-
     def test_no_record_is_runtime_active(self):
         for record in load_all_records():
             self.assertEqual(record["runtime_status"], "not_runtime_active", record["id"])
@@ -154,7 +153,6 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
         pasuk_segments = [record for record in records if record["record_type"] == "pasuk_segment"]
         self.assertEqual(len(pasuk_segments), 90)
         self.assertTrue(all(record["source_package_id"] == "linear_chumash_translation_most_parshiyos_in_torah" for record in pasuk_segments))
-
     def test_batch_001_vocab_entries_without_glosses_are_flagged_for_review(self):
         enriched_ids = {
             "vocab_entry_batch_001_011_ארץ",

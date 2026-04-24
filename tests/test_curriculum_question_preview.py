@@ -75,13 +75,11 @@ BATCH_002_EXPECTED_COUNTS = {
     "hebrew_to_english_match": 25,
     "english_to_hebrew_match": 25,
 }
-
 BATCH_003_EXPECTED_COUNTS = {
     "phrase_translation": 50,
     "hebrew_to_english_match": 25,
     "english_to_hebrew_match": 25,
 }
-
 
 def load_json(path: Path) -> object:
     with path.open("r", encoding="utf-8") as handle:
@@ -154,7 +152,6 @@ def test_batch_003_preview_exists_with_minimum_count() -> None:
     records = load_jsonl(BATCH_003_PREVIEW_PATH)
     assert len(records) >= 100
 
-
 def test_preview_v2_records_are_valid_jsonl_with_required_fields() -> None:
     records = load_jsonl(PREVIEW_V2_PATH)
     record_ids = source_record_ids()
@@ -224,7 +221,6 @@ def test_batch_003_preview_records_are_valid_jsonl_with_required_fields() -> Non
         prompts.add(record["prompt"])
 
     assert dict(counts) == BATCH_003_EXPECTED_COUNTS
-
 
 def test_preview_v2_vocab_lanes_improve_source_coverage_over_v1() -> None:
     v1_records = load_jsonl(PREVIEW_V1_PATH)
