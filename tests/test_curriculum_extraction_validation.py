@@ -405,6 +405,9 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
         allowed_paths = [
             "data/curriculum_extraction/reports/batch_002_merge_readiness.md",
             "data/curriculum_extraction/normalized/batch_002_linear_chumash_bereishis_1_6_to_2_3_pasuk_segments.jsonl",
+            "docs/codex_prompts/curriculum_batch_processing_saved_prompt_v2_proposed.md",
+            "docs/curriculum_pipeline/generator_and_skill_roadmap.md",
+            "docs/curriculum_pipeline/next_10_branch_plan.md",
             "scripts/validate_curriculum_extraction.py",
             "tests/test_curriculum_extraction_validation.py",
             "data/source/bereishis_4_1_to_4_16.json",
@@ -418,6 +421,8 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
         disallowed_paths = [
             "data/source/bereishis_4_17_to_4_26.json",
             "tests/test_source_corpus_block_4_17_to_4_26.py",
+            "docs/codex_prompts/curriculum_batch_processing_saved_prompt_v3_draft.md",
+            "docs/curriculum_pipeline/runtime_promotion_notes.md",
         ]
         for path in disallowed_paths:
             with self.subTest(path=path):

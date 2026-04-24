@@ -256,6 +256,9 @@ ALLOWED_CHANGE_PREFIXES = (
 ALLOWED_CHANGE_EXACT = {
     "docs/curriculum_extraction_factory.md",
     "docs/curriculum_extraction_integration_plan.md",
+    "docs/codex_prompts/curriculum_batch_processing_saved_prompt_v2_proposed.md",
+    "docs/curriculum_pipeline/generator_and_skill_roadmap.md",
+    "docs/curriculum_pipeline/next_10_branch_plan.md",
     "local_curriculum_sources/source_key_excerpt_batch_001.md",
     "data/source/bereishis_4_1_to_4_16.json",
     "scripts/generate_curriculum_question_preview.py",

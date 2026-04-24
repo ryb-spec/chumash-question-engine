@@ -1,0 +1,113 @@
+{
+  "generated_at": "2026-04-24T16:37:53.3658645-05:00",
+  "branch": "feature/curriculum-scale-readiness-and-skill-audit",
+  "reports_created": [
+    "data/curriculum_extraction/reports/scale_readiness/batch_pipeline_status_audit.md",
+    "data/curriculum_extraction/reports/scale_readiness/question_pattern_and_skill_coverage_audit.md",
+    "data/curriculum_extraction/reports/scale_readiness/vocabulary_alias_and_watchlist_audit.md",
+    "data/curriculum_extraction/reports/scale_readiness/source_text_foundation_audit.md",
+    "data/curriculum_extraction/reports/scale_readiness/question_template_inventory.md",
+    "data/curriculum_extraction/reports/scale_readiness/master_scale_readiness_summary.md",
+    "docs/curriculum_pipeline/generator_and_skill_roadmap.md",
+    "docs/curriculum_pipeline/next_10_branch_plan.md",
+    "docs/codex_prompts/curriculum_batch_processing_saved_prompt_v2_proposed.md"
+  ],
+  "batches_audited": [
+    "batch_001_cleaned_seed",
+    "batch_002_linear_bereishis",
+    "batch_003_linear_bereishis_2_4_to_2_25",
+    "batch_004_linear_bereishis_3_1_to_3_24",
+    "batch_005_linear_bereishis_4_1_to_4_16"
+  ],
+  "batch_status_summary": {
+    "batch_001_cleaned_seed": {
+      "status": "cleaned_seed_reviewed_non_runtime",
+      "review_status": "reviewed",
+      "ready_for_planning": true,
+      "blocker": "Legacy artifact contract predates the current review-resolution pattern."
+    },
+    "batch_002_linear_bereishis": {
+      "status": "extracted_needs_review",
+      "review_status": "needs_review",
+      "ready_for_planning": false,
+      "blocker": "Manual review packet approves the batch, but the manifest still marks it unreviewed and there is no review-resolution report."
+    },
+    "batch_003_linear_bereishis_2_4_to_2_25": {
+      "status": "extracted_needs_review",
+      "review_status": "needs_review",
+      "ready_for_planning": false,
+      "blocker": "Manual review packet approves the batch, but the manifest still marks it unreviewed and there is no review-resolution report."
+    },
+    "batch_004_linear_bereishis_3_1_to_3_24": {
+      "status": "reviewed_for_planning_non_runtime",
+      "review_status": "reviewed",
+      "ready_for_planning": true,
+      "blocker": null
+    },
+    "batch_005_linear_bereishis_4_1_to_4_16": {
+      "status": "reviewed_for_planning_non_runtime",
+      "review_status": "reviewed",
+      "ready_for_planning": true,
+      "blocker": "Review-resolution wording is stale, but not workflow-blocking."
+    }
+  },
+  "blocker_count": 5,
+  "top_blockers": [
+    "This branch does not contain a canonical per-sefer Bereishis Hebrew source foundation under data/source_texts/.",
+    "Batch 002 review evidence is inconsistent: approved manual packet, unreviewed manifest state.",
+    "Batch 003 review evidence is inconsistent: approved manual packet, unreviewed manifest state.",
+    "Batches 002-005 rely on only three translation-heavy preview families with shallow skill tagging.",
+    "Alias and watchlist knowledge is documented only in prose reports, not in reusable machine-readable structures."
+  ],
+  "top_opportunities": [
+    "Add a canonical Bereishis Hebrew source-text foundation with validator/tests.",
+    "Create an alias registry for names, places, source-literal alternates, and anti-collapse rules.",
+    "Introduce a skill taxonomy that goes beyond phrase_translation.",
+    "Expand preview template variety with phrase-sensitive and quote-safe prompt families.",
+    "Auto-generate watchlist sections from extraction quality flags and prior review decisions."
+  ],
+  "recommended_next_branch": "feature/source-bereishis-hebrew-menukad-canonical",
+  "recommended_next_3_branches": [
+    "feature/source-bereishis-hebrew-menukad-canonical",
+    "feature/curriculum-batch-002-and-003-review-contract-closeout",
+    "feature/curriculum-batch-006-bereishis-4-17-to-4-26"
+  ],
+  "safe_to_start_batch_006": false,
+  "safe_to_touch_runtime": false,
+  "validation_commands_run": [
+    "git branch --show-current",
+    "git status --short",
+    "python scripts/validate_curriculum_extraction.py",
+    "python scripts/load_curriculum_extraction.py --summary",
+    "python -m pytest tests/test_curriculum_extraction_validation.py tests/test_curriculum_question_preview.py",
+    "python -m pytest"
+  ],
+  "validation_results": {
+    "curriculum_extraction_validator": {
+      "status": "pass",
+      "valid": true,
+      "normalized_record_count": 471,
+      "preview_record_count": 710
+    },
+    "loader_summary": {
+      "status": "pass",
+      "integration_status": "not_runtime_active",
+      "runtime_active": false,
+      "normalized_record_count": 75,
+      "record_count": 105
+    },
+    "targeted_curriculum_tests": {
+      "status": "pass",
+      "result": "43 passed"
+    },
+    "full_pytest": {
+      "status": "pass",
+      "result": "491 passed"
+    }
+  },
+  "skipped_or_blocked_items": [
+    "No reference-source files were present in docs/curriculum_pipeline/reference_sources/, data/curriculum_extraction/reference_sources/, docs/reference_sources/, or data/reference_sources/ on this branch.",
+    "No canonical data/source_texts/ foundation was present on this branch, so source-foundation findings were based on current branch evidence rather than a future source-text branch."
+  ],
+  "final_recommendation": "READY_TO_COMMIT_SCALE_AUDIT"
+}
