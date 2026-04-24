@@ -28,25 +28,25 @@
 
 ### Names / Places
 
-- `קַיִן`: accepted aliases likely `Kayin` / `Cain`
-- `הֶבֶל`: accepted aliases likely `Hevel` / `Abel`
-- `אֶרֶץ־נוֹד`: likely `land of Nod`
-- `קִדְמַת־עֵדֶן`: likely `east of Eden` / `toward the east of Eden`
+- `קַיִן`: preserve the source name rendering. Accepted alias set: `Kayin` / `Cain`. Context note: choose one audience-facing name per prompt and avoid mixing both names inside the same item unless the task is explicitly about aliases.
+- `הֶבֶל`: preserve the source name rendering. Accepted alias set: `Hevel` / `Abel`. Context note: choose one audience-facing name per prompt and avoid mixing both names inside the same item unless the task is explicitly about aliases.
+- `אֶרֶץ־נוֹד`: preserve the place name as `land of Nod`. Context note: keep this as a proper place name rather than paraphrasing it away.
+- `קִדְמַת־עֵדֶן`: preserve the source-facing phrase, but allow smoother student-facing aliases `east of Eden` / `toward the east of Eden`. Student-facing note: prefer `Eden` over the source-literal spelling `Eiden` in future accepted-answer layers.
 
 ### Source-Literal Phrases That May Need Smoother Accepted Wording
 
-- `מִנְחָה`: source keeps `present`; later review may want `offering` / `gift-offering`
-- `וַיִּשַׁע`: source keeps `turned`; later review may want `accepted` / `paid attention to`
-- `לֹא שָׁעָה`: source keeps `didn't turn`; later review may want `did not accept` / `did not pay attention to`
-- `נָע וָנָד`: source keeps `moving and shaking`; later review may want `wandering` / `restless wanderer`
-- `אוֹת`: source keeps `sign`; later review may want `mark` depending on prompt context
+- `מִנְחָה`: preserve the source wording `present`. Accepted aliases: `offering` / `gift-offering`. Context note: `gift-offering` is safer when the prompt needs to signal sacrificial context without overwriting the source wording.
+- `וַיִּשַׁע`: preserve the source wording `turned`. Accepted aliases: `accepted` / `paid attention to`. Context note: future prompts may use smoother accepted wording, but should keep the acceptance/rejection contrast explicit.
+- `לֹא שָׁעָה`: preserve the source wording `didn't turn`. Accepted aliases: `did not accept` / `did not pay attention to`. Context note: keep the negative response explicit so it still contrasts clearly with `וַיִּשַׁע`.
+- `נָע וָנָד`: preserve the source wording `moving and shaking`. Accepted aliases: `wandering` / `restless wanderer`. Student-facing note: the smoother aliases are clearer for future question generation, but the source wording should remain traceable in review artifacts.
+- `אוֹת`: preserve the source wording `sign`. Accepted alias: `mark` when the prompt context is already clearly about the protective sign placed on Kayin.
 
 ### Exact-Phrase Watchlist
 
-- `חַטָּאת רֹבֵץ`
-- `הֲשֹׁמֵר אָחִי אָנֹכִי`
-- `קוֹל דְּמֵי אָחִיךָ`
-- `לְבִלְתִּי הַכּוֹת־אֹתוֹ כׇּל־מֹצְאֽוֹ`
+- `חַטָּאת רֹבֵץ`: preserve the source wording. Accepted aliases may include `sin crouches` / `sin crouches at the opening`, but this phrase should stay exact-phrase-sensitive in future prompts.
+- `הֲשֹׁמֵר אָחִי אָנֹכִי`: preserve the source wording `am I the guard of my brother?`. Accepted aliases: `am I my brother's keeper?` / `am I my brother's watchman?`.
+- `קוֹל דְּמֵי אָחִיךָ`: preserve the source wording. Accepted aliases may include `your brother's blood` and, for more literal study contexts, `your brother's bloods`.
+- `לְבִלְתִּי הַכּוֹת־אֹתוֹ כׇּל־מֹצְאֽוֹ`: keep this phrase exact when surfaced. Context note: future prompts should quote the phrase rather than paraphrasing it loosely.
 
 ### Review Questions To Keep In Mind
 
@@ -90,14 +90,22 @@
 ## Reviewer Notes Summary
 
 - Overall extraction quality:
-  - `________________`
+  - `Batch 005 is usable as an inactive reviewed-for-planning packet. The source trace is consistent, the Hebrew alignment source is explicit, and the extracted payload remains clearly isolated from runtime.`
 - Most urgent alias / wording follow-up:
-  - `________________`
+  - `Keep the source translations, but allow accepted-answer aliases for Kayin/Cain, Hevel/Abel, minchah as offering/gift-offering, וַיִּשַׁע / לֹא שָׁעָה as accepted-rejected phrasing, חַטָּאת רֹבֵץ as sin crouches wording, הֲשֹׁמֵר אָחִי אָנֹכִי as keeper/watchman wording, דְּמֵי אָחִיךָ as blood/bloods, נָע וָנָד as wandering/restless, אוֹת as sign/mark, and קִדְמַת־עֵדֶן as east of Eden.`
 - Segments or preview items to revise first:
-  - `________________`
+  - `Prioritize future accepted-alias handling for 4:3 seg 3, 4:4 seg 4, 4:5 seg 2, 4:7 seg 4, 4:9 seg 4, 4:10 seg 3, 4:12 seg 3, 4:15 seg 4, and 4:16 seg 3, since those are the main places where source-faithful wording is correct but potentially awkward or ambiguous for students.`
+- Source preservation decision:
+  - `Original source translations should remain unchanged in the extraction artifacts. The review resolution here is about accepted alias/context guidance only, not about rewriting the underlying Batch 005 JSONL or preview data.`
+- Preview quality note:
+  - `The preview set is suitable for inactive review use. Phrase-translation items intentionally behave like flashcard-style prompts, while the match lanes already carry usable same-batch distractors.`
+- Runtime boundary:
+  - `This manual review approves Batch 005 for future curriculum planning only. It does not make Batch 005 runtime active, and it does not promote any reviewed production question-bank data.`
 
 ## Final Recommendation
 
-- [ ] APPROVE_BATCH_005_FOR_INACTIVE_MERGE
-- [x] NEEDS_MANUAL_REVIEW
+- Approval note: Batch 005 is approved for inactive merge and for future Batch 006 planning. This approval does not promote any extraction data into runtime. The extracted JSONL payload remains unchanged and still carries record-level `needs_review` flags.
+
+- [x] APPROVE_BATCH_005_FOR_INACTIVE_MERGE
+- [ ] NEEDS_MANUAL_REVIEW
 - [ ] BLOCK_BATCH_005

@@ -129,8 +129,11 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
             ],
         )
         self.assertIn("batch_005_linear_bereishis_4_1_to_4_16", batches)
-        self.assertEqual(batches["batch_005_linear_bereishis_4_1_to_4_16"]["review_status"], "needs_review")
-        self.assertEqual(batches["batch_005_linear_bereishis_4_1_to_4_16"]["status"], "extracted_needs_review")
+        self.assertEqual(batches["batch_005_linear_bereishis_4_1_to_4_16"]["review_status"], "reviewed")
+        self.assertEqual(
+            batches["batch_005_linear_bereishis_4_1_to_4_16"]["status"],
+            "reviewed_for_planning_non_runtime",
+        )
         self.assertEqual(
             batches["batch_005_linear_bereishis_4_1_to_4_16"]["raw_source_files"],
             ["data/curriculum_extraction/raw_sources/batch_005/linear_chumash_bereishis_4_1_to_4_16_cleaned.md"],
@@ -149,6 +152,7 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
                 "data/curriculum_extraction/reports/batch_005_summary.md",
                 "data/curriculum_extraction/reports/batch_005_preview_summary.md",
                 "data/curriculum_extraction/reports/batch_005_manual_review_packet.md",
+                "data/curriculum_extraction/reports/batch_005_review_resolution.md",
             ],
         )
 
