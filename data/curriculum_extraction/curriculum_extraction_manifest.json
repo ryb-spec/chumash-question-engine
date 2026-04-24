@@ -183,7 +183,8 @@
         "Batch 004 extracts Linear Chumash phrase-level translation data for Bereishis 3:1 through 3:24 only.",
         "The local PDF text layer was noisy, so Hebrew phrase text was aligned to the local canonical pasuk corpus by exact pasuk reference and source phrase order.",
         "This batch remains isolated, needs review, and is not present in runtime or in the reviewed question bank.",
-        "Batch 004 review-state cleanup fixed the watchlist formatting and documented the remaining alias/context blocker in data/curriculum_extraction/reports/batch_004_review_resolution.md."
+        "Batch 004 review-state cleanup fixed the watchlist formatting, and the alias/context cleanup is now documented in the linked review artifacts.",
+        "The remaining blocker is the current review-status contract: Batch 004 still remains extracted_needs_review / needs_review in the manifest and validation suite."
       ]
     }
   ],
