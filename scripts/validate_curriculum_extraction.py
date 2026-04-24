@@ -207,6 +207,19 @@ TRANSLATION_RULE_REQUIRED_FIELDS = (
 SAMPLE_ALLOWED_METHODS = {"manual_sample"}
 NORMALIZED_ALLOWED_METHODS = {"manual_cleaned_excerpt", "manual_sample"}
 ALLOWED_REVIEW_STATUSES = {"needs_review", "reviewed"}
+ALLOWED_BATCH_STATUSES = {
+    "draft_needs_review",
+    "cleaned_seed_reviewed_non_runtime",
+    "extracted_needs_review",
+    "reviewed_for_planning_non_runtime",
+}
+REVIEWED_BATCH_STATUSES = {
+    "cleaned_seed_reviewed_non_runtime",
+    "reviewed_for_planning_non_runtime",
+}
+RECORD_REVIEW_STATUS_BY_BATCH_STATUS = {
+    "reviewed_for_planning_non_runtime": "needs_review",
+}
 
 SKILL_TAG_ALIASES = {
     "phrase_translation": {"translation_context", "skill_tag.translation_context"},
@@ -368,6 +381,23 @@ def collect_manifest_relative_paths(manifest: dict, key: str) -> list[str]:
     return ordered_paths
 
 
+def report_file_stem_for_batch(batch_id: str) -> str:
+    parts = batch_id.split("_")
+    if len(parts) >= 2 and parts[0] == "batch":
+        return "_".join(parts[:2])
+    return batch_id
+
+
+def required_review_artifacts_for_reviewed_planning_batch(batch_id: str) -> set[str]:
+    stem = report_file_stem_for_batch(batch_id)
+    return {
+        f"data/curriculum_extraction/reports/{stem}_summary.md",
+        f"data/curriculum_extraction/reports/{stem}_preview_summary.md",
+        f"data/curriculum_extraction/reports/{stem}_manual_review_packet.md",
+        f"data/curriculum_extraction/reports/{stem}_review_resolution.md",
+    }
+
+
 def validate_declared_relative_paths(relative_paths: list[str], key: str, errors: list[str]) -> list[Path]:
     paths: list[Path] = []
     for relative in relative_paths:
@@ -380,6 +410,9 @@ def validate_declared_relative_paths(relative_paths: list[str], key: str, errors
 
 def expected_batch_review_status(record: dict, record_origin: str, batch_lookup: dict[str, dict]) -> str:
     batch = batch_lookup.get(str(record.get("extraction_batch_id", "")), {})
+    batch_status = batch.get("status")
+    if batch_status in RECORD_REVIEW_STATUS_BY_BATCH_STATUS:
+        return RECORD_REVIEW_STATUS_BY_BATCH_STATUS[str(batch_status)]
     review_status = batch.get("review_status")
     if review_status in ALLOWED_REVIEW_STATUSES:
         return str(review_status)
@@ -396,6 +429,9 @@ def validate_resource_batches(manifest: dict, errors: list[str]) -> dict[str, di
         if not batch_id:
             errors.append("curriculum_extraction_manifest.json: resource batch missing batch_id")
             continue
+        status = batch.get("status")
+        if status not in ALLOWED_BATCH_STATUSES:
+            errors.append(f"curriculum_extraction_manifest.json: {batch_id} has invalid status '{status}'")
         if batch.get("runtime_active") is not False:
             errors.append(f"curriculum_extraction_manifest.json: {batch_id} must have runtime_active=false")
         if batch.get("integration_status") != "not_runtime_active":
@@ -403,6 +439,42 @@ def validate_resource_batches(manifest: dict, errors: list[str]) -> dict[str, di
         review_status = batch.get("review_status")
         if review_status is not None and review_status not in ALLOWED_REVIEW_STATUSES:
             errors.append(f"curriculum_extraction_manifest.json: {batch_id} has invalid review_status '{review_status}'")
+        review_artifacts = batch.get("review_artifacts", [])
+        if review_artifacts is None:
+            review_artifacts = []
+        if not isinstance(review_artifacts, list):
+            errors.append(f"curriculum_extraction_manifest.json: {batch_id} review_artifacts must be a list")
+            review_artifacts = []
+        else:
+            for relative in review_artifacts:
+                if not isinstance(relative, str):
+                    errors.append(f"curriculum_extraction_manifest.json: {batch_id} review_artifacts entries must be strings")
+                    continue
+                if not (ROOT / relative).exists():
+                    errors.append(
+                        f"curriculum_extraction_manifest.json: {batch_id} review_artifact missing: {relative}"
+                    )
+        if status in REVIEWED_BATCH_STATUSES and review_status != "reviewed":
+            errors.append(
+                f"curriculum_extraction_manifest.json: {batch_id} reviewed non-runtime batches must have review_status=reviewed"
+            )
+        if status in {"draft_needs_review", "extracted_needs_review"} and review_status not in {None, "needs_review"}:
+            errors.append(
+                f"curriculum_extraction_manifest.json: {batch_id} {status} batches must keep review_status=needs_review"
+            )
+        if status == "reviewed_for_planning_non_runtime":
+            declared_review_artifacts = {
+                relative
+                for relative in review_artifacts
+                if isinstance(relative, str)
+            }
+            for required_artifact in sorted(required_review_artifacts_for_reviewed_planning_batch(str(batch_id))):
+                if required_artifact not in declared_review_artifacts:
+                    errors.append(
+                        "curriculum_extraction_manifest.json: "
+                        f"{batch_id} reviewed_for_planning_non_runtime batches must declare review_artifact "
+                        f"'{required_artifact}'"
+                    )
         batch_lookup[str(batch_id)] = batch
     return batch_lookup
 

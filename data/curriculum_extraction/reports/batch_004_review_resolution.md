@@ -1,7 +1,7 @@
 # Batch 004 Review Resolution
 
 - Cleanup date: `2026-04-24`
-- Context: review-state cleanup for `batch_004_linear_bereishis_3_1_to_3_24`
+- Context: review-contract closeout for `batch_004_linear_bereishis_3_1_to_3_24`
 
 ## Files Inspected
 
@@ -9,10 +9,12 @@
 - `data/curriculum_extraction/reports/batch_004_summary.md`
 - `data/curriculum_extraction/reports/batch_004_preview_summary.md`
 - `data/curriculum_extraction/curriculum_extraction_manifest.json`
+- `scripts/validate_curriculum_extraction.py`
+- `tests/test_curriculum_extraction_validation.py`
 
 ## Watchlist / Placeholder Fixes
 
-- Replaced the garbled Batch 004 watchlist labels with readable Hebrew labels for:
+- The previously garbled Batch 004 watchlist labels remain fixed and readable for:
   - `עָרוּם / עֵירֹם / עֵירֻמִּם`
   - `מוֹת תָּמוּת / לֹא מוֹת תְּמֻתוּן`
   - `עֵץ הַדַּעַת טוֹב וָרָע`
@@ -32,15 +34,19 @@
 - Original source translations were preserved.
 - Extraction data was left untouched.
 - No normalized JSONL, preview JSONL, or raw source markdown files were modified.
+- Batch 004 remains `not_runtime_active`; no runtime scope or runtime payload changed.
 
 ## Final Recommendation
 
-`STILL_BLOCKED`
+`READY_FOR_BATCH_005_PLANNING`
 
-## Exact Remaining Blocker
+## Blocker Resolution
 
-- The alias/context cleanup is now resolved in the review artifacts, but Batch 004 still remains under the current repo contract as `review_status = needs_review` and `status = extracted_needs_review`. The current validation suite also expects that state to remain in place for Batch 004, so this branch cannot honestly promote the batch to a cleared planning state without widening scope beyond the allowed report/manifest cleanup.
+- The remaining review-status contract blocker is resolved in this branch.
+- Batch 004 is now allowed to be marked as reviewed for future curriculum planning while remaining explicitly non-runtime-active.
+- No extraction data changed in order to reach this state.
 
 ## Next Action
 
-- Run one small follow-up review-contract branch to decide whether Batch 004 should remain permanently `needs_review` as inactive infrastructure or whether the repo’s curriculum-extraction manifest/test contract should be widened to allow a non-runtime reviewed/cleared state for post-review batches.
+- Batch 004 is cleared for future curriculum planning.
+- The next branch may begin Batch 005 planning while keeping runtime promotion and reviewed-bank promotion out of scope.
