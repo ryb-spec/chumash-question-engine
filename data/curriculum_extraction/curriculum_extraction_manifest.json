@@ -175,12 +175,15 @@
       ],
       "review_artifacts": [
         "data/curriculum_extraction/reports/batch_004_summary.md",
-        "data/curriculum_extraction/reports/batch_004_preview_summary.md"
+        "data/curriculum_extraction/reports/batch_004_preview_summary.md",
+        "data/curriculum_extraction/reports/batch_004_manual_review_packet.md",
+        "data/curriculum_extraction/reports/batch_004_review_resolution.md"
       ],
       "notes": [
         "Batch 004 extracts Linear Chumash phrase-level translation data for Bereishis 3:1 through 3:24 only.",
         "The local PDF text layer was noisy, so Hebrew phrase text was aligned to the local canonical pasuk corpus by exact pasuk reference and source phrase order.",
-        "This batch remains isolated, needs review, and is not present in runtime or in the reviewed question bank."
+        "This batch remains isolated, needs review, and is not present in runtime or in the reviewed question bank.",
+        "Batch 004 review-state cleanup fixed the watchlist formatting and documented the remaining alias/context blocker in data/curriculum_extraction/reports/batch_004_review_resolution.md."
       ]
     }
   ],

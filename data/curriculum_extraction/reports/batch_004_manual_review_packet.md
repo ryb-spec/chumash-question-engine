@@ -1378,11 +1378,11 @@
 
 ## Special Bereishis 3 Reviewer Watchlist
 
-- `???? / ??????`: check whether context means cunning vs naked/unclothed; do not overwrite source translation, but flag aliases/context notes.
-- `??? ????`: consider alias `you will surely die` alongside source translation.
-- `?? ???? ??? ???`: consider accepted aliases around `tree of knowledge of good and bad`.
-- `???`: consider `Chava` / `Eve` alias note if relevant.
-- `?? ???`: consider `Gan Eden` / `Eden` alias note if relevant.
+- `עָרוּם / עֵירֹם / עֵירֻמִּם`: check whether context means cunning/crafty vs naked/unclothed; preserve the source translation used in each pasuk and carry the distinction into future alias/context notes.
+- `מוֹת תָּמוּת / לֹא מוֹת תְּמֻתוּן`: preserve the source death-warning phrasing; accepted aliases may include `you will surely die` and `you will not surely die` only in the matching pasuk context.
+- `עֵץ הַדַּעַת טוֹב וָרָע`: preserve the source phrasing; accepted aliases may include `tree of knowledge of good and bad`.
+- `חַוָּה`: preserve the source name rendering; accepted aliases may include `Chava` and `Eve` depending on audience settings.
+- `גַּן עֵדֶן`: preserve the source phrase when surfaced; accepted aliases may include `Gan Eden` and `Eden`.
 
 ## Reviewer Notes Summary
 
@@ -1394,10 +1394,12 @@
 - Additional accepted aliases/context: `לֹא מוֹת תְּמֻתוּן` may accept “you will not surely die” / “you will not die”; `יֹדְעֵי טוֹב וָרָע` may accept “knowers of good and bad” / “knowing good and bad”; `חַוָּה` should allow “Chava” and “Eve” depending on audience settings; `אֱלֹהִים` in this perek needs careful context because the packet sometimes renders it as Hashem.
 - Prompt/readability review: The preview questions are structurally readable and the answer keys match their source snippets. However, the phrase-translation preview items have empty distractors, so they are suitable as preview/flashcard-style items but not yet as robust multiple-choice questions.
 - Distractor review: Hebrew-to-English and English-to-Hebrew distractors are generally reasonable and mostly non-overlapping. Some distractors are from later pesukim while the prompt is from earlier pesukim; that is acceptable for inactive preview, but future adaptive generation should tag whether distractors are same-pasuk, same-perek, or cross-pasuk.
-- Watchlist formatting issue: The Special Bereishis 3 Reviewer Watchlist appears to contain garbled Hebrew placeholders (`????`-style text). Before relying on the packet as a reviewer handoff, replace those placeholders with the actual Hebrew terms named in the notes above.
+- Watchlist formatting issue: Resolved in this cleanup pass by replacing the garbled Hebrew placeholders with readable watchlist labels. The remaining follow-up is the alias/context cleanup itself, not the packet formatting.
 - Recommendation basis: No severe blocker was found because the packet is explicitly inactive, source-traced, and review-labeled. The remaining issues are alias/context cleanup, awkward student-facing English, empty distractors for phrase-translation previews, and the garbled watchlist labels.
 
 ## Final Recommendation
+
+Remaining blocker: accepted alias/context handling for the Bereishis 3 watchlist items and smoother student-facing wording for the flagged source-literal phrases are now documented clearly, but they are not yet resolved into a follow-up artifact that clears Batch 004 for Batch 005 planning.
 
 - [ ] APPROVE_BATCH_004_FOR_INACTIVE_MERGE
 - [x] NEEDS_MINOR_CLEANUP
