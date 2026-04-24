@@ -7,19 +7,19 @@
       "start": {
         "sefer": "Bereishis",
         "perek": 3,
-        "pasuk": 9
+        "pasuk": 17
       },
       "end": {
         "sefer": "Bereishis",
         "perek": 3,
-        "pasuk": 16
+        "pasuk": 24
       }
     }
   },
   "structural_summary": {
     "pesukim_count": 8,
-    "token_count": 111,
-    "selected_analysis_count": 111,
+    "token_count": 118,
+    "selected_analysis_count": 118,
     "selected_analysis_pct": 1.0,
     "tokens_with_placeholder_context_count": 0
   },
@@ -43,8 +43,8 @@
       "support_rate": 0.0
     },
     "identify_verb_marker": {
-      "supported_pesukim": 6,
-      "support_rate": 0.75
+      "supported_pesukim": 7,
+      "support_rate": 0.875
     },
     "segment_word_parts": {
       "supported_pesukim": 8,
@@ -101,39 +101,39 @@
   },
   "staged_reviewed_support": {
     "available": true,
-    "question_count": 43,
+    "question_count": 50,
     "lane_counts": {
-      "translation": 17,
-      "shoresh": 5,
-      "tense": 5,
-      "affix": 8,
-      "role": 8
+      "translation": 16,
+      "shoresh": 6,
+      "tense": 8,
+      "affix": 10,
+      "role": 10
     },
     "skill_counts": {
-      "translation": 9,
-      "shoresh": 5,
-      "identify_tense": 5,
-      "identify_prefix_meaning": 4,
+      "translation": 8,
+      "shoresh": 6,
+      "identify_tense": 8,
+      "identify_prefix_meaning": 6,
       "identify_pronoun_suffix": 4,
       "phrase_translation": 8,
-      "subject_identification": 3,
+      "subject_identification": 5,
       "object_identification": 5
     },
     "lane_supported_pesukim": {
       "translation": 8,
-      "shoresh": 5,
-      "tense": 5,
-      "affix": 5,
+      "shoresh": 6,
+      "tense": 8,
+      "affix": 7,
       "role": 7
     },
     "skill_supported_pesukim": {
       "translation": 8,
-      "shoresh": 5,
-      "identify_tense": 5,
-      "identify_prefix_meaning": 4,
+      "shoresh": 6,
+      "identify_tense": 8,
+      "identify_prefix_meaning": 6,
       "identify_pronoun_suffix": 4,
       "phrase_translation": 8,
-      "subject_identification": 3,
+      "subject_identification": 4,
       "object_identification": 5
     }
   },
@@ -164,17 +164,17 @@
     "next_recommended_state": "active_candidate"
   },
   "comparison_to_previous": {
-    "previous_readiness_recommendation": "active_candidate",
+    "previous_readiness_recommendation": null,
     "current_readiness_recommendation": "active_candidate",
-    "previous_tokens_with_placeholder_context_count": 0,
+    "previous_tokens_with_placeholder_context_count": null,
     "current_tokens_with_placeholder_context_count": 0,
-    "previous_stable_flow_pesukim": 8,
+    "previous_stable_flow_pesukim": null,
     "current_stable_flow_pesukim": 8,
-    "previous_shoresh_supported_pesukim": 8,
+    "previous_shoresh_supported_pesukim": null,
     "current_shoresh_supported_pesukim": 8
   },
   "change_notes": [
-    "Post-promotion surface-form cleanup refreshed staged reviewed support."
+    "First contiguous post-3:16 staged source bundle with exact-surface parser support and curated reviewed phrase/role coverage."
   ],
   "remaining_blockers": []
 }
