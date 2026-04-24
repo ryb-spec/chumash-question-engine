@@ -10,3 +10,4 @@ data/pilot/runs/
 data/pilot/exports/
 
 local_curriculum_sources/
+.worktrees/
