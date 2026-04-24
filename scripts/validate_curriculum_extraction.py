@@ -11,6 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = ROOT / "data" / "curriculum_extraction"
 MANIFEST_PATH = DATA_DIR / "curriculum_extraction_manifest.json"
 REGISTRY_PATH = DATA_DIR / "source_resource_registry.json"
+PREVIEW_DIR = DATA_DIR / "generated_questions_preview"
 
 COMMON_REQUIRED_FIELDS = (
     "id",
@@ -23,6 +24,23 @@ COMMON_REQUIRED_FIELDS = (
     "runtime_status",
     "confidence",
     "extraction_quality_flags",
+)
+
+PREVIEW_REQUIRED_FIELDS = (
+    "id",
+    "schema_version",
+    "record_type",
+    "source_record_id",
+    "source_package_id",
+    "question_type",
+    "prompt",
+    "answer",
+    "distractors",
+    "skill_tags",
+    "source_trace",
+    "review_status",
+    "runtime_status",
+    "confidence",
 )
 
 SOURCE_TRACE_REQUIRED_FIELDS = (
@@ -220,8 +238,10 @@ ALLOWED_CHANGE_PREFIXES = (
 ALLOWED_CHANGE_EXACT = {
     "docs/curriculum_extraction_factory.md",
     "docs/curriculum_extraction_integration_plan.md",
+    "scripts/generate_curriculum_question_preview.py",
     "scripts/validate_curriculum_extraction.py",
     "scripts/load_curriculum_extraction.py",
+    "tests/test_curriculum_question_preview.py",
     "tests/test_curriculum_extraction_schemas.py",
     "tests/test_curriculum_extraction_validation.py",
     "tests/test_curriculum_extraction_loader.py",
@@ -269,6 +289,23 @@ def load_jsonl(path: Path) -> list[dict]:
             payload["_meta_line_number"] = line_number
             records.append(payload)
     return records
+
+
+def collect_preview_records(preview_dir: Path, errors: list[str]) -> tuple[dict[str, list[dict]], list[dict]]:
+    records_by_file: dict[str, list[dict]] = {}
+    all_records: list[dict] = []
+    if not preview_dir.exists():
+        return records_by_file, all_records
+    for path in sorted(preview_dir.glob("*.jsonl")):
+        try:
+            records = load_jsonl(path)
+        except ValueError as error:
+            errors.append(str(error))
+            continue
+        relative = repo_relative(path)
+        records_by_file[relative] = records
+        all_records.extend(records)
+    return records_by_file, all_records
 
 
 def meaningful_value(value: object) -> bool:
@@ -390,6 +427,18 @@ def validate_skill_tags(record: dict, valid_skill_refs: set[str], errors: list[s
         errors.append(f"{context}: unknown skill tag '{skill_tag}'")
 
 
+def validate_preview_source_trace(record: dict, errors: list[str], context: str) -> None:
+    source_trace = record.get("source_trace")
+    if not isinstance(source_trace, dict):
+        errors.append(f"{context}: source_trace must be an object")
+        return
+    require_fields(source_trace, SOURCE_TRACE_REQUIRED_FIELDS, errors, f"{context} source_trace")
+    page_start = source_trace.get("source_page_start")
+    page_end = source_trace.get("source_page_end")
+    if isinstance(page_start, int) and isinstance(page_end, int) and page_end < page_start:
+        errors.append(f"{context}: source_page_end must be >= source_page_start")
+
+
 def validate_answer_status(record: dict, answer_fields: tuple[str, ...], errors: list[str], context: str) -> None:
     answer_status = record.get("answer_status")
     if answer_status not in ANSWER_STATUS_VALUES:
@@ -464,6 +513,74 @@ def validate_record_type_specific(record: dict, errors: list[str], context: str)
         require_fields(record, TRANSLATION_RULE_REQUIRED_FIELDS, errors, context)
     else:
         errors.append(f"{context}: unsupported record_type '{record_type}'")
+
+
+def validate_preview_records(
+    preview_records_by_file: dict[str, list[dict]],
+    valid_skill_refs: set[str],
+    valid_source_record_ids: set[str],
+    registry_lookup: dict[str, dict],
+    errors: list[str],
+) -> list[dict]:
+    preview_records: list[dict] = []
+    seen_preview_ids: set[str] = set()
+    seen_prompts: set[str] = set()
+    for relative_path, records in preview_records_by_file.items():
+        for record in records:
+            line_number = record.pop("_meta_line_number", "?")
+            source_file = record.pop("_meta_source_file", relative_path)
+            context = f"{source_file}:{line_number}"
+            preview_records.append(record)
+
+            require_fields(record, PREVIEW_REQUIRED_FIELDS, errors, context)
+            validate_preview_source_trace(record, errors, context)
+
+            preview_id = str(record.get("id", "")).strip()
+            if not preview_id:
+                errors.append(f"{context}: id must be populated")
+            elif preview_id in seen_preview_ids:
+                errors.append(f"{context}: duplicate preview id '{preview_id}'")
+            else:
+                seen_preview_ids.add(preview_id)
+
+            if record.get("schema_version") != "0.1":
+                errors.append(f"{context}: schema_version must be '0.1'")
+            if record.get("record_type") != "generated_question_preview":
+                errors.append(f"{context}: record_type must be 'generated_question_preview'")
+
+            source_record_id = str(record.get("source_record_id", "")).strip()
+            if not source_record_id:
+                errors.append(f"{context}: source_record_id must be populated")
+            elif source_record_id not in valid_source_record_ids:
+                errors.append(f"{context}: unknown source_record_id '{source_record_id}'")
+
+            source_package_id = record.get("source_package_id")
+            if source_package_id not in registry_lookup:
+                errors.append(f"{context}: unknown source_package_id '{source_package_id}'")
+
+            prompt = str(record.get("prompt", "")).strip()
+            if not prompt:
+                errors.append(f"{context}: prompt must be populated")
+            elif prompt in seen_prompts:
+                errors.append(f"{context}: duplicate prompt text is not allowed")
+            else:
+                seen_prompts.add(prompt)
+
+            if not meaningful_value(record.get("answer")):
+                errors.append(f"{context}: answer must be populated")
+            distractors = record.get("distractors")
+            if not isinstance(distractors, list):
+                errors.append(f"{context}: distractors must be a list")
+
+            if record.get("review_status") != "needs_review":
+                errors.append(f"{context}: preview questions must have review_status='needs_review'")
+            if record.get("runtime_status") != "not_runtime_active":
+                errors.append(f"{context}: preview questions must have runtime_status='not_runtime_active'")
+            if record.get("confidence") != "low":
+                errors.append(f"{context}: preview questions must have confidence='low'")
+
+            validate_skill_tags(record, valid_skill_refs, errors, context)
+    return preview_records
 
 
 def validate_registry(registry: dict, errors: list[str]) -> dict[str, dict]:
@@ -587,6 +704,7 @@ def validate_curriculum_extraction(*, check_git_diff: bool = False) -> dict:
         "normalized_data_files",
         errors,
     )
+    preview_records_by_file, preview_records = collect_preview_records(PREVIEW_DIR, errors)
     all_records = [*sample_records, *normalized_records]
 
     seen_ids: set[str] = set()
@@ -637,6 +755,18 @@ def validate_curriculum_extraction(*, check_git_diff: bool = False) -> dict:
 
     validate_record_collection(sample_records_by_file, "sample")
     validate_record_collection(normalized_records_by_file, "normalized")
+    valid_source_record_ids = {
+        str(record.get("id"))
+        for record in all_records
+        if meaningful_value(record.get("id"))
+    }
+    preview_records = validate_preview_records(
+        preview_records_by_file,
+        valid_skill_refs,
+        valid_source_record_ids,
+        registry_lookup,
+        errors,
+    )
 
     changed_paths: list[str] = []
     if check_git_diff:
@@ -648,6 +778,9 @@ def validate_curriculum_extraction(*, check_git_diff: bool = False) -> dict:
     record_counts = Counter(record.get("record_type") for record in all_records if record.get("record_type"))
     review_status_counts = Counter(record.get("review_status") for record in all_records if record.get("review_status"))
     runtime_status_counts = Counter(record.get("runtime_status") for record in all_records if record.get("runtime_status"))
+    preview_question_type_counts = Counter(
+        record.get("question_type") for record in preview_records if record.get("question_type")
+    )
     summary = {
         "valid": not errors,
         "manifest_path": repo_relative(MANIFEST_PATH),
@@ -656,12 +789,15 @@ def validate_curriculum_extraction(*, check_git_diff: bool = False) -> dict:
         "raw_source_file_count": len(raw_source_paths),
         "sample_file_count": len(sample_records_by_file),
         "normalized_file_count": len(normalized_records_by_file),
+        "preview_file_count": len(preview_records_by_file),
         "sample_record_count": len(sample_records),
         "normalized_record_count": len(normalized_records),
         "record_count": len(all_records),
+        "preview_record_count": len(preview_records),
         "record_type_counts": dict(sorted(record_counts.items())),
         "review_status_counts": dict(sorted(review_status_counts.items())),
         "runtime_status_counts": dict(sorted(runtime_status_counts.items())),
+        "preview_question_type_counts": dict(sorted(preview_question_type_counts.items())),
         "checked_git_diff": check_git_diff,
         "changed_paths": changed_paths,
         "errors": errors,
