@@ -238,6 +238,7 @@ ALLOWED_CHANGE_PREFIXES = (
 ALLOWED_CHANGE_EXACT = {
     "docs/curriculum_extraction_factory.md",
     "docs/curriculum_extraction_integration_plan.md",
+    "local_curriculum_sources/source_key_excerpt_batch_001.md",
     "scripts/generate_curriculum_question_preview.py",
     "scripts/validate_curriculum_extraction.py",
     "scripts/load_curriculum_extraction.py",

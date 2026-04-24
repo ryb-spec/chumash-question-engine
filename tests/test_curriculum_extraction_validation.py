@@ -91,13 +91,40 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
             self.assertNotIn("requires_manual_review", record["extraction_quality_flags"], record["id"])
 
     def test_batch_001_vocab_entries_without_glosses_are_flagged_for_review(self):
+        enriched_ids = {
+            "vocab_entry_batch_001_011_ארץ",
+            "vocab_entry_batch_001_012_אדם",
+            "vocab_entry_batch_001_013_אשה",
+            "vocab_entry_batch_001_014_בית",
+            "vocab_entry_batch_001_015_בן",
+            "vocab_entry_batch_001_016_יום",
+            "vocab_entry_batch_001_017_מים",
+            "vocab_entry_batch_001_018_עץ",
+        }
         empty_gloss_ids = []
+        seen_enriched = set()
         for record in normalized_records_by_type("vocab_entry"):
+            if record["id"] in enriched_ids:
+                seen_enriched.add(record["id"])
+                self.assertTrue(record["english_glosses"], record["id"])
+                self.assertFalse(record["needs_gloss_review"], record["id"])
+                self.assertNotIn("missing_english_gloss", record["extraction_quality_flags"], record["id"])
+                self.assertEqual(
+                    record["source_trace"]["source_name"],
+                    "First 150 Shorashim and Keywords in Bereishis",
+                    record["id"],
+                )
+                self.assertEqual(
+                    record["source_trace"]["source_file"],
+                    "13726D_g_01023_first_150_shorashim_and_keywords_in_chumash.pdf",
+                    record["id"],
+                )
             if not record.get("english_glosses"):
                 empty_gloss_ids.append(record["id"])
                 self.assertTrue(record["needs_gloss_review"], record["id"])
                 self.assertIn("missing_english_gloss", record["extraction_quality_flags"], record["id"])
-        self.assertEqual(len(empty_gloss_ids), 8)
+        self.assertEqual(seen_enriched, enriched_ids)
+        self.assertEqual(len(empty_gloss_ids), 0)
 
     def test_batch_001_comprehension_records_without_answers_are_flagged(self):
         records = normalized_records_by_type("comprehension_question")
