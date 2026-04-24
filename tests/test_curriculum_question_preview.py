@@ -31,6 +31,14 @@ BATCH_002_PREVIEW_PATH = (
     / "batch_002_preview.jsonl"
 )
 BATCH_002_PREVIEW_RELATIVE = "data/curriculum_extraction/generated_questions_preview/batch_002_preview.jsonl"
+BATCH_003_PREVIEW_PATH = (
+    ROOT
+    / "data"
+    / "curriculum_extraction"
+    / "generated_questions_preview"
+    / "batch_003_preview.jsonl"
+)
+BATCH_003_PREVIEW_RELATIVE = "data/curriculum_extraction/generated_questions_preview/batch_003_preview.jsonl"
 
 REQUIRED_FIELDS = {
     "id",
@@ -63,6 +71,12 @@ BLOCKED_COUNTS = {
 }
 
 BATCH_002_EXPECTED_COUNTS = {
+    "phrase_translation": 50,
+    "hebrew_to_english_match": 25,
+    "english_to_hebrew_match": 25,
+}
+
+BATCH_003_EXPECTED_COUNTS = {
     "phrase_translation": 50,
     "hebrew_to_english_match": 25,
     "english_to_hebrew_match": 25,
@@ -126,12 +140,18 @@ def test_preview_v1_is_preserved_and_v2_exists_with_minimum_count() -> None:
     assert PREVIEW_V1_PATH.exists()
     assert PREVIEW_V2_PATH.exists()
     assert BATCH_002_PREVIEW_PATH.exists()
+    assert BATCH_003_PREVIEW_PATH.exists()
     records = load_jsonl(PREVIEW_V2_PATH)
     assert len(records) >= 120
 
 
 def test_batch_002_preview_exists_with_minimum_count() -> None:
     records = load_jsonl(BATCH_002_PREVIEW_PATH)
+    assert len(records) >= 100
+
+
+def test_batch_003_preview_exists_with_minimum_count() -> None:
+    records = load_jsonl(BATCH_003_PREVIEW_PATH)
     assert len(records) >= 100
 
 
@@ -183,6 +203,29 @@ def test_batch_002_preview_records_are_valid_jsonl_with_required_fields() -> Non
     assert dict(counts) == BATCH_002_EXPECTED_COUNTS
 
 
+def test_batch_003_preview_records_are_valid_jsonl_with_required_fields() -> None:
+    records = load_jsonl(BATCH_003_PREVIEW_PATH)
+    record_ids = source_record_ids()
+    prompts: set[str] = set()
+    counts = Counter(record["question_type"] for record in records)
+
+    for record in records:
+        assert REQUIRED_FIELDS.issubset(record)
+        assert record["schema_version"] == "0.1"
+        assert record["record_type"] == "generated_question_preview"
+        assert record["source_record_id"] in record_ids
+        assert record["review_status"] == "needs_review"
+        assert record["runtime_status"] == "not_runtime_active"
+        assert record["confidence"] == "low"
+        assert isinstance(record["distractors"], list)
+        assert isinstance(record["skill_tags"], list)
+        assert isinstance(record["source_trace"], dict)
+        assert record["prompt"] not in prompts
+        prompts.add(record["prompt"])
+
+    assert dict(counts) == BATCH_003_EXPECTED_COUNTS
+
+
 def test_preview_v2_vocab_lanes_improve_source_coverage_over_v1() -> None:
     v1_records = load_jsonl(PREVIEW_V1_PATH)
     v2_records = load_jsonl(PREVIEW_V2_PATH)
@@ -219,10 +262,11 @@ def test_preview_validator_accepts_generated_preview() -> None:
     )
     summary = module.validate_curriculum_extraction()
     assert summary["valid"] is True
-    assert summary["preview_file_count"] == 3
-    assert summary["preview_record_count"] == 410
+    assert summary["preview_file_count"] == 4
+    assert summary["preview_record_count"] == 510
     assert summary["preview_file_question_type_counts"][PREVIEW_V2_RELATIVE] == EXPECTED_COUNTS
     assert summary["preview_file_question_type_counts"][BATCH_002_PREVIEW_RELATIVE] == BATCH_002_EXPECTED_COUNTS
+    assert summary["preview_file_question_type_counts"][BATCH_003_PREVIEW_RELATIVE] == BATCH_003_EXPECTED_COUNTS
 
 
 def test_loader_ignores_preview_data_safely() -> None:
