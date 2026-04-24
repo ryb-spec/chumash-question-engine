@@ -265,6 +265,11 @@ FORBIDDEN_CHANGE_PREFIXES = (
     "progress_store.py",
 )
 
+IGNORED_GENERATED_CHANGE_EXACT = {
+    "data/attempt_log.jsonl",
+    "data/pilot/pilot_session_events.jsonl",
+}
+
 
 def repo_relative(path: Path) -> str:
     return path.relative_to(ROOT).as_posix()
@@ -733,7 +738,7 @@ def collect_changed_paths() -> list[str]:
         if " -> " in path:
             path = path.split(" -> ", 1)[1]
         path = path.strip().strip('"').replace("\\", "/")
-        if path:
+        if path and path not in IGNORED_GENERATED_CHANGE_EXACT:
             paths.append(path)
     return paths
 

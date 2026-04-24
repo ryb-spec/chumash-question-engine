@@ -1,5 +1,6 @@
 import json
 import unittest
+from unittest import mock
 from pathlib import Path
 
 from scripts import validate_curriculum_extraction as validator
@@ -197,6 +198,53 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
         changed_paths = validator.collect_changed_paths()
         disallowed = [path for path in changed_paths if not validator.is_allowed_change(path)]
         self.assertEqual(disallowed, [], [validator.forbidden_reason(path) for path in disallowed])
+
+    def test_generated_local_log_paths_are_ignored_by_changed_path_collection(self):
+        fake_status = "\n".join(
+            [
+                " M data/attempt_log.jsonl",
+                " M data/pilot/pilot_session_events.jsonl",
+            ]
+        )
+        with mock.patch.object(validator.subprocess, "run") as run_mock:
+            run_mock.return_value = mock.Mock(stdout=fake_status)
+            self.assertEqual(validator.collect_changed_paths(), [])
+
+    def test_unrelated_path_outside_allowlist_still_fails(self):
+        fake_status = " M data/some_other_runtime_like_file.jsonl"
+        with mock.patch.object(validator.subprocess, "run") as run_mock:
+            run_mock.return_value = mock.Mock(stdout=fake_status)
+            changed_paths = validator.collect_changed_paths()
+        self.assertEqual(changed_paths, ["data/some_other_runtime_like_file.jsonl"])
+        self.assertFalse(validator.is_allowed_change(changed_paths[0]))
+        self.assertEqual(
+            validator.forbidden_reason(changed_paths[0]),
+            "path outside isolated curriculum extraction allowlist: data/some_other_runtime_like_file.jsonl",
+        )
+
+    def test_forbidden_runtime_and_scope_paths_still_fail(self):
+        forbidden_paths = [
+            "runtime/question_flow.py",
+            "engine/flow_builder.py",
+            "streamlit_app.py",
+            "assessment_scope.py",
+            "data/corpus_manifest.json",
+        ]
+        for path in forbidden_paths:
+            with self.subTest(path=path):
+                self.assertFalse(validator.is_allowed_change(path))
+                self.assertEqual(validator.forbidden_reason(path), f"forbidden path changed: {path}")
+
+    def test_curriculum_extraction_paths_still_pass_allowlist(self):
+        allowed_paths = [
+            "data/curriculum_extraction/reports/batch_002_merge_readiness.md",
+            "data/curriculum_extraction/normalized/batch_002_linear_chumash_bereishis_1_6_to_2_3_pasuk_segments.jsonl",
+            "scripts/validate_curriculum_extraction.py",
+            "tests/test_curriculum_extraction_validation.py",
+        ]
+        for path in allowed_paths:
+            with self.subTest(path=path):
+                self.assertTrue(validator.is_allowed_change(path))
 
 
 if __name__ == "__main__":
