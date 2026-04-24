@@ -47,13 +47,13 @@ class NextSourceSliceReadinessTests(unittest.TestCase):
         result = evaluate_next_source_block(block_size=10)
 
         self.assertEqual(result["status"], "no_next_block")
-        self.assertEqual(result["source_declared_range"], "1:1-3:16")
+        self.assertEqual(result["source_declared_range"], "1:1-3:24")
         self.assertEqual(result["next_block"]["status"], "no_next_block")
         self.assertEqual(
             result["next_block"]["current_end"],
             {"sefer": "Bereishis", "perek": 3, "pasuk": 24},
         )
-        self.assertEqual(result["blockers"][0]["code"], "next_source_block_unavailable")
+        self.assertEqual(result["blockers"][0]["code"], "source_corpus_exhausted_at_active_scope")
 
     def test_readiness_report_retains_the_pre_promotion_active_candidate_evidence_for_3_17_to_3_24(self):
         readiness_path = assessment_scope.repo_path(
