@@ -1378,11 +1378,11 @@
 
 ## Special Bereishis 3 Reviewer Watchlist
 
-- `עָרוּם / עֵירֹם / עֵירֻמִּם`: check whether context means cunning/crafty vs naked/unclothed; preserve the source translation used in each pasuk and carry the distinction into future alias/context notes.
-- `מוֹת תָּמוּת / לֹא מוֹת תְּמֻתוּן`: preserve the source death-warning phrasing; accepted aliases may include `you will surely die` and `you will not surely die` only in the matching pasuk context.
-- `עֵץ הַדַּעַת טוֹב וָרָע`: preserve the source phrasing; accepted aliases may include `tree of knowledge of good and bad`.
-- `חַוָּה`: preserve the source name rendering; accepted aliases may include `Chava` and `Eve` depending on audience settings.
-- `גַּן עֵדֶן`: preserve the source phrase when surfaced; accepted aliases may include `Gan Eden` and `Eden`.
+- `עָרוּם / עֵירֹם / עֵירֻמִּם`: preserve the source translation used in each pasuk. Accepted alias set for future question generation: `cunning`, `crafty` for `עָרוּם` in `Bereishis 3:1`; `naked`, `unclothed` for `עֵירֹם / עֵירֻמִּם` in `Bereishis 3:7` and `3:11`. Context note: never collapse the crafty/cunning sense into the naked/unclothed sense.
+- `מוֹת תָּמוּת / לֹא מוֹת תְּמֻתוּן`: preserve the source death-warning phrasing. Accepted alias set: `you will surely die`, `you will not surely die`, and the shorter `you will die` / `you will not die` only when the prompt context already anchors the correct pasuk polarity. Student-facing wording note: keep the warning/denial distinction explicit.
+- `עֵץ הַדַּעַת טוֹב וָרָע`: preserve the source phrasing. Accepted alias set: `tree of knowledge of good and bad` and `tree of knowledge of good and evil` if future classroom phrasing needs the more familiar English rendering. Context note: do not shorten this to just `the tree` in alias-sensitive prompts.
+- `חַוָּה`: preserve the source name rendering. Accepted alias set: `Chava` and `Eve`. Context note: future question generation should choose one audience-facing name per prompt and avoid mixing both names inside the same item unless the task is explicitly about aliases.
+- `גַּן עֵדֶן`: preserve the source phrase when surfaced. Accepted alias set: `Gan Eden` and `Eden`. Student-facing wording note: `Gan Eden` is the safer direct transliteration; `Eden` is acceptable when the surrounding prompt already signals the place name clearly.
 
 ## Reviewer Notes Summary
 
@@ -1392,14 +1392,15 @@
 - Translation aliases needed: Keep the source translations, but add/retain alias/context support for `עָרוּם` as “cunning/crafty” in Bereishis 3:1 and distinguish it from `עֵירֹם / עֵירֻמִּם` as “naked/unclothed” in Bereishis 3:7 and 3:11. This is especially important because the watchlist topic appears in both meanings in this perek.
 - Awkward literal translations to flag before broader question generation: `הַרְבָּה אַרְבֶּה עִצְּבוֹנֵךְ וְהֵרֹנֵךְ` -> source says “a lot I will make a lot your pain and your pregnancy”; preserve as source-literal, but add an accepted smoother alias such as “I will greatly increase your pain and your pregnancy.” `וַיִּקְרָא הָאָדָם שֵׁם אִשְׁתּוֹ` -> source says “and the person called the name of his woman”; preserve source-literal, but add context alias “and the man called his wife’s name.” `מִתְהַלֵּךְ בַּגָּן` -> source says “walking himself in the garden”; preserve source-literal, but flag as awkward and add “walking in the garden” as a student-facing alias.
 - Additional accepted aliases/context: `לֹא מוֹת תְּמֻתוּן` may accept “you will not surely die” / “you will not die”; `יֹדְעֵי טוֹב וָרָע` may accept “knowers of good and bad” / “knowing good and bad”; `חַוָּה` should allow “Chava” and “Eve” depending on audience settings; `אֱלֹהִים` in this perek needs careful context because the packet sometimes renders it as Hashem.
+- Alias/context cleanup resolution in this branch: the accepted alias sets and future-generation context notes for `עָרוּם / עֵירֹם / עֵירֻמִּם`, `מוֹת תָּמוּת / לֹא מוֹת תְּמֻתוּן`, `עֵץ הַדַּעַת טוֹב וָרָע`, `חַוָּה`, and `גַּן עֵדֶן` are now stated explicitly in the watchlist.
 - Prompt/readability review: The preview questions are structurally readable and the answer keys match their source snippets. However, the phrase-translation preview items have empty distractors, so they are suitable as preview/flashcard-style items but not yet as robust multiple-choice questions.
 - Distractor review: Hebrew-to-English and English-to-Hebrew distractors are generally reasonable and mostly non-overlapping. Some distractors are from later pesukim while the prompt is from earlier pesukim; that is acceptable for inactive preview, but future adaptive generation should tag whether distractors are same-pasuk, same-perek, or cross-pasuk.
 - Watchlist formatting issue: Resolved in this cleanup pass by replacing the garbled Hebrew placeholders with readable watchlist labels. The remaining follow-up is the alias/context cleanup itself, not the packet formatting.
-- Recommendation basis: No severe blocker was found because the packet is explicitly inactive, source-traced, and review-labeled. The remaining issues are alias/context cleanup, awkward student-facing English, empty distractors for phrase-translation previews, and the garbled watchlist labels.
+- Recommendation basis: No severe blocker was found because the packet is explicitly inactive, source-traced, and review-labeled. The remaining issue is now repo-state closeout rather than watchlist wording: the alias/context notes are resolved in the review artifacts, but Batch 004 still remains under the current `needs_review` / `extracted_needs_review` manifest and validation contract.
 
 ## Final Recommendation
 
-Remaining blocker: accepted alias/context handling for the Bereishis 3 watchlist items and smoother student-facing wording for the flagged source-literal phrases are now documented clearly, but they are not yet resolved into a follow-up artifact that clears Batch 004 for Batch 005 planning.
+Remaining blocker: the alias/context decisions and student-facing wording guidance are now documented in the review artifacts, but the repo still treats Batch 004 as `needs_review` / `extracted_needs_review`, and the current curriculum-extraction validation contract expects that state to remain in place.
 
 - [ ] APPROVE_BATCH_004_FOR_INACTIVE_MERGE
 - [x] NEEDS_MINOR_CLEANUP

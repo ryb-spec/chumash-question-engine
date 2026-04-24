@@ -21,11 +21,11 @@
 
 ## Alias / Context Decisions
 
-- `עָרוּם / עֵירֹם / עֵירֻמִּם`: preserve the source translation in each pasuk and keep the context distinction between `cunning/crafty` and `naked/unclothed`.
-- `מוֹת תָּמוּת / לֹא מוֹת תְּמֻתוּן`: preserve the source death-warning phrasing; accepted aliases may include `you will surely die` and `you will not surely die` only in the matching pasuk context.
-- `עֵץ הַדַּעַת טוֹב וָרָע`: preserve the source phrasing; accepted aliases may include `tree of knowledge of good and bad`.
-- `חַוָּה`: preserve the source name rendering; accepted aliases may include `Chava` and `Eve` depending on audience settings.
-- `גַּן עֵדֶן`: preserve the source phrase when surfaced; accepted aliases may include `Gan Eden` and `Eden`.
+- `עָרוּם / עֵירֹם / עֵירֻמִּם`: preserve the source translation in each pasuk and keep the context distinction between `cunning/crafty` and `naked/unclothed`. Future-generation note: never collapse the crafty/cunning sense into the naked/unclothed sense.
+- `מוֹת תָּמוּת / לֹא מוֹת תְּמֻתוּן`: preserve the source death-warning phrasing. Accepted aliases are `you will surely die`, `you will not surely die`, and the shorter `you will die` / `you will not die` only when the prompt context already anchors the correct pasuk polarity.
+- `עֵץ הַדַּעַת טוֹב וָרָע`: preserve the source phrasing. Accepted aliases are `tree of knowledge of good and bad` and `tree of knowledge of good and evil`. Future-generation note: do not shorten this to just `the tree` in alias-sensitive prompts.
+- `חַוָּה`: preserve the source name rendering. Accepted aliases are `Chava` and `Eve`. Future-generation note: choose one audience-facing name per prompt and avoid mixing both names inside the same item unless the task is explicitly about aliases.
+- `גַּן עֵדֶן`: preserve the source phrase when surfaced. Accepted aliases are `Gan Eden` and `Eden`. Student-facing wording note: `Gan Eden` is the safer direct transliteration; `Eden` is acceptable when the surrounding prompt already signals the place name clearly.
 
 ## Source / Data Preservation
 
@@ -39,8 +39,8 @@
 
 ## Exact Remaining Blocker
 
-- Accepted alias/context handling for the Bereishis 3 watchlist items and smoother student-facing wording for the flagged source-literal phrases are now documented clearly, but they are not yet resolved into a follow-up artifact that clears Batch 004 for Batch 005 planning.
+- The alias/context cleanup is now resolved in the review artifacts, but Batch 004 still remains under the current repo contract as `review_status = needs_review` and `status = extracted_needs_review`. The current validation suite also expects that state to remain in place for Batch 004, so this branch cannot honestly promote the batch to a cleared planning state without widening scope beyond the allowed report/manifest cleanup.
 
 ## Next Action
 
-- Run one small follow-up alias/context cleanup branch focused only on Batch 004 reviewer-approved alias wording and the corresponding review-state closeout report.
+- Run one small follow-up review-contract branch to decide whether Batch 004 should remain permanently `needs_review` as inactive infrastructure or whether the repo’s curriculum-extraction manifest/test contract should be widened to allow a non-runtime reviewed/cleared state for post-review batches.
