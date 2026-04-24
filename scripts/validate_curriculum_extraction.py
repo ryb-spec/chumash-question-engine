@@ -84,6 +84,7 @@ EXPECTED_RECORD_TYPES = {
     "data/curriculum_extraction/normalized/batch_002_linear_chumash_bereishis_1_6_to_2_3_pasuk_segments.jsonl": "pasuk_segment",
     "data/curriculum_extraction/normalized/batch_002_linear_chumash_translation_rules.jsonl": "translation_rule",
     "data/curriculum_extraction/normalized/batch_003_linear_chumash_bereishis_2_4_to_2_25_pasuk_segments.jsonl": "pasuk_segment",
+    "data/curriculum_extraction/normalized/batch_004_linear_chumash_bereishis_3_1_to_3_24_pasuk_segments.jsonl": "pasuk_segment",
 }
 
 PASUK_SEGMENT_REQUIRED_FIELDS = (
