@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Skill Tag",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "id",
+    "schema_version",
+    "record_type",
+    "extraction_batch_id",
+    "source_package_id",
+    "source_trace",
+    "review_status",
+    "runtime_status",
+    "confidence",
+    "extraction_quality_flags",
+    "skill_key",
+    "display_name",
+    "category",
+    "description",
+    "normalized_terms",
+    "linked_record_types"
+  ],
+  "properties": {
+    "id": { "type": "string" },
+    "schema_version": { "type": "string" },
+    "record_type": { "type": "string", "const": "skill_tag" },
+    "extraction_batch_id": { "type": "string" },
+    "source_package_id": { "type": "string" },
+    "source_trace": { "type": "object" },
+    "review_status": { "type": "string" },
+    "runtime_status": { "type": "string" },
+    "confidence": { "type": "string" },
+    "extraction_quality_flags": { "type": "array", "items": { "type": "string" } },
+    "skill_key": { "type": "string" },
+    "display_name": { "type": "string" },
+    "category": { "type": "string" },
+    "description": { "type": "string" },
+    "normalized_terms": { "type": "array", "items": { "type": "string" } },
+    "linked_record_types": { "type": "array", "items": { "type": "string" } }
+  }
+}

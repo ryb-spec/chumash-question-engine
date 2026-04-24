@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Extraction Batch Report",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "batch_id",
+    "batch_label",
+    "source_package_id",
+    "generated_at_utc",
+    "record_counts",
+    "warnings",
+    "runtime_active"
+  ],
+  "properties": {
+    "batch_id": { "type": "string" },
+    "batch_label": { "type": "string" },
+    "source_package_id": { "type": "string" },
+    "generated_at_utc": { "type": "string" },
+    "record_counts": { "type": "object" },
+    "warnings": { "type": "array", "items": { "type": "string" } },
+    "runtime_active": { "type": "boolean" }
+  }
+}

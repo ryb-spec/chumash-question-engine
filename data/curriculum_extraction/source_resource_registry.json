@@ -1,0 +1,95 @@
+{
+  "version": "0.1",
+  "status": "draft_needs_review",
+  "runtime_active": false,
+  "notes": [
+    "This registry models external curriculum extraction source packages only.",
+    "All packages in this registry are isolated from runtime until a later explicit integration branch approves them.",
+    "Phase 1 uses tiny manual samples only and does not publish anything into the active reviewed question bank."
+  ],
+  "source_packages": [
+    {
+      "source_package_id": "linear_chumash_translation_most_parshiyos_in_torah",
+      "display_name": "Linear Chumash Translation for Most Parshiyos in Torah",
+      "role": "core_content_context_source",
+      "expected_future_record_types": [
+        "pasuk_segment",
+        "translation_rule"
+      ],
+      "runtime_active": false,
+      "notes": [
+        "Modeled as the future source for segment-level translation context.",
+        "Phase 1 contains only manual contract samples."
+      ]
+    },
+    {
+      "source_package_id": "what_is_the_pasuk_coming_to_teach",
+      "display_name": "What is the Pasuk Coming to Teach?",
+      "role": "word_parse_and_phrase_intent_model",
+      "expected_future_record_types": [
+        "word_parse",
+        "question_template"
+      ],
+      "runtime_active": false,
+      "notes": [
+        "Modeled as a future word-parse and phrase-intent resource.",
+        "No extracted production data is included in Phase 1."
+      ]
+    },
+    {
+      "source_package_id": "eli_bacharach_parshas_shemos_shorashim_prefix_suffix_skills",
+      "display_name": "Eli Bacharach: Parshas Shemos Shorashim, Prefix and Suffix Skills",
+      "role": "word_parse_task_model",
+      "expected_future_record_types": [
+        "word_parse_task",
+        "question_template"
+      ],
+      "runtime_active": false,
+      "notes": [
+        "Modeled as a future task-oriented parse source.",
+        "Phase 1 keeps it as a schema/sample contract only."
+      ]
+    },
+    {
+      "source_package_id": "eli_bacharach_parshas_vaeira_textual_skills",
+      "display_name": "Eli Bacharach: Parshas Va'eira Textual Skills",
+      "role": "decoding_and_comprehension_question_model",
+      "expected_future_record_types": [
+        "word_parse",
+        "comprehension_question",
+        "question_template"
+      ],
+      "runtime_active": false,
+      "notes": [
+        "Modeled as a future decoding and textual-comprehension source.",
+        "Phase 1 includes only non-runtime sample records."
+      ]
+    },
+    {
+      "source_package_id": "vocabulary_priority_pack",
+      "display_name": "Vocabulary Priority Pack",
+      "role": "vocabulary_priority_layer",
+      "expected_future_record_types": [
+        "vocab_entry"
+      ],
+      "runtime_active": false,
+      "notes": [
+        "Modeled using the future sub-sources '270 Words That Appear 10 Times and Over in Bereishis' and 'Hebrew Verbs According to Frequency of Occurrence'.",
+        "Phase 1 captures only a tiny sample contract."
+      ]
+    },
+    {
+      "source_package_id": "first_150_shorashim_and_keywords_bereishis",
+      "display_name": "First 150 Shorashim and Keywords in Bereishis",
+      "role": "optional_vocabulary_translation_support",
+      "expected_future_record_types": [
+        "vocab_entry"
+      ],
+      "runtime_active": false,
+      "notes": [
+        "Optional support source only.",
+        "Included in the registry now so later reviewed batches can trace support material explicitly."
+      ]
+    }
+  ]
+}

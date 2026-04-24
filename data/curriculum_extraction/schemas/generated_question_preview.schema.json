@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Generated Question Preview",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "preview_id",
+    "based_on_record_id",
+    "record_type",
+    "prompt_text",
+    "answer_choices",
+    "correct_answer",
+    "preview_status"
+  ],
+  "properties": {
+    "preview_id": { "type": "string" },
+    "based_on_record_id": { "type": "string" },
+    "record_type": { "type": "string" },
+    "prompt_text": { "type": "string" },
+    "answer_choices": { "type": "array", "items": { "type": "string" } },
+    "correct_answer": { "type": "string" },
+    "preview_status": { "type": "string" },
+    "notes": { "type": "array", "items": { "type": "string" } }
+  }
+}
