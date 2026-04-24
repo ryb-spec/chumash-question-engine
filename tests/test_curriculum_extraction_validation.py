@@ -48,9 +48,9 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
     def test_validator_passes(self):
         summary = validator.validate_curriculum_extraction(check_git_diff=True)
         self.assertTrue(summary["valid"], summary["errors"])
-        self.assertEqual(summary["normalized_record_count"], 198)
+        self.assertEqual(summary["normalized_record_count"], 288)
         self.assertEqual(summary["review_status_counts"]["reviewed"], 75)
-        self.assertEqual(summary["review_status_counts"]["needs_review"], 153)
+        self.assertEqual(summary["review_status_counts"]["needs_review"], 243)
 
     def test_manifest_is_not_runtime_active(self):
         manifest = load_manifest()
@@ -76,6 +76,21 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
             batches["batch_002_linear_bereishis"]["generated_question_preview_files"],
             ["data/curriculum_extraction/generated_questions_preview/batch_002_preview.jsonl"],
         )
+        self.assertIn("batch_003_linear_bereishis_2_4_to_2_25", batches)
+        self.assertEqual(batches["batch_003_linear_bereishis_2_4_to_2_25"]["review_status"], "needs_review")
+        self.assertEqual(batches["batch_003_linear_bereishis_2_4_to_2_25"]["status"], "extracted_needs_review")
+        self.assertEqual(
+            batches["batch_003_linear_bereishis_2_4_to_2_25"]["raw_source_files"],
+            ["data/curriculum_extraction/raw_sources/batch_003/linear_chumash_bereishis_2_4_to_2_25_cleaned.md"],
+        )
+        self.assertEqual(
+            batches["batch_003_linear_bereishis_2_4_to_2_25"]["normalized_data_files"],
+            ["data/curriculum_extraction/normalized/batch_003_linear_chumash_bereishis_2_4_to_2_25_pasuk_segments.jsonl"],
+        )
+        self.assertEqual(
+            batches["batch_003_linear_bereishis_2_4_to_2_25"]["generated_question_preview_files"],
+            ["data/curriculum_extraction/generated_questions_preview/batch_003_preview.jsonl"],
+        )
 
     def test_phase_1_sample_records_stay_needs_review(self):
         for record in load_all_sample_records():
@@ -95,6 +110,14 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
             self.assertEqual(record["confidence"], "low", record["id"])
             self.assertIn("hebrew_aligned_from_local_pasuk_text", record["extraction_quality_flags"], record["id"])
 
+    def test_batch_003_normalized_records_stay_needs_review(self):
+        records = normalized_records_for_batch("batch_003_linear_bereishis_2_4_to_2_25")
+        self.assertEqual(len(records), 90)
+        for record in records:
+            self.assertEqual(record["review_status"], "needs_review", record["id"])
+            self.assertEqual(record["source_trace"]["review_status"], "needs_review", record["id"])
+            self.assertEqual(record["confidence"], "low", record["id"])
+            self.assertIn("hebrew_aligned_from_local_pasuk_text", record["extraction_quality_flags"], record["id"])
     def test_no_record_is_runtime_active(self):
         for record in load_all_records():
             self.assertEqual(record["runtime_status"], "not_runtime_active", record["id"])
@@ -125,6 +148,11 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
         self.assertEqual(len(pasuk_segments), 123)
         self.assertTrue(all(record["source_package_id"] == "linear_chumash_translation_most_parshiyos_in_torah" for record in pasuk_segments))
 
+    def test_batch_003_pasuk_segments_match_expected_count(self):
+        records = normalized_records_for_batch("batch_003_linear_bereishis_2_4_to_2_25")
+        pasuk_segments = [record for record in records if record["record_type"] == "pasuk_segment"]
+        self.assertEqual(len(pasuk_segments), 90)
+        self.assertTrue(all(record["source_package_id"] == "linear_chumash_translation_most_parshiyos_in_torah" for record in pasuk_segments))
     def test_batch_001_vocab_entries_without_glosses_are_flagged_for_review(self):
         enriched_ids = {
             "vocab_entry_batch_001_011_ארץ",
