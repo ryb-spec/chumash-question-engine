@@ -37,26 +37,64 @@ class ReleaseCheckScriptTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmpdir:
             log_path = Path(tmpdir) / "pilot_session_events_20260422T011500Z_release-check.jsonl"
             log_path.write_text(
-                json.dumps(
-                    {
-                        "event_type": "question_served",
-                        "timestamp_utc": "2026-04-22T01:15:00+00:00",
-                        "session_id": "pilot-release",
-                        "question_log_id": "q1",
-                        "scope_id": ACTIVE_ASSESSMENT_SCOPE,
-                        "trusted_scope_mode": "trusted_active_scope",
-                        "trusted_active_scope_requested": True,
-                        "trusted_active_scope_session": True,
-                        "practice_type": "Learn Mode",
-                        "pasuk_ref": {"label": "Bereishis 1:1", "pasuk_id": "bereishis_1_1"},
-                        "scope_membership": "active_parsed",
-                        "question_type": "translation",
-                        "selected_word": "אֱלֹקִים",
-                        "correct_answer": "God",
-                        "served_status": "served",
-                        "debug_pre_serve_validation_passed": True,
-                    },
-                    ensure_ascii=False,
+                "\n".join(
+                    json.dumps(event, ensure_ascii=False)
+                    for event in [
+                        {
+                            "event_type": "question_served",
+                            "timestamp_utc": "2026-04-22T01:15:00+00:00",
+                            "session_id": "pilot-release",
+                            "question_log_id": "q1",
+                            "scope_id": ACTIVE_ASSESSMENT_SCOPE,
+                            "trusted_scope_mode": "trusted_active_scope",
+                            "trusted_active_scope_requested": True,
+                            "trusted_active_scope_session": True,
+                            "practice_type": "Learn Mode",
+                            "pasuk_ref": {"label": "Bereishis 1:1", "pasuk_id": "bereishis_1_1"},
+                            "scope_membership": "active_parsed",
+                            "question_type": "translation",
+                            "selected_word": "אֱלֹקִים",
+                            "correct_answer": "God",
+                            "served_status": "served",
+                            "debug_pre_serve_validation_passed": True,
+                        },
+                        {
+                            "event_type": "question_served",
+                            "timestamp_utc": "2026-04-22T01:16:00+00:00",
+                            "session_id": "pilot-release",
+                            "question_log_id": "q2",
+                            "scope_id": ACTIVE_ASSESSMENT_SCOPE,
+                            "trusted_scope_mode": "trusted_active_scope",
+                            "trusted_active_scope_requested": True,
+                            "trusted_active_scope_session": True,
+                            "practice_type": "Practice Mode",
+                            "pasuk_ref": {"label": "Bereishis 1:2", "pasuk_id": "bereishis_1_2"},
+                            "scope_membership": "active_parsed",
+                            "question_type": "translation",
+                            "selected_word": "אָרֶץ",
+                            "correct_answer": "earth",
+                            "served_status": "served",
+                            "debug_pre_serve_validation_passed": True,
+                        },
+                        {
+                            "event_type": "question_served",
+                            "timestamp_utc": "2026-04-22T01:17:00+00:00",
+                            "session_id": "pilot-release",
+                            "question_log_id": "q3",
+                            "scope_id": ACTIVE_ASSESSMENT_SCOPE,
+                            "trusted_scope_mode": "trusted_active_scope",
+                            "trusted_active_scope_requested": True,
+                            "trusted_active_scope_session": True,
+                            "practice_type": "Pasuk Flow",
+                            "pasuk_ref": {"label": "Bereishis 1:3", "pasuk_id": "bereishis_1_3"},
+                            "scope_membership": "active_parsed",
+                            "question_type": "translation",
+                            "selected_word": "אוֹר",
+                            "correct_answer": "light",
+                            "served_status": "served",
+                            "debug_pre_serve_validation_passed": True,
+                        },
+                    ]
                 )
                 + "\n",
                 encoding="utf-8",
@@ -127,12 +165,68 @@ class ReleaseCheckScriptTests(unittest.TestCase):
 
             summary = json.loads((output_dir / "release_check_summary.json").read_text(encoding="utf-8"))
             self.assertEqual(summary["pilot_review_summary"]["session_count"], 1)
+            self.assertEqual(
+                summary["pilot_review_summary"]["supported_practice_modes"],
+                ["Learn Mode", "Practice Mode", "Pasuk Flow"],
+            )
+            self.assertEqual(
+                summary["pilot_review_summary"]["practice_mode_counts"],
+                {"Learn Mode": 1, "Practice Mode": 1, "Pasuk Flow": 1},
+            )
+            self.assertEqual(
+                summary["pilot_review_summary"]["observed_practice_modes"],
+                ["Learn Mode", "Practice Mode", "Pasuk Flow"],
+            )
+            self.assertEqual(summary["pilot_review_summary"]["missing_practice_modes"], [])
+            self.assertTrue(summary["pilot_review_summary"]["supported_mode_coverage_complete"])
+            supported_mode_gate = next(
+                check
+                for check in summary["release_gate_checks"]
+                if check["code"] == "supported_mode_coverage_complete"
+            )
+            self.assertEqual(supported_mode_gate["status"], "pass")
             self.assertEqual(summary["hand_audit_summary"]["question_count"], 2)
             self.assertEqual(summary["hand_audit_summary"]["lane_counts"], {"translation": 1, "shoresh": 1})
+
+            summary_markdown = (output_dir / "release_check_summary.md").read_text(encoding="utf-8")
+            self.assertIn("supported_practice_modes", summary_markdown)
+            self.assertIn("practice_mode_counts", summary_markdown)
+            self.assertIn("observed_practice_modes", summary_markdown)
+            self.assertIn("missing_practice_modes", summary_markdown)
+            self.assertIn("supported_mode_coverage_complete", summary_markdown)
 
             hand_audit_markdown = (output_dir / "hand_audit.md").read_text(encoding="utf-8")
             self.assertIn("# Release Check Hand Audit", hand_audit_markdown)
             self.assertIn("Review:", hand_audit_markdown)
+
+    def test_release_gate_checks_fail_when_supported_mode_coverage_is_incomplete(self):
+        checks = release_check.release_gate_checks(
+            {
+                "fresh_run_only": True,
+                "warning_codes": [],
+                "trusted_scope_violation_count": 0,
+                "served_without_validation_flag": 0,
+                "unclear_flag_count": 0,
+                "supported_mode_coverage_complete": False,
+                "observed_practice_modes": ["Learn Mode"],
+                "missing_practice_modes": ["Practice Mode", "Pasuk Flow"],
+            }
+        )
+
+        supported_mode_gate = next(
+            check
+            for check in checks
+            if check["code"] == "supported_mode_coverage_complete"
+        )
+        self.assertEqual(supported_mode_gate["status"], "fail")
+        self.assertFalse(supported_mode_gate["value"])
+        self.assertEqual(
+            supported_mode_gate["details"],
+            {
+                "observed_practice_modes": ["Learn Mode"],
+                "missing_practice_modes": ["Practice Mode", "Pasuk Flow"],
+            },
+        )
 
     def test_build_hand_audit_packet_returns_structured_balanced_sample(self):
         packet = release_check.build_hand_audit_packet(question_count=10)

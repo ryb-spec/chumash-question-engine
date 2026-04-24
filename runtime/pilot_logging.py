@@ -14,6 +14,7 @@ import streamlit as st
 
 from assessment_scope import (
     ACTIVE_ASSESSMENT_SCOPE,
+    SUPPORTED_PRACTICE_TYPES,
     active_pasuk_record_for_question,
     active_pasuk_record_for_text,
     active_pasuk_ref_payload,
@@ -1076,6 +1077,7 @@ def build_release_review_summary(
     repeated_target_summary,
     review_scope_id,
 ):
+    practice_mode_summary = build_supported_practice_mode_summary(sessions)
     served_without_validation = dict(summary.get("served_without_validation_signals") or {})
     total_unclear_flags = sum(session.get("flagged_unclear", 0) or 0 for session in sessions)
     warnings = list(review_window.get("warnings") or [])
@@ -1099,6 +1101,38 @@ def build_release_review_summary(
         "warnings": warnings,
         "warning_codes": sorted(_warning_codes(warnings)),
         "flagged_review_queue_count": len(flagged_review_queue),
+        **practice_mode_summary,
+    }
+
+
+def build_supported_practice_mode_summary(sessions):
+    supported_modes = list(SUPPORTED_PRACTICE_TYPES)
+    mode_counts = Counter()
+    for session in sessions:
+        for practice_type, count in (session.get("practice_types") or {}).items():
+            if practice_type not in SUPPORTED_PRACTICE_TYPES:
+                continue
+            mode_counts[practice_type] += int(count or 0)
+    practice_mode_counts = {
+        mode: mode_counts.get(mode, 0)
+        for mode in supported_modes
+    }
+    observed_practice_modes = [
+        mode
+        for mode in supported_modes
+        if practice_mode_counts[mode] > 0
+    ]
+    missing_practice_modes = [
+        mode
+        for mode in supported_modes
+        if practice_mode_counts[mode] == 0
+    ]
+    return {
+        "supported_practice_modes": supported_modes,
+        "practice_mode_counts": practice_mode_counts,
+        "observed_practice_modes": observed_practice_modes,
+        "missing_practice_modes": missing_practice_modes,
+        "supported_mode_coverage_complete": not missing_practice_modes,
     }
 
 

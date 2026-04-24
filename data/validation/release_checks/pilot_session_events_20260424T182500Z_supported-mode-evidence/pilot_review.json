@@ -1,0 +1,245 @@
+{
+  "generated_at_utc": "2026-04-24T18:26:43.372154+00:00",
+  "scope_id": "local_parsed_bereishis_1_1_to_3_24",
+  "runtime_scope_id": "local_parsed_bereishis_1_1_to_3_24",
+  "review_scope_id": "local_parsed_bereishis_1_1_to_3_24",
+  "review_scope_ids": [
+    "local_parsed_bereishis_1_1_to_3_24"
+  ],
+  "log_path": "C:\\Users\\ybassman\\Documents\\GitHub\\chumash-question-engine\\data\\pilot\\runs\\pilot_session_events_20260424T182500Z_supported-mode-evidence.jsonl",
+  "configured_log_env_var": "CHUMASH_PILOT_EVENT_LOG_PATH",
+  "review_window": {
+    "session_start_since_utc": null,
+    "session_start_until_utc": null,
+    "scope_id": "local_parsed_bereishis_1_1_to_3_24",
+    "trusted_active_scope_only": false,
+    "latest_session_only": false,
+    "latest_included_session_ids": [
+      "pilot-20260424T182544Z-05fceed2"
+    ],
+    "latest_included_session_started_at_utc": "2026-04-24T18:25:44.477467+00:00",
+    "source_event_count": 10,
+    "included_event_count": 10,
+    "excluded_event_count": 0,
+    "source_session_count": 1,
+    "included_session_count": 1,
+    "source_scope_ids": [
+      "local_parsed_bereishis_1_1_to_3_24"
+    ],
+    "included_scope_ids": [
+      "local_parsed_bereishis_1_1_to_3_24"
+    ],
+    "source_session_start_range_utc": {
+      "first": "2026-04-24T18:25:44.477467+00:00",
+      "last": "2026-04-24T18:25:44.477467+00:00"
+    },
+    "included_session_start_range_utc": {
+      "first": "2026-04-24T18:25:44.477467+00:00",
+      "last": "2026-04-24T18:25:44.477467+00:00"
+    },
+    "source_log_is_isolated_run": true,
+    "fresh_run_only": true,
+    "warnings": [
+      {
+        "code": "review_filters_applied",
+        "message": "This review artifact was generated with explicit filters. Use the included review_window metadata when interpreting counts."
+      }
+    ]
+  },
+  "accounting_model": {
+    "served_question_types": "question_served events only",
+    "answered_question_types": "question_answered events only",
+    "flagged_unclear_question_types": "question_flagged events with flag=unclear only"
+  },
+  "teacher_flag_labels": [
+    "wrong morphology",
+    "bad distractors",
+    "too repetitive",
+    "wrong pasuk",
+    "unclear wording",
+    "other"
+  ],
+  "student_flag_note_max_length": 120,
+  "teacher_flag_note_max_length": 280,
+  "session_count": 1,
+  "substantive_session_count": 1,
+  "shell_session_count": 0,
+  "sessions": [
+    {
+      "session_id": "pilot-20260424T182544Z-05fceed2",
+      "scope_id": "local_parsed_bereishis_1_1_to_3_24",
+      "trusted_scope_mode": "trusted_active_scope",
+      "trusted_active_scope_requested": true,
+      "trusted_active_scope_session": true,
+      "started_at_utc": "2026-04-24T18:25:44.477467+00:00",
+      "last_event_at_utc": "2026-04-24T18:26:33.148665+00:00",
+      "served_questions": 6,
+      "answered_questions": 3,
+      "correct_answers": 2,
+      "incorrect_answers": 1,
+      "flagged_unclear": 0,
+      "suppressed_or_skipped": 0,
+      "served_active_scope_questions": 6,
+      "served_outside_active_scope_questions": 0,
+      "practice_types": {
+        "Learn Mode": 1,
+        "Practice Mode": 3,
+        "Pasuk Flow": 2
+      },
+      "served_question_types": {
+        "prefix_level_1_identify_prefix_letter": 2,
+        "segment_word_parts": 2,
+        "prefix_suffix": 1,
+        "subject_identification": 1
+      },
+      "answered_question_types": {
+        "prefix_level_1_identify_prefix_letter": 1,
+        "segment_word_parts": 1,
+        "prefix_suffix": 1
+      },
+      "flagged_unclear_question_types": {},
+      "served_pasuk_refs": {
+        "Bereishis 2:24": 1,
+        "Bereishis 3:24": 1,
+        "Bereishis 3:11": 1,
+        "Bereishis 1:21": 1,
+        "Bereishis 1:1": 2
+      },
+      "recent_unclear_flags": [],
+      "recent_scope_issues": [],
+      "average_response_time_ms": 6186.3,
+      "served_question_type_total": 6,
+      "answered_question_type_total": 3,
+      "flagged_unclear_question_type_total": 0,
+      "session_scope_status": "trusted_active_scope",
+      "session_lifecycle_events": {
+        "started": 1
+      },
+      "session_lifecycle_reasons": [
+        "runtime_initialized"
+      ],
+      "session_origin": "started",
+      "is_shell_session": false,
+      "shell_session_reason": "",
+      "is_substantive_session": true
+    }
+  ],
+  "flagged_review_queue": [],
+  "summary": {
+    "top_repeated_flagged_items": [],
+    "top_flagged_unclear_items": [],
+    "highest_unclear_rate_sessions": [
+      {
+        "session_id": "pilot-20260424T182544Z-05fceed2",
+        "unclear_rate": 0.0,
+        "flagged_unclear": 0,
+        "served_questions": 6,
+        "practice_types": {
+          "Learn Mode": 1,
+          "Practice Mode": 3,
+          "Pasuk Flow": 2
+        }
+      }
+    ],
+    "dominant_served_question_families": {
+      "prefix_level_1_identify_prefix_letter": 2,
+      "segment_word_parts": 2,
+      "prefix_suffix": 1,
+      "subject_identification": 1
+    },
+    "top_served_question_families": {
+      "prefix_level_1_identify_prefix_letter": 2,
+      "segment_word_parts": 2,
+      "prefix_suffix": 1,
+      "subject_identification": 1
+    },
+    "trusted_scope_violations": [],
+    "substantive_session_count": 1,
+    "shell_session_count": 0,
+    "served_without_validation_signals": {
+      "served_with_validation_flag": 6,
+      "served_without_validation_flag": 0,
+      "served_without_validation_examples": []
+    },
+    "top_pre_serve_rejection_codes": [
+      {
+        "code": "recent_exact_word_repeat",
+        "count": 5
+      },
+      {
+        "code": "invalid_prefix_target",
+        "count": 2
+      },
+      {
+        "code": "explanation_target_conflict",
+        "count": 2
+      }
+    ]
+  },
+  "release_review_summary": {
+    "scope_id": "local_parsed_bereishis_1_1_to_3_24",
+    "runtime_scope_id": "local_parsed_bereishis_1_1_to_3_24",
+    "fresh_run_only": true,
+    "source_log_is_isolated_run": true,
+    "session_count": 1,
+    "substantive_session_count": 1,
+    "shell_session_count": 0,
+    "trusted_scope_violation_count": 0,
+    "trusted_scope_violations": [],
+    "served_without_validation_flag": 0,
+    "served_with_validation_flag": 6,
+    "unclear_flag_count": 0,
+    "top_unclear_items": [],
+    "top_served_question_families": {
+      "prefix_level_1_identify_prefix_letter": 2,
+      "segment_word_parts": 2,
+      "prefix_suffix": 1,
+      "subject_identification": 1
+    },
+    "top_pre_serve_rejection_codes": [
+      {
+        "code": "recent_exact_word_repeat",
+        "count": 5
+      },
+      {
+        "code": "invalid_prefix_target",
+        "count": 2
+      },
+      {
+        "code": "explanation_target_conflict",
+        "count": 2
+      }
+    ],
+    "repeated_target_feel": {
+      "repeated_target_warning_count": 0,
+      "top_repeated_targets": []
+    },
+    "warnings": [
+      {
+        "code": "review_filters_applied",
+        "message": "This review artifact was generated with explicit filters. Use the included review_window metadata when interpreting counts."
+      }
+    ],
+    "warning_codes": [
+      "review_filters_applied"
+    ],
+    "flagged_review_queue_count": 0,
+    "supported_practice_modes": [
+      "Learn Mode",
+      "Practice Mode",
+      "Pasuk Flow"
+    ],
+    "practice_mode_counts": {
+      "Learn Mode": 1,
+      "Practice Mode": 3,
+      "Pasuk Flow": 2
+    },
+    "observed_practice_modes": [
+      "Learn Mode",
+      "Practice Mode",
+      "Pasuk Flow"
+    ],
+    "missing_practice_modes": [],
+    "supported_mode_coverage_complete": true
+  }
+}

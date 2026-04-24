@@ -1130,6 +1130,17 @@ class PilotLoggingTests(unittest.TestCase):
         self.assertEqual(compact["unclear_flag_count"], 1)
         self.assertEqual(compact["top_served_question_families"], {"translation": 2})
         self.assertEqual(compact["top_pre_serve_rejection_codes"], [{"code": "recent_target_repeat", "count": 2}])
+        self.assertEqual(
+            compact["supported_practice_modes"],
+            ["Learn Mode", "Practice Mode", "Pasuk Flow"],
+        )
+        self.assertEqual(
+            compact["practice_mode_counts"],
+            {"Learn Mode": 2, "Practice Mode": 0, "Pasuk Flow": 0},
+        )
+        self.assertEqual(compact["observed_practice_modes"], ["Learn Mode"])
+        self.assertEqual(compact["missing_practice_modes"], ["Practice Mode", "Pasuk Flow"])
+        self.assertFalse(compact["supported_mode_coverage_complete"])
         self.assertEqual(compact["repeated_target_feel"]["repeated_target_warning_count"], 1)
         self.assertEqual(compact["repeated_target_feel"]["top_repeated_targets"][0]["target"], "אֱלֹקִים")
         self.assertIn("source_log_not_isolated", compact["warning_codes"])
