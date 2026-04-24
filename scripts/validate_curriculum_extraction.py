@@ -555,11 +555,17 @@ def validate_preview_records(
     valid_source_record_ids: set[str],
     registry_lookup: dict[str, dict],
     errors: list[str],
-) -> list[dict]:
+) -> tuple[list[dict], dict[str, dict[str, int]], dict[str, int]]:
     preview_records: list[dict] = []
     seen_preview_ids: set[str] = set()
-    seen_prompts: set[str] = set()
+    preview_file_question_type_counts: dict[str, dict[str, int]] = {}
+    preview_file_record_counts: dict[str, int] = {}
     for relative_path, records in preview_records_by_file.items():
+        seen_prompts: set[str] = set()
+        preview_file_record_counts[relative_path] = len(records)
+        preview_file_question_type_counts[relative_path] = dict(
+            sorted(Counter(record.get("question_type") for record in records if record.get("question_type")).items())
+        )
         for record in records:
             line_number = record.pop("_meta_line_number", "?")
             source_file = record.pop("_meta_source_file", relative_path)
@@ -614,7 +620,7 @@ def validate_preview_records(
                 errors.append(f"{context}: preview questions must have confidence='low'")
 
             validate_skill_tags(record, valid_skill_refs, errors, context)
-    return preview_records
+    return preview_records, preview_file_question_type_counts, preview_file_record_counts
 
 
 def validate_registry(registry: dict, errors: list[str]) -> dict[str, dict]:
@@ -794,7 +800,7 @@ def validate_curriculum_extraction(*, check_git_diff: bool = False) -> dict:
         for record in all_records
         if meaningful_value(record.get("id"))
     }
-    preview_records = validate_preview_records(
+    preview_records, preview_file_question_type_counts, preview_file_record_counts = validate_preview_records(
         preview_records_by_file,
         valid_skill_refs,
         valid_source_record_ids,
@@ -828,6 +834,8 @@ def validate_curriculum_extraction(*, check_git_diff: bool = False) -> dict:
         "normalized_record_count": len(normalized_records),
         "record_count": len(all_records),
         "preview_record_count": len(preview_records),
+        "preview_file_record_counts": preview_file_record_counts,
+        "preview_file_question_type_counts": preview_file_question_type_counts,
         "record_type_counts": dict(sorted(record_counts.items())),
         "review_status_counts": dict(sorted(review_status_counts.items())),
         "runtime_status_counts": dict(sorted(runtime_status_counts.items())),

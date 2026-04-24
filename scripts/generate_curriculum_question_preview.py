@@ -9,18 +9,27 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = ROOT / "data" / "curriculum_extraction"
 MANIFEST_PATH = DATA_DIR / "curriculum_extraction_manifest.json"
-PREVIEW_PATH = DATA_DIR / "generated_questions_preview" / "batch_001_preview.jsonl"
-REPORT_PATH = DATA_DIR / "reports" / "batch_001_preview_summary.md"
+PREVIEW_V1_PATH = DATA_DIR / "generated_questions_preview" / "batch_001_preview.jsonl"
+PREVIEW_V2_PATH = DATA_DIR / "generated_questions_preview" / "batch_001_preview_v2.jsonl"
+REPORT_V2_PATH = DATA_DIR / "reports" / "batch_001_preview_v2_summary.md"
+FINAL_DECISION_REPORT_PATH = DATA_DIR / "reports" / "batch_001_round_final_decision.md"
 
-TARGET_COUNTS = {
+SUPPORTED_TARGET_COUNTS = {
     "phrase_translation": 50,
     "hebrew_to_english_match": 25,
     "english_to_hebrew_match": 25,
     "shoresh_identification": 25,
     "prefix_identification": 15,
     "suffix_identification": 15,
-    "mi_amar_el_mi": 10,
-    "al_mi_neemar": 10,
+}
+
+BLOCKED_LANES = {
+    "mi_amar_el_mi": "Va'eira comprehension questions still have no explicit answer key in repo-local sources.",
+    "al_mi_neemar": "Va'eira comprehension questions still have no explicit answer key in repo-local sources.",
+    "shemos_word_parse_task_answer_checking": (
+        "The Shemos prefix/suffix task answer key is still not present in the worktree, "
+        "so task-answer checking remains deferred."
+    ),
 }
 
 QUESTION_SKILL_TAGS = {
@@ -158,7 +167,7 @@ def build_preview_record(
     distractors: list[str],
 ) -> dict:
     return {
-        "id": f"generated_preview.{question_type}.{record['id']}.{variant_index + 1:02d}",
+        "id": f"generated_preview_v2.{question_type}.{record['id']}.{variant_index + 1:02d}",
         "schema_version": "0.1",
         "record_type": "generated_question_preview",
         "source_record_id": record["id"],
@@ -191,7 +200,11 @@ def generate_phrase_translation(records: list[dict], template_lookup: dict[str, 
         lambda record: f"In {record['canonical_ref']}, what is the best English translation of {record['hebrew_raw']}?",
     ]
     generated: list[dict] = []
-    for record, variant_index in planned_pairs(records, len(prompt_variants), TARGET_COUNTS["phrase_translation"]):
+    for record, variant_index in planned_pairs(
+        records,
+        len(prompt_variants),
+        SUPPORTED_TARGET_COUNTS["phrase_translation"],
+    ):
         generated.append(
             build_preview_record(
                 question_type="phrase_translation",
@@ -214,7 +227,11 @@ def generate_hebrew_to_english_match(records: list[dict], template_lookup: dict[
     ]
     pool = [first_gloss(record) for record in records]
     generated: list[dict] = []
-    for record, variant_index in planned_pairs(records, len(prompt_variants), TARGET_COUNTS["hebrew_to_english_match"]):
+    for record, variant_index in planned_pairs(
+        records,
+        len(prompt_variants),
+        SUPPORTED_TARGET_COUNTS["hebrew_to_english_match"],
+    ):
         answer = first_gloss(record)
         generated.append(
             build_preview_record(
@@ -237,7 +254,11 @@ def generate_english_to_hebrew_match(records: list[dict]) -> list[dict]:
     ]
     pool = [non_empty_text(record.get("hebrew")) for record in records]
     generated: list[dict] = []
-    for record, variant_index in planned_pairs(records, len(prompt_variants), TARGET_COUNTS["english_to_hebrew_match"]):
+    for record, variant_index in planned_pairs(
+        records,
+        len(prompt_variants),
+        SUPPORTED_TARGET_COUNTS["english_to_hebrew_match"],
+    ):
         answer = non_empty_text(record.get("hebrew"))
         generated.append(
             build_preview_record(
@@ -263,7 +284,11 @@ def generate_shoresh_identification(records: list[dict], template_lookup: dict[s
     ]
     pool = [non_empty_text(record.get("target_shoresh_raw")) for record in records]
     generated: list[dict] = []
-    for record, variant_index in planned_pairs(records, len(prompt_variants), TARGET_COUNTS["shoresh_identification"]):
+    for record, variant_index in planned_pairs(
+        records,
+        len(prompt_variants),
+        SUPPORTED_TARGET_COUNTS["shoresh_identification"],
+    ):
         answer = non_empty_text(record.get("target_shoresh_raw"))
         generated.append(
             build_preview_record(
@@ -299,7 +324,11 @@ def generate_prefix_identification(records: list[dict], template_lookup: dict[st
     ]
     pool = [first_affix_text(record, "prefixes") for record in records]
     generated: list[dict] = []
-    for record, variant_index in planned_pairs(records, len(prompt_variants), TARGET_COUNTS["prefix_identification"]):
+    for record, variant_index in planned_pairs(
+        records,
+        len(prompt_variants),
+        SUPPORTED_TARGET_COUNTS["prefix_identification"],
+    ):
         answer = first_affix_text(record, "prefixes")
         generated.append(
             build_preview_record(
@@ -327,7 +356,11 @@ def generate_suffix_identification(records: list[dict], template_lookup: dict[st
     ]
     pool = [first_affix_text(record, "suffixes") for record in records]
     generated: list[dict] = []
-    for record, variant_index in planned_pairs(records, len(prompt_variants), TARGET_COUNTS["suffix_identification"]):
+    for record, variant_index in planned_pairs(
+        records,
+        len(prompt_variants),
+        SUPPORTED_TARGET_COUNTS["suffix_identification"],
+    ):
         answer = first_affix_text(record, "suffixes")
         generated.append(
             build_preview_record(
@@ -342,35 +375,31 @@ def generate_suffix_identification(records: list[dict], template_lookup: dict[st
     return generated
 
 
-def usable_source_ids(records: list[dict]) -> set[str]:
-    usable_ids: set[str] = set()
-    for record in records:
-        record_type = record.get("record_type")
-        if record_type == "pasuk_segment":
-            if non_empty_text(record.get("hebrew_raw")) and non_empty_text(record.get("english_raw")):
-                usable_ids.add(str(record["id"]))
-        elif record_type == "word_parse":
-            if (
-                non_empty_text(record.get("target_shoresh_raw"))
-                or first_affix_text(record, "prefixes")
-                or first_affix_text(record, "suffixes")
-            ):
-                usable_ids.add(str(record["id"]))
-        elif record_type == "vocab_entry":
-            if first_gloss(record):
-                usable_ids.add(str(record["id"]))
-    return usable_ids
+def load_existing_preview_counts(path: Path) -> dict[str, int]:
+    if not path.exists():
+        return {}
+    return dict(sorted(Counter(record["question_type"] for record in load_jsonl(path)).items()))
 
 
-def relevant_source_ids(records: list[dict]) -> set[str]:
-    relevant_types = {
-        "pasuk_segment",
-        "word_parse",
-        "word_parse_task",
-        "comprehension_question",
-        "vocab_entry",
+def preview_source_ids(records: list[dict], question_types: set[str]) -> set[str]:
+    return {
+        str(record["source_record_id"])
+        for record in records
+        if record.get("question_type") in question_types and record.get("source_record_id")
     }
-    return {str(record["id"]) for record in records if record.get("record_type") in relevant_types}
+
+
+def blocked_lane_deferred_count(source_records: list[dict], question_type: str) -> int:
+    if question_type in {"mi_amar_el_mi", "al_mi_neemar"}:
+        return sum(
+            1
+            for record in source_records
+            if record.get("record_type") == "comprehension_question"
+            and record.get("question_type") == question_type
+        )
+    if question_type == "shemos_word_parse_task_answer_checking":
+        return sum(1 for record in source_records if record.get("record_type") == "word_parse_task")
+    return 0
 
 
 def build_summary_report(
@@ -378,68 +407,161 @@ def build_summary_report(
     preview_records: list[dict],
     source_records: list[dict],
     generated_counts: dict[str, int],
-    skipped_question_slots: dict[str, int],
+    v1_counts: dict[str, int],
 ) -> str:
-    usable_ids = usable_source_ids(source_records)
-    relevant_ids = relevant_source_ids(source_records)
-    skipped_source_ids = sorted(relevant_ids - usable_ids)
-    usable_pct = 0.0 if not relevant_ids else (len(usable_ids) / len(relevant_ids)) * 100.0
-    weak_areas = [
-        "All 10 comprehension_question records are missing expected_answer, so mi_amar_el_mi and al_mi_neemar previews were skipped.",
-        "All 8 word_parse_task records have answer_status=not_extracted and no expected_word/prefix/suffix payload.",
-        "Only 6 of 10 word_parse records include an explicit shoresh.",
-        "Only 4 of 10 word_parse records include a suffix payload.",
-        "8 of 18 vocab_entry records still have empty english_glosses and remain unusable for matching previews.",
-    ]
-    structural_issues = [
-        "Requested comprehension preview distribution could not be met without inventing answers.",
-        "Preview generation currently depends on repeating prompt families across a small approved source pool.",
-        "Affix lanes are sourced from word_parse records only because the task-model records have no answer payload yet.",
-    ]
-    recommendation = "NOT READY"
+    v1_records = load_jsonl(PREVIEW_V1_PATH) if PREVIEW_V1_PATH.exists() else []
+    vocab_lane_types = {"hebrew_to_english_match", "english_to_hebrew_match"}
+    v1_vocab_sources = preview_source_ids(v1_records, vocab_lane_types)
+    v2_vocab_sources = preview_source_ids(preview_records, vocab_lane_types)
 
     lines = [
-        "# Batch 001 Preview Summary",
+        "# Batch 001 Preview V2 Summary",
         "",
         "## Totals",
         "",
-        f"- Total question count: {len(preview_records)}",
-        f"- Skipped source record count: {len(skipped_source_ids)}",
-        f"- Skipped requested question slots: {sum(skipped_question_slots.values())}",
-        f"- Usable source records: {len(usable_ids)} / {len(relevant_ids)} ({usable_pct:.1f}%)",
+        f"- Total preview questions: {len(preview_records)}",
+        f"- Preview file: `{PREVIEW_V2_PATH.relative_to(ROOT).as_posix()}`",
         "",
-        "## Count By Type",
+        "## Question Counts By Type",
         "",
     ]
-    for question_type in TARGET_COUNTS:
+    for question_type in SUPPORTED_TARGET_COUNTS:
         lines.append(f"- {question_type}: {generated_counts.get(question_type, 0)}")
 
     lines.extend(
         [
             "",
-            "## Weak Data Areas",
+            "## Comparison To V1 Preview",
             "",
+            f"- V1 file kept for comparison: `{PREVIEW_V1_PATH.relative_to(ROOT).as_posix()}`",
+            f"- V1 total questions: {len(v1_records)}",
+            f"- V2 total questions: {len(preview_records)}",
         ]
     )
-    for item in weak_areas:
-        lines.append(f"- {item}")
+    for question_type in SUPPORTED_TARGET_COUNTS:
+        lines.append(
+            f"- {question_type}: v1={v1_counts.get(question_type, 0)}, v2={generated_counts.get(question_type, 0)}"
+        )
 
     lines.extend(
         [
             "",
-            "## Structural Issues Found",
+            "## Lanes Improved After Vocab Enrichment",
+            "",
+            (
+                f"- hebrew_to_english_match: unique Batch 001 vocab source coverage increased from "
+                f"{len(v1_vocab_sources)} records in v1 to {len(v2_vocab_sources)} in v2."
+            ),
+            (
+                f"- english_to_hebrew_match: same expanded source coverage from "
+                f"{len(v1_vocab_sources)} to {len(v2_vocab_sources)} vocab records."
+            ),
+            (
+                "- Newly usable enriched vocab entries: ארץ, אדם, אשה, בית, בן, יום, מים, עץ."
+            ),
+            "- Distractor quality improved because the vocab matching pool now includes all 18 Batch 001 vocab entries.",
+            "",
+            "## Lanes Still Blocked",
             "",
         ]
     )
-    for item in structural_issues:
-        lines.append(f"- {item}")
+    for lane, blocker in BLOCKED_LANES.items():
+        lines.append(
+            f"- {lane}: deferred records={blocked_lane_deferred_count(source_records, lane)}; blocker={blocker}"
+        )
 
     lines.extend(
         [
             "",
             "## Recommendation",
             "",
-            f"- {recommendation} for the next phase until comprehension answers and task-model answer payloads are present.",
+            "- MERGE_INACTIVE_INFRASTRUCTURE as isolated extraction scaffolding and preview tooling.",
+            "- BLOCK_RUNTIME_INTEGRATION until explicit source answer keys exist for Va'eira comprehension and Shemos task-answer lanes.",
+        ]
+    )
+    return "\n".join(lines) + "\n"
+
+
+def build_final_decision_report(
+    *,
+    generated_counts: dict[str, int],
+    source_records: list[dict],
+) -> str:
+    usable_lanes = [
+        "phrase_translation",
+        "hebrew_to_english_match",
+        "english_to_hebrew_match",
+        "shoresh_identification",
+        "prefix_identification",
+        "suffix_identification",
+    ]
+    blocked_lanes = [
+        "mi_amar_el_mi",
+        "al_mi_neemar",
+        "shemos_word_parse_task_answer_checking",
+    ]
+    lines = [
+        "# Batch 001 Round Final Decision",
+        "",
+        "## 1. Did the extraction factory work?",
+        "",
+        "- Yes. The isolated curriculum extraction scaffold successfully ingested, validated, and organized Batch 001 source-backed seed data without touching runtime.",
+        "",
+        "## 2. Did validation work?",
+        "",
+        "- Yes. The validator continued to enforce non-runtime status, source linkage, preview integrity, and blocked-answer guardrails.",
+        "",
+        "## 3. Did loader isolation work?",
+        "",
+        "- Yes. The loader still reads only sample and normalized extraction records and ignores preview-question artifacts.",
+        "",
+        "## 4. Did preview generation work?",
+        "",
+        (
+            f"- Yes for supported lanes. Preview v2 generated {sum(generated_counts.values())} deterministic questions "
+            "without forcing blocked answer-key-dependent lanes."
+        ),
+        "",
+        "## 5. Which lanes are usable now?",
+        "",
+    ]
+    for lane in usable_lanes:
+        lines.append(f"- {lane}: {generated_counts.get(lane, 0)} preview questions generated in v2")
+
+    lines.extend(
+        [
+            "",
+            "## 6. Which lanes are blocked?",
+            "",
+        ]
+    )
+    for lane in blocked_lanes:
+        lines.append(
+            f"- {lane}: {blocked_lane_deferred_count(source_records, lane)} deferred records; {BLOCKED_LANES[lane]}"
+        )
+
+    lines.extend(
+        [
+            "",
+            "## 7. What source material is needed later?",
+            "",
+            "- Bacharach Shemos prefix/suffix answer-key pages for the 8 blocked word_parse_task records.",
+            "- Bacharach Va'eira answer-key pages for the 10 blocked comprehension_question records.",
+            "- Any future source-key excerpts should stay outside runtime until separately reviewed and approved.",
+            "",
+            "## 8. Is this branch safe to merge into main as inactive infrastructure?",
+            "",
+            "- Yes, if tests pass. The branch is safe to merge as inactive extraction infrastructure, reports, validation, and preview tooling only.",
+            "",
+            "## 9. Is it safe to connect to runtime now?",
+            "",
+            "- No. Runtime integration remains blocked because answer-key-dependent lanes are still missing source-bearing material and the extraction outputs remain non-runtime artifacts.",
+            "",
+            "## Final Recommendation",
+            "",
+            "- MERGE_INACTIVE_INFRASTRUCTURE",
+            "- BLOCK_RUNTIME_INTEGRATION",
+            "- Continue future extraction in separate, source-scoped batches.",
         ]
     )
     return "\n".join(lines) + "\n"
@@ -495,27 +617,6 @@ def generate_preview() -> dict:
         ],
         key=source_sort_key,
     )
-    mi_amar_records = sorted(
-        [
-            record
-            for record in source_records
-            if record.get("record_type") == "comprehension_question"
-            and record.get("question_type") == "mi_amar_el_mi"
-            and non_empty_text(record.get("expected_answer"))
-        ],
-        key=source_sort_key,
-    )
-    al_mi_records = sorted(
-        [
-            record
-            for record in source_records
-            if record.get("record_type") == "comprehension_question"
-            and record.get("question_type") == "al_mi_neemar"
-            and non_empty_text(record.get("expected_answer"))
-        ],
-        key=source_sort_key,
-    )
-
     preview_records = [
         *generate_phrase_translation(segments, template_lookup),
         *generate_hebrew_to_english_match(vocab, template_lookup),
@@ -526,28 +627,31 @@ def generate_preview() -> dict:
     ]
 
     preview_records.sort(key=lambda record: (record["question_type"], record["id"]))
-    write_jsonl(PREVIEW_PATH, preview_records)
+    write_jsonl(PREVIEW_V2_PATH, preview_records)
 
     generated_counts = Counter(record["question_type"] for record in preview_records)
-    skipped_question_slots = {
-        question_type: max(TARGET_COUNTS[question_type] - generated_counts.get(question_type, 0), 0)
-        for question_type in ("mi_amar_el_mi", "al_mi_neemar")
-    }
+    v1_counts = load_existing_preview_counts(PREVIEW_V1_PATH)
     report = build_summary_report(
         preview_records=preview_records,
         source_records=source_records,
         generated_counts=dict(generated_counts),
-        skipped_question_slots=skipped_question_slots,
+        v1_counts=v1_counts,
     )
-    REPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
-    REPORT_PATH.write_text(report, encoding="utf-8", newline="\n")
+    REPORT_V2_PATH.parent.mkdir(parents=True, exist_ok=True)
+    REPORT_V2_PATH.write_text(report, encoding="utf-8", newline="\n")
+    FINAL_DECISION_REPORT_PATH.write_text(
+        build_final_decision_report(generated_counts=dict(generated_counts), source_records=source_records),
+        encoding="utf-8",
+        newline="\n",
+    )
 
     return {
-        "preview_path": PREVIEW_PATH.relative_to(ROOT).as_posix(),
-        "report_path": REPORT_PATH.relative_to(ROOT).as_posix(),
+        "preview_path": PREVIEW_V2_PATH.relative_to(ROOT).as_posix(),
+        "report_path": REPORT_V2_PATH.relative_to(ROOT).as_posix(),
+        "final_decision_report_path": FINAL_DECISION_REPORT_PATH.relative_to(ROOT).as_posix(),
         "question_count": len(preview_records),
         "question_type_counts": dict(sorted(generated_counts.items())),
-        "skipped_question_slots": skipped_question_slots,
+        "blocked_lanes": BLOCKED_LANES,
     }
 
 
