@@ -46,7 +46,8 @@
     "data/curriculum_extraction/generated_questions_preview/batch_001_preview_v2.jsonl",
     "data/curriculum_extraction/generated_questions_preview/batch_002_preview.jsonl",
     "data/curriculum_extraction/generated_questions_preview/batch_003_preview.jsonl",
-    "data/curriculum_extraction/generated_questions_preview/batch_004_preview.jsonl"
+    "data/curriculum_extraction/generated_questions_preview/batch_004_preview.jsonl",
+    "data/curriculum_extraction/generated_questions_preview/batch_005_preview.jsonl"
   ],
   "resource_batches": [
     {
@@ -186,6 +187,35 @@
         "Batch 004 review-state cleanup fixed the watchlist formatting, and the alias/context cleanup is now documented in the linked review artifacts.",
         "Batch 004 is now manually reviewed and cleared for future curriculum planning while remaining not_runtime_active.",
         "No extraction data changed in this review-contract closeout; the linked review artifacts document the approval state while the extracted payload itself remains non-runtime."
+      ]
+    },
+    {
+      "batch_id": "batch_005_linear_bereishis_4_1_to_4_16",
+      "label": "Batch 005 Linear Chumash Translation excerpt",
+      "status": "extracted_needs_review",
+      "review_status": "needs_review",
+      "integration_status": "not_runtime_active",
+      "runtime_active": false,
+      "source_package_id": "linear_chumash_translation_most_parshiyos_in_torah",
+      "raw_source_files": [
+        "data/curriculum_extraction/raw_sources/batch_005/linear_chumash_bereishis_4_1_to_4_16_cleaned.md"
+      ],
+      "normalized_data_files": [
+        "data/curriculum_extraction/normalized/batch_005_linear_chumash_bereishis_4_1_to_4_16_pasuk_segments.jsonl"
+      ],
+      "generated_question_preview_files": [
+        "data/curriculum_extraction/generated_questions_preview/batch_005_preview.jsonl"
+      ],
+      "review_artifacts": [
+        "data/curriculum_extraction/reports/batch_005_summary.md",
+        "data/curriculum_extraction/reports/batch_005_preview_summary.md",
+        "data/curriculum_extraction/reports/batch_005_manual_review_packet.md"
+      ],
+      "notes": [
+        "Batch 005 extracts Linear Chumash phrase-level translation data for Bereishis 4:1 through 4:16 only.",
+        "The local PDF text layer was noisy, so Hebrew phrase text was aligned to the local source block in data/source/bereishis_4_1_to_4_16.json by exact pasuk reference and source phrase order.",
+        "This batch remains isolated, needs review, and is not present in runtime or in the reviewed question bank.",
+        "Batch 005 is extracted for review only and remains not_runtime_active."
       ]
     }
   ],
