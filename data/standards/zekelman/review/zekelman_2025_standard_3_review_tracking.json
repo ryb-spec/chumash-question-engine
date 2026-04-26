@@ -1,0 +1,408 @@
+{
+  "metadata": {
+    "title": "Zekelman 2025 Standard 3 Teacher Review Tracking",
+    "generated_at": "2026-04-26",
+    "branch_scope": "feature/zekelman-standard-3-teacher-review-layer",
+    "review_scope": "Review-only preparation for selected question-relevant Standard 3 strands before any runtime use or question generation.",
+    "review_status_values": [
+      "needs_teacher_review",
+      "source_match_needs_verification",
+      "hebrew_needs_verification",
+      "level_mapping_needs_review",
+      "not_runtime_ready",
+      "not_question_ready"
+    ],
+    "review_priority_values": [
+      "high",
+      "medium",
+      "low"
+    ],
+    "reviewer_decision_values": [
+      "approve_as_foundational_skill",
+      "approve_with_wording_revision",
+      "approve_with_level_adjustment",
+      "needs_more_source_review",
+      "not_suitable_for_diagnostic_use_yet",
+      "defer_to_later_phase"
+    ],
+    "source_artifact_paths": {
+      "canonical_source_path": "docs/standards/zekelman/raw/2025_zekelman_chumash_standards_v2_5_complete_levels_1_8.pdf",
+      "structured_record_source_path": "data/standards/zekelman/structured/zekelman_2025_standard_3_vocabulary_language_skills.json",
+      "supplemental_crosswalk_source_path": "data/standards/zekelman/crosswalks/zekelman_2025_standard_3_supplemental_crosswalk.json",
+      "draft_skill_mapping_source_path": "data/standards/zekelman/crosswalks/zekelman_2025_standard_3_skill_mapping_draft.json",
+      "crosswalk_report_source_path": "data/standards/zekelman/reports/zekelman_2025_standard_3_supplemental_crosswalk_report.md"
+    },
+    "notes": [
+      "This file does not change runtime behavior, Streamlit/UI behavior, reviewed-bank truth, or production data.",
+      "Reviewer decisions are intentionally unset until a human teacher-review pass happens.",
+      "Each review item links back to an existing Standard 3 record and one or more existing draft skill IDs."
+    ]
+  },
+  "review_items": [
+    {
+      "review_item_id": "zekelman_std3_01_noun_vocabulary",
+      "standard_id": "3.01",
+      "standard_title": "Vocabulary: שמות עצם (nouns)",
+      "strand": "noun_vocabulary",
+      "level_range": "Levels 1-8",
+      "related_skill_ids": [
+        "std3_01_noun_vocabulary_recognition"
+      ],
+      "canonical_source_path": "docs/standards/zekelman/raw/2025_zekelman_chumash_standards_v2_5_complete_levels_1_8.pdf",
+      "canonical_source_section": "Page 30 / 3.01",
+      "supplemental_source_paths": [
+        "docs/standards/zekelman/raw/2014_intro_vocabulary_language_skills_zekelman_chumash.pdf",
+        "docs/standards/zekelman/raw/2014_appendix_free_resource_packet_zekelman_chumash.pdf",
+        "docs/standards/zekelman/raw/2016_sample_assessment_questions_standards_1_2_zekelman_chumash.pdf"
+      ],
+      "supplemental_source_sections": [
+        "2014 intro: Pages 3-7 / Nouns",
+        "2014 appendix: Pages 22-28 and 36 / Vocabulary Appendix Standards 3.1-3.2; Sample List of Nouns Per Grade",
+        "2016 sample assessments: Pages 73-76 / 3.1 Vocabulary: שמות עצם (nouns)"
+      ],
+      "review_priority": "high",
+      "diagnostic_relevance": "high",
+      "question_generation_relevance": "high",
+      "current_review_status": [
+        "needs_teacher_review",
+        "source_match_needs_verification",
+        "hebrew_needs_verification",
+        "not_runtime_ready",
+        "not_question_ready"
+      ],
+      "reviewer_decision": null,
+      "reviewer_notes": "",
+      "unresolved_questions": [
+        "Does row C on page 30 clearly mean grouping nouns by shared taught noun family, and is the extracted wording accurate enough for later reviewer use?",
+        "Should contextual multiple-meaning work remain limited to previously taught noun sets such as ראש and רוח before any broader diagnostic use?",
+        "Do the appendix noun-grade tables align cleanly enough with the 2025 cumulative counts to support later teacher-approved scope planning?"
+      ],
+      "recommended_next_action": "Teacher-review the 2025 page-30 table against the raw PDF, confirm the cumulative noun-count progression and row C/E wording, and keep the strand disconnected from runtime.",
+      "supporting_artifact_paths": [
+        "data/standards/zekelman/structured/zekelman_2025_standard_3_vocabulary_language_skills.json",
+        "data/standards/zekelman/crosswalks/zekelman_2025_standard_3_supplemental_crosswalk.json",
+        "data/standards/zekelman/crosswalks/zekelman_2025_standard_3_skill_mapping_draft.json"
+      ]
+    },
+    {
+      "review_item_id": "zekelman_std3_02_shoresh_verb_root",
+      "standard_id": "3.02",
+      "standard_title": "Vocabulary: שורשים (for verbs)",
+      "strand": "shoresh_and_verb_root_recognition",
+      "level_range": "Levels 1-8",
+      "related_skill_ids": [
+        "std3_02_shoresh_identification"
+      ],
+      "canonical_source_path": "docs/standards/zekelman/raw/2025_zekelman_chumash_standards_v2_5_complete_levels_1_8.pdf",
+      "canonical_source_section": "Pages 30-31 / 3.02",
+      "supplemental_source_paths": [
+        "docs/standards/zekelman/raw/2014_intro_vocabulary_language_skills_zekelman_chumash.pdf",
+        "docs/standards/zekelman/raw/2014_appendix_free_resource_packet_zekelman_chumash.pdf",
+        "docs/standards/zekelman/raw/2016_sample_assessment_questions_standards_1_2_zekelman_chumash.pdf"
+      ],
+      "supplemental_source_sections": [
+        "2014 intro: Pages 35-40 / Verbs; Roots - שרשים; Present and Future Tense Verbs",
+        "2014 appendix: Pages 22-27 and 37 / Vocabulary Appendix Standards 3.1-3.2; Sample שורשים List",
+        "2016 sample assessments: Pages 79-87 / 3.2 Vocabulary: שרשים (verbs)"
+      ],
+      "review_priority": "high",
+      "diagnostic_relevance": "high",
+      "question_generation_relevance": "high",
+      "current_review_status": [
+        "needs_teacher_review",
+        "source_match_needs_verification",
+        "hebrew_needs_verification",
+        "level_mapping_needs_review",
+        "not_runtime_ready",
+        "not_question_ready"
+      ],
+      "reviewer_decision": null,
+      "reviewer_notes": "",
+      "unresolved_questions": [
+        "Which parts of 3.02 should be treated as foundational at first review: simple shoresh identification only, or also weak-letter and altered-root recognition?",
+        "Should contextual root-translation be reviewed as part of the same skill decision, or deferred until later verb-feature review is complete?",
+        "Do the appendix root lists and 2025 cumulative counts align well enough to support a later teacher-approved level map?"
+      ],
+      "recommended_next_action": "Teacher-review the 2025 3.02 rows against the raw PDF, verify when weak-letter handling begins, and keep contextual shoresh translation blocked from question-ready status.",
+      "supporting_artifact_paths": [
+        "data/standards/zekelman/structured/zekelman_2025_standard_3_vocabulary_language_skills.json",
+        "data/standards/zekelman/crosswalks/zekelman_2025_standard_3_supplemental_crosswalk.json",
+        "data/standards/zekelman/crosswalks/zekelman_2025_standard_3_skill_mapping_draft.json"
+      ]
+    },
+    {
+      "review_item_id": "zekelman_std3_04_smichut_phrase_structure",
+      "standard_id": "3.04",
+      "standard_title": "Nouns and Adjectives",
+      "strand": "smichut_and_phrase_structure_cues",
+      "level_range": "Levels 1-8 (summary)",
+      "related_skill_ids": [
+        "std3_04_noun_features",
+        "std3_04_smichut_recognition"
+      ],
+      "canonical_source_path": "docs/standards/zekelman/raw/2025_zekelman_chumash_standards_v2_5_complete_levels_1_8.pdf",
+      "canonical_source_section": "Pages 33-35 / 3.04",
+      "supplemental_source_paths": [
+        "docs/standards/zekelman/raw/2014_intro_vocabulary_language_skills_zekelman_chumash.pdf",
+        "docs/standards/zekelman/raw/2014_appendix_free_resource_packet_zekelman_chumash.pdf",
+        "docs/standards/zekelman/raw/2016_sample_assessment_questions_standards_1_2_zekelman_chumash.pdf"
+      ],
+      "supplemental_source_sections": [
+        "2014 intro: Pages 3-11 and 48 / Nouns; Adjectives; construct-chain note in ניקוד section",
+        "2014 appendix: Page 38 / Appendix for Parts of Speech, 3.4 B and C",
+        "2016 sample assessments: Pages 89-100 / 3.4 Nouns and Adjectives"
+      ],
+      "review_priority": "medium",
+      "diagnostic_relevance": "high",
+      "question_generation_relevance": "medium",
+      "current_review_status": [
+        "needs_teacher_review",
+        "source_match_needs_verification",
+        "hebrew_needs_verification",
+        "level_mapping_needs_review",
+        "not_runtime_ready",
+        "not_question_ready"
+      ],
+      "reviewer_decision": null,
+      "reviewer_notes": "",
+      "unresolved_questions": [
+        "Should noun/adjective feature review and סמיכות review remain bundled for this teacher packet, or should later phases split them into separate approval decisions?",
+        "Is standalone סמיכות identification suitable for diagnostic preparation, or should it remain tied to fuller phrase-translation context only?",
+        "How much irregular-form knowledge from 3.04 should be treated as foundational before any later question-generation planning?"
+      ],
+      "recommended_next_action": "Teacher-review the 3.04 wording with special attention to סמיכות, adjective agreement, and irregular noun-form expectations, then decide whether this strand should stay context-heavy in later phases.",
+      "supporting_artifact_paths": [
+        "data/standards/zekelman/structured/zekelman_2025_standard_3_vocabulary_language_skills.json",
+        "data/standards/zekelman/crosswalks/zekelman_2025_standard_3_supplemental_crosswalk.json",
+        "data/standards/zekelman/crosswalks/zekelman_2025_standard_3_skill_mapping_draft.json"
+      ]
+    },
+    {
+      "review_item_id": "zekelman_std3_05_pronouns_suffixes",
+      "standard_id": "3.05",
+      "standard_title": "Pronouns",
+      "strand": "pronouns_and_possessive_suffixes",
+      "level_range": "Levels 1-8 (summary)",
+      "related_skill_ids": [
+        "std3_05_pronoun_referent_identification",
+        "std3_05_pronominal_suffix_identification"
+      ],
+      "canonical_source_path": "docs/standards/zekelman/raw/2025_zekelman_chumash_standards_v2_5_complete_levels_1_8.pdf",
+      "canonical_source_section": "Pages 36-40 / 3.05",
+      "supplemental_source_paths": [
+        "docs/standards/zekelman/raw/2014_intro_vocabulary_language_skills_zekelman_chumash.pdf",
+        "docs/standards/zekelman/raw/2014_appendix_free_resource_packet_zekelman_chumash.pdf",
+        "docs/standards/zekelman/raw/2016_sample_assessment_questions_standards_1_2_zekelman_chumash.pdf"
+      ],
+      "supplemental_source_sections": [
+        "2014 intro: Pages 23-30 / Pronouns; Subjective and Objective Pronouns; Possessive Nouns and Pronouns",
+        "2014 appendix: Pages 39-44 / Pronoun appendices for Standards 3.5A-H",
+        "2016 sample assessments: Pages 101-121 / 3.5 Pronouns"
+      ],
+      "review_priority": "high",
+      "diagnostic_relevance": "high",
+      "question_generation_relevance": "high",
+      "current_review_status": [
+        "needs_teacher_review",
+        "source_match_needs_verification",
+        "hebrew_needs_verification",
+        "level_mapping_needs_review",
+        "not_runtime_ready",
+        "not_question_ready"
+      ],
+      "reviewer_decision": null,
+      "reviewer_notes": "",
+      "unresolved_questions": [
+        "Should referent tracking and pronominal-suffix decoding be treated as separate foundational approvals, even though they share the same 3.05 strand?",
+        "At what point is it fair to expect cross-pasuk referent tracking rather than local referent identification only?",
+        "Should the use of איתן and תהימון as pronoun clues stay with pronoun review, or be deferred until the verb-feature review is settled?"
+      ],
+      "recommended_next_action": "Teacher-review the full 3.05 progression against the PDF, confirm which pronoun families belong in the first diagnostic phase, and keep suffix interpretation blocked where context extends beyond a local referent.",
+      "supporting_artifact_paths": [
+        "data/standards/zekelman/structured/zekelman_2025_standard_3_vocabulary_language_skills.json",
+        "data/standards/zekelman/crosswalks/zekelman_2025_standard_3_supplemental_crosswalk.json",
+        "data/standards/zekelman/crosswalks/zekelman_2025_standard_3_skill_mapping_draft.json"
+      ]
+    },
+    {
+      "review_item_id": "zekelman_std3_06_prefixes_articles_prepositions",
+      "standard_id": "3.06",
+      "standard_title": "Prepositions, Conjunctions and the Definite Article",
+      "strand": "prefixes_articles_prepositions",
+      "level_range": "Levels 1-8 (summary)",
+      "related_skill_ids": [
+        "std3_06_prefix_function_identification",
+        "std3_06_direct_object_marker_resolution"
+      ],
+      "canonical_source_path": "docs/standards/zekelman/raw/2025_zekelman_chumash_standards_v2_5_complete_levels_1_8.pdf",
+      "canonical_source_section": "Pages 41-43 / 3.06",
+      "supplemental_source_paths": [
+        "docs/standards/zekelman/raw/2014_intro_vocabulary_language_skills_zekelman_chumash.pdf",
+        "docs/standards/zekelman/raw/2014_appendix_free_resource_packet_zekelman_chumash.pdf",
+        "docs/standards/zekelman/raw/2016_sample_assessment_questions_standards_1_2_zekelman_chumash.pdf"
+      ],
+      "supplemental_source_sections": [
+        "2014 intro: Pages 16-20 / Conjunctions, Prepositions and Other Grammatical Items; Definite Article; Prepositions",
+        "2014 appendix: Pages 46-55 / article rules, ו ההיפוך, and Appendix to 3.6G \"The Word את\"",
+        "2016 sample assessments: Page 88 / 3.3 Other vocabulary"
+      ],
+      "review_priority": "high",
+      "diagnostic_relevance": "high",
+      "question_generation_relevance": "high",
+      "current_review_status": [
+        "needs_teacher_review",
+        "source_match_needs_verification",
+        "hebrew_needs_verification",
+        "level_mapping_needs_review",
+        "not_runtime_ready",
+        "not_question_ready"
+      ],
+      "reviewer_decision": null,
+      "reviewer_notes": "",
+      "unresolved_questions": [
+        "Should the first review phase approve only visible prefix/article identification, while deferring interpretation-heavy cases such as the two functions of את?",
+        "How should the later 2025 split into 3.06 be reconciled with the older 2016 assessment material that still groups much of this content under 3.3 Other Vocabulary?",
+        "Which of the nikud-dependent distinctions, especially ו ההיפוך and article-prefix shifts, are source-clear enough to review now rather than later?"
+      ],
+      "recommended_next_action": "Teacher-review the 3.06 rows and appendix examples against the raw PDFs, decide which prefix/article functions are foundational, and keep the direct-object-marker draft blocked from question-ready status.",
+      "supporting_artifact_paths": [
+        "data/standards/zekelman/structured/zekelman_2025_standard_3_vocabulary_language_skills.json",
+        "data/standards/zekelman/crosswalks/zekelman_2025_standard_3_supplemental_crosswalk.json",
+        "data/standards/zekelman/crosswalks/zekelman_2025_standard_3_skill_mapping_draft.json"
+      ]
+    },
+    {
+      "review_item_id": "zekelman_std3_07_verb_features",
+      "standard_id": "3.07",
+      "standard_title": "Verbs",
+      "strand": "verb_features_tense_and_translation_precision",
+      "level_range": "Levels 1-8 (summary)",
+      "related_skill_ids": [
+        "std3_07_verb_features"
+      ],
+      "canonical_source_path": "docs/standards/zekelman/raw/2025_zekelman_chumash_standards_v2_5_complete_levels_1_8.pdf",
+      "canonical_source_section": "Pages 44-46 / 3.07",
+      "supplemental_source_paths": [
+        "docs/standards/zekelman/raw/2014_intro_vocabulary_language_skills_zekelman_chumash.pdf",
+        "docs/standards/zekelman/raw/2014_appendix_free_resource_packet_zekelman_chumash.pdf",
+        "docs/standards/zekelman/raw/2016_sample_assessment_questions_standards_1_2_zekelman_chumash.pdf"
+      ],
+      "supplemental_source_sections": [
+        "2014 intro: Pages 35-43 / Verbs; Present, Future, and Past Tense; root changes",
+        "2014 appendix: Pages 22-27 and 50-53 / high-frequency verbs; ו ההיפוך rule material",
+        "2016 sample assessments: Pages 79-87 / 3.2 Vocabulary: שרשים (verbs)"
+      ],
+      "review_priority": "high",
+      "diagnostic_relevance": "high",
+      "question_generation_relevance": "high",
+      "current_review_status": [
+        "needs_teacher_review",
+        "source_match_needs_verification",
+        "hebrew_needs_verification",
+        "level_mapping_needs_review",
+        "not_runtime_ready",
+        "not_question_ready"
+      ],
+      "reviewer_decision": null,
+      "reviewer_notes": "",
+      "unresolved_questions": [
+        "Where should teacher review split foundational tense/person/form clues from later binyan, passive, command, and infinitive analysis?",
+        "Is the supplemental evidence strong enough for the full upper-level 2025 binyan/passive range, or only for foundational tense and root-sensitive recognition?",
+        "Should translation precision on verbs remain blocked until reviewers confirm exactly which form clues are considered introduced at each level?"
+      ],
+      "recommended_next_action": "Teacher-review the 3.07 table and key-knowledge rows against the raw PDF, identify the smallest reviewable foundational verb-feature subset, and defer upper-level binyan/passive activation to a later phase.",
+      "supporting_artifact_paths": [
+        "data/standards/zekelman/structured/zekelman_2025_standard_3_vocabulary_language_skills.json",
+        "data/standards/zekelman/crosswalks/zekelman_2025_standard_3_supplemental_crosswalk.json",
+        "data/standards/zekelman/crosswalks/zekelman_2025_standard_3_skill_mapping_draft.json"
+      ]
+    },
+    {
+      "review_item_id": "zekelman_std3_08_grouping_word_order",
+      "standard_id": "3.08",
+      "standard_title": "Grouping and Word Order",
+      "strand": "grouping_and_word_order",
+      "level_range": "Levels 1-8 (summary)",
+      "related_skill_ids": [
+        "std3_08_syntax_phrase_structure"
+      ],
+      "canonical_source_path": "docs/standards/zekelman/raw/2025_zekelman_chumash_standards_v2_5_complete_levels_1_8.pdf",
+      "canonical_source_section": "Page 48 / 3.08",
+      "supplemental_source_paths": [
+        "docs/standards/zekelman/raw/2014_intro_vocabulary_language_skills_zekelman_chumash.pdf",
+        "docs/standards/zekelman/raw/2016_sample_assessment_questions_standards_1_2_zekelman_chumash.pdf"
+      ],
+      "supplemental_source_sections": [
+        "2014 intro: Page 9 / Adjectives and Hebrew-to-English word order",
+        "2016 sample assessments: Pages 97-100 / 3.4 adjective matching and סמיכות examples"
+      ],
+      "review_priority": "high",
+      "diagnostic_relevance": "high",
+      "question_generation_relevance": "medium",
+      "current_review_status": [
+        "needs_teacher_review",
+        "source_match_needs_verification",
+        "level_mapping_needs_review",
+        "not_runtime_ready",
+        "not_question_ready"
+      ],
+      "reviewer_decision": null,
+      "reviewer_notes": "",
+      "unresolved_questions": [
+        "Is the partial supplemental support strong enough to treat 3.08 as a distinct reviewable diagnostic strand now, or should it stay deferred behind 3.04 phrase-structure review?",
+        "Should grouping and word-order work remain full-context only, rather than being prepared for any compact or isolated prompt format later?",
+        "Do the 2025 level descriptions map cleanly enough to later internal skill wording, especially where literal translation is provided but grouping is not?"
+      ],
+      "recommended_next_action": "Teacher-review Standard 3.08 directly against page 48 of the canonical PDF, confirm whether the partial older support is sufficient for a later diagnostic lane, and keep the strand fully review-only until that decision is made.",
+      "supporting_artifact_paths": [
+        "data/standards/zekelman/structured/zekelman_2025_standard_3_vocabulary_language_skills.json",
+        "data/standards/zekelman/crosswalks/zekelman_2025_standard_3_supplemental_crosswalk.json",
+        "data/standards/zekelman/crosswalks/zekelman_2025_standard_3_skill_mapping_draft.json"
+      ]
+    },
+    {
+      "review_item_id": "zekelman_std3_10_nikud_reading",
+      "standard_id": "3.10",
+      "standard_title": "Understanding ניקוד",
+      "strand": "nikud_reading",
+      "level_range": "Advanced upper levels only (summary)",
+      "related_skill_ids": [
+        "std3_10_nikud_reading"
+      ],
+      "canonical_source_path": "docs/standards/zekelman/raw/2025_zekelman_chumash_standards_v2_5_complete_levels_1_8.pdf",
+      "canonical_source_section": "Pages 49-50 / 3.10",
+      "supplemental_source_paths": [
+        "docs/standards/zekelman/raw/2014_intro_vocabulary_language_skills_zekelman_chumash.pdf",
+        "docs/standards/zekelman/raw/2014_appendix_free_resource_packet_zekelman_chumash.pdf"
+      ],
+      "supplemental_source_sections": [
+        "2014 intro: Pages 47-53 / Vowels, sheva, dagesh, syllables, and related ניקוד rules",
+        "2014 appendix: Pages 46-51 / article ניקוד charts, prefix vocalization, and ו ההיפוך summaries"
+      ],
+      "review_priority": "medium",
+      "diagnostic_relevance": "medium",
+      "question_generation_relevance": "medium",
+      "current_review_status": [
+        "needs_teacher_review",
+        "source_match_needs_verification",
+        "hebrew_needs_verification",
+        "level_mapping_needs_review",
+        "not_runtime_ready",
+        "not_question_ready"
+      ],
+      "reviewer_decision": null,
+      "reviewer_notes": "",
+      "unresolved_questions": [
+        "Are levels 1-4 intentionally outside the scope of 3.10, or does the extracted table need another manual pass to confirm the absence of lower-level expectations?",
+        "Which advanced ניקוד subskills, if any, should be reviewed in the same phase as prefix/article nikud distinctions from 3.06, and which should stay fully deferred?",
+        "How much trust should later reviewers place in OCR-sensitive nekudos and chart structure before consulting the raw PDF directly?"
+      ],
+      "recommended_next_action": "Teacher-review the advanced-only note and the levels 5-8 rows against the canonical PDF, confirm the intended level gate, and defer any runtime-adjacent use until the nekudos and charts are manually verified.",
+      "supporting_artifact_paths": [
+        "data/standards/zekelman/structured/zekelman_2025_standard_3_vocabulary_language_skills.json",
+        "data/standards/zekelman/crosswalks/zekelman_2025_standard_3_supplemental_crosswalk.json",
+        "data/standards/zekelman/crosswalks/zekelman_2025_standard_3_skill_mapping_draft.json"
+      ]
+    }
+  ]
+}
