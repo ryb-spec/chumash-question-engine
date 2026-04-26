@@ -454,6 +454,9 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
             "data/source_texts/translations/sefaria/bereishis_english_translation_human_review_packet.md",
             "data/source_texts/translations/sefaria/raw_samples/koren_sample.json",
             "data/source_texts/translations/sefaria/raw_samples/metsudah_sample.json",
+            "data/standards/zekelman/review/zekelman_2025_standard_3_review_tracking.json",
+            "data/standards/zekelman/review/zekelman_2025_standard_3_teacher_review_packet.md",
+            "data/standards/zekelman/reports/zekelman_2025_standard_3_teacher_review_layer_report.md",
             "data/diagnostic_preview/README.md",
             "data/diagnostic_preview/configs/bereishis_1_1_to_2_3_dikduk_translation_preview.json",
             "data/diagnostic_preview/blueprints/bereishis_1_1_to_2_3_dikduk_translation_blueprints.jsonl",
@@ -512,6 +515,7 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
             "tests/conftest_backup.py",
             "PLANS-archive.md",
             "data/diagnostic_preview_runtime/preview.json",
+            "data/standards/other/review/fake_review_packet.md",
         ]
         for path in disallowed_paths:
             with self.subTest(path=path):

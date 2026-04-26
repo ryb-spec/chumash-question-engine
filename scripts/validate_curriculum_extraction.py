@@ -252,6 +252,7 @@ SKILL_TAG_ALIASES = {
 ALLOWED_CHANGE_PREFIXES = (
     "data/curriculum_extraction/",
     "data/diagnostic_preview/",
+    "data/standards/zekelman/",
 )
 
 ALLOWED_CHANGE_EXACT = {

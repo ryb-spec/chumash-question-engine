@@ -95,3 +95,8 @@
 - [completed] Inspect the 2025 Standard 3 structured extraction and the 2014/2016 supplemental Zekelman sources for direct support, partial support, and conflicts
 - [completed] Create a conservative Standard 3 supplemental crosswalk JSON plus a draft skill-mapping JSON with explicit review-status flags
 - [completed] Write the Standard 3 supplemental crosswalk report, run lightweight validation, and confirm runtime/student-facing files stayed untouched
+
+- [completed] Audit the most question-relevant Zekelman 2025 Standard 3 strands against the existing structured extraction, supplemental crosswalk, and draft skill mappings without changing runtime or reviewed-bank files
+- [completed] Create a review-only teacher packet and review-tracking JSON for the Standard 3 strands that need teacher verification before any runtime or question-generation use
+- [completed] Run the required standards/source validation commands, check for any standards-specific validator, and document the result conservatively
+- [completed] Write the teacher-review-layer report and completion summary, then stop without any runtime promotion or question creation
