@@ -1,0 +1,107 @@
+[
+  {
+    "group_id": "nouns",
+    "display_name": "Nouns",
+    "description": "Rules about noun meaning, noun form, and noun translation framing.",
+    "typical_mastery_tags": ["noun_translation", "noun_classification"],
+    "question_types_supported": ["translate_word", "classify_part_of_speech", "explain_rule"]
+  },
+  {
+    "group_id": "articles",
+    "display_name": "Articles",
+    "description": "Rules for identifying definite and indefinite noun meaning in Hebrew.",
+    "typical_mastery_tags": ["definite_article", "indefinite_noun_translation", "prefix_recognition"],
+    "question_types_supported": ["identify_marker", "translate_word", "choose_translation"]
+  },
+  {
+    "group_id": "conjunctions",
+    "display_name": "Conjunctions",
+    "description": "Rules for identifying added conjunction meaning such as prefixed ו.",
+    "typical_mastery_tags": ["conjunction_recognition", "prefix_recognition"],
+    "question_types_supported": ["identify_marker", "translate_word", "identify_added_letters"]
+  },
+  {
+    "group_id": "gender",
+    "display_name": "Gender",
+    "description": "Rules for masculine and feminine noun and agreement recognition.",
+    "typical_mastery_tags": ["gender_recognition", "agreement_features"],
+    "question_types_supported": ["masculine_or_feminine", "classify_part_of_speech", "explain_rule"]
+  },
+  {
+    "group_id": "pluralization",
+    "display_name": "Pluralization",
+    "description": "Rules for masculine/feminine plural patterns and related noun-form changes.",
+    "typical_mastery_tags": ["plural_recognition", "noun_form_change"],
+    "question_types_supported": ["singular_or_plural", "translate_word", "identify_added_letters"]
+  },
+  {
+    "group_id": "verbs",
+    "display_name": "Verbs",
+    "description": "Rules for verb identification, agreement, and form-based interpretation.",
+    "typical_mastery_tags": ["verb_identification", "agreement_features", "verb_form_analysis"],
+    "question_types_supported": ["classify_part_of_speech", "parse_word", "explain_rule"]
+  },
+  {
+    "group_id": "word_order",
+    "display_name": "Word Order",
+    "description": "Rules about Hebrew clause order and natural English reordering.",
+    "typical_mastery_tags": ["syntax_awareness", "translation_reordering"],
+    "question_types_supported": ["reorder_translation", "explain_rule", "choose_translation"]
+  },
+  {
+    "group_id": "smichus",
+    "display_name": "Smichus",
+    "description": "Rules for construct chains and noun-form changes in סמיכות.",
+    "typical_mastery_tags": ["smichus_recognition", "noun_form_change", "context_sensitivity"],
+    "question_types_supported": ["choose_translation", "translate_word", "explain_rule", "parse_word"]
+  },
+  {
+    "group_id": "prepositions",
+    "display_name": "Prepositions",
+    "description": "Rules for full-word and prefixed prepositions and their meanings.",
+    "typical_mastery_tags": ["preposition_meaning", "prefix_recognition"],
+    "question_types_supported": ["identify_preposition_meaning", "translate_word", "identify_marker"]
+  },
+  {
+    "group_id": "et_marker",
+    "display_name": "Et Marker",
+    "description": "Rules for את as direct-object marker, with-sense, rare from-sense, and suffix forms.",
+    "typical_mastery_tags": ["direct_object_marker", "function_disambiguation", "suffix_recognition"],
+    "question_types_supported": ["identify_direct_object_marker", "choose_translation", "identify_possessive_owner"]
+  },
+  {
+    "group_id": "suffixes",
+    "display_name": "Suffixes",
+    "description": "Rules for suffix spotting and function changes tied to pronouns and ownership.",
+    "typical_mastery_tags": ["suffix_recognition", "pronoun_suffix", "ownership"],
+    "question_types_supported": ["identify_added_letters", "identify_possessive_owner", "parse_word"]
+  },
+  {
+    "group_id": "possessives",
+    "display_name": "Possessives",
+    "description": "Rules for possessive noun suffixes and owner identification.",
+    "typical_mastery_tags": ["possessive_suffix", "owner_identification", "number_recognition"],
+    "question_types_supported": ["identify_possessive_owner", "choose_translation", "parse_word"]
+  },
+  {
+    "group_id": "tense",
+    "display_name": "Tense",
+    "description": "Rules for modeling past and future verb forms from base examples.",
+    "typical_mastery_tags": ["verb_tense", "prefix_recognition", "suffix_recognition"],
+    "question_types_supported": ["parse_word", "choose_translation", "explain_rule"]
+  },
+  {
+    "group_id": "parsing",
+    "display_name": "Parsing",
+    "description": "Rules for breaking Hebrew words into parts and labeling person/gender/number features.",
+    "typical_mastery_tags": ["word_decomposition", "agreement_features", "shoresh_identification"],
+    "question_types_supported": ["parse_word", "identify_shoresh", "explain_rule", "classify_part_of_speech"]
+  },
+  {
+    "group_id": "sacred_names",
+    "display_name": "Sacred Names",
+    "description": "Rules for recognizing and handling Hashem's Names carefully and respectfully.",
+    "typical_mastery_tags": ["sacred_name_recognition", "translation_caution"],
+    "question_types_supported": ["identify_marker", "explain_rule", "choose_feedback"]
+  }
+]

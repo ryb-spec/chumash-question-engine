@@ -1,0 +1,41 @@
+{
+  "project_name": "Dikduk Rules Engine - Loshon Foundation",
+  "package_id": "dikduk_rules_loshon_foundation",
+  "schema_version": "1.0",
+  "generated_on": "2026-04-25",
+  "source_file": "loshon 2.pdf",
+  "source_type": "scanned_workbook_pdf",
+  "source_status": "draft_source_modeled_visible_lessons_only",
+  "extraction_scope": "Foundational rules from the early visible lessons only.",
+  "extraction_method": "manual_modeled_from_visible_lesson_pages",
+  "package_status": "draft_source_modeled",
+  "warnings": [
+    "This package is source-modeled and not human-reviewed for production use.",
+    "The source PDF is image-only in this branch, so exact page numbers were not machine-extracted.",
+    "Rules preserve ambiguity warnings where the workbook supports only limited or context-sensitive claims.",
+    "Nothing in this package is runtime_active."
+  ],
+  "allowed_status_values": [
+    "draft_source_modeled",
+    "needs_review",
+    "blocked_ambiguous",
+    "deprecated"
+  ],
+  "forbidden_status_values": [
+    "reviewed",
+    "approved",
+    "production",
+    "runtime_active",
+    "active"
+  ],
+  "counts": {
+    "rule_groups": 15,
+    "rules": 37,
+    "question_templates": 47,
+    "student_error_patterns": 25
+  },
+  "validation_command": "python scripts/validate_dikduk_rules.py",
+  "test_command": "python -m pytest tests/test_dikduk_rules_validation.py tests/test_dikduk_rule_loader.py",
+  "full_test_command": "python -m pytest",
+  "future_integration_note": "This package is an upstream source-modeled layer for future reviewed promotion into data/foundations/dikduk. It does not change runtime behavior in this branch."
+}
