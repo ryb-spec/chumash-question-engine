@@ -1,0 +1,538 @@
+{
+  "generated_at": "2026-04-26T00:00:00Z",
+  "branch_scope": "feature/zekelman-standard-3-supplemental-crosswalk",
+  "canonical_source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+  "canonical_pdf_path": "docs/standards/zekelman/raw/2025_zekelman_chumash_standards_v2_5_complete_levels_1_8.pdf",
+  "canonical_structured_source_path": "data/standards/zekelman/structured/zekelman_2025_standard_3_vocabulary_language_skills.json",
+  "source_hierarchy_note": "The 2025 Version 2.5 standards remain canonical for wording, numbering, and level progression. 2014/2016 materials are supplemental evidence only.",
+  "supplemental_source_ids_checked": [
+    "zekelman_intro_vocabulary_language_skills_2014_pdf",
+    "zekelman_appendix_free_resource_packet_2014_pdf",
+    "zekelman_sample_assessments_2016_pdf"
+  ],
+  "crosswalk_records": [
+    {
+      "canonical_standard_id": "3.01",
+      "canonical_standard_title": "Vocabulary: שמות עצם (nouns)",
+      "canonical_standard_area": "3. Vocabulary and Language Skills",
+      "canonical_level_range": "Levels 1-8",
+      "canonical_student_expectation_summary": "Builds a cumulative noun vocabulary, then uses previously learned nouns for contextual translation and multiple-meaning choices.",
+      "source_id_2025": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+      "supplemental_sources_checked": [
+        "zekelman_intro_vocabulary_language_skills_2014_pdf",
+        "zekelman_appendix_free_resource_packet_2014_pdf",
+        "zekelman_sample_assessments_2016_pdf"
+      ],
+      "supplemental_support_status": "direct_support",
+      "supplemental_matches": [
+        {
+          "supplemental_source_id": "zekelman_intro_vocabulary_language_skills_2014_pdf",
+          "supplemental_section_or_page": "Pages 3-7 / Nouns",
+          "matched_topic": "noun vocabulary foundations",
+          "matched_text_summary": "Defines nouns, introduces gender and plural forms, and drills basic identification before Chumash transfer.",
+          "relationship_to_2025_standard": "direct_support",
+          "confidence": "high",
+          "review_status": "needs_human_review",
+          "notes": "Supports the 2025 noun-vocabulary progression with instructional explanations rather than cumulative counts.",
+          "supplemental_file_path": "docs/standards/zekelman/raw/2014_intro_vocabulary_language_skills_zekelman_chumash.pdf"
+        },
+        {
+          "supplemental_source_id": "zekelman_appendix_free_resource_packet_2014_pdf",
+          "supplemental_section_or_page": "Pages 22-28 and 36 / Vocabulary Appendix Standards 3.1-3.2; Sample List of Nouns Per Grade",
+          "matched_topic": "high-frequency noun banks and grade sequencing",
+          "matched_text_summary": "Provides noun-frequency lists plus a sample noun list by grade for cumulative vocabulary planning.",
+          "relationship_to_2025_standard": "direct_support",
+          "confidence": "high",
+          "review_status": "table_structure_uncertain",
+          "notes": "Useful for vocabulary scope and sequence, but tabular extraction and Hebrew lists still require manual confirmation.",
+          "supplemental_file_path": "docs/standards/zekelman/raw/2014_appendix_free_resource_packet_zekelman_chumash.pdf"
+        },
+        {
+          "supplemental_source_id": "zekelman_sample_assessments_2016_pdf",
+          "supplemental_section_or_page": "Pages 73-76 / 3.1 Vocabulary: שמות עצם (nouns)",
+          "matched_topic": "noun-vocabulary assessment patterns",
+          "matched_text_summary": "Shows contextual translation, out-of-context translation, grouping, and multiple-meaning assessment patterns for taught noun vocabulary.",
+          "relationship_to_2025_standard": "assessment_example_only",
+          "confidence": "high",
+          "review_status": "needs_human_review",
+          "notes": "Supports later assessment design, not canonical wording.",
+          "supplemental_file_path": "docs/standards/zekelman/raw/2016_sample_assessment_questions_standards_1_2_zekelman_chumash.pdf"
+        }
+      ],
+      "review_status": [
+        "needs_human_review",
+        "hebrew_text_needs_review",
+        "not_runtime_ready"
+      ],
+      "notes": "All three supplemental sources reinforce the 2025 noun-vocabulary strand, with the appendix supplying frequency evidence and the sample-assessment source supplying item shapes."
+    },
+    {
+      "canonical_standard_id": "3.02",
+      "canonical_standard_title": "Vocabulary: שורשים (for verbs)",
+      "canonical_standard_area": "3. Vocabulary and Language Skills",
+      "canonical_level_range": "Levels 1-8",
+      "canonical_student_expectation_summary": "Builds cumulative root vocabulary for verbs, then identifies weak-letter and altered-root patterns and chooses contextual translations.",
+      "source_id_2025": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+      "supplemental_sources_checked": [
+        "zekelman_intro_vocabulary_language_skills_2014_pdf",
+        "zekelman_appendix_free_resource_packet_2014_pdf",
+        "zekelman_sample_assessments_2016_pdf"
+      ],
+      "supplemental_support_status": "direct_support",
+      "supplemental_matches": [
+        {
+          "supplemental_source_id": "zekelman_intro_vocabulary_language_skills_2014_pdf",
+          "supplemental_section_or_page": "Pages 35-40 / Verbs; Roots - שרשים; Present and Future Tense Verbs",
+          "matched_topic": "verb roots and weak-letter awareness",
+          "matched_text_summary": "Explains what a shoresh is, connects roots to translation, and introduces complete versus weak roots with tense changes.",
+          "relationship_to_2025_standard": "direct_support",
+          "confidence": "high",
+          "review_status": "needs_human_review",
+          "notes": "Strong instructional support for the 2025 verb-root progression.",
+          "supplemental_file_path": "docs/standards/zekelman/raw/2014_intro_vocabulary_language_skills_zekelman_chumash.pdf"
+        },
+        {
+          "supplemental_source_id": "zekelman_appendix_free_resource_packet_2014_pdf",
+          "supplemental_section_or_page": "Pages 22-27 and 37 / Vocabulary Appendix Standards 3.1-3.2; Sample שורשים List",
+          "matched_topic": "high-frequency verb roots and grade examples",
+          "matched_text_summary": "Provides frequency-ranked Hebrew verbs and a sample shoresh list aligned to Standards 3.1-3.2.",
+          "relationship_to_2025_standard": "direct_support",
+          "confidence": "high",
+          "review_status": "table_structure_uncertain",
+          "notes": "Useful evidence for root-vocabulary sequencing; Hebrew lists require human verification.",
+          "supplemental_file_path": "docs/standards/zekelman/raw/2014_appendix_free_resource_packet_zekelman_chumash.pdf"
+        },
+        {
+          "supplemental_source_id": "zekelman_sample_assessments_2016_pdf",
+          "supplemental_section_or_page": "Pages 79-87 / 3.2 Vocabulary: שרשים (verbs)",
+          "matched_topic": "shoresh identification and contextual translation assessment",
+          "matched_text_summary": "Shows direct shoresh identification, grouping of words that share a root, and contextual root-translation questions.",
+          "relationship_to_2025_standard": "assessment_example_only",
+          "confidence": "high",
+          "review_status": "needs_human_review",
+          "notes": "Provides strong item-model evidence for future draft diagnostics.",
+          "supplemental_file_path": "docs/standards/zekelman/raw/2016_sample_assessment_questions_standards_1_2_zekelman_chumash.pdf"
+        }
+      ],
+      "review_status": [
+        "needs_human_review",
+        "hebrew_text_needs_review",
+        "not_runtime_ready"
+      ],
+      "notes": "The older sources strongly support the 2025 shoresh strand and clarify how cumulative verb-root knowledge may be exercised."
+    },
+    {
+      "canonical_standard_id": "3.03",
+      "canonical_standard_title": "Other Vocabulary",
+      "canonical_standard_area": "3. Vocabulary and Language Skills",
+      "canonical_level_range": "Levels 1-8",
+      "canonical_student_expectation_summary": "Builds a cumulative bank of function words and chooses contextual meanings for words with multiple uses.",
+      "source_id_2025": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+      "supplemental_sources_checked": [
+        "zekelman_intro_vocabulary_language_skills_2014_pdf",
+        "zekelman_appendix_free_resource_packet_2014_pdf",
+        "zekelman_sample_assessments_2016_pdf"
+      ],
+      "supplemental_support_status": "direct_support",
+      "supplemental_matches": [
+        {
+          "supplemental_source_id": "zekelman_intro_vocabulary_language_skills_2014_pdf",
+          "supplemental_section_or_page": "Pages 16-20 / Conjunctions, Prepositions and Other Grammatical Items; Definite Article; Prepositions",
+          "matched_topic": "function-word and prefix vocabulary",
+          "matched_text_summary": "Introduces conjunctions, prepositions, article behavior, and attached prefix forms that students must translate accurately.",
+          "relationship_to_2025_standard": "partial_support",
+          "confidence": "high",
+          "review_status": "needs_human_review",
+          "notes": "Covers much of the function-word strand, though the broadest adverb/question-word coverage is clearer in the sample-assessment source.",
+          "supplemental_file_path": "docs/standards/zekelman/raw/2014_intro_vocabulary_language_skills_zekelman_chumash.pdf"
+        },
+        {
+          "supplemental_source_id": "zekelman_appendix_free_resource_packet_2014_pdf",
+          "supplemental_section_or_page": "Pages 32-35 / III. Hebrew Particles; Prepositions and Prepositional Phrases",
+          "matched_topic": "particles and high-frequency function words",
+          "matched_text_summary": "Supplies particle, preposition, and phrase lists that extend the function-word inventory behind Standard 3.03.",
+          "relationship_to_2025_standard": "direct_support",
+          "confidence": "medium",
+          "review_status": "table_structure_uncertain",
+          "notes": "Table-heavy material needs human review, but it clearly supports the vocabulary bank.",
+          "supplemental_file_path": "docs/standards/zekelman/raw/2014_appendix_free_resource_packet_zekelman_chumash.pdf"
+        },
+        {
+          "supplemental_source_id": "zekelman_sample_assessments_2016_pdf",
+          "supplemental_section_or_page": "Page 88 / 3.3 Other vocabulary: prepositions, conjunctions, adverbs, numbers, questioning words",
+          "matched_topic": "explicit Standard 3.3 scope confirmation",
+          "matched_text_summary": "Confirms that older Standards 3.3 assessment design grouped prepositions, conjunctions, adverbs, numbers, and question words together.",
+          "relationship_to_2025_standard": "direct_support",
+          "confidence": "high",
+          "review_status": "needs_human_review",
+          "notes": "Important historical evidence for how the broad “Other Vocabulary” bucket was interpreted.",
+          "supplemental_file_path": "docs/standards/zekelman/raw/2016_sample_assessment_questions_standards_1_2_zekelman_chumash.pdf"
+        }
+      ],
+      "review_status": [
+        "needs_human_review",
+        "hebrew_text_needs_review",
+        "not_runtime_ready",
+        "table_structure_uncertain"
+      ],
+      "notes": "The supplemental sources support the broad function-word strand, but the underlying tables and OCR still need manual review before any fine-grained machine extraction."
+    },
+    {
+      "canonical_standard_id": "3.04",
+      "canonical_standard_title": "Nouns and Adjectives",
+      "canonical_standard_area": "3. Vocabulary and Language Skills",
+      "canonical_level_range": "Levels 1-8 (summary)",
+      "canonical_student_expectation_summary": "Moves from identifying nouns and adjectives in learned words to recognizing gender, number, irregular forms, and סמיכות in unlearned פסוקים.",
+      "source_id_2025": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+      "supplemental_sources_checked": [
+        "zekelman_intro_vocabulary_language_skills_2014_pdf",
+        "zekelman_appendix_free_resource_packet_2014_pdf",
+        "zekelman_sample_assessments_2016_pdf"
+      ],
+      "supplemental_support_status": "direct_support",
+      "supplemental_matches": [
+        {
+          "supplemental_source_id": "zekelman_intro_vocabulary_language_skills_2014_pdf",
+          "supplemental_section_or_page": "Pages 3-11 and 48 / Nouns; Adjectives; construct-chain note in ניקוד section",
+          "matched_topic": "noun/adjective recognition, agreement, and smichut cues",
+          "matched_text_summary": "Defines nouns and adjectives, drills gender and number matching, and notes how construct-chain forms can affect endings and ניקוד.",
+          "relationship_to_2025_standard": "direct_support",
+          "confidence": "high",
+          "review_status": "hebrew_text_needs_review",
+          "notes": "The construct-chain references are present but should be checked against the PDF before downstream reuse.",
+          "supplemental_file_path": "docs/standards/zekelman/raw/2014_intro_vocabulary_language_skills_zekelman_chumash.pdf"
+        },
+        {
+          "supplemental_source_id": "zekelman_appendix_free_resource_packet_2014_pdf",
+          "supplemental_section_or_page": "Page 38 / Appendix for Parts of Speech, 3.4 B and C",
+          "matched_topic": "gender and number heuristics for nouns",
+          "matched_text_summary": "Provides explicit masculine/feminine and singular/plural heuristics, including irregular endings and exceptions.",
+          "relationship_to_2025_standard": "direct_support",
+          "confidence": "high",
+          "review_status": "needs_human_review",
+          "notes": "Especially helpful for the 2025 expectation around irregular-looking noun forms.",
+          "supplemental_file_path": "docs/standards/zekelman/raw/2014_appendix_free_resource_packet_zekelman_chumash.pdf"
+        },
+        {
+          "supplemental_source_id": "zekelman_sample_assessments_2016_pdf",
+          "supplemental_section_or_page": "Pages 89-100 / 3.4 Nouns and Adjectives",
+          "matched_topic": "parts-of-speech assessment architecture",
+          "matched_text_summary": "Shows assessment prompts for noun identification, gender/number distinctions, adjective recognition, adjective agreement, and סמיכות recognition.",
+          "relationship_to_2025_standard": "assessment_example_only",
+          "confidence": "high",
+          "review_status": "needs_human_review",
+          "notes": "Provides practical evidence for how the strand was operationalized in assessment form.",
+          "supplemental_file_path": "docs/standards/zekelman/raw/2016_sample_assessment_questions_standards_1_2_zekelman_chumash.pdf"
+        }
+      ],
+      "review_status": [
+        "needs_human_review",
+        "hebrew_text_needs_review",
+        "not_runtime_ready",
+        "table_structure_uncertain"
+      ],
+      "notes": "This is one of the strongest crosswalked strands because all three supplemental sources reinforce the same practical skills."
+    },
+    {
+      "canonical_standard_id": "3.05",
+      "canonical_standard_title": "Pronouns",
+      "canonical_standard_area": "3. Vocabulary and Language Skills",
+      "canonical_level_range": "Levels 1-8 (summary)",
+      "canonical_student_expectation_summary": "Progresses from basic English and Hebrew pronoun categories to identifying referents, suffixes, and embedded pronouns in learned and unlearned פסוקים.",
+      "source_id_2025": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+      "supplemental_sources_checked": [
+        "zekelman_intro_vocabulary_language_skills_2014_pdf",
+        "zekelman_appendix_free_resource_packet_2014_pdf",
+        "zekelman_sample_assessments_2016_pdf"
+      ],
+      "supplemental_support_status": "direct_support",
+      "supplemental_matches": [
+        {
+          "supplemental_source_id": "zekelman_intro_vocabulary_language_skills_2014_pdf",
+          "supplemental_section_or_page": "Pages 23-30 / Pronouns; Subjective and Objective Pronouns; Possessive Nouns and Pronouns",
+          "matched_topic": "pronoun categories, referents, and suffixes",
+          "matched_text_summary": "Builds from basic pronoun replacement and referents into Hebrew pronoun types and possessive suffixes in Chumash.",
+          "relationship_to_2025_standard": "direct_support",
+          "confidence": "high",
+          "review_status": "needs_human_review",
+          "notes": "Strong instructional support for the 2025 pronoun progression.",
+          "supplemental_file_path": "docs/standards/zekelman/raw/2014_intro_vocabulary_language_skills_zekelman_chumash.pdf"
+        },
+        {
+          "supplemental_source_id": "zekelman_appendix_free_resource_packet_2014_pdf",
+          "supplemental_section_or_page": "Pages 39-44 / Pronoun appendices for Standards 3.5A-H",
+          "matched_topic": "pronoun reference charts and suffix families",
+          "matched_text_summary": "Provides subject, possessive, objective, demonstrative, prepositional, and interrogative pronoun reference material.",
+          "relationship_to_2025_standard": "direct_support",
+          "confidence": "high",
+          "review_status": "table_structure_uncertain",
+          "notes": "Chart content is especially useful for future teacher-reviewed validation layers.",
+          "supplemental_file_path": "docs/standards/zekelman/raw/2014_appendix_free_resource_packet_zekelman_chumash.pdf"
+        },
+        {
+          "supplemental_source_id": "zekelman_sample_assessments_2016_pdf",
+          "supplemental_section_or_page": "Pages 101-121 / 3.5 Pronouns",
+          "matched_topic": "pronoun referent and suffix assessment patterns",
+          "matched_text_summary": "Shows referent identification, person/gender/number distinctions, possessive and objective pronouns, demonstratives, and pronominal suffix interpretation.",
+          "relationship_to_2025_standard": "assessment_example_only",
+          "confidence": "high",
+          "review_status": "needs_human_review",
+          "notes": "Clear evidence that the older framework already assessed pronouns in layered steps.",
+          "supplemental_file_path": "docs/standards/zekelman/raw/2016_sample_assessment_questions_standards_1_2_zekelman_chumash.pdf"
+        }
+      ],
+      "review_status": [
+        "needs_human_review",
+        "hebrew_text_needs_review",
+        "not_runtime_ready",
+        "table_structure_uncertain"
+      ],
+      "notes": "Pronouns have exceptionally strong supplemental evidence across instructional, appendix, and assessment sources."
+    },
+    {
+      "canonical_standard_id": "3.06",
+      "canonical_standard_title": "Prepositions, Conjunctions and the Definite Article",
+      "canonical_standard_area": "3. Vocabulary and Language Skills",
+      "canonical_level_range": "Levels 1-8 (summary)",
+      "canonical_student_expectation_summary": "Builds from direct recognition of conjunctions and articles to distinguishing multiple prefix functions, article types, and the two meanings of את in learned and unlearned פסוקים.",
+      "source_id_2025": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+      "supplemental_sources_checked": [
+        "zekelman_intro_vocabulary_language_skills_2014_pdf",
+        "zekelman_appendix_free_resource_packet_2014_pdf",
+        "zekelman_sample_assessments_2016_pdf"
+      ],
+      "supplemental_support_status": "direct_support",
+      "supplemental_matches": [
+        {
+          "supplemental_source_id": "zekelman_intro_vocabulary_language_skills_2014_pdf",
+          "supplemental_section_or_page": "Pages 16-20 / Conjunctions, Prepositions and Other Grammatical Items; Definite Article; Prepositions",
+          "matched_topic": "conjunctions, articles, and inseparable prefixes",
+          "matched_text_summary": "Explains conjunctive and reversing ו, the definite article, prepositional prefixes, and related ניקוד changes.",
+          "relationship_to_2025_standard": "direct_support",
+          "confidence": "high",
+          "review_status": "needs_human_review",
+          "notes": "The 2014 intro organizes this material slightly differently, but it clearly supports the 2025 substandard.",
+          "supplemental_file_path": "docs/standards/zekelman/raw/2014_intro_vocabulary_language_skills_zekelman_chumash.pdf"
+        },
+        {
+          "supplemental_source_id": "zekelman_appendix_free_resource_packet_2014_pdf",
+          "supplemental_section_or_page": "Pages 46-55 / article rules, ו ההיפוך, and Appendix to 3.6G “The Word את”",
+          "matched_topic": "article/prefix rule details and the two functions of את",
+          "matched_text_summary": "Adds rule charts for the definite article, inseparable prefixes, vav consecutive, and a teacher-facing explanation of את as “with” versus direct-object marker.",
+          "relationship_to_2025_standard": "direct_support",
+          "confidence": "high",
+          "review_status": "hebrew_text_needs_review",
+          "notes": "This is strong supporting evidence, but the dense Hebrew examples and charts require manual checking.",
+          "supplemental_file_path": "docs/standards/zekelman/raw/2014_appendix_free_resource_packet_zekelman_chumash.pdf"
+        },
+        {
+          "supplemental_source_id": "zekelman_sample_assessments_2016_pdf",
+          "supplemental_section_or_page": "Page 88 / 3.3 Other vocabulary",
+          "matched_topic": "historical bucket for prepositions and conjunctions",
+          "matched_text_summary": "Shows that earlier assessment design grouped much of this material under “Other Vocabulary” rather than a separate later substandard.",
+          "relationship_to_2025_standard": "historical_context_only",
+          "confidence": "medium",
+          "review_status": "needs_human_review",
+          "notes": "Useful for organization history, not for overriding 2025 numbering or scope.",
+          "supplemental_file_path": "docs/standards/zekelman/raw/2016_sample_assessment_questions_standards_1_2_zekelman_chumash.pdf"
+        }
+      ],
+      "review_status": [
+        "needs_human_review",
+        "hebrew_text_needs_review",
+        "not_runtime_ready",
+        "table_structure_uncertain"
+      ],
+      "notes": "The supplemental sources strongly support the content strand, even though the older assessment source organizes some of it under 3.3 rather than the later 2025 substandard split."
+    },
+    {
+      "canonical_standard_id": "3.07",
+      "canonical_standard_title": "Verbs",
+      "canonical_standard_area": "3. Vocabulary and Language Skills",
+      "canonical_level_range": "Levels 1-8 (summary)",
+      "canonical_student_expectation_summary": "Moves from identifying verbs and simple tense markers to translating verbs across person, tense, active/passive forms, and binyan families.",
+      "source_id_2025": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+      "supplemental_sources_checked": [
+        "zekelman_intro_vocabulary_language_skills_2014_pdf",
+        "zekelman_appendix_free_resource_packet_2014_pdf",
+        "zekelman_sample_assessments_2016_pdf"
+      ],
+      "supplemental_support_status": "direct_support",
+      "supplemental_matches": [
+        {
+          "supplemental_source_id": "zekelman_intro_vocabulary_language_skills_2014_pdf",
+          "supplemental_section_or_page": "Pages 35-43 / Verbs; Present, Future, and Past Tense; root changes",
+          "matched_topic": "verb recognition, tense markers, prefixes, suffixes, and weak roots",
+          "matched_text_summary": "Introduces verbs, tense shifts, איתן markers, present/future/past formation, and irregular root behavior.",
+          "relationship_to_2025_standard": "direct_support",
+          "confidence": "high",
+          "review_status": "needs_human_review",
+          "notes": "Matches the 2025 strand closely at the rule-sequence level.",
+          "supplemental_file_path": "docs/standards/zekelman/raw/2014_intro_vocabulary_language_skills_zekelman_chumash.pdf"
+        },
+        {
+          "supplemental_source_id": "zekelman_appendix_free_resource_packet_2014_pdf",
+          "supplemental_section_or_page": "Pages 22-27 and 50-53 / high-frequency verbs; ו ההיפוך rule material",
+          "matched_topic": "verb banks and tense-sensitive vav behavior",
+          "matched_text_summary": "Provides frequency-ranked verb vocabulary and applied grammar notes about how vav consecutive affects verb tense reading.",
+          "relationship_to_2025_standard": "partial_support",
+          "confidence": "medium",
+          "review_status": "possible_ocr_issue",
+          "notes": "Helpful as extension material, but some later appendix pages extract poorly and should be verified against the PDF.",
+          "supplemental_file_path": "docs/standards/zekelman/raw/2014_appendix_free_resource_packet_zekelman_chumash.pdf"
+        },
+        {
+          "supplemental_source_id": "zekelman_sample_assessments_2016_pdf",
+          "supplemental_section_or_page": "Pages 79-87 / 3.2 Vocabulary: שרשים (verbs)",
+          "matched_topic": "root-centered verb assessment examples",
+          "matched_text_summary": "Supports the translation and grouping side of verb-root knowledge, but not the full later 2025 verb-parsing range.",
+          "relationship_to_2025_standard": "assessment_example_only",
+          "confidence": "medium",
+          "review_status": "needs_human_review",
+          "notes": "Useful for early verb assessment shape, not a full replacement for the 2025 verb strand.",
+          "supplemental_file_path": "docs/standards/zekelman/raw/2016_sample_assessment_questions_standards_1_2_zekelman_chumash.pdf"
+        }
+      ],
+      "review_status": [
+        "needs_human_review",
+        "hebrew_text_needs_review",
+        "not_runtime_ready"
+      ],
+      "notes": "The supplemental evidence is strong for foundational verb work, though the full 2025 binyan/passive range remains more expansive than the older extracted support."
+    },
+    {
+      "canonical_standard_id": "3.08",
+      "canonical_standard_title": "Grouping and Word Order",
+      "canonical_standard_area": "3. Vocabulary and Language Skills",
+      "canonical_level_range": "Levels 1-8 (summary)",
+      "canonical_student_expectation_summary": "Groups a פסוק into meaningful phrases and adjusts Hebrew word order when translating into English.",
+      "source_id_2025": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+      "supplemental_sources_checked": [
+        "zekelman_intro_vocabulary_language_skills_2014_pdf",
+        "zekelman_appendix_free_resource_packet_2014_pdf",
+        "zekelman_sample_assessments_2016_pdf"
+      ],
+      "supplemental_support_status": "partial_support",
+      "supplemental_matches": [
+        {
+          "supplemental_source_id": "zekelman_intro_vocabulary_language_skills_2014_pdf",
+          "supplemental_section_or_page": "Page 9 / Adjectives and Hebrew-to-English word order",
+          "matched_topic": "why Hebrew word order cannot always be translated literally",
+          "matched_text_summary": "Explicitly explains that Hebrew adjective order differs from English and that direct word-for-word order can mislead translation.",
+          "relationship_to_2025_standard": "partial_support",
+          "confidence": "medium",
+          "review_status": "needs_human_review",
+          "notes": "Clarifies the translation-order problem but does not supply a full dedicated grouping curriculum.",
+          "supplemental_file_path": "docs/standards/zekelman/raw/2014_intro_vocabulary_language_skills_zekelman_chumash.pdf"
+        },
+        {
+          "supplemental_source_id": "zekelman_sample_assessments_2016_pdf",
+          "supplemental_section_or_page": "Pages 97-100 / 3.4 adjective matching and סמיכות examples",
+          "matched_topic": "phrase-level relationship identification",
+          "matched_text_summary": "Provides assessment examples that require distinguishing adjective-noun relationships from construct chains, which indirectly supports grouping skills.",
+          "relationship_to_2025_standard": "assessment_example_only",
+          "confidence": "medium",
+          "review_status": "needs_human_review",
+          "notes": "Helpful for syntax adjacency, but still not a one-to-one dedicated match for 3.08.",
+          "supplemental_file_path": "docs/standards/zekelman/raw/2016_sample_assessment_questions_standards_1_2_zekelman_chumash.pdf"
+        }
+      ],
+      "review_status": [
+        "needs_human_review",
+        "hebrew_text_needs_review",
+        "not_runtime_ready"
+      ],
+      "notes": "The supplemental materials clarify the need for syntax-aware translation, but the later 2025 grouping/word-order strand is more explicit than the older sources."
+    },
+    {
+      "canonical_standard_id": "3.09",
+      "canonical_standard_title": "Parsing the פסוק",
+      "canonical_standard_area": "3. Vocabulary and Language Skills",
+      "canonical_level_range": "Levels 1-8 (summary)",
+      "canonical_student_expectation_summary": "Uses טעמי המקרא to divide, punctuate, and translate a פסוק appropriately.",
+      "source_id_2025": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+      "supplemental_sources_checked": [
+        "zekelman_intro_vocabulary_language_skills_2014_pdf",
+        "zekelman_appendix_free_resource_packet_2014_pdf",
+        "zekelman_sample_assessments_2016_pdf"
+      ],
+      "supplemental_support_status": "direct_support",
+      "supplemental_matches": [
+        {
+          "supplemental_source_id": "zekelman_intro_vocabulary_language_skills_2014_pdf",
+          "supplemental_section_or_page": "Pages 13-15 / Trop",
+          "matched_topic": "taamim as punctuation and clause-division signals",
+          "matched_text_summary": "Explains that taamim guide chanting, stress, and punctuation, with etnachta and other pauses dividing the pasuk into meaning units.",
+          "relationship_to_2025_standard": "direct_support",
+          "confidence": "high",
+          "review_status": "needs_human_review",
+          "notes": "A strong instructional foundation for parsing the pasuk by taamim.",
+          "supplemental_file_path": "docs/standards/zekelman/raw/2014_intro_vocabulary_language_skills_zekelman_chumash.pdf"
+        },
+        {
+          "supplemental_source_id": "zekelman_appendix_free_resource_packet_2014_pdf",
+          "supplemental_section_or_page": "Pages 57-59 / Appendix to Standard 3.9 “Punctuation in a פסוק”",
+          "matched_topic": "explicit 3.9 parsing appendix",
+          "matched_text_summary": "Provides a teacher-facing appendix mapping punctuation concepts to taamim-based pasuk parsing, including etnachta and comma-like breaks.",
+          "relationship_to_2025_standard": "direct_support",
+          "confidence": "high",
+          "review_status": "needs_human_review",
+          "notes": "This is the clearest direct supplemental match to 2025 Standard 3.09.",
+          "supplemental_file_path": "docs/standards/zekelman/raw/2014_appendix_free_resource_packet_zekelman_chumash.pdf"
+        }
+      ],
+      "review_status": [
+        "needs_human_review",
+        "hebrew_text_needs_review",
+        "not_runtime_ready",
+        "table_structure_uncertain"
+      ],
+      "notes": "Standard 3.09 has strong direct support from both the instructional guide and an appendix dedicated specifically to this strand."
+    },
+    {
+      "canonical_standard_id": "3.10",
+      "canonical_standard_title": "Understanding ניקוד",
+      "canonical_standard_area": "3. Vocabulary and Language Skills",
+      "canonical_level_range": "Advanced upper levels only (summary)",
+      "canonical_student_expectation_summary": "For advanced students, explains the systems of תנועות, שבאים, דגשים, syllables, and the interaction between ניקוד and טעמי המקרא.",
+      "source_id_2025": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+      "supplemental_sources_checked": [
+        "zekelman_intro_vocabulary_language_skills_2014_pdf",
+        "zekelman_appendix_free_resource_packet_2014_pdf",
+        "zekelman_sample_assessments_2016_pdf"
+      ],
+      "supplemental_support_status": "direct_support",
+      "supplemental_matches": [
+        {
+          "supplemental_source_id": "zekelman_intro_vocabulary_language_skills_2014_pdf",
+          "supplemental_section_or_page": "Pages 47-53 / Vowels, sheva, dagesh, syllables, and related ניקוד rules",
+          "matched_topic": "advanced ניקוד rule sequence",
+          "matched_text_summary": "Introduces vowel families, sheva categories, syllable division, gutturals, and dagesh behavior in a rule-teaching format.",
+          "relationship_to_2025_standard": "direct_support",
+          "confidence": "high",
+          "review_status": "hebrew_text_needs_review",
+          "notes": "This is the strongest older source for the 2025 advanced-nikud strand.",
+          "supplemental_file_path": "docs/standards/zekelman/raw/2014_intro_vocabulary_language_skills_zekelman_chumash.pdf"
+        },
+        {
+          "supplemental_source_id": "zekelman_appendix_free_resource_packet_2014_pdf",
+          "supplemental_section_or_page": "Pages 46-51 / article ניקוד charts, prefix vocalization, and ו ההיפוך summaries",
+          "matched_topic": "applied ניקוד charts for grammar rules",
+          "matched_text_summary": "Supplies chart-style applied ניקוד examples tied to articles, inseparable prefixes, and vav behavior.",
+          "relationship_to_2025_standard": "partial_support",
+          "confidence": "medium",
+          "review_status": "table_structure_uncertain",
+          "notes": "Supports applied ניקוד reading but not the entire advanced rule inventory on its own.",
+          "supplemental_file_path": "docs/standards/zekelman/raw/2014_appendix_free_resource_packet_zekelman_chumash.pdf"
+        }
+      ],
+      "review_status": [
+        "needs_human_review",
+        "hebrew_text_needs_review",
+        "not_runtime_ready",
+        "table_structure_uncertain"
+      ],
+      "notes": "The 2014 intro provides robust support for the advanced ניקוד strand, while the appendix supplies applied chart examples that still need table verification."
+    }
+  ]
+}
