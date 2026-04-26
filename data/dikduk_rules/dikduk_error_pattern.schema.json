@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "dikduk_error_pattern.schema.json",
+  "title": "Dikduk Error Pattern",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "error_id",
+    "schema_version",
+    "linked_rule_ids",
+    "observed_wrong_answer",
+    "expected_answer",
+    "diagnosis",
+    "remediation_hint",
+    "mastery_penalty_tags",
+    "status"
+  ],
+  "properties": {
+    "error_id": {
+      "type": "string",
+      "pattern": "^ERR-DK-[A-Z]+(?:-[A-Z]+)*-\\d{3}$"
+    },
+    "schema_version": {
+      "type": "string"
+    },
+    "linked_rule_ids": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "pattern": "^DK-[A-Z]+(?:-[A-Z]+)*-\\d{3}$"
+      }
+    },
+    "observed_wrong_answer": {
+      "type": "string"
+    },
+    "expected_answer": {
+      "type": "string"
+    },
+    "diagnosis": {
+      "type": "string"
+    },
+    "remediation_hint": {
+      "type": "string"
+    },
+    "mastery_penalty_tags": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string" }
+    },
+    "status": {
+      "type": "string"
+    }
+  }
+}

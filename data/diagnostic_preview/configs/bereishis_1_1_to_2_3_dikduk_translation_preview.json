@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0",
+  "preview_id": "bereishis_1_1_to_2_3_dikduk_translation_preview",
+  "sefer": "Bereishis",
+  "start_ref": "Genesis 1:1",
+  "end_ref": "Genesis 2:3",
+  "source_hebrew_file": "data/source_texts/bereishis_hebrew_menukad_taamim.tsv",
+  "koren_translation_file": "data/source_texts/translations/sefaria/bereishis_english_koren.jsonl",
+  "metsudah_translation_file": "data/source_texts/translations/sefaria/bereishis_english_metsudah.jsonl",
+  "translation_registry_file": "data/source_texts/translations/translation_sources_registry.json",
+  "dikduk_rules_file": "data/dikduk_rules/rules_loshon_foundation.jsonl",
+  "question_templates_file": "data/dikduk_rules/question_templates.jsonl",
+  "error_patterns_file": "data/dikduk_rules/student_error_patterns.jsonl",
+  "output_files": {
+    "blueprints": "data/diagnostic_preview/blueprints/bereishis_1_1_to_2_3_dikduk_translation_blueprints.jsonl",
+    "questions": "data/diagnostic_preview/generated_questions/bereishis_1_1_to_2_3_preview_questions.jsonl",
+    "manual_review_packet": "data/diagnostic_preview/reports/bereishis_1_1_to_2_3_manual_review_packet.md",
+    "summary_markdown": "data/diagnostic_preview/reports/bereishis_1_1_to_2_3_preview_summary.md",
+    "summary_json": "data/diagnostic_preview/reports/bereishis_1_1_to_2_3_preview_summary.json"
+  },
+  "minimum_question_counts": {
+    "total_questions": 75,
+    "translation": 25,
+    "dikduk": 25,
+    "word_analysis": 10,
+    "error_diagnosis": 10,
+    "mixed_skill": 5
+  },
+  "status": "preview_only",
+  "runtime_status": "not_runtime_active",
+  "production_status": "not_production_ready"
+}
