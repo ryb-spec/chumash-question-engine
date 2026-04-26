@@ -1,0 +1,261 @@
+{
+  "generated_at": "2026-04-26T00:00:00Z",
+  "branch_scope": "feature/zekelman-source-upgrade-clean-pdfs",
+  "canonical_policy_note": "Existing repo seed files treat Zekelman Standards 2.5 (2025) plus the Appendix as canonical truth for current wording and level progression. The raw 2025 PDF was not present on this branch, so that source is recorded here as reference-backed canonical metadata rather than as a newly ingested file.",
+  "sources": [
+    {
+      "source_id": "zekelman_standards_2025_reference_only",
+      "title": "Zekelman Standards for Chumash",
+      "path": "REFERENCE_ONLY:data/standards/crosswalks/canonical_skill_crosswalk.seed.v1.json#meta.sources.zekelman_standards_2025",
+      "document_type": "complete standards",
+      "apparent_version": "2.5",
+      "apparent_year": "2025",
+      "page_count": null,
+      "canonical_status": "canonical",
+      "quality_status": "unknown",
+      "project_uses": [
+        "standards mapping",
+        "skill taxonomy",
+        "vocabulary progression",
+        "dikduk rules",
+        "Chumash conventions",
+        "source validation"
+      ],
+      "replaces_or_supersedes": [],
+      "related_sources": [
+        "canonical_skill_crosswalk_seed_v1_json",
+        "canonical_skill_crosswalk_seed_v1_csv",
+        "canonical_skill_crosswalk_seed_incoming_json"
+      ],
+      "extracted_text_path": null,
+      "warnings": [
+        "Raw 2025 / Version 2.5 PDF was not present in the repo on this branch.",
+        "Canonical status here is derived from existing repo metadata, not from newly ingested file bytes."
+      ],
+      "notes": "Use this as the canonical wording and level-progression authority when the actual raw standards PDF is available."
+    },
+    {
+      "source_id": "zekelman_intro_vocabulary_language_skills_2014_pdf",
+      "title": "Introduction to Vocabulary and Language Skills for the Zekelman Standards for Chumash",
+      "path": "docs/standards/zekelman/raw/2014_intro_vocabulary_language_skills_zekelman_chumash.pdf",
+      "document_type": "vocabulary/language guide",
+      "apparent_version": "2014 / תשע\"ד",
+      "apparent_year": "2014",
+      "page_count": 53,
+      "canonical_status": "preferred_supplemental",
+      "quality_status": "clean_pdf",
+      "project_uses": [
+        "skill taxonomy",
+        "vocabulary progression",
+        "dikduk rules",
+        "Chumash conventions",
+        "sample question modeling"
+      ],
+      "replaces_or_supersedes": [],
+      "related_sources": [
+        "zekelman_intro_vocabulary_language_skills_2014_extracted_text",
+        "zekelman_standards_2025_reference_only"
+      ],
+      "extracted_text_path": "docs/standards/zekelman/extracted/2014_intro_vocabulary_language_skills_zekelman_chumash_raw_text.md",
+      "warnings": [
+        "Extracted text should be treated as a convenience layer only.",
+        "Hebrew, nikud, taamim, tables, and bidirectional text require human review before production use."
+      ],
+      "notes": "Best current source in this branch for atomic language-skill explanations, student-friendly framing, and early dikduk scaffolding."
+    },
+    {
+      "source_id": "zekelman_sample_assessments_2016_pdf",
+      "title": "Sample Assessment Questions For Zekelman Standards for Chumash - Standard 1-2",
+      "path": "docs/standards/zekelman/raw/2016_sample_assessment_questions_standards_1_2_zekelman_chumash.pdf",
+      "document_type": "sample assessments",
+      "apparent_version": "Second Edition",
+      "apparent_year": "2016",
+      "page_count": 190,
+      "canonical_status": "preferred_supplemental",
+      "quality_status": "clean_pdf",
+      "project_uses": [
+        "sample question modeling",
+        "rubrics/assessment design",
+        "standards mapping",
+        "diagnostic engine design"
+      ],
+      "replaces_or_supersedes": [],
+      "related_sources": [
+        "zekelman_sample_assessments_2016_extracted_text",
+        "zekelman_standards_2025_reference_only"
+      ],
+      "extracted_text_path": "docs/standards/zekelman/extracted/2016_sample_assessment_questions_standards_1_2_zekelman_chumash_raw_text.md",
+      "warnings": [
+        "Early pages reference slightly different grade-range wording; human review should confirm intended scope before structured extraction.",
+        "Extracted text should not be treated as production-ready assessment truth without manual review."
+      ],
+      "notes": "Use for assessment architecture, rigor calibration, selected-response patterns, and extended-response modeling."
+    },
+    {
+      "source_id": "zekelman_appendix_free_resource_packet_2014_pdf",
+      "title": "Zekelman Standards for Chumash, 2014 - Appendix / Free Resource Packet",
+      "path": "docs/standards/zekelman/raw/2014_appendix_free_resource_packet_zekelman_chumash.pdf",
+      "document_type": "appendix",
+      "apparent_version": "Appendix 0",
+      "apparent_year": "2014",
+      "page_count": 65,
+      "canonical_status": "preferred_supplemental",
+      "quality_status": "clean_pdf",
+      "project_uses": [
+        "vocabulary progression",
+        "Chumash conventions",
+        "content appendix",
+        "skill taxonomy",
+        "source validation"
+      ],
+      "replaces_or_supersedes": [],
+      "related_sources": [
+        "zekelman_appendix_free_resource_packet_2014_extracted_text",
+        "canonical_skill_crosswalk_seed_v1_json",
+        "canonical_skill_crosswalk_seed_v1_csv",
+        "canonical_skill_crosswalk_seed_incoming_json",
+        "high_frequency_lexicon_seed_incoming_json",
+        "high_frequency_lexicon_seed_v1_json"
+      ],
+      "extracted_text_path": "docs/standards/zekelman/extracted/2014_appendix_free_resource_packet_zekelman_chumash_raw_text.md",
+      "warnings": [
+        "Tables, Hebrew terms-by-grade lists, and frequency studies should be manually checked before machine-structuring.",
+        "Extracted text should not be treated as exact truth where bidirectional or tabular layout matters."
+      ],
+      "notes": "Most immediately useful supplemental raw source for Hebrew terms by grade, Chumash conventions, and frequency-driven vocabulary policy."
+    },
+    {
+      "source_id": "canonical_skill_crosswalk_seed_v1_json",
+      "title": "Canonical Skill Crosswalk Seed v1 (JSON)",
+      "path": "data/standards/crosswalks/canonical_skill_crosswalk.seed.v1.json",
+      "document_type": "extracted text",
+      "apparent_version": "v1 seed",
+      "apparent_year": "unknown",
+      "page_count": null,
+      "canonical_status": "supplemental",
+      "quality_status": "unknown",
+      "project_uses": [
+        "standards mapping",
+        "skill taxonomy",
+        "source validation"
+      ],
+      "replaces_or_supersedes": [],
+      "related_sources": [
+        "zekelman_standards_2025_reference_only",
+        "zekelman_appendix_free_resource_packet_2014_pdf",
+        "canonical_skill_crosswalk_seed_v1_csv"
+      ],
+      "extracted_text_path": null,
+      "warnings": [
+        "Derived structured artifact, not a raw source document.",
+        "Contains mojibake in some Hebrew appendix references and should not replace the underlying PDF sources."
+      ],
+      "notes": "Useful as an internal mapping layer, but not a substitute for canonical standards wording."
+    },
+    {
+      "source_id": "canonical_skill_crosswalk_seed_v1_csv",
+      "title": "Canonical Skill Crosswalk Seed v1 (CSV)",
+      "path": "data/standards/crosswalks/canonical_skill_crosswalk.seed.v1.csv",
+      "document_type": "extracted text",
+      "apparent_version": "v1 seed",
+      "apparent_year": "unknown",
+      "page_count": null,
+      "canonical_status": "supplemental",
+      "quality_status": "unknown",
+      "project_uses": [
+        "standards mapping",
+        "skill taxonomy"
+      ],
+      "replaces_or_supersedes": [],
+      "related_sources": [
+        "zekelman_standards_2025_reference_only",
+        "zekelman_appendix_free_resource_packet_2014_pdf",
+        "canonical_skill_crosswalk_seed_v1_json"
+      ],
+      "extracted_text_path": null,
+      "warnings": [
+        "Derived export, not a raw standards source."
+      ],
+      "notes": "Convenience export paired with the JSON seed."
+    },
+    {
+      "source_id": "canonical_skill_crosswalk_seed_incoming_json",
+      "title": "Canonical Skill Crosswalk Seed (Incoming Foundations JSON)",
+      "path": "data/foundations/incoming/canonical_skill_crosswalk_seed.json",
+      "document_type": "extracted text",
+      "apparent_version": "seed",
+      "apparent_year": "unknown",
+      "page_count": null,
+      "canonical_status": "supplemental",
+      "quality_status": "unknown",
+      "project_uses": [
+        "standards mapping",
+        "skill taxonomy"
+      ],
+      "replaces_or_supersedes": [],
+      "related_sources": [
+        "zekelman_standards_2025_reference_only",
+        "zekelman_appendix_free_resource_packet_2014_pdf",
+        "canonical_skill_crosswalk_seed_v1_json"
+      ],
+      "extracted_text_path": null,
+      "warnings": [
+        "Derived incoming seed, not a raw source document."
+      ],
+      "notes": "Internal foundations staging artifact that already points back to the canonical/reference Zekelman sources."
+    },
+    {
+      "source_id": "high_frequency_lexicon_seed_incoming_json",
+      "title": "High Frequency Lexicon Seed (Incoming Foundations JSON)",
+      "path": "data/foundations/incoming/high_frequency_lexicon_seed.json",
+      "document_type": "extracted text",
+      "apparent_version": "seed",
+      "apparent_year": "unknown",
+      "page_count": null,
+      "canonical_status": "supplemental",
+      "quality_status": "unknown",
+      "project_uses": [
+        "vocabulary progression",
+        "skill taxonomy",
+        "source validation"
+      ],
+      "replaces_or_supersedes": [],
+      "related_sources": [
+        "zekelman_appendix_free_resource_packet_2014_pdf",
+        "high_frequency_lexicon_seed_v1_json"
+      ],
+      "extracted_text_path": null,
+      "warnings": [
+        "Derived structured artifact, not a raw appendix source.",
+        "Hebrew display text may reflect encoding issues and should be checked against the PDF."
+      ],
+      "notes": "Internal staging seed that already depends on the Appendix frequency study."
+    },
+    {
+      "source_id": "high_frequency_lexicon_seed_v1_json",
+      "title": "High Frequency Lexicon Seed v1 (JSON)",
+      "path": "data/lexicon/high_frequency/high_frequency_lexicon.seed.v1.json",
+      "document_type": "extracted text",
+      "apparent_version": "v1 seed",
+      "apparent_year": "unknown",
+      "page_count": null,
+      "canonical_status": "supplemental",
+      "quality_status": "unknown",
+      "project_uses": [
+        "vocabulary progression",
+        "source validation"
+      ],
+      "replaces_or_supersedes": [],
+      "related_sources": [
+        "zekelman_appendix_free_resource_packet_2014_pdf",
+        "high_frequency_lexicon_seed_incoming_json"
+      ],
+      "extracted_text_path": null,
+      "warnings": [
+        "Derived structured artifact, not a raw appendix source.",
+        "Hebrew display text may reflect encoding issues and should be checked against the PDF."
+      ],
+      "notes": "Stable downstream lexicon seed whose source policy explicitly cites the Appendix frequency study."
+    }
+  ]
+}
