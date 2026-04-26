@@ -376,6 +376,21 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
             run_mock.return_value = mock.Mock(stdout=fake_status)
             self.assertEqual(validator.collect_changed_paths(), [])
 
+    def test_incoming_source_paths_are_ignored_by_changed_path_collection(self):
+        fake_status = "\n".join(
+            [
+                "?? incoming_source/bereishis_hebrew_menukad_taamim.tsv",
+                "?? incoming_source/bereishis_hebrew_menukad_taamim_validation.md",
+                "?? data/source_texts/source_text_manifest.json",
+            ]
+        )
+        with mock.patch.object(validator.subprocess, "run") as run_mock:
+            run_mock.return_value = mock.Mock(stdout=fake_status)
+            self.assertEqual(
+                validator.collect_changed_paths(),
+                ["data/source_texts/source_text_manifest.json"],
+            )
+
     def test_unrelated_path_outside_allowlist_still_fails(self):
         fake_status = " M data/some_other_runtime_like_file.jsonl"
         with mock.patch.object(validator.subprocess, "run") as run_mock:
@@ -403,13 +418,28 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
 
     def test_curriculum_extraction_paths_still_pass_allowlist(self):
         allowed_paths = [
+            ".gitignore",
             "PLANS.md",
             "data/curriculum_extraction/reports/batch_002_merge_readiness.md",
             "data/curriculum_extraction/normalized/batch_002_linear_chumash_bereishis_1_6_to_2_3_pasuk_segments.jsonl",
+            "data/source/bereishis_4_1_to_4_16.json",
+            "data/dikduk_rules/README.md",
+            "data/dikduk_rules/dikduk_error_pattern.schema.json",
+            "data/dikduk_rules/dikduk_question_template.schema.json",
+            "data/dikduk_rules/dikduk_rule.schema.json",
+            "data/dikduk_rules/dikduk_rules_manifest.json",
+            "data/dikduk_rules/question_templates.jsonl",
+            "data/dikduk_rules/rule_groups.json",
+            "data/dikduk_rules/rules_loshon_foundation.jsonl",
+            "data/dikduk_rules/student_error_patterns.jsonl",
             "data/source_texts/bereishis_hebrew_menukad_taamim.tsv",
             "data/source_texts/reports/bereishis_hebrew_menukad_taamim_validation.md",
+            "data/source_texts/reports/source_text_gap_report.md",
+            "data/source_texts/reports/source_text_inventory.md",
             "data/source_texts/reports/bereishis_hebrew_source_reconciliation_report.md",
             "data/source_texts/reports/bereishis_hebrew_source_reconciliation_report.json",
+            "data/source_texts/README.md",
+            "data/source_texts/source_text_manifest.json",
             "data/source_texts/translations/translation_sources_registry.json",
             "data/source_texts/translations/sefaria/README.md",
             "data/source_texts/translations/sefaria/sefaria_genesis_versions_raw.json",
@@ -431,20 +461,29 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
             "data/diagnostic_preview/reports/bereishis_1_1_to_2_3_manual_review_packet.md",
             "data/diagnostic_preview/reports/bereishis_1_1_to_2_3_preview_summary.md",
             "data/diagnostic_preview/reports/bereishis_1_1_to_2_3_preview_summary.json",
+            "dikduk_rules_loader.py",
             "translation_sources_loader.py",
             "scripts/fetch_sefaria_bereishis_translations.py",
             "scripts/generate_diagnostic_preview.py",
             "scripts/validate_bereishis_translations.py",
             "scripts/validate_curriculum_extraction.py",
             "scripts/validate_diagnostic_preview.py",
+            "scripts/validate_dikduk_rules.py",
             "tests/conftest.py",
             "tests/test_curriculum_extraction_validation.py",
             "tests/test_bereishis_translation_sources.py",
             "tests/test_diagnostic_preview_generation.py",
             "tests/test_diagnostic_preview_validation.py",
+            "tests/test_dikduk_rule_loader.py",
+            "tests/test_dikduk_rules_validation.py",
             "tests/test_translation_sources_loader.py",
-            "data/source/bereishis_4_1_to_4_16.json",
             "tests/test_source_corpus_block_4_1_to_4_16.py",
+            "docs/curriculum_pipeline/source_text_foundation_plan.md",
+            "docs/curriculum_pipeline/source_text_handoff.md",
+            "docs/curriculum_pipeline/source_text_validation_strategy.md",
+            "docs/codex_prompts/batch_006_source_ready_prompt_seed.md",
+            "scripts/validate_source_texts.py",
+            "tests/test_source_texts_validation.py",
         ]
         for path in allowed_paths:
             with self.subTest(path=path):
@@ -452,8 +491,16 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
 
     def test_unrelated_source_prep_like_paths_still_fail_allowlist(self):
         disallowed_paths = [
+            ".gitattributes",
             "data/source/bereishis_4_17_to_4_26.json",
             "tests/test_source_corpus_block_4_17_to_4_26.py",
+            "data/source_texts/shemos_hebrew_menukad_taamim.tsv",
+            "data/source_texts/reports/shemos_hebrew_menukad_taamim_validation.md",
+            "data/source_texts/reports/source_text_future_notes.md",
+            "data/source_texts/source_text_manifest_backup.json",
+            "docs/curriculum_pipeline/source_text_runtime_promotion.md",
+            "docs/codex_prompts/batch_007_source_ready_prompt_seed.md",
+            "tests/test_source_texts_validation_shemos.py",
             "data/source_texts/translations/sefaria/runtime_export.json",
             "data/source_texts/translations/other/bereishis_english_other.jsonl",
             "data/source_texts/translations/translation_sources_registry_backup.json",

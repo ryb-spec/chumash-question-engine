@@ -1,0 +1,26 @@
+{
+  "schema_version": "0.1",
+  "generated_at": "2026-04-24T19:25:02.3934599-05:00",
+  "files": [
+    {
+      "sefer": "Bereishis",
+      "file_path": "data/source_texts/bereishis_hebrew_menukad_taamim.tsv",
+      "status": "complete",
+      "expected_scope": "Bereishis 1:1-50:26",
+      "actual_scope": "Bereishis 1:1-50:26",
+      "row_count": 1534,
+      "first_ref": "Bereishis 1:1",
+      "last_ref": "Bereishis 50:26",
+      "validation_status": "valid_complete",
+      "source_label": "Sefaria",
+      "source_notes": [
+        "Generated from Sefaria public export; Hebrew version: Miqra according to the Masorah; includes nekudos and taamim; no English translation included.",
+        "Repo copy should stay byte-aligned with the approved incoming local TSV when available."
+      ],
+      "safe_for_extraction_planning": true,
+      "safe_for_runtime": false,
+      "blockers": [],
+      "next_action": "Use this file for future non-runtime extraction planning and handle curriculum-validator allowlist compatibility in a separate follow-up branch if needed."
+    }
+  ]
+}

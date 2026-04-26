@@ -20,7 +20,7 @@
 - Chapter 35 pasuk rows: `29`
 - First ref: `Bereishis 1:1`
 - Last ref: `Bereishis 50:26`
-- SHA-256: `4d96c615ab63e0419bff079db250d71ea9b5de266ff9ab8d589ae80e4afd0b71`
+- SHA-256: `0dedb854e1e8b59fa5dc08f93be5baffe4c1faaa09d00c148c8ef3113b065913`
 - Empty Hebrew cells: `0`
 - Hebrew cells with embedded tab characters: `0`
 - Rows missing final sof pasuk `׃`: `0`

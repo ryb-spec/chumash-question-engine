@@ -255,13 +255,31 @@ ALLOWED_CHANGE_PREFIXES = (
 )
 
 ALLOWED_CHANGE_EXACT = {
+    ".gitignore",
     "PLANS.md",
     "docs/curriculum_extraction_factory.md",
     "docs/curriculum_extraction_integration_plan.md",
+    "docs/codex_prompts/batch_006_source_ready_prompt_seed.md",
+    "docs/curriculum_pipeline/source_text_foundation_plan.md",
+    "docs/curriculum_pipeline/source_text_handoff.md",
+    "docs/curriculum_pipeline/source_text_validation_strategy.md",
     "local_curriculum_sources/source_key_excerpt_batch_001.md",
     "data/source/bereishis_4_1_to_4_16.json",
+    "data/dikduk_rules/README.md",
+    "data/dikduk_rules/dikduk_error_pattern.schema.json",
+    "data/dikduk_rules/dikduk_question_template.schema.json",
+    "data/dikduk_rules/dikduk_rule.schema.json",
+    "data/dikduk_rules/dikduk_rules_manifest.json",
+    "data/dikduk_rules/question_templates.jsonl",
+    "data/dikduk_rules/rule_groups.json",
+    "data/dikduk_rules/rules_loshon_foundation.jsonl",
+    "data/dikduk_rules/student_error_patterns.jsonl",
     "data/source_texts/bereishis_hebrew_menukad_taamim.tsv",
     "data/source_texts/reports/bereishis_hebrew_menukad_taamim_validation.md",
+    "data/source_texts/reports/source_text_gap_report.md",
+    "data/source_texts/reports/source_text_inventory.md",
+    "data/source_texts/README.md",
+    "data/source_texts/source_text_manifest.json",
     "data/source_texts/reports/bereishis_hebrew_source_reconciliation_report.md",
     "data/source_texts/reports/bereishis_hebrew_source_reconciliation_report.json",
     "data/source_texts/translations/translation_sources_registry.json",
@@ -278,6 +296,7 @@ ALLOWED_CHANGE_EXACT = {
     "data/source_texts/translations/sefaria/bereishis_english_translation_human_review_packet.md",
     "data/source_texts/translations/sefaria/raw_samples/koren_sample.json",
     "data/source_texts/translations/sefaria/raw_samples/metsudah_sample.json",
+    "dikduk_rules_loader.py",
     "translation_sources_loader.py",
     "scripts/generate_curriculum_question_preview.py",
     "scripts/fetch_sefaria_bereishis_translations.py",
@@ -285,17 +304,22 @@ ALLOWED_CHANGE_EXACT = {
     "scripts/validate_bereishis_translations.py",
     "scripts/validate_curriculum_extraction.py",
     "scripts/validate_diagnostic_preview.py",
+    "scripts/validate_dikduk_rules.py",
     "scripts/load_curriculum_extraction.py",
+    "scripts/validate_source_texts.py",
     "tests/test_bereishis_translation_sources.py",
     "tests/conftest.py",
     "tests/test_diagnostic_preview_generation.py",
     "tests/test_diagnostic_preview_validation.py",
+    "tests/test_dikduk_rule_loader.py",
+    "tests/test_dikduk_rules_validation.py",
     "tests/test_translation_sources_loader.py",
     "tests/test_curriculum_question_preview.py",
     "tests/test_curriculum_extraction_schemas.py",
     "tests/test_curriculum_extraction_validation.py",
     "tests/test_curriculum_extraction_loader.py",
     "tests/test_source_corpus_block_4_1_to_4_16.py",
+    "tests/test_source_texts_validation.py",
     "README_CHROMEBOOK.md",
 }
 
@@ -317,6 +341,10 @@ IGNORED_GENERATED_CHANGE_EXACT = {
     "data/attempt_log.jsonl",
     "data/pilot/pilot_session_events.jsonl",
 }
+
+IGNORED_CHANGE_PREFIXES = (
+    "incoming_source/",
+)
 
 
 def repo_relative(path: Path) -> str:
@@ -845,7 +873,11 @@ def collect_changed_paths() -> list[str]:
         if " -> " in path:
             path = path.split(" -> ", 1)[1]
         path = path.strip().strip('"').replace("\\", "/")
-        if path and path not in IGNORED_GENERATED_CHANGE_EXACT:
+        if (
+            path
+            and path not in IGNORED_GENERATED_CHANGE_EXACT
+            and not any(path.startswith(prefix) for prefix in IGNORED_CHANGE_PREFIXES)
+        ):
             paths.append(path)
     return paths
 
