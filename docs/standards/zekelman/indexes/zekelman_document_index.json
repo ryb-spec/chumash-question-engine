@@ -1,0 +1,50 @@
+[
+  {
+    "source_id": "zekelman_intro_vocabulary_language_skills_2014",
+    "pdf_path": "docs/standards/zekelman/raw/2014_intro_vocabulary_language_skills_zekelman_chumash.pdf",
+    "extracted_text_path": "docs/standards/zekelman/extracted/2014_intro_vocabulary_language_skills_zekelman_chumash_raw_text.md",
+    "title": "Introduction to Vocabulary and Language Skills for the Zekelman Standards for Chumash",
+    "page_count": 53,
+    "pages_with_extracted_text": 52,
+    "file_size_bytes": 1680745,
+    "sha256": "8d448aa9ce7093aaa3d6008bac5ae865a2af70dec1c5cfa8d81f2c4712eea787",
+    "extraction_method": "pypdf.PdfReader.extract_text",
+    "generated_at_utc": "2026-04-26T15:35:18+00:00"
+  },
+  {
+    "source_id": "zekelman_sample_assessments_2016",
+    "pdf_path": "docs/standards/zekelman/raw/2016_sample_assessment_questions_standards_1_2_zekelman_chumash.pdf",
+    "extracted_text_path": "docs/standards/zekelman/extracted/2016_sample_assessment_questions_standards_1_2_zekelman_chumash_raw_text.md",
+    "title": "Sample Assessment Questions for Zekelman Standards for Chumash Standard 1-2",
+    "page_count": 190,
+    "pages_with_extracted_text": 190,
+    "file_size_bytes": 5754676,
+    "sha256": "fd60935c2866dac81b7478ec48a675e6ba87f78c9fa8faec85eb4abdceb8916a",
+    "extraction_method": "pypdf.PdfReader.extract_text",
+    "generated_at_utc": "2026-04-26T15:35:18+00:00"
+  },
+  {
+    "source_id": "zekelman_appendix_free_resource_packet_2014",
+    "pdf_path": "docs/standards/zekelman/raw/2014_appendix_free_resource_packet_zekelman_chumash.pdf",
+    "extracted_text_path": "docs/standards/zekelman/extracted/2014_appendix_free_resource_packet_zekelman_chumash_raw_text.md",
+    "title": "Appendix to Zekelman Standards for Chumash / Free Resource Packet",
+    "page_count": 65,
+    "pages_with_extracted_text": 65,
+    "file_size_bytes": 3936558,
+    "sha256": "19640f57362a92085c3ff8823558772abed423e0b9e906e411cb9c3bb064cf0c",
+    "extraction_method": "pypdf.PdfReader.extract_text",
+    "generated_at_utc": "2026-04-26T15:35:18+00:00"
+  },
+  {
+    "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+    "pdf_path": "docs/standards/zekelman/raw/2025_zekelman_chumash_standards_v2_5_complete_levels_1_8.pdf",
+    "extracted_text_path": "docs/standards/zekelman/extracted/2025_zekelman_chumash_standards_v2_5_complete_levels_1_8_raw_text.md",
+    "title": "Zekelman Standards for Chumash",
+    "page_count": 67,
+    "pages_with_extracted_text": 67,
+    "file_size_bytes": 1220741,
+    "sha256": "e6abb9fdfe62aabf2c9487a6cf3b441f239c3cd6dd43ed4bd1f0416b47a4f86e",
+    "extraction_method": "pypdf.PdfReader.extract_text",
+    "generated_at_utc": "2026-04-26T16:37:54+00:00"
+  }
+]

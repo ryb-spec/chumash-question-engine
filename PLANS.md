@@ -79,3 +79,13 @@
 - [completed] Build a smaller review-first `Bereishis 1:1-2:3` diagnostic preview subset that reuses the strongest existing preview items while collapsing duplicate prompt pairs and excluding fragile patterns
 - [completed] Extend the existing diagnostic preview generator and validator so they also produce and validate the new reviewable preview JSONL, review packet, and summary artifacts
 - [completed] Update focused diagnostic preview tests, rerun required validation commands plus full pytest, and confirm the branch stays non-runtime and review-only
+- [completed] Audit existing Zekelman-family references, repo structure, and any overlapping source files without touching local-only artifacts
+- [completed] Add the three new clean Zekelman PDFs into a stable standards source folder and compare them against any older or referenced materials
+- [completed] Extract page-delimited raw text where practical, preserving OCR warnings and page boundaries
+- [completed] Build/update Zekelman source inventory, source map, extraction plan, and upgrade report with conservative provenance notes
+- [completed] Run lightweight validation and summarize the clean source-ingestion result, noting the pre-existing unrelated SHA expectation failure in tests/test_source_texts_validation.py
+
+- [completed] Verify the 2025 canonical Zekelman PDF exists at the expected repo path and confirm the prior Zekelman source-management layer is present
+- [completed] Add the 2025 canonical extraction companion and update the document index with checksum/page-count metadata
+- [completed] Update Zekelman source inventory, source map, extraction plan, and create the canonical-ingestion report so 2025 V2.5 is the actual canonical raw source
+- [completed] Run lightweight validation and summarize the canonical-source ingestion result without touching runtime or student-facing files
