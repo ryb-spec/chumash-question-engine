@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0",
+  "source_file": "data/source_texts/bereishis_hebrew_menukad_taamim.tsv",
+  "suspicious_ref": "Bereishis 35:30",
+  "status": "reconciled",
+  "original_total_row_count": 1534,
+  "corrected_total_row_count": 1533,
+  "original_genesis_35_row_count": 30,
+  "corrected_genesis_35_row_count": 29,
+  "original_last_genesis_35_ref": "Bereishis 35:30",
+  "corrected_last_genesis_35_ref": "Bereishis 35:29",
+  "suspicious_row": {
+    "sefer": "Bereishis",
+    "perek": 35,
+    "pasuk": 30,
+    "ref": "Bereishis 35:30",
+    "hebrew_text": "וַיִּגְוַ֨ע יִצְחָ֤ק וַיָּ֙מׇת֙ וַיֵּאָ֣סֶף אֶל־עַמָּ֔יו זָקֵ֖ן וּשְׂבַ֣ע יָמִ֑ים וַיִּקְבְּר֣וּ אֹת֔וֹ עֵשָׂ֥ו וְיַעֲקֹ֖ב בָּנָֽיו׃",
+    "source": "Sefaria",
+    "source_url": "https://www.sefaria.org/Genesis.35.30?lang=he&aliyot=0"
+  },
+  "confirmation_source": {
+    "type": "Sefaria API",
+    "version_title": "Miqra according to the Masorah",
+    "chapter_35_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.35?version=hebrew%7CMiqra+according+to+the+Masorah&return_format=text_only&fill_in_missing_segments=0",
+    "chapter_35_returned_verse_count": 29,
+    "chapter_36_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.36?version=hebrew%7CMiqra+according+to+the+Masorah&return_format=text_only&fill_in_missing_segments=0",
+    "chapter_36_returned_verse_count": 43
+  },
+  "decision": {
+    "action": "remove_invalid_extra_row",
+    "reason": "The local Bereishis 35:30 row duplicated the verse Sefaria returns as Genesis 35:29 and created an artificial alignment mismatch for both Koren and Metsudah."
+  },
+  "canonical_tsv_changed": true,
+  "translation_files_need_regeneration": true
+}

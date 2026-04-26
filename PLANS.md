@@ -59,3 +59,10 @@
 - [completed] Promote only `Bereishis 3:17-3:24` if the evidence still supports it, then refresh root active artifacts and active-scope sidecars
 - [completed] Run reviewed-bank validation, staged-support validation, focused tests, broader promotion/runtime slices, and full pytest
 - [completed] If the slice is truly live, generate fresh isolated pilot plus release-check evidence on the newly promoted live scope
+
+- [completed] Inspect the canonical Hebrew TSV plus live Sefaria version/text metadata for a safe Bereishis English translation source pipeline
+- [completed] Build the Sefaria translation fetch pipeline, reports, manifest, and README without any runtime promotion
+- [completed] Add a translation validator and focused tests that enforce license/provenance and ref alignment honesty
+- [completed] Run fetch, validation, targeted tests, full pytest, and summarize the exact Koren/Metsudah outcome
+- [completed] Reconcile the canonical Hebrew `Bereishis 35:30` discrepancy, regenerate the translation package, and add license-review / registry / loader artifacts
+- [completed] Isolate pytest runtime log writes to temporary files so the source-only branch stays free of accidental `data/attempt_log.jsonl` and pilot-log diffs

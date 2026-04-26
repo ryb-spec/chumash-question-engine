@@ -1,12 +1,38 @@
 # Bereishis Hebrew Menukad + Taamim TSV Validation
 
-- TSV file: `bereishis_hebrew_menukad_taamim.tsv`
-- Rows excluding header: `1534`
+- Status: `ready`
+- Key finding: the canonical Bereishis Hebrew TSV now has `1533` rows and chapter 35 correctly ends at `Bereishis 35:29`
+- Top blocker: none at the source-structure level after the chapter-35 reconciliation
+- Recommended next action: use this corrected TSV as the canonical ref backbone for non-runtime English translation alignment and future extraction planning
+
+## File checked
+
+- Path: `data/source_texts/bereishis_hebrew_menukad_taamim.tsv`
+- Exists: `true`
+- Encoding: `UTF-8`
+- Delimiter: `tab-separated`
+- Coverage: `Bereishis 1:1` through `Bereishis 50:26`
+
+## Summary
+
+- Rows excluding header: `1533`
 - Chapters: `50`
-- SHA-256: `a5fc8a32ff7d01c6c557e361d0c09a5a8d2267140dc4ba2e11a821bac4985f8d`
+- Chapter 35 pasuk rows: `29`
+- First ref: `Bereishis 1:1`
+- Last ref: `Bereishis 50:26`
+- SHA-256: `4d96c615ab63e0419bff079db250d71ea9b5de266ff9ab8d589ae80e4afd0b71`
 - Empty Hebrew cells: `0`
 - Hebrew cells with embedded tab characters: `0`
 - Rows missing final sof pasuk `׃`: `0`
+- Duplicate refs: `0`
+- Contains `Bereishis 35:30`: `false`
+
+## Source attribution
+
+- Source label: `Sefaria`
+- Hebrew version note: `Miqra according to the Masorah`
+- Content scope: Hebrew-only source text with nekudos and taamim
+- English translation included: `false`
 
 ## Chapter counts
 
@@ -46,7 +72,7 @@
 | 32 | 33 |
 | 33 | 20 |
 | 34 | 31 |
-| 35 | 30 |
+| 35 | 29 |
 | 36 | 43 |
 | 37 | 36 |
 | 38 | 30 |
@@ -63,19 +89,25 @@
 | 49 | 33 |
 | 50 | 26 |
 
-## Spot checks
+## Reconciliation note
 
-### Bereishis 1:1
-בְּרֵאשִׁ֖ית בָּרָ֣א אֱלֹהִ֑ים אֵ֥ת הַשָּׁמַ֖יִם וְאֵ֥ת הָאָֽרֶץ׃
+- Prior branch state incorrectly included an extra row labeled `Bereishis 35:30`.
+- The removed row duplicated the burial verse of Yitzchak that Sefaria serves as `Bereishis 35:29`.
+- See `data/source_texts/reports/bereishis_hebrew_source_reconciliation_report.md` for the decision trail and preserved removed-row content.
 
-### Bereishis 4:1
-וְהָ֣אָדָ֔ם יָדַ֖ע אֶת־חַוָּ֣ה אִשְׁתּ֑וֹ וַתַּ֙הַר֙ וַתֵּ֣לֶד אֶת־קַ֔יִן וַתֹּ֕אמֶר קָנִ֥יתִי אִ֖ישׁ אֶת־יְהֹוָֽה׃
+## Validation checklist summary
 
-### Bereishis 31:54
-וַיִּזְבַּ֨ח יַעֲקֹ֥ב זֶ֙בַח֙ בָּהָ֔ר וַיִּקְרָ֥א לְאֶחָ֖יו לֶאֱכׇל־לָ֑חֶם וַיֹּ֣אכְלוּ לֶ֔חֶם וַיָּלִ֖ינוּ בָּהָֽר׃
+- Required columns present: `true`
+- One pasuk per row: `true`
+- Stable ref pattern: `true`
+- Positive integer `perek` and `pasuk`: `true`
+- No duplicate refs: `true`
+- No unexpected extra ref after chapter 35: `true`
+- Hebrew-only file: `true`
+- No OCR used in this branch: `true`
+- English translations belong in separate source files: `true`
 
-### Bereishis 32:33
-עַל־כֵּ֡ן לֹֽא־יֹאכְל֨וּ בְנֵֽי־יִשְׂרָאֵ֜ל אֶת־גִּ֣יד הַנָּשֶׁ֗ה אֲשֶׁר֙ עַל־כַּ֣ף הַיָּרֵ֔ךְ עַ֖ד הַיּ֣וֹם הַזֶּ֑ה כִּ֤י נָגַע֙ בְּכַף־יֶ֣רֶךְ יַעֲקֹ֔ב בְּגִ֖יד הַנָּשֶֽׁה׃
+## Ready judgment
 
-### Bereishis 50:26
-וַיָּ֣מׇת יוֹסֵ֔ף בֶּן־מֵאָ֥ה וָעֶ֖שֶׂר שָׁנִ֑ים וַיַּחַנְט֣וּ אֹת֔וֹ וַיִּ֥ישֶׂם בָּאָר֖וֹן בְּמִצְרָֽיִם׃
+- Judgment: `ready`
+- Next branch recommendation: `feature/source-bereishis-english-translations-sefaria`
