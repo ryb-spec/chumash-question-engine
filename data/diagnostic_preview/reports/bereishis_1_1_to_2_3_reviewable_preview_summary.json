@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0",
+  "preview_id": "bereishis_1_1_to_2_3_reviewable_preview",
+  "range": {
+    "sefer": "Bereishis",
+    "start_ref": "Genesis 1:1",
+    "end_ref": "Genesis 2:3",
+    "refs_with_questions": [
+      "Genesis 1:1",
+      "Genesis 1:2",
+      "Genesis 1:3",
+      "Genesis 1:4",
+      "Genesis 1:5",
+      "Genesis 1:6",
+      "Genesis 1:9",
+      "Genesis 1:10",
+      "Genesis 1:12",
+      "Genesis 1:14",
+      "Genesis 1:15",
+      "Genesis 1:22",
+      "Genesis 2:2"
+    ],
+    "pesukim_with_questions": 13
+  },
+  "total_questions": 33,
+  "skill_counts": {
+    "number": 4,
+    "pasuk_comprehension": 1,
+    "phrase_meaning": 2,
+    "prefix": 6,
+    "shoresh": 5,
+    "translation": 14,
+    "verb": 1
+  },
+  "difficulty_counts": {
+    "easy": 14,
+    "medium": 16,
+    "hard": 3
+  },
+  "likely_review_status_counts": {
+    "likely_approve": 27,
+    "caution": 6,
+    "likely_rewrite": 0
+  },
+  "review_flag_counts": {
+    "depends_on_unintroduced_knowledge": 3,
+    "good_student_candidate": 27,
+    "possible_multiple_correct_answers": 3,
+    "too_easy": 5,
+    "too_hard": 1,
+    "translation_sensitive": 3
+  },
+  "translation_alignment_counts": {
+    "koren_and_metsudah_align": 30,
+    "minor_translation_difference": 2,
+    "significant_translation_difference": 1,
+    "translation_review_required": 0
+  },
+  "low_risk_student_candidate_count": 27,
+  "medium_risk_count": 4,
+  "high_risk_count": 2,
+  "top_review_risks": [
+    "Translation-sensitive English wording around המים, היבשה, and רקיע.",
+    "A few grammar questions still assume lesson context, especially subject-verb agreement and abstract word-order awareness.",
+    "Some beginner items may be too easy and should stay warm-up only if they remain in the packet."
+  ],
+  "strongest_question_patterns": [
+    "Direct word meaning questions with one clearly supported answer.",
+    "Definite-article and conjunction recognition with exact Hebrew support.",
+    "Simple shoresh-identification questions on common creation verbs.",
+    "Plural-recognition questions where the surface ending is easy for a teacher to verify."
+  ],
+  "weakest_question_patterns": [
+    "Translation-sensitive words with legitimate English variation.",
+    "Questions that require more lesson context than a standalone preview should assume."
+  ],
+  "recommended_next_step": "Teacher-review the high-priority caution items first, then lock the likely_approve subset into a non-runtime candidate packet.",
+  "final_recommendation": "Reviewable preview ready for teacher review",
+  "status": "preview_only",
+  "runtime_status": "not_runtime_active",
+  "production_status": "not_production_ready",
+  "translation_usage_status": "source_preview_only_license_review_required",
+  "generated_at": "2026-04-26T14:36:08.666867+00:00"
+}

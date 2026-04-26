@@ -48,8 +48,13 @@ class DiagnosticPreviewValidationTests(unittest.TestCase):
         cls.questions = load_jsonl(ROOT / outputs["questions"])
         cls.summary = load_json(ROOT / outputs["summary_json"])
         cls.review_packet = (ROOT / outputs["manual_review_packet"]).read_text(encoding="utf-8")
+        cls.reviewable_paths = generator.reviewable_preview_paths()
+        cls.reviewable_questions = load_jsonl(cls.reviewable_paths["questions"])
+        cls.reviewable_summary = load_json(cls.reviewable_paths["summary_json"])
+        cls.reviewable_packet = cls.reviewable_paths["manual_review_packet"].read_text(encoding="utf-8")
         cls.hebrew_refs = load_hebrew_refs(HEBREW_SOURCE_PATH)
         cls.rule_index = dikduk_rules_loader.dikduk_rule_index()
+        cls.error_index = dikduk_rules_loader.dikduk_error_index()
         cls.koren_refs = {row["ref"] for row in translation_sources_loader.load_bereishis_translation("koren")}
         cls.metsudah_refs = {row["ref"] for row in translation_sources_loader.load_bereishis_translation("metsudah")}
 
@@ -90,11 +95,12 @@ class DiagnosticPreviewValidationTests(unittest.TestCase):
             self.assertEqual(blueprint["translation_usage_status"], generator.TRANSLATION_USAGE_STATUS)
         for question in self.questions:
             self.assertEqual(question["translation_usage_status"], generator.TRANSLATION_USAGE_STATUS)
-            self.assertEqual(
-                question["source_evidence"]["translation_usage_status"],
-                generator.TRANSLATION_USAGE_STATUS,
-            )
+        self.assertEqual(
+            question["source_evidence"]["translation_usage_status"],
+            generator.TRANSLATION_USAGE_STATUS,
+        )
         self.assertIn(generator.TRANSLATION_USAGE_STATUS, self.review_packet)
+        self.assertIn(generator.TRANSLATION_USAGE_STATUS, self.reviewable_packet)
 
     def test_required_counts_are_met(self):
         self.assertEqual(self.summary["range_covered"]["pesukim_covered"], 34)
@@ -115,6 +121,38 @@ class DiagnosticPreviewValidationTests(unittest.TestCase):
         self.assertTrue(self.review_packet.strip())
         self.assertTrue(self.summary["warnings"])
         self.assertTrue(self.summary["ready_for_human_review"])
+
+    def test_reviewable_preview_validator_block_is_present(self):
+        self.assertIn("reviewable_preview", self.validation)
+        self.assertEqual(self.validation["reviewable_preview"]["total_questions"], len(self.reviewable_questions))
+
+    def test_reviewable_questions_align_to_sources_and_review_schema(self):
+        for record in self.reviewable_questions:
+            self.assertIn(record["ref"], self.hebrew_refs)
+            self.assertIn(record["ref"], self.koren_refs)
+            self.assertIn(record["ref"], self.metsudah_refs)
+            self.assertIn(record["difficulty_level"], generator.REVIEWABLE_DIFFICULTY_VALUES)
+            self.assertIn(record["skill_category"], generator.REVIEWABLE_SKILL_CATEGORIES)
+            self.assertIn(record["translation_alignment_status"], generator.REVIEWABLE_TRANSLATION_ALIGNMENT_VALUES)
+            self.assertIn(record["review_priority"], generator.REVIEWABLE_REVIEW_PRIORITY_VALUES)
+            self.assertIn(record["likely_review_status"], generator.REVIEWABLE_REVIEW_STATUS_VALUES)
+            self.assertIn(record["student_readiness_risk"], generator.REVIEWABLE_STUDENT_RISK_VALUES)
+            self.assertEqual(record["runtime_status"], generator.REVIEWABLE_RUNTIME_STATUS)
+            self.assertEqual(record["production_status"], generator.REVIEWABLE_PRODUCTION_STATUS)
+            self.assertEqual(record["translation_usage_status"], generator.TRANSLATION_USAGE_STATUS)
+            for flag in record["review_flags"]:
+                self.assertIn(flag, generator.REVIEWABLE_REVIEW_FLAGS)
+            if record["dikduk_rule_id"]:
+                self.assertIn(record["dikduk_rule_id"], self.rule_index)
+            if record["student_error_pattern_id"]:
+                self.assertIn(record["student_error_pattern_id"], self.error_index)
+
+    def test_reviewable_summary_counts_match_jsonl(self):
+        self.assertEqual(self.reviewable_summary["total_questions"], len(self.reviewable_questions))
+        self.assertEqual(self.reviewable_summary["final_recommendation"], generator.REVIEWABLE_PREVIEW_FINAL_RECOMMENDATION)
+        self.assertGreaterEqual(len(self.reviewable_questions), 30)
+        self.assertLessEqual(len(self.reviewable_questions), 45)
+        self.assertEqual(self.reviewable_summary["likely_review_status_counts"]["likely_rewrite"], 0)
 
 
 if __name__ == "__main__":

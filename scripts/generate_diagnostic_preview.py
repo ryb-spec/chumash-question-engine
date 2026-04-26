@@ -28,6 +28,144 @@ PRODUCTION_STATUS = "not_production_ready"
 FORBIDDEN_STATUSES = {"active", "runtime_active", "production", "production_ready", "approved", "reviewed"}
 DEFAULT_TRANSLATION_SOURCES = ["Koren", "Metsudah"]
 
+REVIEWABLE_PREVIEW_QUESTIONS_RELATIVE = (
+    "data/diagnostic_preview/generated_questions/bereishis_1_1_to_2_3_reviewable_preview_questions.jsonl"
+)
+REVIEWABLE_PREVIEW_PACKET_RELATIVE = (
+    "data/diagnostic_preview/reports/bereishis_1_1_to_2_3_reviewable_manual_review_packet.md"
+)
+REVIEWABLE_PREVIEW_SUMMARY_RELATIVE = (
+    "data/diagnostic_preview/reports/bereishis_1_1_to_2_3_reviewable_preview_summary.json"
+)
+REVIEWABLE_PREVIEW_FINAL_RECOMMENDATION = "Reviewable preview ready for teacher review"
+REVIEWABLE_RUNTIME_STATUS = "not_runtime_active"
+REVIEWABLE_PRODUCTION_STATUS = "not_production_ready"
+REVIEWABLE_DIFFICULTY_VALUES = {"easy", "medium", "hard"}
+REVIEWABLE_SKILL_CATEGORIES = {
+    "translation",
+    "dikduk",
+    "shoresh",
+    "prefix",
+    "suffix",
+    "noun",
+    "verb",
+    "gender",
+    "number",
+    "phrase_meaning",
+    "pasuk_comprehension",
+}
+REVIEWABLE_TRANSLATION_ALIGNMENT_VALUES = {
+    "koren_and_metsudah_align",
+    "minor_translation_difference",
+    "significant_translation_difference",
+    "translation_review_required",
+}
+REVIEWABLE_REVIEW_PRIORITY_VALUES = {"high", "medium", "low"}
+REVIEWABLE_REVIEW_STATUS_VALUES = {"likely_approve", "caution", "likely_rewrite"}
+REVIEWABLE_STUDENT_RISK_VALUES = {"low", "medium", "high"}
+REVIEWABLE_REVIEW_FLAGS = {
+    "duplicate_or_too_similar",
+    "translation_sensitive",
+    "awkward_wording",
+    "too_easy",
+    "too_hard",
+    "unclear_question",
+    "weak_distractors",
+    "misleading_distractors",
+    "source_support_unclear",
+    "dikduk_support_unclear",
+    "teacher_facing_not_student_facing",
+    "depends_on_unintroduced_knowledge",
+    "possible_multiple_correct_answers",
+    "good_student_candidate",
+}
+
+REVIEWABLE_SELECTED_QUESTION_IDS = [
+    "DQ-BER-001-001-001",
+    "DQ-BER-001-001-003",
+    "DQ-BER-001-001-005",
+    "DQ-BER-001-002-001",
+    "DQ-BER-001-003-001",
+    "DQ-BER-001-004-001",
+    "DQ-BER-001-005-001",
+    "DQ-BER-001-006-001",
+    "DQ-BER-001-009-001",
+    "DQ-BER-001-010-001",
+    "DQ-BER-001-014-001",
+    "DQ-BER-002-002-001",
+    "DQ-BER-001-022-001",
+    "DQ-BER-001-022-003",
+    "DQ-BER-001-001-007",
+    "DQ-BER-001-001-009",
+    "DQ-BER-001-002-003",
+    "DQ-BER-001-002-004",
+    "DQ-BER-001-001-011",
+    "DQ-BER-001-001-012",
+    "DQ-BER-001-001-013",
+    "DQ-BER-001-005-003",
+    "DQ-BER-001-010-003",
+    "DQ-BER-001-010-004",
+    "DQ-BER-001-014-003",
+    "DQ-BER-001-014-004",
+    "DQ-BER-001-003-003",
+    "DQ-BER-001-012-001",
+    "DQ-BER-001-003-005",
+    "DQ-BER-001-004-005",
+    "DQ-BER-001-005-005",
+    "DQ-BER-001-004-007",
+    "DQ-BER-001-015-001",
+]
+
+REVIEWABLE_CAUTION_IDS = {
+    "DQ-BER-001-002-001",
+    "DQ-BER-001-006-001",
+    "DQ-BER-001-009-001",
+    "DQ-BER-001-003-003",
+    "DQ-BER-001-012-001",
+    "DQ-BER-001-015-001",
+}
+REVIEWABLE_HIGH_PRIORITY_IDS = {
+    "DQ-BER-001-002-001",
+    "DQ-BER-001-006-001",
+    "DQ-BER-001-009-001",
+    "DQ-BER-001-003-003",
+    "DQ-BER-001-012-001",
+}
+REVIEWABLE_TOO_EASY_IDS = {
+    "DQ-BER-001-001-007",
+    "DQ-BER-001-001-009",
+    "DQ-BER-001-002-003",
+    "DQ-BER-001-010-003",
+    "DQ-BER-001-014-003",
+}
+REVIEWABLE_DEPENDS_ON_UNINTRODUCED_KNOWLEDGE_IDS = {
+    "DQ-BER-001-003-003",
+    "DQ-BER-001-012-001",
+    "DQ-BER-001-015-001",
+}
+REVIEWABLE_POSSIBLE_MULTIPLE_ANSWER_IDS = {
+    "DQ-BER-001-002-001",
+    "DQ-BER-001-006-001",
+    "DQ-BER-001-009-001",
+}
+REVIEWABLE_TRANSLATION_ALIGNMENT_OVERRIDES = {
+    "DQ-BER-001-002-001": "minor_translation_difference",
+    "DQ-BER-001-006-001": "significant_translation_difference",
+    "DQ-BER-001-009-001": "minor_translation_difference",
+}
+REVIEWABLE_PRIMARY_RULE_OVERRIDES = {
+    "DQ-BER-001-002-001": "DK-NOUN-002",
+    "DQ-BER-001-003-003": "DK-WORDORDER-002",
+    "DQ-BER-001-012-001": "DK-VERB-001",
+    "DQ-BER-001-015-001": "DK-PARSE-002",
+}
+REVIEWABLE_PRIMARY_ERROR_OVERRIDES = {
+    "DQ-BER-001-002-001": "ERR-DK-NOUN-001",
+    "DQ-BER-001-003-003": "ERR-DK-WORDORDER-001",
+    "DQ-BER-001-012-001": "ERR-DK-GENDER-001",
+    "DQ-BER-001-015-001": "ERR-DK-VERB-002",
+}
+
 HEBREW_PUNCTUATION_RE = re.compile(r"[\u05be\u05c0\u05c3\u05c6.,;:!?]+")
 HEBREW_LATIN_CLEAN_RE = re.compile(r"[^\u0590-\u05ff]+")
 
@@ -651,6 +789,22 @@ def write_jsonl(path: Path, rows: list[dict[str, Any]]) -> None:
     with path.open("w", encoding="utf-8") as handle:
         for row in rows:
             handle.write(json.dumps(row, ensure_ascii=False) + "\n")
+
+
+def preserved_manual_review_findings(path: Path) -> list[str]:
+    if not path.exists():
+        return []
+    text = path.read_text(encoding="utf-8")
+    heading = "## AI-Assisted Review Findings"
+    ref_section = "## Genesis 1:1 / Bereishis 1:1"
+    start_index = text.find(heading)
+    if start_index == -1:
+        return []
+    end_index = text.find(ref_section, start_index)
+    preserved_block = text[start_index:end_index].rstrip() if end_index != -1 else text[start_index:].rstrip()
+    if not preserved_block:
+        return []
+    return preserved_block.splitlines() + [""]
 
 
 def parse_ref(ref: str) -> tuple[int, int]:
@@ -1455,6 +1609,7 @@ def write_manual_review_packet(
         "- `needs_dikduk_review`",
         "",
     ]
+    lines.extend(preserved_manual_review_findings(path))
     questions_by_ref: defaultdict[str, list[dict[str, Any]]] = defaultdict(list)
     for question in questions:
         questions_by_ref[question["ref"]].append(question)
@@ -1560,6 +1715,535 @@ def write_summary_markdown(path: Path, summary: dict[str, Any]) -> None:
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
+def reviewable_preview_paths() -> dict[str, Path]:
+    return {
+        "questions": REPO_ROOT / REVIEWABLE_PREVIEW_QUESTIONS_RELATIVE,
+        "manual_review_packet": REPO_ROOT / REVIEWABLE_PREVIEW_PACKET_RELATIVE,
+        "summary_json": REPO_ROOT / REVIEWABLE_PREVIEW_SUMMARY_RELATIVE,
+    }
+
+
+def reviewable_difficulty_label(difficulty_level: int) -> str:
+    if difficulty_level <= 1:
+        return "easy"
+    if difficulty_level == 2:
+        return "medium"
+    return "hard"
+
+
+def reviewable_skill_category(question: dict[str, Any]) -> str:
+    question_type = question["question_type"]
+    skill_focus = question["skill_focus"]
+    if question["diagnostic_lane"] == "translation_comparison" or skill_focus == "mixed_skill_translation_rule":
+        return "translation"
+    if question_type == "identify_shoresh":
+        return "shoresh"
+    if skill_focus in {"article", "conjunction", "prefix_b", "prefix_l"} or question_type == "identify_marker":
+        return "prefix"
+    if skill_focus in {"plural_yim", "plural_vav_tav", "irregular_plural_warning"} or question_type == "singular_or_plural":
+        return "number"
+    if skill_focus == "direct_object_marker":
+        return "phrase_meaning"
+    if skill_focus == "word_order":
+        return "pasuk_comprehension"
+    if skill_focus == "verb_agreement":
+        return "verb"
+    if skill_focus == "basic_word_translation":
+        return "translation"
+    return "dikduk"
+
+
+def reviewable_translation_alignment_status(question_id: str) -> str:
+    return REVIEWABLE_TRANSLATION_ALIGNMENT_OVERRIDES.get(question_id, "koren_and_metsudah_align")
+
+
+def reviewable_primary_rule_id(question: dict[str, Any]) -> str | None:
+    if question["question_id"] in REVIEWABLE_PRIMARY_RULE_OVERRIDES:
+        return REVIEWABLE_PRIMARY_RULE_OVERRIDES[question["question_id"]]
+    rule_ids = question.get("dikduk_rule_ids", [])
+    return rule_ids[0] if rule_ids else None
+
+
+def reviewable_primary_error_id(
+    question: dict[str, Any],
+    error_index: dict[str, dict[str, Any]],
+    primary_rule_id: str | None,
+) -> str | None:
+    if question["question_id"] in REVIEWABLE_PRIMARY_ERROR_OVERRIDES:
+        return REVIEWABLE_PRIMARY_ERROR_OVERRIDES[question["question_id"]]
+    error_ids = question.get("student_error_pattern_ids", [])
+    if error_ids:
+        return error_ids[0]
+    if primary_rule_id:
+        for error_id, error_record in error_index.items():
+            if primary_rule_id in error_record.get("linked_rule_ids", []):
+                return error_id
+    return None
+
+
+def reviewable_flags(question_id: str) -> list[str]:
+    flags: list[str] = []
+    if question_id in REVIEWABLE_TOO_EASY_IDS:
+        flags.append("too_easy")
+    if question_id in REVIEWABLE_CAUTION_IDS:
+        if question_id in REVIEWABLE_TRANSLATION_ALIGNMENT_OVERRIDES:
+            flags.append("translation_sensitive")
+        if question_id in REVIEWABLE_POSSIBLE_MULTIPLE_ANSWER_IDS:
+            flags.append("possible_multiple_correct_answers")
+    if question_id in REVIEWABLE_DEPENDS_ON_UNINTRODUCED_KNOWLEDGE_IDS:
+        flags.append("depends_on_unintroduced_knowledge")
+    if question_id == "DQ-BER-001-012-001":
+        flags.append("too_hard")
+    if question_id not in REVIEWABLE_CAUTION_IDS:
+        flags.append("good_student_candidate")
+    return sorted(dict.fromkeys(flags))
+
+
+def reviewable_priority(question_id: str) -> str:
+    if question_id in REVIEWABLE_HIGH_PRIORITY_IDS:
+        return "high"
+    if question_id in REVIEWABLE_CAUTION_IDS:
+        return "medium"
+    return "low"
+
+
+def reviewable_likely_status(question_id: str) -> str:
+    if question_id in REVIEWABLE_CAUTION_IDS:
+        return "caution"
+    return "likely_approve"
+
+
+def reviewable_student_risk(question_id: str) -> str:
+    if question_id in {"DQ-BER-001-006-001", "DQ-BER-001-012-001"}:
+        return "high"
+    if question_id in REVIEWABLE_CAUTION_IDS:
+        return "medium"
+    return "low"
+
+
+def reviewable_teacher_note(question_id: str, hebrew_word_or_phrase: str) -> str:
+    special_notes = {
+        "DQ-BER-001-002-001": "Keep the accepted-answer policy broad enough to cover water/waters before using this outside adult review.",
+        "DQ-BER-001-006-001": "Review whether the packet should allow firmament, canopy, or both before carrying this item into any locked subset.",
+        "DQ-BER-001-009-001": "Decide whether dry land and dryness should both remain acceptable at preview stage.",
+        "DQ-BER-001-003-003": "Use only if the teacher wants students to practice natural English reordering explicitly.",
+        "DQ-BER-001-012-001": "Check that subject-verb agreement has already been introduced before using this with learners.",
+        "DQ-BER-001-015-001": "Confirm that parsing להאיר as a shoresh item fits the class level before moving it forward.",
+    }
+    if question_id in special_notes:
+        return special_notes[question_id]
+    return f"This is a strong review-first candidate for {hebrew_word_or_phrase} because the answer is direct and the support is easy to verify."
+
+
+def reviewable_generation_reason(question_id: str, hebrew_word_or_phrase: str) -> str:
+    if question_id in REVIEWABLE_CAUTION_IDS:
+        return (
+            f"This question was kept because {hebrew_word_or_phrase} is instructionally valuable, "
+            "but it needs teacher review before any locked subset because the wording or support is more delicate."
+        )
+    return (
+        f"This question was kept because it gives one clear, student-facing check on {hebrew_word_or_phrase} "
+        "without the weaker duplicate prompt from the larger preview set."
+    )
+
+
+def reviewable_test_summary(question: dict[str, Any], hebrew_word_or_phrase: str) -> str:
+    category = reviewable_skill_category(question)
+    if category == "translation":
+        return f"This tests whether the student can translate {hebrew_word_or_phrase} correctly in the pasuk."
+    if category == "prefix":
+        return f"This tests whether the student notices how an added letter changes the meaning of {hebrew_word_or_phrase}."
+    if category == "number":
+        return f"This tests whether the student can recognize the number clue inside {hebrew_word_or_phrase}."
+    if category == "shoresh":
+        return f"This tests whether the student can identify the shoresh inside {hebrew_word_or_phrase}."
+    if category == "phrase_meaning":
+        return f"This tests whether the student can explain the function of {hebrew_word_or_phrase} inside the phrase."
+    if category == "pasuk_comprehension":
+        return "This tests whether the student can translate the clause naturally rather than copying Hebrew order mechanically."
+    if category == "verb":
+        return f"This tests whether the student can track what {hebrew_word_or_phrase} is doing in the clause."
+    return f"This tests a focused grammar skill connected to {hebrew_word_or_phrase}."
+
+
+def reviewable_student_explanation(
+    question: dict[str, Any],
+    hebrew_word_or_phrase: str,
+    correct_answer: str,
+    primary_rule: dict[str, Any] | None,
+) -> str:
+    question_type = question["question_type"]
+    if question_type in {"choose_translation", "identify_word_meaning", "translate_word"}:
+        return f"In this pasuk, {hebrew_word_or_phrase} means {correct_answer}."
+    if question_type == "identify_marker":
+        return f"The letter {correct_answer} is the added marker the question is asking about."
+    if question_type == "identify_direct_object_marker":
+        return f"Here {hebrew_word_or_phrase} marks the direct object instead of naming a separate thing."
+    if question_type == "identify_preposition_meaning":
+        return f"In this pasuk, the added letter contributes the meaning {correct_answer}."
+    if question_type == "singular_or_plural":
+        return f"The form of {hebrew_word_or_phrase} shows {correct_answer} on the surface."
+    if question_type == "explain_rule":
+        return correct_answer
+    if question_type == "identify_shoresh":
+        return f"The base shoresh inside {hebrew_word_or_phrase} is {correct_answer}."
+    if question_type == "reorder_translation":
+        return f"Hebrew says the clause in a different order, but natural English here is {correct_answer}."
+    if question_type == "classify_part_of_speech":
+        return correct_answer
+    if primary_rule:
+        return primary_rule["student_facing_rule"]
+    return f"The correct answer fits the Hebrew word or phrase {hebrew_word_or_phrase} in this pasuk."
+
+
+def reviewable_correct_answer_note(
+    question: dict[str, Any],
+    hebrew_word_or_phrase: str,
+    translation_alignment_status: str,
+    primary_rule: dict[str, Any] | None,
+) -> str:
+    if translation_alignment_status == "koren_and_metsudah_align":
+        return (
+            f"The exact Hebrew target {hebrew_word_or_phrase} appears in the pasuk, and both Koren and Metsudah "
+            f"support the keyed answer {question['correct_answer']!r}."
+        )
+    if translation_alignment_status == "minor_translation_difference":
+        return (
+            f"The Hebrew target {hebrew_word_or_phrase} is clear, but Koren and Metsudah use slightly different "
+            "English wording, so the reviewer should confirm that the accepted-answer list stays broad enough."
+        )
+    if translation_alignment_status == "significant_translation_difference":
+        return (
+            f"The Hebrew target {hebrew_word_or_phrase} is present, but Koren and Metsudah diverge more sharply here, "
+            "so the item stays in review even though it may still be instructionally useful."
+        )
+    if primary_rule:
+        return (
+            f"The Hebrew target {hebrew_word_or_phrase} appears in the pasuk and the keyed answer matches the linked "
+            f"rule {primary_rule['rule_id']} ({primary_rule['skill_name']})."
+        )
+    return f"The Hebrew target {hebrew_word_or_phrase} appears directly in the pasuk and supports the keyed answer."
+
+
+def reviewable_source_support_note(
+    hebrew_word_or_phrase: str,
+    translation_alignment_status: str,
+) -> str:
+    if translation_alignment_status == "koren_and_metsudah_align":
+        return (
+            f"The exact Hebrew target {hebrew_word_or_phrase} is present in the verse, and both translation sources "
+            "support the same classroom-level meaning."
+        )
+    if translation_alignment_status == "minor_translation_difference":
+        return (
+            f"The exact Hebrew target {hebrew_word_or_phrase} is present in the verse, but Koren and Metsudah vary "
+            "slightly in English wording, so the item is flagged for review."
+        )
+    if translation_alignment_status == "significant_translation_difference":
+        return (
+            f"The Hebrew target {hebrew_word_or_phrase} is present in the verse, but the two translations differ "
+            "enough that this question must remain teacher-reviewed."
+        )
+    return (
+        f"The exact Hebrew target {hebrew_word_or_phrase} is present in the verse, but the English support should be "
+        "checked by a teacher before any tighter answer policy is locked."
+    )
+
+
+def reviewable_distractor_explanation(
+    distractor_text: str,
+    reason: str,
+    hebrew_word_or_phrase: str,
+) -> str:
+    reason_map = {
+        "common creation verb distractor": "This is a different verb from the creation story, not the meaning of the tested word.",
+        "another nearby creation verb distractor": "This is a different nearby creation verb, not the tested word in this pasuk.",
+        "another creation-sequence verb distractor": "This is a different action from the creation sequence, not the target word here.",
+        "nearby creation noun distractor": "This is a different nearby creation noun, not the tested word in this pasuk.",
+        "high-frequency creation noun distractor": "This is a common creation noun from the wider narrative, not the meaning of the tested word here.",
+        "paired creation noun distractor": "This is the paired noun in the verse, not the target being tested.",
+        "nearby paired noun distractor": "This names the paired noun nearby, not the Hebrew target the question asks about.",
+        "other creation noun distractor": "This is another creation noun, but it is not the meaning or function of the tested word.",
+        "other verse noun distractor": "This appears elsewhere in the verse, but it is not the target word being asked about.",
+        "nearby verse noun distractor": "This noun belongs to the same verse, but not to the tested Hebrew word.",
+        "paired opposite noun distractor": "This is the opposite or paired term, not the meaning of the target word.",
+        "other creation adjective distractor": "This adjective belongs elsewhere in the creation story, not to the tested word.",
+        "surface-form distractor": "This follows the outer look of the letters, but not the real meaning in this pasuk.",
+        "nearby imperative distractor": "This is a different nearby command, not the target command here.",
+        "other prefix-pattern distractor": "These letters do not match the actual added letters in the form being analyzed.",
+        "other creation-verb shoresh distractor": "This is the shoresh of a different nearby verb, not the base root of the tested form.",
+        "other nearby creation noun distractor": "This is a different nearby creation noun, not the target meaning.",
+    }
+    explanation = reason_map.get(reason, f"This choice is not supported by the Hebrew target {hebrew_word_or_phrase} in this pasuk.")
+    return f"{distractor_text}: {explanation}"
+
+
+def build_reviewable_preview_records(
+    blueprints: list[dict[str, Any]],
+    questions: list[dict[str, Any]],
+) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+    blueprint_by_id = {record["blueprint_id"]: record for record in blueprints}
+    question_by_id = {record["question_id"]: record for record in questions}
+    rule_index = dikduk_rules_loader.dikduk_rule_index()
+    error_index = build_error_index()
+    reviewable_questions: list[dict[str, Any]] = []
+
+    for original_question_id in REVIEWABLE_SELECTED_QUESTION_IDS:
+        question = question_by_id[original_question_id]
+        blueprint = blueprint_by_id[question["blueprint_id"]]
+        hebrew_word_or_phrase = blueprint["source_words"][0]
+        perek, pasuk = parse_ref(question["ref"])
+        difficulty_level = reviewable_difficulty_label(int(question["difficulty_level"]))
+        skill_category = reviewable_skill_category(question)
+        translation_alignment_status = reviewable_translation_alignment_status(original_question_id)
+        primary_rule_id = reviewable_primary_rule_id(question)
+        primary_rule = rule_index.get(primary_rule_id) if primary_rule_id else None
+        primary_error_id = reviewable_primary_error_id(question, error_index, primary_rule_id)
+        primary_error = error_index.get(primary_error_id) if primary_error_id else None
+        distractor_note_map = {
+            item["text"]: reviewable_distractor_explanation(item["text"], item["reason"], hebrew_word_or_phrase)
+            for item in question.get("distractors", [])
+        }
+        reviewable_questions.append(
+            {
+                "question_id": question["question_id"].replace("DQ-", "RVP-"),
+                "source_preview_question_id": question["question_id"],
+                "source_blueprint_id": question["blueprint_id"],
+                "sefer": "Bereishis",
+                "perek": perek,
+                "pasuk": pasuk,
+                "ref": question["ref"],
+                "question_text": question["prompt"],
+                "answer_choices": list(question["choices"]),
+                "correct_answer": question["correct_answer"],
+                "student_explanation": reviewable_student_explanation(
+                    question,
+                    hebrew_word_or_phrase,
+                    question["correct_answer"],
+                    primary_rule,
+                ),
+                "difficulty_level": difficulty_level,
+                "skill_category": skill_category,
+                "hebrew_word_or_phrase": hebrew_word_or_phrase,
+                "hebrew_context": blueprint["hebrew_text"],
+                "koren_translation_support": blueprint["koren_translation"],
+                "metsudah_translation_support": blueprint["metsudah_translation"],
+                "translation_alignment_status": translation_alignment_status,
+                "source_support_note": reviewable_source_support_note(
+                    hebrew_word_or_phrase,
+                    translation_alignment_status,
+                ),
+                "dikduk_rule_id": primary_rule_id,
+                "dikduk_rule_name": primary_rule["skill_name"] if primary_rule else None,
+                "dikduk_rule_summary": primary_rule["student_facing_rule"] if primary_rule else "No direct dikduk rule linkage; this item is kept for source-backed reviewable meaning work.",
+                "student_error_pattern_id": primary_error_id,
+                "student_error_pattern_summary": primary_error["diagnosis"] if primary_error else "No single linked student error pattern; this item is mainly checking direct comprehension or vocabulary accuracy.",
+                "review_priority": reviewable_priority(original_question_id),
+                "likely_review_status": reviewable_likely_status(original_question_id),
+                "review_flags": reviewable_flags(original_question_id),
+                "why_this_question_was_generated": reviewable_generation_reason(
+                    original_question_id,
+                    hebrew_word_or_phrase,
+                ),
+                "what_the_question_tests": reviewable_test_summary(question, hebrew_word_or_phrase),
+                "why_the_correct_answer_is_correct": reviewable_correct_answer_note(
+                    question,
+                    hebrew_word_or_phrase,
+                    translation_alignment_status,
+                    primary_rule,
+                ),
+                "why_each_distractor_is_wrong": {
+                    choice: distractor_note_map.get(
+                        choice,
+                        f"{choice}: This option is not supported by the Hebrew target {hebrew_word_or_phrase} in this pasuk.",
+                    )
+                    for choice in question["choices"]
+                    if choice != question["correct_answer"]
+                },
+                "possible_alternate_answers": [
+                    answer for answer in question.get("accepted_answers", []) if answer != question["correct_answer"]
+                ],
+                "teacher_review_note": reviewable_teacher_note(original_question_id, hebrew_word_or_phrase),
+                "student_readiness_risk": reviewable_student_risk(original_question_id),
+                "status": PREVIEW_STATUS,
+                "runtime_status": REVIEWABLE_RUNTIME_STATUS,
+                "production_status": REVIEWABLE_PRODUCTION_STATUS,
+                "translation_usage_status": TRANSLATION_USAGE_STATUS,
+            }
+        )
+
+    summary = build_reviewable_preview_summary(reviewable_questions)
+    return reviewable_questions, summary
+
+
+def build_reviewable_preview_summary(reviewable_questions: list[dict[str, Any]]) -> dict[str, Any]:
+    skill_counts = Counter(question["skill_category"] for question in reviewable_questions)
+    difficulty_counts = Counter(question["difficulty_level"] for question in reviewable_questions)
+    likely_review_status_counts = Counter(question["likely_review_status"] for question in reviewable_questions)
+    review_flag_counts: Counter[str] = Counter()
+    for question in reviewable_questions:
+        review_flag_counts.update(question["review_flags"])
+    translation_alignment_counts = Counter(
+        question["translation_alignment_status"] for question in reviewable_questions
+    )
+    risk_counts = Counter(question["student_readiness_risk"] for question in reviewable_questions)
+    unique_refs = sorted({question["ref"] for question in reviewable_questions}, key=parse_ref)
+    top_review_risks = [
+        "Translation-sensitive English wording around המים, היבשה, and רקיע.",
+        "A few grammar questions still assume lesson context, especially subject-verb agreement and abstract word-order awareness.",
+        "Some beginner items may be too easy and should stay warm-up only if they remain in the packet.",
+    ]
+    strongest_patterns = [
+        "Direct word meaning questions with one clearly supported answer.",
+        "Definite-article and conjunction recognition with exact Hebrew support.",
+        "Simple shoresh-identification questions on common creation verbs.",
+        "Plural-recognition questions where the surface ending is easy for a teacher to verify.",
+    ]
+    weakest_patterns = [
+        "Translation-sensitive words with legitimate English variation.",
+        "Questions that require more lesson context than a standalone preview should assume.",
+    ]
+    return {
+        "schema_version": "1.0",
+        "preview_id": "bereishis_1_1_to_2_3_reviewable_preview",
+        "range": {
+            "sefer": "Bereishis",
+            "start_ref": "Genesis 1:1",
+            "end_ref": "Genesis 2:3",
+            "refs_with_questions": unique_refs,
+            "pesukim_with_questions": len(unique_refs),
+        },
+        "total_questions": len(reviewable_questions),
+        "skill_counts": dict(sorted(skill_counts.items())),
+        "difficulty_counts": {
+            key: difficulty_counts.get(key, 0) for key in ("easy", "medium", "hard")
+        },
+        "likely_review_status_counts": {
+            key: likely_review_status_counts.get(key, 0) for key in ("likely_approve", "caution", "likely_rewrite")
+        },
+        "review_flag_counts": dict(sorted(review_flag_counts.items())),
+        "translation_alignment_counts": {
+            key: translation_alignment_counts.get(key, 0)
+            for key in (
+                "koren_and_metsudah_align",
+                "minor_translation_difference",
+                "significant_translation_difference",
+                "translation_review_required",
+            )
+        },
+        "low_risk_student_candidate_count": risk_counts.get("low", 0),
+        "medium_risk_count": risk_counts.get("medium", 0),
+        "high_risk_count": risk_counts.get("high", 0),
+        "top_review_risks": top_review_risks,
+        "strongest_question_patterns": strongest_patterns,
+        "weakest_question_patterns": weakest_patterns,
+        "recommended_next_step": (
+            "Teacher-review the high-priority caution items first, then lock the likely_approve subset "
+            "into a non-runtime candidate packet."
+        ),
+        "final_recommendation": REVIEWABLE_PREVIEW_FINAL_RECOMMENDATION,
+        "status": PREVIEW_STATUS,
+        "runtime_status": REVIEWABLE_RUNTIME_STATUS,
+        "production_status": REVIEWABLE_PRODUCTION_STATUS,
+        "translation_usage_status": TRANSLATION_USAGE_STATUS,
+        "generated_at": utc_now_iso(),
+    }
+
+
+def write_reviewable_manual_review_packet(path: Path, reviewable_questions: list[dict[str, Any]], summary: dict[str, Any]) -> None:
+    lines = [
+        "# Bereishis 1:1-2:3 Reviewable Diagnostic Preview Manual Review Packet",
+        "",
+        f"Final recommendation: `{summary['final_recommendation']}`",
+        f"Status: `{summary['status']}`",
+        f"Runtime status: `{summary['runtime_status']}`",
+        f"Production status: `{summary['production_status']}`",
+        f"Translation usage status: `{summary['translation_usage_status']}`",
+        "",
+        "## Packet Snapshot",
+        f"- Total generated questions: {summary['total_questions']}",
+        f"- Count by skill category: {json.dumps(summary['skill_counts'], ensure_ascii=False, sort_keys=True)}",
+        f"- Count by difficulty: {json.dumps(summary['difficulty_counts'], ensure_ascii=False, sort_keys=True)}",
+        f"- Count by likely review status: {json.dumps(summary['likely_review_status_counts'], ensure_ascii=False, sort_keys=True)}",
+        f"- Count by review flag: {json.dumps(summary['review_flag_counts'], ensure_ascii=False, sort_keys=True)}",
+        "",
+        "Top review risks:",
+        *[f"- {item}" for item in summary["top_review_risks"]],
+        "",
+        "Strongest question patterns:",
+        *[f"- {item}" for item in summary["strongest_question_patterns"]],
+        "",
+        "Weakest question patterns:",
+        *[f"- {item}" for item in summary["weakest_question_patterns"]],
+        "",
+        "Recommendation for next step:",
+        f"- {summary['recommended_next_step']}",
+        "",
+    ]
+
+    high_priority = [
+        question for question in reviewable_questions if question["review_priority"] == "high"
+    ]
+    likely_approve = [
+        question
+        for question in reviewable_questions
+        if question["review_priority"] != "high" and question["likely_review_status"] == "likely_approve"
+    ]
+    caution = [
+        question for question in reviewable_questions if question["likely_review_status"] != "likely_approve"
+    ]
+    sections = [
+        ("High-priority review", high_priority),
+        ("Likely approve", likely_approve),
+        ("Caution / likely rewrite", caution),
+    ]
+    for section_title, items in sections:
+        lines.extend([f"## {section_title}", ""])
+        if not items:
+            lines.extend(["- none", ""])
+            continue
+        for question in sorted(items, key=lambda row: (parse_ref(row["ref"]), row["question_id"])):
+            lines.extend(
+                [
+                    f"### {question['question_id']}",
+                    f"- Ref: {question['ref']}",
+                    f"- Hebrew tested: {question['hebrew_word_or_phrase']}",
+                    f"- Skill: {question['skill_category']}",
+                    f"- Difficulty: {question['difficulty_level']}",
+                    f"- Student question: {question['question_text']}",
+                    f"- Choices: {', '.join(question['answer_choices'])}",
+                    f"- Correct answer: {question['correct_answer']}",
+                    f"- Student explanation: {question['student_explanation']}",
+                    f"- Source support: {question['source_support_note']}",
+                    f"- Koren support: {question['koren_translation_support']}",
+                    f"- Metsudah support: {question['metsudah_translation_support']}",
+                    f"- Dikduk rule: {question['dikduk_rule_id'] or 'None'} - {question['dikduk_rule_name'] or 'No direct dikduk rule linkage'}",
+                    f"- Error pattern: {question['student_error_pattern_id'] or 'None'} - {question['student_error_pattern_summary']}",
+                    f"- Why generated: {question['why_this_question_was_generated']}",
+                    f"- Reviewer concern flags: {', '.join(question['review_flags']) if question['review_flags'] else 'none'}",
+                    f"- Suggested review status: {question['likely_review_status']}",
+                    "- Teacher checkbox:",
+                    "  - [ ] Approve as-is",
+                    "  - [ ] Approve with caution",
+                    "  - [ ] Rewrite",
+                    "  - [ ] Reject",
+                    "- Teacher notes:",
+                    "",
+                ]
+            )
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
+def write_reviewable_preview_artifacts(blueprints: list[dict[str, Any]], questions: list[dict[str, Any]]) -> dict[str, Any]:
+    reviewable_questions, summary = build_reviewable_preview_records(blueprints, questions)
+    paths = reviewable_preview_paths()
+    write_jsonl(paths["questions"], reviewable_questions)
+    write_reviewable_manual_review_packet(paths["manual_review_packet"], reviewable_questions, summary)
+    write_json(paths["summary_json"], summary)
+    return summary
+
+
 def validate_generation_targets(summary: dict[str, Any], config: dict[str, Any]) -> None:
     minimums = config["minimum_question_counts"]
     if summary["total_questions"] < minimums["total_questions"]:
@@ -1580,6 +2264,7 @@ def generate_preview(config_path: Path) -> dict[str, Any]:
     config = load_config(config_path)
     blueprints, questions, summary = build_preview_records(config)
     validate_generation_targets(summary, config)
+    reviewable_summary = write_reviewable_preview_artifacts(blueprints, questions)
 
     outputs = config["output_files"]
     blueprints_path = REPO_ROOT / outputs["blueprints"]
@@ -1596,6 +2281,11 @@ def generate_preview(config_path: Path) -> dict[str, Any]:
         {record["blueprint_id"]: record for record in blueprints},
         build_error_index(),
     )
+    summary["reviewable_preview"] = {
+        "total_questions": reviewable_summary["total_questions"],
+        "final_recommendation": reviewable_summary["final_recommendation"],
+        "likely_review_status_counts": reviewable_summary["likely_review_status_counts"],
+    }
     write_summary_markdown(summary_md_path, summary)
     write_json(summary_json_path, summary)
     return summary

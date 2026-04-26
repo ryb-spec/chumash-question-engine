@@ -75,3 +75,7 @@
 - [completed] Audit the 77 generated `Bereishis 1:1-2:3` diagnostic preview questions and classify which patterns are strong, caution-only, or rewrite-needed for teacher review
 - [completed] Update the manual review packet with reviewer findings, counts, recurring issues, strongest patterns, and a non-runtime recommendation
 - [completed] Run source-text, diagnostic-preview, curriculum, and full pytest validation before closing the review branch pass
+
+- [completed] Build a smaller review-first `Bereishis 1:1-2:3` diagnostic preview subset that reuses the strongest existing preview items while collapsing duplicate prompt pairs and excluding fragile patterns
+- [completed] Extend the existing diagnostic preview generator and validator so they also produce and validate the new reviewable preview JSONL, review packet, and summary artifacts
+- [completed] Update focused diagnostic preview tests, rerun required validation commands plus full pytest, and confirm the branch stays non-runtime and review-only
