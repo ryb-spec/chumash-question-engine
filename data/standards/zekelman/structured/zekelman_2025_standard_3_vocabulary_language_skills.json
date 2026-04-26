@@ -1,0 +1,710 @@
+{
+  "generated_at": "2026-04-26T00:00:00Z",
+  "branch_scope": "feature/zekelman-standards-structured-extraction",
+  "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+  "source_pdf_path": "docs/standards/zekelman/raw/2025_zekelman_chumash_standards_v2_5_complete_levels_1_8.pdf",
+  "source_extracted_text_path": "docs/standards/zekelman/extracted/2025_zekelman_chumash_standards_v2_5_complete_levels_1_8_raw_text.md",
+  "standard_area": "3. Vocabulary and Language Skills",
+  "source_page_range": [
+    28,
+    50
+  ],
+  "overview": {
+    "student_expectation": "Students build cumulative vocabulary and grammar knowledge in לשון הקודש so they can translate and analyze Chumash text more independently.",
+    "hebrew_terms": [
+      "שמות עצם",
+      "שורשים",
+      "סמיכות",
+      "איתן",
+      "תהימון",
+      "טעמי המקרא",
+      "ניקוד"
+    ],
+    "prerequisite_skills": [
+      "1. תורה שבכתב navigation and conventions"
+    ],
+    "skill_tags": [
+      "vocabulary",
+      "grammar",
+      "syntax",
+      "nikud",
+      "translation_support"
+    ],
+    "question_generation_relevance": {
+      "rating": "high",
+      "future_archetypes": [
+        "word_translation",
+        "shoresh_identification",
+        "prefix_suffix_analysis",
+        "syntax_grouping",
+        "verb_parsing"
+      ],
+      "notes": "This is the strongest standards area for future Chumash diagnostic item design, but it remains draft source extraction only."
+    },
+    "diagnostic_relevance": {
+      "rating": "high",
+      "notes": "This standard area most directly supports adaptive Chumash skill diagnosis."
+    },
+    "review_status": [
+      "extracted_raw",
+      "needs_human_review",
+      "not_question_ready",
+      "table_structure_uncertain",
+      "hebrew_text_needs_review"
+    ],
+    "source_page_or_section": "Pages 28-50 / Standard 3",
+    "notes": "The 2025 PDF is readable enough for first-pass structuring, but table layout and some Hebrew display still require manual confirmation."
+  },
+  "substandards": [
+    {
+      "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+      "standard_id": "3.01",
+      "standard_title": "Vocabulary: שמות עצם (nouns)",
+      "standard_area": "3. Vocabulary and Language Skills",
+      "level": "Levels 1-8",
+      "student_expectation": "Builds a cumulative noun vocabulary, then uses previously learned nouns for contextual translation and multiple-meaning choices.",
+      "hebrew_terms": [
+        "שמות עצם",
+        "פסוק",
+        "ראש",
+        "רוח"
+      ],
+      "prerequisite_skills": [
+        "1.10 Navigating the חומש",
+        "basic Hebrew decoding"
+      ],
+      "skill_tags": [
+        "vocabulary",
+        "noun_translation",
+        "contextual_translation",
+        "word_family_grouping"
+      ],
+      "question_generation_relevance": {
+        "rating": "high",
+        "future_archetypes": [
+          "direct_noun_translation",
+          "match_hebrew_noun_from_english",
+          "choose_contextual_noun_meaning"
+        ],
+        "notes": "Highly relevant to future diagnostic and question-generation lanes."
+      },
+      "diagnostic_relevance": {
+        "rating": "high",
+        "notes": "Directly assessable through word meaning, contextual meaning, and transfer into unlearned פסוקים."
+      },
+      "review_status": [
+        "extracted_raw",
+        "needs_human_review",
+        "not_question_ready",
+        "table_structure_uncertain",
+        "hebrew_text_needs_review"
+      ],
+      "source_page_or_section": "Page 30 / 3.01",
+      "notes": "Detailed extraction appears in the Standard 3 file.",
+      "core_level_expectations": {
+        "1": "25 nouns",
+        "2": "50 total nouns",
+        "3": "75 total nouns",
+        "4": "100 total nouns",
+        "5": "125 total nouns",
+        "6": "150 total nouns",
+        "7": "175 total nouns",
+        "8": "200 total nouns"
+      },
+      "additional_rows_summary": [
+        "Gives the correct noun when given the English translation.",
+        "Groups nouns by shared שם עצם.",
+        "Moves from teacher-prompted to independent identification of learned nouns in unlearned פסוקים.",
+        "Chooses among multiple translations of a single word based on context."
+      ]
+    },
+    {
+      "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+      "standard_id": "3.02",
+      "standard_title": "Vocabulary: שורשים (for verbs)",
+      "standard_area": "3. Vocabulary and Language Skills",
+      "level": "Levels 1-8",
+      "student_expectation": "Builds cumulative root vocabulary for verbs, then identifies weak-letter and altered-root patterns and chooses contextual translations.",
+      "hebrew_terms": [
+        "שורשים",
+        "יונה",
+        "שלמים",
+        "חסרים"
+      ],
+      "prerequisite_skills": [
+        "3.01 Vocabulary: שמות עצם",
+        "basic Hebrew letter recognition"
+      ],
+      "skill_tags": [
+        "shoresh",
+        "verb_vocabulary",
+        "weak_letters",
+        "contextual_translation"
+      ],
+      "question_generation_relevance": {
+        "rating": "high",
+        "future_archetypes": [
+          "identify_shoresh",
+          "map_root_to_meaning",
+          "choose_contextual_root_translation",
+          "spot_weak_letter_root"
+        ],
+        "notes": "One of the clearest future rule-to-question bridges in the standards."
+      },
+      "diagnostic_relevance": {
+        "rating": "high",
+        "notes": "Root meaning and root-identification skills are central to later independent Chumash reading."
+      },
+      "review_status": [
+        "extracted_raw",
+        "needs_human_review",
+        "not_question_ready",
+        "table_structure_uncertain",
+        "hebrew_text_needs_review"
+      ],
+      "source_page_or_section": "Pages 30-31 / 3.02",
+      "notes": "Detailed extraction appears in the Standard 3 file.",
+      "core_level_expectations": {
+        "1": "15 שורשים",
+        "2": "40 total שורשים",
+        "3": "65 total שורשים",
+        "4": "90 total שורשים",
+        "5": "115 total שורשים",
+        "6": "140 total שורשים",
+        "7": "165 total שורשים",
+        "8": "190 total שורשים"
+      },
+      "additional_rows_summary": [
+        "Provides the correct שורש when given the English meaning.",
+        "Progresses from consecutive-letter root recognition to weak-letter and altered-root recognition.",
+        "Groups verbs/adjectives that share a root.",
+        "Chooses contextual translation for roots with multiple meanings."
+      ]
+    },
+    {
+      "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+      "standard_id": "3.03",
+      "standard_title": "Other Vocabulary",
+      "standard_area": "3. Vocabulary and Language Skills",
+      "level": "Levels 1-8",
+      "student_expectation": "Builds a cumulative bank of function words and chooses contextual meanings for words with multiple uses.",
+      "hebrew_terms": [
+        "כי",
+        "את",
+        "עוד",
+        "על"
+      ],
+      "prerequisite_skills": [
+        "3.01 Vocabulary: שמות עצם",
+        "3.02 Vocabulary: שורשים"
+      ],
+      "skill_tags": [
+        "function_words",
+        "prepositions",
+        "conjunctions",
+        "contextual_translation"
+      ],
+      "question_generation_relevance": {
+        "rating": "high",
+        "future_archetypes": [
+          "translate_function_word",
+          "contextual_preposition_choice",
+          "identify_conjunction_meaning"
+        ],
+        "notes": "Very relevant to later direct translation and lane-routing decisions."
+      },
+      "diagnostic_relevance": {
+        "rating": "high",
+        "notes": "Function-word confusion is a strong diagnostic signal in Chumash reading."
+      },
+      "review_status": [
+        "extracted_raw",
+        "needs_human_review",
+        "not_question_ready",
+        "table_structure_uncertain",
+        "hebrew_text_needs_review"
+      ],
+      "source_page_or_section": "Page 32 / 3.03",
+      "notes": "Detailed extraction appears in the Standard 3 file.",
+      "core_level_expectations": {
+        "1": "25 function words",
+        "2": "50 total",
+        "3": "75 total",
+        "4": "100 total",
+        "5": "125 total",
+        "6": "150 total",
+        "7": "175 total",
+        "8": "200 total"
+      },
+      "additional_rows_summary": [
+        "Provides the correct Hebrew word when given the English translation.",
+        "Chooses contextual meanings for words such as כי, את, עוד, and על."
+      ]
+    },
+    {
+      "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+      "standard_id": "3.04",
+      "standard_title": "Nouns and Adjectives",
+      "standard_area": "3. Vocabulary and Language Skills",
+      "level": "Levels 1-8 (summary)",
+      "student_expectation": "Moves from identifying nouns and adjectives in learned words to recognizing gender, number, irregular forms, and סמיכות in unlearned פסוקים.",
+      "hebrew_terms": [
+        "זכר",
+        "נקבה",
+        "רבים",
+        "סמיכות",
+        "שם תואר"
+      ],
+      "prerequisite_skills": [
+        "3.01 Vocabulary: שמות עצם",
+        "3.03 Other Vocabulary"
+      ],
+      "skill_tags": [
+        "noun_identification",
+        "adjective_identification",
+        "gender",
+        "number",
+        "smichut"
+      ],
+      "question_generation_relevance": {
+        "rating": "high",
+        "future_archetypes": [
+          "identify_noun_or_adjective",
+          "gender_number_match",
+          "identify_smichut"
+        ],
+        "notes": "Strong candidate for future diagnostic grammar lanes."
+      },
+      "diagnostic_relevance": {
+        "rating": "high",
+        "notes": "Concrete, teachable, and directly connected to Chumash translation accuracy."
+      },
+      "review_status": [
+        "extracted_raw",
+        "needs_human_review",
+        "not_question_ready",
+        "table_structure_uncertain",
+        "hebrew_text_needs_review"
+      ],
+      "source_page_or_section": "Pages 33-35 / 3.04",
+      "notes": "Detailed extraction appears in the Standard 3 file.",
+      "core_level_expectations": {
+        "1": "Identify nouns from learned words",
+        "2": "Identify nouns in learned פסוקים",
+        "3": "Identify nouns in unlearned פסוקים by form",
+        "4": "Handle noun forms that resemble verbs/adjectives",
+        "5": "Continue noun/adjective identification in unlearned פסוקים",
+        "6": "Continue with stronger form awareness",
+        "7": "Handle more irregular-looking forms",
+        "8": "Independent noun/adjective identification in unlearned פסוקים"
+      },
+      "additional_rows_summary": [
+        "Distinguishes זכר/נקבה nouns, including common irregulars.",
+        "Distinguishes singular/plural, including irregular endings and English mismatches.",
+        "Identifies adjectives by form and context.",
+        "Matches nouns and adjectives by gender/number.",
+        "Recognizes and identifies סמיכות with increasing independence."
+      ]
+    },
+    {
+      "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+      "standard_id": "3.05",
+      "standard_title": "Pronouns",
+      "standard_area": "3. Vocabulary and Language Skills",
+      "level": "Levels 1-8 (summary)",
+      "student_expectation": "Progresses from basic English and Hebrew pronoun categories to identifying referents, suffixes, and embedded pronouns in learned and unlearned פסוקים.",
+      "hebrew_terms": [
+        "גוף ראשון",
+        "גוף שני",
+        "גוף שלישי",
+        "אותי",
+        "אותך",
+        "שלי",
+        "זה",
+        "זאת",
+        "אלה",
+        "אלו",
+        "איתן",
+        "תהימון"
+      ],
+      "prerequisite_skills": [
+        "3.04 Nouns and Adjectives",
+        "basic sentence subject/object awareness"
+      ],
+      "skill_tags": [
+        "pronouns",
+        "referents",
+        "suffixes",
+        "person_gender_number"
+      ],
+      "question_generation_relevance": {
+        "rating": "high",
+        "future_archetypes": [
+          "identify_pronoun_referent",
+          "identify_pronoun_type",
+          "decode_suffix_pronoun"
+        ],
+        "notes": "Pronoun referent work is highly relevant to generated-question QA and parsing."
+      },
+      "diagnostic_relevance": {
+        "rating": "high",
+        "notes": "Pronoun referent confusion is a high-value diagnostic signal in פסוק understanding."
+      },
+      "review_status": [
+        "extracted_raw",
+        "needs_human_review",
+        "not_question_ready",
+        "table_structure_uncertain",
+        "hebrew_text_needs_review"
+      ],
+      "source_page_or_section": "Pages 36-40 / 3.05",
+      "notes": "Detailed extraction appears in the Standard 3 file.",
+      "core_level_expectations": {
+        "1": "Use subjective pronouns in English and basic Hebrew",
+        "2": "State referent of subjective pronoun in learned פסוק",
+        "3": "State referent even when it appears in another learned פסוק",
+        "4": "Identify subjective pronoun referents in learned and unlearned פסוקים",
+        "5": "Continue with more pronoun types and suffixes",
+        "6": "Use pronoun categories to aid translation",
+        "7": "Use איתן / תהימון as pronoun clues",
+        "8": "Independently identify pronoun referents and suffixes"
+      },
+      "additional_rows_summary": [
+        "Distinguishes first, second, and third person.",
+        "Handles possessive, objective, demonstrative, prepositional, and interrogative pronouns.",
+        "Moves from standalone pronouns to embedded suffixes and referents in learned and unlearned פסוקים."
+      ]
+    },
+    {
+      "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+      "standard_id": "3.06",
+      "standard_title": "Prepositions, Conjunctions and the Definite Article",
+      "standard_area": "3. Vocabulary and Language Skills",
+      "level": "Levels 1-8 (summary)",
+      "student_expectation": "Builds from direct recognition of conjunctions and articles to distinguishing multiple prefix functions, article types, and the two meanings of את in learned and unlearned פסוקים.",
+      "hebrew_terms": [
+        "ו",
+        "ו ההיפוך",
+        "ה הידיעה",
+        "ה השאלה",
+        "ה המגמה",
+        "ב-כ-ל-מ",
+        "ש",
+        "את"
+      ],
+      "prerequisite_skills": [
+        "3.03 Other Vocabulary",
+        "3.05 Pronouns"
+      ],
+      "skill_tags": [
+        "prefixes",
+        "articles",
+        "prepositions",
+        "conjunctions",
+        "direct_object_marker"
+      ],
+      "question_generation_relevance": {
+        "rating": "high",
+        "future_archetypes": [
+          "identify_definite_article",
+          "distinguish_vav_types",
+          "identify_preposition_prefix",
+          "resolve_et_function"
+        ],
+        "notes": "A very strong future diagnostic lane because the standards name discrete, testable forms."
+      },
+      "diagnostic_relevance": {
+        "rating": "high",
+        "notes": "Misreading prefixes and function words is a central source of Chumash translation error."
+      },
+      "review_status": [
+        "extracted_raw",
+        "needs_human_review",
+        "not_question_ready",
+        "table_structure_uncertain",
+        "hebrew_text_needs_review"
+      ],
+      "source_page_or_section": "Pages 41-43 / 3.06",
+      "notes": "Detailed extraction appears in the Standard 3 file.",
+      "core_level_expectations": {
+        "1": "Translate conjunctive ו in learned פסוקים",
+        "2": "Identify and translate conjunctive ו in learned פסוקים",
+        "3": "Identify and translate conjunctive ו in learned and unlearned פסוקים",
+        "4": "Continue conjunctive ו recognition in learned/unlearned text",
+        "5": "Use ניקוד to distinguish conjunctive ו from other vavs",
+        "6": "Explain changes in the ניקוד of conjunctive ו",
+        "7": "Continue identifying variants of conjunctive ו",
+        "8": "Use conjunction/article/prefix knowledge accurately in unlearned פסוקים"
+      },
+      "additional_rows_summary": [
+        "Distinguishes ו ההיפוך.",
+        "Handles ה הידיעה, ה השאלה, and ה המגמה.",
+        "Identifies ב-כ-ל-מ prefixes and their ניקוד shifts.",
+        "Notes that prefix ש is retained for broader sacred-text fluency.",
+        "Distinguishes the two functions of את."
+      ]
+    },
+    {
+      "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+      "standard_id": "3.07",
+      "standard_title": "Verbs",
+      "standard_area": "3. Vocabulary and Language Skills",
+      "level": "Levels 1-8 (summary)",
+      "student_expectation": "Moves from identifying verbs and simple tense markers to translating verbs across person, tense, active/passive forms, and binyan families.",
+      "hebrew_terms": [
+        "איתן",
+        "תהימון",
+        "בנינים",
+        "קל",
+        "פיעל",
+        "הפעיל",
+        "התפעל",
+        "נפעל",
+        "פועל",
+        "הופעל",
+        "עבר",
+        "הווה",
+        "עתיד",
+        "ציווי",
+        "מקור",
+        "שם הפועל"
+      ],
+      "prerequisite_skills": [
+        "3.02 Vocabulary: שורשים",
+        "3.05 Pronouns",
+        "3.06 Prefix and article knowledge"
+      ],
+      "skill_tags": [
+        "verbs",
+        "tenses",
+        "person",
+        "binyanim",
+        "active_passive"
+      ],
+      "question_generation_relevance": {
+        "rating": "high",
+        "future_archetypes": [
+          "identify_verb_tense",
+          "identify_verb_person",
+          "identify_binyan",
+          "identify_command_or_infinitive"
+        ],
+        "notes": "One of the richest future diagnostic/question-generation standards, but it must remain human-reviewed."
+      },
+      "diagnostic_relevance": {
+        "rating": "high",
+        "notes": "Verb parsing and tense/binyan errors are central to independent text comprehension."
+      },
+      "review_status": [
+        "extracted_raw",
+        "needs_human_review",
+        "not_question_ready",
+        "table_structure_uncertain",
+        "hebrew_text_needs_review"
+      ],
+      "source_page_or_section": "Pages 44-46 / 3.07",
+      "notes": "Detailed extraction appears in the Standard 3 file.",
+      "core_level_expectations": {
+        "1": "Identify verbs from learned words and notice future-tense איתן",
+        "2": "Identify verbs in learned פסוקים and translate future forms",
+        "3": "Identify verbs in unlearned פסוקים by form",
+        "4": "Identify more past/present patterns by conjugation",
+        "5": "Handle command and source forms",
+        "6": "Differentiate all active בנינים",
+        "7": "Recognize passive versus active, especially נפעל",
+        "8": "Translate verbs across tense, person, binyan, and suffix patterns"
+      },
+      "additional_rows_summary": [
+        "Tracks future, past, present, and command forms.",
+        "Uses איתן and תהימון markers.",
+        "Handles מקור and שם הפועל.",
+        "Identifies passive versus active verbs and objective suffixes."
+      ]
+    },
+    {
+      "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+      "standard_id": "3.08",
+      "standard_title": "Grouping and Word Order",
+      "standard_area": "3. Vocabulary and Language Skills",
+      "level": "Levels 1-8 (summary)",
+      "student_expectation": "Groups a פסוק into meaningful phrases and adjusts Hebrew word order when translating into English.",
+      "hebrew_terms": [
+        "פסוק",
+        "סמיכות"
+      ],
+      "prerequisite_skills": [
+        "3.04 Nouns and Adjectives",
+        "3.07 Verbs"
+      ],
+      "skill_tags": [
+        "syntax",
+        "phrase_grouping",
+        "word_order",
+        "translation_construction"
+      ],
+      "question_generation_relevance": {
+        "rating": "high",
+        "future_archetypes": [
+          "group_phrase_for_translation",
+          "reorder_literal_hebrew_to_english"
+        ],
+        "notes": "Excellent future source for syntax-aware translation prompts and QA."
+      },
+      "diagnostic_relevance": {
+        "rating": "high",
+        "notes": "Grouping and word-order mistakes are highly visible in student translations."
+      },
+      "review_status": [
+        "extracted_raw",
+        "needs_human_review",
+        "not_question_ready",
+        "table_structure_uncertain",
+        "hebrew_text_needs_review"
+      ],
+      "source_page_or_section": "Page 48 / 3.08",
+      "notes": "Detailed extraction appears in the Standard 3 file.",
+      "core_level_expectations": {
+        "1": "Group learned פסוקים into short phrases",
+        "2": "Group when literal translation is provided but grouping is not",
+        "3": "Group unlearned פסוקים by סמיכות and context",
+        "4": "Continue grouping by context",
+        "5": "Adjust English word order for unlearned פסוקים",
+        "6": "Continue reordering for meaningful translation",
+        "7": "Continue syntax-aware grouping",
+        "8": "Independently group and reorder unlearned פסוקים"
+      },
+      "additional_rows_summary": [
+        "Changes Hebrew word order appropriately when translating into English."
+      ]
+    },
+    {
+      "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+      "standard_id": "3.09",
+      "standard_title": "Parsing the פסוק",
+      "standard_area": "3. Vocabulary and Language Skills",
+      "level": "Levels 1-8 (summary)",
+      "student_expectation": "Uses טעמי המקרא to divide, punctuate, and translate a פסוק appropriately.",
+      "hebrew_terms": [
+        "אתנחתא",
+        "סוף פסוק",
+        "זקף קטן",
+        "זקף גדול",
+        "סגול",
+        "רביעי",
+        "מרכא-טפחא",
+        "קדמא-אזלא",
+        "תביר-טפחא",
+        "טעמי המקרא"
+      ],
+      "prerequisite_skills": [
+        "1.05 טעמי המקרא",
+        "3.08 Grouping and Word Order"
+      ],
+      "skill_tags": [
+        "pasuk_parsing",
+        "taamim",
+        "punctuation",
+        "clause_boundary"
+      ],
+      "question_generation_relevance": {
+        "rating": "high",
+        "future_archetypes": [
+          "parse_pasuk_by_taamim",
+          "identify_clause_boundary"
+        ],
+        "notes": "A strong future teacher-reviewed lane for advanced parsing tasks."
+      },
+      "diagnostic_relevance": {
+        "rating": "high",
+        "notes": "Parsing with טעמים directly affects translation and comprehension quality."
+      },
+      "review_status": [
+        "extracted_raw",
+        "needs_human_review",
+        "not_question_ready",
+        "table_structure_uncertain",
+        "hebrew_text_needs_review"
+      ],
+      "source_page_or_section": "Page 48 / 3.09",
+      "notes": "Detailed extraction appears in the Standard 3 file.",
+      "core_level_expectations": {
+        "1": "Use אתנחתא and סוף פסוק to split a פסוק",
+        "2": "Add זקף / סגול / רביעי for punctuation",
+        "3": "Add מרכא-טפחא, קדמא-אזלא, and תביר-טפחא as linkage clues",
+        "4": "Use expanded טעמים to read and punctuate",
+        "5": "Continue clause-division work",
+        "6": "Continue clause-division work",
+        "7": "Continue clause-division work",
+        "8": "Use learned טעמים comprehensively for parsing"
+      },
+      "additional_rows_summary": [
+        "Reads, translates, and punctuates a פסוק using increasingly rich טעמי המקרא knowledge."
+      ]
+    },
+    {
+      "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+      "standard_id": "3.10",
+      "standard_title": "Understanding ניקוד",
+      "standard_area": "3. Vocabulary and Language Skills",
+      "level": "Advanced upper levels only (summary)",
+      "student_expectation": "For advanced students, explains the systems of תנועות, שבאים, דגשים, syllables, and the interaction between ניקוד and טעמי המקרא.",
+      "hebrew_terms": [
+        "ניקוד",
+        "תנועות",
+        "שבאים",
+        "דגשים",
+        "הברה",
+        "טעמי המקרא",
+        "מפיק ה׳"
+      ],
+      "prerequisite_skills": [
+        "1.04 כתב, אותיות וניקוד",
+        "1.05 טעמי המקרא",
+        "3.07 Verbs",
+        "3.09 Parsing the פסוק"
+      ],
+      "skill_tags": [
+        "nikud",
+        "syllables",
+        "advanced_grammar",
+        "advanced_reading"
+      ],
+      "question_generation_relevance": {
+        "rating": "medium",
+        "future_archetypes": [
+          "identify_nikud_category",
+          "syllable_division",
+          "explain_dagesh_or_sheva_rule"
+        ],
+        "notes": "Highly relevant for advanced grammar and later Rashi work, but too sensitive for unreviewed question generation."
+      },
+      "diagnostic_relevance": {
+        "rating": "medium",
+        "notes": "Powerful for advanced students, but intentionally gated because the extracted table is compact and advanced."
+      },
+      "review_status": [
+        "extracted_raw",
+        "needs_human_review",
+        "not_question_ready",
+        "table_structure_uncertain",
+        "hebrew_text_needs_review"
+      ],
+      "source_page_or_section": "Pages 49-50 / 3.10",
+      "notes": "Detailed extraction appears in the Standard 3 file.",
+      "core_level_expectations": {
+        "1": "No clearly scoped expectation visible",
+        "2": "No clearly scoped expectation visible",
+        "3": "No clearly scoped expectation visible",
+        "4": "No clearly scoped expectation visible",
+        "5": "Differentiate types of תנועות",
+        "6": "Differentiate types of שבאים",
+        "7": "Differentiate types of דגשים and divide into syllables",
+        "8": "Explain how טעמי המקרא affect ניקוד"
+      },
+      "additional_rows_summary": [
+        "The source explicitly notes that this standard is for advanced students.",
+        "Lower-level placement should be confirmed against the PDF before any downstream use."
+      ]
+    }
+  ]
+}

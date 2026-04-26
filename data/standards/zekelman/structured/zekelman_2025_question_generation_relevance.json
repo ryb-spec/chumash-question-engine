@@ -1,0 +1,1288 @@
+{
+  "generated_at": "2026-04-26T00:00:00Z",
+  "branch_scope": "feature/zekelman-standards-structured-extraction",
+  "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+  "source_pdf_path": "docs/standards/zekelman/raw/2025_zekelman_chumash_standards_v2_5_complete_levels_1_8.pdf",
+  "source_extracted_text_path": "docs/standards/zekelman/extracted/2025_zekelman_chumash_standards_v2_5_complete_levels_1_8_raw_text.md",
+  "scope_note": "Future question-generation relevance only. This file does not create questions, does not activate runtime use, and does not authorize student-facing content.",
+  "standards_relevance": [
+    {
+      "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+      "standard_id": "1.03",
+      "standard_title": "לשון התורה",
+      "standard_area": "1. תורה שבכתב Essentials",
+      "level": "Levels 1-8 (summary)",
+      "question_generation_relevance": {
+        "rating": "low",
+        "future_archetypes": [
+          "recognize_anthropomorphic_language",
+          "identify_torah_language_term"
+        ],
+        "notes": "Important teacher framing, but not a first-pass discrete question lane."
+      },
+      "diagnostic_relevance": {
+        "rating": "low",
+        "notes": "Conceptually important, but not a simple diagnostic target without teacher mediation."
+      },
+      "future_question_archetypes": [
+        "recognize_anthropomorphic_language",
+        "identify_torah_language_term"
+      ],
+      "review_status": [
+        "extracted_raw",
+        "needs_human_review",
+        "not_question_ready",
+        "table_structure_uncertain",
+        "hebrew_text_needs_review"
+      ],
+      "source_page_or_section": "Pages 18-19 / 1.03",
+      "notes": "High-level index only.",
+      "blocked_or_deferred_uses": [
+        "Do not connect to runtime or student-facing behavior yet.",
+        "Do not treat raw extracted wording as final without human review.",
+        "Do not use as a reviewed bank or production question source."
+      ]
+    },
+    {
+      "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+      "standard_id": "1.04",
+      "standard_title": "כתב, אותיות וניקוד",
+      "standard_area": "1. תורה שבכתב Essentials",
+      "level": "Levels 1-8 (summary)",
+      "question_generation_relevance": {
+        "rating": "medium",
+        "future_archetypes": [
+          "identify_text_convention",
+          "recognize_kriv_kri",
+          "recognize_maleh_chaser"
+        ],
+        "notes": "Relevant to later text-reading and commentary skills after review."
+      },
+      "diagnostic_relevance": {
+        "rating": "medium",
+        "notes": "Can support convention checks for older students after human review."
+      },
+      "future_question_archetypes": [
+        "identify_text_convention",
+        "recognize_kriv_kri",
+        "recognize_maleh_chaser"
+      ],
+      "review_status": [
+        "extracted_raw",
+        "needs_human_review",
+        "not_question_ready",
+        "table_structure_uncertain",
+        "hebrew_text_needs_review"
+      ],
+      "source_page_or_section": "Page 19 / 1.04",
+      "notes": "Conservative summary from the extracted table.",
+      "blocked_or_deferred_uses": [
+        "Do not connect to runtime or student-facing behavior yet.",
+        "Do not treat raw extracted wording as final without human review.",
+        "Do not use as a reviewed bank or production question source."
+      ]
+    },
+    {
+      "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+      "standard_id": "1.05",
+      "standard_title": "טעמי המקרא",
+      "standard_area": "1. תורה שבכתב Essentials",
+      "level": "Levels 1-8 (summary)",
+      "question_generation_relevance": {
+        "rating": "medium",
+        "future_archetypes": [
+          "identify_taam_role",
+          "punctuation_support_check"
+        ],
+        "notes": "Relevant to parsing and ניקוד work, but not yet question-ready."
+      },
+      "diagnostic_relevance": {
+        "rating": "medium",
+        "notes": "Useful for advanced reading diagnostics after review."
+      },
+      "future_question_archetypes": [
+        "identify_taam_role",
+        "punctuation_support_check"
+      ],
+      "review_status": [
+        "extracted_raw",
+        "needs_human_review",
+        "not_question_ready",
+        "table_structure_uncertain",
+        "hebrew_text_needs_review"
+      ],
+      "source_page_or_section": "Page 20 / 1.05",
+      "notes": "Appendix-linked details intentionally not fully structured here.",
+      "blocked_or_deferred_uses": [
+        "Do not connect to runtime or student-facing behavior yet.",
+        "Do not treat raw extracted wording as final without human review.",
+        "Do not use as a reviewed bank or production question source."
+      ]
+    },
+    {
+      "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+      "standard_id": "1.06",
+      "standard_title": "חלוקה לסדרות, פרשיות, פרקים",
+      "standard_area": "1. תורה שבכתב Essentials",
+      "level": "Levels 1-8 (summary)",
+      "question_generation_relevance": {
+        "rating": "medium",
+        "future_archetypes": [
+          "identify_text_division",
+          "segment_by_petucha_setuma"
+        ],
+        "notes": "Strongly related to navigation and segmentation, but still source-mode only."
+      },
+      "diagnostic_relevance": {
+        "rating": "medium",
+        "notes": "Supports navigation and later passage segmentation tasks."
+      },
+      "future_question_archetypes": [
+        "identify_text_division",
+        "segment_by_petucha_setuma"
+      ],
+      "review_status": [
+        "extracted_raw",
+        "needs_human_review",
+        "not_question_ready",
+        "table_structure_uncertain",
+        "hebrew_text_needs_review"
+      ],
+      "source_page_or_section": "Page 20 / 1.06",
+      "notes": "Especially relevant for navigation and passage-division tooling.",
+      "blocked_or_deferred_uses": [
+        "Do not connect to runtime or student-facing behavior yet.",
+        "Do not treat raw extracted wording as final without human review.",
+        "Do not use as a reviewed bank or production question source."
+      ]
+    },
+    {
+      "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+      "standard_id": "1.07",
+      "standard_title": "Numerical Value of Letters",
+      "standard_area": "1. תורה שבכתב Essentials",
+      "level": "Levels 1-8 (summary)",
+      "question_generation_relevance": {
+        "rating": "low",
+        "future_archetypes": [
+          "map_letter_to_number",
+          "calculate_word_value"
+        ],
+        "notes": "Helpful for navigation and later Rashi work, but not central to first Chumash diagnostics."
+      },
+      "diagnostic_relevance": {
+        "rating": "low",
+        "notes": "Discrete and testable, but lower priority than direct Chumash language skills."
+      },
+      "future_question_archetypes": [
+        "map_letter_to_number",
+        "calculate_word_value"
+      ],
+      "review_status": [
+        "extracted_raw",
+        "needs_human_review",
+        "not_question_ready",
+        "table_structure_uncertain",
+        "hebrew_text_needs_review"
+      ],
+      "source_page_or_section": "Page 21 / 1.07",
+      "notes": "Kept in the index because it affects navigation and later commentary fluency.",
+      "blocked_or_deferred_uses": [
+        "Do not connect to runtime or student-facing behavior yet.",
+        "Do not treat raw extracted wording as final without human review.",
+        "Do not use as a reviewed bank or production question source."
+      ]
+    },
+    {
+      "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+      "standard_id": "1.08",
+      "standard_title": "The Five חומשים",
+      "standard_area": "1. תורה שבכתב Essentials",
+      "level": "Levels 1-8 (summary)",
+      "question_generation_relevance": {
+        "rating": "low",
+        "future_archetypes": [
+          "sequence_five_chumashim",
+          "match_chumash_theme"
+        ],
+        "notes": "Orientation-relevant, but not a core language-skill lane."
+      },
+      "diagnostic_relevance": {
+        "rating": "low",
+        "notes": "Foundational orientation skill rather than a high-value diagnostic language target."
+      },
+      "future_question_archetypes": [
+        "sequence_five_chumashim",
+        "match_chumash_theme"
+      ],
+      "review_status": [
+        "extracted_raw",
+        "needs_human_review",
+        "not_question_ready",
+        "table_structure_uncertain",
+        "hebrew_text_needs_review"
+      ],
+      "source_page_or_section": "Page 22 / 1.08",
+      "notes": "Indexed because it affects text navigation and curricular sequencing.",
+      "blocked_or_deferred_uses": [
+        "Do not connect to runtime or student-facing behavior yet.",
+        "Do not treat raw extracted wording as final without human review.",
+        "Do not use as a reviewed bank or production question source."
+      ]
+    },
+    {
+      "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+      "standard_id": "1.09",
+      "standard_title": "The Names of the סדרות / פרשיות",
+      "standard_area": "1. תורה שבכתב Essentials",
+      "level": "Levels 1-8 (summary)",
+      "question_generation_relevance": {
+        "rating": "low",
+        "future_archetypes": [
+          "sequence_parshiyot",
+          "match_parsha_to_chumash"
+        ],
+        "notes": "Navigation-relevant, but outside the first language-skill extraction focus."
+      },
+      "diagnostic_relevance": {
+        "rating": "low",
+        "notes": "Primarily orientation and sequencing rather than text-analysis skill."
+      },
+      "future_question_archetypes": [
+        "sequence_parshiyot",
+        "match_parsha_to_chumash"
+      ],
+      "review_status": [
+        "extracted_raw",
+        "needs_human_review",
+        "not_question_ready",
+        "table_structure_uncertain",
+        "hebrew_text_needs_review"
+      ],
+      "source_page_or_section": "Pages 22-23 / 1.09",
+      "notes": "Useful for curriculum orientation and later navigation tooling.",
+      "blocked_or_deferred_uses": [
+        "Do not connect to runtime or student-facing behavior yet.",
+        "Do not treat raw extracted wording as final without human review.",
+        "Do not use as a reviewed bank or production question source."
+      ]
+    },
+    {
+      "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+      "standard_id": "1.10",
+      "standard_title": "Navigating the חומש",
+      "standard_area": "1. תורה שבכתב Essentials",
+      "level": "Levels 1-8 (summary)",
+      "question_generation_relevance": {
+        "rating": "medium",
+        "future_archetypes": [
+          "locate_reference",
+          "identify_aliyah",
+          "locate_rashi_or_onkelos"
+        ],
+        "notes": "One of the most directly reusable Standard 1 areas for later diagnostic navigation tasks."
+      },
+      "diagnostic_relevance": {
+        "rating": "medium",
+        "notes": "Can support navigation diagnostics and later commentary-prep checks."
+      },
+      "future_question_archetypes": [
+        "locate_reference",
+        "identify_aliyah",
+        "locate_rashi_or_onkelos"
+      ],
+      "review_status": [
+        "extracted_raw",
+        "needs_human_review",
+        "not_question_ready",
+        "table_structure_uncertain",
+        "hebrew_text_needs_review"
+      ],
+      "source_page_or_section": "Page 23 / 1.10",
+      "notes": "Directly relevant to navigation and teacher-only study fluency checks.",
+      "blocked_or_deferred_uses": [
+        "Do not connect to runtime or student-facing behavior yet.",
+        "Do not treat raw extracted wording as final without human review.",
+        "Do not use as a reviewed bank or production question source."
+      ]
+    },
+    {
+      "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+      "standard_id": "3.01",
+      "standard_title": "Vocabulary: שמות עצם (nouns)",
+      "standard_area": "3. Vocabulary and Language Skills",
+      "level": "Levels 1-8",
+      "question_generation_relevance": {
+        "rating": "high",
+        "future_archetypes": [
+          "direct_noun_translation",
+          "match_hebrew_noun_from_english",
+          "choose_contextual_noun_meaning"
+        ],
+        "notes": "Highly relevant to future diagnostic and question-generation lanes."
+      },
+      "diagnostic_relevance": {
+        "rating": "high",
+        "notes": "Directly assessable through word meaning, contextual meaning, and transfer into unlearned פסוקים."
+      },
+      "future_question_archetypes": [
+        "direct_noun_translation",
+        "match_hebrew_noun_from_english",
+        "choose_contextual_noun_meaning"
+      ],
+      "review_status": [
+        "extracted_raw",
+        "needs_human_review",
+        "not_question_ready",
+        "table_structure_uncertain",
+        "hebrew_text_needs_review"
+      ],
+      "source_page_or_section": "Page 30 / 3.01",
+      "notes": "Detailed extraction appears in the Standard 3 file.",
+      "blocked_or_deferred_uses": [
+        "Do not connect to runtime or student-facing behavior yet.",
+        "Do not treat raw extracted wording as final without human review.",
+        "Do not use as a reviewed bank or production question source."
+      ]
+    },
+    {
+      "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+      "standard_id": "3.02",
+      "standard_title": "Vocabulary: שורשים (for verbs)",
+      "standard_area": "3. Vocabulary and Language Skills",
+      "level": "Levels 1-8",
+      "question_generation_relevance": {
+        "rating": "high",
+        "future_archetypes": [
+          "identify_shoresh",
+          "map_root_to_meaning",
+          "choose_contextual_root_translation",
+          "spot_weak_letter_root"
+        ],
+        "notes": "One of the clearest future rule-to-question bridges in the standards."
+      },
+      "diagnostic_relevance": {
+        "rating": "high",
+        "notes": "Root meaning and root-identification skills are central to later independent Chumash reading."
+      },
+      "future_question_archetypes": [
+        "identify_shoresh",
+        "map_root_to_meaning",
+        "choose_contextual_root_translation",
+        "spot_weak_letter_root"
+      ],
+      "review_status": [
+        "extracted_raw",
+        "needs_human_review",
+        "not_question_ready",
+        "table_structure_uncertain",
+        "hebrew_text_needs_review"
+      ],
+      "source_page_or_section": "Pages 30-31 / 3.02",
+      "notes": "Detailed extraction appears in the Standard 3 file.",
+      "blocked_or_deferred_uses": [
+        "Do not connect to runtime or student-facing behavior yet.",
+        "Do not treat raw extracted wording as final without human review.",
+        "Do not use as a reviewed bank or production question source."
+      ]
+    },
+    {
+      "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+      "standard_id": "3.03",
+      "standard_title": "Other Vocabulary",
+      "standard_area": "3. Vocabulary and Language Skills",
+      "level": "Levels 1-8",
+      "question_generation_relevance": {
+        "rating": "high",
+        "future_archetypes": [
+          "translate_function_word",
+          "contextual_preposition_choice",
+          "identify_conjunction_meaning"
+        ],
+        "notes": "Very relevant to later direct translation and lane-routing decisions."
+      },
+      "diagnostic_relevance": {
+        "rating": "high",
+        "notes": "Function-word confusion is a strong diagnostic signal in Chumash reading."
+      },
+      "future_question_archetypes": [
+        "translate_function_word",
+        "contextual_preposition_choice",
+        "identify_conjunction_meaning"
+      ],
+      "review_status": [
+        "extracted_raw",
+        "needs_human_review",
+        "not_question_ready",
+        "table_structure_uncertain",
+        "hebrew_text_needs_review"
+      ],
+      "source_page_or_section": "Page 32 / 3.03",
+      "notes": "Detailed extraction appears in the Standard 3 file.",
+      "blocked_or_deferred_uses": [
+        "Do not connect to runtime or student-facing behavior yet.",
+        "Do not treat raw extracted wording as final without human review.",
+        "Do not use as a reviewed bank or production question source."
+      ]
+    },
+    {
+      "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+      "standard_id": "3.04",
+      "standard_title": "Nouns and Adjectives",
+      "standard_area": "3. Vocabulary and Language Skills",
+      "level": "Levels 1-8 (summary)",
+      "question_generation_relevance": {
+        "rating": "high",
+        "future_archetypes": [
+          "identify_noun_or_adjective",
+          "gender_number_match",
+          "identify_smichut"
+        ],
+        "notes": "Strong candidate for future diagnostic grammar lanes."
+      },
+      "diagnostic_relevance": {
+        "rating": "high",
+        "notes": "Concrete, teachable, and directly connected to Chumash translation accuracy."
+      },
+      "future_question_archetypes": [
+        "identify_noun_or_adjective",
+        "gender_number_match",
+        "identify_smichut"
+      ],
+      "review_status": [
+        "extracted_raw",
+        "needs_human_review",
+        "not_question_ready",
+        "table_structure_uncertain",
+        "hebrew_text_needs_review"
+      ],
+      "source_page_or_section": "Pages 33-35 / 3.04",
+      "notes": "Detailed extraction appears in the Standard 3 file.",
+      "blocked_or_deferred_uses": [
+        "Do not connect to runtime or student-facing behavior yet.",
+        "Do not treat raw extracted wording as final without human review.",
+        "Do not use as a reviewed bank or production question source."
+      ]
+    },
+    {
+      "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+      "standard_id": "3.05",
+      "standard_title": "Pronouns",
+      "standard_area": "3. Vocabulary and Language Skills",
+      "level": "Levels 1-8 (summary)",
+      "question_generation_relevance": {
+        "rating": "high",
+        "future_archetypes": [
+          "identify_pronoun_referent",
+          "identify_pronoun_type",
+          "decode_suffix_pronoun"
+        ],
+        "notes": "Pronoun referent work is highly relevant to generated-question QA and parsing."
+      },
+      "diagnostic_relevance": {
+        "rating": "high",
+        "notes": "Pronoun referent confusion is a high-value diagnostic signal in פסוק understanding."
+      },
+      "future_question_archetypes": [
+        "identify_pronoun_referent",
+        "identify_pronoun_type",
+        "decode_suffix_pronoun"
+      ],
+      "review_status": [
+        "extracted_raw",
+        "needs_human_review",
+        "not_question_ready",
+        "table_structure_uncertain",
+        "hebrew_text_needs_review"
+      ],
+      "source_page_or_section": "Pages 36-40 / 3.05",
+      "notes": "Detailed extraction appears in the Standard 3 file.",
+      "blocked_or_deferred_uses": [
+        "Do not connect to runtime or student-facing behavior yet.",
+        "Do not treat raw extracted wording as final without human review.",
+        "Do not use as a reviewed bank or production question source."
+      ]
+    },
+    {
+      "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+      "standard_id": "3.06",
+      "standard_title": "Prepositions, Conjunctions and the Definite Article",
+      "standard_area": "3. Vocabulary and Language Skills",
+      "level": "Levels 1-8 (summary)",
+      "question_generation_relevance": {
+        "rating": "high",
+        "future_archetypes": [
+          "identify_definite_article",
+          "distinguish_vav_types",
+          "identify_preposition_prefix",
+          "resolve_et_function"
+        ],
+        "notes": "A very strong future diagnostic lane because the standards name discrete, testable forms."
+      },
+      "diagnostic_relevance": {
+        "rating": "high",
+        "notes": "Misreading prefixes and function words is a central source of Chumash translation error."
+      },
+      "future_question_archetypes": [
+        "identify_definite_article",
+        "distinguish_vav_types",
+        "identify_preposition_prefix",
+        "resolve_et_function"
+      ],
+      "review_status": [
+        "extracted_raw",
+        "needs_human_review",
+        "not_question_ready",
+        "table_structure_uncertain",
+        "hebrew_text_needs_review"
+      ],
+      "source_page_or_section": "Pages 41-43 / 3.06",
+      "notes": "Detailed extraction appears in the Standard 3 file.",
+      "blocked_or_deferred_uses": [
+        "Do not connect to runtime or student-facing behavior yet.",
+        "Do not treat raw extracted wording as final without human review.",
+        "Do not use as a reviewed bank or production question source."
+      ]
+    },
+    {
+      "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+      "standard_id": "3.07",
+      "standard_title": "Verbs",
+      "standard_area": "3. Vocabulary and Language Skills",
+      "level": "Levels 1-8 (summary)",
+      "question_generation_relevance": {
+        "rating": "high",
+        "future_archetypes": [
+          "identify_verb_tense",
+          "identify_verb_person",
+          "identify_binyan",
+          "identify_command_or_infinitive"
+        ],
+        "notes": "One of the richest future diagnostic/question-generation standards, but it must remain human-reviewed."
+      },
+      "diagnostic_relevance": {
+        "rating": "high",
+        "notes": "Verb parsing and tense/binyan errors are central to independent text comprehension."
+      },
+      "future_question_archetypes": [
+        "identify_verb_tense",
+        "identify_verb_person",
+        "identify_binyan",
+        "identify_command_or_infinitive"
+      ],
+      "review_status": [
+        "extracted_raw",
+        "needs_human_review",
+        "not_question_ready",
+        "table_structure_uncertain",
+        "hebrew_text_needs_review"
+      ],
+      "source_page_or_section": "Pages 44-46 / 3.07",
+      "notes": "Detailed extraction appears in the Standard 3 file.",
+      "blocked_or_deferred_uses": [
+        "Do not connect to runtime or student-facing behavior yet.",
+        "Do not treat raw extracted wording as final without human review.",
+        "Do not use as a reviewed bank or production question source."
+      ]
+    },
+    {
+      "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+      "standard_id": "3.08",
+      "standard_title": "Grouping and Word Order",
+      "standard_area": "3. Vocabulary and Language Skills",
+      "level": "Levels 1-8 (summary)",
+      "question_generation_relevance": {
+        "rating": "high",
+        "future_archetypes": [
+          "group_phrase_for_translation",
+          "reorder_literal_hebrew_to_english"
+        ],
+        "notes": "Excellent future source for syntax-aware translation prompts and QA."
+      },
+      "diagnostic_relevance": {
+        "rating": "high",
+        "notes": "Grouping and word-order mistakes are highly visible in student translations."
+      },
+      "future_question_archetypes": [
+        "group_phrase_for_translation",
+        "reorder_literal_hebrew_to_english"
+      ],
+      "review_status": [
+        "extracted_raw",
+        "needs_human_review",
+        "not_question_ready",
+        "table_structure_uncertain",
+        "hebrew_text_needs_review"
+      ],
+      "source_page_or_section": "Page 48 / 3.08",
+      "notes": "Detailed extraction appears in the Standard 3 file.",
+      "blocked_or_deferred_uses": [
+        "Do not connect to runtime or student-facing behavior yet.",
+        "Do not treat raw extracted wording as final without human review.",
+        "Do not use as a reviewed bank or production question source."
+      ]
+    },
+    {
+      "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+      "standard_id": "3.09",
+      "standard_title": "Parsing the פסוק",
+      "standard_area": "3. Vocabulary and Language Skills",
+      "level": "Levels 1-8 (summary)",
+      "question_generation_relevance": {
+        "rating": "high",
+        "future_archetypes": [
+          "parse_pasuk_by_taamim",
+          "identify_clause_boundary"
+        ],
+        "notes": "A strong future teacher-reviewed lane for advanced parsing tasks."
+      },
+      "diagnostic_relevance": {
+        "rating": "high",
+        "notes": "Parsing with טעמים directly affects translation and comprehension quality."
+      },
+      "future_question_archetypes": [
+        "parse_pasuk_by_taamim",
+        "identify_clause_boundary"
+      ],
+      "review_status": [
+        "extracted_raw",
+        "needs_human_review",
+        "not_question_ready",
+        "table_structure_uncertain",
+        "hebrew_text_needs_review"
+      ],
+      "source_page_or_section": "Page 48 / 3.09",
+      "notes": "Detailed extraction appears in the Standard 3 file.",
+      "blocked_or_deferred_uses": [
+        "Do not connect to runtime or student-facing behavior yet.",
+        "Do not treat raw extracted wording as final without human review.",
+        "Do not use as a reviewed bank or production question source."
+      ]
+    },
+    {
+      "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+      "standard_id": "3.10",
+      "standard_title": "Understanding ניקוד",
+      "standard_area": "3. Vocabulary and Language Skills",
+      "level": "Advanced upper levels only (summary)",
+      "question_generation_relevance": {
+        "rating": "medium",
+        "future_archetypes": [
+          "identify_nikud_category",
+          "syllable_division",
+          "explain_dagesh_or_sheva_rule"
+        ],
+        "notes": "Highly relevant for advanced grammar and later Rashi work, but too sensitive for unreviewed question generation."
+      },
+      "diagnostic_relevance": {
+        "rating": "medium",
+        "notes": "Powerful for advanced students, but intentionally gated because the extracted table is compact and advanced."
+      },
+      "future_question_archetypes": [
+        "identify_nikud_category",
+        "syllable_division",
+        "explain_dagesh_or_sheva_rule"
+      ],
+      "review_status": [
+        "extracted_raw",
+        "needs_human_review",
+        "not_question_ready",
+        "table_structure_uncertain",
+        "hebrew_text_needs_review"
+      ],
+      "source_page_or_section": "Pages 49-50 / 3.10",
+      "notes": "Detailed extraction appears in the Standard 3 file.",
+      "blocked_or_deferred_uses": [
+        "Do not connect to runtime or student-facing behavior yet.",
+        "Do not treat raw extracted wording as final without human review.",
+        "Do not use as a reviewed bank or production question source."
+      ]
+    },
+    {
+      "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+      "standard_id": "4.01",
+      "standard_title": "Finding Facts",
+      "standard_area": "4. Passage (פסוק) Comprehension Skills",
+      "level": "Levels 1-8 (summary)",
+      "question_generation_relevance": {
+        "rating": "high",
+        "future_archetypes": [
+          "answer_five_ws",
+          "cite_textual_basis"
+        ],
+        "notes": "Directly relevant to future comprehension item generation."
+      },
+      "diagnostic_relevance": {
+        "rating": "high",
+        "notes": "A strong indicator of whether students can pull explicit information from text."
+      },
+      "future_question_archetypes": [
+        "answer_five_ws",
+        "cite_textual_basis"
+      ],
+      "review_status": [
+        "extracted_raw",
+        "needs_human_review",
+        "not_question_ready",
+        "table_structure_uncertain",
+        "hebrew_text_needs_review"
+      ],
+      "source_page_or_section": "Page 53 / 4.01",
+      "notes": "One of the clearest bridges from standards language into future question-generation relevance.",
+      "blocked_or_deferred_uses": [
+        "Do not connect to runtime or student-facing behavior yet.",
+        "Do not treat raw extracted wording as final without human review.",
+        "Do not use as a reviewed bank or production question source."
+      ]
+    },
+    {
+      "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+      "standard_id": "4.02",
+      "standard_title": "Finding Quotes",
+      "standard_area": "4. Passage (פסוק) Comprehension Skills",
+      "level": "Levels 1-8 (summary)",
+      "question_generation_relevance": {
+        "rating": "high",
+        "future_archetypes": [
+          "identify_quote_boundary",
+          "identify_quote_within_quote"
+        ],
+        "notes": "Strong candidate for targeted comprehension checks."
+      },
+      "diagnostic_relevance": {
+        "rating": "high",
+        "notes": "Quote-boundary confusion often exposes shallow narrative tracking."
+      },
+      "future_question_archetypes": [
+        "identify_quote_boundary",
+        "identify_quote_within_quote"
+      ],
+      "review_status": [
+        "extracted_raw",
+        "needs_human_review",
+        "not_question_ready",
+        "table_structure_uncertain",
+        "hebrew_text_needs_review"
+      ],
+      "source_page_or_section": "Pages 53-54 / 4.02",
+      "notes": "The quote-within-quote progression is explicit enough for indexing.",
+      "blocked_or_deferred_uses": [
+        "Do not connect to runtime or student-facing behavior yet.",
+        "Do not treat raw extracted wording as final without human review.",
+        "Do not use as a reviewed bank or production question source."
+      ]
+    },
+    {
+      "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+      "standard_id": "4.03",
+      "standard_title": "Logical Sequencing",
+      "standard_area": "4. Passage (פסוק) Comprehension Skills",
+      "level": "Levels 1-8 (summary)",
+      "question_generation_relevance": {
+        "rating": "high",
+        "future_archetypes": [
+          "sequence_events",
+          "identify_cause_effect"
+        ],
+        "notes": "Very relevant to comprehension and logic-question families."
+      },
+      "diagnostic_relevance": {
+        "rating": "high",
+        "notes": "Sequencing and cause-effect are core transferable comprehension skills."
+      },
+      "future_question_archetypes": [
+        "sequence_events",
+        "identify_cause_effect"
+      ],
+      "review_status": [
+        "extracted_raw",
+        "needs_human_review",
+        "not_question_ready",
+        "table_structure_uncertain",
+        "hebrew_text_needs_review"
+      ],
+      "source_page_or_section": "Page 55 / 4.03",
+      "notes": "Clear Higher Order Thinking progression.",
+      "blocked_or_deferred_uses": [
+        "Do not connect to runtime or student-facing behavior yet.",
+        "Do not treat raw extracted wording as final without human review.",
+        "Do not use as a reviewed bank or production question source."
+      ]
+    },
+    {
+      "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+      "standard_id": "4.04",
+      "standard_title": "Comparing and Contrasting",
+      "standard_area": "4. Passage (פסוק) Comprehension Skills",
+      "level": "Levels 1-8 (summary)",
+      "question_generation_relevance": {
+        "rating": "high",
+        "future_archetypes": [
+          "compare_contrast_passages"
+        ],
+        "notes": "Directly relevant to later passage-comparison items and teacher-reviewed tasks."
+      },
+      "diagnostic_relevance": {
+        "rating": "medium",
+        "notes": "Powerful but usually requires more text and careful scoring design."
+      },
+      "future_question_archetypes": [
+        "compare_contrast_passages"
+      ],
+      "review_status": [
+        "extracted_raw",
+        "needs_human_review",
+        "not_question_ready",
+        "table_structure_uncertain",
+        "hebrew_text_needs_review"
+      ],
+      "source_page_or_section": "Page 56 / 4.04",
+      "notes": "Useful for future richer assessment design, but not a first micro-question lane.",
+      "blocked_or_deferred_uses": [
+        "Do not connect to runtime or student-facing behavior yet.",
+        "Do not treat raw extracted wording as final without human review.",
+        "Do not use as a reviewed bank or production question source."
+      ]
+    },
+    {
+      "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+      "standard_id": "4.05",
+      "standard_title": "Dividing Into Segments and Finding the Main Ideas",
+      "standard_area": "4. Passage (פסוק) Comprehension Skills",
+      "level": "Levels 1-8 (summary)",
+      "question_generation_relevance": {
+        "rating": "high",
+        "future_archetypes": [
+          "segment_into_topics",
+          "state_main_idea",
+          "summarize_text"
+        ],
+        "notes": "Strong relevance for later comprehension, though some tasks may be open-ended."
+      },
+      "diagnostic_relevance": {
+        "rating": "high",
+        "notes": "Main-idea and segmentation ability are major indicators of real comprehension."
+      },
+      "future_question_archetypes": [
+        "segment_into_topics",
+        "state_main_idea",
+        "summarize_text"
+      ],
+      "review_status": [
+        "extracted_raw",
+        "needs_human_review",
+        "not_question_ready",
+        "table_structure_uncertain",
+        "hebrew_text_needs_review"
+      ],
+      "source_page_or_section": "Page 56 / 4.05",
+      "notes": "Especially relevant to future passage-comprehension scaffolds and summary tasks.",
+      "blocked_or_deferred_uses": [
+        "Do not connect to runtime or student-facing behavior yet.",
+        "Do not treat raw extracted wording as final without human review.",
+        "Do not use as a reviewed bank or production question source."
+      ]
+    },
+    {
+      "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+      "standard_id": "4.06",
+      "standard_title": "Noticing Anomalies and Deviations in the Text",
+      "standard_area": "4. Passage (פסוק) Comprehension Skills",
+      "level": "Levels 1-8 (summary)",
+      "question_generation_relevance": {
+        "rating": "high",
+        "future_archetypes": [
+          "notice_repetition",
+          "spot_missing_or_extra_detail",
+          "identify_text_anomaly"
+        ],
+        "notes": "Important for advanced source-sensitive question design and later Rashi prep."
+      },
+      "diagnostic_relevance": {
+        "rating": "medium",
+        "notes": "Valuable, but may require careful human review to avoid over-inference."
+      },
+      "future_question_archetypes": [
+        "notice_repetition",
+        "spot_missing_or_extra_detail",
+        "identify_text_anomaly"
+      ],
+      "review_status": [
+        "extracted_raw",
+        "needs_human_review",
+        "not_question_ready",
+        "table_structure_uncertain",
+        "hebrew_text_needs_review"
+      ],
+      "source_page_or_section": "Page 57 / 4.06",
+      "notes": "High-value but riskier; should stay human-reviewed before generated use.",
+      "blocked_or_deferred_uses": [
+        "Do not connect to runtime or student-facing behavior yet.",
+        "Do not treat raw extracted wording as final without human review.",
+        "Do not use as a reviewed bank or production question source."
+      ]
+    },
+    {
+      "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+      "standard_id": "4.07",
+      "standard_title": "Identifying Literal and Contextual Meanings",
+      "standard_area": "4. Passage (פסוק) Comprehension Skills",
+      "level": "Levels 1-8 (summary)",
+      "question_generation_relevance": {
+        "rating": "high",
+        "future_archetypes": [
+          "literal_vs_figurative",
+          "contextual_meaning_choice",
+          "anthropomorphic_language_flag"
+        ],
+        "notes": "Directly relevant to contextual-meaning assessment, but requires careful source review."
+      },
+      "diagnostic_relevance": {
+        "rating": "medium",
+        "notes": "Important and teachable, but easily overreaches without careful review."
+      },
+      "future_question_archetypes": [
+        "literal_vs_figurative",
+        "contextual_meaning_choice",
+        "anthropomorphic_language_flag"
+      ],
+      "review_status": [
+        "extracted_raw",
+        "needs_human_review",
+        "not_question_ready",
+        "table_structure_uncertain",
+        "hebrew_text_needs_review"
+      ],
+      "source_page_or_section": "Page 57 / 4.07",
+      "notes": "Potentially useful for later contextual-meaning lanes, but must stay source-conservative.",
+      "blocked_or_deferred_uses": [
+        "Do not connect to runtime or student-facing behavior yet.",
+        "Do not treat raw extracted wording as final without human review.",
+        "Do not use as a reviewed bank or production question source."
+      ]
+    },
+    {
+      "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+      "standard_id": "4.08",
+      "standard_title": "Integrating Knowledge and Ideas",
+      "standard_area": "4. Passage (פסוק) Comprehension Skills",
+      "level": "Levels 1-8 (summary)",
+      "question_generation_relevance": {
+        "rating": "medium",
+        "future_archetypes": [
+          "multi_pasuk_synthesis",
+          "integrate_commentary"
+        ],
+        "notes": "Relevant to richer performance tasks, but not a first automatic question lane."
+      },
+      "diagnostic_relevance": {
+        "rating": "medium",
+        "notes": "Highly valuable, though usually open-ended and teacher-reviewed."
+      },
+      "future_question_archetypes": [
+        "multi_pasuk_synthesis",
+        "integrate_commentary"
+      ],
+      "review_status": [
+        "extracted_raw",
+        "needs_human_review",
+        "not_question_ready",
+        "table_structure_uncertain",
+        "hebrew_text_needs_review"
+      ],
+      "source_page_or_section": "Page 58 / 4.08",
+      "notes": "Kept as structured relevance, not as a current question template.",
+      "blocked_or_deferred_uses": [
+        "Do not connect to runtime or student-facing behavior yet.",
+        "Do not treat raw extracted wording as final without human review.",
+        "Do not use as a reviewed bank or production question source."
+      ]
+    },
+    {
+      "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+      "standard_id": "5.01",
+      "standard_title": "רש\"י Script",
+      "standard_area": "5. רש\"י Skills",
+      "level": "High-level index only",
+      "question_generation_relevance": {
+        "rating": "medium",
+        "future_archetypes": [
+          "read_rashi_script",
+          "transcribe_rashi_letters"
+        ],
+        "notes": "Future upper-grade relevance, but intentionally indexed only in this branch."
+      },
+      "diagnostic_relevance": {
+        "rating": "low",
+        "notes": "Useful for later readiness checks, not current Chumash question generation."
+      },
+      "future_question_archetypes": [
+        "read_rashi_script",
+        "transcribe_rashi_letters"
+      ],
+      "review_status": [
+        "extracted_raw",
+        "needs_human_review",
+        "not_question_ready",
+        "table_structure_uncertain",
+        "hebrew_text_needs_review"
+      ],
+      "source_page_or_section": "Page 60 / 5.01",
+      "notes": "High-level index only.",
+      "blocked_or_deferred_uses": [
+        "Do not connect to runtime or student-facing behavior yet.",
+        "Do not treat raw extracted wording as final without human review.",
+        "Do not use as a reviewed bank or production question source."
+      ]
+    },
+    {
+      "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+      "standard_id": "5.02",
+      "standard_title": "רש\"י Abbreviations",
+      "standard_area": "5. רש\"י Skills",
+      "level": "High-level index only",
+      "question_generation_relevance": {
+        "rating": "medium",
+        "future_archetypes": [
+          "decode_rashi_abbreviation"
+        ],
+        "notes": "Relevant later for commentary access, but not extracted in full detail here."
+      },
+      "diagnostic_relevance": {
+        "rating": "low",
+        "notes": "Important for Rashi readiness, but outside the current main extraction focus."
+      },
+      "future_question_archetypes": [
+        "decode_rashi_abbreviation"
+      ],
+      "review_status": [
+        "extracted_raw",
+        "needs_human_review",
+        "not_question_ready",
+        "table_structure_uncertain",
+        "hebrew_text_needs_review"
+      ],
+      "source_page_or_section": "Page 60 / 5.02",
+      "notes": "High-level index only.",
+      "blocked_or_deferred_uses": [
+        "Do not connect to runtime or student-facing behavior yet.",
+        "Do not treat raw extracted wording as final without human review.",
+        "Do not use as a reviewed bank or production question source."
+      ]
+    },
+    {
+      "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+      "standard_id": "5.03",
+      "standard_title": "רש\"י Vocabulary Skills",
+      "standard_area": "5. רש\"י Skills",
+      "level": "High-level index only",
+      "question_generation_relevance": {
+        "rating": "medium",
+        "future_archetypes": [
+          "translate_rashi_vocabulary"
+        ],
+        "notes": "Relevant later for Rashi fluency, but not a current extraction focus."
+      },
+      "diagnostic_relevance": {
+        "rating": "low",
+        "notes": "Teacher-facing readiness skill at this stage."
+      },
+      "future_question_archetypes": [
+        "translate_rashi_vocabulary"
+      ],
+      "review_status": [
+        "extracted_raw",
+        "needs_human_review",
+        "not_question_ready",
+        "table_structure_uncertain",
+        "hebrew_text_needs_review"
+      ],
+      "source_page_or_section": "Page 60 / 5.03",
+      "notes": "High-level index only.",
+      "blocked_or_deferred_uses": [
+        "Do not connect to runtime or student-facing behavior yet.",
+        "Do not treat raw extracted wording as final without human review.",
+        "Do not use as a reviewed bank or production question source."
+      ]
+    },
+    {
+      "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+      "standard_id": "5.04",
+      "standard_title": "Group and Translate",
+      "standard_area": "5. רש\"י Skills",
+      "level": "High-level index only",
+      "question_generation_relevance": {
+        "rating": "medium",
+        "future_archetypes": [
+          "group_and_translate_rashi"
+        ],
+        "notes": "Potentially relevant later, but out of scope for this first structured standards pass."
+      },
+      "diagnostic_relevance": {
+        "rating": "low",
+        "notes": "Deferred until a fuller Rashi extraction branch."
+      },
+      "future_question_archetypes": [
+        "group_and_translate_rashi"
+      ],
+      "review_status": [
+        "extracted_raw",
+        "needs_human_review",
+        "not_question_ready",
+        "table_structure_uncertain",
+        "hebrew_text_needs_review"
+      ],
+      "source_page_or_section": "Page 60 / 5.04",
+      "notes": "High-level index only.",
+      "blocked_or_deferred_uses": [
+        "Do not connect to runtime or student-facing behavior yet.",
+        "Do not treat raw extracted wording as final without human review.",
+        "Do not use as a reviewed bank or production question source."
+      ]
+    },
+    {
+      "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+      "standard_id": "5.05",
+      "standard_title": "Understanding רש\"י",
+      "standard_area": "5. רש\"י Skills",
+      "level": "High-level index only",
+      "question_generation_relevance": {
+        "rating": "medium",
+        "future_archetypes": [
+          "identify_rashi_question",
+          "explain_rashi_answer"
+        ],
+        "notes": "High future value, but only indexed here because a full Rashi extraction would require a dedicated review pass."
+      },
+      "diagnostic_relevance": {
+        "rating": "medium",
+        "notes": "Important for upper-grade commentary study, but not current runtime scope."
+      },
+      "future_question_archetypes": [
+        "identify_rashi_question",
+        "explain_rashi_answer"
+      ],
+      "review_status": [
+        "extracted_raw",
+        "needs_human_review",
+        "not_question_ready",
+        "table_structure_uncertain",
+        "hebrew_text_needs_review"
+      ],
+      "source_page_or_section": "Pages 62-63 / 5.05",
+      "notes": "High-level index only.",
+      "blocked_or_deferred_uses": [
+        "Do not connect to runtime or student-facing behavior yet.",
+        "Do not treat raw extracted wording as final without human review.",
+        "Do not use as a reviewed bank or production question source."
+      ]
+    },
+    {
+      "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+      "standard_id": "5.06",
+      "standard_title": "Summarizing רש\"י",
+      "standard_area": "5. רש\"י Skills",
+      "level": "High-level index only",
+      "question_generation_relevance": {
+        "rating": "low",
+        "future_archetypes": [
+          "summarize_rashi"
+        ],
+        "notes": "More performance-based and teacher-reviewed than first-pass question-generation ready."
+      },
+      "diagnostic_relevance": {
+        "rating": "medium",
+        "notes": "Useful later for deeper commentary comprehension checks."
+      },
+      "future_question_archetypes": [
+        "summarize_rashi"
+      ],
+      "review_status": [
+        "extracted_raw",
+        "needs_human_review",
+        "not_question_ready",
+        "table_structure_uncertain",
+        "hebrew_text_needs_review"
+      ],
+      "source_page_or_section": "Page 63 / 5.06",
+      "notes": "High-level index only.",
+      "blocked_or_deferred_uses": [
+        "Do not connect to runtime or student-facing behavior yet.",
+        "Do not treat raw extracted wording as final without human review.",
+        "Do not use as a reviewed bank or production question source."
+      ]
+    },
+    {
+      "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+      "standard_id": "5.07",
+      "standard_title": "Dividing רש\"י",
+      "standard_area": "5. רש\"י Skills",
+      "level": "High-level index only",
+      "question_generation_relevance": {
+        "rating": "medium",
+        "future_archetypes": [
+          "divide_rashi_components"
+        ],
+        "notes": "Potentially useful for teacher-review workflows, but deliberately not expanded here."
+      },
+      "diagnostic_relevance": {
+        "rating": "low",
+        "notes": "Teacher-facing and upper-grade only for now."
+      },
+      "future_question_archetypes": [
+        "divide_rashi_components"
+      ],
+      "review_status": [
+        "extracted_raw",
+        "needs_human_review",
+        "not_question_ready",
+        "table_structure_uncertain",
+        "hebrew_text_needs_review"
+      ],
+      "source_page_or_section": "Page 64 / 5.07",
+      "notes": "High-level index only.",
+      "blocked_or_deferred_uses": [
+        "Do not connect to runtime or student-facing behavior yet.",
+        "Do not treat raw extracted wording as final without human review.",
+        "Do not use as a reviewed bank or production question source."
+      ]
+    },
+    {
+      "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+      "standard_id": "5.08",
+      "standard_title": "מפרשי רש\"י",
+      "standard_area": "5. רש\"י Skills",
+      "level": "High-level index only",
+      "question_generation_relevance": {
+        "rating": "low",
+        "future_archetypes": [
+          "locate_related_mefaresh",
+          "explain_rashi_with_mefaresh"
+        ],
+        "notes": "Valuable later, but intentionally kept at index-only level in this branch."
+      },
+      "diagnostic_relevance": {
+        "rating": "low",
+        "notes": "Out of current extraction scope except as a roadmap record."
+      },
+      "future_question_archetypes": [
+        "locate_related_mefaresh",
+        "explain_rashi_with_mefaresh"
+      ],
+      "review_status": [
+        "extracted_raw",
+        "needs_human_review",
+        "not_question_ready",
+        "table_structure_uncertain",
+        "hebrew_text_needs_review"
+      ],
+      "source_page_or_section": "Page 64 / 5.08",
+      "notes": "High-level index only.",
+      "blocked_or_deferred_uses": [
+        "Do not connect to runtime or student-facing behavior yet.",
+        "Do not treat raw extracted wording as final without human review.",
+        "Do not use as a reviewed bank or production question source."
+      ]
+    }
+  ]
+}
