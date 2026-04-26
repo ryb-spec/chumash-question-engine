@@ -472,6 +472,7 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
             "scripts/validate_curriculum_extraction.py",
             "scripts/validate_diagnostic_preview.py",
             "scripts/validate_dikduk_rules.py",
+            "scripts/validate_standards_data.py",
             "tests/conftest.py",
             "tests/test_curriculum_extraction_validation.py",
             "tests/test_bereishis_translation_sources.py",
@@ -487,6 +488,7 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
             "docs/codex_prompts/batch_006_source_ready_prompt_seed.md",
             "scripts/validate_source_texts.py",
             "tests/test_source_texts_validation.py",
+            "tests/test_standards_data_validation.py",
         ]
         for path in allowed_paths:
             with self.subTest(path=path):

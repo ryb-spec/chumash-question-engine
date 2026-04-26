@@ -100,3 +100,7 @@
 - [completed] Create a review-only teacher packet and review-tracking JSON for the Standard 3 strands that need teacher verification before any runtime or question-generation use
 - [completed] Run the required standards/source validation commands, check for any standards-specific validator, and document the result conservatively
 - [completed] Write the teacher-review-layer report and completion summary, then stop without any runtime promotion or question creation
+
+- [completed] Build a standards-specific Standard 3 validator that checks JSON integrity, linkage, conservative review statuses, and forbidden runtime/question-ready claims
+- [completed] Add narrow tests and review-gate documentation for the Standard 3 teacher-review workflow only
+- [completed] Run required source, curriculum, and standards validation plus focused tests, then write the review-gates validator report and stop
