@@ -1,5 +1,9 @@
 ﻿- [completed] Review the two flagged isolated-pilot unclear items against current runtime behavior and decide accept / reframe / block strictly
 - [completed] Apply only the smallest safe fix if one unclear item is clearly a runtime-quality defect
+- [completed] Rerun Loshon HaTorah / Loshon Hakodesh source discovery now that the raw PDFs are present in the protected source folder
+- [completed] Extract page-delimited PDF text, refresh inventory/index/report metadata, and preserve OCR/layout uncertainty
+- [completed] Refresh conservative rule candidates, Standard 3 crosswalk mappings, and review-support docs using raw-source evidence only
+- [completed] Run required validation and focused standards tests, then update the enrichment report without runtime or question-generation changes
 - [completed] Add focused regressions for the exact unclear-item pattern(s) touched in this pass
 - [completed] Run targeted tests, full pytest, and prepare one more fresh isolated pilot on the unchanged active scope
 
@@ -104,3 +108,8 @@
 - [completed] Build a standards-specific Standard 3 validator that checks JSON integrity, linkage, conservative review statuses, and forbidden runtime/question-ready claims
 - [completed] Add narrow tests and review-gate documentation for the Standard 3 teacher-review workflow only
 - [completed] Run required source, curriculum, and standards validation plus focused tests, then write the review-gates validator report and stop
+
+- [completed] Ingest available Loshon HaTorah / Loshon Hakodesh source-modeled evidence without treating it as canonical or runtime-ready
+- [completed] Create conservative Loshon rule candidates and a Zekelman Standard 3 supplemental crosswalk for unresolved/partial review areas
+- [completed] Extend Standard 3 review packet and decision sheet with enrichment evidence only, preserving all teacher-review decisions and statuses
+- [completed] Narrowly extend standards validation and tests, then run required validation and write the enrichment report

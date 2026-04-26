@@ -1,6 +1,6 @@
 # Zekelman 2025 Standard 3 Teacher Review Packet
 
-Current branch: `feature/standard-3-teacher-review-decisions`
+Current branch: `feature/loshon-hatorah-standard-3-enrichment`
 Status: `review_only`
 Runtime status: `not_runtime_ready`
 Question-generation status: `not_question_ready`
@@ -66,6 +66,31 @@ Current default review statuses:
 
 ### Final Recommendation
 > Teacher review supports limited foundational diagnostic planning for 3.01, 3.02, 3.05, 3.06, and 3.07, with the boundaries listed above. This review does not authorize runtime activation or student-facing question generation.
+
+## Loshon HaTorah Enrichment Evidence
+- Source status: the raw Loshon Hakodesh main book PDF and answer booklet PDF are now present in `docs/sources/loshon_hatorah/raw/`, alongside the existing source-modeled JSONL file at `data/dikduk_rules/rules_loshon_foundation.jsonl`.
+- Evidence policy: this material is supplemental enrichment only. It does not override Zekelman 2025, create teacher decisions, or change runtime/question readiness.
+- Extraction status: page-delimited extracted text was created for both PDFs, but the main-book OCR layer is partial and the answer booklet remains review-only evidence, not an active answer key.
+- Source artifacts refreshed for this enrichment pass:
+- `data/sources/loshon_hatorah/loshon_hatorah_source_inventory.json`
+- `docs/sources/loshon_hatorah/indexes/loshon_hatorah_document_index.json`
+- `docs/sources/loshon_hatorah/extracted/loshon_hakodesh_book_ocr_raw_text.md`
+- `docs/sources/loshon_hatorah/extracted/loshon_answe_2_combined_raw_text.md`
+- `data/sources/loshon_hatorah/structured/loshon_hatorah_rule_candidates.json`
+- `data/standards/zekelman/crosswalks/loshon_hatorah_to_zekelman_standard_3_crosswalk.json`
+
+### Strongest Loshon Enrichment Areas
+- `3.08` Grouping and Word Order: the main book directly supports variable Hebrew word order and natural English reordering on extracted page 4, and the answer booklet repeatedly practices literal-to-natural translation order. This strengthens the case that `3.08` is diagnostically important, but it still does not approve the strand or make it question-ready.
+- `3.04` Nouns and Adjectives: extracted main-book pages support noun gender/number, common plural endings, סמיכות as a construct phrase, and common סמיכות form changes. This helps reviewers decide whether noun-feature work and סמיכות should be split.
+- `3.06` Prefixes, Articles, and Prepositions: extracted evidence supports visible ה, ו, prepositions, prefix prepositions, and context-sensitive את-family cautions. This reinforces the current boundary that visible prefix/article work is safer than the deferred functions of את.
+- `3.05` Pronouns and Suffixes: main-book summary text and answer-booklet exercises support possessive-suffix decoding as a separate review lane from pronoun referent tracking.
+- `3.07` Verbs: Loshon evidence now supports foundational agreement, shoresh-plus-added-letter analysis, past/future evidence, weak-letter boundary cautions, ו׳ ההיפוך as context-sensitive, and later review boundaries for present tense and command forms.
+
+### Still Weak Or Unresolved After Loshon Enrichment
+- `3.10` Understanding ניקוד: raw-source evidence is stronger than the prior pass because pausal/vowel-change notes and את-family nikud cautions were found, but it still does not support the full advanced Zekelman `3.10` scope of תנועות, שבאים, דגשים, syllables, or טעמי המקרא interaction.
+- Weak-letter roots, ו׳ ההיפוך, command forms, present tense, and pausal forms are now documented as supplemental evidence, but they remain deferred/context-sensitive lanes requiring direct teacher and source review.
+- The main-book OCR layer is incomplete; many pages still require direct PDF inspection rather than relying on extracted text.
+- All Loshon examples and Hebrew terms need human source verification before any later diagnostic blueprint work.
 
 ## High-Priority Review Items
 

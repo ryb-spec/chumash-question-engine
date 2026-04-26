@@ -1,0 +1,78 @@
+{
+  "metadata": {
+    "title": "Loshon HaTorah / Loshon Hakodesh Document Index",
+    "generated_at": "2026-04-26",
+    "branch_scope": "feature/loshon-hatorah-standard-3-enrichment",
+    "source_policy": "Supplemental source index only; Zekelman 2025 remains canonical.",
+    "runtime_policy": "No indexed source is runtime-ready or question-ready.",
+    "rerun_note": "Raw PDF source discovery was rerun after the main book and answer booklet were added to the repo."
+  },
+  "documents": [
+    {
+      "source_id": "loshon_hakodesh_main_book_pdf",
+      "title": "Loshon Hakodesh Book OCR / Lashon Hakodesh: Mastering the Basics",
+      "document_role": "main_book_pdf",
+      "raw_path": "docs/sources/loshon_hatorah/raw/loshon_hakodesh_book_ocr.pdf",
+      "extracted_text_path": "docs/sources/loshon_hatorah/extracted/loshon_hakodesh_book_ocr_raw_text.md",
+      "page_count": 86,
+      "file_size_bytes": 15218787,
+      "sha256": "c4eb6adb3841c6c84f3cf63342044ed8ef7890a9d0f6852ebe5edc041ffab130",
+      "extraction_method": "pypdf page-delimited text extraction from embedded OCR/text layer",
+      "is_main_book": true,
+      "is_answer_key": false,
+      "review_status": [
+        "raw_source_ingested",
+        "extracted_text_created",
+        "needs_human_review",
+        "hebrew_text_needs_review",
+        "table_or_layout_uncertain",
+        "not_runtime_ready"
+      ],
+      "notes": "Supplemental enrichment evidence only; it must not override Zekelman 2025 wording, numbering, scope, or level progression."
+    },
+    {
+      "source_id": "loshon_hakodesh_answer_booklet_pdf",
+      "title": "Answer Booklet to Lashon Hakodesh: Mastering the Basics",
+      "document_role": "answer_booklet_pdf",
+      "raw_path": "docs/sources/loshon_hatorah/raw/loshon_answe_2_combined.pdf",
+      "extracted_text_path": "docs/sources/loshon_hatorah/extracted/loshon_answe_2_combined_raw_text.md",
+      "page_count": 33,
+      "file_size_bytes": 7074942,
+      "sha256": "de05e9e542a3d9d012d8282f457fcd139a0ab49e6e021281cdbf2688d931a32d",
+      "extraction_method": "pypdf page-delimited text extraction from embedded OCR/text layer",
+      "is_main_book": false,
+      "is_answer_key": true,
+      "review_status": [
+        "raw_source_ingested",
+        "extracted_text_created",
+        "needs_human_review",
+        "hebrew_text_needs_review",
+        "table_or_layout_uncertain",
+        "not_runtime_ready"
+      ],
+      "notes": "Supplemental source-review evidence only. The answer booklet is not runtime-ready, not question-ready, and not an active answer key."
+    },
+    {
+      "source_id": "loshon_hatorah_foundation_rules_jsonl",
+      "title": "Loshon HaTorah / Loshon Hakodesh foundation rules, source-modeled JSONL",
+      "document_role": "derived_source_model",
+      "raw_path": "data/dikduk_rules/rules_loshon_foundation.jsonl",
+      "extracted_text_path": null,
+      "page_count": null,
+      "file_size_bytes": 67503,
+      "sha256": "91f097d2b4688b1b3356181ade74703ac75b3890eb5c75bffcf9b7599b2c9173",
+      "extraction_method": "existing manually modeled JSONL records from visible lesson pages",
+      "is_main_book": false,
+      "is_answer_key": false,
+      "review_status": [
+        "raw_source_ingested",
+        "needs_human_review",
+        "hebrew_text_needs_review",
+        "table_or_layout_uncertain",
+        "not_runtime_ready"
+      ],
+      "notes": "Supplemental enrichment evidence only; it must not override Zekelman 2025 wording, numbering, scope, or level progression."
+    }
+  ],
+  "missing_documents": []
+}

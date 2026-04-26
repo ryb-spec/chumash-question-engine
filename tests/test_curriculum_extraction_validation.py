@@ -457,6 +457,10 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
             "data/standards/zekelman/review/zekelman_2025_standard_3_review_tracking.json",
             "data/standards/zekelman/review/zekelman_2025_standard_3_teacher_review_packet.md",
             "data/standards/zekelman/reports/zekelman_2025_standard_3_teacher_review_layer_report.md",
+            "data/sources/loshon_hatorah/loshon_hatorah_source_inventory.json",
+            "data/sources/loshon_hatorah/structured/loshon_hatorah_rule_candidates.json",
+            "docs/sources/loshon_hatorah/indexes/loshon_hatorah_document_index.json",
+            "docs/sources/loshon_hatorah/reports/loshon_hatorah_source_ingestion_report.md",
             "data/diagnostic_preview/README.md",
             "data/diagnostic_preview/configs/bereishis_1_1_to_2_3_dikduk_translation_preview.json",
             "data/diagnostic_preview/blueprints/bereishis_1_1_to_2_3_dikduk_translation_blueprints.jsonl",
@@ -518,6 +522,8 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
             "PLANS-archive.md",
             "data/diagnostic_preview_runtime/preview.json",
             "data/standards/other/review/fake_review_packet.md",
+            "data/sources/other_source/source_inventory.json",
+            "docs/sources/other_source/reports/source_ingestion_report.md",
         ]
         for path in disallowed_paths:
             with self.subTest(path=path):

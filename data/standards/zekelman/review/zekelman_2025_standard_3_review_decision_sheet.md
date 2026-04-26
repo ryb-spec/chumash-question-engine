@@ -26,6 +26,18 @@
 - Rows `1-5` below reflect documented teacher-review findings from `Yossi Bassman`.
 - Rows `6-8` remain undecided in this pass and must not be inferred from silence.
 
+## Loshon HaTorah Enrichment Evidence
+- Available raw sources: `docs/sources/loshon_hatorah/raw/loshon_hakodesh_book_ocr.pdf` and `docs/sources/loshon_hatorah/raw/loshon_answe_2_combined.pdf`.
+- Extracted review text: `docs/sources/loshon_hatorah/extracted/loshon_hakodesh_book_ocr_raw_text.md` and `docs/sources/loshon_hatorah/extracted/loshon_answe_2_combined_raw_text.md`.
+- Crosswalk: `data/standards/zekelman/crosswalks/loshon_hatorah_to_zekelman_standard_3_crosswalk.json`.
+- `3.08`: strongest enrichment; main-book text supports variable Hebrew word order and natural English reordering, while answer-booklet evidence supports practice/activity review. Still needs teacher review.
+- `3.04`: enriched by noun gender/number, plural endings, סמיכות construct phrases, and form-change cautions from raw-source evidence.
+- `3.10`: improved but still unresolved; pausal/vowel-change notes and את-family nikud cautions were found, but not enough to approve the full advanced nikud scope.
+- `3.06`: enriched by visible article/prefix/preposition and את-family caution evidence.
+- `3.05`: enriched by possessive-suffix evidence that supports keeping suffix decoding separate from referent tracking.
+- `3.07`: enriched by foundational agreement, shoresh-plus-marker, past/future evidence, weak-letter cautions, ו׳ ההיפוך boundaries, and later-lane evidence for present tense and command forms.
+- Boundary: this enrichment does not record or imply any new reviewer decision, runtime readiness, or question readiness.
+
 ## Review Table
 | Review order | Standard ID | Strand | Level range | Review priority | Diagnostic relevance | Question-generation relevance | Current status | What reviewer should verify | Unresolved questions | Reviewer decision | Reviewer notes | Recommended next action |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |

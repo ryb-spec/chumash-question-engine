@@ -1,0 +1,766 @@
+{
+  "metadata": {
+    "title": "Loshon HaTorah / Loshon Hakodesh to Zekelman Standard 3 Crosswalk",
+    "generated_at": "2026-04-26",
+    "branch_scope": "feature/loshon-hatorah-standard-3-enrichment",
+    "canonical_source_policy": "Zekelman 2025 Version 2.5 remains canonical for standards wording, numbering, level progression, and scope.",
+    "supplemental_source_policy": "Loshon HaTorah / Loshon Hakodesh evidence is supplemental enrichment only and does not create teacher decisions.",
+    "source_ids": [
+      "loshon_hakodesh_main_book_pdf",
+      "loshon_hakodesh_answer_booklet_pdf",
+      "loshon_hatorah_foundation_rules_jsonl"
+    ],
+    "runtime_policy": "No mapping is runtime-ready or question-ready.",
+    "rerun_note": "Raw PDFs are now present and linked as source evidence, but OCR/Hebrew/layout verification remains unresolved."
+  },
+  "mappings": [
+    {
+      "mapping_id": "lht_xwalk_3_04_noun_features",
+      "loshon_hatorah_candidate_id": "lht_cand_noun_gender_number",
+      "source_id": "loshon_hatorah_foundation_rules_jsonl",
+      "standard_id": "3.04",
+      "standard_title": "Nouns and Adjectives",
+      "strand": "noun_features",
+      "skill_family": "noun_features",
+      "relationship_type": "direct_support",
+      "confidence": "medium",
+      "diagnostic_relevance": "high",
+      "question_generation_relevance": "medium",
+      "review_status": [
+        "needs_teacher_review",
+        "source_match_needs_verification",
+        "hebrew_needs_verification",
+        "not_runtime_ready",
+        "not_question_ready"
+      ],
+      "notes": "Supports noun gender/number and common plural-ending review, but raw PDF evidence is now linked, but exact wording/page matching still needs review.",
+      "supporting_source_ids": [
+        "loshon_hakodesh_answer_booklet_pdf",
+        "loshon_hakodesh_main_book_pdf",
+        "loshon_hatorah_foundation_rules_jsonl"
+      ],
+      "raw_source_evidence_note": "Raw PDFs now provide supplemental page-linked evidence, but source/Hebrew/layout review remains required."
+    },
+    {
+      "mapping_id": "lht_xwalk_3_04_smichus_construct",
+      "loshon_hatorah_candidate_id": "lht_cand_smichus_construct_phrase",
+      "source_id": "loshon_hatorah_foundation_rules_jsonl",
+      "standard_id": "3.04",
+      "standard_title": "Nouns and Adjectives",
+      "strand": "smichut_and_phrase_structure_cues",
+      "skill_family": "syntax_phrase_structure",
+      "relationship_type": "direct_support",
+      "confidence": "medium",
+      "diagnostic_relevance": "high",
+      "question_generation_relevance": "medium",
+      "review_status": [
+        "needs_teacher_review",
+        "source_match_needs_verification",
+        "hebrew_needs_verification",
+        "not_runtime_ready",
+        "not_question_ready"
+      ],
+      "notes": "Provides strong enrichment for smichut as a construct phrase, while preserving the need for teacher review.",
+      "supporting_source_ids": [
+        "loshon_hakodesh_answer_booklet_pdf",
+        "loshon_hakodesh_main_book_pdf",
+        "loshon_hatorah_foundation_rules_jsonl"
+      ],
+      "raw_source_evidence_note": "Raw PDFs now provide supplemental page-linked evidence, but source/Hebrew/layout review remains required."
+    },
+    {
+      "mapping_id": "lht_xwalk_3_04_smichus_forms",
+      "loshon_hatorah_candidate_id": "lht_cand_smichus_form_changes",
+      "source_id": "loshon_hatorah_foundation_rules_jsonl",
+      "standard_id": "3.04",
+      "standard_title": "Nouns and Adjectives",
+      "strand": "smichut_and_phrase_structure_cues",
+      "skill_family": "noun_features",
+      "relationship_type": "clarifies_rule",
+      "confidence": "medium",
+      "diagnostic_relevance": "high",
+      "question_generation_relevance": "medium",
+      "review_status": [
+        "needs_teacher_review",
+        "source_match_needs_verification",
+        "hebrew_needs_verification",
+        "not_runtime_ready",
+        "not_question_ready"
+      ],
+      "notes": "Clarifies common construct-form changes that may help reviewers split noun-feature work from phrase-structure work.",
+      "supporting_source_ids": [
+        "loshon_hakodesh_main_book_pdf",
+        "loshon_hatorah_foundation_rules_jsonl"
+      ],
+      "raw_source_evidence_note": "Raw PDFs now provide supplemental page-linked evidence, but source/Hebrew/layout review remains required."
+    },
+    {
+      "mapping_id": "lht_xwalk_3_04_irregular_translation_caution",
+      "loshon_hatorah_candidate_id": "lht_cand_plural_looking_singular_english",
+      "source_id": "loshon_hatorah_foundation_rules_jsonl",
+      "standard_id": "3.04",
+      "standard_title": "Nouns and Adjectives",
+      "strand": "noun_features",
+      "skill_family": "translation_precision",
+      "relationship_type": "clarifies_rule",
+      "confidence": "medium",
+      "diagnostic_relevance": "medium",
+      "question_generation_relevance": "low",
+      "review_status": [
+        "needs_teacher_review",
+        "source_match_needs_verification",
+        "hebrew_needs_verification",
+        "not_runtime_ready",
+        "not_question_ready"
+      ],
+      "notes": "Adds caution evidence for plural-looking noun forms, not a broad irregular-noun rule.",
+      "supporting_source_ids": [
+        "loshon_hakodesh_main_book_pdf",
+        "loshon_hatorah_foundation_rules_jsonl"
+      ],
+      "raw_source_evidence_note": "Raw PDFs now provide supplemental page-linked evidence, but source/Hebrew/layout review remains required."
+    },
+    {
+      "mapping_id": "lht_xwalk_3_08_word_order_variable",
+      "loshon_hatorah_candidate_id": "lht_cand_word_order_variable",
+      "source_id": "loshon_hatorah_foundation_rules_jsonl",
+      "standard_id": "3.08",
+      "standard_title": "Grouping and Word Order",
+      "strand": "grouping_and_word_order",
+      "skill_family": "syntax_phrase_structure",
+      "relationship_type": "direct_support",
+      "confidence": "medium",
+      "diagnostic_relevance": "high",
+      "question_generation_relevance": "medium",
+      "review_status": [
+        "needs_teacher_review",
+        "source_match_needs_verification",
+        "hebrew_needs_verification",
+        "not_runtime_ready",
+        "not_question_ready"
+      ],
+      "notes": "Directly enriches the 3.08 issue of Hebrew word order differing from English word order.",
+      "supporting_source_ids": [
+        "loshon_hakodesh_main_book_pdf",
+        "loshon_hatorah_foundation_rules_jsonl"
+      ],
+      "raw_source_evidence_note": "Raw PDFs now provide supplemental page-linked evidence, but source/Hebrew/layout review remains required."
+    },
+    {
+      "mapping_id": "lht_xwalk_3_08_natural_reordering",
+      "loshon_hatorah_candidate_id": "lht_cand_natural_english_reordering",
+      "source_id": "loshon_hatorah_foundation_rules_jsonl",
+      "standard_id": "3.08",
+      "standard_title": "Grouping and Word Order",
+      "strand": "grouping_and_word_order",
+      "skill_family": "translation_precision",
+      "relationship_type": "direct_support",
+      "confidence": "medium",
+      "diagnostic_relevance": "high",
+      "question_generation_relevance": "medium",
+      "review_status": [
+        "needs_teacher_review",
+        "source_match_needs_verification",
+        "hebrew_needs_verification",
+        "not_runtime_ready",
+        "not_question_ready"
+      ],
+      "notes": "Supports the 3.08 translation-construction idea that English output may need reordered wording.",
+      "supporting_source_ids": [
+        "loshon_hakodesh_answer_booklet_pdf",
+        "loshon_hakodesh_main_book_pdf",
+        "loshon_hatorah_foundation_rules_jsonl"
+      ],
+      "raw_source_evidence_note": "Raw PDFs now provide supplemental page-linked evidence, but source/Hebrew/layout review remains required."
+    },
+    {
+      "mapping_id": "lht_xwalk_3_08_smichus_grouping",
+      "loshon_hatorah_candidate_id": "lht_cand_smichus_construct_phrase",
+      "source_id": "loshon_hatorah_foundation_rules_jsonl",
+      "standard_id": "3.08",
+      "standard_title": "Grouping and Word Order",
+      "strand": "grouping_and_word_order",
+      "skill_family": "syntax_phrase_structure",
+      "relationship_type": "partial_support",
+      "confidence": "medium",
+      "diagnostic_relevance": "high",
+      "question_generation_relevance": "medium",
+      "review_status": [
+        "needs_teacher_review",
+        "source_match_needs_verification",
+        "hebrew_needs_verification",
+        "not_runtime_ready",
+        "not_question_ready"
+      ],
+      "notes": "Smichut examples support phrase grouping, but not the full 3.08 range of unlearned pasuk grouping.",
+      "supporting_source_ids": [
+        "loshon_hakodesh_answer_booklet_pdf",
+        "loshon_hakodesh_main_book_pdf",
+        "loshon_hatorah_foundation_rules_jsonl"
+      ],
+      "raw_source_evidence_note": "Raw PDFs now provide supplemental page-linked evidence, but source/Hebrew/layout review remains required."
+    },
+    {
+      "mapping_id": "lht_xwalk_3_08_ambiguity_boundary",
+      "loshon_hatorah_candidate_id": "lht_cand_smichus_ambiguity",
+      "source_id": "loshon_hatorah_foundation_rules_jsonl",
+      "standard_id": "3.08",
+      "standard_title": "Grouping and Word Order",
+      "strand": "grouping_and_word_order",
+      "skill_family": "translation_precision",
+      "relationship_type": "clarifies_rule",
+      "confidence": "medium",
+      "diagnostic_relevance": "high",
+      "question_generation_relevance": "low",
+      "review_status": [
+        "needs_teacher_review",
+        "source_match_needs_verification",
+        "hebrew_needs_verification",
+        "not_runtime_ready",
+        "not_question_ready"
+      ],
+      "notes": "Clarifies why 3.08 should remain full-context and teacher-reviewed where phrase readings are ambiguous.",
+      "supporting_source_ids": [
+        "loshon_hakodesh_main_book_pdf",
+        "loshon_hatorah_foundation_rules_jsonl"
+      ],
+      "raw_source_evidence_note": "Raw PDFs now provide supplemental page-linked evidence, but source/Hebrew/layout review remains required."
+    },
+    {
+      "mapping_id": "lht_xwalk_3_10_limited_nikud_et",
+      "loshon_hatorah_candidate_id": "lht_cand_limited_nikud_sensitive_et",
+      "source_id": "loshon_hatorah_foundation_rules_jsonl",
+      "standard_id": "3.10",
+      "standard_title": "Understanding ניקוד",
+      "strand": "nikud_reading",
+      "skill_family": "nikud_reading",
+      "relationship_type": "unclear",
+      "confidence": "low",
+      "diagnostic_relevance": "medium",
+      "question_generation_relevance": "low",
+      "review_status": [
+        "needs_teacher_review",
+        "source_match_needs_verification",
+        "hebrew_needs_verification",
+        "possible_ocr_issue",
+        "not_runtime_ready",
+        "not_question_ready"
+      ],
+      "notes": "Only shows a nikud-sensitive את-family distinction. It does not support the advanced 3.10 systems of תנועות, שבאים, דגשים, syllables, or טעמי המקרא interaction.",
+      "supporting_source_ids": [
+        "loshon_hakodesh_answer_booklet_pdf",
+        "loshon_hakodesh_main_book_pdf",
+        "loshon_hatorah_foundation_rules_jsonl"
+      ],
+      "raw_source_evidence_note": "Raw PDFs now provide supplemental page-linked evidence, but source/Hebrew/layout review remains required."
+    },
+    {
+      "mapping_id": "lht_xwalk_3_06_article_heh",
+      "loshon_hatorah_candidate_id": "lht_cand_article_heh",
+      "source_id": "loshon_hatorah_foundation_rules_jsonl",
+      "standard_id": "3.06",
+      "standard_title": "Prepositions, Conjunctions and the Definite Article",
+      "strand": "prefixes_articles_prepositions",
+      "skill_family": "article_heh",
+      "relationship_type": "direct_support",
+      "confidence": "medium",
+      "diagnostic_relevance": "high",
+      "question_generation_relevance": "medium",
+      "review_status": [
+        "needs_teacher_review",
+        "source_match_needs_verification",
+        "hebrew_needs_verification",
+        "not_runtime_ready",
+        "not_question_ready"
+      ],
+      "notes": "Supports visible definite article identification only; does not cover all article subtypes or nikud shifts.",
+      "supporting_source_ids": [
+        "loshon_hakodesh_main_book_pdf",
+        "loshon_hatorah_foundation_rules_jsonl"
+      ],
+      "raw_source_evidence_note": "Raw PDFs now provide supplemental page-linked evidence, but source/Hebrew/layout review remains required."
+    },
+    {
+      "mapping_id": "lht_xwalk_3_06_vav_conjunction",
+      "loshon_hatorah_candidate_id": "lht_cand_prefixed_vav_conjunction",
+      "source_id": "loshon_hatorah_foundation_rules_jsonl",
+      "standard_id": "3.06",
+      "standard_title": "Prepositions, Conjunctions and the Definite Article",
+      "strand": "prefixes_articles_prepositions",
+      "skill_family": "prefix_identification",
+      "relationship_type": "partial_support",
+      "confidence": "medium",
+      "diagnostic_relevance": "high",
+      "question_generation_relevance": "medium",
+      "review_status": [
+        "needs_teacher_review",
+        "source_match_needs_verification",
+        "hebrew_needs_verification",
+        "not_runtime_ready",
+        "not_question_ready"
+      ],
+      "notes": "Supports conjunctive ו only. ו ההיפוך remains unsupported by this Loshon source layer.",
+      "supporting_source_ids": [
+        "loshon_hakodesh_main_book_pdf",
+        "loshon_hatorah_foundation_rules_jsonl"
+      ],
+      "raw_source_evidence_note": "Raw PDFs now provide supplemental page-linked evidence, but source/Hebrew/layout review remains required."
+    },
+    {
+      "mapping_id": "lht_xwalk_3_06_preposition_words",
+      "loshon_hatorah_candidate_id": "lht_cand_preposition_words",
+      "source_id": "loshon_hatorah_foundation_rules_jsonl",
+      "standard_id": "3.06",
+      "standard_title": "Prepositions, Conjunctions and the Definite Article",
+      "strand": "prefixes_articles_prepositions",
+      "skill_family": "prepositions",
+      "relationship_type": "direct_support",
+      "confidence": "medium",
+      "diagnostic_relevance": "high",
+      "question_generation_relevance": "medium",
+      "review_status": [
+        "needs_teacher_review",
+        "source_match_needs_verification",
+        "hebrew_needs_verification",
+        "not_runtime_ready",
+        "not_question_ready"
+      ],
+      "notes": "Supports preposition recognition as supplemental evidence.",
+      "supporting_source_ids": [
+        "loshon_hakodesh_answer_booklet_pdf",
+        "loshon_hakodesh_main_book_pdf",
+        "loshon_hatorah_foundation_rules_jsonl"
+      ],
+      "raw_source_evidence_note": "Raw PDFs now provide supplemental page-linked evidence, but source/Hebrew/layout review remains required."
+    },
+    {
+      "mapping_id": "lht_xwalk_3_06_prefix_prepositions",
+      "loshon_hatorah_candidate_id": "lht_cand_prefix_prepositions",
+      "source_id": "loshon_hatorah_foundation_rules_jsonl",
+      "standard_id": "3.06",
+      "standard_title": "Prepositions, Conjunctions and the Definite Article",
+      "strand": "prefixes_articles_prepositions",
+      "skill_family": "prefix_identification",
+      "relationship_type": "direct_support",
+      "confidence": "medium",
+      "diagnostic_relevance": "high",
+      "question_generation_relevance": "medium",
+      "review_status": [
+        "needs_teacher_review",
+        "source_match_needs_verification",
+        "hebrew_needs_verification",
+        "not_runtime_ready",
+        "not_question_ready"
+      ],
+      "notes": "Supports visible prefix/preposition recognition, but not every nikud-dependent Zekelman 3.06 distinction.",
+      "supporting_source_ids": [
+        "loshon_hakodesh_main_book_pdf",
+        "loshon_hatorah_foundation_rules_jsonl"
+      ],
+      "raw_source_evidence_note": "Raw PDFs now provide supplemental page-linked evidence, but source/Hebrew/layout review remains required."
+    },
+    {
+      "mapping_id": "lht_xwalk_3_06_et_family",
+      "loshon_hatorah_candidate_id": "lht_cand_et_function_family",
+      "source_id": "loshon_hatorah_foundation_rules_jsonl",
+      "standard_id": "3.06",
+      "standard_title": "Prepositions, Conjunctions and the Definite Article",
+      "strand": "prefixes_articles_prepositions",
+      "skill_family": "translation_precision",
+      "relationship_type": "clarifies_rule",
+      "confidence": "medium",
+      "diagnostic_relevance": "high",
+      "question_generation_relevance": "low",
+      "review_status": [
+        "needs_teacher_review",
+        "source_match_needs_verification",
+        "hebrew_needs_verification",
+        "possible_ocr_issue",
+        "not_runtime_ready",
+        "not_question_ready"
+      ],
+      "notes": "Reinforces the teacher-review boundary that the functions of את need context rules and approved wording before any later use.",
+      "supporting_source_ids": [
+        "loshon_hakodesh_main_book_pdf",
+        "loshon_hatorah_foundation_rules_jsonl"
+      ],
+      "raw_source_evidence_note": "Raw PDFs now provide supplemental page-linked evidence, but source/Hebrew/layout review remains required."
+    },
+    {
+      "mapping_id": "lht_xwalk_3_05_possessive_suffix_singular",
+      "loshon_hatorah_candidate_id": "lht_cand_possessive_suffix_singular",
+      "source_id": "loshon_hatorah_foundation_rules_jsonl",
+      "standard_id": "3.05",
+      "standard_title": "Pronouns",
+      "strand": "pronouns_and_possessive_suffixes",
+      "skill_family": "possessive_suffixes",
+      "relationship_type": "direct_support",
+      "confidence": "medium",
+      "diagnostic_relevance": "high",
+      "question_generation_relevance": "medium",
+      "review_status": [
+        "needs_teacher_review",
+        "source_match_needs_verification",
+        "hebrew_needs_verification",
+        "possible_ocr_issue",
+        "not_runtime_ready",
+        "not_question_ready"
+      ],
+      "notes": "Supports the teacher-reviewed need to split pronominal suffix decoding from pronoun referent tracking.",
+      "supporting_source_ids": [
+        "loshon_hakodesh_answer_booklet_pdf",
+        "loshon_hakodesh_main_book_pdf",
+        "loshon_hatorah_foundation_rules_jsonl"
+      ],
+      "raw_source_evidence_note": "Raw PDFs now provide supplemental page-linked evidence, but source/Hebrew/layout review remains required."
+    },
+    {
+      "mapping_id": "lht_xwalk_3_05_possessive_suffix_plural",
+      "loshon_hatorah_candidate_id": "lht_cand_possessive_suffix_plural",
+      "source_id": "loshon_hatorah_foundation_rules_jsonl",
+      "standard_id": "3.05",
+      "standard_title": "Pronouns",
+      "strand": "pronouns_and_possessive_suffixes",
+      "skill_family": "possessive_suffixes",
+      "relationship_type": "clarifies_rule",
+      "confidence": "medium",
+      "diagnostic_relevance": "high",
+      "question_generation_relevance": "medium",
+      "review_status": [
+        "needs_teacher_review",
+        "source_match_needs_verification",
+        "hebrew_needs_verification",
+        "possible_ocr_issue",
+        "not_runtime_ready",
+        "not_question_ready"
+      ],
+      "notes": "Adds caution that suffix decoding can involve singular/plural noun-form distinctions.",
+      "supporting_source_ids": [
+        "loshon_hakodesh_main_book_pdf",
+        "loshon_hatorah_foundation_rules_jsonl"
+      ],
+      "raw_source_evidence_note": "Raw PDFs now provide supplemental page-linked evidence, but source/Hebrew/layout review remains required."
+    },
+    {
+      "mapping_id": "lht_xwalk_3_05_person_gender_number",
+      "loshon_hatorah_candidate_id": "lht_cand_person_gender_number_labels",
+      "source_id": "loshon_hatorah_foundation_rules_jsonl",
+      "standard_id": "3.05",
+      "standard_title": "Pronouns",
+      "strand": "pronouns_and_possessive_suffixes",
+      "skill_family": "pronouns",
+      "relationship_type": "terminology_support",
+      "confidence": "medium",
+      "diagnostic_relevance": "medium",
+      "question_generation_relevance": "low",
+      "review_status": [
+        "needs_teacher_review",
+        "source_match_needs_verification",
+        "hebrew_needs_verification",
+        "not_runtime_ready",
+        "not_question_ready"
+      ],
+      "notes": "Supports person/gender/number terminology but does not resolve referent-tracking scope.",
+      "supporting_source_ids": [
+        "loshon_hakodesh_answer_booklet_pdf",
+        "loshon_hatorah_foundation_rules_jsonl"
+      ],
+      "raw_source_evidence_note": "Raw PDFs now provide supplemental page-linked evidence, but source/Hebrew/layout review remains required."
+    },
+    {
+      "mapping_id": "lht_xwalk_3_07_verb_agreement",
+      "loshon_hatorah_candidate_id": "lht_cand_verb_agreement_features",
+      "source_id": "loshon_hatorah_foundation_rules_jsonl",
+      "standard_id": "3.07",
+      "standard_title": "Verbs",
+      "strand": "verb_features_tense_and_translation_precision",
+      "skill_family": "verb_features",
+      "relationship_type": "partial_support",
+      "confidence": "medium",
+      "diagnostic_relevance": "high",
+      "question_generation_relevance": "medium",
+      "review_status": [
+        "needs_teacher_review",
+        "source_match_needs_verification",
+        "hebrew_needs_verification",
+        "not_runtime_ready",
+        "not_question_ready"
+      ],
+      "notes": "Supports foundational agreement/form clues, not advanced binyan or passive forms.",
+      "supporting_source_ids": [
+        "loshon_hakodesh_main_book_pdf",
+        "loshon_hatorah_foundation_rules_jsonl"
+      ],
+      "raw_source_evidence_note": "Raw PDFs now provide supplemental page-linked evidence, but source/Hebrew/layout review remains required."
+    },
+    {
+      "mapping_id": "lht_xwalk_3_07_shoresh_added_letters",
+      "loshon_hatorah_candidate_id": "lht_cand_shoresh_added_letters",
+      "source_id": "loshon_hatorah_foundation_rules_jsonl",
+      "standard_id": "3.07",
+      "standard_title": "Verbs",
+      "strand": "verb_features_tense_and_translation_precision",
+      "skill_family": "shoresh_identification",
+      "relationship_type": "clarifies_rule",
+      "confidence": "medium",
+      "diagnostic_relevance": "high",
+      "question_generation_relevance": "medium",
+      "review_status": [
+        "needs_teacher_review",
+        "source_match_needs_verification",
+        "hebrew_needs_verification",
+        "possible_ocr_issue",
+        "not_runtime_ready",
+        "not_question_ready"
+      ],
+      "notes": "Clarifies foundational shoresh-plus-marker analysis while preserving the level-adjustment boundary.",
+      "supporting_source_ids": [
+        "loshon_hakodesh_answer_booklet_pdf",
+        "loshon_hakodesh_main_book_pdf",
+        "loshon_hatorah_foundation_rules_jsonl"
+      ],
+      "raw_source_evidence_note": "Raw PDFs now provide supplemental page-linked evidence, but source/Hebrew/layout review remains required."
+    },
+    {
+      "mapping_id": "lht_xwalk_3_07_past_tense",
+      "loshon_hatorah_candidate_id": "lht_cand_past_tense_markers",
+      "source_id": "loshon_hatorah_foundation_rules_jsonl",
+      "standard_id": "3.07",
+      "standard_title": "Verbs",
+      "strand": "verb_features_tense_and_translation_precision",
+      "skill_family": "tense_recognition",
+      "relationship_type": "direct_support",
+      "confidence": "medium",
+      "diagnostic_relevance": "high",
+      "question_generation_relevance": "medium",
+      "review_status": [
+        "needs_teacher_review",
+        "source_match_needs_verification",
+        "hebrew_needs_verification",
+        "possible_ocr_issue",
+        "not_runtime_ready",
+        "not_question_ready"
+      ],
+      "notes": "Supports foundational past-tense marker review only.",
+      "supporting_source_ids": [
+        "loshon_hakodesh_answer_booklet_pdf",
+        "loshon_hatorah_foundation_rules_jsonl"
+      ],
+      "raw_source_evidence_note": "Raw PDFs now provide supplemental page-linked evidence, but source/Hebrew/layout review remains required."
+    },
+    {
+      "mapping_id": "lht_xwalk_3_07_future_tense",
+      "loshon_hatorah_candidate_id": "lht_cand_future_tense_markers",
+      "source_id": "loshon_hatorah_foundation_rules_jsonl",
+      "standard_id": "3.07",
+      "standard_title": "Verbs",
+      "strand": "verb_features_tense_and_translation_precision",
+      "skill_family": "tense_recognition",
+      "relationship_type": "direct_support",
+      "confidence": "medium",
+      "diagnostic_relevance": "high",
+      "question_generation_relevance": "medium",
+      "review_status": [
+        "needs_teacher_review",
+        "source_match_needs_verification",
+        "hebrew_needs_verification",
+        "possible_ocr_issue",
+        "not_runtime_ready",
+        "not_question_ready"
+      ],
+      "notes": "Supports foundational future-tense markers, but not the full Zekelman 3.07 verb progression.",
+      "supporting_source_ids": [
+        "loshon_hakodesh_answer_booklet_pdf",
+        "loshon_hatorah_foundation_rules_jsonl"
+      ],
+      "raw_source_evidence_note": "Raw PDFs now provide supplemental page-linked evidence, but source/Hebrew/layout review remains required."
+    },
+    {
+      "mapping_id": "lht_xwalk_3_07_full_parse",
+      "loshon_hatorah_candidate_id": "lht_cand_full_verb_parse_translation",
+      "source_id": "loshon_hatorah_foundation_rules_jsonl",
+      "standard_id": "3.07",
+      "standard_title": "Verbs",
+      "strand": "verb_features_tense_and_translation_precision",
+      "skill_family": "translation_precision",
+      "relationship_type": "clarifies_rule",
+      "confidence": "medium",
+      "diagnostic_relevance": "high",
+      "question_generation_relevance": "low",
+      "review_status": [
+        "needs_teacher_review",
+        "source_match_needs_verification",
+        "hebrew_needs_verification",
+        "possible_ocr_issue",
+        "not_runtime_ready",
+        "not_question_ready"
+      ],
+      "notes": "Useful for review wording about whole-form translation precision, not for runtime parsing.",
+      "supporting_source_ids": [
+        "loshon_hakodesh_main_book_pdf",
+        "loshon_hatorah_foundation_rules_jsonl"
+      ],
+      "raw_source_evidence_note": "Raw PDFs now provide supplemental page-linked evidence, but source/Hebrew/layout review remains required."
+    },
+    {
+      "mapping_id": "lht_xwalk_3_02_shoresh_foundational",
+      "loshon_hatorah_candidate_id": "lht_cand_shoresh_added_letters",
+      "source_id": "loshon_hatorah_foundation_rules_jsonl",
+      "standard_id": "3.02",
+      "standard_title": "Vocabulary: שורשים (for verbs)",
+      "strand": "shoresh_and_verb_root_recognition",
+      "skill_family": "shoresh_identification",
+      "relationship_type": "partial_support",
+      "confidence": "medium",
+      "diagnostic_relevance": "high",
+      "question_generation_relevance": "medium",
+      "review_status": [
+        "needs_teacher_review",
+        "source_match_needs_verification",
+        "hebrew_needs_verification",
+        "possible_ocr_issue",
+        "not_runtime_ready",
+        "not_question_ready"
+      ],
+      "notes": "Supports simple shoresh plus added-letter review, but not weak-letter or altered-root recognition.",
+      "supporting_source_ids": [
+        "loshon_hakodesh_answer_booklet_pdf",
+        "loshon_hakodesh_main_book_pdf",
+        "loshon_hatorah_foundation_rules_jsonl"
+      ],
+      "raw_source_evidence_note": "Raw PDFs now provide supplemental page-linked evidence, but source/Hebrew/layout review remains required."
+    },
+    {
+      "mapping_id": "lht_xwalk_3_02_weak_letters_boundary",
+      "loshon_hatorah_candidate_id": "lht_cand_weak_letters_boundary",
+      "source_id": "loshon_hakodesh_main_book_pdf",
+      "standard_id": "3.02",
+      "standard_title": "Vocabulary: שורשים (for verbs)",
+      "strand": "shoresh_and_verb_root_recognition",
+      "skill_family": "weak_letters",
+      "relationship_type": "clarifies_rule",
+      "confidence": "medium",
+      "diagnostic_relevance": "high",
+      "question_generation_relevance": "low",
+      "review_status": [
+        "needs_teacher_review",
+        "source_match_needs_verification",
+        "hebrew_needs_verification",
+        "possible_ocr_issue",
+        "not_runtime_ready",
+        "not_question_ready"
+      ],
+      "notes": "Clarifies that weak-letter and altered-root behavior should remain a later reviewed boundary, not part of foundational simple-shoresh planning."
+    },
+    {
+      "mapping_id": "lht_xwalk_3_07_weak_letters_boundary",
+      "loshon_hatorah_candidate_id": "lht_cand_weak_letters_boundary",
+      "source_id": "loshon_hakodesh_main_book_pdf",
+      "standard_id": "3.07",
+      "standard_title": "Verbs",
+      "strand": "verb_features_tense_and_translation_precision",
+      "skill_family": "weak_letters",
+      "relationship_type": "partial_support",
+      "confidence": "medium",
+      "diagnostic_relevance": "high",
+      "question_generation_relevance": "low",
+      "review_status": [
+        "needs_teacher_review",
+        "source_match_needs_verification",
+        "hebrew_needs_verification",
+        "possible_ocr_issue",
+        "not_runtime_ready",
+        "not_question_ready"
+      ],
+      "notes": "Supports later verb-form review boundaries for weak roots; it does not authorize runtime parsing or question generation."
+    },
+    {
+      "mapping_id": "lht_xwalk_3_07_vav_hahipuch_boundary",
+      "loshon_hatorah_candidate_id": "lht_cand_vav_hahipuch_boundary",
+      "source_id": "loshon_hakodesh_main_book_pdf",
+      "standard_id": "3.07",
+      "standard_title": "Verbs",
+      "strand": "verb_features_tense_and_translation_precision",
+      "skill_family": "vav_hahipuch",
+      "relationship_type": "clarifies_rule",
+      "confidence": "medium",
+      "diagnostic_relevance": "high",
+      "question_generation_relevance": "low",
+      "review_status": [
+        "needs_teacher_review",
+        "source_match_needs_verification",
+        "hebrew_needs_verification",
+        "possible_ocr_issue",
+        "not_runtime_ready",
+        "not_question_ready"
+      ],
+      "notes": "Provides source support for treating vav hahipuch as context-sensitive tense evidence that belongs in later teacher review."
+    },
+    {
+      "mapping_id": "lht_xwalk_3_07_present_tense_boundary",
+      "loshon_hatorah_candidate_id": "lht_cand_present_tense_boundary",
+      "source_id": "loshon_hakodesh_answer_booklet_pdf",
+      "standard_id": "3.07",
+      "standard_title": "Verbs",
+      "strand": "verb_features_tense_and_translation_precision",
+      "skill_family": "present_tense",
+      "relationship_type": "practice_activity_support",
+      "confidence": "low",
+      "diagnostic_relevance": "medium",
+      "question_generation_relevance": "low",
+      "review_status": [
+        "needs_teacher_review",
+        "source_match_needs_verification",
+        "hebrew_needs_verification",
+        "possible_ocr_issue",
+        "not_runtime_ready",
+        "not_question_ready"
+      ],
+      "notes": "Answer-booklet evidence supports later review of present-tense recognition, but main-book source pages and level fit still need verification."
+    },
+    {
+      "mapping_id": "lht_xwalk_3_07_command_forms_boundary",
+      "loshon_hatorah_candidate_id": "lht_cand_command_forms_boundary",
+      "source_id": "loshon_hakodesh_answer_booklet_pdf",
+      "standard_id": "3.07",
+      "standard_title": "Verbs",
+      "strand": "verb_features_tense_and_translation_precision",
+      "skill_family": "command_forms",
+      "relationship_type": "practice_activity_support",
+      "confidence": "low",
+      "diagnostic_relevance": "medium",
+      "question_generation_relevance": "low",
+      "review_status": [
+        "needs_teacher_review",
+        "source_match_needs_verification",
+        "hebrew_needs_verification",
+        "possible_ocr_issue",
+        "not_runtime_ready",
+        "not_question_ready"
+      ],
+      "notes": "Supports the existing deferral of command forms to a separate later lane; not foundational and not question-ready."
+    },
+    {
+      "mapping_id": "lht_xwalk_3_10_pausal_forms_nikud_boundary",
+      "loshon_hatorah_candidate_id": "lht_cand_pausal_forms_nikud_boundary",
+      "source_id": "loshon_hakodesh_answer_booklet_pdf",
+      "standard_id": "3.10",
+      "standard_title": "Understanding ניקוד",
+      "strand": "nikud_reading",
+      "skill_family": "pausal_forms",
+      "relationship_type": "partial_support",
+      "confidence": "low",
+      "diagnostic_relevance": "medium",
+      "question_generation_relevance": "low",
+      "review_status": [
+        "needs_teacher_review",
+        "source_match_needs_verification",
+        "hebrew_needs_verification",
+        "possible_ocr_issue",
+        "not_runtime_ready",
+        "not_question_ready"
+      ],
+      "notes": "Adds limited evidence for pausal/vowel-change review, but does not resolve the full advanced 3.10 nikud scope."
+    }
+  ]
+}
