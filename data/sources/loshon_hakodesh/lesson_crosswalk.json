@@ -1,0 +1,258 @@
+{
+  "generated_at": "2026-04-26T00:00:00Z",
+  "branch_scope": "feature/loshon-hakodesh-source-pair-ingestion",
+  "course_title": "Lashon Hakodesh: Mastering The Basics",
+  "observed_lesson_range": {
+    "min_lesson": 1,
+    "max_lesson": 16,
+    "verification_status": "verified_from_cleaner_answer_booklet_ocr_and_sparse_textbook_ocr"
+  },
+  "notes": "Lesson range 1-16 is now directly visible across the cleaner 33-page answer booklet OCR, including contents, introduction, and lesson pages. Textbook OCR remains sparse, so textbook page anchors and some rule/topic labels still require human review.",
+  "lessons": [
+    {
+      "lesson_number": 1,
+      "textbook_pages": [4],
+      "answer_booklet_pages": [4, 5],
+      "lesson_topics": [
+        "basic noun markers",
+        "definite ה",
+        "ו החיבור",
+        "plural endings",
+        "verb agreement",
+        "verb-before/after-noun order"
+      ],
+      "rules_introduced": [
+        "indefinite article implied",
+        "definite article ה",
+        "conjunction ו",
+        "feminine noun ending ה",
+        "masculine and feminine plural endings",
+        "verb agrees with noun"
+      ],
+      "exercise_count_estimate": null,
+      "answer_status": "present",
+      "ocr_confidence": "medium",
+      "source_pair_status": "matched",
+      "notes": "Lesson 1 is clearly visible in both the textbook OCR and the cleaner answer-booklet OCR. Pages 4-5 in the cleaner booklet show the exercise and answer material, but Hebrew OCR still requires human review."
+    },
+    {
+      "lesson_number": 2,
+      "textbook_pages": [6, 8],
+      "answer_booklet_pages": [6, 7],
+      "lesson_topics": [
+        "סמיכות"
+      ],
+      "rules_introduced": [
+        "construct form / the ___ of ___"
+      ],
+      "exercise_count_estimate": null,
+      "answer_status": "present",
+      "ocr_confidence": "medium",
+      "source_pair_status": "matched",
+      "notes": "Construct-form explanation is visible in textbook OCR, and the cleaner answer-booklet OCR now exposes the paired Lesson 2 pages. Exact Hebrew forms should still be human-checked before structured reuse."
+    },
+    {
+      "lesson_number": 3,
+      "textbook_pages": [8],
+      "answer_booklet_pages": [8],
+      "lesson_topics": [
+        "prepositions"
+      ],
+      "rules_introduced": [
+        "standalone prepositions",
+        "single-letter prepositions"
+      ],
+      "exercise_count_estimate": null,
+      "answer_status": "present",
+      "ocr_confidence": "medium",
+      "source_pair_status": "matched",
+      "notes": "Lesson 3 begins in the visible textbook OCR, and the cleaner answer-booklet OCR includes a directly readable Lesson 3 answer page."
+    },
+    {
+      "lesson_number": 4,
+      "textbook_pages": [],
+      "answer_booklet_pages": [9, 10],
+      "lesson_topics": [],
+      "rules_introduced": [],
+      "exercise_count_estimate": null,
+      "answer_status": "present",
+      "ocr_confidence": "medium",
+      "source_pair_status": "matched",
+      "notes": "The cleaner answer-booklet OCR now exposes Lesson 4 exercise and answer material on pages 9-10. Textbook-side rule anchors still need human review."
+    },
+    {
+      "lesson_number": 5,
+      "textbook_pages": [],
+      "answer_booklet_pages": [11],
+      "lesson_topics": [],
+      "rules_introduced": [],
+      "exercise_count_estimate": null,
+      "answer_status": "present",
+      "ocr_confidence": "medium",
+      "source_pair_status": "matched",
+      "notes": "The cleaner answer-booklet OCR now exposes Lesson 5 answer material. Textbook-side rule anchors remain to be confirmed manually."
+    },
+    {
+      "lesson_number": 6,
+      "textbook_pages": [],
+      "answer_booklet_pages": [12],
+      "lesson_topics": [],
+      "rules_introduced": [],
+      "exercise_count_estimate": null,
+      "answer_status": "present",
+      "ocr_confidence": "medium",
+      "source_pair_status": "matched",
+      "notes": "The cleaner answer-booklet OCR now exposes Lesson 6 answer material and makes the lesson pairing substantially clearer than the initial ingestion pass."
+    },
+    {
+      "lesson_number": 7,
+      "textbook_pages": [],
+      "answer_booklet_pages": [13, 14],
+      "lesson_topics": [],
+      "rules_introduced": [],
+      "exercise_count_estimate": null,
+      "answer_status": "present",
+      "ocr_confidence": "medium",
+      "source_pair_status": "matched",
+      "notes": "The cleaner answer-booklet OCR now exposes Lesson 7 pages directly, including a readable exercise page and follow-on answer material."
+    },
+    {
+      "lesson_number": 8,
+      "textbook_pages": [],
+      "answer_booklet_pages": [15],
+      "lesson_topics": [],
+      "rules_introduced": [],
+      "exercise_count_estimate": null,
+      "answer_status": "partial",
+      "ocr_confidence": "low",
+      "source_pair_status": "matched",
+      "notes": "The cleaner answer-booklet OCR likely exposes Lesson 8 on page 15, but the lesson numeral is degraded enough that the pairing should still be treated as partial until a human checks the protected PDF image."
+    },
+    {
+      "lesson_number": 9,
+      "textbook_pages": [],
+      "answer_booklet_pages": [16, 17],
+      "lesson_topics": [],
+      "rules_introduced": [],
+      "exercise_count_estimate": null,
+      "answer_status": "present",
+      "ocr_confidence": "medium",
+      "source_pair_status": "matched",
+      "notes": "The cleaner answer-booklet OCR now exposes Lesson 9 exercise and answer material across pages 16-17."
+    },
+    {
+      "lesson_number": 10,
+      "textbook_pages": [],
+      "answer_booklet_pages": [18, 19],
+      "lesson_topics": [],
+      "rules_introduced": [],
+      "exercise_count_estimate": null,
+      "answer_status": "present",
+      "ocr_confidence": "medium",
+      "source_pair_status": "matched",
+      "notes": "The cleaner answer-booklet OCR now exposes Lesson 10 exercise and answer material on pages 18-19."
+    },
+    {
+      "lesson_number": 11,
+      "textbook_pages": [],
+      "answer_booklet_pages": [20, 21],
+      "lesson_topics": [
+        "suffix-aware sentence parsing",
+        "future-to-past narrative forms"
+      ],
+      "rules_introduced": [],
+      "exercise_count_estimate": null,
+      "answer_status": "present",
+      "ocr_confidence": "high",
+      "source_pair_status": "matched",
+      "notes": "Lesson 11 answer pages are now fully OCR-visible in the cleaner answer booklet. Topic labels remain conservative because the textbook page anchors were not machine-located."
+    },
+    {
+      "lesson_number": 12,
+      "textbook_pages": [],
+      "answer_booklet_pages": [22],
+      "lesson_topics": [
+        "present tense",
+        "translation and prayer-language parsing"
+      ],
+      "rules_introduced": [],
+      "exercise_count_estimate": null,
+      "answer_status": "present",
+      "ocr_confidence": "high",
+      "source_pair_status": "matched",
+      "notes": "Present-tense references are visible in the cleaner OCR answer explanations, and page 22 is now directly machine-readable."
+    },
+    {
+      "lesson_number": 13,
+      "textbook_pages": [],
+      "answer_booklet_pages": [23, 25],
+      "lesson_topics": [
+        "form-change translation review"
+      ],
+      "rules_introduced": [],
+      "exercise_count_estimate": null,
+      "answer_status": "present",
+      "ocr_confidence": "medium",
+      "source_pair_status": "matched",
+      "notes": "Lesson 13 exercise and answer pages are now OCR-visible in the cleaner booklet, but the lesson topic should still be confirmed by human review."
+    },
+    {
+      "lesson_number": 14,
+      "textbook_pages": [63],
+      "answer_booklet_pages": [25, 26],
+      "lesson_topics": [
+        "verbal nouns",
+        "prepositions attached to verbal forms"
+      ],
+      "rules_introduced": [
+        "the ___ of guarding/speaking style forms",
+        "ב/כ/מ/ל attached to verbal nouns"
+      ],
+      "exercise_count_estimate": null,
+      "answer_status": "present",
+      "ocr_confidence": "high",
+      "source_pair_status": "matched",
+      "notes": "Lesson 14 remains one of the clearest matched OCR segments across both textbook and answer booklet, with cleaner answer-booklet readability than the initial ingestion pass."
+    },
+    {
+      "lesson_number": 15,
+      "textbook_pages": [],
+      "answer_booklet_pages": [27, 28, 29],
+      "lesson_topics": [
+        "narrative parsing",
+        "future-to-past forms",
+        "weak-letter behavior",
+        "object suffixes"
+      ],
+      "rules_introduced": [],
+      "exercise_count_estimate": null,
+      "answer_status": "present",
+      "ocr_confidence": "high",
+      "source_pair_status": "matched",
+      "notes": "Lesson 15 answer pages are richly OCR-visible in the cleaner booklet and clearly tied to Bereishis 37 parsing exercises."
+    },
+    {
+      "lesson_number": 16,
+      "textbook_pages": [80, 81, 83, 84, 85, 86],
+      "answer_booklet_pages": [30, 31, 32, 33],
+      "lesson_topics": [
+        "numbers",
+        "missing words",
+        "dikduk",
+        "pausal forms",
+        "ages"
+      ],
+      "rules_introduced": [
+        "number forms",
+        "missing words",
+        "dikduk",
+        "pausal forms"
+      ],
+      "exercise_count_estimate": null,
+      "answer_status": "present",
+      "ocr_confidence": "high",
+      "source_pair_status": "matched",
+      "notes": "Lesson 16 is well-supported by textbook summary pages plus cleaner answer-booklet pages 30-33, which include both exercise framing and answer material."
+    }
+  ]
+}

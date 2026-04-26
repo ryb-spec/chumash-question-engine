@@ -12,3 +12,8 @@ data/pilot/exports/
 local_curriculum_sources/
 incoming_source/
 .worktrees/
+
+# Protected Loshon Hakodesh source files remain local-only until repo visibility
+# is confirmed private/internal and the storage workflow is explicitly approved.
+docs/sources/loshon_hakodesh/raw/
+docs/sources/loshon_hakodesh/extracted/

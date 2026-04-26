@@ -89,3 +89,8 @@
 - [completed] Add the 2025 canonical extraction companion and update the document index with checksum/page-count metadata
 - [completed] Update Zekelman source inventory, source map, extraction plan, and create the canonical-ingestion report so 2025 V2.5 is the actual canonical raw source
 - [completed] Run lightweight validation and summarize the canonical-source ingestion result without touching runtime or student-facing files
+
+- [completed] Verify the Loshon Hakodesh source-pair branch/worktree gate and confirm both the textbook/workbook PDF and full answer booklet PDF are present
+- [completed] Determine repository visibility policy for protected PDFs and classify the textbook, full answer booklet, and likely partial duplicate answer file
+- [completed] Create the protected Loshon Hakodesh metadata layer, source map, lesson crosswalk, extraction plan, and ingestion report without committing copyrighted PDFs or full extracted text
+- [completed] Run lightweight validation and summarize the protected source-pair ingestion result without touching runtime or student-facing files

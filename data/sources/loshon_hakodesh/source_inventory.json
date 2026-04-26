@@ -1,0 +1,139 @@
+{
+  "generated_at": "2026-04-26T00:00:00Z",
+  "branch_scope": "feature/loshon-hakodesh-source-pair-ingestion",
+  "repo_visibility_status": "unknown_gh_unavailable",
+  "storage_policy_note": "Because repository visibility could not be verified, raw copyrighted PDFs and full extracted text were not committed. This inventory records protected local source metadata and the expected repo-local paths for a future approved private/internal workflow.",
+  "sources": [
+    {
+      "source_id": "loshon_hakodesh_mastering_the_basics_textbook_ocr",
+      "title": "Lashon Hakodesh: Mastering The Basics",
+      "author": "Nachman Marcuson",
+      "original_filename": "Loshon Hakodesh Book OCR.pdf",
+      "path": "PROTECTED_LOCAL_NOT_COMMITTED:docs/sources/loshon_hakodesh/raw/loshon_hakodesh_mastering_the_basics_textbook_ocr.pdf",
+      "document_type": "main_textbook",
+      "page_count": 86,
+      "quality_status": "mixed_ocr",
+      "canonical_status": "preferred_instructional_source",
+      "student_facing_allowed": false,
+      "teacher_only": true,
+      "project_uses": [
+        "Lashon Hakodesh rule extraction",
+        "dikduk skill taxonomy",
+        "lesson-to-skill mapping",
+        "exercise-to-skill mapping",
+        "Zekelman Standard 3 alignment",
+        "generated-question QA"
+      ],
+      "related_sources": [
+        "loshon_hakodesh_mastering_the_basics_answer_booklet_full",
+        "loshon_hakodesh_answer_booklet_partial_duplicate_13_page"
+      ],
+      "extracted_text_path": null,
+      "checksum_sha256": "c4eb6adb3841c6c84f3cf63342044ed8ef7890a9d0f6852ebe5edc041ffab130",
+      "copyright_status": "copyrighted_protected_source",
+      "repository_storage_decision": "metadata_only",
+      "warnings": [
+        "OCR is sparse and incomplete across much of the scanned textbook.",
+        "Hebrew, nekudos, arrows, tables, and bidirectional text require human review.",
+        "Copied textbook pages must not become runtime or student-facing content."
+      ],
+      "notes": "Inspected locally from Downloads. PDF title metadata reads 'loshon 2'. The paired answer booklet title indicates this workbook/textbook belongs to the 'Mastering The Basics' set."
+    },
+    {
+      "source_id": "loshon_hakodesh_answer_booklet_cleaner_ocr",
+      "title": "Answer Booklet to Lashon Hakodesh: Mastering The Basics",
+      "author": "Nachman Marcuson",
+      "original_filename": "loshon answe 2-combined.pdf",
+      "path": "PROTECTED_LOCAL_NOT_COMMITTED:docs/sources/loshon_hakodesh/raw/loshon_hakodesh_mastering_the_basics_answer_booklet_full.pdf",
+      "document_type": "answer_booklet",
+      "page_count": 33,
+      "quality_status": "improved_ocr",
+      "canonical_status": "preferred_answer_key",
+      "student_facing_allowed": false,
+      "teacher_only": true,
+      "project_uses": [
+        "teacher_only_answer_validation",
+        "exercise_alignment_review",
+        "generated_question_QA",
+        "lesson_crosswalk_support"
+      ],
+      "related_sources": [
+        "loshon_hakodesh_mastering_the_basics_textbook_ocr",
+        "loshon_hakodesh_mastering_the_basics_answer_booklet_full_initial_scan",
+        "loshon_hakodesh_answer_booklet_partial_duplicate_13_page"
+      ],
+      "extracted_text_path": null,
+      "checksum_sha256": "de05e9e542a3d9d012d8282f457fcd139a0ab49e6e021281cdbf2688d931a32d",
+      "copyright_status": "copyrighted_protected_source",
+      "repository_storage_decision": "metadata_only",
+      "warnings": [
+        "Answer booklet content must never become student-facing runtime content.",
+        "OCR is cleaner than the earlier inspected copy but still requires human review before any derived use.",
+        "Hebrew, nekudos, arrows, tables, and bidirectional text require human review.",
+        "Full answer content was intentionally not committed to the repo."
+      ],
+      "notes": "Cleaner answer-booklet scan/OCR verified after the initial ingestion pass. This copy exposes OCR-readable contents, introduction, and Lessons 1-16, so it replaces the earlier lower-quality answer-booklet metadata as the preferred teacher-only answer source."
+    },
+    {
+      "source_id": "loshon_hakodesh_mastering_the_basics_answer_booklet_full_initial_scan",
+      "title": "Answer Booklet to Lashon Hakodesh: Mastering The Basics",
+      "author": "Nachman Marcuson",
+      "original_filename": "loshon answe 2-combined.pdf",
+      "path": "PROTECTED_LOCAL_NOT_COMMITTED:historical_metadata_only/loshon_answe_2_combined_initial_scan.pdf",
+      "document_type": "answer_booklet",
+      "page_count": 33,
+      "quality_status": "mixed_ocr",
+      "canonical_status": "superseded_by_cleaner_scan",
+      "student_facing_allowed": false,
+      "teacher_only": true,
+      "project_uses": [
+        "provenance",
+        "source-quality comparison"
+      ],
+      "related_sources": [
+        "loshon_hakodesh_mastering_the_basics_textbook_ocr",
+        "loshon_hakodesh_answer_booklet_cleaner_ocr"
+      ],
+      "extracted_text_path": null,
+      "checksum_sha256": "b85a5e93dfee3110b1e7e28f8d62528ab9fbfa19c7eebdc2123a2c0406ded3e2",
+      "copyright_status": "copyrighted_protected_source",
+      "repository_storage_decision": "metadata_only",
+      "warnings": [
+        "Answer booklet content must never become student-facing runtime content.",
+        "This historical record reflects the earlier inspected copy that had limited OCR coverage.",
+        "Full answer content was intentionally not committed to the repo."
+      ],
+      "notes": "Initial pass observed only partial OCR readability from the then-available 33-page combined answer booklet copy. Preserved as provenance after later reinspection identified a cleaner replacement scan/OCR."
+    },
+    {
+      "source_id": "loshon_hakodesh_answer_booklet_partial_duplicate_13_page",
+      "title": "Lashon Hakodesh answer booklet partial duplicate",
+      "author": "Nachman Marcuson",
+      "original_filename": "loshon answe 2.pdf",
+      "path": "PROTECTED_LOCAL_NOT_COMMITTED:docs/sources/loshon_hakodesh/raw/archive/loshon_hakodesh_answer_booklet_partial_duplicate.pdf",
+      "document_type": "partial_answer_booklet",
+      "page_count": 13,
+      "quality_status": "image_only",
+      "canonical_status": "partial_duplicate",
+      "student_facing_allowed": false,
+      "teacher_only": true,
+      "project_uses": [
+        "source-quality comparison",
+        "provenance"
+      ],
+      "related_sources": [
+        "loshon_hakodesh_answer_booklet_cleaner_ocr"
+      ],
+      "extracted_text_path": null,
+      "checksum_sha256": "c78daf1c9c573d996a6b2e4d23a3be088c31d806c308fb9973108b622c204bd8",
+      "copyright_status": "copyrighted_protected_source",
+      "repository_storage_decision": "metadata_only",
+      "warnings": [
+        "This file is not the canonical answer booklet source.",
+        "No extractable OCR text was returned by pypdf during inspection.",
+        "Retain only as an archival partial duplicate if a private/internal storage workflow is later approved."
+      ],
+      "notes": "Thirteen-page file that appears to be a partial slice of the larger answer booklet. No evidence was found that it contains missing pages not covered by the combined full booklet."
+    }
+  ]
+}
