@@ -117,8 +117,17 @@
     "questions remain preview_only and not runtime_active",
     "no reviewed-bank promotion or student-facing runtime integration has been done"
   ],
-  "generated_at": "2026-04-26T12:39:16.841641+00:00",
+  "generated_at": "2026-04-26T14:36:08.665967+00:00",
   "status": "preview_only",
   "runtime_status": "not_runtime_active",
-  "production_status": "not_production_ready"
+  "production_status": "not_production_ready",
+  "reviewable_preview": {
+    "total_questions": 33,
+    "final_recommendation": "Reviewable preview ready for teacher review",
+    "likely_review_status_counts": {
+      "likely_approve": 27,
+      "caution": 6,
+      "likely_rewrite": 0
+    }
+  }
 }
