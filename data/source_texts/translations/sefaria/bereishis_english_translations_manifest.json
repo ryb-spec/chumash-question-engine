@@ -1,0 +1,139 @@
+{
+  "schema_version": "1.0",
+  "branch_scope": "feature/source-bereishis-english-translations-sefaria",
+  "canonical_hebrew_source_path": "data/source_texts/bereishis_hebrew_menukad_taamim.tsv",
+  "expected_total_refs": 1533,
+  "selected_versions": {
+    "koren": {
+      "display_name": "Koren / The Koren Jerusalem Bible",
+      "exact_found": true,
+      "exact_version_title": "The Koren Jerusalem Bible",
+      "license": "CC-BY-NC",
+      "license_vetted": null,
+      "text_fetched": true,
+      "text_persisted": true,
+      "pipeline_status": "source_fetched",
+      "license_note": "Sefaria returned license=CC-BY-NC. This appears reusable for non-commercial internal draft work, but future production use requires human legal review.",
+      "suitable_for_internal_draft_use": true,
+      "suitable_for_future_production_use": false
+    },
+    "metsudah": {
+      "display_name": "Metsudah / Metsudah Chumash, Metsudah Publications, 2009",
+      "exact_found": true,
+      "exact_version_title": "Metsudah Chumash, Metsudah Publications, 2009",
+      "license": "CC-BY",
+      "license_vetted": null,
+      "text_fetched": true,
+      "text_persisted": true,
+      "pipeline_status": "source_fetched",
+      "license_note": "Sefaria returned license=CC-BY. Full text was persisted for source-pipeline work, but future production use still requires human review and attribution checks.",
+      "suitable_for_internal_draft_use": true,
+      "suitable_for_future_production_use": false
+    }
+  },
+  "discovered_candidates": {
+    "koren": [
+      {
+        "versionTitle": "The Koren Jerusalem Bible",
+        "language": "en",
+        "license": "CC-BY-NC",
+        "licenseVetted": null,
+        "status": "locked",
+        "priority": 5.0,
+        "shortVersionTitle": "",
+        "versionTitleInHebrew": "",
+        "versionSource": "https://www.korenpub.com/koren_en_usd/koren/tanakh-bible/the-koren-jerusalem-bible.html",
+        "versionNotes": "",
+        "versionNotesInHebrew": "",
+        "versionUrl": "",
+        "digitizedBySefaria": "",
+        "purchaseInformationURL": "https://korenpub.com/collections/tanakh",
+        "purchaseInformationImage": "https://storage.googleapis.com/sefaria-physical-editions/220e83f0e53ada974a4990ed9ef5e6f5.png",
+        "actualLanguage": "en",
+        "languageFamilyName": "english",
+        "method": ""
+      }
+    ],
+    "metsudah": [
+      {
+        "versionTitle": "Metsudah Chumash, Metsudah Publications, 2009",
+        "language": "en",
+        "license": "CC-BY",
+        "licenseVetted": null,
+        "status": "locked",
+        "priority": 4.0,
+        "shortVersionTitle": "Metsudah Publications, 2009",
+        "versionTitleInHebrew": "",
+        "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH002691623",
+        "versionNotes": "",
+        "versionNotesInHebrew": "",
+        "versionUrl": "",
+        "digitizedBySefaria": "",
+        "purchaseInformationURL": "https://www.israelbookshoppublications.com/store/pc/Sifsei-Chachamim-Chumash-Vol-1-p482.htm",
+        "purchaseInformationImage": "https://storage.googleapis.com/sefaria-physical-editions/ff271b728152642c8d5cd476dc9d2512.png",
+        "actualLanguage": "en",
+        "languageFamilyName": "english",
+        "method": ""
+      },
+      {
+        "versionTitle": "Metsudah Chumash, Metsudah Publications, 2009 [with Onkelos translation]",
+        "language": "en",
+        "license": "CC-BY-NC",
+        "licenseVetted": null,
+        "status": "locked",
+        "priority": "",
+        "shortVersionTitle": "Bold Onkelos commentary, Metsudah Pub., 2009 ",
+        "versionTitleInHebrew": "",
+        "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH002691623",
+        "versionNotes": "",
+        "versionNotesInHebrew": "",
+        "versionUrl": "",
+        "digitizedBySefaria": "",
+        "purchaseInformationURL": "https://www.israelbookshoppublications.com/store/pc/Sifsei-Chachamim-Chumash-Vol-1-p482.htm",
+        "purchaseInformationImage": "https://storage.googleapis.com/sefaria-physical-editions/c5fe925dca2894992d1a46b7d32ac820.png",
+        "actualLanguage": "en",
+        "languageFamilyName": "english",
+        "method": ""
+      }
+    ]
+  },
+  "exact_version_titles_used": {
+    "koren": "The Koren Jerusalem Bible",
+    "metsudah": "Metsudah Chumash, Metsudah Publications, 2009"
+  },
+  "row_counts_by_version": {
+    "koren": 1533,
+    "metsudah": 1533
+  },
+  "missing_refs_by_version": {
+    "koren": [],
+    "metsudah": []
+  },
+  "blank_rows_by_version": {
+    "koren": 0,
+    "metsudah": 0
+  },
+  "duplicate_refs_by_version": {
+    "koren": 0,
+    "metsudah": 0
+  },
+  "license_status_by_version": {
+    "koren": "needs_license_review",
+    "metsudah": "needs_license_review"
+  },
+  "reconciliation_report_paths": {
+    "markdown": "data/source_texts/reports/bereishis_hebrew_source_reconciliation_report.md",
+    "json": "data/source_texts/reports/bereishis_hebrew_source_reconciliation_report.json"
+  },
+  "license_review_artifacts": {
+    "matrix_path": "data/source_texts/translations/sefaria/bereishis_english_translation_license_review_matrix.json",
+    "human_review_packet_path": "data/source_texts/translations/sefaria/bereishis_english_translation_human_review_packet.md"
+  },
+  "translation_registry_path": "data/source_texts/translations/translation_sources_registry.json",
+  "integration_status": "source_ready_license_pending",
+  "production_status": "not_production_ready",
+  "runtime_status": "not_runtime_active",
+  "validation_command": "python scripts/validate_bereishis_translations.py",
+  "test_command": "python -m pytest tests/test_bereishis_translation_sources.py -q",
+  "generated_at": "2026-04-26T05:14:55.263010Z"
+}

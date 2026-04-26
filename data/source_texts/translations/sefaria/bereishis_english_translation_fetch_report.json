@@ -1,0 +1,1061 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-04-26T05:14:40.792796Z",
+  "canonical_hebrew_source_path": "data/source_texts/bereishis_hebrew_menukad_taamim.tsv",
+  "request_defaults": {
+    "return_format": "text_only",
+    "fill_in_missing_segments": 0,
+    "user_agent": "TorahAI-Chumash-SourcePipeline/1.0"
+  },
+  "versions": {
+    "koren": {
+      "target_key": "koren",
+      "display_name": "Koren / The Koren Jerusalem Bible",
+      "exact_version_title": "The Koren Jerusalem Bible",
+      "pipeline_status": "source_fetched",
+      "license_status": "needs_license_review",
+      "license": "CC-BY-NC",
+      "license_vetted": null,
+      "license_note": "Sefaria returned license=CC-BY-NC. This appears reusable for non-commercial internal draft work, but future production use requires human legal review.",
+      "suitable_for_internal_draft_use": true,
+      "suitable_for_future_production_use": false,
+      "text_fetched": true,
+      "text_persisted": true,
+      "row_count": 1533,
+      "missing_refs": [],
+      "extra_refs": [],
+      "blank_refs": [],
+      "duplicate_refs": [],
+      "chapter_fetches": [
+        {
+          "chapter": 1,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.1?version=english%7CThe+Koren+Jerusalem+Bible&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 31,
+          "returned_verse_count": 31,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 2,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.2?version=english%7CThe+Koren+Jerusalem+Bible&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 25,
+          "returned_verse_count": 25,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 3,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.3?version=english%7CThe+Koren+Jerusalem+Bible&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 24,
+          "returned_verse_count": 24,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 4,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.4?version=english%7CThe+Koren+Jerusalem+Bible&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 26,
+          "returned_verse_count": 26,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 5,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.5?version=english%7CThe+Koren+Jerusalem+Bible&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 32,
+          "returned_verse_count": 32,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 6,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.6?version=english%7CThe+Koren+Jerusalem+Bible&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 22,
+          "returned_verse_count": 22,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 7,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.7?version=english%7CThe+Koren+Jerusalem+Bible&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 24,
+          "returned_verse_count": 24,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 8,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.8?version=english%7CThe+Koren+Jerusalem+Bible&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 22,
+          "returned_verse_count": 22,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 9,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.9?version=english%7CThe+Koren+Jerusalem+Bible&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 29,
+          "returned_verse_count": 29,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 10,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.10?version=english%7CThe+Koren+Jerusalem+Bible&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 32,
+          "returned_verse_count": 32,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 11,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.11?version=english%7CThe+Koren+Jerusalem+Bible&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 32,
+          "returned_verse_count": 32,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 12,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.12?version=english%7CThe+Koren+Jerusalem+Bible&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 20,
+          "returned_verse_count": 20,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 13,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.13?version=english%7CThe+Koren+Jerusalem+Bible&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 18,
+          "returned_verse_count": 18,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 14,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.14?version=english%7CThe+Koren+Jerusalem+Bible&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 24,
+          "returned_verse_count": 24,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 15,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.15?version=english%7CThe+Koren+Jerusalem+Bible&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 21,
+          "returned_verse_count": 21,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 16,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.16?version=english%7CThe+Koren+Jerusalem+Bible&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 16,
+          "returned_verse_count": 16,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 17,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.17?version=english%7CThe+Koren+Jerusalem+Bible&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 27,
+          "returned_verse_count": 27,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 18,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.18?version=english%7CThe+Koren+Jerusalem+Bible&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 33,
+          "returned_verse_count": 33,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 19,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.19?version=english%7CThe+Koren+Jerusalem+Bible&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 38,
+          "returned_verse_count": 38,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 20,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.20?version=english%7CThe+Koren+Jerusalem+Bible&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 18,
+          "returned_verse_count": 18,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 21,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.21?version=english%7CThe+Koren+Jerusalem+Bible&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 34,
+          "returned_verse_count": 34,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 22,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.22?version=english%7CThe+Koren+Jerusalem+Bible&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 24,
+          "returned_verse_count": 24,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 23,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.23?version=english%7CThe+Koren+Jerusalem+Bible&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 20,
+          "returned_verse_count": 20,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 24,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.24?version=english%7CThe+Koren+Jerusalem+Bible&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 67,
+          "returned_verse_count": 67,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 25,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.25?version=english%7CThe+Koren+Jerusalem+Bible&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 34,
+          "returned_verse_count": 34,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 26,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.26?version=english%7CThe+Koren+Jerusalem+Bible&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 35,
+          "returned_verse_count": 35,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 27,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.27?version=english%7CThe+Koren+Jerusalem+Bible&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 46,
+          "returned_verse_count": 46,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 28,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.28?version=english%7CThe+Koren+Jerusalem+Bible&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 22,
+          "returned_verse_count": 22,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 29,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.29?version=english%7CThe+Koren+Jerusalem+Bible&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 35,
+          "returned_verse_count": 35,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 30,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.30?version=english%7CThe+Koren+Jerusalem+Bible&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 43,
+          "returned_verse_count": 43,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 31,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.31?version=english%7CThe+Koren+Jerusalem+Bible&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 54,
+          "returned_verse_count": 54,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 32,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.32?version=english%7CThe+Koren+Jerusalem+Bible&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 33,
+          "returned_verse_count": 33,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 33,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.33?version=english%7CThe+Koren+Jerusalem+Bible&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 20,
+          "returned_verse_count": 20,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 34,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.34?version=english%7CThe+Koren+Jerusalem+Bible&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 31,
+          "returned_verse_count": 31,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 35,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.35?version=english%7CThe+Koren+Jerusalem+Bible&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 29,
+          "returned_verse_count": 29,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 36,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.36?version=english%7CThe+Koren+Jerusalem+Bible&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 43,
+          "returned_verse_count": 43,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 37,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.37?version=english%7CThe+Koren+Jerusalem+Bible&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 36,
+          "returned_verse_count": 36,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 38,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.38?version=english%7CThe+Koren+Jerusalem+Bible&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 30,
+          "returned_verse_count": 30,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 39,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.39?version=english%7CThe+Koren+Jerusalem+Bible&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 23,
+          "returned_verse_count": 23,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 40,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.40?version=english%7CThe+Koren+Jerusalem+Bible&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 23,
+          "returned_verse_count": 23,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 41,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.41?version=english%7CThe+Koren+Jerusalem+Bible&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 57,
+          "returned_verse_count": 57,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 42,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.42?version=english%7CThe+Koren+Jerusalem+Bible&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 38,
+          "returned_verse_count": 38,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 43,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.43?version=english%7CThe+Koren+Jerusalem+Bible&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 34,
+          "returned_verse_count": 34,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 44,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.44?version=english%7CThe+Koren+Jerusalem+Bible&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 34,
+          "returned_verse_count": 34,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 45,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.45?version=english%7CThe+Koren+Jerusalem+Bible&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 28,
+          "returned_verse_count": 28,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 46,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.46?version=english%7CThe+Koren+Jerusalem+Bible&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 34,
+          "returned_verse_count": 34,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 47,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.47?version=english%7CThe+Koren+Jerusalem+Bible&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 31,
+          "returned_verse_count": 31,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 48,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.48?version=english%7CThe+Koren+Jerusalem+Bible&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 22,
+          "returned_verse_count": 22,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 49,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.49?version=english%7CThe+Koren+Jerusalem+Bible&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 33,
+          "returned_verse_count": 33,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 50,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.50?version=english%7CThe+Koren+Jerusalem+Bible&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 26,
+          "returned_verse_count": 26,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        }
+      ],
+      "warnings_seen": [],
+      "missing_segment_warning_detected": false,
+      "blockers": []
+    },
+    "metsudah": {
+      "target_key": "metsudah",
+      "display_name": "Metsudah / Metsudah Chumash, Metsudah Publications, 2009",
+      "exact_version_title": "Metsudah Chumash, Metsudah Publications, 2009",
+      "pipeline_status": "source_fetched",
+      "license_status": "needs_license_review",
+      "license": "CC-BY",
+      "license_vetted": null,
+      "license_note": "Sefaria returned license=CC-BY. Full text was persisted for source-pipeline work, but future production use still requires human review and attribution checks.",
+      "suitable_for_internal_draft_use": true,
+      "suitable_for_future_production_use": false,
+      "text_fetched": true,
+      "text_persisted": true,
+      "row_count": 1533,
+      "missing_refs": [],
+      "extra_refs": [],
+      "blank_refs": [],
+      "duplicate_refs": [],
+      "chapter_fetches": [
+        {
+          "chapter": 1,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.1?version=english%7CMetsudah+Chumash%2C+Metsudah+Publications%2C+2009&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 31,
+          "returned_verse_count": 31,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 2,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.2?version=english%7CMetsudah+Chumash%2C+Metsudah+Publications%2C+2009&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 25,
+          "returned_verse_count": 25,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 3,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.3?version=english%7CMetsudah+Chumash%2C+Metsudah+Publications%2C+2009&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 24,
+          "returned_verse_count": 24,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 4,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.4?version=english%7CMetsudah+Chumash%2C+Metsudah+Publications%2C+2009&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 26,
+          "returned_verse_count": 26,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 5,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.5?version=english%7CMetsudah+Chumash%2C+Metsudah+Publications%2C+2009&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 32,
+          "returned_verse_count": 32,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 6,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.6?version=english%7CMetsudah+Chumash%2C+Metsudah+Publications%2C+2009&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 22,
+          "returned_verse_count": 22,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 7,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.7?version=english%7CMetsudah+Chumash%2C+Metsudah+Publications%2C+2009&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 24,
+          "returned_verse_count": 24,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 8,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.8?version=english%7CMetsudah+Chumash%2C+Metsudah+Publications%2C+2009&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 22,
+          "returned_verse_count": 22,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 9,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.9?version=english%7CMetsudah+Chumash%2C+Metsudah+Publications%2C+2009&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 29,
+          "returned_verse_count": 29,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 10,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.10?version=english%7CMetsudah+Chumash%2C+Metsudah+Publications%2C+2009&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 32,
+          "returned_verse_count": 32,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 11,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.11?version=english%7CMetsudah+Chumash%2C+Metsudah+Publications%2C+2009&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 32,
+          "returned_verse_count": 32,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 12,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.12?version=english%7CMetsudah+Chumash%2C+Metsudah+Publications%2C+2009&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 20,
+          "returned_verse_count": 20,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 13,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.13?version=english%7CMetsudah+Chumash%2C+Metsudah+Publications%2C+2009&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 18,
+          "returned_verse_count": 18,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 14,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.14?version=english%7CMetsudah+Chumash%2C+Metsudah+Publications%2C+2009&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 24,
+          "returned_verse_count": 24,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 15,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.15?version=english%7CMetsudah+Chumash%2C+Metsudah+Publications%2C+2009&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 21,
+          "returned_verse_count": 21,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 16,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.16?version=english%7CMetsudah+Chumash%2C+Metsudah+Publications%2C+2009&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 16,
+          "returned_verse_count": 16,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 17,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.17?version=english%7CMetsudah+Chumash%2C+Metsudah+Publications%2C+2009&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 27,
+          "returned_verse_count": 27,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 18,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.18?version=english%7CMetsudah+Chumash%2C+Metsudah+Publications%2C+2009&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 33,
+          "returned_verse_count": 33,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 19,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.19?version=english%7CMetsudah+Chumash%2C+Metsudah+Publications%2C+2009&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 38,
+          "returned_verse_count": 38,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 20,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.20?version=english%7CMetsudah+Chumash%2C+Metsudah+Publications%2C+2009&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 18,
+          "returned_verse_count": 18,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 21,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.21?version=english%7CMetsudah+Chumash%2C+Metsudah+Publications%2C+2009&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 34,
+          "returned_verse_count": 34,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 22,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.22?version=english%7CMetsudah+Chumash%2C+Metsudah+Publications%2C+2009&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 24,
+          "returned_verse_count": 24,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 23,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.23?version=english%7CMetsudah+Chumash%2C+Metsudah+Publications%2C+2009&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 20,
+          "returned_verse_count": 20,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 24,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.24?version=english%7CMetsudah+Chumash%2C+Metsudah+Publications%2C+2009&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 67,
+          "returned_verse_count": 67,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 25,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.25?version=english%7CMetsudah+Chumash%2C+Metsudah+Publications%2C+2009&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 34,
+          "returned_verse_count": 34,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 26,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.26?version=english%7CMetsudah+Chumash%2C+Metsudah+Publications%2C+2009&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 35,
+          "returned_verse_count": 35,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 27,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.27?version=english%7CMetsudah+Chumash%2C+Metsudah+Publications%2C+2009&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 46,
+          "returned_verse_count": 46,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 28,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.28?version=english%7CMetsudah+Chumash%2C+Metsudah+Publications%2C+2009&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 22,
+          "returned_verse_count": 22,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 29,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.29?version=english%7CMetsudah+Chumash%2C+Metsudah+Publications%2C+2009&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 35,
+          "returned_verse_count": 35,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 30,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.30?version=english%7CMetsudah+Chumash%2C+Metsudah+Publications%2C+2009&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 43,
+          "returned_verse_count": 43,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 31,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.31?version=english%7CMetsudah+Chumash%2C+Metsudah+Publications%2C+2009&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 54,
+          "returned_verse_count": 54,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 32,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.32?version=english%7CMetsudah+Chumash%2C+Metsudah+Publications%2C+2009&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 33,
+          "returned_verse_count": 33,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 33,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.33?version=english%7CMetsudah+Chumash%2C+Metsudah+Publications%2C+2009&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 20,
+          "returned_verse_count": 20,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 34,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.34?version=english%7CMetsudah+Chumash%2C+Metsudah+Publications%2C+2009&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 31,
+          "returned_verse_count": 31,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 35,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.35?version=english%7CMetsudah+Chumash%2C+Metsudah+Publications%2C+2009&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 29,
+          "returned_verse_count": 29,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 36,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.36?version=english%7CMetsudah+Chumash%2C+Metsudah+Publications%2C+2009&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 43,
+          "returned_verse_count": 43,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 37,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.37?version=english%7CMetsudah+Chumash%2C+Metsudah+Publications%2C+2009&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 36,
+          "returned_verse_count": 36,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 38,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.38?version=english%7CMetsudah+Chumash%2C+Metsudah+Publications%2C+2009&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 30,
+          "returned_verse_count": 30,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 39,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.39?version=english%7CMetsudah+Chumash%2C+Metsudah+Publications%2C+2009&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 23,
+          "returned_verse_count": 23,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 40,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.40?version=english%7CMetsudah+Chumash%2C+Metsudah+Publications%2C+2009&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 23,
+          "returned_verse_count": 23,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 41,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.41?version=english%7CMetsudah+Chumash%2C+Metsudah+Publications%2C+2009&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 57,
+          "returned_verse_count": 57,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 42,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.42?version=english%7CMetsudah+Chumash%2C+Metsudah+Publications%2C+2009&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 38,
+          "returned_verse_count": 38,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 43,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.43?version=english%7CMetsudah+Chumash%2C+Metsudah+Publications%2C+2009&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 34,
+          "returned_verse_count": 34,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 44,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.44?version=english%7CMetsudah+Chumash%2C+Metsudah+Publications%2C+2009&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 34,
+          "returned_verse_count": 34,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 45,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.45?version=english%7CMetsudah+Chumash%2C+Metsudah+Publications%2C+2009&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 28,
+          "returned_verse_count": 28,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 46,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.46?version=english%7CMetsudah+Chumash%2C+Metsudah+Publications%2C+2009&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 34,
+          "returned_verse_count": 34,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 47,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.47?version=english%7CMetsudah+Chumash%2C+Metsudah+Publications%2C+2009&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 31,
+          "returned_verse_count": 31,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 48,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.48?version=english%7CMetsudah+Chumash%2C+Metsudah+Publications%2C+2009&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 22,
+          "returned_verse_count": 22,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 49,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.49?version=english%7CMetsudah+Chumash%2C+Metsudah+Publications%2C+2009&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 33,
+          "returned_verse_count": 33,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        },
+        {
+          "chapter": 50,
+          "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.50?version=english%7CMetsudah+Chumash%2C+Metsudah+Publications%2C+2009&return_format=text_only&fill_in_missing_segments=0",
+          "expected_verse_count": 26,
+          "returned_verse_count": 26,
+          "blank_row_count": 0,
+          "missing_ref_count": 0,
+          "extra_ref_count": 0,
+          "warnings": []
+        }
+      ],
+      "warnings_seen": [],
+      "missing_segment_warning_detected": false,
+      "blockers": []
+    }
+  },
+  "blockers": []
+}

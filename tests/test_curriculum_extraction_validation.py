@@ -403,10 +403,35 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
 
     def test_curriculum_extraction_paths_still_pass_allowlist(self):
         allowed_paths = [
+            "PLANS.md",
             "data/curriculum_extraction/reports/batch_002_merge_readiness.md",
             "data/curriculum_extraction/normalized/batch_002_linear_chumash_bereishis_1_6_to_2_3_pasuk_segments.jsonl",
+            "data/source_texts/bereishis_hebrew_menukad_taamim.tsv",
+            "data/source_texts/reports/bereishis_hebrew_menukad_taamim_validation.md",
+            "data/source_texts/reports/bereishis_hebrew_source_reconciliation_report.md",
+            "data/source_texts/reports/bereishis_hebrew_source_reconciliation_report.json",
+            "data/source_texts/translations/translation_sources_registry.json",
+            "data/source_texts/translations/sefaria/README.md",
+            "data/source_texts/translations/sefaria/sefaria_genesis_versions_raw.json",
+            "data/source_texts/translations/sefaria/sefaria_english_versions_genesis_report.json",
+            "data/source_texts/translations/sefaria/bereishis_english_translations_manifest.json",
+            "data/source_texts/translations/sefaria/bereishis_english_koren.jsonl",
+            "data/source_texts/translations/sefaria/bereishis_english_metsudah.jsonl",
+            "data/source_texts/translations/sefaria/bereishis_english_translation_alignment_report.md",
+            "data/source_texts/translations/sefaria/bereishis_english_translation_license_report.md",
+            "data/source_texts/translations/sefaria/bereishis_english_translation_fetch_report.json",
+            "data/source_texts/translations/sefaria/bereishis_english_translation_license_review_matrix.json",
+            "data/source_texts/translations/sefaria/bereishis_english_translation_human_review_packet.md",
+            "data/source_texts/translations/sefaria/raw_samples/koren_sample.json",
+            "data/source_texts/translations/sefaria/raw_samples/metsudah_sample.json",
+            "translation_sources_loader.py",
+            "scripts/fetch_sefaria_bereishis_translations.py",
+            "scripts/validate_bereishis_translations.py",
             "scripts/validate_curriculum_extraction.py",
+            "tests/conftest.py",
             "tests/test_curriculum_extraction_validation.py",
+            "tests/test_bereishis_translation_sources.py",
+            "tests/test_translation_sources_loader.py",
             "data/source/bereishis_4_1_to_4_16.json",
             "tests/test_source_corpus_block_4_1_to_4_16.py",
         ]
@@ -418,6 +443,14 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
         disallowed_paths = [
             "data/source/bereishis_4_17_to_4_26.json",
             "tests/test_source_corpus_block_4_17_to_4_26.py",
+            "data/source_texts/translations/sefaria/runtime_export.json",
+            "data/source_texts/translations/other/bereishis_english_other.jsonl",
+            "data/source_texts/translations/translation_sources_registry_backup.json",
+            "scripts/fetch_sefaria_shemos_translations.py",
+            "tests/test_shemos_translation_sources.py",
+            "translation_sources_loader_backup.py",
+            "tests/conftest_backup.py",
+            "PLANS-archive.md",
         ]
         for path in disallowed_paths:
             with self.subTest(path=path):
