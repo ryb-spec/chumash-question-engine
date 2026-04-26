@@ -254,13 +254,21 @@ ALLOWED_CHANGE_PREFIXES = (
 )
 
 ALLOWED_CHANGE_EXACT = {
+    ".gitignore",
     "docs/curriculum_extraction_factory.md",
     "docs/curriculum_extraction_integration_plan.md",
+    "docs/codex_prompts/batch_006_source_ready_prompt_seed.md",
+    "docs/curriculum_pipeline/source_text_foundation_plan.md",
+    "docs/curriculum_pipeline/source_text_handoff.md",
+    "docs/curriculum_pipeline/source_text_validation_strategy.md",
     "local_curriculum_sources/source_key_excerpt_batch_001.md",
     "data/source/bereishis_4_1_to_4_16.json",
     "data/source_texts/bereishis_hebrew_menukad_taamim.tsv",
     "data/source_texts/reports/bereishis_hebrew_menukad_taamim_validation.md",
+    "data/source_texts/reports/source_text_gap_report.md",
+    "data/source_texts/reports/source_text_inventory.md",
     "data/source_texts/README.md",
+    "data/source_texts/source_text_manifest.json",
     "scripts/generate_curriculum_question_preview.py",
     "scripts/validate_curriculum_extraction.py",
     "scripts/load_curriculum_extraction.py",
@@ -292,6 +300,10 @@ IGNORED_GENERATED_CHANGE_EXACT = {
     "data/attempt_log.jsonl",
     "data/pilot/pilot_session_events.jsonl",
 }
+
+IGNORED_CHANGE_PREFIXES = (
+    "incoming_source/",
+)
 
 
 def repo_relative(path: Path) -> str:
@@ -820,7 +832,11 @@ def collect_changed_paths() -> list[str]:
         if " -> " in path:
             path = path.split(" -> ", 1)[1]
         path = path.strip().strip('"').replace("\\", "/")
-        if path and path not in IGNORED_GENERATED_CHANGE_EXACT:
+        if (
+            path
+            and path not in IGNORED_GENERATED_CHANGE_EXACT
+            and not any(path.startswith(prefix) for prefix in IGNORED_CHANGE_PREFIXES)
+        ):
             paths.append(path)
     return paths
 

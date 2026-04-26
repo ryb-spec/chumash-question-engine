@@ -376,6 +376,21 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
             run_mock.return_value = mock.Mock(stdout=fake_status)
             self.assertEqual(validator.collect_changed_paths(), [])
 
+    def test_incoming_source_paths_are_ignored_by_changed_path_collection(self):
+        fake_status = "\n".join(
+            [
+                "?? incoming_source/bereishis_hebrew_menukad_taamim.tsv",
+                "?? incoming_source/bereishis_hebrew_menukad_taamim_validation.md",
+                "?? data/source_texts/source_text_manifest.json",
+            ]
+        )
+        with mock.patch.object(validator.subprocess, "run") as run_mock:
+            run_mock.return_value = mock.Mock(stdout=fake_status)
+            self.assertEqual(
+                validator.collect_changed_paths(),
+                ["data/source_texts/source_text_manifest.json"],
+            )
+
     def test_unrelated_path_outside_allowlist_still_fails(self):
         fake_status = " M data/some_other_runtime_like_file.jsonl"
         with mock.patch.object(validator.subprocess, "run") as run_mock:
@@ -403,6 +418,7 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
 
     def test_curriculum_extraction_paths_still_pass_allowlist(self):
         allowed_paths = [
+            ".gitignore",
             "data/curriculum_extraction/reports/batch_002_merge_readiness.md",
             "data/curriculum_extraction/normalized/batch_002_linear_chumash_bereishis_1_6_to_2_3_pasuk_segments.jsonl",
             "scripts/validate_curriculum_extraction.py",
@@ -411,7 +427,14 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
             "tests/test_source_corpus_block_4_1_to_4_16.py",
             "data/source_texts/bereishis_hebrew_menukad_taamim.tsv",
             "data/source_texts/reports/bereishis_hebrew_menukad_taamim_validation.md",
+            "data/source_texts/reports/source_text_gap_report.md",
+            "data/source_texts/reports/source_text_inventory.md",
             "data/source_texts/README.md",
+            "data/source_texts/source_text_manifest.json",
+            "docs/curriculum_pipeline/source_text_foundation_plan.md",
+            "docs/curriculum_pipeline/source_text_handoff.md",
+            "docs/curriculum_pipeline/source_text_validation_strategy.md",
+            "docs/codex_prompts/batch_006_source_ready_prompt_seed.md",
             "scripts/validate_source_texts.py",
             "tests/test_source_texts_validation.py",
         ]
@@ -421,10 +444,15 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
 
     def test_unrelated_source_prep_like_paths_still_fail_allowlist(self):
         disallowed_paths = [
+            ".gitattributes",
             "data/source/bereishis_4_17_to_4_26.json",
             "tests/test_source_corpus_block_4_17_to_4_26.py",
             "data/source_texts/shemos_hebrew_menukad_taamim.tsv",
             "data/source_texts/reports/shemos_hebrew_menukad_taamim_validation.md",
+            "data/source_texts/reports/source_text_future_notes.md",
+            "data/source_texts/source_text_manifest_backup.json",
+            "docs/curriculum_pipeline/source_text_runtime_promotion.md",
+            "docs/codex_prompts/batch_007_source_ready_prompt_seed.md",
             "tests/test_source_texts_validation_shemos.py",
         ]
         for path in disallowed_paths:
