@@ -424,13 +424,24 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
             "data/source_texts/translations/sefaria/bereishis_english_translation_human_review_packet.md",
             "data/source_texts/translations/sefaria/raw_samples/koren_sample.json",
             "data/source_texts/translations/sefaria/raw_samples/metsudah_sample.json",
+            "data/diagnostic_preview/README.md",
+            "data/diagnostic_preview/configs/bereishis_1_1_to_2_3_dikduk_translation_preview.json",
+            "data/diagnostic_preview/blueprints/bereishis_1_1_to_2_3_dikduk_translation_blueprints.jsonl",
+            "data/diagnostic_preview/generated_questions/bereishis_1_1_to_2_3_preview_questions.jsonl",
+            "data/diagnostic_preview/reports/bereishis_1_1_to_2_3_manual_review_packet.md",
+            "data/diagnostic_preview/reports/bereishis_1_1_to_2_3_preview_summary.md",
+            "data/diagnostic_preview/reports/bereishis_1_1_to_2_3_preview_summary.json",
             "translation_sources_loader.py",
             "scripts/fetch_sefaria_bereishis_translations.py",
+            "scripts/generate_diagnostic_preview.py",
             "scripts/validate_bereishis_translations.py",
             "scripts/validate_curriculum_extraction.py",
+            "scripts/validate_diagnostic_preview.py",
             "tests/conftest.py",
             "tests/test_curriculum_extraction_validation.py",
             "tests/test_bereishis_translation_sources.py",
+            "tests/test_diagnostic_preview_generation.py",
+            "tests/test_diagnostic_preview_validation.py",
             "tests/test_translation_sources_loader.py",
             "data/source/bereishis_4_1_to_4_16.json",
             "tests/test_source_corpus_block_4_1_to_4_16.py",
@@ -447,10 +458,13 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
             "data/source_texts/translations/other/bereishis_english_other.jsonl",
             "data/source_texts/translations/translation_sources_registry_backup.json",
             "scripts/fetch_sefaria_shemos_translations.py",
+            "scripts/generate_diagnostic_runtime_preview.py",
             "tests/test_shemos_translation_sources.py",
+            "tests/test_diagnostic_preview_runtime.py",
             "translation_sources_loader_backup.py",
             "tests/conftest_backup.py",
             "PLANS-archive.md",
+            "data/diagnostic_preview_runtime/preview.json",
         ]
         for path in disallowed_paths:
             with self.subTest(path=path):
@@ -459,6 +473,18 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
                     validator.forbidden_reason(path),
                     f"path outside isolated curriculum extraction allowlist: {path}",
                 )
+
+    def test_diagnostic_preview_prefix_is_narrow(self):
+        self.assertTrue(
+            validator.is_allowed_change(
+                "data/diagnostic_preview/reports/bereishis_1_1_to_2_3_preview_summary.md"
+            )
+        )
+        self.assertFalse(validator.is_allowed_change("data/diagnostic_preview_runtime/preview_summary.md"))
+        self.assertEqual(
+            validator.forbidden_reason("data/diagnostic_preview_runtime/preview_summary.md"),
+            "path outside isolated curriculum extraction allowlist: data/diagnostic_preview_runtime/preview_summary.md",
+        )
 
 
 if __name__ == "__main__":

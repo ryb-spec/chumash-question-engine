@@ -251,6 +251,7 @@ SKILL_TAG_ALIASES = {
 
 ALLOWED_CHANGE_PREFIXES = (
     "data/curriculum_extraction/",
+    "data/diagnostic_preview/",
 )
 
 ALLOWED_CHANGE_EXACT = {
@@ -280,11 +281,15 @@ ALLOWED_CHANGE_EXACT = {
     "translation_sources_loader.py",
     "scripts/generate_curriculum_question_preview.py",
     "scripts/fetch_sefaria_bereishis_translations.py",
+    "scripts/generate_diagnostic_preview.py",
     "scripts/validate_bereishis_translations.py",
     "scripts/validate_curriculum_extraction.py",
+    "scripts/validate_diagnostic_preview.py",
     "scripts/load_curriculum_extraction.py",
     "tests/test_bereishis_translation_sources.py",
     "tests/conftest.py",
+    "tests/test_diagnostic_preview_generation.py",
+    "tests/test_diagnostic_preview_validation.py",
     "tests/test_translation_sources_loader.py",
     "tests/test_curriculum_question_preview.py",
     "tests/test_curriculum_extraction_schemas.py",

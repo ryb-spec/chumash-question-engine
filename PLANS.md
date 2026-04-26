@@ -66,3 +66,8 @@
 - [completed] Run fetch, validation, targeted tests, full pytest, and summarize the exact Koren/Metsudah outcome
 - [completed] Reconcile the canonical Hebrew `Bereishis 35:30` discrepancy, regenerate the translation package, and add license-review / registry / loader artifacts
 - [completed] Isolate pytest runtime log writes to temporary files so the source-only branch stays free of accidental `data/attempt_log.jsonl` and pilot-log diffs
+
+- [completed] Build the non-runtime diagnostic preview package for `Bereishis 1:1-2:3`, including config, blueprints, generated questions, review packet, and summary reports
+- [completed] Implement the diagnostic preview generator and validator using the existing Hebrew, translation, and Dikduk source layers without any runtime activation
+- [completed] Add focused diagnostic preview tests plus the narrow curriculum-validator allowlist entries required for the new preview-only files
+- [completed] Run generator, validator, targeted tests, full pytest, and confirm the branch stays free of runtime log side effects

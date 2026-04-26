@@ -178,6 +178,17 @@ class BereishisTranslationSourcesTests(unittest.TestCase):
         self.assertTrue(summary["valid"], summary["errors"])
 
     def test_fetch_script_is_rerunnable(self):
+        tracked_outputs_before = {
+            path: path.read_bytes()
+            for path in [
+                MANIFEST_PATH,
+                DISCOVERY_REPORT_PATH,
+                FETCH_REPORT_PATH,
+                JSONL_PATHS["koren"],
+                JSONL_PATHS["metsudah"],
+                TRANSLATION_REGISTRY_PATH,
+            ]
+        }
         result = subprocess.run(
             [
                 sys.executable,
@@ -195,6 +206,11 @@ class BereishisTranslationSourcesTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr or result.stdout)
         summary = validator.validate_bereishis_translations()
         self.assertTrue(summary["valid"], summary["errors"])
+        tracked_outputs_after = {
+            path: path.read_bytes()
+            for path in tracked_outputs_before
+        }
+        self.assertEqual(tracked_outputs_after, tracked_outputs_before)
 
 
 if __name__ == "__main__":

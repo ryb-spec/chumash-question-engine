@@ -118,6 +118,62 @@ def normalize_targets(raw_targets: list[str] | None) -> list[str]:
     return deduped
 
 
+def cached_output_paths() -> list[Path]:
+    return [
+        VERSIONS_RAW_PATH,
+        DISCOVERY_REPORT_PATH,
+        MANIFEST_PATH,
+        ALIGNMENT_REPORT_PATH,
+        LICENSE_REPORT_PATH,
+        FETCH_REPORT_PATH,
+        LICENSE_REVIEW_MATRIX_PATH,
+        HUMAN_REVIEW_PACKET_PATH,
+        TRANSLATION_REGISTRY_PATH,
+        RECONCILIATION_REPORT_MD_PATH,
+        RECONCILIATION_REPORT_JSON_PATH,
+        README_PATH,
+    ]
+
+
+def can_reuse_cached_outputs(*, targets: list[str], expected_total_refs: int, metadata_only: bool) -> bool:
+    if metadata_only:
+        return False
+    if not all(path.exists() for path in cached_output_paths()):
+        return False
+    try:
+        manifest = load_json(MANIFEST_PATH)
+        fetch_report = load_json(FETCH_REPORT_PATH)
+    except (OSError, json.JSONDecodeError):
+        return False
+
+    if not isinstance(manifest, dict) or not isinstance(fetch_report, dict):
+        return False
+    if manifest.get("expected_total_refs") != expected_total_refs:
+        return False
+
+    selected_versions = manifest.get("selected_versions", {})
+    version_fetch_report = fetch_report.get("versions", {})
+    reusable_statuses = {
+        "source_fetched",
+        "blocked_version_not_found",
+        "blocked_license_unclear",
+        "blocked_fetch_error",
+        "version_discovered",
+        "needs_license_review",
+    }
+    for target_key in targets:
+        selected = selected_versions.get(target_key)
+        if not isinstance(selected, dict):
+            return False
+        if selected.get("pipeline_status") not in reusable_statuses:
+            return False
+        if target_key not in version_fetch_report:
+            return False
+        if selected.get("pipeline_status") == "source_fetched" and not TARGET_CONFIG[target_key]["output_jsonl"].exists():
+            return False
+    return True
+
+
 def ensure_output_dirs() -> None:
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     RAW_SAMPLES_DIR.mkdir(parents=True, exist_ok=True)
@@ -1037,6 +1093,24 @@ def run_pipeline(args: argparse.Namespace) -> int:
     rows = load_canonical_hebrew_rows()
     expected_rows, chapter_counts, ref_lookup = build_expected_ref_index(rows)
     targets = normalize_targets(args.target)
+
+    if not args.force_refresh and can_reuse_cached_outputs(
+        targets=targets,
+        expected_total_refs=len(expected_rows),
+        metadata_only=bool(args.metadata_only),
+    ):
+        print(
+            json.dumps(
+                {
+                    "status": "cached_outputs_reused",
+                    "targets": targets,
+                    "expected_total_refs": len(expected_rows),
+                },
+                ensure_ascii=False,
+                indent=2,
+            )
+        )
+        return 0
 
     versions_payload = load_or_fetch_versions(force_refresh=args.force_refresh)
     english = english_versions(versions_payload)
