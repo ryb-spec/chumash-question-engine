@@ -1,0 +1,364 @@
+{
+  "generated_at": "2026-04-26T00:00:00Z",
+  "branch_scope": "feature/zekelman-standard-3-supplemental-crosswalk",
+  "canonical_source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+  "mapping_scope": "Standard 3 only",
+  "mappings": [
+    {
+      "standard_id": "3.01",
+      "standard_title": "Vocabulary: שמות עצם (nouns)",
+      "level": "Levels 1-8",
+      "skill_id_draft": "std3_01_noun_vocabulary_recognition",
+      "skill_label": "Recognize and translate taught noun vocabulary",
+      "skill_family": "vocabulary_recognition",
+      "prerequisite_skill_ids": [],
+      "diagnostic_relevance": "high",
+      "question_generation_relevance": "high",
+      "possible_question_archetypes": [
+        "identify_translation",
+        "match_word_to_meaning"
+      ],
+      "required_source_evidence": [
+        "2025 Standard 3.01 canonical wording",
+        "2014 intro pages 3-7",
+        "2014 appendix noun-frequency lists"
+      ],
+      "review_status": [
+        "needs_human_review",
+        "not_runtime_ready"
+      ],
+      "notes": "Draft lane for cumulative noun vocabulary only; not yet connected to runtime or active templates."
+    },
+    {
+      "standard_id": "3.02",
+      "standard_title": "Vocabulary: שורשים (for verbs)",
+      "level": "Levels 1-8",
+      "skill_id_draft": "std3_02_shoresh_identification",
+      "skill_label": "Identify a shoresh and connect it to meaning",
+      "skill_family": "shoresh_identification",
+      "prerequisite_skill_ids": [
+        "std3_01_noun_vocabulary_recognition"
+      ],
+      "diagnostic_relevance": "high",
+      "question_generation_relevance": "high",
+      "possible_question_archetypes": [
+        "identify_shoresh",
+        "match_word_to_meaning",
+        "parse_word_components"
+      ],
+      "required_source_evidence": [
+        "2025 Standard 3.02 canonical wording",
+        "2014 intro pages 35-40",
+        "2016 sample pages 79-87"
+      ],
+      "review_status": [
+        "needs_human_review",
+        "not_runtime_ready"
+      ],
+      "notes": "Future lane should distinguish simple root recognition from weak-letter handling."
+    },
+    {
+      "standard_id": "3.03",
+      "standard_title": "Other Vocabulary",
+      "level": "Levels 1-8",
+      "skill_id_draft": "std3_03_function_word_translation_precision",
+      "skill_label": "Translate function words and common particles accurately",
+      "skill_family": "translation_precision",
+      "prerequisite_skill_ids": [
+        "std3_01_noun_vocabulary_recognition",
+        "std3_02_shoresh_identification"
+      ],
+      "diagnostic_relevance": "high",
+      "question_generation_relevance": "high",
+      "possible_question_archetypes": [
+        "identify_translation",
+        "choose_accurate_phrase_translation"
+      ],
+      "required_source_evidence": [
+        "2025 Standard 3.03 canonical wording",
+        "2014 appendix Hebrew Particles pages 32-35",
+        "2016 sample page 88"
+      ],
+      "review_status": [
+        "needs_human_review",
+        "table_structure_uncertain",
+        "not_runtime_ready"
+      ],
+      "notes": "Draft skill covers prepositions, conjunctions, and similar high-frequency function words; adverbs and numbers remain only loosely structured here."
+    },
+    {
+      "standard_id": "3.04",
+      "standard_title": "Nouns and Adjectives",
+      "level": "Levels 1-8 (summary)",
+      "skill_id_draft": "std3_04_noun_features",
+      "skill_label": "Identify noun and adjective features",
+      "skill_family": "noun_features",
+      "prerequisite_skill_ids": [
+        "std3_01_noun_vocabulary_recognition"
+      ],
+      "diagnostic_relevance": "high",
+      "question_generation_relevance": "high",
+      "possible_question_archetypes": [
+        "classify_part_of_speech",
+        "parse_word_components"
+      ],
+      "required_source_evidence": [
+        "2025 Standard 3.04 canonical wording",
+        "2014 intro pages 8-11",
+        "2014 appendix page 38"
+      ],
+      "review_status": [
+        "needs_human_review",
+        "not_runtime_ready"
+      ],
+      "notes": "Designed for gender, number, and adjective agreement without yet committing to a runtime lane split."
+    },
+    {
+      "standard_id": "3.04",
+      "standard_title": "Nouns and Adjectives",
+      "level": "Levels 1-8 (summary)",
+      "skill_id_draft": "std3_04_smichut_recognition",
+      "skill_label": "Recognize סמיכות / construct-chain structures",
+      "skill_family": "syntax_phrase_structure",
+      "prerequisite_skill_ids": [
+        "std3_04_noun_features"
+      ],
+      "diagnostic_relevance": "high",
+      "question_generation_relevance": "medium",
+      "possible_question_archetypes": [
+        "choose_accurate_phrase_translation",
+        "parse_word_components"
+      ],
+      "required_source_evidence": [
+        "2025 Standard 3.04 canonical wording",
+        "2016 sample pages 97-100"
+      ],
+      "review_status": [
+        "needs_human_review",
+        "hebrew_text_needs_review",
+        "not_runtime_ready"
+      ],
+      "notes": "Kept as a separate draft because construct chains often require fuller context than simple morphology prompts."
+    },
+    {
+      "standard_id": "3.05",
+      "standard_title": "Pronouns",
+      "level": "Levels 1-8 (summary)",
+      "skill_id_draft": "std3_05_pronoun_referent_identification",
+      "skill_label": "Identify pronouns and their referents",
+      "skill_family": "part_of_speech",
+      "prerequisite_skill_ids": [
+        "std3_04_noun_features"
+      ],
+      "diagnostic_relevance": "high",
+      "question_generation_relevance": "high",
+      "possible_question_archetypes": [
+        "classify_part_of_speech",
+        "choose_accurate_phrase_translation"
+      ],
+      "required_source_evidence": [
+        "2025 Standard 3.05 canonical wording",
+        "2014 intro pages 23-30",
+        "2016 sample pages 101-121"
+      ],
+      "review_status": [
+        "needs_human_review",
+        "not_runtime_ready"
+      ],
+      "notes": "Future implementation should separate referent tracking from simple pronoun translation."
+    },
+    {
+      "standard_id": "3.05",
+      "standard_title": "Pronouns",
+      "level": "Levels 1-8 (summary)",
+      "skill_id_draft": "std3_05_pronominal_suffix_identification",
+      "skill_label": "Identify pronominal suffixes on nouns and particles",
+      "skill_family": "prefix_suffix_identification",
+      "prerequisite_skill_ids": [
+        "std3_05_pronoun_referent_identification"
+      ],
+      "diagnostic_relevance": "high",
+      "question_generation_relevance": "high",
+      "possible_question_archetypes": [
+        "identify_suffix",
+        "parse_word_components"
+      ],
+      "required_source_evidence": [
+        "2025 Standard 3.05 canonical wording",
+        "2014 appendix pages 39-44"
+      ],
+      "review_status": [
+        "needs_human_review",
+        "table_structure_uncertain",
+        "not_runtime_ready"
+      ],
+      "notes": "Teacher review is essential because suffix interpretation is context-sensitive."
+    },
+    {
+      "standard_id": "3.06",
+      "standard_title": "Prepositions, Conjunctions and the Definite Article",
+      "level": "Levels 1-8 (summary)",
+      "skill_id_draft": "std3_06_prefix_function_identification",
+      "skill_label": "Identify prefix letters and article functions",
+      "skill_family": "prefix_suffix_identification",
+      "prerequisite_skill_ids": [
+        "std3_03_function_word_translation_precision"
+      ],
+      "diagnostic_relevance": "high",
+      "question_generation_relevance": "high",
+      "possible_question_archetypes": [
+        "identify_prefix",
+        "parse_word_components",
+        "identify_nikud_rule"
+      ],
+      "required_source_evidence": [
+        "2025 Standard 3.06 canonical wording",
+        "2014 intro pages 16-20",
+        "2014 appendix pages 46-51"
+      ],
+      "review_status": [
+        "needs_human_review",
+        "hebrew_text_needs_review",
+        "not_runtime_ready"
+      ],
+      "notes": "Prefix identification should stay conservative and separate from full translation claims until reviewed."
+    },
+    {
+      "standard_id": "3.06",
+      "standard_title": "Prepositions, Conjunctions and the Definite Article",
+      "level": "Levels 1-8 (summary)",
+      "skill_id_draft": "std3_06_direct_object_marker_resolution",
+      "skill_label": "Distinguish the two functions of את",
+      "skill_family": "translation_precision",
+      "prerequisite_skill_ids": [
+        "std3_06_prefix_function_identification"
+      ],
+      "diagnostic_relevance": "high",
+      "question_generation_relevance": "medium",
+      "possible_question_archetypes": [
+        "choose_accurate_phrase_translation",
+        "parse_word_components"
+      ],
+      "required_source_evidence": [
+        "2025 Standard 3.06 canonical wording",
+        "2014 appendix pages 54-55"
+      ],
+      "review_status": [
+        "needs_human_review",
+        "not_runtime_ready"
+      ],
+      "notes": "This remains a protected draft because direct-object-marker interpretation can be context-sensitive."
+    },
+    {
+      "standard_id": "3.07",
+      "standard_title": "Verbs",
+      "level": "Levels 1-8 (summary)",
+      "skill_id_draft": "std3_07_verb_features",
+      "skill_label": "Identify verb tense, person, and form clues",
+      "skill_family": "verb_features",
+      "prerequisite_skill_ids": [
+        "std3_02_shoresh_identification",
+        "std3_06_prefix_function_identification"
+      ],
+      "diagnostic_relevance": "high",
+      "question_generation_relevance": "high",
+      "possible_question_archetypes": [
+        "identify_tense",
+        "parse_word_components",
+        "identify_prefix",
+        "identify_suffix"
+      ],
+      "required_source_evidence": [
+        "2025 Standard 3.07 canonical wording",
+        "2014 intro pages 35-43"
+      ],
+      "review_status": [
+        "needs_human_review",
+        "not_runtime_ready"
+      ],
+      "notes": "Binyan- and passive-level detail should not be activated until a separate reviewed rule schema exists."
+    },
+    {
+      "standard_id": "3.08",
+      "standard_title": "Grouping and Word Order",
+      "level": "Levels 1-8 (summary)",
+      "skill_id_draft": "std3_08_syntax_phrase_structure",
+      "skill_label": "Group phrases and adjust Hebrew word order for translation",
+      "skill_family": "syntax_phrase_structure",
+      "prerequisite_skill_ids": [
+        "std3_04_smichut_recognition",
+        "std3_07_verb_features"
+      ],
+      "diagnostic_relevance": "high",
+      "question_generation_relevance": "medium",
+      "possible_question_archetypes": [
+        "choose_accurate_phrase_translation"
+      ],
+      "required_source_evidence": [
+        "2025 Standard 3.08 canonical wording",
+        "2014 intro page 9",
+        "2016 sample pages 97-100"
+      ],
+      "review_status": [
+        "needs_human_review",
+        "not_runtime_ready"
+      ],
+      "notes": "This mapping stays draft-only because syntax grouping usually needs fuller passage context."
+    },
+    {
+      "standard_id": "3.09",
+      "standard_title": "Parsing the פסוק",
+      "level": "Levels 1-8 (summary)",
+      "skill_id_draft": "std3_09_taamim_clause_parsing",
+      "skill_label": "Use taamim to parse and punctuate a פסוק",
+      "skill_family": "textual_conventions",
+      "prerequisite_skill_ids": [
+        "std3_08_syntax_phrase_structure"
+      ],
+      "diagnostic_relevance": "high",
+      "question_generation_relevance": "medium",
+      "possible_question_archetypes": [
+        "choose_accurate_phrase_translation"
+      ],
+      "required_source_evidence": [
+        "2025 Standard 3.09 canonical wording",
+        "2014 intro pages 13-15",
+        "2014 appendix pages 57-59"
+      ],
+      "review_status": [
+        "needs_human_review",
+        "not_runtime_ready"
+      ],
+      "notes": "Strong future teacher-reviewed lane, but not suitable for active runtime work yet."
+    },
+    {
+      "standard_id": "3.10",
+      "standard_title": "Understanding ניקוד",
+      "level": "Advanced upper levels only (summary)",
+      "skill_id_draft": "std3_10_nikud_reading",
+      "skill_label": "Recognize advanced ניקוד patterns and syllable rules",
+      "skill_family": "nikud_reading",
+      "prerequisite_skill_ids": [
+        "std3_07_verb_features",
+        "std3_09_taamim_clause_parsing"
+      ],
+      "diagnostic_relevance": "medium",
+      "question_generation_relevance": "medium",
+      "possible_question_archetypes": [
+        "identify_nikud_rule",
+        "parse_word_components"
+      ],
+      "required_source_evidence": [
+        "2025 Standard 3.10 canonical wording",
+        "2014 intro pages 47-53",
+        "2014 appendix pages 46-51"
+      ],
+      "review_status": [
+        "needs_human_review",
+        "hebrew_text_needs_review",
+        "not_runtime_ready"
+      ],
+      "notes": "Advanced-only strand; especially dependent on human review because OCR can blur nekudos and table relationships."
+    }
+  ]
+}

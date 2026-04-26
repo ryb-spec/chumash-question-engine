@@ -92,3 +92,6 @@
 - [completed] Inspect the 2025 Zekelman canonical PDF and extracted text for Standard 1, Standard 3, Standard 4, and high-level Standard 5 structure across Levels 1-8
 - [completed] Create conservative structured JSON outputs for the overall standards index, Standard 3 vocabulary/language skills, and question-generation relevance with page/section provenance
 - [completed] Write the structured extraction report, run lightweight validation, and confirm runtime/student-facing files stayed untouched
+- [completed] Inspect the 2025 Standard 3 structured extraction and the 2014/2016 supplemental Zekelman sources for direct support, partial support, and conflicts
+- [completed] Create a conservative Standard 3 supplemental crosswalk JSON plus a draft skill-mapping JSON with explicit review-status flags
+- [completed] Write the Standard 3 supplemental crosswalk report, run lightweight validation, and confirm runtime/student-facing files stayed untouched
