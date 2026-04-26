@@ -13,43 +13,33 @@ It does not:
 ## Source Hierarchy
 
 1. Canonical standards truth:
-   - 2025 / Version 2.5 Zekelman Standards when available
+   - `docs/standards/zekelman/raw/2025_zekelman_chumash_standards_v2_5_complete_levels_1_8.pdf`
 2. Preferred supplemental raw PDFs:
-   - 2014 Introduction to Vocabulary and Language Skills
-   - 2016 Sample Assessment Questions for Standards 1-2
-   - 2014 Appendix / Free Resource Packet
+   - `docs/standards/zekelman/raw/2014_intro_vocabulary_language_skills_zekelman_chumash.pdf`
+   - `docs/standards/zekelman/raw/2016_sample_assessment_questions_standards_1_2_zekelman_chumash.pdf`
+   - `docs/standards/zekelman/raw/2014_appendix_free_resource_packet_zekelman_chumash.pdf`
 3. Derived internal artifacts:
    - crosswalk seeds
    - foundations seeds
    - high-frequency lexicon seeds
 
-## Extraction Priorities For The Next Branch
+## Recommended Extraction Order For The Next Branch
 
-### Priority 1
-
-- Standard 3 vocabulary and language skills
-- Hebrew terms by grade
-- Chumash conventions
-
-### Priority 2
-
-- assessment item archetypes
-- standards-to-skill mapping candidates
-- high-frequency vocabulary policy tables
-
-### Priority 3
-
-- question-template exemplars
-- diagnostic lane candidates for vocabulary, dikduk, and passage comprehension
+1. Extract canonical standard IDs, titles, areas, level progressions, and scope/sequence from the 2025 / Version 2.5 canonical source first.
+2. Cross-check Standard 3 vocabulary and language skills against the 2014 Introduction to Vocabulary and Language Skills.
+3. Cross-check Hebrew terms by grade and Chumash conventions against the 2014 Appendix / Free Resource Packet.
+4. Extract assessment item archetypes from the 2016 Sample Assessment Questions.
+5. Do not generate production questions until structured source extraction is reviewed.
 
 ## Method Rules
 
-- start from the cleanest raw PDF available
+- start from the canonical 2025 raw PDF first
 - preserve provenance from every extracted field back to source page(s)
 - keep page-level references for all structured extraction drafts
 - do not silently normalize Hebrew text
 - do not silently correct OCR/extraction errors
 - flag all tables, Hebrew terms lists, nikud/taamim fields, and bidi text for human review
+- treat raw extracted text as a convenience layer, not production structured data
 
 ## Proposed Next Branch
 
@@ -57,7 +47,8 @@ It does not:
 
 ## Proposed Next Task
 
-Build a draft machine-readable Zekelman standards/skills extraction from the cleanest sources, starting with:
+Build a draft machine-readable Zekelman standards and skills extraction from the cleanest sources, starting with:
+- canonical standard IDs, titles, areas, and scope/sequence from the 2025 standards
 - Standard 3 vocabulary and language skills
 - Hebrew terms by grade
 - Chumash conventions

@@ -1,38 +1,44 @@
 {
   "generated_at": "2026-04-26T00:00:00Z",
-  "branch_scope": "feature/zekelman-source-upgrade-clean-pdfs",
-  "canonical_policy_note": "Existing repo seed files treat Zekelman Standards 2.5 (2025) plus the Appendix as canonical truth for current wording and level progression. The raw 2025 PDF was not present on this branch, so that source is recorded here as reference-backed canonical metadata rather than as a newly ingested file.",
+  "branch_scope": "feature/zekelman-2025-canonical-source-ingestion-v2",
+  "canonical_policy_note": "The 2025 / Version 2.5 Zekelman Standards PDF is now present in the repo as the actual canonical raw source. Existing seed files that referenced the 2025 standards and Appendix as canonical truth are now backed by the ingested raw standards PDF plus the previously added supplemental Appendix source.",
   "sources": [
     {
-      "source_id": "zekelman_standards_2025_reference_only",
+      "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
       "title": "Zekelman Standards for Chumash",
-      "path": "REFERENCE_ONLY:data/standards/crosswalks/canonical_skill_crosswalk.seed.v1.json#meta.sources.zekelman_standards_2025",
-      "document_type": "complete standards",
+      "path": "docs/standards/zekelman/raw/2025_zekelman_chumash_standards_v2_5_complete_levels_1_8.pdf",
+      "document_type": "complete_standards",
       "apparent_version": "2.5",
       "apparent_year": "2025",
-      "page_count": null,
+      "page_count": 67,
       "canonical_status": "canonical",
-      "quality_status": "unknown",
+      "quality_status": "clean_pdf",
       "project_uses": [
-        "standards mapping",
-        "skill taxonomy",
-        "vocabulary progression",
-        "dikduk rules",
-        "Chumash conventions",
-        "source validation"
+        "canonical standards wording",
+        "level progression",
+        "standard numbering",
+        "scope and sequence",
+        "standards-to-skill mapping",
+        "diagnostic design",
+        "mastery tracking"
       ],
       "replaces_or_supersedes": [],
       "related_sources": [
         "canonical_skill_crosswalk_seed_v1_json",
         "canonical_skill_crosswalk_seed_v1_csv",
-        "canonical_skill_crosswalk_seed_incoming_json"
+        "canonical_skill_crosswalk_seed_incoming_json",
+        "zekelman_intro_vocabulary_language_skills_2014_pdf",
+        "zekelman_sample_assessments_2016_pdf",
+        "zekelman_appendix_free_resource_packet_2014_pdf"
       ],
-      "extracted_text_path": null,
+      "extracted_text_path": "docs/standards/zekelman/extracted/2025_zekelman_chumash_standards_v2_5_complete_levels_1_8_raw_text.md",
       "warnings": [
-        "Raw 2025 / Version 2.5 PDF was not present in the repo on this branch.",
-        "Canonical status here is derived from existing repo metadata, not from newly ingested file bytes."
+        "Hebrew extraction requires human review.",
+        "Nikud and taamim extraction require human review.",
+        "Tables require manual validation.",
+        "Raw extracted text is not production structured data."
       ],
-      "notes": "Use this as the canonical wording and level-progression authority when the actual raw standards PDF is available."
+      "notes": "Canonical source for current Zekelman Chumash standards wording, level progression, standard numbering, and scope/sequence."
     },
     {
       "source_id": "zekelman_intro_vocabulary_language_skills_2014_pdf",
@@ -54,7 +60,7 @@
       "replaces_or_supersedes": [],
       "related_sources": [
         "zekelman_intro_vocabulary_language_skills_2014_extracted_text",
-        "zekelman_standards_2025_reference_only"
+        "zekelman_standards_2025_v2_5_complete_levels_1_8"
       ],
       "extracted_text_path": "docs/standards/zekelman/extracted/2014_intro_vocabulary_language_skills_zekelman_chumash_raw_text.md",
       "warnings": [
@@ -82,7 +88,7 @@
       "replaces_or_supersedes": [],
       "related_sources": [
         "zekelman_sample_assessments_2016_extracted_text",
-        "zekelman_standards_2025_reference_only"
+        "zekelman_standards_2025_v2_5_complete_levels_1_8"
       ],
       "extracted_text_path": "docs/standards/zekelman/extracted/2016_sample_assessment_questions_standards_1_2_zekelman_chumash_raw_text.md",
       "warnings": [
@@ -141,7 +147,7 @@
       ],
       "replaces_or_supersedes": [],
       "related_sources": [
-        "zekelman_standards_2025_reference_only",
+        "zekelman_standards_2025_v2_5_complete_levels_1_8",
         "zekelman_appendix_free_resource_packet_2014_pdf",
         "canonical_skill_crosswalk_seed_v1_csv"
       ],
@@ -168,7 +174,7 @@
       ],
       "replaces_or_supersedes": [],
       "related_sources": [
-        "zekelman_standards_2025_reference_only",
+        "zekelman_standards_2025_v2_5_complete_levels_1_8",
         "zekelman_appendix_free_resource_packet_2014_pdf",
         "canonical_skill_crosswalk_seed_v1_json"
       ],
@@ -194,7 +200,7 @@
       ],
       "replaces_or_supersedes": [],
       "related_sources": [
-        "zekelman_standards_2025_reference_only",
+        "zekelman_standards_2025_v2_5_complete_levels_1_8",
         "zekelman_appendix_free_resource_packet_2014_pdf",
         "canonical_skill_crosswalk_seed_v1_json"
       ],

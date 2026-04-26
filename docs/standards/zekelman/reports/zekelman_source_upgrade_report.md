@@ -1,5 +1,7 @@
 # Zekelman Source Upgrade Report
 
+> Historical note: this report reflects the state before the 2025 / Version 2.5 canonical standards PDF was ingested into the repo. For the canonical-source update, see `docs/standards/zekelman/reports/zekelman_2025_canonical_source_ingestion_report.md`.
+
 ## 1. Summary
 
 ### What was added

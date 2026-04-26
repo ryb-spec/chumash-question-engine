@@ -34,5 +34,17 @@
     "sha256": "19640f57362a92085c3ff8823558772abed423e0b9e906e411cb9c3bb064cf0c",
     "extraction_method": "pypdf.PdfReader.extract_text",
     "generated_at_utc": "2026-04-26T15:35:18+00:00"
+  },
+  {
+    "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+    "pdf_path": "docs/standards/zekelman/raw/2025_zekelman_chumash_standards_v2_5_complete_levels_1_8.pdf",
+    "extracted_text_path": "docs/standards/zekelman/extracted/2025_zekelman_chumash_standards_v2_5_complete_levels_1_8_raw_text.md",
+    "title": "Zekelman Standards for Chumash",
+    "page_count": 67,
+    "pages_with_extracted_text": 67,
+    "file_size_bytes": 1220741,
+    "sha256": "e6abb9fdfe62aabf2c9487a6cf3b441f239c3cd6dd43ed4bd1f0416b47a4f86e",
+    "extraction_method": "pypdf.PdfReader.extract_text",
+    "generated_at_utc": "2026-04-26T16:37:54+00:00"
   }
 ]
