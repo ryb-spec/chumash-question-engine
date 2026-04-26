@@ -16,12 +16,20 @@ def validate_with_overrides(
     supplemental_crosswalk=None,
     skill_mapping=None,
     review_tracking=None,
+    loshon_source_inventory=None,
+    loshon_document_index=None,
+    loshon_rule_candidates=None,
+    loshon_standard_3_crosswalk=None,
 ):
     payloads = {
         validator.STRUCTURED_STANDARD_3_PATH: load_json(validator.STRUCTURED_STANDARD_3_PATH),
         validator.SUPPLEMENTAL_CROSSWALK_PATH: load_json(validator.SUPPLEMENTAL_CROSSWALK_PATH),
         validator.SKILL_MAPPING_DRAFT_PATH: load_json(validator.SKILL_MAPPING_DRAFT_PATH),
         validator.REVIEW_TRACKING_PATH: load_json(validator.REVIEW_TRACKING_PATH),
+        validator.LOSHON_SOURCE_INVENTORY_PATH: load_json(validator.LOSHON_SOURCE_INVENTORY_PATH),
+        validator.LOSHON_DOCUMENT_INDEX_PATH: load_json(validator.LOSHON_DOCUMENT_INDEX_PATH),
+        validator.LOSHON_RULE_CANDIDATES_PATH: load_json(validator.LOSHON_RULE_CANDIDATES_PATH),
+        validator.LOSHON_ZEKELMAN_CROSSWALK_PATH: load_json(validator.LOSHON_ZEKELMAN_CROSSWALK_PATH),
     }
     if structured is not None:
         payloads[validator.STRUCTURED_STANDARD_3_PATH] = structured
@@ -31,6 +39,14 @@ def validate_with_overrides(
         payloads[validator.SKILL_MAPPING_DRAFT_PATH] = skill_mapping
     if review_tracking is not None:
         payloads[validator.REVIEW_TRACKING_PATH] = review_tracking
+    if loshon_source_inventory is not None:
+        payloads[validator.LOSHON_SOURCE_INVENTORY_PATH] = loshon_source_inventory
+    if loshon_document_index is not None:
+        payloads[validator.LOSHON_DOCUMENT_INDEX_PATH] = loshon_document_index
+    if loshon_rule_candidates is not None:
+        payloads[validator.LOSHON_RULE_CANDIDATES_PATH] = loshon_rule_candidates
+    if loshon_standard_3_crosswalk is not None:
+        payloads[validator.LOSHON_ZEKELMAN_CROSSWALK_PATH] = loshon_standard_3_crosswalk
 
     original_load_json = validator.load_json
 
@@ -48,6 +64,8 @@ class StandardsDataValidationTests(unittest.TestCase):
         summary = validator.validate_standards_data()
         self.assertTrue(summary["valid"], summary["errors"])
         self.assertEqual(summary["review_item_count"], 8)
+        self.assertGreaterEqual(summary["loshon_rule_candidate_count"], 1)
+        self.assertGreaterEqual(summary["loshon_crosswalk_mapping_count"], 1)
 
     def test_invalid_review_status_is_rejected(self):
         review_tracking = load_json(validator.REVIEW_TRACKING_PATH)
@@ -85,6 +103,46 @@ class StandardsDataValidationTests(unittest.TestCase):
         review_tracking["review_items"][0]["workflow_flag"] = "approved_for_runtime"
 
         summary = validate_with_overrides(review_tracking=review_tracking)
+
+        self.assertFalse(summary["valid"])
+        self.assertTrue(any("forbidden readiness token" in error for error in summary["errors"]), summary["errors"])
+
+    def test_invalid_loshon_rule_candidate_status_is_rejected(self):
+        rule_candidates = load_json(validator.LOSHON_RULE_CANDIDATES_PATH)
+        rule_candidates = copy.deepcopy(rule_candidates)
+        rule_candidates["rule_candidates"][0]["review_status"] = ["needs_teacher_review", "ready_for_runtime"]
+
+        summary = validate_with_overrides(loshon_rule_candidates=rule_candidates)
+
+        self.assertFalse(summary["valid"])
+        self.assertTrue(any("loshon_rule_candidates[0]: review_status[1]" in error for error in summary["errors"]), summary["errors"])
+
+    def test_loshon_crosswalk_missing_standard_is_rejected(self):
+        crosswalk = load_json(validator.LOSHON_ZEKELMAN_CROSSWALK_PATH)
+        crosswalk = copy.deepcopy(crosswalk)
+        crosswalk["mappings"][0]["standard_id"] = "3.99"
+
+        summary = validate_with_overrides(loshon_standard_3_crosswalk=crosswalk)
+
+        self.assertFalse(summary["valid"])
+        self.assertTrue(any("3.99" in error for error in summary["errors"]), summary["errors"])
+
+    def test_loshon_crosswalk_missing_candidate_is_rejected(self):
+        crosswalk = load_json(validator.LOSHON_ZEKELMAN_CROSSWALK_PATH)
+        crosswalk = copy.deepcopy(crosswalk)
+        crosswalk["mappings"][0]["loshon_hatorah_candidate_id"] = "lht_cand_missing"
+
+        summary = validate_with_overrides(loshon_standard_3_crosswalk=crosswalk)
+
+        self.assertFalse(summary["valid"])
+        self.assertTrue(any("lht_cand_missing" in error for error in summary["errors"]), summary["errors"])
+
+    def test_loshon_forbidden_ready_token_is_rejected(self):
+        rule_candidates = load_json(validator.LOSHON_RULE_CANDIDATES_PATH)
+        rule_candidates = copy.deepcopy(rule_candidates)
+        rule_candidates["rule_candidates"][0]["workflow_flag"] = "question_ready"
+
+        summary = validate_with_overrides(loshon_rule_candidates=rule_candidates)
 
         self.assertFalse(summary["valid"])
         self.assertTrue(any("forbidden readiness token" in error for error in summary["errors"]), summary["errors"])

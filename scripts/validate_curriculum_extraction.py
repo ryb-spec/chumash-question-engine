@@ -252,7 +252,9 @@ SKILL_TAG_ALIASES = {
 ALLOWED_CHANGE_PREFIXES = (
     "data/curriculum_extraction/",
     "data/diagnostic_preview/",
+    "data/sources/loshon_hatorah/",
     "data/standards/zekelman/",
+    "docs/sources/loshon_hatorah/",
 )
 
 ALLOWED_CHANGE_EXACT = {

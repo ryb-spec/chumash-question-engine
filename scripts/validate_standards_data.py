@@ -19,12 +19,33 @@ SKILL_MAPPING_DRAFT_PATH = (
 REVIEW_TRACKING_PATH = (
     ROOT / "data" / "standards" / "zekelman" / "review" / "zekelman_2025_standard_3_review_tracking.json"
 )
+LOSHON_SOURCE_INVENTORY_PATH = (
+    ROOT / "data" / "sources" / "loshon_hatorah" / "loshon_hatorah_source_inventory.json"
+)
+LOSHON_DOCUMENT_INDEX_PATH = (
+    ROOT / "docs" / "sources" / "loshon_hatorah" / "indexes" / "loshon_hatorah_document_index.json"
+)
+LOSHON_RULE_CANDIDATES_PATH = (
+    ROOT / "data" / "sources" / "loshon_hatorah" / "structured" / "loshon_hatorah_rule_candidates.json"
+)
+LOSHON_ZEKELMAN_CROSSWALK_PATH = (
+    ROOT
+    / "data"
+    / "standards"
+    / "zekelman"
+    / "crosswalks"
+    / "loshon_hatorah_to_zekelman_standard_3_crosswalk.json"
+)
 
 JSON_INPUT_PATHS = (
     STRUCTURED_STANDARD_3_PATH,
     SUPPLEMENTAL_CROSSWALK_PATH,
     SKILL_MAPPING_DRAFT_PATH,
     REVIEW_TRACKING_PATH,
+    LOSHON_SOURCE_INVENTORY_PATH,
+    LOSHON_DOCUMENT_INDEX_PATH,
+    LOSHON_RULE_CANDIDATES_PATH,
+    LOSHON_ZEKELMAN_CROSSWALK_PATH,
 )
 
 REVIEW_ITEM_REQUIRED_FIELDS = (
@@ -45,6 +66,72 @@ REVIEW_ITEM_REQUIRED_FIELDS = (
     "recommended_next_action",
 )
 
+LOSHON_SOURCE_REQUIRED_FIELDS = (
+    "source_id",
+    "title",
+    "author",
+    "source_type",
+    "raw_path",
+    "extracted_text_path",
+    "page_count",
+    "file_size_bytes",
+    "checksum_sha256",
+    "is_main_book",
+    "is_answer_key",
+    "review_status",
+    "extraction_warnings",
+    "notes",
+)
+
+LOSHON_DOCUMENT_REQUIRED_FIELDS = (
+    "source_id",
+    "title",
+    "document_role",
+    "raw_path",
+    "extracted_text_path",
+    "page_count",
+    "file_size_bytes",
+    "sha256",
+    "extraction_method",
+    "is_main_book",
+    "is_answer_key",
+    "review_status",
+    "notes",
+)
+
+LOSHON_RULE_CANDIDATE_REQUIRED_FIELDS = (
+    "candidate_id",
+    "source_id",
+    "source_path",
+    "page_or_section",
+    "skill_family",
+    "skill_label",
+    "rule_or_activity_summary",
+    "hebrew_terms",
+    "example_words_if_safe",
+    "grade_or_level_hint",
+    "relationship_to_chumash_skill",
+    "confidence",
+    "review_status",
+    "notes",
+)
+
+LOSHON_STANDARD_3_CROSSWALK_REQUIRED_FIELDS = (
+    "mapping_id",
+    "loshon_hatorah_candidate_id",
+    "source_id",
+    "standard_id",
+    "standard_title",
+    "strand",
+    "skill_family",
+    "relationship_type",
+    "confidence",
+    "diagnostic_relevance",
+    "question_generation_relevance",
+    "review_status",
+    "notes",
+)
+
 ALLOWED_REVIEW_PRIORITIES = {"high", "medium", "low"}
 ALLOWED_CURRENT_REVIEW_STATUSES = {
     "needs_teacher_review",
@@ -63,6 +150,56 @@ ALLOWED_REVIEWER_DECISIONS = {
     "defer_to_later_phase",
 }
 ALLOWED_EMPTY_REVIEWER_DECISIONS = {None, "", "unset"}
+ALLOWED_SOURCE_REVIEW_STATUSES = {
+    "raw_source_ingested",
+    "extracted_text_created",
+    "needs_human_review",
+    "hebrew_text_needs_review",
+    "table_or_layout_uncertain",
+    "not_runtime_ready",
+}
+ALLOWED_RULE_CANDIDATE_REVIEW_STATUSES = {
+    "needs_teacher_review",
+    "source_match_needs_verification",
+    "hebrew_needs_verification",
+    "possible_ocr_issue",
+    "not_runtime_ready",
+    "not_question_ready",
+}
+ALLOWED_RELATIONSHIP_TYPES = {
+    "direct_support",
+    "partial_support",
+    "clarifies_rule",
+    "provides_examples",
+    "practice_activity_support",
+    "terminology_support",
+    "assessment_style_support",
+    "possible_conflict",
+    "unclear",
+}
+ALLOWED_SKILL_FAMILIES = {
+    "vocabulary_recognition",
+    "shoresh_identification",
+    "part_of_speech",
+    "noun_features",
+    "pronouns",
+    "possessive_suffixes",
+    "prefix_identification",
+    "suffix_identification",
+    "prepositions",
+    "article_heh",
+    "verb_features",
+    "tense_recognition",
+    "vav_hahipuch",
+    "translation_precision",
+    "syntax_phrase_structure",
+    "nikud_reading",
+    "weak_letters",
+    "command_forms",
+    "present_tense",
+    "pausal_forms",
+}
+ALLOWED_CONFIDENCE_VALUES = {"high", "medium", "low"}
 FORBIDDEN_READY_TOKENS = {
     "runtime_ready",
     "question_ready",
@@ -105,6 +242,33 @@ def is_non_empty_string(value: Any) -> bool:
 
 def has_meaningful_strings(values: Any) -> bool:
     return isinstance(values, list) and any(is_non_empty_string(value) for value in values)
+
+
+def validate_string_list(value: Any, *, context: str, field_name: str, errors: list[str]) -> None:
+    if not isinstance(value, list):
+        errors.append(f"{context}: {field_name} must be a list")
+        return
+    for index, item in enumerate(value):
+        if not is_non_empty_string(item):
+            errors.append(f"{context}: {field_name}[{index}] must be a non-empty string")
+
+
+def validate_status_list(
+    value: Any,
+    *,
+    context: str,
+    field_name: str,
+    allowed_statuses: set[str],
+    errors: list[str],
+) -> None:
+    if not isinstance(value, list) or not value:
+        errors.append(f"{context}: {field_name} must be a non-empty list")
+        return
+    for index, status in enumerate(value):
+        if status not in allowed_statuses:
+            errors.append(
+                f"{context}: {field_name}[{index}] must be one of {sorted(allowed_statuses)}, got {status!r}"
+            )
 
 
 def collect_forbidden_tokens(value: Any) -> set[str]:
@@ -230,6 +394,201 @@ def validate_review_item(
         errors.append(f"{context}: contains forbidden readiness token(s): {forbidden_hits}")
 
 
+def validate_loshon_source_record(
+    item: Any,
+    *,
+    context: str,
+    required_fields: tuple[str, ...],
+    checksum_field: str,
+    errors: list[str],
+) -> None:
+    if not isinstance(item, dict):
+        errors.append(f"{context}: source record must be an object")
+        return
+
+    for field_name in required_fields:
+        if field_name not in item:
+            errors.append(f"{context}: missing required field '{field_name}'")
+
+    for field_name in ("source_id", "title", "source_type" if "source_type" in required_fields else "document_role", "raw_path"):
+        if not is_non_empty_string(item.get(field_name)):
+            errors.append(f"{context}: {field_name} must be a non-empty string")
+
+    extracted_text_path = item.get("extracted_text_path")
+    if extracted_text_path is not None and not is_non_empty_string(extracted_text_path):
+        errors.append(f"{context}: extracted_text_path must be null or a non-empty string")
+
+    page_count = item.get("page_count")
+    if page_count is not None and (not isinstance(page_count, int) or page_count < 1):
+        errors.append(f"{context}: page_count must be null or a positive integer")
+
+    file_size_bytes = item.get("file_size_bytes")
+    if not isinstance(file_size_bytes, int) or file_size_bytes < 0:
+        errors.append(f"{context}: file_size_bytes must be a non-negative integer")
+
+    checksum = item.get(checksum_field)
+    if not is_non_empty_string(checksum):
+        errors.append(f"{context}: {checksum_field} must be a non-empty string")
+
+    if not isinstance(item.get("is_main_book"), bool):
+        errors.append(f"{context}: is_main_book must be a boolean")
+    if not isinstance(item.get("is_answer_key"), bool):
+        errors.append(f"{context}: is_answer_key must be a boolean")
+
+    validate_status_list(
+        item.get("review_status"),
+        context=context,
+        field_name="review_status",
+        allowed_statuses=ALLOWED_SOURCE_REVIEW_STATUSES,
+        errors=errors,
+    )
+
+    if "extraction_warnings" in required_fields:
+        validate_string_list(item.get("extraction_warnings"), context=context, field_name="extraction_warnings", errors=errors)
+
+    if not isinstance(item.get("notes"), str):
+        errors.append(f"{context}: notes must be a string")
+
+    forbidden_hits = sorted(collect_forbidden_tokens(item))
+    if forbidden_hits:
+        errors.append(f"{context}: contains forbidden readiness token(s): {forbidden_hits}")
+
+
+def validate_loshon_rule_candidate(
+    item: Any,
+    *,
+    index: int,
+    errors: list[str],
+) -> None:
+    context = f"loshon_rule_candidates[{index}]"
+    if not isinstance(item, dict):
+        errors.append(f"{context}: rule candidate must be an object")
+        return
+
+    for field_name in LOSHON_RULE_CANDIDATE_REQUIRED_FIELDS:
+        if field_name not in item:
+            errors.append(f"{context}: missing required field '{field_name}'")
+
+    for field_name in (
+        "candidate_id",
+        "source_id",
+        "source_path",
+        "page_or_section",
+        "skill_label",
+        "rule_or_activity_summary",
+        "relationship_to_chumash_skill",
+    ):
+        if not is_non_empty_string(item.get(field_name)):
+            errors.append(f"{context}: {field_name} must be a non-empty string")
+
+    skill_family = item.get("skill_family")
+    if skill_family not in ALLOWED_SKILL_FAMILIES:
+        errors.append(f"{context}: skill_family must be one of {sorted(ALLOWED_SKILL_FAMILIES)}, got {skill_family!r}")
+
+    confidence = item.get("confidence")
+    if confidence not in ALLOWED_CONFIDENCE_VALUES:
+        errors.append(
+            f"{context}: confidence must be one of {sorted(ALLOWED_CONFIDENCE_VALUES)}, got {confidence!r}"
+        )
+
+    validate_string_list(item.get("hebrew_terms"), context=context, field_name="hebrew_terms", errors=errors)
+    validate_string_list(
+        item.get("example_words_if_safe"),
+        context=context,
+        field_name="example_words_if_safe",
+        errors=errors,
+    )
+    validate_status_list(
+        item.get("review_status"),
+        context=context,
+        field_name="review_status",
+        allowed_statuses=ALLOWED_RULE_CANDIDATE_REVIEW_STATUSES,
+        errors=errors,
+    )
+
+    grade_or_level_hint = item.get("grade_or_level_hint")
+    if grade_or_level_hint is not None and not isinstance(grade_or_level_hint, str):
+        errors.append(f"{context}: grade_or_level_hint must be null or a string")
+
+    if not isinstance(item.get("notes"), str):
+        errors.append(f"{context}: notes must be a string")
+
+    forbidden_hits = sorted(collect_forbidden_tokens(item))
+    if forbidden_hits:
+        errors.append(f"{context}: contains forbidden readiness token(s): {forbidden_hits}")
+
+
+def validate_loshon_crosswalk_mapping(
+    item: Any,
+    *,
+    index: int,
+    standard_ids: set[str],
+    candidate_ids: set[str],
+    errors: list[str],
+) -> None:
+    context = f"loshon_standard_3_crosswalk[{index}]"
+    if not isinstance(item, dict):
+        errors.append(f"{context}: crosswalk mapping must be an object")
+        return
+
+    for field_name in LOSHON_STANDARD_3_CROSSWALK_REQUIRED_FIELDS:
+        if field_name not in item:
+            errors.append(f"{context}: missing required field '{field_name}'")
+
+    for field_name in ("mapping_id", "source_id", "standard_title", "strand"):
+        if not is_non_empty_string(item.get(field_name)):
+            errors.append(f"{context}: {field_name} must be a non-empty string")
+
+    candidate_id = item.get("loshon_hatorah_candidate_id")
+    if not is_non_empty_string(candidate_id):
+        errors.append(f"{context}: loshon_hatorah_candidate_id must be a non-empty string")
+    elif candidate_id not in candidate_ids:
+        errors.append(f"{context}: loshon_hatorah_candidate_id '{candidate_id}' does not match a rule candidate")
+
+    standard_id = item.get("standard_id")
+    if not is_non_empty_string(standard_id):
+        errors.append(f"{context}: standard_id must be a non-empty string")
+    elif standard_id not in standard_ids:
+        errors.append(f"{context}: standard_id '{standard_id}' does not match an existing Standard 3 record")
+
+    skill_family = item.get("skill_family")
+    if skill_family not in ALLOWED_SKILL_FAMILIES:
+        errors.append(f"{context}: skill_family must be one of {sorted(ALLOWED_SKILL_FAMILIES)}, got {skill_family!r}")
+
+    relationship_type = item.get("relationship_type")
+    if relationship_type not in ALLOWED_RELATIONSHIP_TYPES:
+        errors.append(
+            f"{context}: relationship_type must be one of {sorted(ALLOWED_RELATIONSHIP_TYPES)}, got {relationship_type!r}"
+        )
+
+    confidence = item.get("confidence")
+    if confidence not in ALLOWED_CONFIDENCE_VALUES:
+        errors.append(
+            f"{context}: confidence must be one of {sorted(ALLOWED_CONFIDENCE_VALUES)}, got {confidence!r}"
+        )
+
+    for field_name in ("diagnostic_relevance", "question_generation_relevance"):
+        if item.get(field_name) not in ALLOWED_CONFIDENCE_VALUES:
+            errors.append(
+                f"{context}: {field_name} must be one of {sorted(ALLOWED_CONFIDENCE_VALUES)}, got {item.get(field_name)!r}"
+            )
+
+    validate_status_list(
+        item.get("review_status"),
+        context=context,
+        field_name="review_status",
+        allowed_statuses=ALLOWED_RULE_CANDIDATE_REVIEW_STATUSES,
+        errors=errors,
+    )
+
+    if not isinstance(item.get("notes"), str):
+        errors.append(f"{context}: notes must be a string")
+
+    forbidden_hits = sorted(collect_forbidden_tokens(item))
+    if forbidden_hits:
+        errors.append(f"{context}: contains forbidden readiness token(s): {forbidden_hits}")
+
+
 def validate_standards_data() -> dict[str, Any]:
     errors: list[str] = []
     payloads: dict[Path, Any] = {}
@@ -242,6 +601,10 @@ def validate_standards_data() -> dict[str, Any]:
         "standard_record_count": 0,
         "draft_skill_count": 0,
         "review_item_count": 0,
+        "loshon_source_count": 0,
+        "loshon_document_count": 0,
+        "loshon_rule_candidate_count": 0,
+        "loshon_crosswalk_mapping_count": 0,
         "errors": errors,
     }
 
@@ -281,6 +644,30 @@ def validate_standards_data() -> dict[str, Any]:
         list_key="review_items",
         errors=errors,
     )
+    loshon_sources = ensure_object_with_list(
+        payloads.get(LOSHON_SOURCE_INVENTORY_PATH),
+        path=LOSHON_SOURCE_INVENTORY_PATH,
+        list_key="sources",
+        errors=errors,
+    )
+    loshon_documents = ensure_object_with_list(
+        payloads.get(LOSHON_DOCUMENT_INDEX_PATH),
+        path=LOSHON_DOCUMENT_INDEX_PATH,
+        list_key="documents",
+        errors=errors,
+    )
+    loshon_rule_candidates = ensure_object_with_list(
+        payloads.get(LOSHON_RULE_CANDIDATES_PATH),
+        path=LOSHON_RULE_CANDIDATES_PATH,
+        list_key="rule_candidates",
+        errors=errors,
+    )
+    loshon_crosswalk_mappings = ensure_object_with_list(
+        payloads.get(LOSHON_ZEKELMAN_CROSSWALK_PATH),
+        path=LOSHON_ZEKELMAN_CROSSWALK_PATH,
+        list_key="mappings",
+        errors=errors,
+    )
 
     standard_ids = {
         item.get("standard_id")
@@ -296,6 +683,10 @@ def validate_standards_data() -> dict[str, Any]:
     summary["standard_record_count"] = len(standard_ids)
     summary["draft_skill_count"] = len(draft_skill_ids)
     summary["review_item_count"] = len(review_items)
+    summary["loshon_source_count"] = len(loshon_sources)
+    summary["loshon_document_count"] = len(loshon_documents)
+    summary["loshon_rule_candidate_count"] = len(loshon_rule_candidates)
+    summary["loshon_crosswalk_mapping_count"] = len(loshon_crosswalk_mappings)
 
     for index, item in enumerate(review_items):
         validate_review_item(
@@ -303,6 +694,42 @@ def validate_standards_data() -> dict[str, Any]:
             index=index,
             standard_ids=standard_ids,
             draft_skill_ids=draft_skill_ids,
+            errors=errors,
+        )
+
+    for index, item in enumerate(loshon_sources):
+        validate_loshon_source_record(
+            item,
+            context=f"loshon_sources[{index}]",
+            required_fields=LOSHON_SOURCE_REQUIRED_FIELDS,
+            checksum_field="checksum_sha256",
+            errors=errors,
+        )
+
+    for index, item in enumerate(loshon_documents):
+        validate_loshon_source_record(
+            item,
+            context=f"loshon_documents[{index}]",
+            required_fields=LOSHON_DOCUMENT_REQUIRED_FIELDS,
+            checksum_field="sha256",
+            errors=errors,
+        )
+
+    candidate_ids = {
+        item.get("candidate_id")
+        for item in loshon_rule_candidates
+        if isinstance(item, dict) and is_non_empty_string(item.get("candidate_id"))
+    }
+
+    for index, item in enumerate(loshon_rule_candidates):
+        validate_loshon_rule_candidate(item, index=index, errors=errors)
+
+    for index, item in enumerate(loshon_crosswalk_mappings):
+        validate_loshon_crosswalk_mapping(
+            item,
+            index=index,
+            standard_ids=standard_ids,
+            candidate_ids=candidate_ids,
             errors=errors,
         )
 
@@ -320,6 +747,10 @@ def print_summary(summary: dict[str, Any]) -> None:
     print(f"standard records: {summary['standard_record_count']}")
     print(f"draft skill mappings: {summary['draft_skill_count']}")
     print(f"review items: {summary['review_item_count']}")
+    print(f"loshon sources: {summary['loshon_source_count']}")
+    print(f"loshon documents: {summary['loshon_document_count']}")
+    print(f"loshon rule candidates: {summary['loshon_rule_candidate_count']}")
+    print(f"loshon crosswalk mappings: {summary['loshon_crosswalk_mapping_count']}")
     print(f"errors: {summary['error_count']}")
     if summary["errors"]:
         print("error details:")
