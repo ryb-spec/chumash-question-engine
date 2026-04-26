@@ -1,0 +1,1542 @@
+{
+  "generated_at": "2026-04-26T00:00:00Z",
+  "branch_scope": "feature/zekelman-standards-structured-extraction",
+  "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+  "source_pdf_path": "docs/standards/zekelman/raw/2025_zekelman_chumash_standards_v2_5_complete_levels_1_8.pdf",
+  "source_extracted_text_path": "docs/standards/zekelman/extracted/2025_zekelman_chumash_standards_v2_5_complete_levels_1_8_raw_text.md",
+  "scope_note": "First conservative structured extraction from the canonical 2025 standards. Standard 3 is detailed; Standard 1 and Standard 4 are indexed for question-generation relevance; Standard 5 is high-level index only.",
+  "standard_areas": [
+    {
+      "standard_area_id": "1",
+      "standard_area_title": "1. תורה שבכתב Essentials",
+      "source_page_range": [
+        18,
+        23
+      ],
+      "extracted_substandards": [
+        {
+          "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+          "standard_id": "1.03",
+          "standard_title": "לשון התורה",
+          "standard_area": "1. תורה שבכתב Essentials",
+          "level": "Levels 1-8 (summary)",
+          "student_expectation": "Recognizes Torah as לשון הקודש, learns examples of לשון נקיה, and develops awareness that anthropomorphic Torah language is not literal.",
+          "hebrew_terms": [
+            "לשון הקודש",
+            "לשון נקיה",
+            "דברה תורה בלשון בני אדם"
+          ],
+          "prerequisite_skills": [],
+          "skill_tags": [
+            "torah_language",
+            "text_reading_framing",
+            "conceptual_language_awareness"
+          ],
+          "question_generation_relevance": {
+            "rating": "low",
+            "future_archetypes": [
+              "recognize_anthropomorphic_language",
+              "identify_torah_language_term"
+            ],
+            "notes": "Important teacher framing, but not a first-pass discrete question lane."
+          },
+          "diagnostic_relevance": {
+            "rating": "low",
+            "notes": "Conceptually important, but not a simple diagnostic target without teacher mediation."
+          },
+          "review_status": [
+            "extracted_raw",
+            "needs_human_review",
+            "not_question_ready",
+            "table_structure_uncertain",
+            "hebrew_text_needs_review"
+          ],
+          "source_page_or_section": "Pages 18-19 / 1.03",
+          "notes": "High-level index only."
+        },
+        {
+          "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+          "standard_id": "1.04",
+          "standard_title": "כתב, אותיות וניקוד",
+          "standard_area": "1. תורה שבכתב Essentials",
+          "level": "Levels 1-8 (summary)",
+          "student_expectation": "Builds knowledge of כתב אשורית, unusual letters, mesorah-based ניקוד, כתיב מלא/חסר, and קרי וכתיב as reading conventions that affect text study.",
+          "hebrew_terms": [
+            "כתב אשורית",
+            "סת\"ם",
+            "כתיב מלא",
+            "כתיב חסר",
+            "קרי וכתיב"
+          ],
+          "prerequisite_skills": [
+            "basic Hebrew letter recognition"
+          ],
+          "skill_tags": [
+            "text_conventions",
+            "reading_conventions",
+            "mesorah_awareness"
+          ],
+          "question_generation_relevance": {
+            "rating": "medium",
+            "future_archetypes": [
+              "identify_text_convention",
+              "recognize_kriv_kri",
+              "recognize_maleh_chaser"
+            ],
+            "notes": "Relevant to later text-reading and commentary skills after review."
+          },
+          "diagnostic_relevance": {
+            "rating": "medium",
+            "notes": "Can support convention checks for older students after human review."
+          },
+          "review_status": [
+            "extracted_raw",
+            "needs_human_review",
+            "not_question_ready",
+            "table_structure_uncertain",
+            "hebrew_text_needs_review"
+          ],
+          "source_page_or_section": "Page 19 / 1.04",
+          "notes": "Conservative summary from the extracted table."
+        },
+        {
+          "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+          "standard_id": "1.05",
+          "standard_title": "טעמי המקרא",
+          "standard_area": "1. תורה שבכתב Essentials",
+          "level": "Levels 1-8 (summary)",
+          "student_expectation": "Recognizes that טעמי המקרא belong to the mesorah and guide punctuation, tune, and pronunciation in the printed חומש.",
+          "hebrew_terms": [
+            "טעמי המקרא",
+            "מסורה"
+          ],
+          "prerequisite_skills": [
+            "1.04 כתב, אותיות וניקוד"
+          ],
+          "skill_tags": [
+            "taamei_hamikra",
+            "punctuation",
+            "reading_fluency"
+          ],
+          "question_generation_relevance": {
+            "rating": "medium",
+            "future_archetypes": [
+              "identify_taam_role",
+              "punctuation_support_check"
+            ],
+            "notes": "Relevant to parsing and ניקוד work, but not yet question-ready."
+          },
+          "diagnostic_relevance": {
+            "rating": "medium",
+            "notes": "Useful for advanced reading diagnostics after review."
+          },
+          "review_status": [
+            "extracted_raw",
+            "needs_human_review",
+            "not_question_ready",
+            "table_structure_uncertain",
+            "hebrew_text_needs_review"
+          ],
+          "source_page_or_section": "Page 20 / 1.05",
+          "notes": "Appendix-linked details intentionally not fully structured here."
+        },
+        {
+          "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+          "standard_id": "1.06",
+          "standard_title": "חלוקה לסדרות, פרשיות, פרקים",
+          "standard_area": "1. תורה שבכתב Essentials",
+          "level": "Levels 1-8 (summary)",
+          "student_expectation": "Learns how the Torah is divided into סדרות, פרשיות, and פרקים, and later uses פתוחות and סתומות to segment topics more meaningfully than chapter breaks alone.",
+          "hebrew_terms": [
+            "סדרות",
+            "פרשיות",
+            "פרקים",
+            "פרשה פתוחה",
+            "פרשה סתומה",
+            "ענינים"
+          ],
+          "prerequisite_skills": [
+            "1.04 כתב, אותיות וניקוד"
+          ],
+          "skill_tags": [
+            "text_structure",
+            "navigation",
+            "segmenting_topics"
+          ],
+          "question_generation_relevance": {
+            "rating": "medium",
+            "future_archetypes": [
+              "identify_text_division",
+              "segment_by_petucha_setuma"
+            ],
+            "notes": "Strongly related to navigation and segmentation, but still source-mode only."
+          },
+          "diagnostic_relevance": {
+            "rating": "medium",
+            "notes": "Supports navigation and later passage segmentation tasks."
+          },
+          "review_status": [
+            "extracted_raw",
+            "needs_human_review",
+            "not_question_ready",
+            "table_structure_uncertain",
+            "hebrew_text_needs_review"
+          ],
+          "source_page_or_section": "Page 20 / 1.06",
+          "notes": "Especially relevant for navigation and passage-division tooling."
+        },
+        {
+          "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+          "standard_id": "1.07",
+          "standard_title": "Numerical Value of Letters",
+          "standard_area": "1. תורה שבכתב Essentials",
+          "level": "Levels 1-8 (summary)",
+          "student_expectation": "Progresses from basic numerical values of Hebrew letters through extended gematria ranges, ending with calculation of phrases as well as words.",
+          "hebrew_terms": [
+            "גמטריא"
+          ],
+          "prerequisite_skills": [
+            "Hebrew letter recognition"
+          ],
+          "skill_tags": [
+            "gematria",
+            "navigation_support",
+            "rashi_support"
+          ],
+          "question_generation_relevance": {
+            "rating": "low",
+            "future_archetypes": [
+              "map_letter_to_number",
+              "calculate_word_value"
+            ],
+            "notes": "Helpful for navigation and later Rashi work, but not central to first Chumash diagnostics."
+          },
+          "diagnostic_relevance": {
+            "rating": "low",
+            "notes": "Discrete and testable, but lower priority than direct Chumash language skills."
+          },
+          "review_status": [
+            "extracted_raw",
+            "needs_human_review",
+            "not_question_ready",
+            "table_structure_uncertain",
+            "hebrew_text_needs_review"
+          ],
+          "source_page_or_section": "Page 21 / 1.07",
+          "notes": "Kept in the index because it affects navigation and later commentary fluency."
+        },
+        {
+          "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+          "standard_id": "1.08",
+          "standard_title": "The Five חומשים",
+          "standard_area": "1. תורה שבכתב Essentials",
+          "level": "Levels 1-8 (summary)",
+          "student_expectation": "Learns the sequence, spelling, standard and alternate names, and major themes of the five חומשים.",
+          "hebrew_terms": [
+            "חומשים"
+          ],
+          "prerequisite_skills": [
+            "1.06 חלוקה לסדרות, פרשיות, פרקים"
+          ],
+          "skill_tags": [
+            "book_navigation",
+            "scope_sequence",
+            "thematic_orientation"
+          ],
+          "question_generation_relevance": {
+            "rating": "low",
+            "future_archetypes": [
+              "sequence_five_chumashim",
+              "match_chumash_theme"
+            ],
+            "notes": "Orientation-relevant, but not a core language-skill lane."
+          },
+          "diagnostic_relevance": {
+            "rating": "low",
+            "notes": "Foundational orientation skill rather than a high-value diagnostic language target."
+          },
+          "review_status": [
+            "extracted_raw",
+            "needs_human_review",
+            "not_question_ready",
+            "table_structure_uncertain",
+            "hebrew_text_needs_review"
+          ],
+          "source_page_or_section": "Page 22 / 1.08",
+          "notes": "Indexed because it affects text navigation and curricular sequencing."
+        },
+        {
+          "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+          "standard_id": "1.09",
+          "standard_title": "The Names of the סדרות / פרשיות",
+          "standard_area": "1. תורה שבכתב Essentials",
+          "level": "Levels 1-8 (summary)",
+          "student_expectation": "Builds sequencing, matching, spelling, and content-clue knowledge for פרשיות / סדרות across the five חומשים.",
+          "hebrew_terms": [
+            "סדרות",
+            "פרשיות"
+          ],
+          "prerequisite_skills": [
+            "1.08 The Five חומשים"
+          ],
+          "skill_tags": [
+            "parsha_navigation",
+            "sequence_memory",
+            "content_orientation"
+          ],
+          "question_generation_relevance": {
+            "rating": "low",
+            "future_archetypes": [
+              "sequence_parshiyot",
+              "match_parsha_to_chumash"
+            ],
+            "notes": "Navigation-relevant, but outside the first language-skill extraction focus."
+          },
+          "diagnostic_relevance": {
+            "rating": "low",
+            "notes": "Primarily orientation and sequencing rather than text-analysis skill."
+          },
+          "review_status": [
+            "extracted_raw",
+            "needs_human_review",
+            "not_question_ready",
+            "table_structure_uncertain",
+            "hebrew_text_needs_review"
+          ],
+          "source_page_or_section": "Pages 22-23 / 1.09",
+          "notes": "Useful for curriculum orientation and later navigation tooling."
+        },
+        {
+          "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+          "standard_id": "1.10",
+          "standard_title": "Navigating the חומש",
+          "standard_area": "1. תורה שבכתב Essentials",
+          "level": "Levels 1-8 (summary)",
+          "student_expectation": "Locates ספר, פרשה, פרק, פסוק, עליות, פתוחות/סתומות, רש\"י, and אונקלוס, with later movement into other מפרשים used in class.",
+          "hebrew_terms": [
+            "ספר",
+            "פרשה",
+            "פרק",
+            "פסוק",
+            "עליות",
+            "רש\"י",
+            "דיבור המתחיל",
+            "אונקלוס",
+            "מפרשים"
+          ],
+          "prerequisite_skills": [
+            "1.06 חלוקה לסדרות, פרשיות, פרקים",
+            "1.08 The Five חומשים",
+            "1.09 The Names of the סדרות / פרשיות"
+          ],
+          "skill_tags": [
+            "navigation",
+            "reference_location",
+            "commentary_navigation"
+          ],
+          "question_generation_relevance": {
+            "rating": "medium",
+            "future_archetypes": [
+              "locate_reference",
+              "identify_aliyah",
+              "locate_rashi_or_onkelos"
+            ],
+            "notes": "One of the most directly reusable Standard 1 areas for later diagnostic navigation tasks."
+          },
+          "diagnostic_relevance": {
+            "rating": "medium",
+            "notes": "Can support navigation diagnostics and later commentary-prep checks."
+          },
+          "review_status": [
+            "extracted_raw",
+            "needs_human_review",
+            "not_question_ready",
+            "table_structure_uncertain",
+            "hebrew_text_needs_review"
+          ],
+          "source_page_or_section": "Page 23 / 1.10",
+          "notes": "Directly relevant to navigation and teacher-only study fluency checks."
+        }
+      ]
+    },
+    {
+      "standard_area_id": "3",
+      "standard_area_title": "3. Vocabulary and Language Skills",
+      "source_page_range": [
+        28,
+        50
+      ],
+      "extracted_substandards": [
+        {
+          "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+          "standard_id": "3.01",
+          "standard_title": "Vocabulary: שמות עצם (nouns)",
+          "standard_area": "3. Vocabulary and Language Skills",
+          "level": "Levels 1-8",
+          "student_expectation": "Builds a cumulative noun vocabulary, then uses previously learned nouns for contextual translation and multiple-meaning choices.",
+          "hebrew_terms": [
+            "שמות עצם",
+            "פסוק",
+            "ראש",
+            "רוח"
+          ],
+          "prerequisite_skills": [
+            "1.10 Navigating the חומש",
+            "basic Hebrew decoding"
+          ],
+          "skill_tags": [
+            "vocabulary",
+            "noun_translation",
+            "contextual_translation",
+            "word_family_grouping"
+          ],
+          "question_generation_relevance": {
+            "rating": "high",
+            "future_archetypes": [
+              "direct_noun_translation",
+              "match_hebrew_noun_from_english",
+              "choose_contextual_noun_meaning"
+            ],
+            "notes": "Highly relevant to future diagnostic and question-generation lanes."
+          },
+          "diagnostic_relevance": {
+            "rating": "high",
+            "notes": "Directly assessable through word meaning, contextual meaning, and transfer into unlearned פסוקים."
+          },
+          "review_status": [
+            "extracted_raw",
+            "needs_human_review",
+            "not_question_ready",
+            "table_structure_uncertain",
+            "hebrew_text_needs_review"
+          ],
+          "source_page_or_section": "Page 30 / 3.01",
+          "notes": "Detailed extraction appears in the Standard 3 file."
+        },
+        {
+          "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+          "standard_id": "3.02",
+          "standard_title": "Vocabulary: שורשים (for verbs)",
+          "standard_area": "3. Vocabulary and Language Skills",
+          "level": "Levels 1-8",
+          "student_expectation": "Builds cumulative root vocabulary for verbs, then identifies weak-letter and altered-root patterns and chooses contextual translations.",
+          "hebrew_terms": [
+            "שורשים",
+            "יונה",
+            "שלמים",
+            "חסרים"
+          ],
+          "prerequisite_skills": [
+            "3.01 Vocabulary: שמות עצם",
+            "basic Hebrew letter recognition"
+          ],
+          "skill_tags": [
+            "shoresh",
+            "verb_vocabulary",
+            "weak_letters",
+            "contextual_translation"
+          ],
+          "question_generation_relevance": {
+            "rating": "high",
+            "future_archetypes": [
+              "identify_shoresh",
+              "map_root_to_meaning",
+              "choose_contextual_root_translation",
+              "spot_weak_letter_root"
+            ],
+            "notes": "One of the clearest future rule-to-question bridges in the standards."
+          },
+          "diagnostic_relevance": {
+            "rating": "high",
+            "notes": "Root meaning and root-identification skills are central to later independent Chumash reading."
+          },
+          "review_status": [
+            "extracted_raw",
+            "needs_human_review",
+            "not_question_ready",
+            "table_structure_uncertain",
+            "hebrew_text_needs_review"
+          ],
+          "source_page_or_section": "Pages 30-31 / 3.02",
+          "notes": "Detailed extraction appears in the Standard 3 file."
+        },
+        {
+          "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+          "standard_id": "3.03",
+          "standard_title": "Other Vocabulary",
+          "standard_area": "3. Vocabulary and Language Skills",
+          "level": "Levels 1-8",
+          "student_expectation": "Builds a cumulative bank of function words and chooses contextual meanings for words with multiple uses.",
+          "hebrew_terms": [
+            "כי",
+            "את",
+            "עוד",
+            "על"
+          ],
+          "prerequisite_skills": [
+            "3.01 Vocabulary: שמות עצם",
+            "3.02 Vocabulary: שורשים"
+          ],
+          "skill_tags": [
+            "function_words",
+            "prepositions",
+            "conjunctions",
+            "contextual_translation"
+          ],
+          "question_generation_relevance": {
+            "rating": "high",
+            "future_archetypes": [
+              "translate_function_word",
+              "contextual_preposition_choice",
+              "identify_conjunction_meaning"
+            ],
+            "notes": "Very relevant to later direct translation and lane-routing decisions."
+          },
+          "diagnostic_relevance": {
+            "rating": "high",
+            "notes": "Function-word confusion is a strong diagnostic signal in Chumash reading."
+          },
+          "review_status": [
+            "extracted_raw",
+            "needs_human_review",
+            "not_question_ready",
+            "table_structure_uncertain",
+            "hebrew_text_needs_review"
+          ],
+          "source_page_or_section": "Page 32 / 3.03",
+          "notes": "Detailed extraction appears in the Standard 3 file."
+        },
+        {
+          "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+          "standard_id": "3.04",
+          "standard_title": "Nouns and Adjectives",
+          "standard_area": "3. Vocabulary and Language Skills",
+          "level": "Levels 1-8 (summary)",
+          "student_expectation": "Moves from identifying nouns and adjectives in learned words to recognizing gender, number, irregular forms, and סמיכות in unlearned פסוקים.",
+          "hebrew_terms": [
+            "זכר",
+            "נקבה",
+            "רבים",
+            "סמיכות",
+            "שם תואר"
+          ],
+          "prerequisite_skills": [
+            "3.01 Vocabulary: שמות עצם",
+            "3.03 Other Vocabulary"
+          ],
+          "skill_tags": [
+            "noun_identification",
+            "adjective_identification",
+            "gender",
+            "number",
+            "smichut"
+          ],
+          "question_generation_relevance": {
+            "rating": "high",
+            "future_archetypes": [
+              "identify_noun_or_adjective",
+              "gender_number_match",
+              "identify_smichut"
+            ],
+            "notes": "Strong candidate for future diagnostic grammar lanes."
+          },
+          "diagnostic_relevance": {
+            "rating": "high",
+            "notes": "Concrete, teachable, and directly connected to Chumash translation accuracy."
+          },
+          "review_status": [
+            "extracted_raw",
+            "needs_human_review",
+            "not_question_ready",
+            "table_structure_uncertain",
+            "hebrew_text_needs_review"
+          ],
+          "source_page_or_section": "Pages 33-35 / 3.04",
+          "notes": "Detailed extraction appears in the Standard 3 file."
+        },
+        {
+          "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+          "standard_id": "3.05",
+          "standard_title": "Pronouns",
+          "standard_area": "3. Vocabulary and Language Skills",
+          "level": "Levels 1-8 (summary)",
+          "student_expectation": "Progresses from basic English and Hebrew pronoun categories to identifying referents, suffixes, and embedded pronouns in learned and unlearned פסוקים.",
+          "hebrew_terms": [
+            "גוף ראשון",
+            "גוף שני",
+            "גוף שלישי",
+            "אותי",
+            "אותך",
+            "שלי",
+            "זה",
+            "זאת",
+            "אלה",
+            "אלו",
+            "איתן",
+            "תהימון"
+          ],
+          "prerequisite_skills": [
+            "3.04 Nouns and Adjectives",
+            "basic sentence subject/object awareness"
+          ],
+          "skill_tags": [
+            "pronouns",
+            "referents",
+            "suffixes",
+            "person_gender_number"
+          ],
+          "question_generation_relevance": {
+            "rating": "high",
+            "future_archetypes": [
+              "identify_pronoun_referent",
+              "identify_pronoun_type",
+              "decode_suffix_pronoun"
+            ],
+            "notes": "Pronoun referent work is highly relevant to generated-question QA and parsing."
+          },
+          "diagnostic_relevance": {
+            "rating": "high",
+            "notes": "Pronoun referent confusion is a high-value diagnostic signal in פסוק understanding."
+          },
+          "review_status": [
+            "extracted_raw",
+            "needs_human_review",
+            "not_question_ready",
+            "table_structure_uncertain",
+            "hebrew_text_needs_review"
+          ],
+          "source_page_or_section": "Pages 36-40 / 3.05",
+          "notes": "Detailed extraction appears in the Standard 3 file."
+        },
+        {
+          "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+          "standard_id": "3.06",
+          "standard_title": "Prepositions, Conjunctions and the Definite Article",
+          "standard_area": "3. Vocabulary and Language Skills",
+          "level": "Levels 1-8 (summary)",
+          "student_expectation": "Builds from direct recognition of conjunctions and articles to distinguishing multiple prefix functions, article types, and the two meanings of את in learned and unlearned פסוקים.",
+          "hebrew_terms": [
+            "ו",
+            "ו ההיפוך",
+            "ה הידיעה",
+            "ה השאלה",
+            "ה המגמה",
+            "ב-כ-ל-מ",
+            "ש",
+            "את"
+          ],
+          "prerequisite_skills": [
+            "3.03 Other Vocabulary",
+            "3.05 Pronouns"
+          ],
+          "skill_tags": [
+            "prefixes",
+            "articles",
+            "prepositions",
+            "conjunctions",
+            "direct_object_marker"
+          ],
+          "question_generation_relevance": {
+            "rating": "high",
+            "future_archetypes": [
+              "identify_definite_article",
+              "distinguish_vav_types",
+              "identify_preposition_prefix",
+              "resolve_et_function"
+            ],
+            "notes": "A very strong future diagnostic lane because the standards name discrete, testable forms."
+          },
+          "diagnostic_relevance": {
+            "rating": "high",
+            "notes": "Misreading prefixes and function words is a central source of Chumash translation error."
+          },
+          "review_status": [
+            "extracted_raw",
+            "needs_human_review",
+            "not_question_ready",
+            "table_structure_uncertain",
+            "hebrew_text_needs_review"
+          ],
+          "source_page_or_section": "Pages 41-43 / 3.06",
+          "notes": "Detailed extraction appears in the Standard 3 file."
+        },
+        {
+          "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+          "standard_id": "3.07",
+          "standard_title": "Verbs",
+          "standard_area": "3. Vocabulary and Language Skills",
+          "level": "Levels 1-8 (summary)",
+          "student_expectation": "Moves from identifying verbs and simple tense markers to translating verbs across person, tense, active/passive forms, and binyan families.",
+          "hebrew_terms": [
+            "איתן",
+            "תהימון",
+            "בנינים",
+            "קל",
+            "פיעל",
+            "הפעיל",
+            "התפעל",
+            "נפעל",
+            "פועל",
+            "הופעל",
+            "עבר",
+            "הווה",
+            "עתיד",
+            "ציווי",
+            "מקור",
+            "שם הפועל"
+          ],
+          "prerequisite_skills": [
+            "3.02 Vocabulary: שורשים",
+            "3.05 Pronouns",
+            "3.06 Prefix and article knowledge"
+          ],
+          "skill_tags": [
+            "verbs",
+            "tenses",
+            "person",
+            "binyanim",
+            "active_passive"
+          ],
+          "question_generation_relevance": {
+            "rating": "high",
+            "future_archetypes": [
+              "identify_verb_tense",
+              "identify_verb_person",
+              "identify_binyan",
+              "identify_command_or_infinitive"
+            ],
+            "notes": "One of the richest future diagnostic/question-generation standards, but it must remain human-reviewed."
+          },
+          "diagnostic_relevance": {
+            "rating": "high",
+            "notes": "Verb parsing and tense/binyan errors are central to independent text comprehension."
+          },
+          "review_status": [
+            "extracted_raw",
+            "needs_human_review",
+            "not_question_ready",
+            "table_structure_uncertain",
+            "hebrew_text_needs_review"
+          ],
+          "source_page_or_section": "Pages 44-46 / 3.07",
+          "notes": "Detailed extraction appears in the Standard 3 file."
+        },
+        {
+          "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+          "standard_id": "3.08",
+          "standard_title": "Grouping and Word Order",
+          "standard_area": "3. Vocabulary and Language Skills",
+          "level": "Levels 1-8 (summary)",
+          "student_expectation": "Groups a פסוק into meaningful phrases and adjusts Hebrew word order when translating into English.",
+          "hebrew_terms": [
+            "פסוק",
+            "סמיכות"
+          ],
+          "prerequisite_skills": [
+            "3.04 Nouns and Adjectives",
+            "3.07 Verbs"
+          ],
+          "skill_tags": [
+            "syntax",
+            "phrase_grouping",
+            "word_order",
+            "translation_construction"
+          ],
+          "question_generation_relevance": {
+            "rating": "high",
+            "future_archetypes": [
+              "group_phrase_for_translation",
+              "reorder_literal_hebrew_to_english"
+            ],
+            "notes": "Excellent future source for syntax-aware translation prompts and QA."
+          },
+          "diagnostic_relevance": {
+            "rating": "high",
+            "notes": "Grouping and word-order mistakes are highly visible in student translations."
+          },
+          "review_status": [
+            "extracted_raw",
+            "needs_human_review",
+            "not_question_ready",
+            "table_structure_uncertain",
+            "hebrew_text_needs_review"
+          ],
+          "source_page_or_section": "Page 48 / 3.08",
+          "notes": "Detailed extraction appears in the Standard 3 file."
+        },
+        {
+          "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+          "standard_id": "3.09",
+          "standard_title": "Parsing the פסוק",
+          "standard_area": "3. Vocabulary and Language Skills",
+          "level": "Levels 1-8 (summary)",
+          "student_expectation": "Uses טעמי המקרא to divide, punctuate, and translate a פסוק appropriately.",
+          "hebrew_terms": [
+            "אתנחתא",
+            "סוף פסוק",
+            "זקף קטן",
+            "זקף גדול",
+            "סגול",
+            "רביעי",
+            "מרכא-טפחא",
+            "קדמא-אזלא",
+            "תביר-טפחא",
+            "טעמי המקרא"
+          ],
+          "prerequisite_skills": [
+            "1.05 טעמי המקרא",
+            "3.08 Grouping and Word Order"
+          ],
+          "skill_tags": [
+            "pasuk_parsing",
+            "taamim",
+            "punctuation",
+            "clause_boundary"
+          ],
+          "question_generation_relevance": {
+            "rating": "high",
+            "future_archetypes": [
+              "parse_pasuk_by_taamim",
+              "identify_clause_boundary"
+            ],
+            "notes": "A strong future teacher-reviewed lane for advanced parsing tasks."
+          },
+          "diagnostic_relevance": {
+            "rating": "high",
+            "notes": "Parsing with טעמים directly affects translation and comprehension quality."
+          },
+          "review_status": [
+            "extracted_raw",
+            "needs_human_review",
+            "not_question_ready",
+            "table_structure_uncertain",
+            "hebrew_text_needs_review"
+          ],
+          "source_page_or_section": "Page 48 / 3.09",
+          "notes": "Detailed extraction appears in the Standard 3 file."
+        },
+        {
+          "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+          "standard_id": "3.10",
+          "standard_title": "Understanding ניקוד",
+          "standard_area": "3. Vocabulary and Language Skills",
+          "level": "Advanced upper levels only (summary)",
+          "student_expectation": "For advanced students, explains the systems of תנועות, שבאים, דגשים, syllables, and the interaction between ניקוד and טעמי המקרא.",
+          "hebrew_terms": [
+            "ניקוד",
+            "תנועות",
+            "שבאים",
+            "דגשים",
+            "הברה",
+            "טעמי המקרא",
+            "מפיק ה׳"
+          ],
+          "prerequisite_skills": [
+            "1.04 כתב, אותיות וניקוד",
+            "1.05 טעמי המקרא",
+            "3.07 Verbs",
+            "3.09 Parsing the פסוק"
+          ],
+          "skill_tags": [
+            "nikud",
+            "syllables",
+            "advanced_grammar",
+            "advanced_reading"
+          ],
+          "question_generation_relevance": {
+            "rating": "medium",
+            "future_archetypes": [
+              "identify_nikud_category",
+              "syllable_division",
+              "explain_dagesh_or_sheva_rule"
+            ],
+            "notes": "Highly relevant for advanced grammar and later Rashi work, but too sensitive for unreviewed question generation."
+          },
+          "diagnostic_relevance": {
+            "rating": "medium",
+            "notes": "Powerful for advanced students, but intentionally gated because the extracted table is compact and advanced."
+          },
+          "review_status": [
+            "extracted_raw",
+            "needs_human_review",
+            "not_question_ready",
+            "table_structure_uncertain",
+            "hebrew_text_needs_review"
+          ],
+          "source_page_or_section": "Pages 49-50 / 3.10",
+          "notes": "Detailed extraction appears in the Standard 3 file."
+        }
+      ]
+    },
+    {
+      "standard_area_id": "4",
+      "standard_area_title": "4. Passage (פסוק) Comprehension Skills",
+      "source_page_range": [
+        52,
+        58
+      ],
+      "extracted_substandards": [
+        {
+          "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+          "standard_id": "4.01",
+          "standard_title": "Finding Facts",
+          "standard_area": "4. Passage (פסוק) Comprehension Skills",
+          "level": "Levels 1-8 (summary)",
+          "student_expectation": "Progresses from retelling the 5 W’s after teaching to answering them independently in new פסוקים using language skills and context clues, while answering בלשון המקרא.",
+          "hebrew_terms": [
+            "עונה בלשון המקרא"
+          ],
+          "prerequisite_skills": [
+            "3.01-3.09 language-skill foundations"
+          ],
+          "skill_tags": [
+            "passage_comprehension",
+            "five_ws",
+            "textual_evidence"
+          ],
+          "question_generation_relevance": {
+            "rating": "high",
+            "future_archetypes": [
+              "answer_five_ws",
+              "cite_textual_basis"
+            ],
+            "notes": "Directly relevant to future comprehension item generation."
+          },
+          "diagnostic_relevance": {
+            "rating": "high",
+            "notes": "A strong indicator of whether students can pull explicit information from text."
+          },
+          "review_status": [
+            "extracted_raw",
+            "needs_human_review",
+            "not_question_ready",
+            "table_structure_uncertain",
+            "hebrew_text_needs_review"
+          ],
+          "source_page_or_section": "Page 53 / 4.01",
+          "notes": "One of the clearest bridges from standards language into future question-generation relevance."
+        },
+        {
+          "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+          "standard_id": "4.02",
+          "standard_title": "Finding Quotes",
+          "standard_area": "4. Passage (פסוק) Comprehension Skills",
+          "level": "Levels 1-8 (summary)",
+          "student_expectation": "Moves from distinguishing narrative and quote to locating quote boundaries, including nested quotes, in learned and then unlearned פסוקים.",
+          "hebrew_terms": [
+            "פסוק"
+          ],
+          "prerequisite_skills": [
+            "4.01 Finding Facts",
+            "3.09 Parsing the פסוק"
+          ],
+          "skill_tags": [
+            "quote_detection",
+            "speaker_tracking",
+            "passage_structure"
+          ],
+          "question_generation_relevance": {
+            "rating": "high",
+            "future_archetypes": [
+              "identify_quote_boundary",
+              "identify_quote_within_quote"
+            ],
+            "notes": "Strong candidate for targeted comprehension checks."
+          },
+          "diagnostic_relevance": {
+            "rating": "high",
+            "notes": "Quote-boundary confusion often exposes shallow narrative tracking."
+          },
+          "review_status": [
+            "extracted_raw",
+            "needs_human_review",
+            "not_question_ready",
+            "table_structure_uncertain",
+            "hebrew_text_needs_review"
+          ],
+          "source_page_or_section": "Pages 53-54 / 4.02",
+          "notes": "The quote-within-quote progression is explicit enough for indexing."
+        },
+        {
+          "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+          "standard_id": "4.03",
+          "standard_title": "Logical Sequencing",
+          "standard_area": "4. Passage (פסוק) Comprehension Skills",
+          "level": "Levels 1-8 (summary)",
+          "student_expectation": "Sequences events chronologically and then sequences cause and effect, first in translated learned texts and later in unlearned פסוקים using language skills and context clues.",
+          "hebrew_terms": [
+            "כי",
+            "פן",
+            "למען"
+          ],
+          "prerequisite_skills": [
+            "4.01 Finding Facts",
+            "3.03 Other Vocabulary"
+          ],
+          "skill_tags": [
+            "sequencing",
+            "cause_effect",
+            "higher_order_thinking"
+          ],
+          "question_generation_relevance": {
+            "rating": "high",
+            "future_archetypes": [
+              "sequence_events",
+              "identify_cause_effect"
+            ],
+            "notes": "Very relevant to comprehension and logic-question families."
+          },
+          "diagnostic_relevance": {
+            "rating": "high",
+            "notes": "Sequencing and cause-effect are core transferable comprehension skills."
+          },
+          "review_status": [
+            "extracted_raw",
+            "needs_human_review",
+            "not_question_ready",
+            "table_structure_uncertain",
+            "hebrew_text_needs_review"
+          ],
+          "source_page_or_section": "Page 55 / 4.03",
+          "notes": "Clear Higher Order Thinking progression."
+        },
+        {
+          "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+          "standard_id": "4.04",
+          "standard_title": "Comparing and Contrasting",
+          "standard_area": "4. Passage (פסוק) Comprehension Skills",
+          "level": "Levels 1-8 (summary)",
+          "student_expectation": "Compares and contrasts personalities, events, and texts, moving from teacher-pointed comparisons to independent work with unlearned פסוקים.",
+          "hebrew_terms": [
+            "פסוקים"
+          ],
+          "prerequisite_skills": [
+            "4.03 Logical Sequencing"
+          ],
+          "skill_tags": [
+            "compare_contrast",
+            "higher_order_thinking",
+            "text_relationships"
+          ],
+          "question_generation_relevance": {
+            "rating": "high",
+            "future_archetypes": [
+              "compare_contrast_passages"
+            ],
+            "notes": "Directly relevant to later passage-comparison items and teacher-reviewed tasks."
+          },
+          "diagnostic_relevance": {
+            "rating": "medium",
+            "notes": "Powerful but usually requires more text and careful scoring design."
+          },
+          "review_status": [
+            "extracted_raw",
+            "needs_human_review",
+            "not_question_ready",
+            "table_structure_uncertain",
+            "hebrew_text_needs_review"
+          ],
+          "source_page_or_section": "Page 56 / 4.04",
+          "notes": "Useful for future richer assessment design, but not a first micro-question lane."
+        },
+        {
+          "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+          "standard_id": "4.05",
+          "standard_title": "Dividing Into Segments and Finding the Main Ideas",
+          "standard_area": "4. Passage (פסוק) Comprehension Skills",
+          "level": "Levels 1-8 (summary)",
+          "student_expectation": "Divides פסוקים and larger ענינים into segments, identifies themes and main ideas, and summarizes by distinguishing main ideas from details.",
+          "hebrew_terms": [
+            "ענין",
+            "פתוחות",
+            "סתומות",
+            "פסוקים"
+          ],
+          "prerequisite_skills": [
+            "1.06 חלוקה לסדרות, פרשיות, פרקים",
+            "3.09 Parsing the פסוק",
+            "4.01 Finding Facts"
+          ],
+          "skill_tags": [
+            "segmenting",
+            "main_idea",
+            "summarizing"
+          ],
+          "question_generation_relevance": {
+            "rating": "high",
+            "future_archetypes": [
+              "segment_into_topics",
+              "state_main_idea",
+              "summarize_text"
+            ],
+            "notes": "Strong relevance for later comprehension, though some tasks may be open-ended."
+          },
+          "diagnostic_relevance": {
+            "rating": "high",
+            "notes": "Main-idea and segmentation ability are major indicators of real comprehension."
+          },
+          "review_status": [
+            "extracted_raw",
+            "needs_human_review",
+            "not_question_ready",
+            "table_structure_uncertain",
+            "hebrew_text_needs_review"
+          ],
+          "source_page_or_section": "Page 56 / 4.05",
+          "notes": "Especially relevant to future passage-comprehension scaffolds and summary tasks."
+        },
+        {
+          "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+          "standard_id": "4.06",
+          "standard_title": "Noticing Anomalies and Deviations in the Text",
+          "standard_area": "4. Passage (פסוק) Comprehension Skills",
+          "level": "Levels 1-8 (summary)",
+          "student_expectation": "Moves from recognizing repetition and other anomalies pointed out by a teacher to identifying missing subjects, missing objects, extra letters, grammatical inconsistencies, and narrative/logical difficulties independently.",
+          "hebrew_terms": [
+            "פסוק"
+          ],
+          "prerequisite_skills": [
+            "3.04-3.09 language analysis",
+            "4.03 Logical Sequencing"
+          ],
+          "skill_tags": [
+            "anomaly_detection",
+            "textual_notice",
+            "higher_order_thinking"
+          ],
+          "question_generation_relevance": {
+            "rating": "high",
+            "future_archetypes": [
+              "notice_repetition",
+              "spot_missing_or_extra_detail",
+              "identify_text_anomaly"
+            ],
+            "notes": "Important for advanced source-sensitive question design and later Rashi prep."
+          },
+          "diagnostic_relevance": {
+            "rating": "medium",
+            "notes": "Valuable, but may require careful human review to avoid over-inference."
+          },
+          "review_status": [
+            "extracted_raw",
+            "needs_human_review",
+            "not_question_ready",
+            "table_structure_uncertain",
+            "hebrew_text_needs_review"
+          ],
+          "source_page_or_section": "Page 57 / 4.06",
+          "notes": "High-value but riskier; should stay human-reviewed before generated use."
+        },
+        {
+          "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+          "standard_id": "4.07",
+          "standard_title": "Identifying Literal and Contextual Meanings",
+          "standard_area": "4. Passage (פסוק) Comprehension Skills",
+          "level": "Levels 1-8 (summary)",
+          "student_expectation": "Identifies figurative language, anthropomorphic language, and the significance of contextual meaning in פסוקים.",
+          "hebrew_terms": [
+            "דברה תורה בלשון בני אדם"
+          ],
+          "prerequisite_skills": [
+            "3.01-3.09 language skills",
+            "1.03 לשון התורה"
+          ],
+          "skill_tags": [
+            "literal_vs_contextual",
+            "figurative_language",
+            "comprehension"
+          ],
+          "question_generation_relevance": {
+            "rating": "high",
+            "future_archetypes": [
+              "literal_vs_figurative",
+              "contextual_meaning_choice",
+              "anthropomorphic_language_flag"
+            ],
+            "notes": "Directly relevant to contextual-meaning assessment, but requires careful source review."
+          },
+          "diagnostic_relevance": {
+            "rating": "medium",
+            "notes": "Important and teachable, but easily overreaches without careful review."
+          },
+          "review_status": [
+            "extracted_raw",
+            "needs_human_review",
+            "not_question_ready",
+            "table_structure_uncertain",
+            "hebrew_text_needs_review"
+          ],
+          "source_page_or_section": "Page 57 / 4.07",
+          "notes": "Potentially useful for later contextual-meaning lanes, but must stay source-conservative."
+        },
+        {
+          "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+          "standard_id": "4.08",
+          "standard_title": "Integrating Knowledge and Ideas",
+          "standard_area": "4. Passage (פסוק) Comprehension Skills",
+          "level": "Levels 1-8 (summary)",
+          "student_expectation": "Combines ideas and information from texts, commentaries, and later personal research into new communications that show comprehension, analysis, and synthesis.",
+          "hebrew_terms": [],
+          "prerequisite_skills": [
+            "4.01-4.07 comprehension foundations"
+          ],
+          "skill_tags": [
+            "synthesis",
+            "integration",
+            "communication"
+          ],
+          "question_generation_relevance": {
+            "rating": "medium",
+            "future_archetypes": [
+              "multi_pasuk_synthesis",
+              "integrate_commentary"
+            ],
+            "notes": "Relevant to richer performance tasks, but not a first automatic question lane."
+          },
+          "diagnostic_relevance": {
+            "rating": "medium",
+            "notes": "Highly valuable, though usually open-ended and teacher-reviewed."
+          },
+          "review_status": [
+            "extracted_raw",
+            "needs_human_review",
+            "not_question_ready",
+            "table_structure_uncertain",
+            "hebrew_text_needs_review"
+          ],
+          "source_page_or_section": "Page 58 / 4.08",
+          "notes": "Kept as structured relevance, not as a current question template."
+        }
+      ]
+    },
+    {
+      "standard_area_id": "5",
+      "standard_area_title": "5. רש\"י Skills",
+      "source_page_range": [
+        59,
+        64
+      ],
+      "extracted_substandards": [
+        {
+          "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+          "standard_id": "5.01",
+          "standard_title": "רש\"י Script",
+          "standard_area": "5. רש\"י Skills",
+          "level": "High-level index only",
+          "student_expectation": "Learns to identify, transcribe, and read רש\"י script with and without נקודות.",
+          "hebrew_terms": [
+            "רש\"י script",
+            "נקודות"
+          ],
+          "prerequisite_skills": [
+            "1.04 כתב, אותיות וניקוד"
+          ],
+          "skill_tags": [
+            "rashi_reading",
+            "script_fluency"
+          ],
+          "question_generation_relevance": {
+            "rating": "medium",
+            "future_archetypes": [
+              "read_rashi_script",
+              "transcribe_rashi_letters"
+            ],
+            "notes": "Future upper-grade relevance, but intentionally indexed only in this branch."
+          },
+          "diagnostic_relevance": {
+            "rating": "low",
+            "notes": "Useful for later readiness checks, not current Chumash question generation."
+          },
+          "review_status": [
+            "extracted_raw",
+            "needs_human_review",
+            "not_question_ready",
+            "table_structure_uncertain",
+            "hebrew_text_needs_review"
+          ],
+          "source_page_or_section": "Page 60 / 5.01",
+          "notes": "High-level index only."
+        },
+        {
+          "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+          "standard_id": "5.02",
+          "standard_title": "רש\"י Abbreviations",
+          "standard_area": "5. רש\"י Skills",
+          "level": "High-level index only",
+          "student_expectation": "Deciphers and translates common רש\"י abbreviations appearing in learned commentaries.",
+          "hebrew_terms": [
+            "ראשי תיבות"
+          ],
+          "prerequisite_skills": [
+            "5.01 רש\"י Script"
+          ],
+          "skill_tags": [
+            "rashi_abbreviations",
+            "reading_support"
+          ],
+          "question_generation_relevance": {
+            "rating": "medium",
+            "future_archetypes": [
+              "decode_rashi_abbreviation"
+            ],
+            "notes": "Relevant later for commentary access, but not extracted in full detail here."
+          },
+          "diagnostic_relevance": {
+            "rating": "low",
+            "notes": "Important for Rashi readiness, but outside the current main extraction focus."
+          },
+          "review_status": [
+            "extracted_raw",
+            "needs_human_review",
+            "not_question_ready",
+            "table_structure_uncertain",
+            "hebrew_text_needs_review"
+          ],
+          "source_page_or_section": "Page 60 / 5.02",
+          "notes": "High-level index only."
+        },
+        {
+          "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+          "standard_id": "5.03",
+          "standard_title": "רש\"י Vocabulary Skills",
+          "standard_area": "5. רש\"י Skills",
+          "level": "High-level index only",
+          "student_expectation": "Translates vocabulary commonly used in רש\"י from the attached Appendix when it appears in learned רש\"י.",
+          "hebrew_terms": [
+            "רש\"י"
+          ],
+          "prerequisite_skills": [
+            "5.01 רש\"י Script",
+            "5.02 רש\"י Abbreviations"
+          ],
+          "skill_tags": [
+            "rashi_vocabulary",
+            "commentary_reading"
+          ],
+          "question_generation_relevance": {
+            "rating": "medium",
+            "future_archetypes": [
+              "translate_rashi_vocabulary"
+            ],
+            "notes": "Relevant later for Rashi fluency, but not a current extraction focus."
+          },
+          "diagnostic_relevance": {
+            "rating": "low",
+            "notes": "Teacher-facing readiness skill at this stage."
+          },
+          "review_status": [
+            "extracted_raw",
+            "needs_human_review",
+            "not_question_ready",
+            "table_structure_uncertain",
+            "hebrew_text_needs_review"
+          ],
+          "source_page_or_section": "Page 60 / 5.03",
+          "notes": "High-level index only."
+        },
+        {
+          "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+          "standard_id": "5.04",
+          "standard_title": "Group and Translate",
+          "standard_area": "5. רש\"י Skills",
+          "level": "High-level index only",
+          "student_expectation": "Groups and translates רש\"י, moving from teacher-supported grouping to independent work with more complex commentaries.",
+          "hebrew_terms": [
+            "רש\"י"
+          ],
+          "prerequisite_skills": [
+            "5.01-5.03 Rashi reading skills"
+          ],
+          "skill_tags": [
+            "rashi_grouping",
+            "commentary_translation"
+          ],
+          "question_generation_relevance": {
+            "rating": "medium",
+            "future_archetypes": [
+              "group_and_translate_rashi"
+            ],
+            "notes": "Potentially relevant later, but out of scope for this first structured standards pass."
+          },
+          "diagnostic_relevance": {
+            "rating": "low",
+            "notes": "Deferred until a fuller Rashi extraction branch."
+          },
+          "review_status": [
+            "extracted_raw",
+            "needs_human_review",
+            "not_question_ready",
+            "table_structure_uncertain",
+            "hebrew_text_needs_review"
+          ],
+          "source_page_or_section": "Page 60 / 5.04",
+          "notes": "High-level index only."
+        },
+        {
+          "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+          "standard_id": "5.05",
+          "standard_title": "Understanding רש\"י",
+          "standard_area": "5. רש\"י Skills",
+          "level": "High-level index only",
+          "student_expectation": "Explains רש\"י’s question and answer, uses the דיבור המתחיל to identify what is bothering רש\"י, and categorizes the type of commentary question.",
+          "hebrew_terms": [
+            "דיבור המתחיל",
+            "פשט",
+            "שפתי חכמים"
+          ],
+          "prerequisite_skills": [
+            "4.06 Noticing Anomalies and Deviations in the Text",
+            "5.01-5.04 Rashi reading skills"
+          ],
+          "skill_tags": [
+            "rashi_comprehension",
+            "dibur_hamatchil",
+            "commentary_question"
+          ],
+          "question_generation_relevance": {
+            "rating": "medium",
+            "future_archetypes": [
+              "identify_rashi_question",
+              "explain_rashi_answer"
+            ],
+            "notes": "High future value, but only indexed here because a full Rashi extraction would require a dedicated review pass."
+          },
+          "diagnostic_relevance": {
+            "rating": "medium",
+            "notes": "Important for upper-grade commentary study, but not current runtime scope."
+          },
+          "review_status": [
+            "extracted_raw",
+            "needs_human_review",
+            "not_question_ready",
+            "table_structure_uncertain",
+            "hebrew_text_needs_review"
+          ],
+          "source_page_or_section": "Pages 62-63 / 5.05",
+          "notes": "High-level index only."
+        },
+        {
+          "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+          "standard_id": "5.06",
+          "standard_title": "Summarizing רש\"י",
+          "standard_area": "5. רש\"י Skills",
+          "level": "High-level index only",
+          "student_expectation": "Restates and summarizes רש\"י in one’s own words and explains the פסוק according to רש\"י.",
+          "hebrew_terms": [
+            "רש\"י",
+            "פסוק"
+          ],
+          "prerequisite_skills": [
+            "5.05 Understanding רש\"י"
+          ],
+          "skill_tags": [
+            "rashi_summary",
+            "commentary_explanation"
+          ],
+          "question_generation_relevance": {
+            "rating": "low",
+            "future_archetypes": [
+              "summarize_rashi"
+            ],
+            "notes": "More performance-based and teacher-reviewed than first-pass question-generation ready."
+          },
+          "diagnostic_relevance": {
+            "rating": "medium",
+            "notes": "Useful later for deeper commentary comprehension checks."
+          },
+          "review_status": [
+            "extracted_raw",
+            "needs_human_review",
+            "not_question_ready",
+            "table_structure_uncertain",
+            "hebrew_text_needs_review"
+          ],
+          "source_page_or_section": "Page 63 / 5.06",
+          "notes": "High-level index only."
+        },
+        {
+          "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+          "standard_id": "5.07",
+          "standard_title": "Dividing רש\"י",
+          "standard_area": "5. רש\"י Skills",
+          "level": "High-level index only",
+          "student_expectation": "Divides רש\"י into components such as דיבור המתחיל, question, answer, and supporting evidence.",
+          "hebrew_terms": [
+            "דיבור המתחיל"
+          ],
+          "prerequisite_skills": [
+            "5.05 Understanding רש\"י"
+          ],
+          "skill_tags": [
+            "rashi_structure",
+            "commentary_components"
+          ],
+          "question_generation_relevance": {
+            "rating": "medium",
+            "future_archetypes": [
+              "divide_rashi_components"
+            ],
+            "notes": "Potentially useful for teacher-review workflows, but deliberately not expanded here."
+          },
+          "diagnostic_relevance": {
+            "rating": "low",
+            "notes": "Teacher-facing and upper-grade only for now."
+          },
+          "review_status": [
+            "extracted_raw",
+            "needs_human_review",
+            "not_question_ready",
+            "table_structure_uncertain",
+            "hebrew_text_needs_review"
+          ],
+          "source_page_or_section": "Page 64 / 5.07",
+          "notes": "High-level index only."
+        },
+        {
+          "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
+          "standard_id": "5.08",
+          "standard_title": "מפרשי רש\"י",
+          "standard_area": "5. רש\"י Skills",
+          "level": "High-level index only",
+          "student_expectation": "Explains the role and style of מפרשי רש\"י, navigates from רש\"י to related מפרשים, and explains רש\"י according to those commentators.",
+          "hebrew_terms": [
+            "מפרשי רש\"י",
+            "שפתי חכמים",
+            "גור אריה",
+            "רמב\"ן"
+          ],
+          "prerequisite_skills": [
+            "5.05 Understanding רש\"י",
+            "1.10 Navigating the חומש"
+          ],
+          "skill_tags": [
+            "meforshim",
+            "rashi_support_commentaries",
+            "navigation"
+          ],
+          "question_generation_relevance": {
+            "rating": "low",
+            "future_archetypes": [
+              "locate_related_mefaresh",
+              "explain_rashi_with_mefaresh"
+            ],
+            "notes": "Valuable later, but intentionally kept at index-only level in this branch."
+          },
+          "diagnostic_relevance": {
+            "rating": "low",
+            "notes": "Out of current extraction scope except as a roadmap record."
+          },
+          "review_status": [
+            "extracted_raw",
+            "needs_human_review",
+            "not_question_ready",
+            "table_structure_uncertain",
+            "hebrew_text_needs_review"
+          ],
+          "source_page_or_section": "Page 64 / 5.08",
+          "notes": "High-level index only."
+        }
+      ]
+    }
+  ]
+}

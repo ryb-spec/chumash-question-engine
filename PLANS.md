@@ -89,3 +89,6 @@
 - [completed] Add the 2025 canonical extraction companion and update the document index with checksum/page-count metadata
 - [completed] Update Zekelman source inventory, source map, extraction plan, and create the canonical-ingestion report so 2025 V2.5 is the actual canonical raw source
 - [completed] Run lightweight validation and summarize the canonical-source ingestion result without touching runtime or student-facing files
+- [completed] Inspect the 2025 Zekelman canonical PDF and extracted text for Standard 1, Standard 3, Standard 4, and high-level Standard 5 structure across Levels 1-8
+- [completed] Create conservative structured JSON outputs for the overall standards index, Standard 3 vocabulary/language skills, and question-generation relevance with page/section provenance
+- [completed] Write the structured extraction report, run lightweight validation, and confirm runtime/student-facing files stayed untouched
