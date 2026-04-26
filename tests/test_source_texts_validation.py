@@ -9,7 +9,7 @@ from scripts import validate_source_texts as validator
 ROOT = Path(__file__).resolve().parents[1]
 TSV_PATH = ROOT / "data" / "source_texts" / "bereishis_hebrew_menukad_taamim.tsv"
 MANIFEST_PATH = ROOT / "data" / "source_texts" / "source_text_manifest.json"
-EXPECTED_SHA256 = "a5fc8a32ff7d01c6c557e361d0c09a5a8d2267140dc4ba2e11a821bac4985f8d"
+EXPECTED_SHA256 = "0dedb854e1e8b59fa5dc08f93be5baffe4c1faaa09d00c148c8ef3113b065913"
 
 
 def load_lines() -> list[str]:
@@ -31,7 +31,7 @@ class SourceTextsValidationTests(unittest.TestCase):
         summary = validator.validate_bereishis_source_texts()
         self.assertTrue(summary["valid"], summary["blockers"])
         self.assertEqual(summary["status"], "complete")
-        self.assertEqual(summary["row_count"], 1534)
+        self.assertEqual(summary["row_count"], 1533)
         self.assertEqual(summary["perek_count"], 50)
         self.assertEqual(summary["first_ref"], "Bereishis 1:1")
         self.assertEqual(summary["last_ref"], "Bereishis 50:26")

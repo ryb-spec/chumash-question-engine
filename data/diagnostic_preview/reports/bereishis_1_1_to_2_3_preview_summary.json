@@ -1,0 +1,133 @@
+{
+  "schema_version": "1.0",
+  "preview_id": "bereishis_1_1_to_2_3_dikduk_translation_preview",
+  "range_covered": {
+    "sefer": "Bereishis",
+    "start_ref": "Genesis 1:1",
+    "end_ref": "Genesis 2:3",
+    "pesukim_covered": 34
+  },
+  "total_blueprints": 77,
+  "total_questions": 77,
+  "question_count_by_lane": {
+    "dikduk": 26,
+    "error_diagnosis": 10,
+    "translation": 26,
+    "translation_comparison": 5,
+    "word_analysis": 10
+  },
+  "question_count_by_skill": {
+    "article": 4,
+    "basic_word_translation": 26,
+    "conjunction": 2,
+    "direct_object_marker": 4,
+    "error_diagnosis": 10,
+    "irregular_plural_warning": 2,
+    "mixed_skill_translation_rule": 5,
+    "plural_vav_tav": 2,
+    "plural_yim": 2,
+    "prefix_b": 4,
+    "prefix_l": 2,
+    "verb_agreement": 2,
+    "verb_form_analysis": 10,
+    "word_order": 2
+  },
+  "question_count_by_mastery_tag": {
+    "agreement_features": 2,
+    "basic_translation": 26,
+    "conjunction_recognition": 6,
+    "context_sensitivity": 6,
+    "definite_article": 15,
+    "direct_object_marker": 5,
+    "error_diagnosis": 10,
+    "feminine_plural": 4,
+    "function_disambiguation": 5,
+    "masculine_plural": 2,
+    "mixed_skill": 5,
+    "noun_translation": 7,
+    "phrase_translation": 4,
+    "plural_recognition": 11,
+    "prefix_recognition": 14,
+    "preposition_meaning": 8,
+    "shoresh_identification": 10,
+    "subject_tracking": 2,
+    "suffix_recognition": 4,
+    "syntax_awareness": 2,
+    "translation_caution": 9,
+    "translation_reordering": 2,
+    "verb_form_analysis": 8,
+    "verb_identification": 10,
+    "verb_tense": 1,
+    "word_connection": 2,
+    "word_decomposition": 12,
+    "word_meaning": 9
+  },
+  "question_count_by_difficulty": {
+    "1": 29,
+    "2": 36,
+    "3": 12
+  },
+  "rules_used": [
+    "DK-ARTICLE-001",
+    "DK-CONJ-001",
+    "DK-ET-001",
+    "DK-ET-003",
+    "DK-NOUN-001",
+    "DK-NOUN-002",
+    "DK-PARSE-002",
+    "DK-PARSE-003",
+    "DK-PLURAL-001",
+    "DK-PLURAL-002",
+    "DK-PREP-003",
+    "DK-PREP-004",
+    "DK-VERB-001",
+    "DK-VERB-FUTURE-001",
+    "DK-VERB-PAST-001",
+    "DK-WORDORDER-001",
+    "DK-WORDORDER-002"
+  ],
+  "translations_used": [
+    {
+      "translation_version_key": "koren",
+      "translation_version_title": "The Koren Jerusalem Bible",
+      "license": "CC-BY-NC",
+      "license_status": "needs_license_review"
+    },
+    {
+      "translation_version_key": "metsudah",
+      "translation_version_title": "Metsudah Chumash, Metsudah Publications, 2009",
+      "license": "CC-BY",
+      "license_status": "needs_license_review"
+    }
+  ],
+  "warnings": [
+    "Preview questions use English translations only in a non-runtime source-preview layer.",
+    "All translation-backed questions remain source_preview_only_license_review_required.",
+    "Nothing in this preview is production-approved or runtime-active."
+  ],
+  "blocked_items": [],
+  "ready_for_human_review": [
+    "blueprint JSONL",
+    "preview question JSONL",
+    "manual review packet",
+    "summary reports"
+  ],
+  "not_ready_for_runtime": [
+    "translation content still requires human license review",
+    "questions remain preview_only and not runtime_active",
+    "no reviewed-bank promotion or student-facing runtime integration has been done"
+  ],
+  "generated_at": "2026-04-26T14:36:08.665967+00:00",
+  "status": "preview_only",
+  "runtime_status": "not_runtime_active",
+  "production_status": "not_production_ready",
+  "reviewable_preview": {
+    "total_questions": 33,
+    "final_recommendation": "Reviewable preview ready for teacher review",
+    "likely_review_status_counts": {
+      "likely_approve": 27,
+      "caution": 6,
+      "likely_rewrite": 0
+    }
+  }
+}

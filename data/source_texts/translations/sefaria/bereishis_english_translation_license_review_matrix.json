@@ -1,0 +1,24 @@
+[
+  {
+    "translation_version_key": "koren",
+    "translation_version_title": "The Koren Jerusalem Bible",
+    "license": "CC-BY-NC",
+    "license_vetted": null,
+    "production_use_recommendation": "blocked_pending_human_license_review",
+    "reason": "Non-commercial license requires policy and legal review before production use.",
+    "required_attribution_fields": [],
+    "human_review_required": true,
+    "status": "needs_license_review"
+  },
+  {
+    "translation_version_key": "metsudah",
+    "translation_version_title": "Metsudah Chumash, Metsudah Publications, 2009",
+    "license": "CC-BY",
+    "license_vetted": null,
+    "production_use_recommendation": "blocked_pending_human_attribution_review",
+    "reason": "CC-BY requires correct attribution and human review before production use.",
+    "required_attribution_fields": [],
+    "human_review_required": true,
+    "status": "needs_license_review"
+  }
+]

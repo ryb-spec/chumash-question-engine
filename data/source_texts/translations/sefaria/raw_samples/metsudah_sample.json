@@ -1,0 +1,14 @@
+{
+  "target_key": "metsudah",
+  "requested_version_title": "Metsudah Chumash, Metsudah Publications, 2009",
+  "source_api_endpoint": "https://www.sefaria.org/api/v3/texts/Genesis.1?version=english%7CMetsudah+Chumash%2C+Metsudah+Publications%2C+2009&return_format=text_only&fill_in_missing_segments=0",
+  "retrieved_at": "2026-04-26T05:14:47.986095Z",
+  "license": "CC-BY",
+  "warnings": [],
+  "returned_version_title": "Metsudah Chumash, Metsudah Publications, 2009",
+  "first_three_verses": [
+    "In the beginning Elohim created the heavens and the earth.",
+    "The earth was unformed and desolate, and (there was) darkness over the surface of the abyss. The breath of Elohim hovered above the surface of the water.",
+    "Elohim said, Let there be light. and there was light."
+  ]
+}

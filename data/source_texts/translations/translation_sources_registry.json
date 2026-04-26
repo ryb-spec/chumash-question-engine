@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0",
+  "source_package_name": "sefaria_bereishis_english_translations",
+  "canonical_hebrew_backbone_path": "data/source_texts/bereishis_hebrew_menukad_taamim.tsv",
+  "available_translation_versions": [
+    {
+      "translation_version_key": "koren",
+      "translation_version_title": "The Koren Jerusalem Bible",
+      "file_path": "data/source_texts/translations/sefaria/bereishis_english_koren.jsonl",
+      "license": "CC-BY-NC",
+      "license_status": "needs_license_review",
+      "alignment_status": "aligned_complete",
+      "row_count": 1533,
+      "missing_refs": [],
+      "runtime_eligibility": "not_runtime_active",
+      "production_eligibility": "not_production_ready",
+      "human_review_required": true
+    },
+    {
+      "translation_version_key": "metsudah",
+      "translation_version_title": "Metsudah Chumash, Metsudah Publications, 2009",
+      "file_path": "data/source_texts/translations/sefaria/bereishis_english_metsudah.jsonl",
+      "license": "CC-BY",
+      "license_status": "needs_license_review",
+      "alignment_status": "aligned_complete",
+      "row_count": 1533,
+      "missing_refs": [],
+      "runtime_eligibility": "not_runtime_active",
+      "production_eligibility": "not_production_ready",
+      "human_review_required": true
+    }
+  ],
+  "loader_path": "translation_sources_loader.py",
+  "runtime_status": "not_runtime_active",
+  "production_status": "not_production_ready",
+  "integration_status": "source_ready_license_pending",
+  "generated_at": "2026-04-26T05:14:55.266146Z"
+}
