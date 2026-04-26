@@ -2,7 +2,7 @@
   "metadata": {
     "title": "Zekelman 2025 Standard 3 Teacher Review Tracking",
     "generated_at": "2026-04-26",
-    "branch_scope": "feature/zekelman-standard-3-teacher-review-layer",
+    "branch_scope": "feature/standard-3-teacher-review-decisions",
     "review_scope": "Review-only preparation for selected question-relevant Standard 3 strands before any runtime use or question generation.",
     "review_status_values": [
       "needs_teacher_review",
@@ -34,7 +34,7 @@
     },
     "notes": [
       "This file does not change runtime behavior, Streamlit/UI behavior, reviewed-bank truth, or production data.",
-      "Reviewer decisions are intentionally unset until a human teacher-review pass happens.",
+      "Teacher-review guidance from Yossi Bassman is recorded here for selected items, but it remains documentation-only and not runtime-ready or question-ready.",
       "Each review item links back to an existing Standard 3 record and one or more existing draft skill IDs."
     ]
   },
@@ -64,20 +64,19 @@
       "diagnostic_relevance": "high",
       "question_generation_relevance": "high",
       "current_review_status": [
-        "needs_teacher_review",
         "source_match_needs_verification",
         "hebrew_needs_verification",
         "not_runtime_ready",
         "not_question_ready"
       ],
-      "reviewer_decision": null,
-      "reviewer_notes": "",
+      "reviewer_decision": "approve_as_foundational_skill",
+      "reviewer_notes": "Teacher review supports this as a foundational planning lane for taught noun recognition, translation, and controlled multiple-meaning work. Keep it limited to approved vocabulary lists and source-verified wording. This review does not authorize runtime activation or student-facing question generation.",
       "unresolved_questions": [
         "Does row C on page 30 clearly mean grouping nouns by shared taught noun family, and is the extracted wording accurate enough for later reviewer use?",
         "Should contextual multiple-meaning work remain limited to previously taught noun sets such as ראש and רוח before any broader diagnostic use?",
         "Do the appendix noun-grade tables align cleanly enough with the 2025 cumulative counts to support later teacher-approved scope planning?"
       ],
-      "recommended_next_action": "Teacher-review the 2025 page-30 table against the raw PDF, confirm the cumulative noun-count progression and row C/E wording, and keep the strand disconnected from runtime.",
+      "recommended_next_action": "Document 3.01 as a foundational diagnostic planning lane only, verify the canonical/source wording directly in the raw PDF, and keep any later planning limited to approved vocabulary lists.",
       "supporting_artifact_paths": [
         "data/standards/zekelman/structured/zekelman_2025_standard_3_vocabulary_language_skills.json",
         "data/standards/zekelman/crosswalks/zekelman_2025_standard_3_supplemental_crosswalk.json",
@@ -109,21 +108,20 @@
       "diagnostic_relevance": "high",
       "question_generation_relevance": "high",
       "current_review_status": [
-        "needs_teacher_review",
         "source_match_needs_verification",
         "hebrew_needs_verification",
         "level_mapping_needs_review",
         "not_runtime_ready",
         "not_question_ready"
       ],
-      "reviewer_decision": null,
-      "reviewer_notes": "",
+      "reviewer_decision": "approve_with_level_adjustment",
+      "reviewer_notes": "Teacher review supports simple shoresh identification as a foundational planning lane. Weak-letter roots, altered-root recognition, and more advanced contextual shoresh interpretation should be split out and deferred to later levels or later review. This review does not authorize runtime activation or student-facing question generation.",
       "unresolved_questions": [
         "Which parts of 3.02 should be treated as foundational at first review: simple shoresh identification only, or also weak-letter and altered-root recognition?",
         "Should contextual root-translation be reviewed as part of the same skill decision, or deferred until later verb-feature review is complete?",
         "Do the appendix root lists and 2025 cumulative counts align well enough to support a later teacher-approved level map?"
       ],
-      "recommended_next_action": "Teacher-review the 2025 3.02 rows against the raw PDF, verify when weak-letter handling begins, and keep contextual shoresh translation blocked from question-ready status.",
+      "recommended_next_action": "Split the draft 3.02 planning lane between foundational simple shoresh identification and deferred advanced root work, then review the level mapping before any diagnostic blueprint use.",
       "supporting_artifact_paths": [
         "data/standards/zekelman/structured/zekelman_2025_standard_3_vocabulary_language_skills.json",
         "data/standards/zekelman/crosswalks/zekelman_2025_standard_3_supplemental_crosswalk.json",
@@ -203,21 +201,20 @@
       "diagnostic_relevance": "high",
       "question_generation_relevance": "high",
       "current_review_status": [
-        "needs_teacher_review",
         "source_match_needs_verification",
         "hebrew_needs_verification",
         "level_mapping_needs_review",
         "not_runtime_ready",
         "not_question_ready"
       ],
-      "reviewer_decision": null,
-      "reviewer_notes": "",
+      "reviewer_decision": "approve_with_wording_revision",
+      "reviewer_notes": "Teacher review supports the diagnostic direction, but 3.05 must be split into at least two separate skill lanes: pronoun referent tracking and pronominal suffix decoding. Do not bundle these as one broad skill. This review does not authorize runtime activation or student-facing question generation.",
       "unresolved_questions": [
         "Should referent tracking and pronominal-suffix decoding be treated as separate foundational approvals, even though they share the same 3.05 strand?",
         "At what point is it fair to expect cross-pasuk referent tracking rather than local referent identification only?",
         "Should the use of איתן and תהימון as pronoun clues stay with pronoun review, or be deferred until the verb-feature review is settled?"
       ],
-      "recommended_next_action": "Teacher-review the full 3.05 progression against the PDF, confirm which pronoun families belong in the first diagnostic phase, and keep suffix interpretation blocked where context extends beyond a local referent.",
+      "recommended_next_action": "Revise the 3.05 planning language into separate pronoun-referent and pronominal-suffix lanes, then keep both lanes documentation-only until the wording split is finalized.",
       "supporting_artifact_paths": [
         "data/standards/zekelman/structured/zekelman_2025_standard_3_vocabulary_language_skills.json",
         "data/standards/zekelman/crosswalks/zekelman_2025_standard_3_supplemental_crosswalk.json",
@@ -250,21 +247,20 @@
       "diagnostic_relevance": "high",
       "question_generation_relevance": "high",
       "current_review_status": [
-        "needs_teacher_review",
         "source_match_needs_verification",
         "hebrew_needs_verification",
         "level_mapping_needs_review",
         "not_runtime_ready",
         "not_question_ready"
       ],
-      "reviewer_decision": null,
-      "reviewer_notes": "",
+      "reviewer_decision": "approve_with_wording_revision",
+      "reviewer_notes": "Teacher review supports visible prefix and article identification as a foundational planning lane. The two functions of את should remain deferred until context rules and teacher-approved wording are added. This review does not authorize runtime activation or student-facing question generation.",
       "unresolved_questions": [
         "Should the first review phase approve only visible prefix/article identification, while deferring interpretation-heavy cases such as the two functions of את?",
         "How should the later 2025 split into 3.06 be reconciled with the older 2016 assessment material that still groups much of this content under 3.3 Other Vocabulary?",
         "Which of the nikud-dependent distinctions, especially ו ההיפוך and article-prefix shifts, are source-clear enough to review now rather than later?"
       ],
-      "recommended_next_action": "Teacher-review the 3.06 rows and appendix examples against the raw PDFs, decide which prefix/article functions are foundational, and keep the direct-object-marker draft blocked from question-ready status.",
+      "recommended_next_action": "Revise 3.06 wording so visible prefix/article identification stays separate from the deferred functions of את, and keep the strand review-only while source and wording checks continue.",
       "supporting_artifact_paths": [
         "data/standards/zekelman/structured/zekelman_2025_standard_3_vocabulary_language_skills.json",
         "data/standards/zekelman/crosswalks/zekelman_2025_standard_3_supplemental_crosswalk.json",
@@ -296,21 +292,20 @@
       "diagnostic_relevance": "high",
       "question_generation_relevance": "high",
       "current_review_status": [
-        "needs_teacher_review",
         "source_match_needs_verification",
         "hebrew_needs_verification",
         "level_mapping_needs_review",
         "not_runtime_ready",
         "not_question_ready"
       ],
-      "reviewer_decision": null,
-      "reviewer_notes": "",
+      "reviewer_decision": "approve_with_level_adjustment",
+      "reviewer_notes": "Teacher review supports foundational tense, person, and form clues as a planning lane. Advanced areas such as binyan, passive forms, command forms, מקור, and שם הפועל should remain separate later lanes. This review does not authorize runtime activation or student-facing question generation.",
       "unresolved_questions": [
         "Where should teacher review split foundational tense/person/form clues from later binyan, passive, command, and infinitive analysis?",
         "Is the supplemental evidence strong enough for the full upper-level 2025 binyan/passive range, or only for foundational tense and root-sensitive recognition?",
         "Should translation precision on verbs remain blocked until reviewers confirm exactly which form clues are considered introduced at each level?"
       ],
-      "recommended_next_action": "Teacher-review the 3.07 table and key-knowledge rows against the raw PDF, identify the smallest reviewable foundational verb-feature subset, and defer upper-level binyan/passive activation to a later phase.",
+      "recommended_next_action": "Split foundational tense/person/form planning from later advanced verb lanes, then review the level mapping before any diagnostic blueprint use.",
       "supporting_artifact_paths": [
         "data/standards/zekelman/structured/zekelman_2025_standard_3_vocabulary_language_skills.json",
         "data/standards/zekelman/crosswalks/zekelman_2025_standard_3_supplemental_crosswalk.json",

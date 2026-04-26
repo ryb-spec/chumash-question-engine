@@ -1,6 +1,6 @@
 # Zekelman 2025 Standard 3 Teacher Review Packet
 
-Current branch: `feature/zekelman-standard-3-teacher-review-layer`
+Current branch: `feature/standard-3-teacher-review-decisions`
 Status: `review_only`
 Runtime status: `not_runtime_ready`
 Question-generation status: `not_question_ready`
@@ -40,6 +40,33 @@ Current default review statuses:
 - `not_runtime_ready`
 - `not_question_ready`
 
+## Teacher Review Findings
+- Reviewer: `Yossi Bassman`
+- Review type: `teacher/educational review`
+- Review documentation status: `approved_for_documentation_only`
+- Runtime status: `not_runtime_ready`
+- Question-generation status: `not_question_ready`
+- Overall reviewer decision: The proposed review direction is supported for the highest-priority Standard 3 strands, but only as teacher-review guidance for documentation and later diagnostic planning boundaries.
+
+### Approved Foundational Planning Lane
+- `3.01` Nouns: clear foundational diagnostic lane for taught noun recognition, translation, and controlled multiple-meaning work, with a required source wording check and approved vocabulary-list boundaries.
+
+### Approved With Wording Revision
+- `3.05` Pronouns: strong diagnostic direction, but it must be split into separate lanes for pronoun referent tracking and pronominal suffix decoding.
+- `3.06` Prefixes / articles / prepositions: visible prefix and article identification may move forward for planning, but the two functions of `את` stay deferred until context rules and teacher-approved wording are added.
+
+### Approved With Level Adjustment
+- `3.02` Shorashim: simple shoresh identification may move forward as foundational, while weak-letter roots, altered-root recognition, and advanced contextual shoresh interpretation stay deferred to later levels or later review.
+- `3.07` Verbs: foundational tense/person/form clues may move forward for planning, while binyan, passive, command, `מקור`, and `שם הפועל` remain separate later lanes.
+
+### Deferred And Context-Sensitive Boundaries
+- None of these findings authorize runtime activation, reviewed-bank promotion, student-facing use, or question generation.
+- `3.08`, `3.04`, and `3.10` do not receive a new teacher decision in this pass and remain pending.
+- Context-sensitive subareas remain deferred even within approved strands, including broader multiple-meaning expansion, weak-root interpretation, bundled pronoun-plus-suffix handling, the two functions of `את`, and advanced verb-form analysis.
+
+### Final Recommendation
+> Teacher review supports limited foundational diagnostic planning for 3.01, 3.02, 3.05, 3.06, and 3.07, with the boundaries listed above. This review does not authorize runtime activation or student-facing question generation.
+
 ## High-Priority Review Items
 
 ### 3.01 Vocabulary: שמות עצם (nouns)
@@ -55,6 +82,7 @@ Current default review statuses:
 - Should contextual multiple-meaning work stay limited to taught examples such as `ראש` and `רוח` before any broader planning?
 - Do the appendix noun-grade tables align cleanly enough with the 2025 cumulative counts to support later teacher-approved scope planning?
 - Known uncertainty: OCR and line wrapping on page 30 may blur row boundaries; appendix table relationships still need manual confirmation; Hebrew examples should be checked directly in the PDF.
+- Teacher review finding: Documentation-only approval as a foundational planning lane for taught noun recognition, translation, and controlled multiple-meaning work. Keep it limited to approved vocabulary lists and source-verified wording.
 - Recommended decision options:
 - `approve_as_foundational_skill`
 - `approve_with_wording_revision`
@@ -76,6 +104,7 @@ Current default review statuses:
 - Should contextual root translation be reviewed together with shoresh identification, or later with verb-feature review?
 - Do the appendix root lists and the 2025 cumulative counts align well enough to support later level mapping?
 - Known uncertainty: OCR-sensitive Hebrew root examples and weak-letter terminology need direct PDF checking; the 2016 sample source supports assessment patterns, but not the full later 2025 parsing range.
+- Teacher review finding: Documentation-only approval with level adjustment. Simple shoresh identification may move forward as foundational, while weak-letter roots, altered-root recognition, and advanced contextual shoresh interpretation stay deferred.
 - Recommended decision options:
 - `approve_as_foundational_skill`
 - `approve_with_wording_revision`
@@ -99,6 +128,7 @@ Current default review statuses:
 - At what point is cross-pasuk referent tracking fair, rather than local referent identification only?
 - Should `איתן` and `תהימון` clue use stay with pronoun review, or shift to `3.07` verb review?
 - Known uncertainty: Appendix pronoun charts remain table-structure sensitive; embedded suffix interpretation can become context-heavy quickly; OCR can blur person/gender/number forms.
+- Teacher review finding: Documentation-only approval with wording revision. Split this strand into separate lanes for pronoun referent tracking and pronominal suffix decoding, and do not treat the full strand as one bundled skill.
 - Recommended decision options:
 - `approve_as_foundational_skill`
 - `approve_with_wording_revision`
@@ -122,6 +152,7 @@ Current default review statuses:
 - How should the 2025 `3.06` split be reconciled with the older 2016 assessment material that still groups this content under `3.3`?
 - Which nikud-dependent distinctions, especially `ו ההיפוך` and article-prefix shifts, are source-clear enough to review now?
 - Known uncertainty: Appendix rule charts need manual Hebrew checking; nikud-sensitive prefix rules are OCR-sensitive; `את` remains more context-dependent than basic visible-form work.
+- Teacher review finding: Documentation-only approval with wording revision. Visible prefix and article identification may move forward for planning, but the two functions of `את` remain deferred until context rules and teacher-approved wording are added.
 - Recommended decision options:
 - `approve_as_foundational_skill`
 - `approve_with_wording_revision`
@@ -143,6 +174,7 @@ Current default review statuses:
 - Is the supplemental evidence strong enough for the full upper-level 2025 verb range, or only for foundational tense/root-sensitive work?
 - Should verb translation precision stay blocked until the approved form-clue boundaries are clear?
 - Known uncertainty: The 2025 scope is broader than the older extracted support at the top end; conjugation charts are OCR-sensitive; level mapping across upper grades needs human confirmation.
+- Teacher review finding: Documentation-only approval with level adjustment. Foundational tense/person/form clues may move forward for planning, while advanced verb-form areas remain separate later lanes.
 - Recommended decision options:
 - `approve_as_foundational_skill`
 - `approve_with_wording_revision`
