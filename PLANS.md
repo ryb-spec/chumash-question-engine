@@ -71,3 +71,7 @@
 - [completed] Implement the diagnostic preview generator and validator using the existing Hebrew, translation, and Dikduk source layers without any runtime activation
 - [completed] Add focused diagnostic preview tests plus the narrow curriculum-validator allowlist entries required for the new preview-only files
 - [completed] Run generator, validator, targeted tests, full pytest, and confirm the branch stays free of runtime log side effects
+
+- [completed] Audit the 77 generated `Bereishis 1:1-2:3` diagnostic preview questions and classify which patterns are strong, caution-only, or rewrite-needed for teacher review
+- [completed] Update the manual review packet with reviewer findings, counts, recurring issues, strongest patterns, and a non-runtime recommendation
+- [completed] Run source-text, diagnostic-preview, curriculum, and full pytest validation before closing the review branch pass

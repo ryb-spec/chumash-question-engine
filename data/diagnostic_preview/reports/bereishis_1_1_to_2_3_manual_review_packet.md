@@ -13,6 +13,127 @@ Reviewer recommendation options:
 - `needs_translation_review`
 - `needs_dikduk_review`
 
+## AI-Assisted Review Findings
+
+Review scope:
+- Questions reviewed: `77`
+- Range reviewed: `Bereishis 1:1-2:3`
+- Reviewer type: `ai_assisted_packet_review`
+- Overall packet quality: `moderate for internal teacher review`, `mixed for direct student use`
+
+Current disposition counts:
+- Approved as-is: `44`
+- Approved with caution: `26`
+- Rejected or requiring rewrite: `7`
+
+Final recommendation:
+- `Use only for internal adult review`
+
+Why the packet is not yet student-ready:
+- Translation-backed items still carry `source_preview_only_license_review_required`, so they should stay in internal review until license review is complete.
+- The clearest questions are strong, but several lanes are still teacher-facing rather than student-facing.
+- A few items overstate a gloss or grammatical claim more confidently than the pasuk context supports.
+- The packet contains useful building blocks for a pilot subset, but it still needs pruning and rewrite work before supervised student use.
+
+Quality ratings by pattern:
+- High quality: definite-article recognition, direct-object-marker function, concrete creation-word translation, simple shoresh identification, natural Hebrew-to-English word-order repair.
+- Medium quality: plural-surface recognition, conjunction/prefix recognition, mixed translation-plus-rule items with tightly controlled accepted answers.
+- Low quality: meta error-diagnosis prompts, translation-comparison prompts that depend on version wording, and the irregular-plural warning lane around `המים`.
+
+Top 5 recurring issues:
+1. The generator often creates duplicate near-twin prompts such as `What does X mean?` and `Which English meaning best fits X?`, which adds volume without much new diagnostic value.
+2. Several error-diagnosis items are written in adult meta-language about another student's answer instead of in language that a real child could naturally process.
+3. Translation-sensitive words such as `אלהים`, `השמים`, `רקיע`, `היבשה`, and `המים` need broader accepted-answer policy and tighter reviewer guidance because Koren and Metsudah legitimately diverge.
+4. Some prefix and parsing prompts use wording like `Which added letter should you notice first`, which is teacher-sounding and weaker than a more direct morphology question.
+5. A few items flatten context-sensitive grammar into one rigid English gloss, especially around `ב` in `ביום` and the singular/plural caution built around `המים`.
+
+Top 5 strongest question patterns:
+1. Definite-article recognition and article-aware translation for `הארץ` and `השמים`.
+2. Direct-object-marker questions on `את` when the prompt clearly asks for function rather than for an English gloss.
+3. Straightforward creation-vocabulary items such as `ברא`, `אור`, `טוב`, `לילה`, `פרו`, and `ורבו`.
+4. Simple shoresh-identification items on common verbs such as `ויאמר`, `ויקרא`, and `ויבדל`.
+5. Natural reordering items such as `ויאמר אלהים` -> `God said`, where the student can see why English order changes.
+
+Question family review notes:
+
+### Approved As-Is
+
+These are the cleanest items in the packet. They are source-aligned, understandable, and diagnostically useful with minimal revision risk.
+
+- Definite article and article-aware translation:
+  `DQ-BER-001-001-007`, `DQ-BER-001-001-008`, `DQ-BER-001-001-009`, `DQ-BER-001-001-010`
+- Direct-object marker function:
+  `DQ-BER-001-001-011`, `DQ-BER-001-001-012`, `DQ-BER-001-004-003`, `DQ-BER-001-004-004`
+- Clear vocabulary translation:
+  `DQ-BER-001-001-001`, `DQ-BER-001-001-002`, `DQ-BER-001-001-003`, `DQ-BER-001-001-004`, `DQ-BER-001-001-005`, `DQ-BER-001-001-006`, `DQ-BER-001-003-001`, `DQ-BER-001-003-002`, `DQ-BER-001-004-001`, `DQ-BER-001-004-002`, `DQ-BER-001-005-001`, `DQ-BER-001-005-002`, `DQ-BER-001-010-001`, `DQ-BER-001-010-002`, `DQ-BER-001-014-001`, `DQ-BER-001-014-002`, `DQ-BER-002-002-001`, `DQ-BER-002-002-002`, `DQ-BER-001-022-001`, `DQ-BER-001-022-002`, `DQ-BER-001-022-003`, `DQ-BER-001-022-004`
+- Conjunction, surface plural, and cleaner prefix items:
+  `DQ-BER-001-002-003`, `DQ-BER-001-002-004`, `DQ-BER-001-001-013`, `DQ-BER-001-005-003`, `DQ-BER-001-010-003`, `DQ-BER-001-010-004`, `DQ-BER-001-014-003`, `DQ-BER-001-014-004`
+- Stronger grammar and shoresh items:
+  `DQ-BER-001-003-003`, `DQ-BER-001-003-005`, `DQ-BER-001-004-005`, `DQ-BER-001-005-005`, `DQ-BER-001-004-007`, `DQ-BER-001-015-001`
+
+### Approved With Caution
+
+These items are promising, but they need tighter teacher framing, better accepted-answer handling, or limited use in a supervised review context.
+
+- Translation-sensitive vocabulary:
+  `DQ-BER-001-002-001`, `DQ-BER-001-002-002`, `DQ-BER-001-009-001`, `DQ-BER-001-009-002`
+  Reviewer note: these depend on how broadly the packet wants to accept `waters / water`, `dry land / dryness`, and article-sensitive wording.
+- Added-letter prompts that are structurally fine but still sound teacher-facing:
+  `DQ-BER-001-001-014`, `DQ-BER-001-005-004`, `DQ-BER-002-002-004`, `DQ-BER-001-003-006`, `DQ-BER-001-004-006`, `DQ-BER-001-005-006`, `DQ-BER-001-004-008`, `DQ-BER-001-015-002`
+- Word-order or agreement items that assume more grammar maturity:
+  `DQ-BER-001-003-004`, `DQ-BER-001-012-001`, `DQ-BER-001-012-002`
+- Simpler error-diagnosis prompts that may be useful for teacher-led debrief, but are not ideal as direct student questions:
+  `DQ-BER-001-001-015`, `DQ-BER-001-002-007`, `DQ-BER-001-010-005`, `DQ-BER-001-014-005`, `DQ-BER-001-001-017`
+- Translation-comparison items that are useful for internal review but should not be treated as student-ready because of translation variance and license review requirements:
+  `DQ-BER-001-001-018`, `DQ-BER-001-001-019`, `DQ-BER-001-006-001`, `DQ-BER-001-009-003`, `DQ-BER-001-002-010`
+
+### Rejected Or Requiring Rewrite
+
+These items should not move forward unchanged. They either contain wording that is too meta for students, flatten a translation issue too aggressively, or ask the student to operate at the wrong level.
+
+- `DQ-BER-001-002-005`
+  Reviewer comment: the prompt asks for the `safest basic translation` of `המים` but the keyed answer is only `water`, while other packet items and both source translations support broader options. This creates internal inconsistency.
+  Recommendation: `reject`
+- `DQ-BER-001-002-006`
+  Reviewer comment: the rule reminder is useful for adults, but it is too abstract and indirect to work well as a standalone student question.
+  Recommendation: `reject`
+- `DQ-BER-001-002-008`
+  Reviewer comment: the quoted answer `The student treats ו as part of the noun itself` is teacher-analysis language, not student-facing language.
+  Recommendation: `reject`
+- `DQ-BER-001-002-009`
+  Reviewer comment: the phrase `waters in every basic context` is artificial and the diagnostic demand is too meta for a first student-facing pilot.
+  Recommendation: `reject`
+- `DQ-BER-001-003-007`
+  Reviewer comment: this tense-diagnosis item is conceptually good, but the quoted wrong answer is written like a teacher memo rather than a student response.
+  Recommendation: `reject`
+- `DQ-BER-001-004-009`
+  Reviewer comment: the nested quotation around `every את-family form` is awkward and likely to confuse students before it diagnoses anything useful.
+  Recommendation: `reject`
+- `DQ-BER-002-002-003`
+  Reviewer comment: the item keys `ב` in `ביום` only as `in`, but both source translations render the clause more like `by the seventh day`, so the current answer is too narrow for this context.
+  Recommendation: `reject`
+
+Best-quality examples to reuse first:
+- `DQ-BER-001-001-007`
+- `DQ-BER-001-001-011`
+- `DQ-BER-001-001-003`
+- `DQ-BER-001-003-003`
+- `DQ-BER-001-003-005`
+
+Weakest examples to stop or rewrite first:
+- `DQ-BER-001-002-005`
+- `DQ-BER-001-002-009`
+- `DQ-BER-001-003-007`
+- `DQ-BER-001-004-009`
+- `DQ-BER-002-002-003`
+
+Specific next fixes before student testing:
+1. Collapse duplicate translation pairs so each target word usually gets one best question, not two near-identical ones.
+2. Rewrite the entire error-diagnosis lane into direct student self-correction or teacher-note formats instead of quoted meta-student statements.
+3. Tighten accepted-answer policy for `אלהים`, `השמים`, `רקיע`, `היבשה`, and `המים`, and keep those items explicitly flagged for translation review.
+4. Replace `Which added letter should you notice first` wording with cleaner prompts about prefix, root, or function.
+5. Re-check every preposition item in-context so the answer reflects the pasuk's real English force, not only the rule's default gloss.
+
 ## Genesis 1:1 / Bereishis 1:1
 
 Hebrew source: בְּרֵאשִׁ֖ית בָּרָ֣א אֱלֹהִ֑ים אֵ֥ת הַשָּׁמַ֖יִם וְאֵ֥ת הָאָֽרֶץ׃
