@@ -208,6 +208,25 @@ TRANSLATION_RULE_REQUIRED_FIELDS = (
 SAMPLE_ALLOWED_METHODS = {"manual_sample"}
 NORMALIZED_ALLOWED_METHODS = {"manual_cleaned_excerpt", "manual_sample"}
 ALLOWED_REVIEW_STATUSES = {"needs_review", "reviewed"}
+ALLOWED_EXTRACTION_REVIEW_STATUSES = {
+    "pending_yossi_extraction_accuracy_pass",
+    "yossi_extraction_verified",
+    "needs_specific_confirmation",
+    "blocked_unclear_source",
+}
+ALLOWED_SOURCE_AUTHORITIES = {
+    "trusted_teacher_source",
+    "source_derived_internal_artifact",
+    "needs_specific_confirmation",
+    "blocked_unclear_source",
+}
+ALLOWED_TEACHER_SOURCE_STATUSES = {
+    "trusted_teacher_source",
+    "pending_yossi_extraction_accuracy_pass",
+    "yossi_extraction_verified",
+    "needs_specific_confirmation",
+    "blocked_unclear_source",
+}
 ALLOWED_BATCH_STATUSES = {
     "draft_needs_review",
     "cleaned_seed_reviewed_non_runtime",
@@ -266,7 +285,10 @@ ALLOWED_CHANGE_EXACT = {
     "docs/curriculum_pipeline/source_text_foundation_plan.md",
     "docs/curriculum_pipeline/source_text_handoff.md",
     "docs/curriculum_pipeline/source_text_validation_strategy.md",
+    "docs/sources/trusted_teacher_source_policy.md",
+    "docs/sources/trusted_teacher_source_extraction_review_packet_template.md",
     "local_curriculum_sources/source_key_excerpt_batch_001.md",
+    "data/source_review_confirmation_items.json",
     "data/source/bereishis_4_1_to_4_16.json",
     "data/dikduk_rules/README.md",
     "data/dikduk_rules/dikduk_error_pattern.schema.json",
@@ -332,6 +354,7 @@ ALLOWED_CHANGE_EXACT = {
     "tests/test_standards_data_validation.py",
     "tests/test_source_corpus_block_4_1_to_4_16.py",
     "tests/test_source_texts_validation.py",
+    "tests/test_trusted_teacher_source_policy.py",
     "README_CHROMEBOOK.md",
 }
 
@@ -511,6 +534,27 @@ def validate_resource_batches(manifest: dict, errors: list[str]) -> dict[str, di
         review_status = batch.get("review_status")
         if review_status is not None and review_status not in ALLOWED_REVIEW_STATUSES:
             errors.append(f"curriculum_extraction_manifest.json: {batch_id} has invalid review_status '{review_status}'")
+        extraction_review_status = batch.get("extraction_review_status")
+        if extraction_review_status is not None and extraction_review_status not in ALLOWED_EXTRACTION_REVIEW_STATUSES:
+            errors.append(
+                f"curriculum_extraction_manifest.json: {batch_id} has invalid extraction_review_status "
+                f"'{extraction_review_status}'"
+            )
+        requires_yossi_accuracy_pass = batch.get("requires_yossi_accuracy_pass")
+        if requires_yossi_accuracy_pass is not None and not isinstance(requires_yossi_accuracy_pass, bool):
+            errors.append(
+                f"curriculum_extraction_manifest.json: {batch_id} requires_yossi_accuracy_pass must be a boolean"
+            )
+        if extraction_review_status == "pending_yossi_extraction_accuracy_pass" and requires_yossi_accuracy_pass is not True:
+            errors.append(
+                f"curriculum_extraction_manifest.json: {batch_id} pending extraction review must set "
+                "requires_yossi_accuracy_pass=true"
+            )
+        if extraction_review_status == "yossi_extraction_verified" and requires_yossi_accuracy_pass is not False:
+            errors.append(
+                f"curriculum_extraction_manifest.json: {batch_id} yossi_extraction_verified must set "
+                "requires_yossi_accuracy_pass=false"
+            )
         review_artifacts = batch.get("review_artifacts", [])
         if review_artifacts is None:
             review_artifacts = []
@@ -824,8 +868,52 @@ def validate_registry(registry: dict, errors: list[str]) -> dict[str, dict]:
             continue
         if package.get("runtime_active") is not False:
             errors.append(f"source_resource_registry.json: {source_package_id} must have runtime_active=false")
+        validate_trusted_source_registry_fields(package, context=f"source_resource_registry.json: {source_package_id}", errors=errors)
         registry_lookup[source_package_id] = package
     return registry_lookup
+
+
+def validate_trusted_source_registry_fields(package: dict, *, context: str, errors: list[str]) -> None:
+    source_authority = package.get("source_authority")
+    teacher_source_status = package.get("teacher_source_status")
+    extraction_review_status = package.get("extraction_review_status")
+
+    if source_authority is not None and source_authority not in ALLOWED_SOURCE_AUTHORITIES:
+        errors.append(
+            f"{context}: source_authority must be one of {sorted(ALLOWED_SOURCE_AUTHORITIES)}, got {source_authority!r}"
+        )
+    if teacher_source_status is not None and teacher_source_status not in ALLOWED_TEACHER_SOURCE_STATUSES:
+        errors.append(
+            f"{context}: teacher_source_status must be one of {sorted(ALLOWED_TEACHER_SOURCE_STATUSES)}, "
+            f"got {teacher_source_status!r}"
+        )
+    if extraction_review_status is not None and extraction_review_status not in ALLOWED_EXTRACTION_REVIEW_STATUSES:
+        errors.append(
+            f"{context}: extraction_review_status must be one of {sorted(ALLOWED_EXTRACTION_REVIEW_STATUSES)}, "
+            f"got {extraction_review_status!r}"
+        )
+    if teacher_source_status == "trusted_teacher_source" and extraction_review_status is None:
+        errors.append(f"{context}: trusted teacher sources must declare extraction_review_status")
+
+    requires_yossi_accuracy_pass = package.get("requires_yossi_accuracy_pass")
+    if requires_yossi_accuracy_pass is not None and not isinstance(requires_yossi_accuracy_pass, bool):
+        errors.append(f"{context}: requires_yossi_accuracy_pass must be a boolean when present")
+    if extraction_review_status == "pending_yossi_extraction_accuracy_pass" and requires_yossi_accuracy_pass is not True:
+        errors.append(f"{context}: pending extraction review must set requires_yossi_accuracy_pass=true")
+    if extraction_review_status == "yossi_extraction_verified" and requires_yossi_accuracy_pass is not False:
+        errors.append(f"{context}: yossi_extraction_verified must set requires_yossi_accuracy_pass=false")
+
+    if package.get("runtime_status") is not None and package.get("runtime_status") != "not_runtime_ready":
+        errors.append(f"{context}: trusted source runtime_status must remain not_runtime_ready")
+    if package.get("question_ready_status") is not None and package.get("question_ready_status") != "not_question_ready":
+        errors.append(f"{context}: trusted source question_ready_status must remain not_question_ready")
+
+    confirmation_needed_reason = package.get("confirmation_needed_reason")
+    if teacher_source_status in {"needs_specific_confirmation", "blocked_unclear_source"}:
+        if not isinstance(confirmation_needed_reason, str) or not confirmation_needed_reason.strip():
+            errors.append(f"{context}: unclear source statuses must include confirmation_needed_reason")
+    elif confirmation_needed_reason is not None and not isinstance(confirmation_needed_reason, str):
+        errors.append(f"{context}: confirmation_needed_reason must be null or a string")
 
 
 def validate_schema_files(manifest: dict, errors: list[str]) -> list[Path]:

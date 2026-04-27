@@ -69,13 +69,22 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
         manifest = load_manifest()
         self.assertFalse(manifest["runtime_active"])
         self.assertEqual(manifest["integration_status"], "not_runtime_active")
+        self.assertEqual(manifest["trusted_teacher_source_policy"]["runtime_status"], "not_runtime_ready")
+        self.assertEqual(manifest["trusted_teacher_source_policy"]["question_ready_status"], "not_question_ready")
         self.assertEqual(len(manifest.get("normalized_data_files", [])), 6)
         batches = {batch["batch_id"]: batch for batch in manifest.get("resource_batches", [])}
         self.assertIn("batch_001_cleaned_seed", batches)
         self.assertEqual(batches["batch_001_cleaned_seed"]["review_status"], "reviewed")
+        self.assertEqual(batches["batch_001_cleaned_seed"]["extraction_review_status"], "yossi_extraction_verified")
+        self.assertFalse(batches["batch_001_cleaned_seed"]["requires_yossi_accuracy_pass"])
         self.assertEqual(batches["batch_001_cleaned_seed"]["status"], "cleaned_seed_reviewed_non_runtime")
         self.assertIn("batch_002_linear_bereishis", batches)
         self.assertEqual(batches["batch_002_linear_bereishis"]["review_status"], "needs_review")
+        self.assertEqual(
+            batches["batch_002_linear_bereishis"]["extraction_review_status"],
+            "pending_yossi_extraction_accuracy_pass",
+        )
+        self.assertTrue(batches["batch_002_linear_bereishis"]["requires_yossi_accuracy_pass"])
         self.assertEqual(batches["batch_002_linear_bereishis"]["status"], "extracted_needs_review")
         self.assertEqual(
             batches["batch_002_linear_bereishis"]["raw_source_files"],
@@ -91,6 +100,10 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
         )
         self.assertIn("batch_003_linear_bereishis_2_4_to_2_25", batches)
         self.assertEqual(batches["batch_003_linear_bereishis_2_4_to_2_25"]["review_status"], "needs_review")
+        self.assertEqual(
+            batches["batch_003_linear_bereishis_2_4_to_2_25"]["extraction_review_status"],
+            "pending_yossi_extraction_accuracy_pass",
+        )
         self.assertEqual(batches["batch_003_linear_bereishis_2_4_to_2_25"]["status"], "extracted_needs_review")
         self.assertEqual(
             batches["batch_003_linear_bereishis_2_4_to_2_25"]["raw_source_files"],
@@ -106,6 +119,10 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
         )
         self.assertIn("batch_004_linear_bereishis_3_1_to_3_24", batches)
         self.assertEqual(batches["batch_004_linear_bereishis_3_1_to_3_24"]["review_status"], "reviewed")
+        self.assertEqual(
+            batches["batch_004_linear_bereishis_3_1_to_3_24"]["extraction_review_status"],
+            "yossi_extraction_verified",
+        )
         self.assertEqual(batches["batch_004_linear_bereishis_3_1_to_3_24"]["status"], "reviewed_for_planning_non_runtime")
         self.assertEqual(
             batches["batch_004_linear_bereishis_3_1_to_3_24"]["raw_source_files"],
@@ -130,6 +147,10 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
         )
         self.assertIn("batch_005_linear_bereishis_4_1_to_4_16", batches)
         self.assertEqual(batches["batch_005_linear_bereishis_4_1_to_4_16"]["review_status"], "reviewed")
+        self.assertEqual(
+            batches["batch_005_linear_bereishis_4_1_to_4_16"]["extraction_review_status"],
+            "yossi_extraction_verified",
+        )
         self.assertEqual(
             batches["batch_005_linear_bereishis_4_1_to_4_16"]["status"],
             "reviewed_for_planning_non_runtime",
@@ -242,6 +263,44 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
             "curriculum_extraction_manifest.json: batch_004_linear_bereishis_3_1_to_3_24 must have runtime_active=false",
             summary["errors"],
         )
+
+    def test_trusted_source_package_requires_extraction_accuracy_status_not_runtime_promotion(self):
+        registry = validator.load_json(validator.REGISTRY_PATH)
+        for package in registry["source_packages"]:
+            with self.subTest(source_package_id=package["source_package_id"]):
+                self.assertEqual(package["teacher_source_status"], "trusted_teacher_source")
+                self.assertEqual(package["extraction_review_status"], "pending_yossi_extraction_accuracy_pass")
+                self.assertTrue(package["requires_yossi_accuracy_pass"])
+                self.assertEqual(package["runtime_status"], "not_runtime_ready")
+                self.assertEqual(package["question_ready_status"], "not_question_ready")
+                self.assertFalse(package["runtime_active"])
+
+    def test_unclear_trusted_source_package_requires_targeted_confirmation_reason(self):
+        registry = validator.load_json(validator.REGISTRY_PATH)
+        registry = copy.deepcopy(registry)
+        package = registry["source_packages"][0]
+        package["teacher_source_status"] = "needs_specific_confirmation"
+        package["confirmation_needed_reason"] = ""
+
+        original_load_json = validator.load_json
+
+        def side_effect(path):
+            if path == validator.REGISTRY_PATH:
+                return registry
+            return original_load_json(path)
+
+        with mock.patch.object(validator, "load_json", side_effect=side_effect):
+            summary = validator.validate_curriculum_extraction()
+
+        self.assertFalse(summary["valid"])
+        self.assertTrue(any("confirmation_needed_reason" in error for error in summary["errors"]), summary["errors"])
+
+    def test_generated_previews_still_require_review_and_remain_non_runtime(self):
+        summary = validator.validate_curriculum_extraction()
+
+        self.assertTrue(summary["valid"], summary["errors"])
+        self.assertGreater(summary["preview_record_count"], 0)
+        self.assertEqual(summary["runtime_status_counts"], {"not_runtime_active": 501})
 
     def test_no_record_is_runtime_active(self):
         for record in load_all_records():
@@ -494,11 +553,15 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
             "docs/curriculum_pipeline/source_text_foundation_plan.md",
             "docs/curriculum_pipeline/source_text_handoff.md",
             "docs/curriculum_pipeline/source_text_validation_strategy.md",
+            "docs/sources/trusted_teacher_source_policy.md",
+            "docs/sources/trusted_teacher_source_extraction_review_packet_template.md",
             "docs/codex_prompts/batch_006_source_ready_prompt_seed.md",
+            "data/source_review_confirmation_items.json",
             "scripts/validate_source_texts.py",
             "tests/test_corpus_manifest.py",
             "tests/test_source_texts_validation.py",
             "tests/test_standards_data_validation.py",
+            "tests/test_trusted_teacher_source_policy.py",
         ]
         for path in allowed_paths:
             with self.subTest(path=path):
