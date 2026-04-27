@@ -3,6 +3,13 @@
   "status": "draft_needs_review",
   "integration_status": "not_runtime_active",
   "runtime_active": false,
+  "trusted_teacher_source_policy": {
+    "teacher_source_status": "trusted_teacher_source",
+    "extraction_review_status": "pending_yossi_extraction_accuracy_pass",
+    "runtime_status": "not_runtime_ready",
+    "question_ready_status": "not_question_ready",
+    "review_model": "trusted sources require Yossi extraction-accuracy confirmation, not broad educational re-approval"
+  },
   "schema_files": [
     "data/curriculum_extraction/schemas/source_trace.schema.json",
     "data/curriculum_extraction/schemas/pasuk_segment.schema.json",
@@ -76,6 +83,8 @@
       "label": "Batch 001 cleaned seed ingestion",
       "status": "cleaned_seed_reviewed_non_runtime",
       "review_status": "reviewed",
+      "extraction_review_status": "yossi_extraction_verified",
+      "requires_yossi_accuracy_pass": false,
       "integration_status": "not_runtime_active",
       "runtime_active": false,
       "raw_source_files": [
@@ -108,6 +117,8 @@
       "label": "Batch 002 Linear Chumash Translation excerpt",
       "status": "extracted_needs_review",
       "review_status": "needs_review",
+      "extraction_review_status": "pending_yossi_extraction_accuracy_pass",
+      "requires_yossi_accuracy_pass": true,
       "integration_status": "not_runtime_active",
       "runtime_active": false,
       "source_package_id": "linear_chumash_translation_most_parshiyos_in_torah",
@@ -122,12 +133,16 @@
       ],
       "review_artifacts": [
         "data/curriculum_extraction/reports/batch_002_summary.md",
-        "data/curriculum_extraction/reports/batch_002_preview_summary.md"
+        "data/curriculum_extraction/reports/batch_002_preview_summary.md",
+        "data/curriculum_extraction/reports/batch_002_trusted_source_extraction_accuracy_review_packet.md",
+        "data/curriculum_extraction/reports/batch_002_trusted_source_extraction_accuracy_review_packet_print.md"
       ],
       "notes": [
         "Batch 002 extracts Linear Chumash phrase-level translation data for Bereishis 1:6 through 2:3 only.",
         "The local PDF text layer was noisy, so Hebrew phrase text was aligned to the local canonical pasuk corpus by exact pasuk reference and source phrase order.",
-        "This batch remains isolated, needs review, and is not present in runtime or in the reviewed question bank."
+        "This batch remains isolated, needs review, and is not present in runtime or in the reviewed question bank.",
+        "The trusted-source extraction-accuracy review packet asks Yossi to confirm extraction accuracy, source matching, Hebrew fidelity, and classification/mapping only; it does not approve runtime, question generation, or student-facing use.",
+        "The print-friendly trusted-source extraction-accuracy review packet includes sampled side-by-side records, checkboxes, summary counts, and a final decision page."
       ]
     },
     {
@@ -135,6 +150,8 @@
       "label": "Batch 003 Linear Chumash Translation excerpt",
       "status": "extracted_needs_review",
       "review_status": "needs_review",
+      "extraction_review_status": "pending_yossi_extraction_accuracy_pass",
+      "requires_yossi_accuracy_pass": true,
       "integration_status": "not_runtime_active",
       "runtime_active": false,
       "source_package_id": "linear_chumash_translation_most_parshiyos_in_torah",
@@ -149,12 +166,16 @@
       ],
       "review_artifacts": [
         "data/curriculum_extraction/reports/batch_003_summary.md",
-        "data/curriculum_extraction/reports/batch_003_preview_summary.md"
+        "data/curriculum_extraction/reports/batch_003_preview_summary.md",
+        "data/curriculum_extraction/reports/batch_003_trusted_source_extraction_accuracy_review_packet.md",
+        "data/curriculum_extraction/reports/batch_003_trusted_source_extraction_accuracy_review_packet_print.md"
       ],
       "notes": [
         "Batch 003 extracts Linear Chumash phrase-level translation data for Bereishis 2:4 through 2:25 only.",
         "The local PDF text layer was noisy, so Hebrew phrase text was aligned to the local canonical pasuk corpus by exact pasuk reference and source phrase order.",
-        "This batch remains isolated, needs review, and is not present in runtime or in the reviewed question bank."
+        "This batch remains isolated, needs review, and is not present in runtime or in the reviewed question bank.",
+        "The trusted-source extraction-accuracy review packet asks Yossi to confirm extraction accuracy, source matching, Hebrew fidelity, and classification/mapping only; it does not approve runtime, question generation, or student-facing use.",
+        "The print-friendly trusted-source extraction-accuracy review packet includes sampled side-by-side records, checkboxes, summary counts, and a final decision page."
       ]
     },
     {
@@ -162,6 +183,8 @@
       "label": "Batch 004 Linear Chumash Translation excerpt",
       "status": "reviewed_for_planning_non_runtime",
       "review_status": "reviewed",
+      "extraction_review_status": "yossi_extraction_verified",
+      "requires_yossi_accuracy_pass": false,
       "integration_status": "not_runtime_active",
       "runtime_active": false,
       "source_package_id": "linear_chumash_translation_most_parshiyos_in_torah",
@@ -174,10 +197,15 @@
       "generated_question_preview_files": [
         "data/curriculum_extraction/generated_questions_preview/batch_004_preview.jsonl"
       ],
+      "extraction_accuracy_verified_by": "Yossi Bassman",
+      "extraction_accuracy_verified_date": "2026-04-24",
+      "extraction_accuracy_review_artifact": "data/curriculum_extraction/reports/batch_004_trusted_source_extraction_accuracy_review_packet.md",
+      "extraction_accuracy_verification_artifact": "data/curriculum_extraction/reports/batch_004_review_resolution.md",
       "review_artifacts": [
         "data/curriculum_extraction/reports/batch_004_summary.md",
         "data/curriculum_extraction/reports/batch_004_preview_summary.md",
         "data/curriculum_extraction/reports/batch_004_manual_review_packet.md",
+        "data/curriculum_extraction/reports/batch_004_trusted_source_extraction_accuracy_review_packet.md",
         "data/curriculum_extraction/reports/batch_004_review_resolution.md"
       ],
       "notes": [
@@ -194,6 +222,8 @@
       "label": "Batch 005 Linear Chumash Translation excerpt",
       "status": "reviewed_for_planning_non_runtime",
       "review_status": "reviewed",
+      "extraction_review_status": "yossi_extraction_verified",
+      "requires_yossi_accuracy_pass": false,
       "integration_status": "not_runtime_active",
       "runtime_active": false,
       "source_package_id": "linear_chumash_translation_most_parshiyos_in_torah",
@@ -206,10 +236,15 @@
       "generated_question_preview_files": [
         "data/curriculum_extraction/generated_questions_preview/batch_005_preview.jsonl"
       ],
+      "extraction_accuracy_verified_by": "Yossi Bassman",
+      "extraction_accuracy_verified_date": "2026-04-24",
+      "extraction_accuracy_review_artifact": "data/curriculum_extraction/reports/batch_005_trusted_source_extraction_accuracy_review_packet.md",
+      "extraction_accuracy_verification_artifact": "data/curriculum_extraction/reports/batch_005_review_resolution.md",
       "review_artifacts": [
         "data/curriculum_extraction/reports/batch_005_summary.md",
         "data/curriculum_extraction/reports/batch_005_preview_summary.md",
         "data/curriculum_extraction/reports/batch_005_manual_review_packet.md",
+        "data/curriculum_extraction/reports/batch_005_trusted_source_extraction_accuracy_review_packet.md",
         "data/curriculum_extraction/reports/batch_005_review_resolution.md"
       ],
       "notes": [

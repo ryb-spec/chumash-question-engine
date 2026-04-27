@@ -33,6 +33,10 @@ This package stores a source-traceable, license-aware English translation pipeli
 
 - Koren license metadata: `CC-BY-NC`
 - Metsudah license metadata: `CC-BY`
+- Metsudah is the preferred primary translation source where available.
+- Koren may be used only as secondary noncommercial support.
+- Both versions require attribution tracking.
+- Both versions require Yossi extraction-accuracy confirmation before verified source-derived use.
 - Both versions remain human-review-only for future production use.
 - API availability does not equal production reuse approval.
 - License review matrix: `data/source_texts/translations/sefaria/bereishis_english_translation_license_review_matrix.json`

@@ -172,6 +172,19 @@ class BereishisTranslationSourcesTests(unittest.TestCase):
         self.assertEqual(registry["production_status"], "not_production_ready")
         self.assertEqual(registry["integration_status"], "source_ready_license_pending")
         self.assertEqual(len(registry["available_translation_versions"]), 2)
+        versions = {entry["translation_version_key"]: entry for entry in registry["available_translation_versions"]}
+        self.assertEqual(versions["metsudah"]["source_preference"], "primary_preferred_translation_source")
+        self.assertEqual(versions["metsudah"]["license"], "CC-BY")
+        self.assertEqual(versions["koren"]["source_preference"], "secondary_noncommercial_translation_support")
+        self.assertEqual(versions["koren"]["license"], "CC-BY-NC")
+        self.assertEqual(versions["koren"]["commercial_use_status"], "requires_direct_written_permission")
+        for entry in versions.values():
+            self.assertEqual(entry["source_authority"], "trusted_teacher_source")
+            self.assertTrue(entry["requires_attribution"])
+            self.assertTrue(entry["requires_yossi_accuracy_pass"])
+            self.assertEqual(entry["extraction_review_status"], "pending_yossi_extraction_accuracy_pass")
+            self.assertEqual(entry["question_ready_status"], "not_question_ready")
+            self.assertEqual(entry["student_facing_status"], "not_student_facing")
 
     def test_validator_passes(self):
         summary = validator.validate_bereishis_translations()

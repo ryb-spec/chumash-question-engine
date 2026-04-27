@@ -41,6 +41,8 @@ TARGET_CONFIG = {
     "koren": {
         "display_name": "Koren / The Koren Jerusalem Bible",
         "exact_titles": ["The Koren Jerusalem Bible"],
+        "source_preference": "secondary_noncommercial_translation_support",
+        "commercial_use_status": "requires_direct_written_permission",
         "candidate_terms": [
             "Koren",
             "Koren Jerusalem Bible",
@@ -52,6 +54,8 @@ TARGET_CONFIG = {
     "metsudah": {
         "display_name": "Metsudah / Metsudah Chumash, Metsudah Publications, 2009",
         "exact_titles": ["Metsudah Chumash, Metsudah Publications, 2009"],
+        "source_preference": "primary_preferred_translation_source",
+        "commercial_use_status": "license_review_required_before_production_use",
         "candidate_terms": [
             "Metsudah",
             "Metsudah Chumash",
@@ -762,6 +766,10 @@ def render_readme(manifest: dict[str, Any], discovery_report: dict[str, Any]) ->
         "",
         f"- Koren license metadata: `{koren.get('license')}`",
         f"- Metsudah license metadata: `{metsudah.get('license')}`",
+        "- Metsudah is the preferred primary translation source where available.",
+        "- Koren may be used only as secondary noncommercial support.",
+        "- Both versions require attribution tracking.",
+        "- Both versions require Yossi extraction-accuracy confirmation before verified source-derived use.",
         "- Both versions remain human-review-only for future production use.",
         "- API availability does not equal production reuse approval.",
         f"- License review matrix: `{repo_relative(LICENSE_REVIEW_MATRIX_PATH)}`",
@@ -1067,11 +1075,20 @@ def build_translation_registry(manifest: dict[str, Any]) -> dict[str, Any]:
                 "file_path": repo_relative(TARGET_CONFIG[target_key]["output_jsonl"]),
                 "license": selected.get("license"),
                 "license_status": manifest["license_status_by_version"][target_key],
+                "source_authority": "trusted_teacher_source",
+                "source_platform": "Sefaria",
+                "source_preference": TARGET_CONFIG[target_key]["source_preference"],
+                "requires_attribution": True,
+                "requires_yossi_accuracy_pass": True,
+                "extraction_review_status": "pending_yossi_extraction_accuracy_pass",
+                "commercial_use_status": TARGET_CONFIG[target_key]["commercial_use_status"],
                 "alignment_status": "aligned_complete" if not manifest["missing_refs_by_version"][target_key] else "aligned_with_missing_refs",
                 "row_count": manifest["row_counts_by_version"][target_key],
                 "missing_refs": manifest["missing_refs_by_version"][target_key],
                 "runtime_eligibility": "not_runtime_active",
                 "production_eligibility": "not_production_ready",
+                "question_ready_status": "not_question_ready",
+                "student_facing_status": "not_student_facing",
                 "human_review_required": True,
             }
         )

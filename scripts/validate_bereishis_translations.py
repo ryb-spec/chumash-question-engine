@@ -317,12 +317,41 @@ def validate_bereishis_translations() -> dict[str, Any]:
             errors.append("translation registry must list two available translation versions")
         else:
             for entry in registry_versions:
-                if entry.get("translation_version_key") not in {"koren", "metsudah"}:
-                    errors.append(f"translation registry contains unexpected version key {entry.get('translation_version_key')!r}")
+                version_key = entry.get("translation_version_key")
+                if version_key not in {"koren", "metsudah"}:
+                    errors.append(f"translation registry contains unexpected version key {version_key!r}")
                 if entry.get("runtime_eligibility") != "not_runtime_active":
-                    errors.append(f"translation registry runtime_eligibility must be not_runtime_active for {entry.get('translation_version_key')}")
+                    errors.append(f"translation registry runtime_eligibility must be not_runtime_active for {version_key}")
                 if entry.get("production_eligibility") != "not_production_ready":
-                    errors.append(f"translation registry production_eligibility must be not_production_ready for {entry.get('translation_version_key')}")
+                    errors.append(f"translation registry production_eligibility must be not_production_ready for {version_key}")
+                if entry.get("source_authority") != "trusted_teacher_source":
+                    errors.append(f"translation registry source_authority must be trusted_teacher_source for {version_key}")
+                if entry.get("source_platform") != "Sefaria":
+                    errors.append(f"translation registry source_platform must be Sefaria for {version_key}")
+                if entry.get("requires_attribution") is not True:
+                    errors.append(f"translation registry requires_attribution must be true for {version_key}")
+                if entry.get("requires_yossi_accuracy_pass") is not True:
+                    errors.append(f"translation registry requires_yossi_accuracy_pass must be true for {version_key}")
+                if entry.get("extraction_review_status") != "pending_yossi_extraction_accuracy_pass":
+                    errors.append(
+                        f"translation registry extraction_review_status must be pending_yossi_extraction_accuracy_pass for {version_key}"
+                    )
+                if entry.get("question_ready_status") != "not_question_ready":
+                    errors.append(f"translation registry question_ready_status must be not_question_ready for {version_key}")
+                if entry.get("student_facing_status") != "not_student_facing":
+                    errors.append(f"translation registry student_facing_status must be not_student_facing for {version_key}")
+                if version_key == "metsudah":
+                    if entry.get("source_preference") != "primary_preferred_translation_source":
+                        errors.append("translation registry must mark Metsudah as primary_preferred_translation_source")
+                    if entry.get("license") != "CC-BY":
+                        errors.append("translation registry must keep Metsudah license as CC-BY")
+                if version_key == "koren":
+                    if entry.get("source_preference") != "secondary_noncommercial_translation_support":
+                        errors.append("translation registry must mark Koren as secondary_noncommercial_translation_support")
+                    if entry.get("license") != "CC-BY-NC":
+                        errors.append("translation registry must keep Koren license as CC-BY-NC")
+                    if entry.get("commercial_use_status") != "requires_direct_written_permission":
+                        errors.append("translation registry must keep Koren commercial use blocked pending direct permission")
 
     if not isinstance(reconciliation_report, dict):
         errors.append("reconciliation report JSON must be an object")

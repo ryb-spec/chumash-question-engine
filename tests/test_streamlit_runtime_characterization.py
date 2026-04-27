@@ -18,6 +18,7 @@ def reset_runtime_state():
     ):
         cached.clear()
     question_flow.get_skill_ready_pasuks.clear()
+    question_flow._cached_candidate_source.cache_clear()
     streamlit_app.init_session_state()
 
 

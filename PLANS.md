@@ -1,4 +1,8 @@
-﻿- [completed] Review the two flagged isolated-pilot unclear items against current runtime behavior and decide accept / reframe / block strictly
+﻿- [completed] Expand Batch 002/003 trusted-source review evidence packets while keeping Yossi verification pending and runtime/question gates closed
+- [completed] Build deterministic source-to-skill expansion tooling for the next safe Bereishis slice with conservative statuses and review packet
+- [completed] Generate conservative pending source-to-skill slice for Bereishis 1:14-1:23 with Yossi review packet and closed gates
+- [completed] Review the two flagged isolated-pilot unclear items against current runtime behavior and decide accept / reframe / block strictly
+- [completed] Add trusted-source acceleration scaffold: translation policy, source-to-skill map structure, exceptions-only Yossi review packet, validator, tests, and active-truth report without runtime/question promotion
 - [completed] Apply only the smallest safe fix if one unclear item is clearly a runtime-quality defect
 - [completed] Build Standard 3 source-verification packet for unresolved 3.08, 3.04, and 3.10 using Loshon evidence only as supplemental support
 - [completed] Create conservative source-verification tracking JSON with pending decisions and no runtime/question-ready claims
@@ -119,3 +123,6 @@
 - [completed] Create conservative Loshon rule candidates and a Zekelman Standard 3 supplemental crosswalk for unresolved/partial review areas
 - [completed] Extend Standard 3 review packet and decision sheet with enrichment evidence only, preserving all teacher-review decisions and statuses
 - [completed] Narrowly extend standards validation and tests, then run required validation and write the enrichment report
+- [completed] Audit scattered source-to-skill map ingredients and create only a safe proof-consolidation map if the full canonical map is not ready
+- [completed] Upgrade trusted-source extraction review packets to print-friendly, sample-rich packets for Batch 002/003 while preserving non-runtime safety gates
+

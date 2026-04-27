@@ -1,0 +1,14 @@
+{
+  "schema_version": "0.1",
+  "confirmation_items": [
+    {
+      "confirmation_item_id": "confirm_loshon_foundation_rules_jsonl_source_alignment",
+      "source_name": "Loshon foundation rules JSONL global source-confirmation item",
+      "file_path": "data/sources/loshon_hatorah/loshon_foundation_rules.jsonl",
+      "unclear_issue": "Global Loshon source alignment belongs in a separate source-confirmation packet, not inside Batch 002 or Batch 003 Linear Chumash extraction decisions.",
+      "exact_question_for_yossi": "Confirm whether the Loshon foundation rules JSONL should be treated as trusted teacher-source-derived support after a separate extraction-accuracy pass.",
+      "current_status": "needs_specific_confirmation",
+      "recommended_status_after_confirmation": "If confirmed, track as trusted source-derived support; otherwise keep blocked_unclear_source."
+    }
+  ]
+}

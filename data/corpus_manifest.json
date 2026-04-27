@@ -13,7 +13,7 @@
   },
   "source_corpora": [
     {
-      "corpus_id": "source_bereishis_1_1_to_3_16_local",
+      "corpus_id": "source_bereishis_1_1_to_3_24_local",
       "type": "source_corpus",
       "sefer": "Bereishis",
       "range": {
@@ -23,24 +23,30 @@
         },
         "end": {
           "perek": 3,
-          "pasuk": 16
+          "pasuk": 24
         }
       },
-      "pesukim_count": 72,
+      "pesukim_count": 80,
       "source_files": [
         "data/source/bereishis_1_1_to_1_30.json",
         "data/source/bereishis_1_31_to_2_9.json",
         "data/source/bereishis_2_10_to_2_17.json",
         "data/source/bereishis_2_18_to_2_25.json",
         "data/source/bereishis_3_1_to_3_8.json",
-        "data/source/bereishis_3_9_to_3_16.json"
+        "data/source/bereishis_3_9_to_3_16.json",
+        "data/source/bereishis_3_17_to_3_24.json"
       ],
+      "canonical_source_text": {
+        "file": "data/source_texts/bereishis_hebrew_menukad_taamim.tsv",
+        "scope": "Bereishis 1:1-50:26",
+        "sha256": "4d96c615ab63e0419bff079db250d71ea9b5de266ff9ab8d589ae80e4afd0b71"
+      },
       "parsed_files": {},
       "status": "source",
-      "declared_source_range": "1:1-3:16",
+      "declared_source_range": "1:1-3:24",
       "notes": [
-        "Current local source corpus is prepared through Bereishis 3:16.",
-        "The active parsed runtime includes Bereishis 3:17-3:24, pending source corpus backfill."
+        "Current local source corpus supporting the active runtime is prepared through Bereishis 3:24.",
+        "Bereishis 3:17-3:24 has been source-backed and promoted into the active parsed runtime scope."
       ]
     }
   ],
@@ -183,6 +189,85 @@
       "notes": [
         "Promoted contiguous parsed bundle retained as staged-source provenance for Bereishis 3:9-3:16.",
         "The active runtime now includes this slice via the root parsed runtime corpus."
+      ]
+    }
+  ],
+  "reviewed_question_banks": [
+    {
+      "bank_id": "active_scope_reviewed_questions",
+      "type": "reviewed_question_bank",
+      "file": "data/active_scope_reviewed_questions.json",
+      "scope_id": "local_parsed_bereishis_1_1_to_3_24",
+      "source_corpus_id": "source_bereishis_1_1_to_3_24_local",
+      "parsed_corpus_id": "parsed_bereishis_1_1_to_3_24_root",
+      "question_count": 238,
+      "status": "runtime_active",
+      "runtime_active": true,
+      "notes": [
+        "Current reviewed question bank used by the supported runtime scope.",
+        "All reviewed question pasuk IDs must remain inside local_parsed_bereishis_1_1_to_3_24."
+      ]
+    }
+  ],
+  "preview_only_artifacts": [
+    {
+      "artifact_id": "diagnostic_preview_bereishis_1_1_to_2_3",
+      "type": "diagnostic_preview",
+      "status": "preview_only_not_runtime_active",
+      "paths": [
+        "data/diagnostic_preview/"
+      ],
+      "notes": [
+        "Diagnostic preview artifacts are review aids only and are not runtime-active."
+      ]
+    },
+    {
+      "artifact_id": "zekelman_standard_3_mvp_protected_preview",
+      "type": "teacher_review_protected_preview",
+      "status": "preview_only_not_runtime_active",
+      "paths": [
+        "data/standards/zekelman/preview/standard_3_mvp_protected_preview_packet.md"
+      ],
+      "notes": [
+        "Standard 3 protected preview remains teacher-review only and is not part of active runtime scope."
+      ]
+    }
+  ],
+  "review_only_artifacts": [
+    {
+      "artifact_id": "curriculum_extraction_review_materials",
+      "type": "review_only_curriculum_extraction",
+      "status": "review_only_not_runtime_active",
+      "paths": [
+        "data/curriculum_extraction/"
+      ],
+      "notes": [
+        "Curriculum extraction records and generated previews are source/review workflow artifacts unless separately promoted."
+      ]
+    },
+    {
+      "artifact_id": "verified_source_skill_maps",
+      "type": "review_only_source_to_skill_maps",
+      "status": "review_only_not_runtime_active",
+      "paths": [
+        "data/verified_source_skill_maps/"
+      ],
+      "notes": [
+        "Source-to-skill maps bridge trusted source material to future planning only.",
+        "Rows remain pending Yossi extraction-accuracy confirmation and are not runtime-active, question-ready, protected-preview-ready, reviewed-bank-ready, or student-facing."
+      ]
+    },
+    {
+      "artifact_id": "zekelman_standard_3_planning_and_review_materials",
+      "type": "review_only_standards_planning",
+      "status": "review_only_not_runtime_active",
+      "paths": [
+        "data/standards/zekelman/blueprints/",
+        "data/standards/zekelman/reports/",
+        "data/standards/zekelman/reviewed_bank_candidates/"
+      ],
+      "notes": [
+        "Standards review, planning, candidate, and gate artifacts do not become runtime-active without a separate explicit promotion and activation step."
       ]
     }
   ],
