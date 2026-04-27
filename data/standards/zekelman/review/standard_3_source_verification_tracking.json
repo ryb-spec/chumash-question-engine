@@ -1,0 +1,412 @@
+{
+  "metadata": {
+    "title": "Zekelman Standard 3 Source Verification Tracking",
+    "generated_at": "2026-04-26",
+    "branch_scope": "feature/standard-3-source-verification-final-decisions",
+    "purpose": "Human source-verification and final teacher-decision support for unresolved Standard 3 strands.",
+    "canonical_source_policy": "Zekelman 2025 remains canonical for wording, numbering, level progression, and scope.",
+    "supplemental_source_policy": "Loshon HaTorah / Loshon Hakodesh evidence is supplemental only and does not create teacher decisions.",
+    "runtime_policy": "No item in this tracking file is runtime-ready or question-ready.",
+    "reviewer_decision_values": [
+      "approve_as_foundational_skill",
+      "approve_with_wording_revision",
+      "approve_with_level_adjustment",
+      "needs_more_source_review",
+      "not_suitable_for_diagnostic_use_yet",
+      "defer_to_later_phase"
+    ],
+    "conservative_status_values": [
+      "needs_teacher_review",
+      "source_match_needs_verification",
+      "hebrew_needs_verification",
+      "level_mapping_needs_review",
+      "not_runtime_ready",
+      "not_question_ready"
+    ],
+    "evidence_strength_values": [
+      "strong",
+      "partial",
+      "weak",
+      "unclear"
+    ]
+  },
+  "primary_verification_items": [
+    {
+      "verification_item_id": "std3_source_verify_3_08_grouping_word_order",
+      "standard_id": "3.08",
+      "strand_name": "Grouping and Word Order",
+      "current_reviewer_decision_status": "final_decision_recorded",
+      "current_review_status": [
+        "source_match_needs_verification",
+        "hebrew_needs_verification",
+        "level_mapping_needs_review",
+        "not_runtime_ready",
+        "not_question_ready"
+      ],
+      "canonical_zekelman_expectation_summary": "Students group a פסוק into meaningful phrases and adjust Hebrew word order when translating into English, moving from learned פסוקים to unlearned פסוקים with increasing independence.",
+      "current_draft_skill_mappings": [
+        {
+          "skill_id_draft": "std3_08_syntax_phrase_structure",
+          "skill_label": "Group phrases and adjust Hebrew word order for translation",
+          "skill_family": "syntax_phrase_structure"
+        }
+      ],
+      "loshon_rule_candidate_ids": [
+        "lht_cand_word_order_variable",
+        "lht_cand_natural_english_reordering",
+        "lht_cand_smichus_construct_phrase",
+        "lht_cand_smichus_ambiguity"
+      ],
+      "loshon_crosswalk_mapping_ids": [
+        "lht_xwalk_3_08_word_order_variable",
+        "lht_xwalk_3_08_natural_reordering",
+        "lht_xwalk_3_08_smichus_grouping",
+        "lht_xwalk_3_08_ambiguity_boundary"
+      ],
+      "relevant_loshon_source_paths": [
+        "docs/sources/loshon_hatorah/raw/loshon_hakodesh_book_ocr.pdf",
+        "docs/sources/loshon_hatorah/raw/loshon_answe_2_combined.pdf",
+        "docs/sources/loshon_hatorah/extracted/loshon_hakodesh_book_ocr_raw_text.md",
+        "docs/sources/loshon_hatorah/extracted/loshon_answe_2_combined_raw_text.md"
+      ],
+      "source_references": [
+        {
+          "candidate_id": "lht_cand_word_order_variable",
+          "source_id": "loshon_hakodesh_main_book_pdf",
+          "source_path": "docs/sources/loshon_hatorah/extracted/loshon_hakodesh_book_ocr_raw_text.md",
+          "page_or_section": "main extracted page 4 / printed p. 6, Lesson 1",
+          "evidence_summary": "Explains that Torah wording can place the verb before or after the noun.",
+          "review_caution": "Verify the Hebrew examples and printed page directly in the PDF."
+        },
+        {
+          "candidate_id": "lht_cand_natural_english_reordering",
+          "source_id": "loshon_hakodesh_main_book_pdf",
+          "source_path": "docs/sources/loshon_hatorah/extracted/loshon_hakodesh_book_ocr_raw_text.md",
+          "page_or_section": "main extracted page 4 / printed p. 6, Lesson 1",
+          "evidence_summary": "Explains translating literal Hebrew word order into natural English order.",
+          "review_caution": "Strong support for reordering, but not automatic approval for compact question formats."
+        },
+        {
+          "candidate_id": "lht_cand_smichus_construct_phrase",
+          "source_id": "loshon_hakodesh_main_book_pdf",
+          "source_path": "docs/sources/loshon_hatorah/extracted/loshon_hakodesh_book_ocr_raw_text.md",
+          "page_or_section": "main extracted page 6 / printed p. 10, Lesson 2",
+          "evidence_summary": "Explains that two nouns side by side can convey 'the __ of __'.",
+          "review_caution": "Decide whether this supports 3.08 or should remain primarily under 3.04."
+        },
+        {
+          "candidate_id": "lht_cand_smichus_ambiguity",
+          "source_id": "loshon_hakodesh_main_book_pdf",
+          "source_path": "docs/sources/loshon_hatorah/extracted/loshon_hakodesh_book_ocr_raw_text.md",
+          "page_or_section": "main extracted page 80 / printed p. 158, Lesson 16",
+          "evidence_summary": "Missing-word discussion around בראשית illustrates why construct-like phrase translation can require context.",
+          "review_caution": "Use as a caution boundary, not as an active question pattern."
+        }
+      ],
+      "evidence_strength": "partial",
+      "evidence_strength_notes": "Strong for word-order and English reordering; partial for the full 3.08 phrase-grouping scope.",
+      "what_reviewer_must_verify": [
+        "Whether Loshon word-order evidence is close enough to Zekelman 3.08 wording to support a distinct diagnostic planning lane.",
+        "Whether grouping and word-order work must remain full-context only.",
+        "Whether סמיכות support belongs under 3.04, 3.08, or both.",
+        "Whether extracted page references are reliable enough given partial OCR."
+      ],
+      "specific_reviewer_questions": [
+        "Is variable verb/noun order sufficient to treat 3.08 as a distinct reviewable diagnostic direction?",
+        "Should natural English reordering be approved only for full-pasuk or phrase-translation review?",
+        "Should סמיכות-based grouping stay under 3.04 until a later phase?",
+        "Does the answer booklet clarify the main-book rule without expanding scope beyond Zekelman?"
+      ],
+      "unresolved_hebrew_ocr_table_concerns": [
+        "Main-book extraction is partial and needs direct PDF inspection.",
+        "Hebrew examples and printed page references need visual verification.",
+        "Answer-booklet evidence must not become an active answer key."
+      ],
+      "recommended_decision_options": [
+        "approve_with_wording_revision",
+        "approve_with_level_adjustment",
+        "needs_more_source_review",
+        "defer_to_later_phase"
+      ],
+      "reviewer_decision": "approve_with_wording_revision",
+      "reviewer_notes": "Approve as a diagnostic planning direction only when narrowed to phrase-level translation and basic Hebrew-to-English word-order adjustment. Do not yet use as a broad independent full-pasuk grouping skill. סמיכות may support this lane, but should remain separately tracked under 3.04 as well.",
+      "remaining_source_checks": "Verify Loshon page references and examples visually in the PDFs.",
+      "recommended_next_action": "Create a narrowed 3.08 diagnostic planning lane after source verification.",
+      "runtime_status": "not_runtime_ready",
+      "question_generation_status": "not_question_ready"
+    },
+    {
+      "verification_item_id": "std3_source_verify_3_04_parts_of_speech",
+      "standard_id": "3.04",
+      "strand_name": "Parts of Speech / Nouns and Adjectives",
+      "current_reviewer_decision_status": "final_decision_recorded",
+      "current_review_status": [
+        "source_match_needs_verification",
+        "hebrew_needs_verification",
+        "level_mapping_needs_review",
+        "not_runtime_ready",
+        "not_question_ready"
+      ],
+      "canonical_zekelman_expectation_summary": "Students move from identifying nouns and adjectives in learned words to recognizing gender, number, irregular forms, and סמיכות in unlearned פסוקים.",
+      "current_draft_skill_mappings": [
+        {
+          "skill_id_draft": "std3_04_noun_features",
+          "skill_label": "Identify noun and adjective features",
+          "skill_family": "noun_features"
+        },
+        {
+          "skill_id_draft": "std3_04_smichut_recognition",
+          "skill_label": "Recognize סמיכות / construct-chain structures",
+          "skill_family": "syntax_phrase_structure"
+        }
+      ],
+      "loshon_rule_candidate_ids": [
+        "lht_cand_noun_gender_number",
+        "lht_cand_smichus_construct_phrase",
+        "lht_cand_smichus_form_changes",
+        "lht_cand_plural_looking_singular_english"
+      ],
+      "loshon_crosswalk_mapping_ids": [
+        "lht_xwalk_3_04_noun_features",
+        "lht_xwalk_3_04_smichus_construct",
+        "lht_xwalk_3_04_smichus_forms",
+        "lht_xwalk_3_04_irregular_translation_caution"
+      ],
+      "relevant_loshon_source_paths": [
+        "docs/sources/loshon_hatorah/raw/loshon_hakodesh_book_ocr.pdf",
+        "docs/sources/loshon_hatorah/raw/loshon_answe_2_combined.pdf",
+        "docs/sources/loshon_hatorah/extracted/loshon_hakodesh_book_ocr_raw_text.md",
+        "docs/sources/loshon_hatorah/extracted/loshon_answe_2_combined_raw_text.md"
+      ],
+      "source_references": [
+        {
+          "candidate_id": "lht_cand_noun_gender_number",
+          "source_id": "loshon_hakodesh_main_book_pdf",
+          "source_path": "docs/sources/loshon_hatorah/extracted/loshon_hakodesh_book_ocr_raw_text.md",
+          "page_or_section": "main extracted page 81 / printed p. 160 summary",
+          "evidence_summary": "Summary covers noun gender markers and common plural endings with exceptions.",
+          "review_caution": "Summary is compressed; verify original rule pages and exceptions directly."
+        },
+        {
+          "candidate_id": "lht_cand_smichus_construct_phrase",
+          "source_id": "loshon_hakodesh_main_book_pdf",
+          "source_path": "docs/sources/loshon_hatorah/extracted/loshon_hakodesh_book_ocr_raw_text.md",
+          "page_or_section": "main extracted page 6 / printed p. 10, Lesson 2",
+          "evidence_summary": "Explains construct relationship through two nouns side by side.",
+          "review_caution": "Decide whether סמיכות should receive a separate decision from noun/adjective features."
+        },
+        {
+          "candidate_id": "lht_cand_smichus_form_changes",
+          "source_id": "loshon_hakodesh_main_book_pdf",
+          "source_path": "docs/sources/loshon_hatorah/extracted/loshon_hakodesh_book_ocr_raw_text.md",
+          "page_or_section": "main extracted page 6 and page 81 summary",
+          "evidence_summary": "Supports common construct-form changes such as final ה or ים shifts.",
+          "review_caution": "Do not generalize beyond source-verified forms."
+        },
+        {
+          "candidate_id": "lht_cand_plural_looking_singular_english",
+          "source_id": "loshon_hakodesh_main_book_pdf",
+          "source_path": "docs/sources/loshon_hatorah/extracted/loshon_hakodesh_book_ocr_raw_text.md",
+          "page_or_section": "main extracted page 81 / printed p. 160 summary",
+          "evidence_summary": "Flags exception-like noun forms and English number mismatch.",
+          "review_caution": "Likely a caution note rather than a foundational diagnostic lane."
+        }
+      ],
+      "evidence_strength": "partial",
+      "evidence_strength_notes": "Strong for noun features and סמיכות examples; partial for full adjective and level-progression decisions.",
+      "what_reviewer_must_verify": [
+        "Whether noun/adjective features and סמיכות should receive separate final decisions.",
+        "Whether סמיכות is suitable for standalone diagnostic planning.",
+        "Whether Loshon noun-feature evidence aligns with Zekelman 2025 level progression.",
+        "Whether irregular noun forms and adjective agreement belong in the current review phase."
+      ],
+      "specific_reviewer_questions": [
+        "Should std3_04_noun_features and std3_04_smichut_recognition receive separate decisions?",
+        "Does Loshon support enough of סמיכות to help review 3.08?",
+        "Are plural-looking singular English forms suitable for diagnostic planning or only caution notes?",
+        "How should OCR-sensitive Hebrew examples be verified before later blueprint use?"
+      ],
+      "unresolved_hebrew_ocr_table_concerns": [
+        "סמיכות examples require direct PDF verification of forms and nekudos.",
+        "Main-book summary page is compressed and should be checked against original rule pages.",
+        "Answer-booklet examples are review evidence only, not active answer-key material."
+      ],
+      "recommended_decision_options": [
+        "approve_with_wording_revision",
+        "approve_with_level_adjustment",
+        "needs_more_source_review",
+        "defer_to_later_phase"
+      ],
+      "reviewer_decision": "approve_with_wording_revision",
+      "reviewer_notes": "Approve with wording revision. Split into at least two planning lanes: noun/adjective features and סמיכות recognition. Noun gender, number, and common form changes are suitable for diagnostic planning after source examples are verified. Irregular forms and adjective agreement should remain later-level or review-required.",
+      "remaining_source_checks": "Verify Hebrew examples, nekudos, and level placement against Zekelman and Loshon PDFs.",
+      "recommended_next_action": "Add separate planning lanes for noun features and סמיכות.",
+      "runtime_status": "not_runtime_ready",
+      "question_generation_status": "not_question_ready"
+    },
+    {
+      "verification_item_id": "std3_source_verify_3_10_nikud",
+      "standard_id": "3.10",
+      "strand_name": "Understanding ניקוד",
+      "current_reviewer_decision_status": "final_decision_recorded",
+      "current_review_status": [
+        "source_match_needs_verification",
+        "hebrew_needs_verification",
+        "level_mapping_needs_review",
+        "not_runtime_ready",
+        "not_question_ready"
+      ],
+      "canonical_zekelman_expectation_summary": "Advanced students explain systems of תנועות, שבאים, דגשים, syllables, and the interaction between ניקוד and טעמי המקרא. Lower levels show no clearly scoped expectation in the current extraction.",
+      "current_draft_skill_mappings": [
+        {
+          "skill_id_draft": "std3_10_nikud_reading",
+          "skill_label": "Recognize advanced ניקוד patterns and syllable rules",
+          "skill_family": "nikud_reading"
+        }
+      ],
+      "loshon_rule_candidate_ids": [
+        "lht_cand_limited_nikud_sensitive_et",
+        "lht_cand_pausal_forms_nikud_boundary"
+      ],
+      "loshon_crosswalk_mapping_ids": [
+        "lht_xwalk_3_10_limited_nikud_et",
+        "lht_xwalk_3_10_pausal_forms_nikud_boundary"
+      ],
+      "relevant_loshon_source_paths": [
+        "docs/sources/loshon_hatorah/raw/loshon_hakodesh_book_ocr.pdf",
+        "docs/sources/loshon_hatorah/raw/loshon_answe_2_combined.pdf",
+        "docs/sources/loshon_hatorah/extracted/loshon_hakodesh_book_ocr_raw_text.md",
+        "docs/sources/loshon_hatorah/extracted/loshon_answe_2_combined_raw_text.md"
+      ],
+      "source_references": [
+        {
+          "candidate_id": "lht_cand_limited_nikud_sensitive_et",
+          "source_id": "loshon_hakodesh_main_book_pdf",
+          "source_path": "docs/sources/loshon_hatorah/extracted/loshon_hakodesh_book_ocr_raw_text.md",
+          "page_or_section": "main extracted page 81 / printed p. 160 summary, citing pg. 9",
+          "evidence_summary": "Notes את-family nikud/function distinctions.",
+          "review_caution": "Narrow evidence only; not enough to support full 3.10 scope."
+        },
+        {
+          "candidate_id": "lht_cand_pausal_forms_nikud_boundary",
+          "source_id": "loshon_hakodesh_answer_booklet_pdf",
+          "source_path": "docs/sources/loshon_hatorah/extracted/loshon_answe_2_combined_raw_text.md",
+          "page_or_section": "answer extracted pages 22 and 29, citing main-book p. 96",
+          "evidence_summary": "Mentions pausal form or end-of-sentence vowel changes.",
+          "review_caution": "Main-book p. 96 must be checked directly; answer booklet is supplemental only."
+        }
+      ],
+      "evidence_strength": "weak",
+      "evidence_strength_notes": "Evidence flags nikud-sensitive issues but does not cover the full Zekelman advanced ניקוד standard.",
+      "what_reviewer_must_verify": [
+        "Whether 3.10 should remain deferred pending direct canonical and Loshon PDF review.",
+        "Whether any small nikud-sensitive subskill should be reviewed with 3.06.",
+        "Whether answer-booklet pausal/vowel notes are enough to guide review questions.",
+        "Whether OCR and nekudos are reliable enough to cite without direct visual review."
+      ],
+      "specific_reviewer_questions": [
+        "Are levels 1-4 intentionally out of scope for 3.10?",
+        "Does limited את-family nikud evidence belong under 3.06 only, 3.10 only, or both?",
+        "Should pausal-form evidence be considered source support for 3.10 or only a later-review signal?",
+        "Which parts of תנועות, שבאים, דגשים, syllables, and טעמי המקרא are actually present in the canonical Zekelman source at each level?"
+      ],
+      "unresolved_hebrew_ocr_table_concerns": [
+        "Nekudos and table relationships are high-risk for OCR error.",
+        "Main-book p. 96 is referenced through answer-booklet notes and needs direct PDF review.",
+        "Current evidence should not be treated as approval for 3.10."
+      ],
+      "recommended_decision_options": [
+        "needs_more_source_review",
+        "defer_to_later_phase",
+        "not_suitable_for_diagnostic_use_yet"
+      ],
+      "reviewer_decision": "defer_to_later_phase",
+      "reviewer_notes": "Defer to later phase. Current evidence is too narrow and OCR-sensitive to support 3.10 as a diagnostic lane. Limited nikud-sensitive examples may be used as caution notes under 3.06, but full ניקוד systems such as תנועות, שבאים, דגשים, syllables, and טעמי המקרא require direct source review before diagnostic planning.",
+      "remaining_source_checks": "Directly verify Zekelman 3.10 levels and Loshon nikud/pausal references in the PDFs.",
+      "recommended_next_action": "Keep 3.10 out of MVP diagnostic blueprint except as a caution note.",
+      "runtime_status": "not_runtime_ready",
+      "question_generation_status": "not_question_ready"
+    }
+  ],
+  "secondary_verification_items": [
+    {
+      "verification_item_id": "std3_source_verify_3_07_verbs_secondary",
+      "standard_id": "3.07",
+      "strand_name": "Verbs",
+      "existing_documented_decision": "approve_with_level_adjustment",
+      "what_was_already_documented": "Teacher review supports foundational tense, person, and form clues as a planning lane. Advanced verb-form areas remain separate later lanes.",
+      "loshon_evidence_strengthens": [
+        "verb agreement",
+        "shoresh-plus-added-letter analysis",
+        "past and future marker review",
+        "weak-letter boundary cautions",
+        "ו׳ ההיפוך as context-sensitive",
+        "present tense and command forms as later-lane evidence"
+      ],
+      "what_still_needs_caution": [
+        "בנינים",
+        "passive forms",
+        "ציווי",
+        "מקור",
+        "שם הפועל",
+        "weak roots",
+        "ו׳ ההיפוך"
+      ],
+      "should_existing_reviewer_notes_be_revisited": true,
+      "revisit_reason": "New Loshon evidence may require clearer wording around deferred weak-letter, ו׳ ההיפוך, present-tense, and command-form sublanes.",
+      "reviewer_decision_change_recorded": false,
+      "runtime_status": "not_runtime_ready",
+      "question_generation_status": "not_question_ready"
+    },
+    {
+      "verification_item_id": "std3_source_verify_3_06_prefixes_secondary",
+      "standard_id": "3.06",
+      "strand_name": "Prefixes / Articles / Prepositions",
+      "existing_documented_decision": "approve_with_wording_revision",
+      "what_was_already_documented": "Teacher review supports visible prefix and article identification only; the two functions of את remain deferred.",
+      "loshon_evidence_strengthens": [
+        "definite ה",
+        "conjunctive ו",
+        "full-word prepositions",
+        "prefix prepositions",
+        "context-sensitive את-family caution"
+      ],
+      "what_still_needs_caution": [
+        "two functions of את",
+        "nikud-dependent prefix shifts",
+        "ו׳ ההיפוך",
+        "article-prefix shifts"
+      ],
+      "should_existing_reviewer_notes_be_revisited": true,
+      "revisit_reason": "Reviewer may need to clarify whether את-family nikud evidence belongs under 3.06, 3.10, or both.",
+      "reviewer_decision_change_recorded": false,
+      "runtime_status": "not_runtime_ready",
+      "question_generation_status": "not_question_ready"
+    },
+    {
+      "verification_item_id": "std3_source_verify_3_05_pronouns_secondary",
+      "standard_id": "3.05",
+      "strand_name": "Pronouns and suffixes",
+      "existing_documented_decision": "approve_with_wording_revision",
+      "what_was_already_documented": "Teacher review requires separate lanes for pronoun referent tracking and pronominal suffix decoding.",
+      "loshon_evidence_strengthens": [
+        "possessive suffix decoding on singular noun forms",
+        "possessive suffix decoding on plural noun forms",
+        "person/gender/number terminology"
+      ],
+      "what_still_needs_caution": [
+        "pronoun referent tracking",
+        "cross-pasuk referents",
+        "verb-linked pronoun clues",
+        "bundling suffix decoding with referent tracking"
+      ],
+      "should_existing_reviewer_notes_be_revisited": true,
+      "revisit_reason": "Reviewer may want to explicitly separate suffix decoding approval language from referent-tracking approval language.",
+      "reviewer_decision_change_recorded": false,
+      "runtime_status": "not_runtime_ready",
+      "question_generation_status": "not_question_ready"
+    }
+  ],
+  "reviewer_decisions_recorded_in_this_file": true,
+  "notes": "Explicit final human reviewer decisions for 3.08, 3.04, and 3.10 were provided and recorded exactly for review documentation only. No runtime-ready or question-ready status was added."
+}

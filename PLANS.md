@@ -1,5 +1,11 @@
 ﻿- [completed] Review the two flagged isolated-pilot unclear items against current runtime behavior and decide accept / reframe / block strictly
 - [completed] Apply only the smallest safe fix if one unclear item is clearly a runtime-quality defect
+- [completed] Build Standard 3 source-verification packet for unresolved 3.08, 3.04, and 3.10 using Loshon evidence only as supplemental support
+- [completed] Create conservative source-verification tracking JSON with pending decisions and no runtime/question-ready claims
+- [completed] Write final-decisions support report and run required validators/tests without recording invented teacher decisions
+- [completed] Record explicit final teacher-review decisions for 3.08, 3.04, and 3.10 without changing runtime/question-ready boundaries
+- [completed] Update Standard 3 decision sheet, teacher packet, review tracking, and final-decisions report with exact reviewer wording
+- [completed] Re-run required validators and focused standards tests after final decision recording
 - [completed] Rerun Loshon HaTorah / Loshon Hakodesh source discovery now that the raw PDFs are present in the protected source folder
 - [completed] Extract page-delimited PDF text, refresh inventory/index/report metadata, and preserve OCR/layout uncertainty
 - [completed] Refresh conservative rule candidates, Standard 3 crosswalk mappings, and review-support docs using raw-source evidence only

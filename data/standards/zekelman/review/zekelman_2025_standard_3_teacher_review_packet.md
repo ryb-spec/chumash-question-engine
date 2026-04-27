@@ -1,6 +1,6 @@
 # Zekelman 2025 Standard 3 Teacher Review Packet
 
-Current branch: `feature/loshon-hatorah-standard-3-enrichment`
+Current branch: `feature/standard-3-source-verification-final-decisions`
 Status: `review_only`
 Runtime status: `not_runtime_ready`
 Question-generation status: `not_question_ready`
@@ -61,11 +61,33 @@ Current default review statuses:
 
 ### Deferred And Context-Sensitive Boundaries
 - None of these findings authorize runtime activation, reviewed-bank promotion, student-facing use, or question generation.
-- `3.08`, `3.04`, and `3.10` do not receive a new teacher decision in this pass and remain pending.
+- `3.08`, `3.04`, and `3.10` now have explicit final reviewer decisions recorded below; all remain review-only and not runtime-ready or question-ready.
 - Context-sensitive subareas remain deferred even within approved strands, including broader multiple-meaning expansion, weak-root interpretation, bundled pronoun-plus-suffix handling, the two functions of `את`, and advanced verb-form analysis.
 
 ### Final Recommendation
 > Teacher review supports limited foundational diagnostic planning for 3.01, 3.02, 3.05, 3.06, and 3.07, with the boundaries listed above. This review does not authorize runtime activation or student-facing question generation.
+
+## Final Source Verification Decisions
+- These are final reviewer decisions recorded exactly for documentation and planning support only.
+- They do not authorize runtime activation, question generation, active templates, reviewed-bank promotion, or production use.
+
+### 3.08 Grouping and Word Order
+- reviewer_decision: `approve_with_wording_revision`
+- reviewer_notes: Approve as a diagnostic planning direction only when narrowed to phrase-level translation and basic Hebrew-to-English word-order adjustment. Do not yet use as a broad independent full-pasuk grouping skill. סמיכות may support this lane, but should remain separately tracked under 3.04 as well.
+- remaining_source_checks: Verify Loshon page references and examples visually in the PDFs.
+- recommended_next_action: Create a narrowed 3.08 diagnostic planning lane after source verification.
+
+### 3.04 Parts of Speech / Nouns / סמיכות
+- reviewer_decision: `approve_with_wording_revision`
+- reviewer_notes: Approve with wording revision. Split into at least two planning lanes: noun/adjective features and סמיכות recognition. Noun gender, number, and common form changes are suitable for diagnostic planning after source examples are verified. Irregular forms and adjective agreement should remain later-level or review-required.
+- remaining_source_checks: Verify Hebrew examples, nekudos, and level placement against Zekelman and Loshon PDFs.
+- recommended_next_action: Add separate planning lanes for noun features and סמיכות.
+
+### 3.10 Understanding ניקוד
+- reviewer_decision: `defer_to_later_phase`
+- reviewer_notes: Defer to later phase. Current evidence is too narrow and OCR-sensitive to support 3.10 as a diagnostic lane. Limited nikud-sensitive examples may be used as caution notes under 3.06, but full ניקוד systems such as תנועות, שבאים, דגשים, syllables, and טעמי המקרא require direct source review before diagnostic planning.
+- remaining_source_checks: Directly verify Zekelman 3.10 levels and Loshon nikud/pausal references in the PDFs.
+- recommended_next_action: Keep 3.10 out of MVP diagnostic blueprint except as a caution note.
 
 ## Loshon HaTorah Enrichment Evidence
 - Source status: the raw Loshon Hakodesh main book PDF and answer booklet PDF are now present in `docs/sources/loshon_hatorah/raw/`, alongside the existing source-modeled JSONL file at `data/dikduk_rules/rules_loshon_foundation.jsonl`.
@@ -80,14 +102,14 @@ Current default review statuses:
 - `data/standards/zekelman/crosswalks/loshon_hatorah_to_zekelman_standard_3_crosswalk.json`
 
 ### Strongest Loshon Enrichment Areas
-- `3.08` Grouping and Word Order: the main book directly supports variable Hebrew word order and natural English reordering on extracted page 4, and the answer booklet repeatedly practices literal-to-natural translation order. This strengthens the case that `3.08` is diagnostically important, but it still does not approve the strand or make it question-ready.
+- `3.08` Grouping and Word Order: the main book directly supports variable Hebrew word order and natural English reordering on extracted page 4, and the answer booklet repeatedly practices literal-to-natural translation order. The final reviewer decision approves only a narrowed diagnostic planning direction; it still does not make the strand runtime-ready or question-ready.
 - `3.04` Nouns and Adjectives: extracted main-book pages support noun gender/number, common plural endings, סמיכות as a construct phrase, and common סמיכות form changes. This helps reviewers decide whether noun-feature work and סמיכות should be split.
 - `3.06` Prefixes, Articles, and Prepositions: extracted evidence supports visible ה, ו, prepositions, prefix prepositions, and context-sensitive את-family cautions. This reinforces the current boundary that visible prefix/article work is safer than the deferred functions of את.
 - `3.05` Pronouns and Suffixes: main-book summary text and answer-booklet exercises support possessive-suffix decoding as a separate review lane from pronoun referent tracking.
 - `3.07` Verbs: Loshon evidence now supports foundational agreement, shoresh-plus-added-letter analysis, past/future evidence, weak-letter boundary cautions, ו׳ ההיפוך as context-sensitive, and later review boundaries for present tense and command forms.
 
 ### Still Weak Or Unresolved After Loshon Enrichment
-- `3.10` Understanding ניקוד: raw-source evidence is stronger than the prior pass because pausal/vowel-change notes and את-family nikud cautions were found, but it still does not support the full advanced Zekelman `3.10` scope of תנועות, שבאים, דגשים, syllables, or טעמי המקרא interaction.
+- `3.10` Understanding ניקוד: raw-source evidence is stronger than the prior pass because pausal/vowel-change notes and את-family nikud cautions were found, but the final reviewer decision defers this strand to a later phase and keeps it out of the MVP diagnostic blueprint except as a caution note.
 - Weak-letter roots, ו׳ ההיפוך, command forms, present tense, and pausal forms are now documented as supplemental evidence, but they remain deferred/context-sensitive lanes requiring direct teacher and source review.
 - The main-book OCR layer is incomplete; many pages still require direct PDF inspection rather than relying on extracted text.
 - All Loshon examples and Hebrew terms need human source verification before any later diagnostic blueprint work.
@@ -221,6 +243,10 @@ Current default review statuses:
 - Should grouping and word-order work remain full-context only, rather than ever being prepared for compact or isolated formats?
 - Do the 2025 level descriptions map cleanly enough to later internal wording where literal translation is provided but grouping is not?
 - Known uncertainty: This strand currently has only partial support from the older sources; the strongest older parallels are indirect; level descriptions depend heavily on exact phrasing from page 48.
+- Final reviewer decision: `approve_with_wording_revision`
+- Final reviewer notes: Approve as a diagnostic planning direction only when narrowed to phrase-level translation and basic Hebrew-to-English word-order adjustment. Do not yet use as a broad independent full-pasuk grouping skill. סמיכות may support this lane, but should remain separately tracked under 3.04 as well.
+- Remaining source checks: Verify Loshon page references and examples visually in the PDFs.
+- Recommended next action: Create a narrowed 3.08 diagnostic planning lane after source verification.
 - Recommended decision options:
 - `approve_as_foundational_skill`
 - `approve_with_wording_revision`
@@ -246,6 +272,10 @@ Current default review statuses:
 - Is standalone `סמיכות` identification suitable for later diagnostic preparation, or should it remain tied to full phrase context?
 - How much irregular-form knowledge from `3.04` should count as foundational before later planning?
 - Known uncertainty: `סמיכות` examples depend on precise Hebrew and nikud; some extracted form-based cues need direct PDF confirmation; the bridge from `3.04` to `3.08` is real but should not be over-compressed.
+- Final reviewer decision: `approve_with_wording_revision`
+- Final reviewer notes: Approve with wording revision. Split into at least two planning lanes: noun/adjective features and סמיכות recognition. Noun gender, number, and common form changes are suitable for diagnostic planning after source examples are verified. Irregular forms and adjective agreement should remain later-level or review-required.
+- Remaining source checks: Verify Hebrew examples, nekudos, and level placement against Zekelman and Loshon PDFs.
+- Recommended next action: Add separate planning lanes for noun features and סמיכות.
 - Recommended decision options:
 - `approve_as_foundational_skill`
 - `approve_with_wording_revision`
@@ -267,6 +297,10 @@ Current default review statuses:
 - Which advanced ניקוד subskills, if any, belong in the same phase as `3.06` nikud-dependent prefix/article distinctions?
 - How much trust should later reviewers place in OCR-sensitive nekudos and chart structure before checking the raw PDF directly?
 - Known uncertainty: Nikud and chart extraction are especially OCR-sensitive; lower-level absence must be confirmed manually; the appendix support is helpful but not self-validating.
+- Final reviewer decision: `defer_to_later_phase`
+- Final reviewer notes: Defer to later phase. Current evidence is too narrow and OCR-sensitive to support 3.10 as a diagnostic lane. Limited nikud-sensitive examples may be used as caution notes under 3.06, but full ניקוד systems such as תנועות, שבאים, דגשים, syllables, and טעמי המקרא require direct source review before diagnostic planning.
+- Remaining source checks: Directly verify Zekelman 3.10 levels and Loshon nikud/pausal references in the PDFs.
+- Recommended next action: Keep 3.10 out of MVP diagnostic blueprint except as a caution note.
 - Recommended decision options:
 - `approve_as_foundational_skill`
 - `approve_with_wording_revision`
