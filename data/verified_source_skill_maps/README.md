@@ -58,9 +58,9 @@ The proof map deliberately leaves shoresh, prefixes, suffixes, tense, part of sp
 - Question-generation status: blocked
 - Protected-preview status: blocked unless separately authorized by a future gate
 - Reviewed-bank status: blocked
-- Next required action: Yossi reviews the next pending slice, Bereishis 1:14-1:23
+- Next required action: see the pending Bereishis 1:24-1:31 slice below
 
-## Pending Expansion Slice
+## Verified Expansion Slice
 
 - `bereishis_1_14_to_1_23_source_to_skill_map.tsv`
 - Scope: Bereishis 1:14-1:23
@@ -68,6 +68,27 @@ The proof map deliberately leaves shoresh, prefixes, suffixes, tense, part of sp
 - Built by: `scripts/build_source_to_skill_map.py`
 - Build report: `reports/bereishis_1_14_to_1_23_source_to_skill_map_build_report.md`
 - Exceptions review packet: `reports/bereishis_1_14_to_1_23_source_to_skill_map_exceptions_review_packet.md`
+- Verification report: `reports/bereishis_1_14_to_1_23_yossi_extraction_verification_report.md`
+- Source ingredients:
+  - Linear Chumash phrase-level extraction from curriculum extraction Batch 002
+  - Metsudah verse-level translation context
+  - Koren verse-level secondary noncommercial translation context
+  - canonical Hebrew source coverage for the refs
+- Review status: `yossi_extraction_verified`
+- Runtime status: blocked
+- Question-generation status: blocked
+- Protected-preview status: blocked unless separately authorized by a future gate
+- Reviewed-bank status: blocked
+- Next required action: Yossi reviews the next pending slice, Bereishis 1:24-1:31
+
+## Pending Expansion Slice
+
+- `bereishis_1_24_to_1_31_source_to_skill_map.tsv`
+- Scope: Bereishis 1:24-1:31
+- Row count: 38 phrase-level rows
+- Built by: `scripts/build_source_to_skill_map.py`
+- Build report: `reports/bereishis_1_24_to_1_31_source_to_skill_map_build_report.md`
+- Exceptions review packet: `reports/bereishis_1_24_to_1_31_source_to_skill_map_exceptions_review_packet.md`
 - Source ingredients:
   - Linear Chumash phrase-level extraction from curriculum extraction Batch 002
   - Metsudah verse-level translation context
@@ -78,7 +99,7 @@ The proof map deliberately leaves shoresh, prefixes, suffixes, tense, part of sp
 - Question-generation status: blocked
 - Protected-preview status: blocked unless separately authorized by a future gate
 - Reviewed-bank status: blocked
-- Next required action: Yossi extraction-accuracy review of the exceptions packet
+- Next required action: Yossi reviews the exceptions packet and confirms extraction accuracy before any verification-recording task
 
 ## Audit Artifact
 

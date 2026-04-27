@@ -73,6 +73,30 @@ PENDING_SLICE_REVIEW_PACKET_PATH = (
     / "reports"
     / "bereishis_1_14_to_1_23_source_to_skill_map_exceptions_review_packet.md"
 )
+PENDING_SLICE_VERIFICATION_REPORT_PATH = (
+    ROOT
+    / "data"
+    / "verified_source_skill_maps"
+    / "reports"
+    / "bereishis_1_14_to_1_23_yossi_extraction_verification_report.md"
+)
+PEREK_ONE_FINAL_SLICE_MAP_PATH = (
+    ROOT / "data" / "verified_source_skill_maps" / "bereishis_1_24_to_1_31_source_to_skill_map.tsv"
+)
+PEREK_ONE_FINAL_SLICE_BUILD_REPORT_PATH = (
+    ROOT
+    / "data"
+    / "verified_source_skill_maps"
+    / "reports"
+    / "bereishis_1_24_to_1_31_source_to_skill_map_build_report.md"
+)
+PEREK_ONE_FINAL_SLICE_REVIEW_PACKET_PATH = (
+    ROOT
+    / "data"
+    / "verified_source_skill_maps"
+    / "reports"
+    / "bereishis_1_24_to_1_31_source_to_skill_map_exceptions_review_packet.md"
+)
 AUDIT_REPORT_PATH = ROOT / "data" / "verified_source_skill_maps" / "reports" / "source_to_skill_map_audit.json"
 POLICY_PATH = ROOT / "docs" / "sources" / "trusted_teacher_source_policy.md"
 QUESTION_TEMPLATE_POLICY_PATH = ROOT / "docs" / "question_templates" / "approved_question_template_policy.md"
@@ -99,6 +123,11 @@ def load_pending_slice_rows():
         return list(csv.DictReader(handle, delimiter="\t"))
 
 
+def load_perek_one_final_slice_rows():
+    with PEREK_ONE_FINAL_SLICE_MAP_PATH.open("r", encoding="utf-8", newline="") as handle:
+        return list(csv.DictReader(handle, delimiter="\t"))
+
+
 class VerifiedSourceSkillMapTests(unittest.TestCase):
     def test_validator_passes(self):
         summary = validator.validate_verified_source_skill_maps()
@@ -107,6 +136,7 @@ class VerifiedSourceSkillMapTests(unittest.TestCase):
         self.assertEqual(summary["proof_row_count"], 23)
         self.assertEqual(summary["next_slice_row_count"], 37)
         self.assertEqual(summary["pending_slice_row_count"], 39)
+        self.assertEqual(summary["perek_one_final_slice_row_count"], 38)
 
     def test_map_has_required_columns(self):
         with MAP_PATH.open("r", encoding="utf-8", newline="") as handle:
@@ -218,19 +248,20 @@ class VerifiedSourceSkillMapTests(unittest.TestCase):
                 self.assertIn("bereishis_english_koren.jsonl", row["source_files_used"])
                 self.assertNotIn("commercial_use_approved", row["source_files_used"])
 
-    def test_pending_slice_rows_remain_pending_and_safety_closed(self):
+    def test_current_slice_rows_are_verified_and_safety_closed(self):
         rows = load_pending_slice_rows()
         self.assertEqual(len(rows), 39)
         refs = {row["ref"] for row in rows}
         self.assertEqual(refs, {f"Bereishis 1:{pasuk}" for pasuk in range(14, 24)})
         for row in rows:
             with self.subTest(ref=row["ref"], hebrew=row["hebrew_word_or_phrase"]):
-                self.assertEqual(row["extraction_review_status"], "pending_yossi_extraction_accuracy_pass")
+                self.assertEqual(row["extraction_review_status"], "yossi_extraction_verified")
                 self.assertEqual(row["question_allowed"], "needs_review")
                 self.assertEqual(row["runtime_allowed"], "false")
                 self.assertEqual(row["protected_preview_allowed"], "false")
                 self.assertEqual(row["reviewed_bank_allowed"], "false")
                 self.assertNotEqual(row["question_allowed"], "yes")
+                self.assertIn("Yossi confirmed extraction accuracy", row["review_notes"])
                 self.assertTrue(row["uncertainty_reason"])
                 self.assertTrue(row["source_files_used"])
 
@@ -250,8 +281,69 @@ class VerifiedSourceSkillMapTests(unittest.TestCase):
         self.assertIn("Awkward But Source-Derived Wording", packet_text)
         self.assertIn("Extraction review status: `pending_yossi_extraction_accuracy_pass`", packet_text)
 
+    def test_current_slice_verification_report_records_extraction_accuracy_only(self):
+        verification_text = PENDING_SLICE_VERIFICATION_REPORT_PATH.read_text(encoding="utf-8")
+        self.assertIn("Yossi reviewed and verified all 39 rows", verification_text)
+        self.assertIn("extraction-accuracy verification", verification_text)
+        self.assertIn("Parenthetical explanations are acceptable as source-derived wording", verification_text)
+        self.assertIn("Awkward English wording should be preserved as source-derived wording", verification_text)
+        self.assertIn("Not question approval", verification_text)
+        self.assertIn("Not protected-preview approval", verification_text)
+        self.assertIn("Not reviewed-bank approval", verification_text)
+        self.assertIn("Not runtime approval", verification_text)
+        self.assertIn("Not student-facing release", verification_text)
+        self.assertIn("`question_allowed` remains `needs_review`", verification_text)
+        self.assertIn("`runtime_allowed` remains `false`", verification_text)
+        self.assertNotIn("approved for generated questions", verification_text)
+
     def test_pending_slice_translation_metadata_is_conservative(self):
         for row in load_pending_slice_rows():
+            with self.subTest(ref=row["ref"], hebrew=row["hebrew_word_or_phrase"]):
+                self.assertIn("Metsudah Chumash, Metsudah Publications, 2009", row["source_version_title"])
+                self.assertIn("CC-BY", row["source_license"])
+                self.assertEqual(row["source_preference"], "primary_preferred_translation_source")
+                self.assertEqual(row["requires_attribution"], "true")
+                self.assertTrue(row["source_translation_metsudah"])
+                self.assertTrue(row["secondary_translation_koren"])
+                self.assertIn("bereishis_english_koren.jsonl", row["source_files_used"])
+                self.assertNotIn("commercial_use_approved", row["source_files_used"])
+
+    def test_perek_one_final_slice_rows_are_pending_and_safety_closed(self):
+        rows = load_perek_one_final_slice_rows()
+        self.assertEqual(len(rows), 38)
+        refs = {row["ref"] for row in rows}
+        self.assertEqual(refs, {f"Bereishis 1:{pasuk}" for pasuk in range(24, 32)})
+        for row in rows:
+            with self.subTest(ref=row["ref"], hebrew=row["hebrew_word_or_phrase"]):
+                self.assertEqual(row["extraction_review_status"], "pending_yossi_extraction_accuracy_pass")
+                self.assertEqual(row["question_allowed"], "needs_review")
+                self.assertEqual(row["runtime_allowed"], "false")
+                self.assertEqual(row["protected_preview_allowed"], "false")
+                self.assertEqual(row["reviewed_bank_allowed"], "false")
+                self.assertNotEqual(row["question_allowed"], "yes")
+                self.assertIn("pending Yossi extraction-accuracy review", row["review_notes"])
+                self.assertTrue(row["uncertainty_reason"])
+                self.assertTrue(row["source_files_used"])
+
+    def test_perek_one_final_slice_reports_exist_and_call_out_yossi_review_needs(self):
+        build_text = PEREK_ONE_FINAL_SLICE_BUILD_REPORT_PATH.read_text(encoding="utf-8")
+        packet_text = PEREK_ONE_FINAL_SLICE_REVIEW_PACKET_PATH.read_text(encoding="utf-8")
+        self.assertIn("pending Yossi extraction-accuracy review", build_text)
+        self.assertIn("does not authorize question generation", build_text)
+        self.assertIn("not generated-question review", packet_text)
+        self.assertIn("not question approval", packet_text)
+        self.assertIn("not protected-preview approval", packet_text)
+        self.assertIn("not reviewed-bank approval", packet_text)
+        self.assertIn("not runtime approval", packet_text)
+        self.assertIn("not student-facing approval", packet_text)
+        self.assertIn("High-Risk Rows Needing Yossi Review", packet_text)
+        self.assertIn("Long Parentheticals Needing Review", packet_text)
+        self.assertIn("Long Hebrew Phrase Boundaries Needing Review", packet_text)
+        self.assertIn("Awkward But Source-Derived Wording", packet_text)
+        self.assertIn("Extraction review status: `pending_yossi_extraction_accuracy_pass`", packet_text)
+
+    def test_perek_one_final_slice_translation_metadata_is_conservative(self):
+        for row in load_perek_one_final_slice_rows():
             with self.subTest(ref=row["ref"], hebrew=row["hebrew_word_or_phrase"]):
                 self.assertIn("Metsudah Chumash, Metsudah Publications, 2009", row["source_version_title"])
                 self.assertIn("CC-BY", row["source_license"])
