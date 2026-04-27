@@ -784,6 +784,27 @@ def write_json(path: Path, payload: Any) -> None:
     path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
+def _strip_dynamic_fields(payload: Any, field_names: set[str]) -> Any:
+    if not isinstance(payload, dict):
+        return payload
+    return {key: value for key, value in payload.items() if key not in field_names}
+
+
+def write_json_preserving_generated_at(path: Path, payload: dict[str, Any]) -> None:
+    payload_with_timestamp = dict(payload)
+    if path.exists():
+        existing = load_json(path)
+        if isinstance(existing, dict):
+            if _strip_dynamic_fields(existing, {"generated_at"}) == _strip_dynamic_fields(
+                payload_with_timestamp,
+                {"generated_at"},
+            ):
+                existing_timestamp = existing.get("generated_at")
+                if existing_timestamp:
+                    payload_with_timestamp["generated_at"] = existing_timestamp
+    write_json(path, payload_with_timestamp)
+
+
 def write_jsonl(path: Path, rows: list[dict[str, Any]]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", encoding="utf-8") as handle:
@@ -2240,7 +2261,7 @@ def write_reviewable_preview_artifacts(blueprints: list[dict[str, Any]], questio
     paths = reviewable_preview_paths()
     write_jsonl(paths["questions"], reviewable_questions)
     write_reviewable_manual_review_packet(paths["manual_review_packet"], reviewable_questions, summary)
-    write_json(paths["summary_json"], summary)
+    write_json_preserving_generated_at(paths["summary_json"], summary)
     return summary
 
 
@@ -2287,7 +2308,7 @@ def generate_preview(config_path: Path) -> dict[str, Any]:
         "likely_review_status_counts": reviewable_summary["likely_review_status_counts"],
     }
     write_summary_markdown(summary_md_path, summary)
-    write_json(summary_json_path, summary)
+    write_json_preserving_generated_at(summary_json_path, summary)
     return summary
 
 
