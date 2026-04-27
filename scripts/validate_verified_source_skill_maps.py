@@ -64,6 +64,22 @@ PEREK_TWO_OPENING_SLICE_REVIEW_SHEET_CSV_PATH = (
 PEREK_TWO_OPENING_SLICE_VERIFICATION_REPORT_PATH = (
     MAP_DIR / "reports" / "bereishis_2_1_to_2_3_yossi_extraction_verification_report.md"
 )
+PEREK_TWO_EXPANSION_SLICE_MAP_PATH = MAP_DIR / "bereishis_2_4_to_2_17_source_to_skill_map.tsv"
+PEREK_TWO_EXPANSION_SLICE_BUILD_REPORT_PATH = (
+    MAP_DIR / "reports" / "bereishis_2_4_to_2_17_source_to_skill_map_build_report.md"
+)
+PEREK_TWO_EXPANSION_SLICE_REVIEW_PACKET_PATH = (
+    MAP_DIR / "reports" / "bereishis_2_4_to_2_17_source_to_skill_map_exceptions_review_packet.md"
+)
+PEREK_TWO_EXPANSION_SLICE_REVIEW_SHEET_MD_PATH = (
+    MAP_DIR / "reports" / "bereishis_2_4_to_2_17_yossi_review_sheet.md"
+)
+PEREK_TWO_EXPANSION_SLICE_REVIEW_SHEET_CSV_PATH = (
+    MAP_DIR / "reports" / "bereishis_2_4_to_2_17_yossi_review_sheet.csv"
+)
+PEREK_TWO_EXPANSION_SLICE_VERIFICATION_REPORT_PATH = (
+    MAP_DIR / "reports" / "bereishis_2_4_to_2_17_yossi_extraction_verification_report.md"
+)
 AUDIT_REPORT_PATH = MAP_DIR / "reports" / "source_to_skill_map_audit.json"
 
 REQUIRED_COLUMNS = (
@@ -314,6 +330,26 @@ PEREK_TWO_OPENING_SLICE_BUILD_REPORT_REQUIRED_PHRASES = (
     "Row count: 9",
 )
 
+PEREK_TWO_EXPANSION_SLICE_REVIEW_PACKET_REQUIRED_PHRASES = (
+    "extraction-accuracy and mapping confirmation for trusted source-derived content",
+    "not generated-question review",
+    "not question approval",
+    "not protected-preview approval",
+    "not reviewed-bank approval",
+    "not runtime approval",
+    "pending_yossi_extraction_accuracy_pass",
+    "High-Risk Rows Needing Yossi Review",
+    "Long Parentheticals Needing Review",
+    "Long Hebrew Phrase Boundaries Needing Review",
+)
+
+PEREK_TWO_EXPANSION_SLICE_BUILD_REPORT_REQUIRED_PHRASES = (
+    "pending Yossi extraction-accuracy review",
+    "does not authorize question generation",
+    "runtime activation",
+    "Row count: 54",
+)
+
 YOSSI_REVIEW_SHEET_COLUMNS = (
     "row_id",
     "ref",
@@ -360,6 +396,23 @@ PEREK_TWO_OPENING_SLICE_VERIFICATION_REPORT_REQUIRED_PHRASES = (
     "Rows verified: 9",
     "Markdown review sheet: `data/verified_source_skill_maps/reports/bereishis_2_1_to_2_3_yossi_review_sheet.md`",
     "CSV review sheet: `data/verified_source_skill_maps/reports/bereishis_2_1_to_2_3_yossi_review_sheet.csv`",
+    "Not question approval",
+    "Not protected-preview approval",
+    "Not reviewed-bank promotion",
+    "Not runtime approval",
+    "Not student-facing release",
+    "`question_allowed` remains `needs_review`",
+    "`runtime_allowed` remains `false`",
+    "`protected_preview_allowed` remains `false`",
+    "`reviewed_bank_allowed` remains `false`",
+)
+
+PEREK_TWO_EXPANSION_SLICE_VERIFICATION_REPORT_REQUIRED_PHRASES = (
+    "Yossi reviewed the Bereishis 2:4-2:17 Yossi review sheet",
+    "Rows verified: 54",
+    "Markdown review sheet: `data/verified_source_skill_maps/reports/bereishis_2_4_to_2_17_yossi_review_sheet.md`",
+    "CSV review sheet: `data/verified_source_skill_maps/reports/bereishis_2_4_to_2_17_yossi_review_sheet.csv`",
+    "Yossi note: all 54 rows should remain source-only",
     "Not question approval",
     "Not protected-preview approval",
     "Not reviewed-bank promotion",
@@ -469,6 +522,30 @@ def validate_required_files(errors: list[str]) -> None:
     if not PEREK_TWO_OPENING_SLICE_VERIFICATION_REPORT_PATH.exists():
         errors.append(
             f"required perek-two opening extraction verification report missing: {repo_relative(PEREK_TWO_OPENING_SLICE_VERIFICATION_REPORT_PATH)}"
+        )
+    if not PEREK_TWO_EXPANSION_SLICE_MAP_PATH.exists():
+        errors.append(
+            f"required perek-two expansion pending source-to-skill map missing: {repo_relative(PEREK_TWO_EXPANSION_SLICE_MAP_PATH)}"
+        )
+    if not PEREK_TWO_EXPANSION_SLICE_BUILD_REPORT_PATH.exists():
+        errors.append(
+            f"required perek-two expansion pending source-to-skill build report missing: {repo_relative(PEREK_TWO_EXPANSION_SLICE_BUILD_REPORT_PATH)}"
+        )
+    if not PEREK_TWO_EXPANSION_SLICE_REVIEW_PACKET_PATH.exists():
+        errors.append(
+            f"required perek-two expansion pending source-to-skill review packet missing: {repo_relative(PEREK_TWO_EXPANSION_SLICE_REVIEW_PACKET_PATH)}"
+        )
+    if not PEREK_TWO_EXPANSION_SLICE_REVIEW_SHEET_MD_PATH.exists():
+        errors.append(
+            f"required perek-two expansion Yossi Markdown review sheet missing: {repo_relative(PEREK_TWO_EXPANSION_SLICE_REVIEW_SHEET_MD_PATH)}"
+        )
+    if not PEREK_TWO_EXPANSION_SLICE_REVIEW_SHEET_CSV_PATH.exists():
+        errors.append(
+            f"required perek-two expansion Yossi CSV review sheet missing: {repo_relative(PEREK_TWO_EXPANSION_SLICE_REVIEW_SHEET_CSV_PATH)}"
+        )
+    if not PEREK_TWO_EXPANSION_SLICE_VERIFICATION_REPORT_PATH.exists():
+        errors.append(
+            f"required perek-two expansion extraction verification report missing: {repo_relative(PEREK_TWO_EXPANSION_SLICE_VERIFICATION_REPORT_PATH)}"
         )
     if not AUDIT_REPORT_PATH.exists():
         errors.append(f"required source-to-skill audit report missing: {repo_relative(AUDIT_REPORT_PATH)}")
@@ -648,65 +725,101 @@ def validate_review_packet(errors: list[str]) -> None:
                 errors.append(
                     f"{repo_relative(PEREK_TWO_OPENING_SLICE_VERIFICATION_REPORT_PATH)} contains forbidden readiness language: {phrase!r}"
                 )
+    if PEREK_TWO_EXPANSION_SLICE_REVIEW_PACKET_PATH.exists():
+        perek_two_expansion_text = PEREK_TWO_EXPANSION_SLICE_REVIEW_PACKET_PATH.read_text(encoding="utf-8")
+        for phrase in PEREK_TWO_EXPANSION_SLICE_REVIEW_PACKET_REQUIRED_PHRASES:
+            if phrase not in perek_two_expansion_text:
+                errors.append(
+                    f"{repo_relative(PEREK_TWO_EXPANSION_SLICE_REVIEW_PACKET_PATH)} is missing required perek-two expansion review language: {phrase!r}"
+                )
+        for phrase in REVIEW_PACKET_FORBIDDEN_PHRASES:
+            if phrase in perek_two_expansion_text and f"not {phrase}" not in perek_two_expansion_text:
+                errors.append(
+                    f"{repo_relative(PEREK_TWO_EXPANSION_SLICE_REVIEW_PACKET_PATH)} contains forbidden readiness language: {phrase!r}"
+                )
+    if PEREK_TWO_EXPANSION_SLICE_BUILD_REPORT_PATH.exists():
+        perek_two_expansion_build_text = PEREK_TWO_EXPANSION_SLICE_BUILD_REPORT_PATH.read_text(encoding="utf-8")
+        for phrase in PEREK_TWO_EXPANSION_SLICE_BUILD_REPORT_REQUIRED_PHRASES:
+            if phrase not in perek_two_expansion_build_text:
+                errors.append(
+                    f"{repo_relative(PEREK_TWO_EXPANSION_SLICE_BUILD_REPORT_PATH)} is missing required build-report language: {phrase!r}"
+                )
+    if PEREK_TWO_EXPANSION_SLICE_VERIFICATION_REPORT_PATH.exists():
+        perek_two_expansion_verification_text = PEREK_TWO_EXPANSION_SLICE_VERIFICATION_REPORT_PATH.read_text(
+            encoding="utf-8"
+        )
+        for phrase in PEREK_TWO_EXPANSION_SLICE_VERIFICATION_REPORT_REQUIRED_PHRASES:
+            if phrase not in perek_two_expansion_verification_text:
+                errors.append(
+                    f"{repo_relative(PEREK_TWO_EXPANSION_SLICE_VERIFICATION_REPORT_PATH)} is missing required verification language: {phrase!r}"
+                )
+        for phrase in REVIEW_PACKET_FORBIDDEN_PHRASES:
+            if phrase in perek_two_expansion_verification_text and f"not {phrase}" not in perek_two_expansion_verification_text:
+                errors.append(
+                    f"{repo_relative(PEREK_TWO_EXPANSION_SLICE_VERIFICATION_REPORT_PATH)} contains forbidden readiness language: {phrase!r}"
+                )
 
 
 def validate_yossi_review_sheets(errors: list[str]) -> None:
-    if PEREK_TWO_OPENING_SLICE_REVIEW_SHEET_MD_PATH.exists():
-        text = PEREK_TWO_OPENING_SLICE_REVIEW_SHEET_MD_PATH.read_text(encoding="utf-8")
+    review_sheet_pairs = (
+        (PEREK_TWO_OPENING_SLICE_REVIEW_SHEET_MD_PATH, PEREK_TWO_OPENING_SLICE_REVIEW_SHEET_CSV_PATH),
+        (PEREK_TWO_EXPANSION_SLICE_REVIEW_SHEET_MD_PATH, PEREK_TWO_EXPANSION_SLICE_REVIEW_SHEET_CSV_PATH),
+    )
+    for md_path, csv_path in review_sheet_pairs:
+        if not md_path.exists():
+            continue
+        text = md_path.read_text(encoding="utf-8")
         for phrase in YOSSI_REVIEW_SHEET_MD_REQUIRED_PHRASES:
             if phrase not in text:
                 errors.append(
-                    f"{repo_relative(PEREK_TWO_OPENING_SLICE_REVIEW_SHEET_MD_PATH)} is missing required Yossi review-sheet language: {phrase!r}"
+                    f"{repo_relative(md_path)} is missing required Yossi review-sheet language: {phrase!r}"
                 )
         for decision in YOSSI_REVIEW_DECISIONS:
             if f"`{decision}`" not in text:
                 errors.append(
-                    f"{repo_relative(PEREK_TWO_OPENING_SLICE_REVIEW_SHEET_MD_PATH)} must document allowed decision `{decision}`"
+                    f"{repo_relative(md_path)} must document allowed decision `{decision}`"
                 )
         for phrase in REVIEW_PACKET_FORBIDDEN_PHRASES:
             if phrase in text and f"not {phrase}" not in text:
                 errors.append(
-                    f"{repo_relative(PEREK_TWO_OPENING_SLICE_REVIEW_SHEET_MD_PATH)} contains forbidden readiness language: {phrase!r}"
+                    f"{repo_relative(md_path)} contains forbidden readiness language: {phrase!r}"
                 )
 
-    if not PEREK_TWO_OPENING_SLICE_REVIEW_SHEET_CSV_PATH.exists():
-        return
+        if not csv_path.exists():
+            continue
+        with csv_path.open("r", encoding="utf-8", newline="") as handle:
+            reader = csv.DictReader(handle)
+            columns = list(reader.fieldnames or [])
+            rows = list(reader)
 
-    with PEREK_TWO_OPENING_SLICE_REVIEW_SHEET_CSV_PATH.open("r", encoding="utf-8", newline="") as handle:
-        reader = csv.DictReader(handle)
-        columns = list(reader.fieldnames or [])
-        rows = list(reader)
+        missing_columns = [column for column in YOSSI_REVIEW_SHEET_COLUMNS if column not in columns]
+        if missing_columns:
+            errors.append(f"{repo_relative(csv_path)} missing required columns: {missing_columns}")
+        if not rows:
+            errors.append(f"{repo_relative(csv_path)} must include at least one review row")
 
-    missing_columns = [column for column in YOSSI_REVIEW_SHEET_COLUMNS if column not in columns]
-    if missing_columns:
-        errors.append(
-            f"{repo_relative(PEREK_TWO_OPENING_SLICE_REVIEW_SHEET_CSV_PATH)} missing required columns: {missing_columns}"
-        )
-    if not rows:
-        errors.append(f"{repo_relative(PEREK_TWO_OPENING_SLICE_REVIEW_SHEET_CSV_PATH)} must include at least one review row")
-
-    for row_number, row in enumerate(rows, 2):
-        context = f"{repo_relative(PEREK_TWO_OPENING_SLICE_REVIEW_SHEET_CSV_PATH)} row {row_number}"
-        if not normalized(row.get("row_id")):
-            errors.append(f"{context}: row_id must be populated")
-        if not normalized(row.get("ref")):
-            errors.append(f"{context}: ref must be populated")
-        if not normalized(row.get("hebrew_phrase")):
-            errors.append(f"{context}: hebrew_phrase must be populated")
-        if not normalized(row.get("linear_translation")):
-            errors.append(f"{context}: linear_translation must be populated")
-        if row.get("current_status") != "pending_yossi_extraction_accuracy_pass":
-            errors.append(f"{context}: current_status must be pending_yossi_extraction_accuracy_pass")
-        if not normalized(row.get("issue_type")):
-            errors.append(f"{context}: issue_type must be populated")
-        if not normalized(row.get("what_to_check")):
-            errors.append(f"{context}: what_to_check must be populated")
-        decision = normalized(row.get("yossi_decision"))
-        if decision and decision not in YOSSI_REVIEW_DECISIONS:
-            errors.append(f"{context}: yossi_decision must be blank or one of {sorted(YOSSI_REVIEW_DECISIONS)}")
-        recommended = normalized(row.get("recommended_default_decision"))
-        if recommended not in YOSSI_REVIEW_DECISIONS:
-            errors.append(f"{context}: recommended_default_decision must be one of {sorted(YOSSI_REVIEW_DECISIONS)}")
+        for row_number, row in enumerate(rows, 2):
+            context = f"{repo_relative(csv_path)} row {row_number}"
+            if not normalized(row.get("row_id")):
+                errors.append(f"{context}: row_id must be populated")
+            if not normalized(row.get("ref")):
+                errors.append(f"{context}: ref must be populated")
+            if not normalized(row.get("hebrew_phrase")):
+                errors.append(f"{context}: hebrew_phrase must be populated")
+            if not normalized(row.get("linear_translation")):
+                errors.append(f"{context}: linear_translation must be populated")
+            if row.get("current_status") != "pending_yossi_extraction_accuracy_pass":
+                errors.append(f"{context}: current_status must be pending_yossi_extraction_accuracy_pass")
+            if not normalized(row.get("issue_type")):
+                errors.append(f"{context}: issue_type must be populated")
+            if not normalized(row.get("what_to_check")):
+                errors.append(f"{context}: what_to_check must be populated")
+            decision = normalized(row.get("yossi_decision"))
+            if decision and decision not in YOSSI_REVIEW_DECISIONS:
+                errors.append(f"{context}: yossi_decision must be blank or one of {sorted(YOSSI_REVIEW_DECISIONS)}")
+            recommended = normalized(row.get("recommended_default_decision"))
+            if recommended not in YOSSI_REVIEW_DECISIONS:
+                errors.append(f"{context}: recommended_default_decision must be one of {sorted(YOSSI_REVIEW_DECISIONS)}")
 
 
 def validate_row(row: dict[str, str], row_number: int, errors: list[str]) -> None:
@@ -1054,6 +1167,64 @@ def validate_perek_two_opening_pending_slice_row(row: dict[str, str], row_number
             errors.append(f"{context}: field {field} contains forbidden readiness value {value!r}")
 
 
+def validate_perek_two_expansion_verified_slice_row(row: dict[str, str], row_number: int, errors: list[str]) -> None:
+    context = f"{repo_relative(PEREK_TWO_EXPANSION_SLICE_MAP_PATH)} row {row_number}"
+    ref = normalized(row.get("ref")) or f"row {row_number}"
+    hebrew = normalized(row.get("hebrew_word_or_phrase"))
+    clean_hebrew = normalized(row.get("clean_hebrew_no_nikud"))
+
+    if not ref:
+        errors.append(f"{context}: ref must be populated")
+    if not hebrew:
+        errors.append(f"{context}: hebrew_word_or_phrase must be populated")
+    if not clean_hebrew:
+        errors.append(f"{context}: clean_hebrew_no_nikud must be populated")
+    if not normalized(row.get("source_files_used")):
+        errors.append(f"{context}: source_files_used must record the contributing source paths")
+
+    if normalized(row.get("source_translation_metsudah")):
+        if "CC-BY" not in row.get("source_license", ""):
+            errors.append(f"{context}: has Metsudah translation but source_license does not include CC-BY")
+        if "Metsudah Chumash, Metsudah Publications, 2009" not in row.get("source_version_title", ""):
+            errors.append(f"{context}: has Metsudah translation but source_version_title is missing Metsudah")
+        if row.get("source_preference") != "primary_preferred_translation_source":
+            errors.append(f"{context}: must mark Metsudah as primary_preferred_translation_source")
+        if row.get("requires_attribution") != "true":
+            errors.append(f"{context}: has source translation but requires_attribution is not true")
+
+    if normalized(row.get("secondary_translation_koren")) and "bereishis_english_koren.jsonl" not in row.get(
+        "source_files_used",
+        "",
+    ):
+        errors.append(f"{context}: has Koren secondary translation but source_files_used omits Koren JSONL")
+
+    if row.get("extraction_review_status") != "yossi_extraction_verified":
+        errors.append(f"{context}: extraction_review_status must be yossi_extraction_verified")
+    if not PEREK_TWO_EXPANSION_SLICE_VERIFICATION_REPORT_PATH.exists():
+        errors.append(
+            f"{context}: yossi_extraction_verified rows require {repo_relative(PEREK_TWO_EXPANSION_SLICE_VERIFICATION_REPORT_PATH)}"
+        )
+    review_notes = row.get("review_notes", "")
+    if "Yossi confirmed extraction accuracy" not in review_notes:
+        errors.append(f"{context}: verified rows must record Yossi extraction-accuracy confirmation in review_notes")
+    if "source-only for future question/protected-preview planning" not in review_notes:
+        errors.append(f"{context}: verified rows must preserve Yossi source-only planning note in review_notes")
+    if row.get("question_allowed") != "needs_review":
+        errors.append(f"{context}: question_allowed must remain needs_review until a future gate")
+    for field in ("runtime_allowed", "protected_preview_allowed", "reviewed_bank_allowed"):
+        if row.get(field) != "false":
+            errors.append(f"{context}: {field} must remain false until a future gate")
+    if not normalized(row.get("uncertainty_reason")):
+        errors.append(f"{context}: verified rows must preserve uncertainty_reason for future planning")
+    if not normalized(row.get("blocked_question_types")):
+        errors.append(f"{context}: blocked_question_types must explain that question use is blocked")
+
+    for field, value in row.items():
+        lowered = normalized(value).lower()
+        if field not in {"review_notes", "uncertainty_reason", "blocked_question_types"} and lowered in FORBIDDEN_READY_VALUES:
+            errors.append(f"{context}: field {field} contains forbidden readiness value {value!r}")
+
+
 def validate_audit_report(errors: list[str]) -> None:
     if not AUDIT_REPORT_PATH.exists():
         return
@@ -1159,6 +1330,21 @@ def validate_verified_source_skill_maps() -> dict[str, Any]:
             errors.append(f"{repo_relative(PEREK_TWO_OPENING_SLICE_MAP_PATH)} must cover only Bereishis 2:1-2:3, found {sorted(refs)}")
         if len(perek_two_opening_rows) != 9:
             errors.append(f"{repo_relative(PEREK_TWO_OPENING_SLICE_MAP_PATH)} must contain 9 rows, found {len(perek_two_opening_rows)}")
+    perek_two_expansion_rows: list[dict[str, str]] = []
+    perek_two_expansion_columns: list[str] = []
+    if PEREK_TWO_EXPANSION_SLICE_MAP_PATH.exists():
+        perek_two_expansion_columns, perek_two_expansion_rows = load_tsv(PEREK_TWO_EXPANSION_SLICE_MAP_PATH)
+        missing_columns = [column for column in PROOF_REQUIRED_COLUMNS if column not in perek_two_expansion_columns]
+        if missing_columns:
+            errors.append(f"{repo_relative(PEREK_TWO_EXPANSION_SLICE_MAP_PATH)} missing required columns: {missing_columns}")
+        for row_number, row in enumerate(perek_two_expansion_rows, 2):
+            validate_perek_two_expansion_verified_slice_row(row, row_number, errors)
+        refs = {row.get("ref") for row in perek_two_expansion_rows}
+        expected_refs = {f"Bereishis 2:{pasuk}" for pasuk in range(4, 18)}
+        if refs != expected_refs:
+            errors.append(f"{repo_relative(PEREK_TWO_EXPANSION_SLICE_MAP_PATH)} must cover only Bereishis 2:4-2:17, found {sorted(refs)}")
+        if len(perek_two_expansion_rows) != 54:
+            errors.append(f"{repo_relative(PEREK_TWO_EXPANSION_SLICE_MAP_PATH)} must contain 54 rows, found {len(perek_two_expansion_rows)}")
 
     return {
         "valid": not errors,
@@ -1186,6 +1372,14 @@ def validate_verified_source_skill_maps() -> dict[str, Any]:
         "perek_two_opening_slice_review_sheet_md_path": repo_relative(PEREK_TWO_OPENING_SLICE_REVIEW_SHEET_MD_PATH),
         "perek_two_opening_slice_review_sheet_csv_path": repo_relative(PEREK_TWO_OPENING_SLICE_REVIEW_SHEET_CSV_PATH),
         "perek_two_opening_slice_verification_report_path": repo_relative(PEREK_TWO_OPENING_SLICE_VERIFICATION_REPORT_PATH),
+        "perek_two_expansion_slice_map_path": repo_relative(PEREK_TWO_EXPANSION_SLICE_MAP_PATH),
+        "perek_two_expansion_slice_build_report_path": repo_relative(PEREK_TWO_EXPANSION_SLICE_BUILD_REPORT_PATH),
+        "perek_two_expansion_slice_review_packet_path": repo_relative(PEREK_TWO_EXPANSION_SLICE_REVIEW_PACKET_PATH),
+        "perek_two_expansion_slice_review_sheet_md_path": repo_relative(PEREK_TWO_EXPANSION_SLICE_REVIEW_SHEET_MD_PATH),
+        "perek_two_expansion_slice_review_sheet_csv_path": repo_relative(PEREK_TWO_EXPANSION_SLICE_REVIEW_SHEET_CSV_PATH),
+        "perek_two_expansion_slice_verification_report_path": repo_relative(
+            PEREK_TWO_EXPANSION_SLICE_VERIFICATION_REPORT_PATH
+        ),
         "audit_report_path": repo_relative(AUDIT_REPORT_PATH),
         "row_count": len(rows),
         "proof_row_count": len(proof_rows),
@@ -1194,12 +1388,14 @@ def validate_verified_source_skill_maps() -> dict[str, Any]:
         "perek_one_final_slice_row_count": len(final_slice_rows),
         "perek_one_verified_row_count": len(perek_one_rows),
         "perek_two_opening_slice_row_count": len(perek_two_opening_rows),
+        "perek_two_expansion_slice_row_count": len(perek_two_expansion_rows),
         "columns": columns,
         "proof_columns": proof_columns,
         "next_slice_columns": next_slice_columns,
         "pending_slice_columns": pending_slice_columns,
         "perek_one_final_slice_columns": final_slice_columns,
         "perek_two_opening_slice_columns": perek_two_opening_columns,
+        "perek_two_expansion_slice_columns": perek_two_expansion_columns,
         "errors": errors,
     }
 

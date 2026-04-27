@@ -149,6 +149,30 @@ This completion milestone is not question approval, protected-preview approval, 
 - Reviewed-bank status: blocked
 - Next required action: generate the next safe Perek 2 source-to-skill slice, likely Bereishis 2:4-2:17 unless a smaller slice is safer
 
+## Verified Perek 2 Expansion Slice
+
+- `bereishis_2_4_to_2_17_source_to_skill_map.tsv`
+- Scope: Bereishis 2:4-2:17
+- Row count: 54 phrase-level rows
+- Built by: `scripts/build_source_to_skill_map.py`
+- Build report: `reports/bereishis_2_4_to_2_17_source_to_skill_map_build_report.md`
+- Exceptions review packet: `reports/bereishis_2_4_to_2_17_source_to_skill_map_exceptions_review_packet.md`
+- Yossi Markdown review sheet: `reports/bereishis_2_4_to_2_17_yossi_review_sheet.md`
+- Yossi CSV review sheet: `reports/bereishis_2_4_to_2_17_yossi_review_sheet.csv`
+- Yossi extraction verification report: `reports/bereishis_2_4_to_2_17_yossi_extraction_verification_report.md`
+- Source ingredients:
+  - Linear Chumash phrase-level extraction from curriculum extraction Batch 003
+  - Metsudah verse-level translation context
+  - Koren verse-level secondary noncommercial translation context
+  - canonical Hebrew source coverage for the refs
+- Review status: `yossi_extraction_verified`
+- Planning note: all rows remain source-only for future question/protected-preview planning until a separate question eligibility gate
+- Runtime status: blocked
+- Question-generation status: blocked
+- Protected-preview status: blocked unless separately authorized by a future gate
+- Reviewed-bank status: blocked
+- Next required action: generate the next safe Perek 2 source-to-skill slice after Bereishis 2:17
+
 ## Yossi Review Artifact Standard
 
 Every future pending source-to-skill slice must include:
