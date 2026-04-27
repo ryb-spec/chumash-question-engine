@@ -126,6 +126,40 @@ Verification reports:
 
 This completion milestone is not question approval, protected-preview approval, reviewed-bank approval, runtime approval, or student-facing release.
 
+## Verified Perek 2 Opening Slice
+
+- `bereishis_2_1_to_2_3_source_to_skill_map.tsv`
+- Scope: Bereishis 2:1-2:3
+- Row count: 9 phrase-level rows
+- Built by: `scripts/build_source_to_skill_map.py`
+- Build report: `reports/bereishis_2_1_to_2_3_source_to_skill_map_build_report.md`
+- Exceptions review packet: `reports/bereishis_2_1_to_2_3_source_to_skill_map_exceptions_review_packet.md`
+- Yossi Markdown review sheet: `reports/bereishis_2_1_to_2_3_yossi_review_sheet.md`
+- Yossi CSV review sheet: `reports/bereishis_2_1_to_2_3_yossi_review_sheet.csv`
+- Verification report: `reports/bereishis_2_1_to_2_3_yossi_extraction_verification_report.md`
+- Source ingredients:
+  - Linear Chumash phrase-level extraction from curriculum extraction Batch 002
+  - Metsudah verse-level translation context
+  - Koren verse-level secondary noncommercial translation context
+  - canonical Hebrew source coverage for the refs
+- Review status: `yossi_extraction_verified`
+- Runtime status: blocked
+- Question-generation status: blocked
+- Protected-preview status: blocked unless separately authorized by a future gate
+- Reviewed-bank status: blocked
+- Next required action: generate the next safe Perek 2 source-to-skill slice, likely Bereishis 2:4-2:17 unless a smaller slice is safer
+
+## Yossi Review Artifact Standard
+
+Every future pending source-to-skill slice must include:
+
+- build report
+- exceptions packet
+- Yossi Markdown review sheet
+- Yossi CSV review sheet
+
+The Markdown and CSV review sheets are the primary human-review surfaces. They must be concise, decision-based, and extraction-accuracy focused. A `verified` Yossi decision means extraction accuracy only; it is not question approval, protected-preview approval, reviewed-bank approval, runtime approval, or student-facing release.
+
 ## Audit Artifact
 
 - `reports/source_to_skill_map_audit.json`

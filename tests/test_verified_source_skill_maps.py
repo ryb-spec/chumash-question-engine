@@ -111,10 +111,77 @@ PEREK_ONE_COMPLETION_REPORT_PATH = (
     / "reports"
     / "bereishis_perek_1_source_to_skill_completion_report.md"
 )
+PEREK_TWO_OPENING_SLICE_MAP_PATH = (
+    ROOT / "data" / "verified_source_skill_maps" / "bereishis_2_1_to_2_3_source_to_skill_map.tsv"
+)
+PEREK_TWO_OPENING_SLICE_BUILD_REPORT_PATH = (
+    ROOT
+    / "data"
+    / "verified_source_skill_maps"
+    / "reports"
+    / "bereishis_2_1_to_2_3_source_to_skill_map_build_report.md"
+)
+PEREK_TWO_OPENING_SLICE_REVIEW_PACKET_PATH = (
+    ROOT
+    / "data"
+    / "verified_source_skill_maps"
+    / "reports"
+    / "bereishis_2_1_to_2_3_source_to_skill_map_exceptions_review_packet.md"
+)
+PEREK_TWO_OPENING_SLICE_REVIEW_SHEET_MD_PATH = (
+    ROOT
+    / "data"
+    / "verified_source_skill_maps"
+    / "reports"
+    / "bereishis_2_1_to_2_3_yossi_review_sheet.md"
+)
+PEREK_TWO_OPENING_SLICE_REVIEW_SHEET_CSV_PATH = (
+    ROOT
+    / "data"
+    / "verified_source_skill_maps"
+    / "reports"
+    / "bereishis_2_1_to_2_3_yossi_review_sheet.csv"
+)
+PEREK_TWO_OPENING_SLICE_VERIFICATION_REPORT_PATH = (
+    ROOT
+    / "data"
+    / "verified_source_skill_maps"
+    / "reports"
+    / "bereishis_2_1_to_2_3_yossi_extraction_verification_report.md"
+)
 AUDIT_REPORT_PATH = ROOT / "data" / "verified_source_skill_maps" / "reports" / "source_to_skill_map_audit.json"
 POLICY_PATH = ROOT / "docs" / "sources" / "trusted_teacher_source_policy.md"
 QUESTION_TEMPLATE_POLICY_PATH = ROOT / "docs" / "question_templates" / "approved_question_template_policy.md"
 TRANSLATION_REGISTRY_PATH = ROOT / "data" / "source_texts" / "translations" / "translation_sources_registry.json"
+YOSSI_REVIEW_SHEET_GENERATOR_PATH = ROOT / "scripts" / "generate_yossi_review_sheet.py"
+
+YOSSI_REVIEW_SHEET_COLUMNS = [
+    "row_id",
+    "ref",
+    "hebrew_phrase",
+    "linear_translation",
+    "metsudah_context",
+    "koren_context",
+    "skill_primary",
+    "skill_secondary",
+    "current_status",
+    "issue_type",
+    "what_to_check",
+    "recommended_default_decision",
+    "yossi_decision",
+    "yossi_notes",
+]
+
+YOSSI_REVIEW_DECISIONS = {
+    "verified",
+    "fix_translation",
+    "fix_hebrew_phrase",
+    "fix_phrase_boundary",
+    "fix_skill_classification",
+    "source_only",
+    "block_for_questions",
+    "needs_follow_up",
+}
 
 
 def load_rows():
@@ -146,6 +213,11 @@ def load_perek_one_rows():
     return load_proof_rows() + load_next_slice_rows() + load_pending_slice_rows() + load_perek_one_final_slice_rows()
 
 
+def load_perek_two_opening_slice_rows():
+    with PEREK_TWO_OPENING_SLICE_MAP_PATH.open("r", encoding="utf-8", newline="") as handle:
+        return list(csv.DictReader(handle, delimiter="\t"))
+
+
 class VerifiedSourceSkillMapTests(unittest.TestCase):
     def test_validator_passes(self):
         summary = validator.validate_verified_source_skill_maps()
@@ -156,6 +228,7 @@ class VerifiedSourceSkillMapTests(unittest.TestCase):
         self.assertEqual(summary["pending_slice_row_count"], 39)
         self.assertEqual(summary["perek_one_final_slice_row_count"], 38)
         self.assertEqual(summary["perek_one_verified_row_count"], 137)
+        self.assertEqual(summary["perek_two_opening_slice_row_count"], 9)
 
     def test_map_has_required_columns(self):
         with MAP_PATH.open("r", encoding="utf-8", newline="") as handle:
@@ -423,6 +496,135 @@ class VerifiedSourceSkillMapTests(unittest.TestCase):
                 self.assertEqual(row["runtime_allowed"], "false")
                 self.assertEqual(row["protected_preview_allowed"], "false")
                 self.assertEqual(row["reviewed_bank_allowed"], "false")
+
+    def test_perek_two_opening_slice_rows_are_verified_and_safety_closed(self):
+        rows = load_perek_two_opening_slice_rows()
+        self.assertEqual(len(rows), 9)
+        refs = {row["ref"] for row in rows}
+        self.assertEqual(refs, {"Bereishis 2:1", "Bereishis 2:2", "Bereishis 2:3"})
+        for row in rows:
+            with self.subTest(ref=row["ref"], hebrew=row["hebrew_word_or_phrase"]):
+                self.assertEqual(row["extraction_review_status"], "yossi_extraction_verified")
+                self.assertEqual(row["question_allowed"], "needs_review")
+                self.assertEqual(row["runtime_allowed"], "false")
+                self.assertEqual(row["protected_preview_allowed"], "false")
+                self.assertEqual(row["reviewed_bank_allowed"], "false")
+                self.assertIn("Yossi confirmed extraction accuracy", row["review_notes"])
+                self.assertTrue(row["source_translation_metsudah"])
+                self.assertTrue(row["secondary_translation_koren"])
+                self.assertIn("Metsudah Chumash, Metsudah Publications, 2009", row["source_version_title"])
+                self.assertIn("CC-BY", row["source_license"])
+                self.assertIn("bereishis_english_koren.jsonl", row["source_files_used"])
+                self.assertIn("batch_002_linear_chumash_bereishis_1_6_to_2_3_pasuk_segments.jsonl", row["source_files_used"])
+                self.assertNotIn("commercial_use_approved", row["source_files_used"])
+
+    def test_perek_two_opening_slice_reports_exist_and_preserve_review_gates(self):
+        build_text = PEREK_TWO_OPENING_SLICE_BUILD_REPORT_PATH.read_text(encoding="utf-8")
+        packet_text = PEREK_TWO_OPENING_SLICE_REVIEW_PACKET_PATH.read_text(encoding="utf-8")
+        self.assertIn("Row count: 9", build_text)
+        self.assertIn("pending Yossi extraction-accuracy review", build_text)
+        self.assertIn("does not authorize question generation", build_text)
+        self.assertIn("extraction-accuracy and mapping confirmation for trusted source-derived content", packet_text)
+        self.assertIn("not generated-question review", packet_text)
+        self.assertIn("not question approval", packet_text)
+        self.assertIn("not protected-preview approval", packet_text)
+        self.assertIn("not reviewed-bank approval", packet_text)
+        self.assertIn("not runtime approval", packet_text)
+        self.assertIn("High-Risk Rows Needing Yossi Review", packet_text)
+        self.assertIn("Long Parentheticals Needing Review", packet_text)
+        self.assertIn("Long Hebrew Phrase Boundaries Needing Review", packet_text)
+        self.assertIn("Extraction review status: `pending_yossi_extraction_accuracy_pass`", packet_text)
+        self.assertNotIn("approved for generated questions", packet_text)
+
+    def test_yossi_review_sheet_generator_exists(self):
+        self.assertTrue(YOSSI_REVIEW_SHEET_GENERATOR_PATH.exists())
+
+    def test_yossi_review_sheet_generator_creates_markdown_and_csv(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            output_md = Path(tmpdir) / "review_sheet.md"
+            output_csv = Path(tmpdir) / "review_sheet.csv"
+            result = subprocess.run(
+                [
+                    "python",
+                    str(YOSSI_REVIEW_SHEET_GENERATOR_PATH.relative_to(ROOT)),
+                    "--map",
+                    str(PEREK_TWO_OPENING_SLICE_MAP_PATH.relative_to(ROOT)),
+                    "--output-md",
+                    str(output_md.relative_to(ROOT) if output_md.is_relative_to(ROOT) else output_md),
+                    "--output-csv",
+                    str(output_csv.relative_to(ROOT) if output_csv.is_relative_to(ROOT) else output_csv),
+                    "--scope",
+                    "Bereishis 2:1-2:3",
+                ],
+                cwd=ROOT,
+                check=True,
+                capture_output=True,
+                text=True,
+            )
+            self.assertIn("review_row_count", result.stdout)
+            self.assertTrue(output_md.exists())
+            self.assertTrue(output_csv.exists())
+            text = output_md.read_text(encoding="utf-8")
+            self.assertIn("Mark each row with one of the allowed decisions", text)
+            self.assertIn("Your job is not to approve questions", text)
+            with output_csv.open("r", encoding="utf-8", newline="") as handle:
+                rows = list(csv.DictReader(handle))
+            self.assertEqual(list(rows[0].keys()), YOSSI_REVIEW_SHEET_COLUMNS)
+            self.assertEqual(len(rows), 9)
+            self.assertTrue(all(row["yossi_decision"] == "" for row in rows))
+
+    def test_perek_two_opening_slice_has_yossi_markdown_and_csv_review_sheets(self):
+        self.assertTrue(PEREK_TWO_OPENING_SLICE_REVIEW_SHEET_MD_PATH.exists())
+        self.assertTrue(PEREK_TWO_OPENING_SLICE_REVIEW_SHEET_CSV_PATH.exists())
+        text = PEREK_TWO_OPENING_SLICE_REVIEW_SHEET_MD_PATH.read_text(encoding="utf-8")
+        self.assertIn("Yossi Source-to-Skill Review Sheet", text)
+        self.assertIn("Scope: Bereishis 2:1-2:3", text)
+        self.assertIn("Rows needing review in this sheet: 9", text)
+        self.assertIn("Mark each row with one of the allowed decisions. If everything is accurate, use `verified`.", text)
+        self.assertIn("Your job is not to approve questions.", text)
+        self.assertIn("extraction is accurate enough to mark this slice extraction-verified", text)
+        self.assertIn("All question, preview, reviewed-bank, runtime, and student-facing gates remain closed.", text)
+        self.assertIn("Not question approval.", text)
+        self.assertIn("Not runtime approval.", text)
+        self.assertIn("Not student-facing release.", text)
+        for decision in YOSSI_REVIEW_DECISIONS:
+            self.assertIn(f"`{decision}`", text)
+        self.assertNotIn("question-ready", text)
+        self.assertNotIn("runtime-ready", text)
+        self.assertNotIn("student-facing approved", text)
+
+        with PEREK_TWO_OPENING_SLICE_REVIEW_SHEET_CSV_PATH.open("r", encoding="utf-8", newline="") as handle:
+            rows = list(csv.DictReader(handle))
+        self.assertEqual(list(rows[0].keys()), YOSSI_REVIEW_SHEET_COLUMNS)
+        self.assertEqual(len(rows), 9)
+        for row in rows:
+            with self.subTest(row_id=row["row_id"]):
+                self.assertTrue(row["row_id"])
+                self.assertTrue(row["ref"])
+                self.assertTrue(row["hebrew_phrase"])
+                self.assertTrue(row["linear_translation"])
+                self.assertEqual(row["current_status"], "pending_yossi_extraction_accuracy_pass")
+                self.assertTrue(row["issue_type"])
+                self.assertTrue(row["what_to_check"])
+                self.assertIn(row["recommended_default_decision"], YOSSI_REVIEW_DECISIONS)
+                self.assertEqual(row["yossi_decision"], "")
+
+    def test_perek_two_opening_slice_verification_report_records_review_sheet_evidence(self):
+        verification_text = PEREK_TWO_OPENING_SLICE_VERIFICATION_REPORT_PATH.read_text(encoding="utf-8")
+        self.assertIn("Yossi reviewed the Markdown/CSV review sheet", verification_text)
+        self.assertIn("Rows verified: 9", verification_text)
+        self.assertIn("bereishis_2_1_to_2_3_yossi_review_sheet.md", verification_text)
+        self.assertIn("bereishis_2_1_to_2_3_yossi_review_sheet.csv", verification_text)
+        self.assertIn("Not question approval", verification_text)
+        self.assertIn("Not protected-preview approval", verification_text)
+        self.assertIn("Not reviewed-bank promotion", verification_text)
+        self.assertIn("Not runtime approval", verification_text)
+        self.assertIn("Not student-facing release", verification_text)
+        self.assertIn("`question_allowed` remains `needs_review`", verification_text)
+        self.assertIn("`runtime_allowed` remains `false`", verification_text)
+        self.assertIn("`protected_preview_allowed` remains `false`", verification_text)
+        self.assertIn("`reviewed_bank_allowed` remains `false`", verification_text)
+        self.assertNotIn("approved for generated questions", verification_text)
 
     def test_next_slice_reports_exist_and_preserve_review_gates(self):
         build_text = NEXT_SLICE_BUILD_REPORT_PATH.read_text(encoding="utf-8")
