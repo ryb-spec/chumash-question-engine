@@ -10,7 +10,8 @@ These files are source-derived planning artifacts only. They are not generated q
 
 - Bereishis Perek 1: complete, 137 extraction-verified rows
 - Bereishis Perek 2: complete, 99 extraction-verified rows
-- Total verified rows through Bereishis 2:25: 236
+- Bereishis Perek 3: complete, 119 extraction-verified rows
+- Total verified rows through Bereishis 3:24: 355
 - Safety status: question, protected-preview, reviewed-bank, runtime, and student-facing gates remain closed
 
 ## Current Seed Map
@@ -233,6 +234,114 @@ Review sheets:
 - `reports/bereishis_2_4_to_2_17_yossi_review_sheet.csv`
 - `reports/bereishis_2_18_to_2_25_yossi_review_sheet.md`
 - `reports/bereishis_2_18_to_2_25_yossi_review_sheet.csv`
+
+This completion milestone is not question approval, protected-preview approval, reviewed-bank approval, runtime approval, or student-facing release.
+
+## Verified Perek 3 Opening Slice
+
+- `bereishis_3_1_to_3_7_source_to_skill_map.tsv`
+- Scope: Bereishis 3:1-3:7
+- Row count: 33 phrase-level rows
+- Built by: `scripts/build_source_to_skill_map.py`
+- Build report: `reports/bereishis_3_1_to_3_7_source_to_skill_map_build_report.md`
+- Exceptions review packet: `reports/bereishis_3_1_to_3_7_source_to_skill_map_exceptions_review_packet.md`
+- Yossi Markdown review sheet: `reports/bereishis_3_1_to_3_7_yossi_review_sheet.md`
+- Yossi CSV review sheet: `reports/bereishis_3_1_to_3_7_yossi_review_sheet.csv`
+- Verification report: `reports/bereishis_3_1_to_3_7_yossi_extraction_verification_report.md`
+- Source ingredients:
+  - Linear Chumash phrase-level extraction from curriculum extraction Batch 004
+  - Metsudah verse-level translation context
+  - Koren verse-level secondary noncommercial translation context
+  - canonical Hebrew source coverage for the refs
+- Review status: `yossi_extraction_verified`
+- Yossi source-only note: all 33 rows remain source-only for future question/protected-preview planning
+- Dialogue and persuasion language remains blocked from question generation until a later gate
+- Runtime status: blocked
+- Question-generation status: blocked
+- Protected-preview status: blocked unless separately authorized by a future gate
+- Reviewed-bank status: blocked
+- Next required action: generate the next safe Bereishis Perek 3 source-to-skill slice with conservative statuses
+
+## Verified Perek 3 Expansion Slice
+
+- `bereishis_3_8_to_3_16_source_to_skill_map.tsv`
+- Scope: Bereishis 3:8-3:16
+- Row count: 48 phrase-level rows
+- Built by: `scripts/build_source_to_skill_map.py`
+- Build report: `reports/bereishis_3_8_to_3_16_source_to_skill_map_build_report.md`
+- Exceptions review packet: `reports/bereishis_3_8_to_3_16_source_to_skill_map_exceptions_review_packet.md`
+- Yossi Markdown review sheet: `reports/bereishis_3_8_to_3_16_yossi_review_sheet.md`
+- Yossi CSV review sheet: `reports/bereishis_3_8_to_3_16_yossi_review_sheet.csv`
+- Verification report: `reports/bereishis_3_8_to_3_16_yossi_extraction_verification_report.md`
+- Source ingredients:
+  - Linear Chumash phrase-level extraction from curriculum extraction Batch 004
+  - Metsudah verse-level translation context
+  - Koren verse-level secondary noncommercial translation context
+  - canonical Hebrew source coverage for the refs
+- Review status: `yossi_extraction_verified`
+- Yossi source-only note: all 48 rows remain source-only for future question/protected-preview planning
+- Dialogue, accountability, curse/consequence language, and narrative flow remain blocked from question generation until a later gate
+- Runtime status: blocked
+- Question-generation status: blocked
+- Protected-preview status: blocked unless separately authorized by a future gate
+- Reviewed-bank status: blocked
+- Next required action: generate the next safe Bereishis Perek 3 source-to-skill slice with conservative statuses
+
+## Verified Perek 3 Final Slice
+
+- `bereishis_3_17_to_3_24_source_to_skill_map.tsv`
+- Scope: Bereishis 3:17-3:24
+- Row count: 38 phrase-level rows
+- Built by: `scripts/build_source_to_skill_map.py`
+- Build report: `reports/bereishis_3_17_to_3_24_source_to_skill_map_build_report.md`
+- Exceptions review packet: `reports/bereishis_3_17_to_3_24_source_to_skill_map_exceptions_review_packet.md`
+- Yossi Markdown review sheet: `reports/bereishis_3_17_to_3_24_yossi_review_sheet.md`
+- Yossi CSV review sheet: `reports/bereishis_3_17_to_3_24_yossi_review_sheet.csv`
+- Verification report: `reports/bereishis_3_17_to_3_24_yossi_extraction_verification_report.md`
+- Source ingredients:
+  - Linear Chumash phrase-level extraction from curriculum extraction Batch 004
+  - Metsudah verse-level translation context
+  - Koren verse-level secondary noncommercial translation context
+  - canonical Hebrew source coverage for the refs
+- Review status: `yossi_extraction_verified`
+- Yossi source-only note: all 38 rows remain source-only for future question/protected-preview planning
+- Consequence/exile/Gan Eden closure language remains blocked from question generation until a later gate
+- Runtime status: blocked
+- Question-generation status: blocked
+- Protected-preview status: blocked unless separately authorized by a future gate
+- Reviewed-bank status: blocked
+- Next required action: create the Bereishis Perek 3 source-to-skill completion report
+
+## Bereishis Perek 3 Completion
+
+- Completion report: `reports/bereishis_perek_3_source_to_skill_completion_report.md`
+- Scope: Bereishis 3:1-3:24
+- Verified source-to-skill rows: 119
+- Review status: all Perek 3 rows are `yossi_extraction_verified`
+- Safety status: question, protected-preview, reviewed-bank, runtime, and student-facing gates remain closed
+
+Verified maps:
+
+- `bereishis_3_1_to_3_7_source_to_skill_map.tsv`
+- `bereishis_3_8_to_3_16_source_to_skill_map.tsv`
+- `bereishis_3_17_to_3_24_source_to_skill_map.tsv`
+
+Verification reports:
+
+- `reports/bereishis_3_1_to_3_7_yossi_extraction_verification_report.md`
+- `reports/bereishis_3_8_to_3_16_yossi_extraction_verification_report.md`
+- `reports/bereishis_3_17_to_3_24_yossi_extraction_verification_report.md`
+
+Review sheets:
+
+- `reports/bereishis_3_1_to_3_7_yossi_review_sheet.md`
+- `reports/bereishis_3_1_to_3_7_yossi_review_sheet.csv`
+- `reports/bereishis_3_8_to_3_16_yossi_review_sheet.md`
+- `reports/bereishis_3_8_to_3_16_yossi_review_sheet.csv`
+- `reports/bereishis_3_17_to_3_24_yossi_review_sheet.md`
+- `reports/bereishis_3_17_to_3_24_yossi_review_sheet.csv`
+
+Combined verified source-to-skill coverage through Bereishis 3:24 is 355 rows: Perek 1 has 137 rows, Perek 2 has 99 rows, and Perek 3 has 119 rows.
 
 This completion milestone is not question approval, protected-preview approval, reviewed-bank approval, runtime approval, or student-facing release.
 

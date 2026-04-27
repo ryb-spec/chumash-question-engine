@@ -233,6 +233,127 @@ PEREK_TWO_COMPLETION_REPORT_PATH = (
     / "reports"
     / "bereishis_perek_2_source_to_skill_completion_report.md"
 )
+PEREK_THREE_COMPLETION_REPORT_PATH = (
+    ROOT
+    / "data"
+    / "verified_source_skill_maps"
+    / "reports"
+    / "bereishis_perek_3_source_to_skill_completion_report.md"
+)
+PEREK_THREE_OPENING_SLICE_MAP_PATH = (
+    ROOT / "data" / "verified_source_skill_maps" / "bereishis_3_1_to_3_7_source_to_skill_map.tsv"
+)
+PEREK_THREE_OPENING_SLICE_BUILD_REPORT_PATH = (
+    ROOT
+    / "data"
+    / "verified_source_skill_maps"
+    / "reports"
+    / "bereishis_3_1_to_3_7_source_to_skill_map_build_report.md"
+)
+PEREK_THREE_OPENING_SLICE_REVIEW_PACKET_PATH = (
+    ROOT
+    / "data"
+    / "verified_source_skill_maps"
+    / "reports"
+    / "bereishis_3_1_to_3_7_source_to_skill_map_exceptions_review_packet.md"
+)
+PEREK_THREE_OPENING_SLICE_REVIEW_SHEET_MD_PATH = (
+    ROOT
+    / "data"
+    / "verified_source_skill_maps"
+    / "reports"
+    / "bereishis_3_1_to_3_7_yossi_review_sheet.md"
+)
+PEREK_THREE_OPENING_SLICE_REVIEW_SHEET_CSV_PATH = (
+    ROOT
+    / "data"
+    / "verified_source_skill_maps"
+    / "reports"
+    / "bereishis_3_1_to_3_7_yossi_review_sheet.csv"
+)
+PEREK_THREE_OPENING_SLICE_VERIFICATION_REPORT_PATH = (
+    ROOT
+    / "data"
+    / "verified_source_skill_maps"
+    / "reports"
+    / "bereishis_3_1_to_3_7_yossi_extraction_verification_report.md"
+)
+PEREK_THREE_EXPANSION_SLICE_MAP_PATH = (
+    ROOT / "data" / "verified_source_skill_maps" / "bereishis_3_8_to_3_16_source_to_skill_map.tsv"
+)
+PEREK_THREE_EXPANSION_SLICE_BUILD_REPORT_PATH = (
+    ROOT
+    / "data"
+    / "verified_source_skill_maps"
+    / "reports"
+    / "bereishis_3_8_to_3_16_source_to_skill_map_build_report.md"
+)
+PEREK_THREE_EXPANSION_SLICE_REVIEW_PACKET_PATH = (
+    ROOT
+    / "data"
+    / "verified_source_skill_maps"
+    / "reports"
+    / "bereishis_3_8_to_3_16_source_to_skill_map_exceptions_review_packet.md"
+)
+PEREK_THREE_EXPANSION_SLICE_REVIEW_SHEET_MD_PATH = (
+    ROOT
+    / "data"
+    / "verified_source_skill_maps"
+    / "reports"
+    / "bereishis_3_8_to_3_16_yossi_review_sheet.md"
+)
+PEREK_THREE_EXPANSION_SLICE_REVIEW_SHEET_CSV_PATH = (
+    ROOT
+    / "data"
+    / "verified_source_skill_maps"
+    / "reports"
+    / "bereishis_3_8_to_3_16_yossi_review_sheet.csv"
+)
+PEREK_THREE_EXPANSION_SLICE_VERIFICATION_REPORT_PATH = (
+    ROOT
+    / "data"
+    / "verified_source_skill_maps"
+    / "reports"
+    / "bereishis_3_8_to_3_16_yossi_extraction_verification_report.md"
+)
+PEREK_THREE_FINAL_SLICE_MAP_PATH = (
+    ROOT / "data" / "verified_source_skill_maps" / "bereishis_3_17_to_3_24_source_to_skill_map.tsv"
+)
+PEREK_THREE_FINAL_SLICE_BUILD_REPORT_PATH = (
+    ROOT
+    / "data"
+    / "verified_source_skill_maps"
+    / "reports"
+    / "bereishis_3_17_to_3_24_source_to_skill_map_build_report.md"
+)
+PEREK_THREE_FINAL_SLICE_REVIEW_PACKET_PATH = (
+    ROOT
+    / "data"
+    / "verified_source_skill_maps"
+    / "reports"
+    / "bereishis_3_17_to_3_24_source_to_skill_map_exceptions_review_packet.md"
+)
+PEREK_THREE_FINAL_SLICE_REVIEW_SHEET_MD_PATH = (
+    ROOT
+    / "data"
+    / "verified_source_skill_maps"
+    / "reports"
+    / "bereishis_3_17_to_3_24_yossi_review_sheet.md"
+)
+PEREK_THREE_FINAL_SLICE_REVIEW_SHEET_CSV_PATH = (
+    ROOT
+    / "data"
+    / "verified_source_skill_maps"
+    / "reports"
+    / "bereishis_3_17_to_3_24_yossi_review_sheet.csv"
+)
+PEREK_THREE_FINAL_SLICE_VERIFICATION_REPORT_PATH = (
+    ROOT
+    / "data"
+    / "verified_source_skill_maps"
+    / "reports"
+    / "bereishis_3_17_to_3_24_yossi_extraction_verification_report.md"
+)
 AUDIT_REPORT_PATH = ROOT / "data" / "verified_source_skill_maps" / "reports" / "source_to_skill_map_audit.json"
 POLICY_PATH = ROOT / "docs" / "sources" / "trusted_teacher_source_policy.md"
 QUESTION_TEMPLATE_POLICY_PATH = ROOT / "docs" / "question_templates" / "approved_question_template_policy.md"
@@ -316,6 +437,29 @@ def load_perek_two_rows():
     return load_perek_two_opening_slice_rows() + load_perek_two_expansion_slice_rows() + load_perek_two_final_slice_rows()
 
 
+def load_perek_three_opening_slice_rows():
+    with PEREK_THREE_OPENING_SLICE_MAP_PATH.open("r", encoding="utf-8", newline="") as handle:
+        return list(csv.DictReader(handle, delimiter="\t"))
+
+
+def load_perek_three_expansion_slice_rows():
+    with PEREK_THREE_EXPANSION_SLICE_MAP_PATH.open("r", encoding="utf-8", newline="") as handle:
+        return list(csv.DictReader(handle, delimiter="\t"))
+
+
+def load_perek_three_final_slice_rows():
+    with PEREK_THREE_FINAL_SLICE_MAP_PATH.open("r", encoding="utf-8", newline="") as handle:
+        return list(csv.DictReader(handle, delimiter="\t"))
+
+
+def load_perek_three_rows():
+    return (
+        load_perek_three_opening_slice_rows()
+        + load_perek_three_expansion_slice_rows()
+        + load_perek_three_final_slice_rows()
+    )
+
+
 class VerifiedSourceSkillMapTests(unittest.TestCase):
     def test_validator_passes(self):
         summary = validator.validate_verified_source_skill_maps()
@@ -331,6 +475,11 @@ class VerifiedSourceSkillMapTests(unittest.TestCase):
         self.assertEqual(summary["perek_two_final_slice_row_count"], 36)
         self.assertEqual(summary["perek_two_verified_row_count"], 99)
         self.assertEqual(summary["perek_one_two_verified_row_count"], 236)
+        self.assertEqual(summary["perek_three_opening_slice_row_count"], 33)
+        self.assertEqual(summary["perek_three_expansion_slice_row_count"], 48)
+        self.assertEqual(summary["perek_three_final_slice_row_count"], 38)
+        self.assertEqual(summary["perek_three_verified_row_count"], 119)
+        self.assertEqual(summary["perek_one_two_three_verified_row_count"], 355)
 
     def test_map_has_required_columns(self):
         with MAP_PATH.open("r", encoding="utf-8", newline="") as handle:
@@ -920,6 +1069,264 @@ class VerifiedSourceSkillMapTests(unittest.TestCase):
         self.assertIn("Perek 1 verified rows: 137", text)
         self.assertIn("Perek 2 verified rows: 99", text)
         self.assertIn("Total verified rows through Bereishis 2:25: 236", text)
+        self.assertIn("Question generation remains blocked.", text)
+        self.assertIn("Protected-preview use remains blocked.", text)
+        self.assertIn("Reviewed-bank promotion remains blocked.", text)
+        self.assertIn("Runtime activation remains blocked.", text)
+        self.assertIn("Student-facing use remains blocked.", text)
+        self.assertNotIn("question-ready", text)
+        self.assertNotIn("runtime-ready", text)
+        self.assertNotIn("protected-preview-ready", text)
+        self.assertNotIn("reviewed-bank-ready", text)
+        self.assertNotIn("student-facing approved", text)
+
+    def test_perek_three_opening_slice_rows_are_verified_source_only_and_safety_closed(self):
+        rows = load_perek_three_opening_slice_rows()
+        self.assertEqual(len(rows), 33)
+        refs = {row["ref"] for row in rows}
+        self.assertEqual(refs, {f"Bereishis 3:{pasuk}" for pasuk in range(1, 8)})
+        for row in rows:
+            with self.subTest(ref=row["ref"], hebrew=row["hebrew_word_or_phrase"]):
+                self.assertEqual(row["extraction_review_status"], "yossi_extraction_verified")
+                self.assertEqual(row["question_allowed"], "needs_review")
+                self.assertEqual(row["runtime_allowed"], "false")
+                self.assertEqual(row["protected_preview_allowed"], "false")
+                self.assertEqual(row["reviewed_bank_allowed"], "false")
+                self.assertNotEqual(row["question_allowed"], "yes")
+                self.assertIn("Yossi confirmed extraction accuracy", row["review_notes"])
+                self.assertIn("source-only for future question/protected-preview planning", row["review_notes"])
+                self.assertIn("Dialogue and persuasion language", row["review_notes"])
+                self.assertTrue(row["uncertainty_reason"])
+                self.assertTrue(row["source_translation_metsudah"])
+                self.assertTrue(row["secondary_translation_koren"])
+                self.assertIn("Metsudah Chumash, Metsudah Publications, 2009", row["source_version_title"])
+                self.assertIn("CC-BY", row["source_license"])
+                self.assertIn("batch_004_linear_chumash_bereishis_3_1_to_3_24_pasuk_segments.jsonl", row["source_files_used"])
+                self.assertIn("bereishis_english_koren.jsonl", row["source_files_used"])
+                self.assertNotIn("commercial_use_approved", row["source_files_used"])
+
+    def test_perek_three_opening_slice_reports_utf8_bom_review_sheets_and_verification_exist(self):
+        build_text = PEREK_THREE_OPENING_SLICE_BUILD_REPORT_PATH.read_text(encoding="utf-8")
+        packet_text = PEREK_THREE_OPENING_SLICE_REVIEW_PACKET_PATH.read_text(encoding="utf-8")
+        sheet_text = PEREK_THREE_OPENING_SLICE_REVIEW_SHEET_MD_PATH.read_text(encoding="utf-8")
+        verification_text = PEREK_THREE_OPENING_SLICE_VERIFICATION_REPORT_PATH.read_text(encoding="utf-8")
+        self.assertTrue(PEREK_THREE_OPENING_SLICE_REVIEW_SHEET_CSV_PATH.read_bytes().startswith(b"\xef\xbb\xbf"))
+        with PEREK_THREE_OPENING_SLICE_REVIEW_SHEET_CSV_PATH.open("r", encoding="utf-8-sig", newline="") as handle:
+            sheet_rows = list(csv.DictReader(handle))
+
+        self.assertIn("Row count: 33", build_text)
+        self.assertIn("pending Yossi extraction-accuracy review", build_text)
+        self.assertIn("does not authorize question generation", build_text)
+        self.assertIn("extraction-accuracy and mapping confirmation for trusted source-derived content", packet_text)
+        self.assertIn("not generated-question review", packet_text)
+        self.assertIn("not question approval", packet_text)
+        self.assertIn("not protected-preview approval", packet_text)
+        self.assertIn("not reviewed-bank approval", packet_text)
+        self.assertIn("not runtime approval", packet_text)
+        self.assertIn("High-Risk Rows Needing Yossi Review", packet_text)
+        self.assertIn("Long Parentheticals Needing Review", packet_text)
+        self.assertIn("Long Hebrew Phrase Boundaries Needing Review", packet_text)
+        self.assertIn("Yossi Source-to-Skill Review Sheet", sheet_text)
+        self.assertIn("Scope: Bereishis 3:1-3:7", sheet_text)
+        self.assertIn("Source map row count: 33", sheet_text)
+        self.assertIn("Rows needing review in this sheet: 33", sheet_text)
+        self.assertIn("Your job is not to approve questions.", sheet_text)
+        self.assertIn("All question, preview, reviewed-bank, runtime, and student-facing gates remain closed.", sheet_text)
+        self.assertIn("Not runtime approval.", sheet_text)
+        self.assertIn("Not student-facing release.", sheet_text)
+        self.assertEqual(list(sheet_rows[0].keys()), YOSSI_REVIEW_SHEET_COLUMNS)
+        self.assertEqual(len(sheet_rows), 33)
+        self.assertTrue(all(row["yossi_decision"] == "" for row in sheet_rows))
+        self.assertTrue(all(row["yossi_notes"] == "" for row in sheet_rows))
+        self.assertTrue(all(row["current_status"] == "pending_yossi_extraction_accuracy_pass" for row in sheet_rows))
+        self.assertIn("Yossi reviewed the Bereishis 3:1-3:7 Yossi review sheet", verification_text)
+        self.assertIn("Rows verified: 33", verification_text)
+        self.assertIn("source-derived wording", verification_text)
+        self.assertIn("Yossi marked all 33 rows source-only", verification_text)
+        self.assertIn("Dialogue and persuasion language", verification_text)
+        self.assertIn("Not question approval", verification_text)
+        self.assertIn("Not protected-preview approval", verification_text)
+        self.assertIn("Not reviewed-bank promotion", verification_text)
+        self.assertIn("Not runtime approval", verification_text)
+        self.assertIn("Not student-facing release", verification_text)
+        self.assertIn("`question_allowed` remains `needs_review`", verification_text)
+        self.assertIn("`runtime_allowed` remains `false`", verification_text)
+        self.assertIn("`protected_preview_allowed` remains `false`", verification_text)
+        self.assertIn("`reviewed_bank_allowed` remains `false`", verification_text)
+        self.assertNotIn("approved for generated questions", verification_text)
+
+    def test_perek_three_expansion_slice_rows_are_verified_source_only_and_safety_closed(self):
+        rows = load_perek_three_expansion_slice_rows()
+        self.assertEqual(len(rows), 48)
+        refs = {row["ref"] for row in rows}
+        self.assertEqual(refs, {f"Bereishis 3:{pasuk}" for pasuk in range(8, 17)})
+        for row in rows:
+            with self.subTest(ref=row["ref"], hebrew=row["hebrew_word_or_phrase"]):
+                self.assertEqual(row["extraction_review_status"], "yossi_extraction_verified")
+                self.assertEqual(row["question_allowed"], "needs_review")
+                self.assertEqual(row["runtime_allowed"], "false")
+                self.assertEqual(row["protected_preview_allowed"], "false")
+                self.assertEqual(row["reviewed_bank_allowed"], "false")
+                self.assertNotEqual(row["question_allowed"], "yes")
+                self.assertIn("Yossi confirmed extraction accuracy", row["review_notes"])
+                self.assertIn("source-only for future question/protected-preview planning", row["review_notes"])
+                self.assertIn("Dialogue, accountability, curse/consequence language", row["review_notes"])
+                self.assertTrue(row["uncertainty_reason"])
+                self.assertTrue(row["source_translation_metsudah"])
+                self.assertTrue(row["secondary_translation_koren"])
+                self.assertIn("Metsudah Chumash, Metsudah Publications, 2009", row["source_version_title"])
+                self.assertIn("CC-BY", row["source_license"])
+                self.assertIn("batch_004_linear_chumash_bereishis_3_1_to_3_24_pasuk_segments.jsonl", row["source_files_used"])
+                self.assertIn("bereishis_english_koren.jsonl", row["source_files_used"])
+                self.assertNotIn("commercial_use_approved", row["source_files_used"])
+
+    def test_perek_three_expansion_slice_reports_utf8_bom_review_sheets_and_verification_exist(self):
+        build_text = PEREK_THREE_EXPANSION_SLICE_BUILD_REPORT_PATH.read_text(encoding="utf-8")
+        packet_text = PEREK_THREE_EXPANSION_SLICE_REVIEW_PACKET_PATH.read_text(encoding="utf-8")
+        sheet_text = PEREK_THREE_EXPANSION_SLICE_REVIEW_SHEET_MD_PATH.read_text(encoding="utf-8")
+        verification_text = PEREK_THREE_EXPANSION_SLICE_VERIFICATION_REPORT_PATH.read_text(encoding="utf-8")
+        self.assertTrue(PEREK_THREE_EXPANSION_SLICE_REVIEW_SHEET_CSV_PATH.read_bytes().startswith(b"\xef\xbb\xbf"))
+        with PEREK_THREE_EXPANSION_SLICE_REVIEW_SHEET_CSV_PATH.open("r", encoding="utf-8-sig", newline="") as handle:
+            sheet_rows = list(csv.DictReader(handle))
+
+        self.assertIn("Row count: 48", build_text)
+        self.assertIn("pending Yossi extraction-accuracy review", build_text)
+        self.assertIn("does not authorize question generation", build_text)
+        self.assertIn("extraction-accuracy and mapping confirmation for trusted source-derived content", packet_text)
+        self.assertIn("not generated-question review", packet_text)
+        self.assertIn("not question approval", packet_text)
+        self.assertIn("not protected-preview approval", packet_text)
+        self.assertIn("not reviewed-bank approval", packet_text)
+        self.assertIn("not runtime approval", packet_text)
+        self.assertIn("High-Risk Rows Needing Yossi Review", packet_text)
+        self.assertIn("Long Parentheticals Needing Review", packet_text)
+        self.assertIn("Long Hebrew Phrase Boundaries Needing Review", packet_text)
+        self.assertIn("Yossi Source-to-Skill Review Sheet", sheet_text)
+        self.assertIn("Scope: Bereishis 3:8-3:16", sheet_text)
+        self.assertIn("Source map row count: 48", sheet_text)
+        self.assertIn("Rows needing review in this sheet: 48", sheet_text)
+        self.assertIn("Your job is not to approve questions.", sheet_text)
+        self.assertIn("All question, preview, reviewed-bank, runtime, and student-facing gates remain closed.", sheet_text)
+        self.assertIn("Not runtime approval.", sheet_text)
+        self.assertIn("Not student-facing release.", sheet_text)
+        self.assertEqual(list(sheet_rows[0].keys()), YOSSI_REVIEW_SHEET_COLUMNS)
+        self.assertEqual(len(sheet_rows), 48)
+        self.assertTrue(all(row["yossi_decision"] == "" for row in sheet_rows))
+        self.assertTrue(all(row["yossi_notes"] == "" for row in sheet_rows))
+        self.assertTrue(all(row["current_status"] == "pending_yossi_extraction_accuracy_pass" for row in sheet_rows))
+        self.assertIn("Yossi reviewed the Bereishis 3:8-3:16 Yossi review sheet", verification_text)
+        self.assertIn("Rows verified: 48", verification_text)
+        self.assertIn("source-derived wording", verification_text)
+        self.assertIn("Dialogue, accountability, curse/consequence language", verification_text)
+        self.assertIn("Yossi marked all 48 rows source-only", verification_text)
+        self.assertIn("Not question approval", verification_text)
+        self.assertIn("Not protected-preview approval", verification_text)
+        self.assertIn("Not reviewed-bank promotion", verification_text)
+        self.assertIn("Not runtime approval", verification_text)
+        self.assertIn("Not student-facing release", verification_text)
+        self.assertIn("`question_allowed` remains `needs_review`", verification_text)
+        self.assertIn("`runtime_allowed` remains `false`", verification_text)
+        self.assertIn("`protected_preview_allowed` remains `false`", verification_text)
+        self.assertIn("`reviewed_bank_allowed` remains `false`", verification_text)
+        self.assertNotIn("approved for generated questions", verification_text)
+
+    def test_perek_three_final_slice_rows_are_verified_source_only_and_safety_closed(self):
+        rows = load_perek_three_final_slice_rows()
+        self.assertEqual(len(rows), 38)
+        refs = {row["ref"] for row in rows}
+        self.assertEqual(refs, {f"Bereishis 3:{pasuk}" for pasuk in range(17, 25)})
+        for row in rows:
+            with self.subTest(ref=row["ref"], hebrew=row["hebrew_word_or_phrase"]):
+                self.assertEqual(row["extraction_review_status"], "yossi_extraction_verified")
+                self.assertEqual(row["question_allowed"], "needs_review")
+                self.assertEqual(row["runtime_allowed"], "false")
+                self.assertEqual(row["protected_preview_allowed"], "false")
+                self.assertEqual(row["reviewed_bank_allowed"], "false")
+                self.assertNotEqual(row["question_allowed"], "yes")
+                self.assertIn("Yossi confirmed extraction accuracy", row["review_notes"])
+                self.assertIn("source-only for future question/protected-preview planning", row["review_notes"])
+                self.assertIn("Consequence/exile/Gan Eden closure language", row["review_notes"])
+                self.assertTrue(row["uncertainty_reason"])
+                self.assertTrue(row["source_translation_metsudah"])
+                self.assertTrue(row["secondary_translation_koren"])
+                self.assertIn("Metsudah Chumash, Metsudah Publications, 2009", row["source_version_title"])
+                self.assertIn("CC-BY", row["source_license"])
+                self.assertIn("batch_004_linear_chumash_bereishis_3_1_to_3_24_pasuk_segments.jsonl", row["source_files_used"])
+                self.assertIn("bereishis_english_koren.jsonl", row["source_files_used"])
+                self.assertNotIn("commercial_use_approved", row["source_files_used"])
+
+    def test_perek_three_final_slice_reports_utf8_bom_review_sheets_and_verification_exist(self):
+        build_text = PEREK_THREE_FINAL_SLICE_BUILD_REPORT_PATH.read_text(encoding="utf-8")
+        packet_text = PEREK_THREE_FINAL_SLICE_REVIEW_PACKET_PATH.read_text(encoding="utf-8")
+        sheet_text = PEREK_THREE_FINAL_SLICE_REVIEW_SHEET_MD_PATH.read_text(encoding="utf-8")
+        verification_text = PEREK_THREE_FINAL_SLICE_VERIFICATION_REPORT_PATH.read_text(encoding="utf-8")
+        self.assertTrue(PEREK_THREE_FINAL_SLICE_REVIEW_SHEET_CSV_PATH.read_bytes().startswith(b"\xef\xbb\xbf"))
+        with PEREK_THREE_FINAL_SLICE_REVIEW_SHEET_CSV_PATH.open("r", encoding="utf-8-sig", newline="") as handle:
+            sheet_rows = list(csv.DictReader(handle))
+
+        self.assertIn("Row count: 38", build_text)
+        self.assertIn("pending Yossi extraction-accuracy review", build_text)
+        self.assertIn("does not authorize question generation", build_text)
+        self.assertIn("extraction-accuracy and mapping confirmation for trusted source-derived content", packet_text)
+        self.assertIn("not generated-question review", packet_text)
+        self.assertIn("not question approval", packet_text)
+        self.assertIn("not protected-preview approval", packet_text)
+        self.assertIn("not reviewed-bank approval", packet_text)
+        self.assertIn("not runtime approval", packet_text)
+        self.assertIn("High-Risk Rows Needing Yossi Review", packet_text)
+        self.assertIn("Long Parentheticals Needing Review", packet_text)
+        self.assertIn("Long Hebrew Phrase Boundaries Needing Review", packet_text)
+        self.assertIn("Yossi Source-to-Skill Review Sheet", sheet_text)
+        self.assertIn("Scope: Bereishis 3:17-3:24", sheet_text)
+        self.assertIn("Source map row count: 38", sheet_text)
+        self.assertIn("Rows needing review in this sheet: 38", sheet_text)
+        self.assertIn("Your job is not to approve questions.", sheet_text)
+        self.assertIn("All question, preview, reviewed-bank, runtime, and student-facing gates remain closed.", sheet_text)
+        self.assertIn("Not runtime approval.", sheet_text)
+        self.assertIn("Not student-facing release.", sheet_text)
+        self.assertEqual(list(sheet_rows[0].keys()), YOSSI_REVIEW_SHEET_COLUMNS)
+        self.assertEqual(len(sheet_rows), 38)
+        self.assertTrue(all(row["yossi_decision"] == "" for row in sheet_rows))
+        self.assertTrue(all(row["yossi_notes"] == "" for row in sheet_rows))
+        self.assertTrue(all(row["current_status"] == "pending_yossi_extraction_accuracy_pass" for row in sheet_rows))
+        self.assertIn("Yossi reviewed the Bereishis 3:17-3:24 Yossi review sheet", verification_text)
+        self.assertIn("Rows verified: 38", verification_text)
+        self.assertIn("source-derived wording", verification_text)
+        self.assertIn("Consequence/exile/Gan Eden closure language", verification_text)
+        self.assertIn("Yossi marked all 38 rows source-only", verification_text)
+        self.assertIn("Not question approval", verification_text)
+        self.assertIn("Not protected-preview approval", verification_text)
+        self.assertIn("Not reviewed-bank promotion", verification_text)
+        self.assertIn("Not runtime approval", verification_text)
+        self.assertIn("Not student-facing release", verification_text)
+        self.assertIn("`question_allowed` remains `needs_review`", verification_text)
+        self.assertIn("`runtime_allowed` remains `false`", verification_text)
+        self.assertIn("`protected_preview_allowed` remains `false`", verification_text)
+        self.assertIn("`reviewed_bank_allowed` remains `false`", verification_text)
+        self.assertNotIn("approved for generated questions", verification_text)
+
+    def test_perek_three_completion_report_records_verified_coverage_only(self):
+        rows = load_perek_three_rows()
+        self.assertEqual(len(rows), 119)
+        for row in rows:
+            with self.subTest(ref=row["ref"], hebrew=row["hebrew_word_or_phrase"]):
+                self.assertEqual(row["extraction_review_status"], "yossi_extraction_verified")
+                self.assertEqual(row["question_allowed"], "needs_review")
+                self.assertEqual(row["runtime_allowed"], "false")
+                self.assertEqual(row["protected_preview_allowed"], "false")
+                self.assertEqual(row["reviewed_bank_allowed"], "false")
+
+        combined_rows = load_perek_one_rows() + load_perek_two_rows() + rows
+        self.assertEqual(len(combined_rows), 355)
+
+        text = PEREK_THREE_COMPLETION_REPORT_PATH.read_text(encoding="utf-8")
+        self.assertIn("Bereishis Perek 3 now has complete extraction-verified source-to-skill coverage", text)
+        self.assertIn("Total verified rows: 119", text)
+        self.assertIn("Bereishis 3:1-3:24", text)
+        self.assertIn("Perek 1 verified rows: 137", text)
+        self.assertIn("Perek 2 verified rows: 99", text)
+        self.assertIn("Perek 3 verified rows: 119", text)
+        self.assertIn("Total verified rows through Bereishis 3:24: 355", text)
         self.assertIn("Question generation remains blocked.", text)
         self.assertIn("Protected-preview use remains blocked.", text)
         self.assertIn("Reviewed-bank promotion remains blocked.", text)

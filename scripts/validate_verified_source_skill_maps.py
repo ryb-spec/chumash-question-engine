@@ -99,6 +99,57 @@ PEREK_TWO_FINAL_SLICE_VERIFICATION_REPORT_PATH = (
 PEREK_TWO_COMPLETION_REPORT_PATH = (
     MAP_DIR / "reports" / "bereishis_perek_2_source_to_skill_completion_report.md"
 )
+PEREK_THREE_COMPLETION_REPORT_PATH = (
+    MAP_DIR / "reports" / "bereishis_perek_3_source_to_skill_completion_report.md"
+)
+PEREK_THREE_OPENING_SLICE_MAP_PATH = MAP_DIR / "bereishis_3_1_to_3_7_source_to_skill_map.tsv"
+PEREK_THREE_OPENING_SLICE_BUILD_REPORT_PATH = (
+    MAP_DIR / "reports" / "bereishis_3_1_to_3_7_source_to_skill_map_build_report.md"
+)
+PEREK_THREE_OPENING_SLICE_REVIEW_PACKET_PATH = (
+    MAP_DIR / "reports" / "bereishis_3_1_to_3_7_source_to_skill_map_exceptions_review_packet.md"
+)
+PEREK_THREE_OPENING_SLICE_REVIEW_SHEET_MD_PATH = (
+    MAP_DIR / "reports" / "bereishis_3_1_to_3_7_yossi_review_sheet.md"
+)
+PEREK_THREE_OPENING_SLICE_REVIEW_SHEET_CSV_PATH = (
+    MAP_DIR / "reports" / "bereishis_3_1_to_3_7_yossi_review_sheet.csv"
+)
+PEREK_THREE_OPENING_SLICE_VERIFICATION_REPORT_PATH = (
+    MAP_DIR / "reports" / "bereishis_3_1_to_3_7_yossi_extraction_verification_report.md"
+)
+PEREK_THREE_EXPANSION_SLICE_MAP_PATH = MAP_DIR / "bereishis_3_8_to_3_16_source_to_skill_map.tsv"
+PEREK_THREE_EXPANSION_SLICE_BUILD_REPORT_PATH = (
+    MAP_DIR / "reports" / "bereishis_3_8_to_3_16_source_to_skill_map_build_report.md"
+)
+PEREK_THREE_EXPANSION_SLICE_REVIEW_PACKET_PATH = (
+    MAP_DIR / "reports" / "bereishis_3_8_to_3_16_source_to_skill_map_exceptions_review_packet.md"
+)
+PEREK_THREE_EXPANSION_SLICE_REVIEW_SHEET_MD_PATH = (
+    MAP_DIR / "reports" / "bereishis_3_8_to_3_16_yossi_review_sheet.md"
+)
+PEREK_THREE_EXPANSION_SLICE_REVIEW_SHEET_CSV_PATH = (
+    MAP_DIR / "reports" / "bereishis_3_8_to_3_16_yossi_review_sheet.csv"
+)
+PEREK_THREE_EXPANSION_SLICE_VERIFICATION_REPORT_PATH = (
+    MAP_DIR / "reports" / "bereishis_3_8_to_3_16_yossi_extraction_verification_report.md"
+)
+PEREK_THREE_FINAL_SLICE_MAP_PATH = MAP_DIR / "bereishis_3_17_to_3_24_source_to_skill_map.tsv"
+PEREK_THREE_FINAL_SLICE_BUILD_REPORT_PATH = (
+    MAP_DIR / "reports" / "bereishis_3_17_to_3_24_source_to_skill_map_build_report.md"
+)
+PEREK_THREE_FINAL_SLICE_REVIEW_PACKET_PATH = (
+    MAP_DIR / "reports" / "bereishis_3_17_to_3_24_source_to_skill_map_exceptions_review_packet.md"
+)
+PEREK_THREE_FINAL_SLICE_REVIEW_SHEET_MD_PATH = (
+    MAP_DIR / "reports" / "bereishis_3_17_to_3_24_yossi_review_sheet.md"
+)
+PEREK_THREE_FINAL_SLICE_REVIEW_SHEET_CSV_PATH = (
+    MAP_DIR / "reports" / "bereishis_3_17_to_3_24_yossi_review_sheet.csv"
+)
+PEREK_THREE_FINAL_SLICE_VERIFICATION_REPORT_PATH = (
+    MAP_DIR / "reports" / "bereishis_3_17_to_3_24_yossi_extraction_verification_report.md"
+)
 AUDIT_REPORT_PATH = MAP_DIR / "reports" / "source_to_skill_map_audit.json"
 
 REQUIRED_COLUMNS = (
@@ -493,6 +544,134 @@ PEREK_TWO_COMPLETION_REPORT_REQUIRED_PHRASES = (
     "runtime activation",
 )
 
+PEREK_THREE_OPENING_SLICE_REVIEW_PACKET_REQUIRED_PHRASES = (
+    "extraction-accuracy and mapping confirmation for trusted source-derived content",
+    "not generated-question review",
+    "not question approval",
+    "not protected-preview approval",
+    "not reviewed-bank approval",
+    "not runtime approval",
+    "pending_yossi_extraction_accuracy_pass",
+    "High-Risk Rows Needing Yossi Review",
+    "Long Parentheticals Needing Review",
+    "Long Hebrew Phrase Boundaries Needing Review",
+)
+
+PEREK_THREE_OPENING_SLICE_BUILD_REPORT_REQUIRED_PHRASES = (
+    "pending Yossi extraction-accuracy review",
+    "does not authorize question generation",
+    "runtime activation",
+    "Row count: 33",
+)
+
+PEREK_THREE_OPENING_SLICE_VERIFICATION_REPORT_REQUIRED_PHRASES = (
+    "Yossi reviewed the Bereishis 3:1-3:7 Yossi review sheet",
+    "Rows verified: 33",
+    "Markdown review sheet: `data/verified_source_skill_maps/reports/bereishis_3_1_to_3_7_yossi_review_sheet.md`",
+    "CSV review sheet: `data/verified_source_skill_maps/reports/bereishis_3_1_to_3_7_yossi_review_sheet.csv`",
+    "Yossi marked all 33 rows source-only",
+    "Dialogue and persuasion language",
+    "Not question approval",
+    "Not protected-preview approval",
+    "Not reviewed-bank promotion",
+    "Not runtime approval",
+    "Not student-facing release",
+    "`question_allowed` remains `needs_review`",
+    "`runtime_allowed` remains `false`",
+    "`protected_preview_allowed` remains `false`",
+    "`reviewed_bank_allowed` remains `false`",
+)
+
+PEREK_THREE_EXPANSION_SLICE_REVIEW_PACKET_REQUIRED_PHRASES = (
+    "extraction-accuracy and mapping confirmation for trusted source-derived content",
+    "not generated-question review",
+    "not question approval",
+    "not protected-preview approval",
+    "not reviewed-bank approval",
+    "not runtime approval",
+    "pending_yossi_extraction_accuracy_pass",
+    "High-Risk Rows Needing Yossi Review",
+    "Long Parentheticals Needing Review",
+    "Long Hebrew Phrase Boundaries Needing Review",
+)
+
+PEREK_THREE_EXPANSION_SLICE_BUILD_REPORT_REQUIRED_PHRASES = (
+    "pending Yossi extraction-accuracy review",
+    "does not authorize question generation",
+    "runtime activation",
+    "Row count: 48",
+)
+
+PEREK_THREE_EXPANSION_SLICE_VERIFICATION_REPORT_REQUIRED_PHRASES = (
+    "Yossi reviewed the Bereishis 3:8-3:16 Yossi review sheet",
+    "Rows verified: 48",
+    "Markdown review sheet: `data/verified_source_skill_maps/reports/bereishis_3_8_to_3_16_yossi_review_sheet.md`",
+    "CSV review sheet: `data/verified_source_skill_maps/reports/bereishis_3_8_to_3_16_yossi_review_sheet.csv`",
+    "Yossi marked all 48 rows source-only",
+    "Dialogue, accountability, curse/consequence language, and narrative flow",
+    "Not question approval",
+    "Not protected-preview approval",
+    "Not reviewed-bank promotion",
+    "Not runtime approval",
+    "Not student-facing release",
+    "`question_allowed` remains `needs_review`",
+    "`runtime_allowed` remains `false`",
+    "`protected_preview_allowed` remains `false`",
+    "`reviewed_bank_allowed` remains `false`",
+)
+
+PEREK_THREE_FINAL_SLICE_REVIEW_PACKET_REQUIRED_PHRASES = (
+    "extraction-accuracy and mapping confirmation for trusted source-derived content",
+    "not generated-question review",
+    "not question approval",
+    "not protected-preview approval",
+    "not reviewed-bank approval",
+    "not runtime approval",
+    "pending_yossi_extraction_accuracy_pass",
+    "High-Risk Rows Needing Yossi Review",
+    "Long Parentheticals Needing Review",
+    "Long Hebrew Phrase Boundaries Needing Review",
+)
+
+PEREK_THREE_FINAL_SLICE_BUILD_REPORT_REQUIRED_PHRASES = (
+    "pending Yossi extraction-accuracy review",
+    "does not authorize question generation",
+    "runtime activation",
+    "Row count: 38",
+)
+
+PEREK_THREE_FINAL_SLICE_VERIFICATION_REPORT_REQUIRED_PHRASES = (
+    "Yossi reviewed the Bereishis 3:17-3:24 Yossi review sheet",
+    "Rows verified: 38",
+    "Markdown review sheet: `data/verified_source_skill_maps/reports/bereishis_3_17_to_3_24_yossi_review_sheet.md`",
+    "CSV review sheet: `data/verified_source_skill_maps/reports/bereishis_3_17_to_3_24_yossi_review_sheet.csv`",
+    "Yossi marked all 38 rows source-only",
+    "Consequence/exile/Gan Eden closure language",
+    "Not question approval",
+    "Not protected-preview approval",
+    "Not reviewed-bank promotion",
+    "Not runtime approval",
+    "Not student-facing release",
+    "`question_allowed` remains `needs_review`",
+    "`runtime_allowed` remains `false`",
+    "`protected_preview_allowed` remains `false`",
+    "`reviewed_bank_allowed` remains `false`",
+)
+
+PEREK_THREE_COMPLETION_REPORT_REQUIRED_PHRASES = (
+    "Bereishis Perek 3 now has complete extraction-verified source-to-skill coverage",
+    "Total verified rows: 119",
+    "Bereishis 3:1-3:24",
+    "Perek 1 verified rows: 137",
+    "Perek 2 verified rows: 99",
+    "Perek 3 verified rows: 119",
+    "Total verified rows through Bereishis 3:24: 355",
+    "Question generation remains blocked",
+    "protected-preview approval",
+    "reviewed-bank promotion",
+    "runtime activation",
+)
+
 REVIEW_PACKET_FORBIDDEN_PHRASES = (
     "approved for runtime",
     "runtime-ready",
@@ -643,6 +822,82 @@ def validate_required_files(errors: list[str]) -> None:
     if not PEREK_TWO_COMPLETION_REPORT_PATH.exists():
         errors.append(
             f"required perek-two source-to-skill completion report missing: {repo_relative(PEREK_TWO_COMPLETION_REPORT_PATH)}"
+        )
+    if not PEREK_THREE_OPENING_SLICE_MAP_PATH.exists():
+        errors.append(
+            f"required perek-three opening pending source-to-skill map missing: {repo_relative(PEREK_THREE_OPENING_SLICE_MAP_PATH)}"
+        )
+    if not PEREK_THREE_OPENING_SLICE_BUILD_REPORT_PATH.exists():
+        errors.append(
+            f"required perek-three opening pending source-to-skill build report missing: {repo_relative(PEREK_THREE_OPENING_SLICE_BUILD_REPORT_PATH)}"
+        )
+    if not PEREK_THREE_OPENING_SLICE_REVIEW_PACKET_PATH.exists():
+        errors.append(
+            f"required perek-three opening pending source-to-skill review packet missing: {repo_relative(PEREK_THREE_OPENING_SLICE_REVIEW_PACKET_PATH)}"
+        )
+    if not PEREK_THREE_OPENING_SLICE_REVIEW_SHEET_MD_PATH.exists():
+        errors.append(
+            f"required perek-three opening Yossi Markdown review sheet missing: {repo_relative(PEREK_THREE_OPENING_SLICE_REVIEW_SHEET_MD_PATH)}"
+        )
+    if not PEREK_THREE_OPENING_SLICE_REVIEW_SHEET_CSV_PATH.exists():
+        errors.append(
+            f"required perek-three opening Yossi UTF-8-BOM CSV review sheet missing: {repo_relative(PEREK_THREE_OPENING_SLICE_REVIEW_SHEET_CSV_PATH)}"
+        )
+    if not PEREK_THREE_OPENING_SLICE_VERIFICATION_REPORT_PATH.exists():
+        errors.append(
+            f"required perek-three opening extraction verification report missing: {repo_relative(PEREK_THREE_OPENING_SLICE_VERIFICATION_REPORT_PATH)}"
+        )
+    if not PEREK_THREE_EXPANSION_SLICE_MAP_PATH.exists():
+        errors.append(
+            f"required perek-three expansion pending source-to-skill map missing: {repo_relative(PEREK_THREE_EXPANSION_SLICE_MAP_PATH)}"
+        )
+    if not PEREK_THREE_EXPANSION_SLICE_BUILD_REPORT_PATH.exists():
+        errors.append(
+            f"required perek-three expansion pending source-to-skill build report missing: {repo_relative(PEREK_THREE_EXPANSION_SLICE_BUILD_REPORT_PATH)}"
+        )
+    if not PEREK_THREE_EXPANSION_SLICE_REVIEW_PACKET_PATH.exists():
+        errors.append(
+            f"required perek-three expansion pending source-to-skill review packet missing: {repo_relative(PEREK_THREE_EXPANSION_SLICE_REVIEW_PACKET_PATH)}"
+        )
+    if not PEREK_THREE_EXPANSION_SLICE_REVIEW_SHEET_MD_PATH.exists():
+        errors.append(
+            f"required perek-three expansion Yossi Markdown review sheet missing: {repo_relative(PEREK_THREE_EXPANSION_SLICE_REVIEW_SHEET_MD_PATH)}"
+        )
+    if not PEREK_THREE_EXPANSION_SLICE_REVIEW_SHEET_CSV_PATH.exists():
+        errors.append(
+            f"required perek-three expansion Yossi UTF-8-BOM CSV review sheet missing: {repo_relative(PEREK_THREE_EXPANSION_SLICE_REVIEW_SHEET_CSV_PATH)}"
+        )
+    if not PEREK_THREE_EXPANSION_SLICE_VERIFICATION_REPORT_PATH.exists():
+        errors.append(
+            f"required perek-three expansion extraction verification report missing: {repo_relative(PEREK_THREE_EXPANSION_SLICE_VERIFICATION_REPORT_PATH)}"
+        )
+    if not PEREK_THREE_FINAL_SLICE_MAP_PATH.exists():
+        errors.append(
+            f"required perek-three final pending source-to-skill map missing: {repo_relative(PEREK_THREE_FINAL_SLICE_MAP_PATH)}"
+        )
+    if not PEREK_THREE_FINAL_SLICE_BUILD_REPORT_PATH.exists():
+        errors.append(
+            f"required perek-three final pending source-to-skill build report missing: {repo_relative(PEREK_THREE_FINAL_SLICE_BUILD_REPORT_PATH)}"
+        )
+    if not PEREK_THREE_FINAL_SLICE_REVIEW_PACKET_PATH.exists():
+        errors.append(
+            f"required perek-three final pending source-to-skill review packet missing: {repo_relative(PEREK_THREE_FINAL_SLICE_REVIEW_PACKET_PATH)}"
+        )
+    if not PEREK_THREE_FINAL_SLICE_REVIEW_SHEET_MD_PATH.exists():
+        errors.append(
+            f"required perek-three final Yossi Markdown review sheet missing: {repo_relative(PEREK_THREE_FINAL_SLICE_REVIEW_SHEET_MD_PATH)}"
+        )
+    if not PEREK_THREE_FINAL_SLICE_REVIEW_SHEET_CSV_PATH.exists():
+        errors.append(
+            f"required perek-three final Yossi UTF-8-BOM CSV review sheet missing: {repo_relative(PEREK_THREE_FINAL_SLICE_REVIEW_SHEET_CSV_PATH)}"
+        )
+    if not PEREK_THREE_FINAL_SLICE_VERIFICATION_REPORT_PATH.exists():
+        errors.append(
+            f"required perek-three final extraction verification report missing: {repo_relative(PEREK_THREE_FINAL_SLICE_VERIFICATION_REPORT_PATH)}"
+        )
+    if not PEREK_THREE_COMPLETION_REPORT_PATH.exists():
+        errors.append(
+            f"required perek-three source-to-skill completion report missing: {repo_relative(PEREK_THREE_COMPLETION_REPORT_PATH)}"
         )
     if not AUDIT_REPORT_PATH.exists():
         errors.append(f"required source-to-skill audit report missing: {repo_relative(AUDIT_REPORT_PATH)}")
@@ -900,6 +1155,117 @@ def validate_review_packet(errors: list[str]) -> None:
                 errors.append(
                     f"{repo_relative(PEREK_TWO_COMPLETION_REPORT_PATH)} contains forbidden readiness language: {phrase!r}"
                 )
+    if PEREK_THREE_OPENING_SLICE_REVIEW_PACKET_PATH.exists():
+        perek_three_opening_text = PEREK_THREE_OPENING_SLICE_REVIEW_PACKET_PATH.read_text(encoding="utf-8")
+        for phrase in PEREK_THREE_OPENING_SLICE_REVIEW_PACKET_REQUIRED_PHRASES:
+            if phrase not in perek_three_opening_text:
+                errors.append(
+                    f"{repo_relative(PEREK_THREE_OPENING_SLICE_REVIEW_PACKET_PATH)} is missing required perek-three opening review language: {phrase!r}"
+                )
+        for phrase in REVIEW_PACKET_FORBIDDEN_PHRASES:
+            if phrase in perek_three_opening_text and f"not {phrase}" not in perek_three_opening_text:
+                errors.append(
+                    f"{repo_relative(PEREK_THREE_OPENING_SLICE_REVIEW_PACKET_PATH)} contains forbidden readiness language: {phrase!r}"
+                )
+    if PEREK_THREE_OPENING_SLICE_BUILD_REPORT_PATH.exists():
+        perek_three_opening_build_text = PEREK_THREE_OPENING_SLICE_BUILD_REPORT_PATH.read_text(encoding="utf-8")
+        for phrase in PEREK_THREE_OPENING_SLICE_BUILD_REPORT_REQUIRED_PHRASES:
+            if phrase not in perek_three_opening_build_text:
+                errors.append(
+                    f"{repo_relative(PEREK_THREE_OPENING_SLICE_BUILD_REPORT_PATH)} is missing required build-report language: {phrase!r}"
+                )
+    if PEREK_THREE_OPENING_SLICE_VERIFICATION_REPORT_PATH.exists():
+        perek_three_opening_verification_text = PEREK_THREE_OPENING_SLICE_VERIFICATION_REPORT_PATH.read_text(
+            encoding="utf-8"
+        )
+        for phrase in PEREK_THREE_OPENING_SLICE_VERIFICATION_REPORT_REQUIRED_PHRASES:
+            if phrase not in perek_three_opening_verification_text:
+                errors.append(
+                    f"{repo_relative(PEREK_THREE_OPENING_SLICE_VERIFICATION_REPORT_PATH)} is missing required verification language: {phrase!r}"
+                )
+        for phrase in REVIEW_PACKET_FORBIDDEN_PHRASES:
+            if phrase in perek_three_opening_verification_text and f"not {phrase}" not in perek_three_opening_verification_text:
+                errors.append(
+                    f"{repo_relative(PEREK_THREE_OPENING_SLICE_VERIFICATION_REPORT_PATH)} contains forbidden readiness language: {phrase!r}"
+                )
+    if PEREK_THREE_EXPANSION_SLICE_REVIEW_PACKET_PATH.exists():
+        perek_three_expansion_text = PEREK_THREE_EXPANSION_SLICE_REVIEW_PACKET_PATH.read_text(encoding="utf-8")
+        for phrase in PEREK_THREE_EXPANSION_SLICE_REVIEW_PACKET_REQUIRED_PHRASES:
+            if phrase not in perek_three_expansion_text:
+                errors.append(
+                    f"{repo_relative(PEREK_THREE_EXPANSION_SLICE_REVIEW_PACKET_PATH)} is missing required perek-three expansion review language: {phrase!r}"
+                )
+        for phrase in REVIEW_PACKET_FORBIDDEN_PHRASES:
+            if phrase in perek_three_expansion_text and f"not {phrase}" not in perek_three_expansion_text:
+                errors.append(
+                    f"{repo_relative(PEREK_THREE_EXPANSION_SLICE_REVIEW_PACKET_PATH)} contains forbidden readiness language: {phrase!r}"
+                )
+    if PEREK_THREE_EXPANSION_SLICE_BUILD_REPORT_PATH.exists():
+        perek_three_expansion_build_text = PEREK_THREE_EXPANSION_SLICE_BUILD_REPORT_PATH.read_text(encoding="utf-8")
+        for phrase in PEREK_THREE_EXPANSION_SLICE_BUILD_REPORT_REQUIRED_PHRASES:
+            if phrase not in perek_three_expansion_build_text:
+                errors.append(
+                    f"{repo_relative(PEREK_THREE_EXPANSION_SLICE_BUILD_REPORT_PATH)} is missing required build-report language: {phrase!r}"
+                )
+    if PEREK_THREE_EXPANSION_SLICE_VERIFICATION_REPORT_PATH.exists():
+        perek_three_expansion_verification_text = PEREK_THREE_EXPANSION_SLICE_VERIFICATION_REPORT_PATH.read_text(
+            encoding="utf-8"
+        )
+        for phrase in PEREK_THREE_EXPANSION_SLICE_VERIFICATION_REPORT_REQUIRED_PHRASES:
+            if phrase not in perek_three_expansion_verification_text:
+                errors.append(
+                    f"{repo_relative(PEREK_THREE_EXPANSION_SLICE_VERIFICATION_REPORT_PATH)} is missing required verification language: {phrase!r}"
+                )
+        for phrase in REVIEW_PACKET_FORBIDDEN_PHRASES:
+            if phrase in perek_three_expansion_verification_text and f"not {phrase}" not in perek_three_expansion_verification_text:
+                errors.append(
+                    f"{repo_relative(PEREK_THREE_EXPANSION_SLICE_VERIFICATION_REPORT_PATH)} contains forbidden readiness language: {phrase!r}"
+                )
+    if PEREK_THREE_FINAL_SLICE_REVIEW_PACKET_PATH.exists():
+        perek_three_final_text = PEREK_THREE_FINAL_SLICE_REVIEW_PACKET_PATH.read_text(encoding="utf-8")
+        for phrase in PEREK_THREE_FINAL_SLICE_REVIEW_PACKET_REQUIRED_PHRASES:
+            if phrase not in perek_three_final_text:
+                errors.append(
+                    f"{repo_relative(PEREK_THREE_FINAL_SLICE_REVIEW_PACKET_PATH)} is missing required perek-three final review language: {phrase!r}"
+                )
+        for phrase in REVIEW_PACKET_FORBIDDEN_PHRASES:
+            if phrase in perek_three_final_text and f"not {phrase}" not in perek_three_final_text:
+                errors.append(
+                    f"{repo_relative(PEREK_THREE_FINAL_SLICE_REVIEW_PACKET_PATH)} contains forbidden readiness language: {phrase!r}"
+                )
+    if PEREK_THREE_FINAL_SLICE_BUILD_REPORT_PATH.exists():
+        perek_three_final_build_text = PEREK_THREE_FINAL_SLICE_BUILD_REPORT_PATH.read_text(encoding="utf-8")
+        for phrase in PEREK_THREE_FINAL_SLICE_BUILD_REPORT_REQUIRED_PHRASES:
+            if phrase not in perek_three_final_build_text:
+                errors.append(
+                    f"{repo_relative(PEREK_THREE_FINAL_SLICE_BUILD_REPORT_PATH)} is missing required build-report language: {phrase!r}"
+                )
+    if PEREK_THREE_FINAL_SLICE_VERIFICATION_REPORT_PATH.exists():
+        perek_three_final_verification_text = PEREK_THREE_FINAL_SLICE_VERIFICATION_REPORT_PATH.read_text(
+            encoding="utf-8"
+        )
+        for phrase in PEREK_THREE_FINAL_SLICE_VERIFICATION_REPORT_REQUIRED_PHRASES:
+            if phrase not in perek_three_final_verification_text:
+                errors.append(
+                    f"{repo_relative(PEREK_THREE_FINAL_SLICE_VERIFICATION_REPORT_PATH)} is missing required verification language: {phrase!r}"
+                )
+        for phrase in REVIEW_PACKET_FORBIDDEN_PHRASES:
+            if phrase in perek_three_final_verification_text and f"not {phrase}" not in perek_three_final_verification_text:
+                errors.append(
+                    f"{repo_relative(PEREK_THREE_FINAL_SLICE_VERIFICATION_REPORT_PATH)} contains forbidden readiness language: {phrase!r}"
+                )
+    if PEREK_THREE_COMPLETION_REPORT_PATH.exists():
+        perek_three_completion_text = PEREK_THREE_COMPLETION_REPORT_PATH.read_text(encoding="utf-8")
+        for phrase in PEREK_THREE_COMPLETION_REPORT_REQUIRED_PHRASES:
+            if phrase not in perek_three_completion_text:
+                errors.append(
+                    f"{repo_relative(PEREK_THREE_COMPLETION_REPORT_PATH)} is missing required completion language: {phrase!r}"
+                )
+        for phrase in REVIEW_PACKET_FORBIDDEN_PHRASES:
+            if phrase in perek_three_completion_text and f"not {phrase}" not in perek_three_completion_text:
+                errors.append(
+                    f"{repo_relative(PEREK_THREE_COMPLETION_REPORT_PATH)} contains forbidden readiness language: {phrase!r}"
+                )
 
 
 def validate_yossi_review_sheets(errors: list[str]) -> None:
@@ -907,6 +1273,9 @@ def validate_yossi_review_sheets(errors: list[str]) -> None:
         (PEREK_TWO_OPENING_SLICE_REVIEW_SHEET_MD_PATH, PEREK_TWO_OPENING_SLICE_REVIEW_SHEET_CSV_PATH),
         (PEREK_TWO_EXPANSION_SLICE_REVIEW_SHEET_MD_PATH, PEREK_TWO_EXPANSION_SLICE_REVIEW_SHEET_CSV_PATH),
         (PEREK_TWO_FINAL_SLICE_REVIEW_SHEET_MD_PATH, PEREK_TWO_FINAL_SLICE_REVIEW_SHEET_CSV_PATH),
+        (PEREK_THREE_OPENING_SLICE_REVIEW_SHEET_MD_PATH, PEREK_THREE_OPENING_SLICE_REVIEW_SHEET_CSV_PATH),
+        (PEREK_THREE_EXPANSION_SLICE_REVIEW_SHEET_MD_PATH, PEREK_THREE_EXPANSION_SLICE_REVIEW_SHEET_CSV_PATH),
+        (PEREK_THREE_FINAL_SLICE_REVIEW_SHEET_MD_PATH, PEREK_THREE_FINAL_SLICE_REVIEW_SHEET_CSV_PATH),
     )
     for md_path, csv_path in review_sheet_pairs:
         if not md_path.exists():
@@ -931,6 +1300,18 @@ def validate_yossi_review_sheets(errors: list[str]) -> None:
         if not csv_path.exists():
             continue
         if csv_path == PEREK_TWO_FINAL_SLICE_REVIEW_SHEET_CSV_PATH and not csv_path.read_bytes().startswith(
+            b"\xef\xbb\xbf"
+        ):
+            errors.append(f"{repo_relative(csv_path)} must be encoded as UTF-8 with BOM for Excel Hebrew display")
+        if csv_path == PEREK_THREE_OPENING_SLICE_REVIEW_SHEET_CSV_PATH and not csv_path.read_bytes().startswith(
+            b"\xef\xbb\xbf"
+        ):
+            errors.append(f"{repo_relative(csv_path)} must be encoded as UTF-8 with BOM for Excel Hebrew display")
+        if csv_path == PEREK_THREE_EXPANSION_SLICE_REVIEW_SHEET_CSV_PATH and not csv_path.read_bytes().startswith(
+            b"\xef\xbb\xbf"
+        ):
+            errors.append(f"{repo_relative(csv_path)} must be encoded as UTF-8 with BOM for Excel Hebrew display")
+        if csv_path == PEREK_THREE_FINAL_SLICE_REVIEW_SHEET_CSV_PATH and not csv_path.read_bytes().startswith(
             b"\xef\xbb\xbf"
         ):
             errors.append(f"{repo_relative(csv_path)} must be encoded as UTF-8 with BOM for Excel Hebrew display")
@@ -1430,6 +1811,186 @@ def validate_perek_two_final_verified_slice_row(row: dict[str, str], row_number:
             errors.append(f"{context}: field {field} contains forbidden readiness value {value!r}")
 
 
+def validate_perek_three_opening_verified_slice_row(row: dict[str, str], row_number: int, errors: list[str]) -> None:
+    context = f"{repo_relative(PEREK_THREE_OPENING_SLICE_MAP_PATH)} row {row_number}"
+    ref = normalized(row.get("ref")) or f"row {row_number}"
+    hebrew = normalized(row.get("hebrew_word_or_phrase"))
+    clean_hebrew = normalized(row.get("clean_hebrew_no_nikud"))
+
+    if not ref:
+        errors.append(f"{context}: ref must be populated")
+    if not hebrew:
+        errors.append(f"{context}: hebrew_word_or_phrase must be populated")
+    if not clean_hebrew:
+        errors.append(f"{context}: clean_hebrew_no_nikud must be populated")
+    if not normalized(row.get("source_files_used")):
+        errors.append(f"{context}: source_files_used must record the contributing source paths")
+
+    if normalized(row.get("source_translation_metsudah")):
+        if "CC-BY" not in row.get("source_license", ""):
+            errors.append(f"{context}: has Metsudah translation but source_license does not include CC-BY")
+        if "Metsudah Chumash, Metsudah Publications, 2009" not in row.get("source_version_title", ""):
+            errors.append(f"{context}: has Metsudah translation but source_version_title is missing Metsudah")
+        if row.get("source_preference") != "primary_preferred_translation_source":
+            errors.append(f"{context}: must mark Metsudah as primary_preferred_translation_source")
+        if row.get("requires_attribution") != "true":
+            errors.append(f"{context}: has source translation but requires_attribution is not true")
+
+    if normalized(row.get("secondary_translation_koren")) and "bereishis_english_koren.jsonl" not in row.get(
+        "source_files_used",
+        "",
+    ):
+        errors.append(f"{context}: has Koren secondary translation but source_files_used omits Koren JSONL")
+
+    if row.get("extraction_review_status") != "yossi_extraction_verified":
+        errors.append(f"{context}: extraction_review_status must be yossi_extraction_verified")
+    if not PEREK_THREE_OPENING_SLICE_VERIFICATION_REPORT_PATH.exists():
+        errors.append(
+            f"{context}: yossi_extraction_verified rows require {repo_relative(PEREK_THREE_OPENING_SLICE_VERIFICATION_REPORT_PATH)}"
+        )
+    review_notes = row.get("review_notes", "")
+    if "Yossi confirmed extraction accuracy" not in review_notes:
+        errors.append(f"{context}: verified rows must record Yossi extraction-accuracy confirmation in review_notes")
+    if "source-only for future question/protected-preview planning" not in review_notes:
+        errors.append(f"{context}: verified rows must preserve Yossi source-only planning note in review_notes")
+    if "Dialogue and persuasion language" not in review_notes:
+        errors.append(f"{context}: verified rows must preserve Yossi dialogue/persuasion question-use note in review_notes")
+    if row.get("question_allowed") != "needs_review":
+        errors.append(f"{context}: question_allowed must remain needs_review until a future gate")
+    for field in ("runtime_allowed", "protected_preview_allowed", "reviewed_bank_allowed"):
+        if row.get(field) != "false":
+            errors.append(f"{context}: {field} must remain false until a future gate")
+    if not normalized(row.get("uncertainty_reason")):
+        errors.append(f"{context}: verified rows must preserve uncertainty_reason for future planning")
+    if not normalized(row.get("blocked_question_types")):
+        errors.append(f"{context}: blocked_question_types must explain that question use is blocked")
+
+    for field, value in row.items():
+        lowered = normalized(value).lower()
+        if field not in {"review_notes", "uncertainty_reason", "blocked_question_types"} and lowered in FORBIDDEN_READY_VALUES:
+            errors.append(f"{context}: field {field} contains forbidden readiness value {value!r}")
+
+
+def validate_perek_three_expansion_verified_slice_row(row: dict[str, str], row_number: int, errors: list[str]) -> None:
+    context = f"{repo_relative(PEREK_THREE_EXPANSION_SLICE_MAP_PATH)} row {row_number}"
+    ref = normalized(row.get("ref")) or f"row {row_number}"
+    hebrew = normalized(row.get("hebrew_word_or_phrase"))
+    clean_hebrew = normalized(row.get("clean_hebrew_no_nikud"))
+
+    if not ref:
+        errors.append(f"{context}: ref must be populated")
+    if not hebrew:
+        errors.append(f"{context}: hebrew_word_or_phrase must be populated")
+    if not clean_hebrew:
+        errors.append(f"{context}: clean_hebrew_no_nikud must be populated")
+    if not normalized(row.get("source_files_used")):
+        errors.append(f"{context}: source_files_used must record the contributing source paths")
+
+    if normalized(row.get("source_translation_metsudah")):
+        if "CC-BY" not in row.get("source_license", ""):
+            errors.append(f"{context}: has Metsudah translation but source_license does not include CC-BY")
+        if "Metsudah Chumash, Metsudah Publications, 2009" not in row.get("source_version_title", ""):
+            errors.append(f"{context}: has Metsudah translation but source_version_title is missing Metsudah")
+        if row.get("source_preference") != "primary_preferred_translation_source":
+            errors.append(f"{context}: must mark Metsudah as primary_preferred_translation_source")
+        if row.get("requires_attribution") != "true":
+            errors.append(f"{context}: has source translation but requires_attribution is not true")
+
+    if normalized(row.get("secondary_translation_koren")) and "bereishis_english_koren.jsonl" not in row.get(
+        "source_files_used",
+        "",
+    ):
+        errors.append(f"{context}: has Koren secondary translation but source_files_used omits Koren JSONL")
+
+    if row.get("extraction_review_status") != "yossi_extraction_verified":
+        errors.append(f"{context}: extraction_review_status must be yossi_extraction_verified")
+    if not PEREK_THREE_EXPANSION_SLICE_VERIFICATION_REPORT_PATH.exists():
+        errors.append(
+            f"{context}: yossi_extraction_verified rows require {repo_relative(PEREK_THREE_EXPANSION_SLICE_VERIFICATION_REPORT_PATH)}"
+        )
+    review_notes = row.get("review_notes", "")
+    if "Yossi confirmed extraction accuracy" not in review_notes:
+        errors.append(f"{context}: verified rows must record Yossi extraction-accuracy confirmation in review_notes")
+    if "source-only for future question/protected-preview planning" not in review_notes:
+        errors.append(f"{context}: verified rows must preserve Yossi source-only planning note in review_notes")
+    if "Dialogue, accountability, curse/consequence language" not in review_notes:
+        errors.append(f"{context}: verified rows must preserve Yossi dialogue/accountability/consequence question-use note in review_notes")
+    if row.get("question_allowed") != "needs_review":
+        errors.append(f"{context}: question_allowed must remain needs_review until a future gate")
+    for field in ("runtime_allowed", "protected_preview_allowed", "reviewed_bank_allowed"):
+        if row.get(field) != "false":
+            errors.append(f"{context}: {field} must remain false until a future gate")
+    if not normalized(row.get("uncertainty_reason")):
+        errors.append(f"{context}: verified rows must preserve uncertainty_reason for future planning")
+    if not normalized(row.get("blocked_question_types")):
+        errors.append(f"{context}: blocked_question_types must explain that question use is blocked")
+
+    for field, value in row.items():
+        lowered = normalized(value).lower()
+        if field not in {"review_notes", "uncertainty_reason", "blocked_question_types"} and lowered in FORBIDDEN_READY_VALUES:
+            errors.append(f"{context}: field {field} contains forbidden readiness value {value!r}")
+
+
+def validate_perek_three_final_verified_slice_row(row: dict[str, str], row_number: int, errors: list[str]) -> None:
+    context = f"{repo_relative(PEREK_THREE_FINAL_SLICE_MAP_PATH)} row {row_number}"
+    ref = normalized(row.get("ref")) or f"row {row_number}"
+    hebrew = normalized(row.get("hebrew_word_or_phrase"))
+    clean_hebrew = normalized(row.get("clean_hebrew_no_nikud"))
+
+    if not ref:
+        errors.append(f"{context}: ref must be populated")
+    if not hebrew:
+        errors.append(f"{context}: hebrew_word_or_phrase must be populated")
+    if not clean_hebrew:
+        errors.append(f"{context}: clean_hebrew_no_nikud must be populated")
+    if not normalized(row.get("source_files_used")):
+        errors.append(f"{context}: source_files_used must record the contributing source paths")
+
+    if normalized(row.get("source_translation_metsudah")):
+        if "CC-BY" not in row.get("source_license", ""):
+            errors.append(f"{context}: has Metsudah translation but source_license does not include CC-BY")
+        if "Metsudah Chumash, Metsudah Publications, 2009" not in row.get("source_version_title", ""):
+            errors.append(f"{context}: has Metsudah translation but source_version_title is missing Metsudah")
+        if row.get("source_preference") != "primary_preferred_translation_source":
+            errors.append(f"{context}: must mark Metsudah as primary_preferred_translation_source")
+        if row.get("requires_attribution") != "true":
+            errors.append(f"{context}: has source translation but requires_attribution is not true")
+
+    if normalized(row.get("secondary_translation_koren")) and "bereishis_english_koren.jsonl" not in row.get(
+        "source_files_used",
+        "",
+    ):
+        errors.append(f"{context}: has Koren secondary translation but source_files_used omits Koren JSONL")
+
+    if row.get("extraction_review_status") != "yossi_extraction_verified":
+        errors.append(f"{context}: extraction_review_status must be yossi_extraction_verified")
+    if not PEREK_THREE_FINAL_SLICE_VERIFICATION_REPORT_PATH.exists():
+        errors.append(
+            f"{context}: yossi_extraction_verified rows require {repo_relative(PEREK_THREE_FINAL_SLICE_VERIFICATION_REPORT_PATH)}"
+        )
+    review_notes = row.get("review_notes", "")
+    if "Yossi confirmed extraction accuracy" not in review_notes:
+        errors.append(f"{context}: verified rows must record Yossi extraction-accuracy confirmation in review_notes")
+    if "source-only for future question/protected-preview planning" not in review_notes:
+        errors.append(f"{context}: verified rows must preserve Yossi source-only planning note in review_notes")
+    if "Consequence/exile/Gan Eden closure language" not in review_notes:
+        errors.append(f"{context}: verified rows must preserve Yossi consequence/exile/Gan Eden question-use note in review_notes")
+    if row.get("question_allowed") != "needs_review":
+        errors.append(f"{context}: question_allowed must remain needs_review until a future gate")
+    for field in ("runtime_allowed", "protected_preview_allowed", "reviewed_bank_allowed"):
+        if row.get(field) != "false":
+            errors.append(f"{context}: {field} must remain false until a future gate")
+    if not normalized(row.get("uncertainty_reason")):
+        errors.append(f"{context}: verified rows must preserve uncertainty_reason for future planning")
+    if not normalized(row.get("blocked_question_types")):
+        errors.append(f"{context}: blocked_question_types must explain that question use is blocked")
+
+    for field, value in row.items():
+        lowered = normalized(value).lower()
+        if field not in {"review_notes", "uncertainty_reason", "blocked_question_types"} and lowered in FORBIDDEN_READY_VALUES:
+            errors.append(f"{context}: field {field} contains forbidden readiness value {value!r}")
+
+
 def validate_audit_report(errors: list[str]) -> None:
     if not AUDIT_REPORT_PATH.exists():
         return
@@ -1589,6 +2150,86 @@ def validate_verified_source_skill_maps() -> dict[str, Any]:
         errors.append(
             f"Combined Bereishis Perek 1-2 source-to-skill row count must be 236, found {len(combined_verified_rows)}"
         )
+    perek_three_opening_rows: list[dict[str, str]] = []
+    perek_three_opening_columns: list[str] = []
+    if PEREK_THREE_OPENING_SLICE_MAP_PATH.exists():
+        perek_three_opening_columns, perek_three_opening_rows = load_tsv(PEREK_THREE_OPENING_SLICE_MAP_PATH)
+        missing_columns = [column for column in PROOF_REQUIRED_COLUMNS if column not in perek_three_opening_columns]
+        if missing_columns:
+            errors.append(f"{repo_relative(PEREK_THREE_OPENING_SLICE_MAP_PATH)} missing required columns: {missing_columns}")
+        for row_number, row in enumerate(perek_three_opening_rows, 2):
+            validate_perek_three_opening_verified_slice_row(row, row_number, errors)
+        refs = {row.get("ref") for row in perek_three_opening_rows}
+        expected_refs = {f"Bereishis 3:{pasuk}" for pasuk in range(1, 8)}
+        if refs != expected_refs:
+            errors.append(f"{repo_relative(PEREK_THREE_OPENING_SLICE_MAP_PATH)} must cover only Bereishis 3:1-3:7, found {sorted(refs)}")
+        if len(perek_three_opening_rows) != 33:
+            errors.append(f"{repo_relative(PEREK_THREE_OPENING_SLICE_MAP_PATH)} must contain 33 rows, found {len(perek_three_opening_rows)}")
+
+    perek_three_expansion_rows: list[dict[str, str]] = []
+    perek_three_expansion_columns: list[str] = []
+    if PEREK_THREE_EXPANSION_SLICE_MAP_PATH.exists():
+        perek_three_expansion_columns, perek_three_expansion_rows = load_tsv(PEREK_THREE_EXPANSION_SLICE_MAP_PATH)
+        missing_columns = [column for column in PROOF_REQUIRED_COLUMNS if column not in perek_three_expansion_columns]
+        if missing_columns:
+            errors.append(f"{repo_relative(PEREK_THREE_EXPANSION_SLICE_MAP_PATH)} missing required columns: {missing_columns}")
+        for row_number, row in enumerate(perek_three_expansion_rows, 2):
+            validate_perek_three_expansion_verified_slice_row(row, row_number, errors)
+        refs = {row.get("ref") for row in perek_three_expansion_rows}
+        expected_refs = {f"Bereishis 3:{pasuk}" for pasuk in range(8, 17)}
+        if refs != expected_refs:
+            errors.append(
+                f"{repo_relative(PEREK_THREE_EXPANSION_SLICE_MAP_PATH)} must cover only Bereishis 3:8-3:16, found {sorted(refs)}"
+            )
+        if len(perek_three_expansion_rows) != 48:
+            errors.append(
+                f"{repo_relative(PEREK_THREE_EXPANSION_SLICE_MAP_PATH)} must contain 48 rows, found {len(perek_three_expansion_rows)}"
+            )
+
+    perek_three_final_rows: list[dict[str, str]] = []
+    perek_three_final_columns: list[str] = []
+    if PEREK_THREE_FINAL_SLICE_MAP_PATH.exists():
+        perek_three_final_columns, perek_three_final_rows = load_tsv(PEREK_THREE_FINAL_SLICE_MAP_PATH)
+        missing_columns = [column for column in PROOF_REQUIRED_COLUMNS if column not in perek_three_final_columns]
+        if missing_columns:
+            errors.append(f"{repo_relative(PEREK_THREE_FINAL_SLICE_MAP_PATH)} missing required columns: {missing_columns}")
+        for row_number, row in enumerate(perek_three_final_rows, 2):
+            validate_perek_three_final_verified_slice_row(row, row_number, errors)
+        refs = {row.get("ref") for row in perek_three_final_rows}
+        expected_refs = {f"Bereishis 3:{pasuk}" for pasuk in range(17, 25)}
+        if refs != expected_refs:
+            errors.append(
+                f"{repo_relative(PEREK_THREE_FINAL_SLICE_MAP_PATH)} must cover only Bereishis 3:17-3:24, found {sorted(refs)}"
+            )
+        if len(perek_three_final_rows) != 38:
+            errors.append(
+                f"{repo_relative(PEREK_THREE_FINAL_SLICE_MAP_PATH)} must contain 38 rows, found {len(perek_three_final_rows)}"
+            )
+
+    perek_three_rows = perek_three_opening_rows + perek_three_expansion_rows + perek_three_final_rows
+    if len(perek_three_rows) != 119:
+        errors.append(f"Bereishis Perek 3 source-to-skill row count must be 119, found {len(perek_three_rows)}")
+    for row in perek_three_rows:
+        ref = normalized(row.get("ref"))
+        hebrew = normalized(row.get("hebrew_word_or_phrase"))
+        context = f"Bereishis Perek 3 completion row {ref} / {hebrew}"
+        if row.get("extraction_review_status") != "yossi_extraction_verified":
+            errors.append(f"{context}: extraction_review_status must be yossi_extraction_verified")
+        if row.get("question_allowed") != "needs_review":
+            errors.append(f"{context}: question_allowed must remain needs_review")
+        if row.get("runtime_allowed") != "false":
+            errors.append(f"{context}: runtime_allowed must remain false")
+        if row.get("protected_preview_allowed") != "false":
+            errors.append(f"{context}: protected_preview_allowed must remain false")
+        if row.get("reviewed_bank_allowed") != "false":
+            errors.append(f"{context}: reviewed_bank_allowed must remain false")
+
+    combined_perek_one_two_three_rows = perek_one_rows + perek_two_rows + perek_three_rows
+    if len(combined_perek_one_two_three_rows) != 355:
+        errors.append(
+            "Combined Bereishis Perek 1-3 source-to-skill row count must be 355, "
+            f"found {len(combined_perek_one_two_three_rows)}"
+        )
 
     return {
         "valid": not errors,
@@ -1633,6 +2274,31 @@ def validate_verified_source_skill_maps() -> dict[str, Any]:
             PEREK_TWO_FINAL_SLICE_VERIFICATION_REPORT_PATH
         ),
         "perek_two_completion_report_path": repo_relative(PEREK_TWO_COMPLETION_REPORT_PATH),
+        "perek_three_opening_slice_map_path": repo_relative(PEREK_THREE_OPENING_SLICE_MAP_PATH),
+        "perek_three_opening_slice_build_report_path": repo_relative(PEREK_THREE_OPENING_SLICE_BUILD_REPORT_PATH),
+        "perek_three_opening_slice_review_packet_path": repo_relative(PEREK_THREE_OPENING_SLICE_REVIEW_PACKET_PATH),
+        "perek_three_opening_slice_review_sheet_md_path": repo_relative(PEREK_THREE_OPENING_SLICE_REVIEW_SHEET_MD_PATH),
+        "perek_three_opening_slice_review_sheet_csv_path": repo_relative(PEREK_THREE_OPENING_SLICE_REVIEW_SHEET_CSV_PATH),
+        "perek_three_opening_slice_verification_report_path": repo_relative(
+            PEREK_THREE_OPENING_SLICE_VERIFICATION_REPORT_PATH
+        ),
+        "perek_three_expansion_slice_map_path": repo_relative(PEREK_THREE_EXPANSION_SLICE_MAP_PATH),
+        "perek_three_expansion_slice_build_report_path": repo_relative(PEREK_THREE_EXPANSION_SLICE_BUILD_REPORT_PATH),
+        "perek_three_expansion_slice_review_packet_path": repo_relative(PEREK_THREE_EXPANSION_SLICE_REVIEW_PACKET_PATH),
+        "perek_three_expansion_slice_review_sheet_md_path": repo_relative(PEREK_THREE_EXPANSION_SLICE_REVIEW_SHEET_MD_PATH),
+        "perek_three_expansion_slice_review_sheet_csv_path": repo_relative(
+            PEREK_THREE_EXPANSION_SLICE_REVIEW_SHEET_CSV_PATH
+        ),
+        "perek_three_expansion_slice_verification_report_path": repo_relative(
+            PEREK_THREE_EXPANSION_SLICE_VERIFICATION_REPORT_PATH
+        ),
+        "perek_three_final_slice_map_path": repo_relative(PEREK_THREE_FINAL_SLICE_MAP_PATH),
+        "perek_three_final_slice_build_report_path": repo_relative(PEREK_THREE_FINAL_SLICE_BUILD_REPORT_PATH),
+        "perek_three_final_slice_review_packet_path": repo_relative(PEREK_THREE_FINAL_SLICE_REVIEW_PACKET_PATH),
+        "perek_three_final_slice_review_sheet_md_path": repo_relative(PEREK_THREE_FINAL_SLICE_REVIEW_SHEET_MD_PATH),
+        "perek_three_final_slice_review_sheet_csv_path": repo_relative(PEREK_THREE_FINAL_SLICE_REVIEW_SHEET_CSV_PATH),
+        "perek_three_final_slice_verification_report_path": repo_relative(PEREK_THREE_FINAL_SLICE_VERIFICATION_REPORT_PATH),
+        "perek_three_completion_report_path": repo_relative(PEREK_THREE_COMPLETION_REPORT_PATH),
         "audit_report_path": repo_relative(AUDIT_REPORT_PATH),
         "row_count": len(rows),
         "proof_row_count": len(proof_rows),
@@ -1645,6 +2311,11 @@ def validate_verified_source_skill_maps() -> dict[str, Any]:
         "perek_two_final_slice_row_count": len(perek_two_final_rows),
         "perek_two_verified_row_count": len(perek_two_rows),
         "perek_one_two_verified_row_count": len(combined_verified_rows),
+        "perek_three_opening_slice_row_count": len(perek_three_opening_rows),
+        "perek_three_expansion_slice_row_count": len(perek_three_expansion_rows),
+        "perek_three_final_slice_row_count": len(perek_three_final_rows),
+        "perek_three_verified_row_count": len(perek_three_rows),
+        "perek_one_two_three_verified_row_count": len(combined_perek_one_two_three_rows),
         "columns": columns,
         "proof_columns": proof_columns,
         "next_slice_columns": next_slice_columns,
@@ -1653,6 +2324,9 @@ def validate_verified_source_skill_maps() -> dict[str, Any]:
         "perek_two_opening_slice_columns": perek_two_opening_columns,
         "perek_two_expansion_slice_columns": perek_two_expansion_columns,
         "perek_two_final_slice_columns": perek_two_final_columns,
+        "perek_three_opening_slice_columns": perek_three_opening_columns,
+        "perek_three_expansion_slice_columns": perek_three_expansion_columns,
+        "perek_three_final_slice_columns": perek_three_final_columns,
         "errors": errors,
     }
 
