@@ -153,13 +153,24 @@ ALLOWED_EMPTY_REVIEWER_DECISIONS = {None, "", "unset"}
 ALLOWED_SOURCE_REVIEW_STATUSES = {
     "raw_source_ingested",
     "extracted_text_created",
+    "trusted_teacher_source",
+    "pending_yossi_extraction_accuracy_pass",
+    "yossi_extraction_verified",
+    "needs_specific_confirmation",
+    "blocked_unclear_source",
     "needs_human_review",
     "hebrew_text_needs_review",
     "table_or_layout_uncertain",
     "not_runtime_ready",
+    "not_question_ready",
 }
 ALLOWED_RULE_CANDIDATE_REVIEW_STATUSES = {
     "needs_teacher_review",
+    "trusted_teacher_source",
+    "pending_yossi_extraction_accuracy_pass",
+    "yossi_extraction_verified",
+    "needs_specific_confirmation",
+    "blocked_unclear_source",
     "source_match_needs_verification",
     "hebrew_needs_verification",
     "possible_ocr_issue",
@@ -200,6 +211,25 @@ ALLOWED_SKILL_FAMILIES = {
     "pausal_forms",
 }
 ALLOWED_CONFIDENCE_VALUES = {"high", "medium", "low"}
+ALLOWED_SOURCE_AUTHORITIES = {
+    "trusted_teacher_source",
+    "source_derived_internal_artifact",
+    "needs_specific_confirmation",
+    "blocked_unclear_source",
+}
+ALLOWED_TEACHER_SOURCE_STATUSES = {
+    "trusted_teacher_source",
+    "pending_yossi_extraction_accuracy_pass",
+    "yossi_extraction_verified",
+    "needs_specific_confirmation",
+    "blocked_unclear_source",
+}
+ALLOWED_EXTRACTION_REVIEW_STATUSES = {
+    "pending_yossi_extraction_accuracy_pass",
+    "yossi_extraction_verified",
+    "needs_specific_confirmation",
+    "blocked_unclear_source",
+}
 FORBIDDEN_READY_TOKENS = {
     "runtime_ready",
     "question_ready",
@@ -285,6 +315,54 @@ def collect_forbidden_tokens(value: Any) -> set[str]:
         if value in FORBIDDEN_READY_TOKENS:
             found.add(value)
     return found
+
+
+def validate_trusted_source_policy_fields(item: dict[str, Any], *, context: str, errors: list[str]) -> None:
+    source_authority = item.get("source_authority")
+    teacher_source_status = item.get("teacher_source_status")
+    extraction_review_status = item.get("extraction_review_status")
+
+    if source_authority is not None and source_authority not in ALLOWED_SOURCE_AUTHORITIES:
+        errors.append(
+            f"{context}: source_authority must be one of {sorted(ALLOWED_SOURCE_AUTHORITIES)}, got {source_authority!r}"
+        )
+    if teacher_source_status is not None and teacher_source_status not in ALLOWED_TEACHER_SOURCE_STATUSES:
+        errors.append(
+            f"{context}: teacher_source_status must be one of {sorted(ALLOWED_TEACHER_SOURCE_STATUSES)}, "
+            f"got {teacher_source_status!r}"
+        )
+    if extraction_review_status is not None and extraction_review_status not in ALLOWED_EXTRACTION_REVIEW_STATUSES:
+        errors.append(
+            f"{context}: extraction_review_status must be one of {sorted(ALLOWED_EXTRACTION_REVIEW_STATUSES)}, "
+            f"got {extraction_review_status!r}"
+        )
+
+    if teacher_source_status in {
+        "trusted_teacher_source",
+        "pending_yossi_extraction_accuracy_pass",
+        "yossi_extraction_verified",
+    } and extraction_review_status is None:
+        errors.append(f"{context}: trusted teacher sources must declare extraction_review_status")
+
+    requires_yossi_accuracy_pass = item.get("requires_yossi_accuracy_pass")
+    if requires_yossi_accuracy_pass is not None and not isinstance(requires_yossi_accuracy_pass, bool):
+        errors.append(f"{context}: requires_yossi_accuracy_pass must be a boolean when present")
+    if extraction_review_status == "pending_yossi_extraction_accuracy_pass" and requires_yossi_accuracy_pass is not True:
+        errors.append(f"{context}: pending extraction review must set requires_yossi_accuracy_pass=true")
+    if extraction_review_status == "yossi_extraction_verified" and requires_yossi_accuracy_pass is not False:
+        errors.append(f"{context}: yossi_extraction_verified must set requires_yossi_accuracy_pass=false")
+
+    if item.get("runtime_status") is not None and item.get("runtime_status") != "not_runtime_ready":
+        errors.append(f"{context}: trusted source runtime_status must remain not_runtime_ready")
+    if item.get("question_ready_status") is not None and item.get("question_ready_status") != "not_question_ready":
+        errors.append(f"{context}: trusted source question_ready_status must remain not_question_ready")
+
+    confirmation_needed_reason = item.get("confirmation_needed_reason")
+    if teacher_source_status in {"needs_specific_confirmation", "blocked_unclear_source"}:
+        if not is_non_empty_string(confirmation_needed_reason):
+            errors.append(f"{context}: unclear source statuses must include confirmation_needed_reason")
+    elif confirmation_needed_reason is not None and not isinstance(confirmation_needed_reason, str):
+        errors.append(f"{context}: confirmation_needed_reason must be null or a string")
 
 
 def validate_review_item(
@@ -448,6 +526,8 @@ def validate_loshon_source_record(
 
     if not isinstance(item.get("notes"), str):
         errors.append(f"{context}: notes must be a string")
+
+    validate_trusted_source_policy_fields(item, context=context, errors=errors)
 
     forbidden_hits = sorted(collect_forbidden_tokens(item))
     if forbidden_hits:

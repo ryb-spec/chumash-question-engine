@@ -3,6 +3,13 @@
   "status": "draft_needs_review",
   "integration_status": "not_runtime_active",
   "runtime_active": false,
+  "trusted_teacher_source_policy": {
+    "policy_doc": "docs/sources/trusted_teacher_source_policy.md",
+    "source_authority": "trusted_teacher_source",
+    "review_model": "Yossi extraction-accuracy pass for trusted source-derived records; generated questions still require full review.",
+    "runtime_status": "not_runtime_ready",
+    "question_ready_status": "not_question_ready"
+  },
   "schema_files": [
     "data/curriculum_extraction/schemas/source_trace.schema.json",
     "data/curriculum_extraction/schemas/pasuk_segment.schema.json",
@@ -54,6 +61,8 @@
       "batch_id": "phase_1_samples",
       "label": "Phase 1 isolated manual samples",
       "status": "draft_needs_review",
+      "extraction_review_status": "pending_yossi_extraction_accuracy_pass",
+      "requires_yossi_accuracy_pass": true,
       "integration_status": "not_runtime_active",
       "runtime_active": false,
       "sample_files": [
@@ -76,6 +85,8 @@
       "label": "Batch 001 cleaned seed ingestion",
       "status": "cleaned_seed_reviewed_non_runtime",
       "review_status": "reviewed",
+      "extraction_review_status": "yossi_extraction_verified",
+      "requires_yossi_accuracy_pass": false,
       "integration_status": "not_runtime_active",
       "runtime_active": false,
       "raw_source_files": [
@@ -108,6 +119,8 @@
       "label": "Batch 002 Linear Chumash Translation excerpt",
       "status": "extracted_needs_review",
       "review_status": "needs_review",
+      "extraction_review_status": "pending_yossi_extraction_accuracy_pass",
+      "requires_yossi_accuracy_pass": true,
       "integration_status": "not_runtime_active",
       "runtime_active": false,
       "source_package_id": "linear_chumash_translation_most_parshiyos_in_torah",
@@ -135,6 +148,8 @@
       "label": "Batch 003 Linear Chumash Translation excerpt",
       "status": "extracted_needs_review",
       "review_status": "needs_review",
+      "extraction_review_status": "pending_yossi_extraction_accuracy_pass",
+      "requires_yossi_accuracy_pass": true,
       "integration_status": "not_runtime_active",
       "runtime_active": false,
       "source_package_id": "linear_chumash_translation_most_parshiyos_in_torah",
@@ -162,6 +177,8 @@
       "label": "Batch 004 Linear Chumash Translation excerpt",
       "status": "reviewed_for_planning_non_runtime",
       "review_status": "reviewed",
+      "extraction_review_status": "yossi_extraction_verified",
+      "requires_yossi_accuracy_pass": false,
       "integration_status": "not_runtime_active",
       "runtime_active": false,
       "source_package_id": "linear_chumash_translation_most_parshiyos_in_torah",
@@ -194,6 +211,8 @@
       "label": "Batch 005 Linear Chumash Translation excerpt",
       "status": "reviewed_for_planning_non_runtime",
       "review_status": "reviewed",
+      "extraction_review_status": "yossi_extraction_verified",
+      "requires_yossi_accuracy_pass": false,
       "integration_status": "not_runtime_active",
       "runtime_active": false,
       "source_package_id": "linear_chumash_translation_most_parshiyos_in_torah",
@@ -229,5 +248,7 @@
     "No data in this manifest is reviewed for live use.",
     "No file in this manifest writes to the active reviewed question bank.",
     "Batch 001 cleaned seeds were reviewed for isolated non-runtime use only."
+    ,
+    "For trusted teacher-created source material, reviewed source-derived records mean extraction accuracy was checked; they do not become runtime-ready or question-ready."
   ]
 }

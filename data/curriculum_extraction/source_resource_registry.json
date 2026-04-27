@@ -5,13 +5,28 @@
   "notes": [
     "This registry models external curriculum extraction source packages only.",
     "All packages in this registry are isolated from runtime until a later explicit integration branch approves them.",
-    "Phase 1 uses tiny manual samples only and does not publish anything into the active reviewed question bank."
+    "Phase 1 uses tiny manual samples only and does not publish anything into the active reviewed question bank.",
+    "Trusted teacher-created source packages require Yossi extraction-accuracy review, not a full educational approval cycle."
   ],
+  "trusted_teacher_source_policy": {
+    "policy_doc": "docs/sources/trusted_teacher_source_policy.md",
+    "source_authority": "trusted_teacher_source",
+    "default_extraction_review_status": "pending_yossi_extraction_accuracy_pass",
+    "runtime_status": "not_runtime_ready",
+    "question_ready_status": "not_question_ready"
+  },
   "source_packages": [
     {
       "source_package_id": "linear_chumash_translation_most_parshiyos_in_torah",
       "display_name": "Linear Chumash Translation for Most Parshiyos in Torah",
       "role": "core_content_context_source",
+      "source_authority": "trusted_teacher_source",
+      "teacher_source_status": "trusted_teacher_source",
+      "extraction_review_status": "pending_yossi_extraction_accuracy_pass",
+      "requires_yossi_accuracy_pass": true,
+      "runtime_status": "not_runtime_ready",
+      "question_ready_status": "not_question_ready",
+      "confirmation_needed_reason": null,
       "expected_future_record_types": [
         "pasuk_segment",
         "translation_rule"
@@ -26,6 +41,13 @@
       "source_package_id": "what_is_the_pasuk_coming_to_teach",
       "display_name": "What is the Pasuk Coming to Teach?",
       "role": "word_parse_and_phrase_intent_model",
+      "source_authority": "trusted_teacher_source",
+      "teacher_source_status": "trusted_teacher_source",
+      "extraction_review_status": "pending_yossi_extraction_accuracy_pass",
+      "requires_yossi_accuracy_pass": true,
+      "runtime_status": "not_runtime_ready",
+      "question_ready_status": "not_question_ready",
+      "confirmation_needed_reason": null,
       "expected_future_record_types": [
         "word_parse",
         "question_template"
@@ -40,6 +62,13 @@
       "source_package_id": "eli_bacharach_parshas_shemos_shorashim_prefix_suffix_skills",
       "display_name": "Eli Bacharach: Parshas Shemos Shorashim, Prefix and Suffix Skills",
       "role": "word_parse_task_model",
+      "source_authority": "trusted_teacher_source",
+      "teacher_source_status": "trusted_teacher_source",
+      "extraction_review_status": "pending_yossi_extraction_accuracy_pass",
+      "requires_yossi_accuracy_pass": true,
+      "runtime_status": "not_runtime_ready",
+      "question_ready_status": "not_question_ready",
+      "confirmation_needed_reason": null,
       "expected_future_record_types": [
         "word_parse_task",
         "question_template"
@@ -54,6 +83,13 @@
       "source_package_id": "eli_bacharach_parshas_vaeira_textual_skills",
       "display_name": "Eli Bacharach: Parshas Va'eira Textual Skills",
       "role": "decoding_and_comprehension_question_model",
+      "source_authority": "trusted_teacher_source",
+      "teacher_source_status": "trusted_teacher_source",
+      "extraction_review_status": "pending_yossi_extraction_accuracy_pass",
+      "requires_yossi_accuracy_pass": true,
+      "runtime_status": "not_runtime_ready",
+      "question_ready_status": "not_question_ready",
+      "confirmation_needed_reason": null,
       "expected_future_record_types": [
         "word_parse",
         "comprehension_question",
@@ -69,6 +105,13 @@
       "source_package_id": "vocabulary_priority_pack",
       "display_name": "Vocabulary Priority Pack",
       "role": "vocabulary_priority_layer",
+      "source_authority": "trusted_teacher_source",
+      "teacher_source_status": "trusted_teacher_source",
+      "extraction_review_status": "pending_yossi_extraction_accuracy_pass",
+      "requires_yossi_accuracy_pass": true,
+      "runtime_status": "not_runtime_ready",
+      "question_ready_status": "not_question_ready",
+      "confirmation_needed_reason": null,
       "expected_future_record_types": [
         "vocab_entry"
       ],
@@ -82,6 +125,13 @@
       "source_package_id": "first_150_shorashim_and_keywords_bereishis",
       "display_name": "First 150 Shorashim and Keywords in Bereishis",
       "role": "optional_vocabulary_translation_support",
+      "source_authority": "trusted_teacher_source",
+      "teacher_source_status": "trusted_teacher_source",
+      "extraction_review_status": "pending_yossi_extraction_accuracy_pass",
+      "requires_yossi_accuracy_pass": true,
+      "runtime_status": "not_runtime_ready",
+      "question_ready_status": "not_question_ready",
+      "confirmation_needed_reason": null,
       "expected_future_record_types": [
         "vocab_entry"
       ],

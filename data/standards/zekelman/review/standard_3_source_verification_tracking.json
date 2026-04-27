@@ -6,6 +6,7 @@
     "purpose": "Human source-verification and final teacher-decision support for unresolved Standard 3 strands.",
     "canonical_source_policy": "Zekelman 2025 remains canonical for wording, numbering, level progression, and scope.",
     "supplemental_source_policy": "Loshon HaTorah / Loshon Hakodesh evidence is supplemental only and does not create teacher decisions.",
+    "trusted_teacher_source_policy": "Zekelman and Loshon source materials are trusted teacher-approved educational sources. Remaining review is extraction-accuracy, Hebrew/source-page verification, classification, and mapping confirmation rather than re-approval of the educational source itself.",
     "runtime_policy": "No item in this tracking file is runtime-ready or question-ready.",
     "reviewer_decision_values": [
       "approve_as_foundational_skill",
@@ -17,6 +18,10 @@
     ],
     "conservative_status_values": [
       "needs_teacher_review",
+      "trusted_teacher_source",
+      "pending_yossi_extraction_accuracy_pass",
+      "yossi_extraction_verified",
+      "needs_specific_confirmation",
       "source_match_needs_verification",
       "hebrew_needs_verification",
       "level_mapping_needs_review",

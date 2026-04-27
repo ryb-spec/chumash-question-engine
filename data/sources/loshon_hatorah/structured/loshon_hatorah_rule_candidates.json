@@ -31,18 +31,18 @@
       "skill_label": "Recognize implied English indefinite article with simple Hebrew nouns",
       "rule_or_activity_summary": "A simple Hebrew noun may translate naturally with English 'a/an' even when no separate Hebrew article is written.",
       "hebrew_terms": [
-        "בן",
-        "מלך"
+        "×‘×Ÿ",
+        "×ž×œ×š"
       ],
       "example_words_if_safe": [
-        "בן -> a son",
-        "מלך -> a king"
+        "×‘×Ÿ -> a son",
+        "×ž×œ×š -> a king"
       ],
       "grade_or_level_hint": "Lesson 1",
       "relationship_to_chumash_skill": "Supports cautious noun translation and translation precision for taught noun vocabulary.",
       "confidence": "medium",
       "review_status": [
-        "needs_teacher_review",
+        "pending_yossi_extraction_accuracy_pass",
         "source_match_needs_verification",
         "hebrew_needs_verification",
         "not_runtime_ready",
@@ -65,21 +65,21 @@
       "source_path": "data/dikduk_rules/rules_loshon_foundation.jsonl",
       "page_or_section": "Lesson 1 / DK-ARTICLE-001 / raw PDF evidence linked separately; exact source wording still needs review",
       "skill_family": "article_heh",
-      "skill_label": "Identify definite ה as 'the'",
-      "rule_or_activity_summary": "A prefixed ה before a noun usually adds the meaning 'the', while context and word identity still matter.",
+      "skill_label": "Identify definite ×” as 'the'",
+      "rule_or_activity_summary": "A prefixed ×” before a noun usually adds the meaning 'the', while context and word identity still matter.",
       "hebrew_terms": [
-        "ה",
-        "הבן"
+        "×”",
+        "×”×‘×Ÿ"
       ],
       "example_words_if_safe": [
-        "בן -> a son",
-        "הבן -> the son"
+        "×‘×Ÿ -> a son",
+        "×”×‘×Ÿ -> the son"
       ],
       "grade_or_level_hint": "Lesson 1",
       "relationship_to_chumash_skill": "Clarifies basic definite article recognition for prefix/article review.",
       "confidence": "medium",
       "review_status": [
-        "needs_teacher_review",
+        "pending_yossi_extraction_accuracy_pass",
         "source_match_needs_verification",
         "hebrew_needs_verification",
         "not_runtime_ready",
@@ -91,7 +91,7 @@
           "source_id": "loshon_hakodesh_main_book_pdf",
           "source_path": "docs/sources/loshon_hatorah/extracted/loshon_hakodesh_book_ocr_raw_text.md",
           "page_or_section": "main extracted page 81 / printed p. 160 summary, citing pg. 2",
-          "evidence_summary": "Summary states that ה at the beginning of a noun means 'the'."
+          "evidence_summary": "Summary states that ×” at the beginning of a noun means 'the'."
         }
       ],
       "source_verification_note": "Raw PDFs are now present, but Hebrew/OCR/table/layout review remains required before any diagnostic or question-generation planning use."
@@ -102,33 +102,33 @@
       "source_path": "data/dikduk_rules/rules_loshon_foundation.jsonl",
       "page_or_section": "Lesson 1 / DK-CONJ-001 / raw PDF evidence linked separately; exact source wording still needs review",
       "skill_family": "prefix_identification",
-      "skill_label": "Identify prefixed ו as 'and'",
-      "rule_or_activity_summary": "A prefixed ו can function as a conjunction meaning 'and', but initial ו should not be stripped blindly.",
+      "skill_label": "Identify prefixed ×• as 'and'",
+      "rule_or_activity_summary": "A prefixed ×• can function as a conjunction meaning 'and', but initial ×• should not be stripped blindly.",
       "hebrew_terms": [
-        "ו",
-        "ואיש"
+        "×•",
+        "×•××™×©"
       ],
       "example_words_if_safe": [
-        "איש -> a man",
-        "ואיש -> and a man"
+        "××™×© -> a man",
+        "×•××™×© -> and a man"
       ],
       "grade_or_level_hint": "Lesson 1",
-      "relationship_to_chumash_skill": "Supports visible prefix identification in 3.06 while leaving ו ההיפוך unresolved.",
+      "relationship_to_chumash_skill": "Supports visible prefix identification in 3.06 while leaving ×• ×”×”×™×¤×•×š unresolved.",
       "confidence": "medium",
       "review_status": [
-        "needs_teacher_review",
+        "pending_yossi_extraction_accuracy_pass",
         "source_match_needs_verification",
         "hebrew_needs_verification",
         "not_runtime_ready",
         "not_question_ready"
       ],
-      "notes": "The available rule does not provide direct support for ו ההיפוך.",
+      "notes": "The available rule does not provide direct support for ×• ×”×”×™×¤×•×š.",
       "raw_source_evidence": [
         {
           "source_id": "loshon_hakodesh_main_book_pdf",
           "source_path": "docs/sources/loshon_hatorah/extracted/loshon_hakodesh_book_ocr_raw_text.md",
           "page_or_section": "main extracted page 81 / printed p. 160 summary, citing pg. 3",
-          "evidence_summary": "Summary states that ו at the beginning of a noun means 'and'."
+          "evidence_summary": "Summary states that ×• at the beginning of a noun means 'and'."
         }
       ],
       "source_verification_note": "Raw PDFs are now present, but Hebrew/OCR/table/layout review remains required before any diagnostic or question-generation planning use."
@@ -140,24 +140,24 @@
       "page_or_section": "Lesson 1 / DK-GENDER-001, DK-PLURAL-001, DK-PLURAL-002, DK-PLURAL-003 / raw PDF evidence linked separately; exact source wording still needs review",
       "skill_family": "noun_features",
       "skill_label": "Recognize noun gender, number, and common plural endings",
-      "rule_or_activity_summary": "Hebrew nouns can be masculine or feminine, common plurals include ים and ות, and some feminine nouns ending ה change form before plural ות.",
+      "rule_or_activity_summary": "Hebrew nouns can be masculine or feminine, common plurals include ×™× and ×•×ª, and some feminine nouns ending ×” change form before plural ×•×ª.",
       "hebrew_terms": [
-        "זכר",
-        "נקבה",
-        "ים",
-        "ות",
-        "ה"
+        "×–×›×¨",
+        "× ×§×‘×”",
+        "×™×",
+        "×•×ª",
+        "×”"
       ],
       "example_words_if_safe": [
-        "מלך -> מלכים",
-        "מלכה -> מלכות",
-        "תורה -> תורות"
+        "×ž×œ×š -> ×ž×œ×›×™×",
+        "×ž×œ×›×” -> ×ž×œ×›×•×ª",
+        "×ª×•×¨×” -> ×ª×•×¨×•×ª"
       ],
       "grade_or_level_hint": "Lesson 1",
       "relationship_to_chumash_skill": "Supports 3.04 noun-feature review and later source-checked form work.",
       "confidence": "medium",
       "review_status": [
-        "needs_teacher_review",
+        "pending_yossi_extraction_accuracy_pass",
         "source_match_needs_verification",
         "hebrew_needs_verification",
         "not_runtime_ready",
@@ -186,22 +186,22 @@
       "source_path": "data/dikduk_rules/rules_loshon_foundation.jsonl",
       "page_or_section": "Lesson 2 / DK-SMICHUS-001 and DK-SMICHUS-004 / raw PDF evidence linked separately; exact source wording still needs review",
       "skill_family": "syntax_phrase_structure",
-      "skill_label": "Identify סמיכות as a construct phrase",
+      "skill_label": "Identify ×¡×ž×™×›×•×ª as a construct phrase",
       "rule_or_activity_summary": "Two nouns can stand together as a construct unit where the first often means 'the ___ of', while some forms stay unchanged.",
       "hebrew_terms": [
-        "סמיכות",
-        "מלך ישראל",
-        "תורת משה"
+        "×¡×ž×™×›×•×ª",
+        "×ž×œ×š ×™×©×¨××œ",
+        "×ª×•×¨×ª ×ž×©×”"
       ],
       "example_words_if_safe": [
-        "מלך ישראל -> the king of Israel",
-        "תורת משה -> the teaching of Moshe"
+        "×ž×œ×š ×™×©×¨××œ -> the king of Israel",
+        "×ª×•×¨×ª ×ž×©×” -> the teaching of Moshe"
       ],
       "grade_or_level_hint": "Lesson 2",
       "relationship_to_chumash_skill": "Directly enriches 3.04 smichut review and partially supports 3.08 phrase grouping.",
       "confidence": "medium",
       "review_status": [
-        "needs_teacher_review",
+        "pending_yossi_extraction_accuracy_pass",
         "source_match_needs_verification",
         "hebrew_needs_verification",
         "not_runtime_ready",
@@ -230,22 +230,22 @@
       "source_path": "data/dikduk_rules/rules_loshon_foundation.jsonl",
       "page_or_section": "Lesson 2 / DK-SMICHUS-002 and DK-SMICHUS-003 / raw PDF evidence linked separately; exact source wording still needs review",
       "skill_family": "noun_features",
-      "skill_label": "Recognize common form changes in סמיכות",
-      "rule_or_activity_summary": "Some construct forms change final ה to ת, and final ים can change to י in construct phrases.",
+      "skill_label": "Recognize common form changes in ×¡×ž×™×›×•×ª",
+      "rule_or_activity_summary": "Some construct forms change final ×” to ×ª, and final ×™× can change to ×™ in construct phrases.",
       "hebrew_terms": [
-        "ה→ת",
-        "ים→י",
-        "סמיכות"
+        "×”â†’×ª",
+        "×™×â†’×™",
+        "×¡×ž×™×›×•×ª"
       ],
       "example_words_if_safe": [
-        "תורה -> תורת משה",
-        "דברים -> דברי המלך"
+        "×ª×•×¨×” -> ×ª×•×¨×ª ×ž×©×”",
+        "×“×‘×¨×™× -> ×“×‘×¨×™ ×”×ž×œ×š"
       ],
       "grade_or_level_hint": "Lesson 2",
       "relationship_to_chumash_skill": "Clarifies a form-sensitive part of 3.04 and supports cautious phrase grouping in 3.08.",
       "confidence": "medium",
       "review_status": [
-        "needs_teacher_review",
+        "pending_yossi_extraction_accuracy_pass",
         "source_match_needs_verification",
         "hebrew_needs_verification",
         "not_runtime_ready",
@@ -257,7 +257,7 @@
           "source_id": "loshon_hakodesh_main_book_pdf",
           "source_path": "docs/sources/loshon_hatorah/extracted/loshon_hakodesh_book_ocr_raw_text.md",
           "page_or_section": "main extracted page 6 and page 81 summary",
-          "evidence_summary": "Explains that noun letters can change in construct form and lists common ה/ים changes."
+          "evidence_summary": "Explains that noun letters can change in construct form and lists common ×”/×™× changes."
         }
       ],
       "source_verification_note": "Raw PDFs are now present, but Hebrew/OCR/table/layout review remains required before any diagnostic or question-generation planning use."
@@ -271,17 +271,17 @@
       "skill_label": "Preserve ambiguity in possible construct phrases",
       "rule_or_activity_summary": "Two-noun sequences may form an 'of' phrase or may require another contextual reading, so ambiguity should be preserved.",
       "hebrew_terms": [
-        "סמיכות",
-        "דברי שלום"
+        "×¡×ž×™×›×•×ª",
+        "×“×‘×¨×™ ×©×œ×•×"
       ],
       "example_words_if_safe": [
-        "דברי שלום -> words of peace / peaceful words"
+        "×“×‘×¨×™ ×©×œ×•× -> words of peace / peaceful words"
       ],
       "grade_or_level_hint": "Lesson 2",
       "relationship_to_chumash_skill": "Supports caution around 3.04 smichut and 3.08 phrase-translation decisions.",
       "confidence": "medium",
       "review_status": [
-        "needs_teacher_review",
+        "pending_yossi_extraction_accuracy_pass",
         "source_match_needs_verification",
         "hebrew_needs_verification",
         "not_runtime_ready",
@@ -293,7 +293,7 @@
           "source_id": "loshon_hakodesh_main_book_pdf",
           "source_path": "docs/sources/loshon_hatorah/extracted/loshon_hakodesh_book_ocr_raw_text.md",
           "page_or_section": "main extracted page 80 / printed p. 158, Lesson 16",
-          "evidence_summary": "Missing-word discussion around בראשית illustrates why construct-like phrase translation can require context."
+          "evidence_summary": "Missing-word discussion around ×‘×¨××©×™×ª illustrates why construct-like phrase translation can require context."
         }
       ],
       "source_verification_note": "Raw PDFs are now present, but Hebrew/OCR/table/layout review remains required before any diagnostic or question-generation planning use."
@@ -307,18 +307,18 @@
       "skill_label": "Recognize variable verb and noun order",
       "rule_or_activity_summary": "Hebrew can place the verb before or after the noun; students should identify the role of each word before translating.",
       "hebrew_terms": [
-        "אמר האיש",
-        "האיש אמר"
+        "××ž×¨ ×”××™×©",
+        "×”××™×© ××ž×¨"
       ],
       "example_words_if_safe": [
-        "אמר האיש -> the man said",
-        "האיש אמר -> the man said"
+        "××ž×¨ ×”××™×© -> the man said",
+        "×”××™×© ××ž×¨ -> the man said"
       ],
       "grade_or_level_hint": "Lesson 1",
       "relationship_to_chumash_skill": "Direct enrichment for 3.08 grouping and word-order review.",
       "confidence": "medium",
       "review_status": [
-        "needs_teacher_review",
+        "pending_yossi_extraction_accuracy_pass",
         "source_match_needs_verification",
         "hebrew_needs_verification",
         "not_runtime_ready",
@@ -344,18 +344,18 @@
       "skill_label": "Reorder Hebrew word order naturally in English translation",
       "rule_or_activity_summary": "Students may need to translate Hebrew word order into natural English while preserving the Hebrew meaning.",
       "hebrew_terms": [
-        "אמר המלך",
-        "שמרו הבנים"
+        "××ž×¨ ×”×ž×œ×š",
+        "×©×ž×¨×• ×”×‘× ×™×"
       ],
       "example_words_if_safe": [
-        "אמר המלך -> the king said",
-        "שמרו הבנים -> the sons guarded"
+        "××ž×¨ ×”×ž×œ×š -> the king said",
+        "×©×ž×¨×• ×”×‘× ×™× -> the sons guarded"
       ],
       "grade_or_level_hint": "Lesson 1",
       "relationship_to_chumash_skill": "Direct enrichment for 3.08 word-order and translation-construction review.",
       "confidence": "medium",
       "review_status": [
-        "needs_teacher_review",
+        "pending_yossi_extraction_accuracy_pass",
         "source_match_needs_verification",
         "hebrew_needs_verification",
         "not_runtime_ready",
@@ -385,24 +385,24 @@
       "page_or_section": "Lesson 3 / DK-PREP-001 / raw PDF evidence linked separately; exact source wording still needs review",
       "skill_family": "prepositions",
       "skill_label": "Recognize full-word prepositions",
-      "rule_or_activity_summary": "The modeled lesson includes full-word prepositions such as אל, על, עם, לפני, אחרי, and מן.",
+      "rule_or_activity_summary": "The modeled lesson includes full-word prepositions such as ××œ, ×¢×œ, ×¢×, ×œ×¤× ×™, ××—×¨×™, and ×ž×Ÿ.",
       "hebrew_terms": [
-        "אל",
-        "על",
-        "עם",
-        "לפני",
-        "אחרי",
-        "מן"
+        "××œ",
+        "×¢×œ",
+        "×¢×",
+        "×œ×¤× ×™",
+        "××—×¨×™",
+        "×ž×Ÿ"
       ],
       "example_words_if_safe": [
-        "אל העיר -> to the city",
-        "על ההר -> on the mountain"
+        "××œ ×”×¢×™×¨ -> to the city",
+        "×¢×œ ×”×”×¨ -> on the mountain"
       ],
       "grade_or_level_hint": "Lesson 3",
       "relationship_to_chumash_skill": "Supports 3.06 preposition review as enrichment evidence.",
       "confidence": "medium",
       "review_status": [
-        "needs_teacher_review",
+        "pending_yossi_extraction_accuracy_pass",
         "source_match_needs_verification",
         "hebrew_needs_verification",
         "not_runtime_ready",
@@ -431,27 +431,27 @@
       "source_path": "data/dikduk_rules/rules_loshon_foundation.jsonl",
       "page_or_section": "Lesson 3 / DK-PREP-002 through DK-PREP-007 / raw PDF evidence linked separately; exact source wording still needs review",
       "skill_family": "prefix_identification",
-      "skill_label": "Recognize common prefix prepositions and ש",
-      "rule_or_activity_summary": "The modeled lesson treats ל, ב, מ, כ, and ש as common prefixed function letters with distinct meanings.",
+      "skill_label": "Recognize common prefix prepositions and ×©",
+      "rule_or_activity_summary": "The modeled lesson treats ×œ, ×‘, ×ž, ×›, and ×© as common prefixed function letters with distinct meanings.",
       "hebrew_terms": [
-        "ל",
-        "ב",
-        "מ",
-        "כ",
-        "ש"
+        "×œ",
+        "×‘",
+        "×ž",
+        "×›",
+        "×©"
       ],
       "example_words_if_safe": [
-        "למלך -> to the king",
-        "בבית -> in the house",
-        "מהארץ -> from the land",
-        "כאב -> like a father",
-        "שאמר -> that he said"
+        "×œ×ž×œ×š -> to the king",
+        "×‘×‘×™×ª -> in the house",
+        "×ž×”××¨×¥ -> from the land",
+        "×›××‘ -> like a father",
+        "×©××ž×¨ -> that he said"
       ],
       "grade_or_level_hint": "Lesson 3",
       "relationship_to_chumash_skill": "Clarifies visible prefix/preposition work in 3.06.",
       "confidence": "medium",
       "review_status": [
-        "needs_teacher_review",
+        "pending_yossi_extraction_accuracy_pass",
         "source_match_needs_verification",
         "hebrew_needs_verification",
         "not_runtime_ready",
@@ -474,39 +474,39 @@
       "source_path": "data/dikduk_rules/rules_loshon_foundation.jsonl",
       "page_or_section": "Lesson 3 / DK-ET-001 through DK-ET-005 / raw PDF evidence linked separately; exact source wording still needs review",
       "skill_family": "translation_precision",
-      "skill_label": "Distinguish functions of את-family forms",
-      "rule_or_activity_summary": "The modeled rules distinguish את as a direct-object marker, את meaning with, suffix forms attached to את, and rare/context-sensitive readings.",
+      "skill_label": "Distinguish functions of ××ª-family forms",
+      "rule_or_activity_summary": "The modeled rules distinguish ××ª as a direct-object marker, ××ª meaning with, suffix forms attached to ××ª, and rare/context-sensitive readings.",
       "hebrew_terms": [
-        "את",
-        "אֵת",
-        "אֶת",
-        "אותו",
-        "אותה"
+        "××ª",
+        "×Öµ×ª",
+        "×Ö¶×ª",
+        "××•×ª×•",
+        "××•×ª×”"
       ],
       "example_words_if_safe": [
-        "את האיש -> the man (object marker not translated directly)",
-        "אֵת אחיו -> with his brother",
-        "אותו -> him",
-        "אותה -> her"
+        "××ª ×”××™×© -> the man (object marker not translated directly)",
+        "×Öµ×ª ××—×™×• -> with his brother",
+        "××•×ª×• -> him",
+        "××•×ª×” -> her"
       ],
       "grade_or_level_hint": "Lesson 3",
-      "relationship_to_chumash_skill": "Supports the teacher-reviewed boundary that את remains context-sensitive in 3.06.",
+      "relationship_to_chumash_skill": "Supports the teacher-reviewed boundary that ××ª remains context-sensitive in 3.06.",
       "confidence": "medium",
       "review_status": [
-        "needs_teacher_review",
+        "pending_yossi_extraction_accuracy_pass",
         "source_match_needs_verification",
         "hebrew_needs_verification",
         "possible_ocr_issue",
         "not_runtime_ready",
         "not_question_ready"
       ],
-      "notes": "This enriches the deferral rationale for את; it does not make the lane question-ready.",
+      "notes": "This enriches the deferral rationale for ××ª; it does not make the lane question-ready.",
       "raw_source_evidence": [
         {
           "source_id": "loshon_hakodesh_main_book_pdf",
           "source_path": "docs/sources/loshon_hatorah/extracted/loshon_hakodesh_book_ocr_raw_text.md",
           "page_or_section": "main extracted page 81 / printed p. 160 summary, citing pgs. 9 and 20-21",
-          "evidence_summary": "Summary says את-family forms have multiple usages and notes nikud-sensitive distinctions."
+          "evidence_summary": "Summary says ××ª-family forms have multiple usages and notes nikud-sensitive distinctions."
         }
       ],
       "source_verification_note": "Raw PDFs are now present, but Hebrew/OCR/table/layout review remains required before any diagnostic or question-generation planning use."
@@ -520,26 +520,26 @@
       "skill_label": "Identify possessive suffixes on singular nouns",
       "rule_or_activity_summary": "Singular nouns can take suffixes that indicate ownership such as my, your, his, her, our, and their.",
       "hebrew_terms": [
-        "י",
-        "ךָ",
-        "ךְ",
-        "ו",
-        "ה",
-        "נו",
-        "כם",
-        "כן",
-        "ם",
-        "ן"
+        "×™",
+        "×šÖ¸",
+        "×šÖ°",
+        "×•",
+        "×”",
+        "× ×•",
+        "×›×",
+        "×›×Ÿ",
+        "×",
+        "×Ÿ"
       ],
       "example_words_if_safe": [
-        "ספרי -> my book",
-        "ספרו -> his book"
+        "×¡×¤×¨×™ -> my book",
+        "×¡×¤×¨×• -> his book"
       ],
       "grade_or_level_hint": "Lesson 4",
       "relationship_to_chumash_skill": "Directly enriches 3.05 pronominal suffix decoding as a separate lane from referent tracking.",
       "confidence": "medium",
       "review_status": [
-        "needs_teacher_review",
+        "pending_yossi_extraction_accuracy_pass",
         "source_match_needs_verification",
         "hebrew_needs_verification",
         "possible_ocr_issue",
@@ -570,22 +570,22 @@
       "page_or_section": "Lesson 4 / DK-POSSESSIVE-002 and DK-POSSESSIVE-003 / raw PDF evidence linked separately; exact source wording still needs review",
       "skill_family": "possessive_suffixes",
       "skill_label": "Parse plural possessive noun forms carefully",
-      "rule_or_activity_summary": "Plural nouns often add י before possessive suffixes, and singular/plural possessive forms can look similar after suffixes are added.",
+      "rule_or_activity_summary": "Plural nouns often add ×™ before possessive suffixes, and singular/plural possessive forms can look similar after suffixes are added.",
       "hebrew_terms": [
-        "י+suffix",
-        "דברו",
-        "דבריו"
+        "×™+suffix",
+        "×“×‘×¨×•",
+        "×“×‘×¨×™×•"
       ],
       "example_words_if_safe": [
-        "דבריהם -> their words",
-        "דברו -> his word",
-        "דבריו -> his words"
+        "×“×‘×¨×™×”× -> their words",
+        "×“×‘×¨×• -> his word",
+        "×“×‘×¨×™×• -> his words"
       ],
       "grade_or_level_hint": "Lesson 4",
       "relationship_to_chumash_skill": "Strengthens 3.05 suffix-decoding review and cautions against over-simple suffix lanes.",
       "confidence": "medium",
       "review_status": [
-        "needs_teacher_review",
+        "pending_yossi_extraction_accuracy_pass",
         "source_match_needs_verification",
         "hebrew_needs_verification",
         "possible_ocr_issue",
@@ -598,7 +598,7 @@
           "source_id": "loshon_hakodesh_main_book_pdf",
           "source_path": "docs/sources/loshon_hatorah/extracted/loshon_hakodesh_book_ocr_raw_text.md",
           "page_or_section": "main extracted page 81 / printed p. 161 summary, citing pgs. 27-30 and 93",
-          "evidence_summary": "Summary states plural nouns with endings have a י and distinguishes similar-looking singular/plural possessive forms."
+          "evidence_summary": "Summary states plural nouns with endings have a ×™ and distinguishes similar-looking singular/plural possessive forms."
         }
       ],
       "source_verification_note": "Raw PDFs are now present, but Hebrew/OCR/table/layout review remains required before any diagnostic or question-generation planning use."
@@ -612,21 +612,21 @@
       "skill_label": "Use person, gender, and number labels in analysis",
       "rule_or_activity_summary": "The modeled lesson uses person, gender, and number labels when analyzing Hebrew forms.",
       "hebrew_terms": [
-        "גוף",
-        "זכר",
-        "נקבה",
-        "יחיד",
-        "רבים"
+        "×’×•×£",
+        "×–×›×¨",
+        "× ×§×‘×”",
+        "×™×—×™×“",
+        "×¨×‘×™×"
       ],
       "example_words_if_safe": [
-        "אתם -> you (many males)",
-        "היא -> she"
+        "××ª× -> you (many males)",
+        "×”×™× -> she"
       ],
       "grade_or_level_hint": "Lesson 3",
       "relationship_to_chumash_skill": "Supports 3.05 pronoun categories and 3.07 person/number/gender verb clues.",
       "confidence": "medium",
       "review_status": [
-        "needs_teacher_review",
+        "pending_yossi_extraction_accuracy_pass",
         "source_match_needs_verification",
         "hebrew_needs_verification",
         "not_runtime_ready",
@@ -652,18 +652,18 @@
       "skill_label": "Match verb agreement to noun gender and number",
       "rule_or_activity_summary": "The modeled rule says a verb should match the controlling noun in gender and number, and students must identify the noun controlling the verb.",
       "hebrew_terms": [
-        "הבן שמר",
-        "הבנות שמרו"
+        "×”×‘×Ÿ ×©×ž×¨",
+        "×”×‘× ×•×ª ×©×ž×¨×•"
       ],
       "example_words_if_safe": [
-        "הבן שמר -> the son guarded",
-        "הבנות שמרו -> the daughters guarded"
+        "×”×‘×Ÿ ×©×ž×¨ -> the son guarded",
+        "×”×‘× ×•×ª ×©×ž×¨×• -> the daughters guarded"
       ],
       "grade_or_level_hint": "Lesson 1",
       "relationship_to_chumash_skill": "Supports foundational 3.07 tense/person/form planning and 3.08 role-aware grouping.",
       "confidence": "medium",
       "review_status": [
-        "needs_teacher_review",
+        "pending_yossi_extraction_accuracy_pass",
         "source_match_needs_verification",
         "hebrew_needs_verification",
         "not_runtime_ready",
@@ -689,19 +689,19 @@
       "skill_label": "Use shoresh plus added letters to read verb features",
       "rule_or_activity_summary": "To understand a verb, identify the shoresh and then read added letters for tense, person, number, and gender.",
       "hebrew_terms": [
-        "שורש",
-        "שמרתי",
-        "אשמור"
+        "×©×•×¨×©",
+        "×©×ž×¨×ª×™",
+        "××©×ž×•×¨"
       ],
       "example_words_if_safe": [
-        "שמרתי -> I guarded",
-        "אשמור -> I will guard"
+        "×©×ž×¨×ª×™ -> I guarded",
+        "××©×ž×•×¨ -> I will guard"
       ],
       "grade_or_level_hint": "Lesson 5",
       "relationship_to_chumash_skill": "Supports 3.02 simple shoresh plus 3.07 foundational verb-feature planning.",
       "confidence": "medium",
       "review_status": [
-        "needs_teacher_review",
+        "pending_yossi_extraction_accuracy_pass",
         "source_match_needs_verification",
         "hebrew_needs_verification",
         "possible_ocr_issue",
@@ -731,23 +731,23 @@
       "source_path": "data/dikduk_rules/rules_loshon_foundation.jsonl",
       "page_or_section": "Lesson 5 / DK-VERB-PAST-001 / raw PDF evidence linked separately; exact source wording still needs review",
       "skill_family": "tense_recognition",
-      "skill_label": "Model past-tense endings from שמר",
-      "rule_or_activity_summary": "Past-tense endings are modeled using שמר and show who did the action.",
+      "skill_label": "Model past-tense endings from ×©×ž×¨",
+      "rule_or_activity_summary": "Past-tense endings are modeled using ×©×ž×¨ and show who did the action.",
       "hebrew_terms": [
-        "עבר",
-        "שמר",
-        "שמרתי",
-        "שמרו"
+        "×¢×‘×¨",
+        "×©×ž×¨",
+        "×©×ž×¨×ª×™",
+        "×©×ž×¨×•"
       ],
       "example_words_if_safe": [
-        "שמרתי -> I guarded",
-        "שמרו -> they guarded"
+        "×©×ž×¨×ª×™ -> I guarded",
+        "×©×ž×¨×• -> they guarded"
       ],
       "grade_or_level_hint": "Lesson 5",
       "relationship_to_chumash_skill": "Supports foundational 3.07 tense-recognition planning.",
       "confidence": "medium",
       "review_status": [
-        "needs_teacher_review",
+        "pending_yossi_extraction_accuracy_pass",
         "source_match_needs_verification",
         "hebrew_needs_verification",
         "possible_ocr_issue",
@@ -771,30 +771,30 @@
       "source_path": "data/dikduk_rules/rules_loshon_foundation.jsonl",
       "page_or_section": "Lesson 5 / DK-VERB-FUTURE-001 / raw PDF evidence linked separately; exact source wording still needs review",
       "skill_family": "tense_recognition",
-      "skill_label": "Model future-tense prefixes and suffixes from שמר",
-      "rule_or_activity_summary": "Future-tense forms are modeled with prefixes and sometimes suffixes attached to שמר.",
+      "skill_label": "Model future-tense prefixes and suffixes from ×©×ž×¨",
+      "rule_or_activity_summary": "Future-tense forms are modeled with prefixes and sometimes suffixes attached to ×©×ž×¨.",
       "hebrew_terms": [
-        "עתיד",
-        "שמר",
-        "אשמור",
-        "תשמרי"
+        "×¢×ª×™×“",
+        "×©×ž×¨",
+        "××©×ž×•×¨",
+        "×ª×©×ž×¨×™"
       ],
       "example_words_if_safe": [
-        "אשמור -> I will guard",
-        "תשמרי -> you will guard"
+        "××©×ž×•×¨ -> I will guard",
+        "×ª×©×ž×¨×™ -> you will guard"
       ],
       "grade_or_level_hint": "Lesson 5",
       "relationship_to_chumash_skill": "Supports foundational 3.07 tense-recognition and prefix/suffix form-clue review.",
       "confidence": "medium",
       "review_status": [
-        "needs_teacher_review",
+        "pending_yossi_extraction_accuracy_pass",
         "source_match_needs_verification",
         "hebrew_needs_verification",
         "possible_ocr_issue",
         "not_runtime_ready",
         "not_question_ready"
       ],
-      "notes": "Does not by itself support full איתן/תהימון progression or weak-root behavior.",
+      "notes": "Does not by itself support full ××™×ª×Ÿ/×ª×”×™×ž×•×Ÿ progression or weak-root behavior.",
       "raw_source_evidence": [
         {
           "source_id": "loshon_hakodesh_answer_booklet_pdf",
@@ -814,21 +814,21 @@
       "skill_label": "Decompose a verb into shoresh, markers, and final translation",
       "rule_or_activity_summary": "A full verb parse includes shoresh, prefix, suffix, tense, person, number, gender, and final translation.",
       "hebrew_terms": [
-        "שורש",
-        "תחילית",
-        "סיומת",
-        "שמרתי",
-        "אשמור"
+        "×©×•×¨×©",
+        "×ª×—×™×œ×™×ª",
+        "×¡×™×•×ž×ª",
+        "×©×ž×¨×ª×™",
+        "××©×ž×•×¨"
       ],
       "example_words_if_safe": [
-        "שמרתי -> I guarded",
-        "אשמור -> I will guard"
+        "×©×ž×¨×ª×™ -> I guarded",
+        "××©×ž×•×¨ -> I will guard"
       ],
       "grade_or_level_hint": "Lesson 5",
       "relationship_to_chumash_skill": "Supports the teacher-reviewed boundary between foundational form clues and advanced 3.07 parsing.",
       "confidence": "medium",
       "review_status": [
-        "needs_teacher_review",
+        "pending_yossi_extraction_accuracy_pass",
         "source_match_needs_verification",
         "hebrew_needs_verification",
         "possible_ocr_issue",
@@ -855,18 +855,18 @@
       "skill_label": "Recognize plural-looking nouns that may translate as singular ideas",
       "rule_or_activity_summary": "Some Hebrew words look plural but often translate as singular ideas in English.",
       "hebrew_terms": [
-        "מים",
-        "פנים"
+        "×ž×™×",
+        "×¤× ×™×"
       ],
       "example_words_if_safe": [
-        "מים -> water",
-        "פנים -> face"
+        "×ž×™× -> water",
+        "×¤× ×™× -> face"
       ],
       "grade_or_level_hint": "Lesson 4",
       "relationship_to_chumash_skill": "Enriches 3.04 irregular noun-form caution and 3.01 translation precision.",
       "confidence": "medium",
       "review_status": [
-        "needs_teacher_review",
+        "pending_yossi_extraction_accuracy_pass",
         "source_match_needs_verification",
         "hebrew_needs_verification",
         "not_runtime_ready",
@@ -889,22 +889,22 @@
       "source_path": "data/dikduk_rules/rules_loshon_foundation.jsonl",
       "page_or_section": "Lesson 3 / DK-ET-005 / raw PDF evidence linked separately; exact source wording still needs review",
       "skill_family": "nikud_reading",
-      "skill_label": "Notice nikud-sensitive את-family distinction",
-      "rule_or_activity_summary": "The modeled rule distinguishes את, אֵת, and אֶת as a spelling family whose function changes by nikud and context.",
+      "skill_label": "Notice nikud-sensitive ××ª-family distinction",
+      "rule_or_activity_summary": "The modeled rule distinguishes ××ª, ×Öµ×ª, and ×Ö¶×ª as a spelling family whose function changes by nikud and context.",
       "hebrew_terms": [
-        "את",
-        "אֵת",
-        "אֶת"
+        "××ª",
+        "×Öµ×ª",
+        "×Ö¶×ª"
       ],
       "example_words_if_safe": [
-        "אֶת האיש -> object-marker use",
-        "אֵת אחיו -> with his brother"
+        "×Ö¶×ª ×”××™×© -> object-marker use",
+        "×Öµ×ª ××—×™×• -> with his brother"
       ],
       "grade_or_level_hint": "Lesson 3",
       "relationship_to_chumash_skill": "Provides only limited nikud-sensitive enrichment for 3.06; it does not resolve advanced 3.10 nikud review.",
       "confidence": "low",
       "review_status": [
-        "needs_teacher_review",
+        "pending_yossi_extraction_accuracy_pass",
         "source_match_needs_verification",
         "hebrew_needs_verification",
         "possible_ocr_issue",
@@ -917,13 +917,13 @@
           "source_id": "loshon_hakodesh_main_book_pdf",
           "source_path": "docs/sources/loshon_hatorah/extracted/loshon_hakodesh_book_ocr_raw_text.md",
           "page_or_section": "main extracted page 81 / printed p. 160 summary, citing pg. 9",
-          "evidence_summary": "Summary notes את-family nikud/function distinctions."
+          "evidence_summary": "Summary notes ××ª-family nikud/function distinctions."
         },
         {
           "source_id": "loshon_hakodesh_answer_booklet_pdf",
           "source_path": "docs/sources/loshon_hatorah/extracted/loshon_answe_2_combined_raw_text.md",
           "page_or_section": "answer extracted page 29 / Lesson 15",
-          "evidence_summary": "Answer notes vowelling/line details around את-type forms in context."
+          "evidence_summary": "Answer notes vowelling/line details around ××ª-type forms in context."
         }
       ],
       "source_verification_note": "Raw PDFs are now present, but Hebrew/OCR/table/layout review remains required before any diagnostic or question-generation planning use."
@@ -937,18 +937,18 @@
       "skill_label": "Treat weak-letter root behavior as a later reviewed boundary",
       "rule_or_activity_summary": "The raw sources discuss weak letters that can drop out of or be replaced within verb roots, but this is advanced/root-sensitive evidence and should remain separate from simple shoresh identification.",
       "hebrew_terms": [
-        "ה",
-        "נ",
-        "ו",
-        "י",
-        "אותיות חלשות"
+        "×”",
+        "× ",
+        "×•",
+        "×™",
+        "××•×ª×™×•×ª ×—×œ×©×•×ª"
       ],
       "example_words_if_safe": [],
       "grade_or_level_hint": "Main book summary cites pgs. 43, 82-83, 90, 138-139; answer booklet Lesson 6",
       "relationship_to_chumash_skill": "Clarifies the teacher-reviewed boundary that weak-letter and altered-root recognition should be deferred from foundational 3.02/3.07 planning.",
       "confidence": "medium",
       "review_status": [
-        "needs_teacher_review",
+        "pending_yossi_extraction_accuracy_pass",
         "source_match_needs_verification",
         "hebrew_needs_verification",
         "possible_ocr_issue",
@@ -972,18 +972,18 @@
       "page_or_section": "Main book extracted page 81 / printed pp. 160-161 summary; answer booklet extracted pages 25 and 31-32",
       "skill_family": "vav_hahipuch",
       "skill_label": "Keep vav hahipuch as context-sensitive tense evidence",
-      "rule_or_activity_summary": "The raw sources discuss a ו-form that can shift past/future tense readings and depends on sentence context, especially in narrative sequence.",
+      "rule_or_activity_summary": "The raw sources discuss a ×•-form that can shift past/future tense readings and depends on sentence context, especially in narrative sequence.",
       "hebrew_terms": [
-        "ו׳ ההיפוך",
-        "עבר",
-        "עתיד"
+        "×•×³ ×”×”×™×¤×•×š",
+        "×¢×‘×¨",
+        "×¢×ª×™×“"
       ],
       "example_words_if_safe": [],
       "grade_or_level_hint": "Main book summary cites pgs. 51-52 and 140-143; answer booklet Lessons 14-16",
       "relationship_to_chumash_skill": "Supports later review of 3.07 tense recognition and reinforces that vav hahipuch is not a simple visible-prefix diagnostic lane yet.",
       "confidence": "medium",
       "review_status": [
-        "needs_teacher_review",
+        "pending_yossi_extraction_accuracy_pass",
         "source_match_needs_verification",
         "hebrew_needs_verification",
         "possible_ocr_issue",
@@ -1009,14 +1009,14 @@
       "skill_label": "Recognize present-tense form evidence as later-level verb enrichment",
       "rule_or_activity_summary": "The answer booklet repeatedly identifies present-tense forms and sometimes explains missing letters or context-sensitive English rendering, but the main-book source pages need direct verification.",
       "hebrew_terms": [
-        "הווה"
+        "×”×•×•×”"
       ],
       "example_words_if_safe": [],
       "grade_or_level_hint": "Answer booklet Lessons 12-16; cited main-book pages include 101, 104-105, and 108",
       "relationship_to_chumash_skill": "Adds supplemental evidence for later 3.07 tense/form planning, while preserving the boundary that advanced verb lanes stay deferred.",
       "confidence": "low",
       "review_status": [
-        "needs_teacher_review",
+        "pending_yossi_extraction_accuracy_pass",
         "source_match_needs_verification",
         "hebrew_needs_verification",
         "possible_ocr_issue",
@@ -1042,14 +1042,14 @@
       "skill_label": "Treat command forms as a separate later verb lane",
       "rule_or_activity_summary": "The answer booklet identifies command forms in translation exercises, but this evidence should remain a later reviewed lane and not be bundled into foundational verb-feature planning.",
       "hebrew_terms": [
-        "ציווי"
+        "×¦×™×•×•×™"
       ],
       "example_words_if_safe": [],
       "grade_or_level_hint": "Answer booklet Lessons 14-16",
       "relationship_to_chumash_skill": "Supports the existing teacher-review boundary that command forms belong in later 3.07 review, not foundational planning.",
       "confidence": "low",
       "review_status": [
-        "needs_teacher_review",
+        "pending_yossi_extraction_accuracy_pass",
         "source_match_needs_verification",
         "hebrew_needs_verification",
         "possible_ocr_issue",
@@ -1075,15 +1075,15 @@
       "skill_label": "Treat pausal forms as nikud-sensitive later review evidence",
       "rule_or_activity_summary": "The answer booklet notes forms whose vowel pattern changes at the end of a sentence or in pausal form, which may enrich later nikud review but does not resolve Zekelman 3.10 scope.",
       "hebrew_terms": [
-        "הפסק",
-        "ניקוד"
+        "×”×¤×¡×§",
+        "× ×™×§×•×“"
       ],
       "example_words_if_safe": [],
       "grade_or_level_hint": "Answer booklet cites main-book p. 96 in several notes",
       "relationship_to_chumash_skill": "Provides limited support for keeping 3.10 nikud-sensitive work in a deferred review lane that needs direct source and Hebrew verification.",
       "confidence": "low",
       "review_status": [
-        "needs_teacher_review",
+        "pending_yossi_extraction_accuracy_pass",
         "source_match_needs_verification",
         "hebrew_needs_verification",
         "possible_ocr_issue",
@@ -1102,3 +1102,4 @@
     }
   ]
 }
+

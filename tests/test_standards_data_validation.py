@@ -67,6 +67,37 @@ class StandardsDataValidationTests(unittest.TestCase):
         self.assertGreaterEqual(summary["loshon_rule_candidate_count"], 1)
         self.assertGreaterEqual(summary["loshon_crosswalk_mapping_count"], 1)
 
+    def test_loshon_sources_use_trusted_source_policy_without_runtime_promotion(self):
+        source_inventory = load_json(validator.LOSHON_SOURCE_INVENTORY_PATH)
+        source = source_inventory["sources"][0]
+
+        self.assertEqual(source["teacher_source_status"], "trusted_teacher_source")
+        self.assertEqual(source["extraction_review_status"], "pending_yossi_extraction_accuracy_pass")
+        self.assertTrue(source["requires_yossi_accuracy_pass"])
+        self.assertEqual(source["runtime_status"], "not_runtime_ready")
+        self.assertEqual(source["question_ready_status"], "not_question_ready")
+
+    def test_unclear_loshon_source_requires_specific_confirmation_reason(self):
+        source_inventory = load_json(validator.LOSHON_SOURCE_INVENTORY_PATH)
+        source_inventory = copy.deepcopy(source_inventory)
+        source_inventory["sources"][0]["teacher_source_status"] = "needs_specific_confirmation"
+        source_inventory["sources"][0]["confirmation_needed_reason"] = ""
+
+        summary = validate_with_overrides(loshon_source_inventory=source_inventory)
+
+        self.assertFalse(summary["valid"])
+        self.assertTrue(any("confirmation_needed_reason" in error for error in summary["errors"]), summary["errors"])
+
+    def test_trusted_source_status_does_not_allow_runtime_or_question_ready(self):
+        source_inventory = load_json(validator.LOSHON_SOURCE_INVENTORY_PATH)
+        source_inventory = copy.deepcopy(source_inventory)
+        source_inventory["sources"][0]["runtime_status"] = "runtime_ready"
+
+        summary = validate_with_overrides(loshon_source_inventory=source_inventory)
+
+        self.assertFalse(summary["valid"])
+        self.assertTrue(any("runtime_status" in error for error in summary["errors"]), summary["errors"])
+
     def test_invalid_review_status_is_rejected(self):
         review_tracking = load_json(validator.REVIEW_TRACKING_PATH)
         review_tracking = copy.deepcopy(review_tracking)

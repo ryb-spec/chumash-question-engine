@@ -1,0 +1,27 @@
+{
+  "version": "0.1",
+  "policy": "Trusted teacher sources require one Yossi extraction-accuracy pass. Unclear source authority or extraction status should produce targeted confirmation items instead of broad workflow blockers.",
+  "packet_template_path": "docs/sources/trusted_teacher_source_extraction_review_packet_template.md",
+  "runtime_status": "not_runtime_ready",
+  "question_ready_status": "not_question_ready",
+  "decision_options": [
+    "trusted_teacher_source",
+    "pending_yossi_extraction_accuracy_pass",
+    "yossi_extraction_verified",
+    "needs_specific_confirmation",
+    "blocked_unclear_source"
+  ],
+  "confirmation_items": [
+    {
+      "confirmation_item_id": "confirm_loshon_foundation_rules_jsonl_source_alignment",
+      "source_name": "Loshon HaTorah / Loshon Hakodesh foundation rules, source-modeled JSONL",
+      "file_path": "data/dikduk_rules/rules_loshon_foundation.jsonl",
+      "unclear_issue": "The JSONL is a source-derived internal artifact. It cites Loshon source pages/lessons, but exact record-to-page alignment is not fully confirmed.",
+      "exact_question_for_yossi": "Confirm whether this source-modeled JSONL may be treated as trusted source-derived content after checking representative records against the Loshon PDFs.",
+      "recommended_status_after_confirmation": "yossi_extraction_verified if the representative source alignment is accurate; otherwise needs_specific_confirmation for the affected records.",
+      "current_status": "needs_specific_confirmation",
+      "runtime_status": "not_runtime_ready",
+      "question_ready_status": "not_question_ready"
+    }
+  ]
+}
