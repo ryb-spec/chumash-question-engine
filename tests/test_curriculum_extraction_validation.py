@@ -409,7 +409,6 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
             "engine/flow_builder.py",
             "streamlit_app.py",
             "assessment_scope.py",
-            "data/corpus_manifest.json",
         ]
         for path in forbidden_paths:
             with self.subTest(path=path):
@@ -454,6 +453,12 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
             "data/source_texts/translations/sefaria/bereishis_english_translation_human_review_packet.md",
             "data/source_texts/translations/sefaria/raw_samples/koren_sample.json",
             "data/source_texts/translations/sefaria/raw_samples/metsudah_sample.json",
+            "data/corpus_manifest.json",
+            "data/validation/bereishis_3_9_to_3_16_readiness.json",
+            "data/validation/bereishis_3_17_to_3_24_readiness.json",
+            "data/validation/question_validation_audit.md",
+            "data/validation/question_validation_audit.json",
+            "data/validation/source_truth_stabilization_report.md",
             "data/standards/zekelman/review/zekelman_2025_standard_3_review_tracking.json",
             "data/standards/zekelman/review/zekelman_2025_standard_3_teacher_review_packet.md",
             "data/standards/zekelman/reports/zekelman_2025_standard_3_teacher_review_layer_report.md",
@@ -491,6 +496,7 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
             "docs/curriculum_pipeline/source_text_validation_strategy.md",
             "docs/codex_prompts/batch_006_source_ready_prompt_seed.md",
             "scripts/validate_source_texts.py",
+            "tests/test_corpus_manifest.py",
             "tests/test_source_texts_validation.py",
             "tests/test_standards_data_validation.py",
         ]

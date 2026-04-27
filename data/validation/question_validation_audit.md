@@ -1,5 +1,9 @@
 # Question Validation Audit
 
+> Historical report; not current active truth. This file reflects an earlier
+> active scope snapshot. As of the source-truth stabilization pass, the current
+> active runtime scope is `local_parsed_bereishis_1_1_to_3_24`.
+
 ## Scope
 
 - Active scope: `local_parsed_bereishis_1_1_to_2_9`

@@ -1,4 +1,5 @@
 {
+  "historical_note": "Historical readiness report; not current active truth. This file records a pre-promotion check from when active runtime scope was local_parsed_bereishis_1_1_to_3_16.",
   "scope_under_evaluation": {
     "active_runtime_scope_unchanged": "local_parsed_bereishis_1_1_to_3_16",
     "bundle_status": "staged",

@@ -8,9 +8,10 @@
       "status": "complete",
       "expected_scope": "Bereishis 1:1-50:26",
       "actual_scope": "Bereishis 1:1-50:26",
-      "row_count": 1534,
+      "row_count": 1533,
       "first_ref": "Bereishis 1:1",
       "last_ref": "Bereishis 50:26",
+      "sha256": "4d96c615ab63e0419bff079db250d71ea9b5de266ff9ab8d589ae80e4afd0b71",
       "validation_status": "valid_complete",
       "source_label": "Sefaria",
       "source_notes": [
