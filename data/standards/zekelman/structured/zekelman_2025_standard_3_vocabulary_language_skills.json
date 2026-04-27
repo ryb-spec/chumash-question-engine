@@ -4,6 +4,13 @@
   "source_id": "zekelman_standards_2025_v2_5_complete_levels_1_8",
   "source_pdf_path": "docs/standards/zekelman/raw/2025_zekelman_chumash_standards_v2_5_complete_levels_1_8.pdf",
   "source_extracted_text_path": "docs/standards/zekelman/extracted/2025_zekelman_chumash_standards_v2_5_complete_levels_1_8_raw_text.md",
+  "source_authority": "trusted_teacher_source",
+  "teacher_source_status": "trusted_teacher_source",
+  "extraction_review_status": "pending_yossi_extraction_accuracy_pass",
+  "requires_yossi_accuracy_pass": true,
+  "runtime_status": "not_runtime_ready",
+  "question_ready_status": "not_question_ready",
+  "source_review_policy": "Zekelman 2025 is trusted teacher-approved standards material. Yossi review is an extraction-accuracy, Hebrew/table fidelity, classification, and mapping pass rather than a new educational approval cycle.",
   "standard_area": "3. Vocabulary and Language Skills",
   "source_page_range": [
     28,

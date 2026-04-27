@@ -1,5 +1,6 @@
 {
   "report_version": 1,
+  "historical_note": "Historical report; not current active truth. This file reflects an earlier active scope snapshot. Current active runtime scope is local_parsed_bereishis_1_1_to_3_24.",
   "scope_summary": {
     "scope": "local_parsed_bereishis_1_1_to_2_9",
     "sefer": "Bereishis",

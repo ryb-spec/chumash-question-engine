@@ -27,7 +27,7 @@
       "diagnostic_relevance": "high",
       "question_generation_relevance": "medium",
       "review_status": [
-        "needs_teacher_review",
+        "pending_yossi_extraction_accuracy_pass",
         "source_match_needs_verification",
         "hebrew_needs_verification",
         "not_runtime_ready",
@@ -54,7 +54,7 @@
       "diagnostic_relevance": "high",
       "question_generation_relevance": "medium",
       "review_status": [
-        "needs_teacher_review",
+        "pending_yossi_extraction_accuracy_pass",
         "source_match_needs_verification",
         "hebrew_needs_verification",
         "not_runtime_ready",
@@ -81,7 +81,7 @@
       "diagnostic_relevance": "high",
       "question_generation_relevance": "medium",
       "review_status": [
-        "needs_teacher_review",
+        "pending_yossi_extraction_accuracy_pass",
         "source_match_needs_verification",
         "hebrew_needs_verification",
         "not_runtime_ready",
@@ -107,7 +107,7 @@
       "diagnostic_relevance": "medium",
       "question_generation_relevance": "low",
       "review_status": [
-        "needs_teacher_review",
+        "pending_yossi_extraction_accuracy_pass",
         "source_match_needs_verification",
         "hebrew_needs_verification",
         "not_runtime_ready",
@@ -133,7 +133,7 @@
       "diagnostic_relevance": "high",
       "question_generation_relevance": "medium",
       "review_status": [
-        "needs_teacher_review",
+        "pending_yossi_extraction_accuracy_pass",
         "source_match_needs_verification",
         "hebrew_needs_verification",
         "not_runtime_ready",
@@ -159,7 +159,7 @@
       "diagnostic_relevance": "high",
       "question_generation_relevance": "medium",
       "review_status": [
-        "needs_teacher_review",
+        "pending_yossi_extraction_accuracy_pass",
         "source_match_needs_verification",
         "hebrew_needs_verification",
         "not_runtime_ready",
@@ -186,7 +186,7 @@
       "diagnostic_relevance": "high",
       "question_generation_relevance": "medium",
       "review_status": [
-        "needs_teacher_review",
+        "pending_yossi_extraction_accuracy_pass",
         "source_match_needs_verification",
         "hebrew_needs_verification",
         "not_runtime_ready",
@@ -213,7 +213,7 @@
       "diagnostic_relevance": "high",
       "question_generation_relevance": "low",
       "review_status": [
-        "needs_teacher_review",
+        "pending_yossi_extraction_accuracy_pass",
         "source_match_needs_verification",
         "hebrew_needs_verification",
         "not_runtime_ready",
@@ -231,7 +231,7 @@
       "loshon_hatorah_candidate_id": "lht_cand_limited_nikud_sensitive_et",
       "source_id": "loshon_hatorah_foundation_rules_jsonl",
       "standard_id": "3.10",
-      "standard_title": "Understanding ניקוד",
+      "standard_title": "Understanding × ×™×§×•×“",
       "strand": "nikud_reading",
       "skill_family": "nikud_reading",
       "relationship_type": "unclear",
@@ -239,14 +239,14 @@
       "diagnostic_relevance": "medium",
       "question_generation_relevance": "low",
       "review_status": [
-        "needs_teacher_review",
+        "pending_yossi_extraction_accuracy_pass",
         "source_match_needs_verification",
         "hebrew_needs_verification",
         "possible_ocr_issue",
         "not_runtime_ready",
         "not_question_ready"
       ],
-      "notes": "Only shows a nikud-sensitive את-family distinction. It does not support the advanced 3.10 systems of תנועות, שבאים, דגשים, syllables, or טעמי המקרא interaction.",
+      "notes": "Only shows a nikud-sensitive ××ª-family distinction. It does not support the advanced 3.10 systems of ×ª× ×•×¢×•×ª, ×©×‘××™×, ×“×’×©×™×, syllables, or ×˜×¢×ž×™ ×”×ž×§×¨× interaction.",
       "supporting_source_ids": [
         "loshon_hakodesh_answer_booklet_pdf",
         "loshon_hakodesh_main_book_pdf",
@@ -267,7 +267,7 @@
       "diagnostic_relevance": "high",
       "question_generation_relevance": "medium",
       "review_status": [
-        "needs_teacher_review",
+        "pending_yossi_extraction_accuracy_pass",
         "source_match_needs_verification",
         "hebrew_needs_verification",
         "not_runtime_ready",
@@ -293,13 +293,13 @@
       "diagnostic_relevance": "high",
       "question_generation_relevance": "medium",
       "review_status": [
-        "needs_teacher_review",
+        "pending_yossi_extraction_accuracy_pass",
         "source_match_needs_verification",
         "hebrew_needs_verification",
         "not_runtime_ready",
         "not_question_ready"
       ],
-      "notes": "Supports conjunctive ו only. ו ההיפוך remains unsupported by this Loshon source layer.",
+      "notes": "Supports conjunctive ×• only. ×• ×”×”×™×¤×•×š remains unsupported by this Loshon source layer.",
       "supporting_source_ids": [
         "loshon_hakodesh_main_book_pdf",
         "loshon_hatorah_foundation_rules_jsonl"
@@ -319,7 +319,7 @@
       "diagnostic_relevance": "high",
       "question_generation_relevance": "medium",
       "review_status": [
-        "needs_teacher_review",
+        "pending_yossi_extraction_accuracy_pass",
         "source_match_needs_verification",
         "hebrew_needs_verification",
         "not_runtime_ready",
@@ -346,7 +346,7 @@
       "diagnostic_relevance": "high",
       "question_generation_relevance": "medium",
       "review_status": [
-        "needs_teacher_review",
+        "pending_yossi_extraction_accuracy_pass",
         "source_match_needs_verification",
         "hebrew_needs_verification",
         "not_runtime_ready",
@@ -372,14 +372,14 @@
       "diagnostic_relevance": "high",
       "question_generation_relevance": "low",
       "review_status": [
-        "needs_teacher_review",
+        "pending_yossi_extraction_accuracy_pass",
         "source_match_needs_verification",
         "hebrew_needs_verification",
         "possible_ocr_issue",
         "not_runtime_ready",
         "not_question_ready"
       ],
-      "notes": "Reinforces the teacher-review boundary that the functions of את need context rules and approved wording before any later use.",
+      "notes": "Reinforces the teacher-review boundary that the functions of ××ª need context rules and approved wording before any later use.",
       "supporting_source_ids": [
         "loshon_hakodesh_main_book_pdf",
         "loshon_hatorah_foundation_rules_jsonl"
@@ -399,7 +399,7 @@
       "diagnostic_relevance": "high",
       "question_generation_relevance": "medium",
       "review_status": [
-        "needs_teacher_review",
+        "pending_yossi_extraction_accuracy_pass",
         "source_match_needs_verification",
         "hebrew_needs_verification",
         "possible_ocr_issue",
@@ -427,7 +427,7 @@
       "diagnostic_relevance": "high",
       "question_generation_relevance": "medium",
       "review_status": [
-        "needs_teacher_review",
+        "pending_yossi_extraction_accuracy_pass",
         "source_match_needs_verification",
         "hebrew_needs_verification",
         "possible_ocr_issue",
@@ -454,7 +454,7 @@
       "diagnostic_relevance": "medium",
       "question_generation_relevance": "low",
       "review_status": [
-        "needs_teacher_review",
+        "pending_yossi_extraction_accuracy_pass",
         "source_match_needs_verification",
         "hebrew_needs_verification",
         "not_runtime_ready",
@@ -480,7 +480,7 @@
       "diagnostic_relevance": "high",
       "question_generation_relevance": "medium",
       "review_status": [
-        "needs_teacher_review",
+        "pending_yossi_extraction_accuracy_pass",
         "source_match_needs_verification",
         "hebrew_needs_verification",
         "not_runtime_ready",
@@ -506,7 +506,7 @@
       "diagnostic_relevance": "high",
       "question_generation_relevance": "medium",
       "review_status": [
-        "needs_teacher_review",
+        "pending_yossi_extraction_accuracy_pass",
         "source_match_needs_verification",
         "hebrew_needs_verification",
         "possible_ocr_issue",
@@ -534,7 +534,7 @@
       "diagnostic_relevance": "high",
       "question_generation_relevance": "medium",
       "review_status": [
-        "needs_teacher_review",
+        "pending_yossi_extraction_accuracy_pass",
         "source_match_needs_verification",
         "hebrew_needs_verification",
         "possible_ocr_issue",
@@ -561,7 +561,7 @@
       "diagnostic_relevance": "high",
       "question_generation_relevance": "medium",
       "review_status": [
-        "needs_teacher_review",
+        "pending_yossi_extraction_accuracy_pass",
         "source_match_needs_verification",
         "hebrew_needs_verification",
         "possible_ocr_issue",
@@ -588,7 +588,7 @@
       "diagnostic_relevance": "high",
       "question_generation_relevance": "low",
       "review_status": [
-        "needs_teacher_review",
+        "pending_yossi_extraction_accuracy_pass",
         "source_match_needs_verification",
         "hebrew_needs_verification",
         "possible_ocr_issue",
@@ -607,7 +607,7 @@
       "loshon_hatorah_candidate_id": "lht_cand_shoresh_added_letters",
       "source_id": "loshon_hatorah_foundation_rules_jsonl",
       "standard_id": "3.02",
-      "standard_title": "Vocabulary: שורשים (for verbs)",
+      "standard_title": "Vocabulary: ×©×•×¨×©×™× (for verbs)",
       "strand": "shoresh_and_verb_root_recognition",
       "skill_family": "shoresh_identification",
       "relationship_type": "partial_support",
@@ -615,7 +615,7 @@
       "diagnostic_relevance": "high",
       "question_generation_relevance": "medium",
       "review_status": [
-        "needs_teacher_review",
+        "pending_yossi_extraction_accuracy_pass",
         "source_match_needs_verification",
         "hebrew_needs_verification",
         "possible_ocr_issue",
@@ -635,7 +635,7 @@
       "loshon_hatorah_candidate_id": "lht_cand_weak_letters_boundary",
       "source_id": "loshon_hakodesh_main_book_pdf",
       "standard_id": "3.02",
-      "standard_title": "Vocabulary: שורשים (for verbs)",
+      "standard_title": "Vocabulary: ×©×•×¨×©×™× (for verbs)",
       "strand": "shoresh_and_verb_root_recognition",
       "skill_family": "weak_letters",
       "relationship_type": "clarifies_rule",
@@ -643,7 +643,7 @@
       "diagnostic_relevance": "high",
       "question_generation_relevance": "low",
       "review_status": [
-        "needs_teacher_review",
+        "pending_yossi_extraction_accuracy_pass",
         "source_match_needs_verification",
         "hebrew_needs_verification",
         "possible_ocr_issue",
@@ -665,7 +665,7 @@
       "diagnostic_relevance": "high",
       "question_generation_relevance": "low",
       "review_status": [
-        "needs_teacher_review",
+        "pending_yossi_extraction_accuracy_pass",
         "source_match_needs_verification",
         "hebrew_needs_verification",
         "possible_ocr_issue",
@@ -687,7 +687,7 @@
       "diagnostic_relevance": "high",
       "question_generation_relevance": "low",
       "review_status": [
-        "needs_teacher_review",
+        "pending_yossi_extraction_accuracy_pass",
         "source_match_needs_verification",
         "hebrew_needs_verification",
         "possible_ocr_issue",
@@ -709,7 +709,7 @@
       "diagnostic_relevance": "medium",
       "question_generation_relevance": "low",
       "review_status": [
-        "needs_teacher_review",
+        "pending_yossi_extraction_accuracy_pass",
         "source_match_needs_verification",
         "hebrew_needs_verification",
         "possible_ocr_issue",
@@ -731,7 +731,7 @@
       "diagnostic_relevance": "medium",
       "question_generation_relevance": "low",
       "review_status": [
-        "needs_teacher_review",
+        "pending_yossi_extraction_accuracy_pass",
         "source_match_needs_verification",
         "hebrew_needs_verification",
         "possible_ocr_issue",
@@ -745,7 +745,7 @@
       "loshon_hatorah_candidate_id": "lht_cand_pausal_forms_nikud_boundary",
       "source_id": "loshon_hakodesh_answer_booklet_pdf",
       "standard_id": "3.10",
-      "standard_title": "Understanding ניקוד",
+      "standard_title": "Understanding × ×™×§×•×“",
       "strand": "nikud_reading",
       "skill_family": "pausal_forms",
       "relationship_type": "partial_support",
@@ -753,7 +753,7 @@
       "diagnostic_relevance": "medium",
       "question_generation_relevance": "low",
       "review_status": [
-        "needs_teacher_review",
+        "pending_yossi_extraction_accuracy_pass",
         "source_match_needs_verification",
         "hebrew_needs_verification",
         "possible_ocr_issue",
@@ -764,3 +764,4 @@
     }
   ]
 }
+
