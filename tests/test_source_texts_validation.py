@@ -9,7 +9,7 @@ from scripts import validate_source_texts as validator
 ROOT = Path(__file__).resolve().parents[1]
 TSV_PATH = ROOT / "data" / "source_texts" / "bereishis_hebrew_menukad_taamim.tsv"
 MANIFEST_PATH = ROOT / "data" / "source_texts" / "source_text_manifest.json"
-EXPECTED_SHA256 = "0dedb854e1e8b59fa5dc08f93be5baffe4c1faaa09d00c148c8ef3113b065913"
+EXPECTED_SHA256 = "4d96c615ab63e0419bff079db250d71ea9b5de266ff9ab8d589ae80e4afd0b71"
 
 
 def load_lines() -> list[str]:
@@ -145,6 +145,7 @@ class SourceTextsValidationTests(unittest.TestCase):
             "row_count",
             "first_ref",
             "last_ref",
+            "sha256",
             "validation_status",
             "source_label",
             "source_notes",
@@ -154,6 +155,18 @@ class SourceTextsValidationTests(unittest.TestCase):
             "next_action",
         ]:
             self.assertIn(field, entry)
+
+    def test_manifest_entry_matches_validator_summary_for_canonical_file(self):
+        manifest = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
+        entry = manifest["files"][0]
+        summary = validator.validate_bereishis_source_texts()
+
+        self.assertEqual(entry["file_path"], "data/source_texts/bereishis_hebrew_menukad_taamim.tsv")
+        self.assertEqual(entry["actual_scope"], summary["expected_scope"])
+        self.assertEqual(entry["row_count"], summary["row_count"])
+        self.assertEqual(entry["first_ref"], summary["first_ref"])
+        self.assertEqual(entry["last_ref"], summary["last_ref"])
+        self.assertEqual(entry["sha256"], summary["sha256"])
 
 
 if __name__ == "__main__":

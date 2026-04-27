@@ -119,3 +119,4 @@
 - [completed] Create conservative Loshon rule candidates and a Zekelman Standard 3 supplemental crosswalk for unresolved/partial review areas
 - [completed] Extend Standard 3 review packet and decision sheet with enrichment evidence only, preserving all teacher-review decisions and statuses
 - [completed] Narrowly extend standards validation and tests, then run required validation and write the enrichment report
+- [completed] Finalize source truth reproducibility: corpus manifest paths, hashes, active scope, validation, report

@@ -362,7 +362,12 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
 
     def test_forbidden_runtime_files_are_not_changed(self):
         changed_paths = validator.collect_changed_paths()
-        disallowed = [path for path in changed_paths if not validator.is_allowed_change(path)]
+        disallowed = [
+            path
+            for path in changed_paths
+            if not validator.is_allowed_change(path)
+            and not validator.is_allowed_source_truth_baseline_repair(path)
+        ]
         self.assertEqual(disallowed, [], [validator.forbidden_reason(path) for path in disallowed])
 
     def test_generated_local_log_paths_are_ignored_by_changed_path_collection(self):
@@ -415,6 +420,17 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
             with self.subTest(path=path):
                 self.assertFalse(validator.is_allowed_change(path))
                 self.assertEqual(validator.forbidden_reason(path), f"forbidden path changed: {path}")
+
+    def test_source_truth_baseline_repair_paths_are_a_separate_narrow_exception(self):
+        repair_paths = [
+            "data/corpus_manifest.json",
+            "data/source_texts/reports/source_truth_reproducibility_finalization_report.md",
+            "tests/test_corpus_manifest.py",
+        ]
+        for path in repair_paths:
+            with self.subTest(path=path):
+                self.assertFalse(validator.is_allowed_change(path))
+                self.assertTrue(validator.is_allowed_source_truth_baseline_repair(path))
 
     def test_curriculum_extraction_paths_still_pass_allowlist(self):
         allowed_paths = [

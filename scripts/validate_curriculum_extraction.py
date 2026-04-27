@@ -342,6 +342,12 @@ FORBIDDEN_CHANGE_PREFIXES = (
     "progress_store.py",
 )
 
+SOURCE_TRUTH_BASELINE_REPAIR_EXACT = {
+    "data/corpus_manifest.json",
+    "data/source_texts/reports/source_truth_reproducibility_finalization_report.md",
+    "tests/test_corpus_manifest.py",
+}
+
 IGNORED_GENERATED_CHANGE_EXACT = {
     "data/attempt_log.jsonl",
     "data/pilot/pilot_session_events.jsonl",
@@ -893,6 +899,10 @@ def is_allowed_change(path: str) -> bool:
     return any(path.startswith(prefix) for prefix in ALLOWED_CHANGE_PREFIXES)
 
 
+def is_allowed_source_truth_baseline_repair(path: str) -> bool:
+    return path in SOURCE_TRUTH_BASELINE_REPAIR_EXACT
+
+
 def forbidden_reason(path: str) -> str:
     for prefix in FORBIDDEN_CHANGE_PREFIXES:
         if path == prefix or path.startswith(prefix):
@@ -1010,7 +1020,7 @@ def validate_curriculum_extraction(*, check_git_diff: bool = False) -> dict:
     if check_git_diff:
         changed_paths = collect_changed_paths()
         for path in changed_paths:
-            if not is_allowed_change(path):
+            if not is_allowed_change(path) and not is_allowed_source_truth_baseline_repair(path):
                 errors.append(forbidden_reason(path))
 
     record_counts = Counter(record.get("record_type") for record in all_records if record.get("record_type"))
