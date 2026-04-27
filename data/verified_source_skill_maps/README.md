@@ -6,6 +6,13 @@ A source-to-skill map is the bridge between trusted source material and future q
 
 These files are source-derived planning artifacts only. They are not generated questions, reviewed-bank records, runtime records, or student-facing content.
 
+## Current Completion Summary
+
+- Bereishis Perek 1: complete, 137 extraction-verified rows
+- Bereishis Perek 2: complete, 99 extraction-verified rows
+- Total verified rows through Bereishis 2:25: 236
+- Safety status: question, protected-preview, reviewed-bank, runtime, and student-facing gates remain closed
+
 ## Current Seed Map
 
 - `bereishis_1_1_to_3_24_metsudah_skill_map.tsv`
@@ -172,6 +179,62 @@ This completion milestone is not question approval, protected-preview approval, 
 - Protected-preview status: blocked unless separately authorized by a future gate
 - Reviewed-bank status: blocked
 - Next required action: generate the next safe Perek 2 source-to-skill slice after Bereishis 2:17
+
+## Verified Perek 2 Final Slice
+
+- `bereishis_2_18_to_2_25_source_to_skill_map.tsv`
+- Scope: Bereishis 2:18-2:25
+- Row count: 36 phrase-level rows
+- Built by: `scripts/build_source_to_skill_map.py`
+- Build report: `reports/bereishis_2_18_to_2_25_source_to_skill_map_build_report.md`
+- Exceptions review packet: `reports/bereishis_2_18_to_2_25_source_to_skill_map_exceptions_review_packet.md`
+- Yossi Markdown review sheet: `reports/bereishis_2_18_to_2_25_yossi_review_sheet.md`
+- Yossi CSV review sheet: `reports/bereishis_2_18_to_2_25_yossi_review_sheet.csv`
+- Yossi extraction verification report: `reports/bereishis_2_18_to_2_25_yossi_extraction_verification_report.md`
+- Source ingredients:
+  - Linear Chumash phrase-level extraction from curriculum extraction Batch 003
+  - Metsudah verse-level translation context
+  - Koren verse-level secondary noncommercial translation context
+  - canonical Hebrew source coverage for the refs
+- Review status: `yossi_extraction_verified`
+- Planning note: all rows remain source-only for future question/protected-preview planning until a separate question eligibility gate
+- Runtime status: blocked
+- Question-generation status: blocked
+- Protected-preview status: blocked unless separately authorized by a future gate
+- Reviewed-bank status: blocked
+- Next required action: create a Bereishis Perek 2 source-to-skill completion report
+
+## Bereishis Perek 2 Completion Milestone
+
+- Completion report: `reports/bereishis_perek_2_source_to_skill_completion_report.md`
+- Scope: Bereishis 2:1-2:25
+- Total row count: 99 phrase-level rows
+- Milestone status: extraction-verified source-to-skill coverage complete for Bereishis Perek 2
+- Combined Perek 1-2 total: 236 extraction-verified rows through Bereishis 2:25
+- Safety status: question, protected-preview, reviewed-bank, runtime, and student-facing gates remain closed
+
+Verified slice maps:
+
+- `bereishis_2_1_to_2_3_source_to_skill_map.tsv`
+- `bereishis_2_4_to_2_17_source_to_skill_map.tsv`
+- `bereishis_2_18_to_2_25_source_to_skill_map.tsv`
+
+Verification reports:
+
+- `reports/bereishis_2_1_to_2_3_yossi_extraction_verification_report.md`
+- `reports/bereishis_2_4_to_2_17_yossi_extraction_verification_report.md`
+- `reports/bereishis_2_18_to_2_25_yossi_extraction_verification_report.md`
+
+Review sheets:
+
+- `reports/bereishis_2_1_to_2_3_yossi_review_sheet.md`
+- `reports/bereishis_2_1_to_2_3_yossi_review_sheet.csv`
+- `reports/bereishis_2_4_to_2_17_yossi_review_sheet.md`
+- `reports/bereishis_2_4_to_2_17_yossi_review_sheet.csv`
+- `reports/bereishis_2_18_to_2_25_yossi_review_sheet.md`
+- `reports/bereishis_2_18_to_2_25_yossi_review_sheet.csv`
+
+This completion milestone is not question approval, protected-preview approval, reviewed-bank approval, runtime approval, or student-facing release.
 
 ## Yossi Review Artifact Standard
 
