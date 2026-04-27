@@ -1,0 +1,466 @@
+{
+  "schema_version": "0.1",
+  "audit_finding": "partial_not_full_canonical_map",
+  "shortest_path_decision": "C_existing_data_is_partial_create_small_proof_consolidation_map",
+  "active_runtime_scope": {
+    "scope_id": "local_parsed_bereishis_1_1_to_3_24",
+    "range": "Bereishis 1:1-3:24",
+    "reviewed_question_bank": "data/active_scope_reviewed_questions.json"
+  },
+  "chosen_consolidation_scope": {
+    "range": "Bereishis 1:1-1:5",
+    "reason": "This slice has canonical Hebrew, trusted Linear Chumash phrase extraction, Metsudah/Koren verse translation context, skill tags, review/runtime statuses, and source paths already present. Broader active scope lacks safe row-level morphology and Zekelman standards mapping."
+  },
+  "candidate_sources": [
+    {
+      "path": "data/verified_source_skill_maps/bereishis_1_1_to_3_24_metsudah_skill_map.tsv",
+      "scope": "Bereishis 1:1-1:5 seed rows targeting 1:1-3:24",
+      "data_type": "source-to-skill seed map",
+      "status": "review_only_pending_yossi",
+      "can_be_canonical": "partial_seed_only"
+    },
+    {
+      "path": "data/curriculum_extraction/normalized/linear_chumash_bereishis_1_1_to_1_5_pasuk_segments.seed.jsonl",
+      "scope": "Bereishis 1:1-1:5",
+      "data_type": "trusted source-derived phrase translation extraction",
+      "status": "reviewed_non_runtime_source_derived",
+      "can_be_canonical": "contributes_rows"
+    },
+    {
+      "path": "data/source_texts/bereishis_hebrew_menukad_taamim.tsv",
+      "scope": "Bereishis 1:1-50:26",
+      "data_type": "canonical Hebrew source backbone",
+      "status": "source_text_validated",
+      "can_be_canonical": "source_backbone"
+    },
+    {
+      "path": "data/source_texts/translations/sefaria/bereishis_english_metsudah.jsonl",
+      "scope": "Bereishis 1:1-50:26",
+      "data_type": "Metsudah verse translation source",
+      "status": "source_ready_license_pending_pending_yossi",
+      "can_be_canonical": "translation_context_after_confirmation"
+    },
+    {
+      "path": "data/source_texts/translations/sefaria/bereishis_english_koren.jsonl",
+      "scope": "Bereishis 1:1-50:26",
+      "data_type": "Koren verse translation secondary support",
+      "status": "noncommercial_source_ready_license_pending_pending_yossi",
+      "can_be_canonical": "secondary_translation_context_only"
+    },
+    {
+      "path": "data/curriculum_extraction/normalized/pasuk_coming_to_teach_word_parse.seed.jsonl",
+      "scope": "sample Vayeishev/source examples, not active Bereishis scope",
+      "data_type": "word parse sample extraction",
+      "status": "reviewed_non_runtime_source_derived",
+      "can_be_canonical": "contributes_morphology_pattern_not_active_scope_rows"
+    },
+    {
+      "path": "skill_catalog.py",
+      "scope": "runtime skill catalog",
+      "data_type": "skill IDs, standards, difficulty tiers",
+      "status": "runtime_metadata",
+      "can_be_canonical": "skill_id_owner"
+    },
+    {
+      "path": "data/standards/zekelman/crosswalks/zekelman_2025_standard_3_skill_mapping_draft.json",
+      "scope": "Zekelman Standard 3",
+      "data_type": "standards-to-skill draft mapping",
+      "status": "review_only",
+      "can_be_canonical": "standards_owner_not_row_map"
+    },
+    {
+      "path": "data/active_scope_reviewed_questions.json",
+      "scope": "Bereishis 1:1-3:24",
+      "data_type": "runtime-active reviewed question bank",
+      "status": "runtime_active",
+      "can_be_canonical": "do_not_use_as_source_truth_for_new_map; contributes runtime status patterns only"
+    }
+  ],
+  "field_coverage": [
+    {
+      "field": "sefer",
+      "coverage_status": "already exists",
+      "confidence": "high",
+      "source_files": [
+        "canonical Hebrew TSV",
+        "curriculum extraction rows"
+      ],
+      "safe_to_consolidate_automatically": true
+    },
+    {
+      "field": "perek",
+      "coverage_status": "already exists",
+      "confidence": "high",
+      "source_files": [
+        "canonical Hebrew TSV",
+        "curriculum extraction rows"
+      ],
+      "safe_to_consolidate_automatically": true
+    },
+    {
+      "field": "pasuk",
+      "coverage_status": "already exists",
+      "confidence": "high",
+      "source_files": [
+        "canonical Hebrew TSV",
+        "curriculum extraction rows"
+      ],
+      "safe_to_consolidate_automatically": true
+    },
+    {
+      "field": "ref",
+      "coverage_status": "already exists",
+      "confidence": "high",
+      "source_files": [
+        "canonical Hebrew TSV",
+        "curriculum extraction rows",
+        "translation JSONL"
+      ],
+      "safe_to_consolidate_automatically": true
+    },
+    {
+      "field": "hebrew_word_or_phrase",
+      "coverage_status": "already exists",
+      "confidence": "high",
+      "source_files": [
+        "curriculum extraction phrase rows",
+        "canonical Hebrew TSV"
+      ],
+      "safe_to_consolidate_automatically": true
+    },
+    {
+      "field": "clean_hebrew_no_nikud",
+      "coverage_status": "exists partially",
+      "confidence": "medium",
+      "source_files": [
+        "curriculum extraction normalized fields; derivable from Hebrew"
+      ],
+      "safe_to_consolidate_automatically": true
+    },
+    {
+      "field": "source_translation_metsudah",
+      "coverage_status": "already exists",
+      "confidence": "high",
+      "source_files": [
+        "Metsudah JSONL"
+      ],
+      "safe_to_consolidate_automatically": true
+    },
+    {
+      "field": "alternate_translation",
+      "coverage_status": "already exists",
+      "confidence": "high",
+      "source_files": [
+        "Linear Chumash phrase extraction"
+      ],
+      "safe_to_consolidate_automatically": true
+    },
+    {
+      "field": "secondary_translation_koren",
+      "coverage_status": "already exists",
+      "confidence": "high",
+      "source_files": [
+        "Koren JSONL"
+      ],
+      "safe_to_consolidate_automatically": true
+    },
+    {
+      "field": "source_id",
+      "coverage_status": "exists partially",
+      "confidence": "medium",
+      "source_files": [
+        "source registry",
+        "source_trace",
+        "translation registry"
+      ],
+      "safe_to_consolidate_automatically": true
+    },
+    {
+      "field": "source_version_title",
+      "coverage_status": "exists partially",
+      "confidence": "medium",
+      "source_files": [
+        "translation registry",
+        "source_trace source_name"
+      ],
+      "safe_to_consolidate_automatically": true
+    },
+    {
+      "field": "source_license",
+      "coverage_status": "exists partially",
+      "confidence": "medium",
+      "source_files": [
+        "translation registry; trusted-source policy"
+      ],
+      "safe_to_consolidate_automatically": true
+    },
+    {
+      "field": "source_preference",
+      "coverage_status": "exists partially",
+      "confidence": "medium",
+      "source_files": [
+        "translation registry; trusted-source policy"
+      ],
+      "safe_to_consolidate_automatically": true
+    },
+    {
+      "field": "requires_attribution",
+      "coverage_status": "exists partially",
+      "confidence": "medium",
+      "source_files": [
+        "translation registry"
+      ],
+      "safe_to_consolidate_automatically": true
+    },
+    {
+      "field": "shoresh",
+      "coverage_status": "exists partially",
+      "confidence": "low",
+      "source_files": [
+        "word_parse samples",
+        "active reviewed questions"
+      ],
+      "safe_to_consolidate_automatically": false
+    },
+    {
+      "field": "prefixes",
+      "coverage_status": "exists partially",
+      "confidence": "low",
+      "source_files": [
+        "word_parse samples",
+        "word_parse_task samples",
+        "active reviewed questions"
+      ],
+      "safe_to_consolidate_automatically": false
+    },
+    {
+      "field": "suffixes",
+      "coverage_status": "exists partially",
+      "confidence": "low",
+      "source_files": [
+        "word_parse samples",
+        "word_parse_task samples",
+        "active reviewed questions"
+      ],
+      "safe_to_consolidate_automatically": false
+    },
+    {
+      "field": "tense",
+      "coverage_status": "exists partially",
+      "confidence": "low",
+      "source_files": [
+        "active reviewed questions"
+      ],
+      "safe_to_consolidate_automatically": false
+    },
+    {
+      "field": "part_of_speech",
+      "coverage_status": "exists partially",
+      "confidence": "low",
+      "source_files": [
+        "active reviewed questions"
+      ],
+      "safe_to_consolidate_automatically": false
+    },
+    {
+      "field": "dikduk_feature",
+      "coverage_status": "implied but not explicit",
+      "confidence": "low",
+      "source_files": [
+        "skill tags",
+        "standards crosswalks"
+      ],
+      "safe_to_consolidate_automatically": false
+    },
+    {
+      "field": "skill_primary",
+      "coverage_status": "already exists",
+      "confidence": "medium",
+      "source_files": [
+        "curriculum extraction skill_tags"
+      ],
+      "safe_to_consolidate_automatically": true
+    },
+    {
+      "field": "skill_secondary",
+      "coverage_status": "implied but not explicit",
+      "confidence": "medium",
+      "source_files": [
+        "skill catalog/runtime alignment"
+      ],
+      "safe_to_consolidate_automatically": true
+    },
+    {
+      "field": "skill_id",
+      "coverage_status": "exists partially",
+      "confidence": "medium",
+      "source_files": [
+        "skill_catalog.py",
+        "curriculum extraction skill_tags"
+      ],
+      "safe_to_consolidate_automatically": true
+    },
+    {
+      "field": "zekelman_standard",
+      "coverage_status": "exists partially",
+      "confidence": "low",
+      "source_files": [
+        "Zekelman crosswalks"
+      ],
+      "safe_to_consolidate_automatically": false
+    },
+    {
+      "field": "difficulty_level",
+      "coverage_status": "exists partially",
+      "confidence": "low",
+      "source_files": [
+        "skill_catalog.py difficulty tiers"
+      ],
+      "safe_to_consolidate_automatically": false
+    },
+    {
+      "field": "question_allowed",
+      "coverage_status": "implied but not explicit",
+      "confidence": "medium",
+      "source_files": [
+        "review status and safety gates"
+      ],
+      "safe_to_consolidate_automatically": true
+    },
+    {
+      "field": "question_type_allowed",
+      "coverage_status": "exists partially",
+      "confidence": "low",
+      "source_files": [
+        "question template docs",
+        "standards preview gates"
+      ],
+      "safe_to_consolidate_automatically": false
+    },
+    {
+      "field": "blocked_question_types",
+      "coverage_status": "implied but not explicit",
+      "confidence": "medium",
+      "source_files": [
+        "standards gates and protected exclusions"
+      ],
+      "safe_to_consolidate_automatically": true
+    },
+    {
+      "field": "runtime_allowed",
+      "coverage_status": "already exists",
+      "confidence": "high",
+      "source_files": [
+        "runtime_status fields",
+        "manifest"
+      ],
+      "safe_to_consolidate_automatically": true
+    },
+    {
+      "field": "protected_preview_allowed",
+      "coverage_status": "exists partially",
+      "confidence": "medium",
+      "source_files": [
+        "standards gates"
+      ],
+      "safe_to_consolidate_automatically": false
+    },
+    {
+      "field": "reviewed_bank_allowed",
+      "coverage_status": "exists partially",
+      "confidence": "medium",
+      "source_files": [
+        "reviewed-bank gates"
+      ],
+      "safe_to_consolidate_automatically": false
+    },
+    {
+      "field": "extraction_review_status",
+      "coverage_status": "already exists",
+      "confidence": "high",
+      "source_files": [
+        "curriculum manifest",
+        "source registry"
+      ],
+      "safe_to_consolidate_automatically": true
+    },
+    {
+      "field": "review_notes",
+      "coverage_status": "exists partially",
+      "confidence": "medium",
+      "source_files": [
+        "source_trace extraction_note",
+        "review packets"
+      ],
+      "safe_to_consolidate_automatically": true
+    },
+    {
+      "field": "uncertainty_reason",
+      "coverage_status": "implied but not explicit",
+      "confidence": "medium",
+      "source_files": [
+        "extraction flags",
+        "review packets"
+      ],
+      "safe_to_consolidate_automatically": true
+    },
+    {
+      "field": "source_files_used",
+      "coverage_status": "already exists",
+      "confidence": "high",
+      "source_files": [
+        "source_trace",
+        "manifests"
+      ],
+      "safe_to_consolidate_automatically": true
+    }
+  ],
+  "duplication_risks": [
+    {
+      "truth": "skill names and IDs",
+      "files": [
+        "skill_catalog.py",
+        "data/curriculum_extraction/samples/skill_tags.sample.jsonl",
+        "data/standards/zekelman/crosswalks/*.json"
+      ],
+      "risk": "same conceptual skill may appear as runtime skill, curriculum skill_tag, and Zekelman draft skill",
+      "recommended_owner": "skill_catalog.py for runtime skill IDs; Zekelman crosswalks for standards mapping",
+      "fix_now": "defer"
+    },
+    {
+      "truth": "translation source authority",
+      "files": [
+        "data/source_texts/translations/translation_sources_registry.json",
+        "data/source_texts/translations/sefaria/bereishis_english_translations_manifest.json",
+        "docs/sources/trusted_teacher_source_policy.md"
+      ],
+      "risk": "Metsudah/Koren policy can drift across metadata and docs",
+      "recommended_owner": "translation_sources_registry.json plus trusted source policy",
+      "fix_now": "partially already fixed by metadata/tests"
+    },
+    {
+      "truth": "runtime scope",
+      "files": [
+        "data/corpus_manifest.json",
+        "data/active_scope_reviewed_questions.json",
+        "assessment_scope.py"
+      ],
+      "risk": "active source range and reviewed bank scope can drift",
+      "recommended_owner": "data/corpus_manifest.json",
+      "fix_now": "defer; existing tests cover current truth"
+    },
+    {
+      "truth": "question/protected-preview eligibility",
+      "files": [
+        "data/verified_source_skill_maps/*.tsv",
+        "data/standards/zekelman/blueprints/*.md",
+        "data/standards/zekelman/reviewed_bank/*.json"
+      ],
+      "risk": "planning artifacts can look more approved than they are",
+      "recommended_owner": "verified source maps keep row safety closed; standards gates own preview/reviewed-bank readiness",
+      "fix_now": "validator enforces closed proof-map statuses"
+    }
+  ],
+  "map_created": "data/verified_source_skill_maps/bereishis_1_1_to_1_5_source_to_skill_map.tsv",
+  "map_row_count": 23
+}

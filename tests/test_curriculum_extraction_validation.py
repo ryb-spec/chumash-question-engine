@@ -98,6 +98,14 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
             batches["batch_002_linear_bereishis"]["generated_question_preview_files"],
             ["data/curriculum_extraction/generated_questions_preview/batch_002_preview.jsonl"],
         )
+        self.assertIn(
+            "data/curriculum_extraction/reports/batch_002_trusted_source_extraction_accuracy_review_packet.md",
+            batches["batch_002_linear_bereishis"]["review_artifacts"],
+        )
+        self.assertIn(
+            "data/curriculum_extraction/reports/batch_002_trusted_source_extraction_accuracy_review_packet_print.md",
+            batches["batch_002_linear_bereishis"]["review_artifacts"],
+        )
         self.assertIn("batch_003_linear_bereishis_2_4_to_2_25", batches)
         self.assertEqual(batches["batch_003_linear_bereishis_2_4_to_2_25"]["review_status"], "needs_review")
         self.assertEqual(
@@ -116,6 +124,14 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
         self.assertEqual(
             batches["batch_003_linear_bereishis_2_4_to_2_25"]["generated_question_preview_files"],
             ["data/curriculum_extraction/generated_questions_preview/batch_003_preview.jsonl"],
+        )
+        self.assertIn(
+            "data/curriculum_extraction/reports/batch_003_trusted_source_extraction_accuracy_review_packet.md",
+            batches["batch_003_linear_bereishis_2_4_to_2_25"]["review_artifacts"],
+        )
+        self.assertIn(
+            "data/curriculum_extraction/reports/batch_003_trusted_source_extraction_accuracy_review_packet_print.md",
+            batches["batch_003_linear_bereishis_2_4_to_2_25"]["review_artifacts"],
         )
         self.assertIn("batch_004_linear_bereishis_3_1_to_3_24", batches)
         self.assertEqual(batches["batch_004_linear_bereishis_3_1_to_3_24"]["review_status"], "reviewed")
@@ -142,8 +158,17 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
                 "data/curriculum_extraction/reports/batch_004_summary.md",
                 "data/curriculum_extraction/reports/batch_004_preview_summary.md",
                 "data/curriculum_extraction/reports/batch_004_manual_review_packet.md",
+                "data/curriculum_extraction/reports/batch_004_trusted_source_extraction_accuracy_review_packet.md",
                 "data/curriculum_extraction/reports/batch_004_review_resolution.md",
             ],
+        )
+        self.assertEqual(
+            batches["batch_004_linear_bereishis_3_1_to_3_24"]["extraction_accuracy_review_artifact"],
+            "data/curriculum_extraction/reports/batch_004_trusted_source_extraction_accuracy_review_packet.md",
+        )
+        self.assertEqual(
+            batches["batch_004_linear_bereishis_3_1_to_3_24"]["extraction_accuracy_verification_artifact"],
+            "data/curriculum_extraction/reports/batch_004_review_resolution.md",
         )
         self.assertIn("batch_005_linear_bereishis_4_1_to_4_16", batches)
         self.assertEqual(batches["batch_005_linear_bereishis_4_1_to_4_16"]["review_status"], "reviewed")
@@ -173,8 +198,17 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
                 "data/curriculum_extraction/reports/batch_005_summary.md",
                 "data/curriculum_extraction/reports/batch_005_preview_summary.md",
                 "data/curriculum_extraction/reports/batch_005_manual_review_packet.md",
+                "data/curriculum_extraction/reports/batch_005_trusted_source_extraction_accuracy_review_packet.md",
                 "data/curriculum_extraction/reports/batch_005_review_resolution.md",
             ],
+        )
+        self.assertEqual(
+            batches["batch_005_linear_bereishis_4_1_to_4_16"]["extraction_accuracy_review_artifact"],
+            "data/curriculum_extraction/reports/batch_005_trusted_source_extraction_accuracy_review_packet.md",
+        )
+        self.assertEqual(
+            batches["batch_005_linear_bereishis_4_1_to_4_16"]["extraction_accuracy_verification_artifact"],
+            "data/curriculum_extraction/reports/batch_005_review_resolution.md",
         )
 
     def test_phase_1_sample_records_stay_needs_review(self):
@@ -263,6 +297,93 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
             "curriculum_extraction_manifest.json: batch_004_linear_bereishis_3_1_to_3_24 must have runtime_active=false",
             summary["errors"],
         )
+
+    def test_pending_trusted_source_batch_missing_extraction_packet_fails_validation(self):
+        manifest = copy.deepcopy(load_manifest())
+        batch = next(
+            batch
+            for batch in manifest["resource_batches"]
+            if batch["batch_id"] == "batch_002_linear_bereishis"
+        )
+        batch["review_artifacts"] = [
+            relative
+            for relative in batch["review_artifacts"]
+            if "trusted_source_extraction_accuracy_review_packet" not in relative
+        ]
+
+        summary = validate_with_manifest(manifest)
+
+        self.assertFalse(summary["valid"])
+        self.assertTrue(
+            any("no linked trusted-source extraction accuracy review packet" in error for error in summary["errors"]),
+            summary["errors"],
+        )
+
+    def test_trusted_source_batch_missing_packet_file_fails_validation(self):
+        manifest = copy.deepcopy(load_manifest())
+        batch = next(
+            batch
+            for batch in manifest["resource_batches"]
+            if batch["batch_id"] == "batch_002_linear_bereishis"
+        )
+        batch["review_artifacts"] = [
+            "data/curriculum_extraction/reports/batch_002_missing_trusted_source_extraction_accuracy_review_packet.md"
+            if "trusted_source_extraction_accuracy_review_packet" in relative
+            else relative
+            for relative in batch["review_artifacts"]
+        ]
+
+        summary = validate_with_manifest(manifest)
+
+        self.assertFalse(summary["valid"])
+        self.assertTrue(
+            any("links trusted-source extraction accuracy packet" in error and "does not exist" in error for error in summary["errors"]),
+            summary["errors"],
+        )
+
+    def test_generated_question_review_packet_does_not_satisfy_trusted_source_packet_rule(self):
+        manifest = copy.deepcopy(load_manifest())
+        batch = next(
+            batch
+            for batch in manifest["resource_batches"]
+            if batch["batch_id"] == "batch_002_linear_bereishis"
+        )
+        batch["review_artifacts"] = [
+            "data/diagnostic_preview/reports/bereishis_1_1_to_2_3_manual_review_packet.md"
+            if "trusted_source_extraction_accuracy_review_packet" in relative
+            else relative
+            for relative in batch["review_artifacts"]
+        ]
+
+        summary = validate_with_manifest(manifest)
+
+        self.assertFalse(summary["valid"])
+        self.assertTrue(
+            any("no linked trusted-source extraction accuracy review packet" in error for error in summary["errors"]),
+            summary["errors"],
+        )
+
+    def test_verified_trusted_source_batch_missing_yossi_evidence_fails_validation(self):
+        manifest = copy.deepcopy(load_manifest())
+        batch = next(
+            batch
+            for batch in manifest["resource_batches"]
+            if batch["batch_id"] == "batch_004_linear_bereishis_3_1_to_3_24"
+        )
+        del batch["extraction_accuracy_verified_by"]
+
+        summary = validate_with_manifest(manifest)
+
+        self.assertFalse(summary["valid"])
+        self.assertTrue(
+            any("missing extraction_accuracy_verified_by" in error for error in summary["errors"]),
+            summary["errors"],
+        )
+
+    def test_verified_trusted_source_batch_with_packet_and_yossi_evidence_passes_validation(self):
+        summary = validator.validate_curriculum_extraction()
+
+        self.assertTrue(summary["valid"], summary["errors"])
 
     def test_trusted_source_package_requires_extraction_accuracy_status_not_runtime_promotion(self):
         registry = validator.load_json(validator.REGISTRY_PATH)
@@ -513,6 +634,20 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
             "data/source_texts/translations/sefaria/raw_samples/koren_sample.json",
             "data/source_texts/translations/sefaria/raw_samples/metsudah_sample.json",
             "data/corpus_manifest.json",
+            "data/verified_source_skill_maps/README.md",
+            "data/verified_source_skill_maps/bereishis_1_1_to_3_24_metsudah_skill_map.tsv",
+            "data/verified_source_skill_maps/bereishis_1_1_to_1_5_source_to_skill_map.tsv",
+            "data/verified_source_skill_maps/bereishis_1_6_to_1_13_source_to_skill_map.tsv",
+            "data/verified_source_skill_maps/reports/bereishis_1_1_to_3_24_metsudah_skill_map_extraction_accuracy_review_packet.md",
+            "data/verified_source_skill_maps/reports/bereishis_1_1_to_1_5_source_to_skill_map_exceptions_review_packet.md",
+            "data/verified_source_skill_maps/reports/bereishis_1_1_to_1_5_yossi_extraction_verification_report.md",
+            "data/verified_source_skill_maps/reports/bereishis_1_1_to_1_5_yossi_review_sheet.csv",
+            "data/verified_source_skill_maps/reports/bereishis_1_1_to_1_5_yossi_review_sheet.md",
+            "data/verified_source_skill_maps/reports/bereishis_1_1_to_1_5_yossi_review_sheet.pdf",
+            "data/verified_source_skill_maps/reports/bereishis_1_6_to_1_13_source_to_skill_map_build_report.md",
+            "data/verified_source_skill_maps/reports/bereishis_1_6_to_1_13_source_to_skill_map_exceptions_review_packet.md",
+            "data/verified_source_skill_maps/reports/bereishis_1_6_to_1_13_yossi_extraction_verification_report.md",
+            "data/verified_source_skill_maps/reports/source_to_skill_map_audit.json",
             "data/validation/bereishis_3_9_to_3_16_readiness.json",
             "data/validation/bereishis_3_17_to_3_24_readiness.json",
             "data/validation/question_validation_audit.md",
@@ -534,6 +669,7 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
             "data/diagnostic_preview/reports/bereishis_1_1_to_2_3_preview_summary.json",
             "dikduk_rules_loader.py",
             "translation_sources_loader.py",
+            "scripts/build_source_to_skill_map.py",
             "scripts/fetch_sefaria_bereishis_translations.py",
             "scripts/generate_diagnostic_preview.py",
             "scripts/validate_bereishis_translations.py",
@@ -555,13 +691,20 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
             "docs/curriculum_pipeline/source_text_validation_strategy.md",
             "docs/sources/trusted_teacher_source_policy.md",
             "docs/sources/trusted_teacher_source_extraction_review_packet_template.md",
+            "docs/question_templates/approved_question_template_policy.md",
+            "docs/project_active_truth_today.md",
             "docs/codex_prompts/batch_006_source_ready_prompt_seed.md",
             "data/source_review_confirmation_items.json",
             "scripts/validate_source_texts.py",
+            "scripts/generate_trusted_source_extraction_review_packet.py",
+            "scripts/generate_review_packet_pdfs.py",
+            "scripts/validate_verified_source_skill_maps.py",
             "tests/test_corpus_manifest.py",
             "tests/test_source_texts_validation.py",
             "tests/test_standards_data_validation.py",
             "tests/test_trusted_teacher_source_policy.py",
+            "tests/test_trusted_source_extraction_packet_generation.py",
+            "tests/test_verified_source_skill_maps.py",
         ]
         for path in allowed_paths:
             with self.subTest(path=path):

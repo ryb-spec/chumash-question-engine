@@ -241,6 +241,43 @@ RECORD_REVIEW_STATUS_BY_BATCH_STATUS = {
     "reviewed_for_planning_non_runtime": "needs_review",
 }
 
+TRUSTED_SOURCE_PACKET_NAME_FRAGMENT = "trusted_source_extraction_accuracy_review_packet"
+TRUSTED_SOURCE_PACKET_REQUIRED_PHRASES = (
+    "Trusted Teacher Source Extraction Accuracy Review Packet",
+    "one extraction-accuracy confirmation pass",
+    "Confirm that the copied or OCRed source text matches the source.",
+    "Confirm that Hebrew spelling, nikud, and table layout are faithful",
+    "Confirm that translations, explanations, answer keys, or examples were extracted accurately.",
+    "Confirm that classification and standards/skill mapping are reasonable.",
+)
+TRUSTED_SOURCE_PACKET_FORBIDDEN_PHRASES = (
+    "SAFE_FOR_RUNTIME_INTEGRATION",
+    "approved_for_runtime",
+    "runtime_ready",
+    "question_ready",
+    "student_facing_ready",
+    "reviewed_bank_ready",
+)
+PRINT_FRIENDLY_PACKET_NAME_FRAGMENT = "trusted_source_extraction_accuracy_review_packet_print"
+PRINT_FRIENDLY_PACKET_REQUIRED_PHRASES = (
+    "## 1. One-Page Review Summary",
+    "Yossi decision box:",
+    "## 5. Expanded Source Evidence Review Samples",
+    "### Item 1",
+    "- Source excerpt:",
+    "- Cleaned source Hebrew side:",
+    "- Extracted Hebrew:",
+    "- Source English / Translation side:",
+    "- Extracted English / Translation:",
+    "- Why this match is believed correct:",
+    "Human review question:",
+    "## 7. Extraction Summary Table",
+    "confirm_hebrew_english_phrase_matching",
+    "confirm_parenthetical_explanation_alignment",
+    "## 10. Final Decision Page",
+    '<div style="page-break-after: always;"></div>',
+)
+
 SKILL_TAG_ALIASES = {
     "phrase_translation": {"translation_context", "skill_tag.translation_context"},
     "translation_context": {"translation_context", "skill_tag.translation_context"},
@@ -287,6 +324,8 @@ ALLOWED_CHANGE_EXACT = {
     "docs/curriculum_pipeline/source_text_validation_strategy.md",
     "docs/sources/trusted_teacher_source_policy.md",
     "docs/sources/trusted_teacher_source_extraction_review_packet_template.md",
+    "docs/question_templates/approved_question_template_policy.md",
+    "docs/project_active_truth_today.md",
     "local_curriculum_sources/source_key_excerpt_batch_001.md",
     "data/source_review_confirmation_items.json",
     "data/source/bereishis_4_1_to_4_16.json",
@@ -322,6 +361,20 @@ ALLOWED_CHANGE_EXACT = {
     "data/source_texts/translations/sefaria/raw_samples/koren_sample.json",
     "data/source_texts/translations/sefaria/raw_samples/metsudah_sample.json",
     "data/corpus_manifest.json",
+    "data/verified_source_skill_maps/README.md",
+    "data/verified_source_skill_maps/bereishis_1_1_to_3_24_metsudah_skill_map.tsv",
+    "data/verified_source_skill_maps/bereishis_1_1_to_1_5_source_to_skill_map.tsv",
+    "data/verified_source_skill_maps/bereishis_1_6_to_1_13_source_to_skill_map.tsv",
+    "data/verified_source_skill_maps/reports/bereishis_1_1_to_3_24_metsudah_skill_map_extraction_accuracy_review_packet.md",
+    "data/verified_source_skill_maps/reports/bereishis_1_1_to_1_5_source_to_skill_map_exceptions_review_packet.md",
+    "data/verified_source_skill_maps/reports/bereishis_1_1_to_1_5_yossi_extraction_verification_report.md",
+    "data/verified_source_skill_maps/reports/bereishis_1_1_to_1_5_yossi_review_sheet.csv",
+    "data/verified_source_skill_maps/reports/bereishis_1_1_to_1_5_yossi_review_sheet.md",
+    "data/verified_source_skill_maps/reports/bereishis_1_1_to_1_5_yossi_review_sheet.pdf",
+    "data/verified_source_skill_maps/reports/bereishis_1_6_to_1_13_source_to_skill_map_build_report.md",
+    "data/verified_source_skill_maps/reports/bereishis_1_6_to_1_13_source_to_skill_map_exceptions_review_packet.md",
+    "data/verified_source_skill_maps/reports/bereishis_1_6_to_1_13_yossi_extraction_verification_report.md",
+    "data/verified_source_skill_maps/reports/source_to_skill_map_audit.json",
     "data/validation/bereishis_3_9_to_3_16_readiness.json",
     "data/validation/bereishis_3_17_to_3_24_readiness.json",
     "data/validation/question_validation_audit.md",
@@ -329,7 +382,11 @@ ALLOWED_CHANGE_EXACT = {
     "data/validation/source_truth_stabilization_report.md",
     "dikduk_rules_loader.py",
     "translation_sources_loader.py",
+    "scripts/build_source_to_skill_map.py",
     "scripts/generate_curriculum_question_preview.py",
+    "scripts/generate_trusted_source_extraction_review_packet.py",
+    "scripts/generate_review_packet_pdfs.py",
+    "scripts/validate_verified_source_skill_maps.py",
     "scripts/fetch_sefaria_bereishis_translations.py",
     "scripts/generate_diagnostic_preview.py",
     "scripts/validate_bereishis_translations.py",
@@ -349,6 +406,8 @@ ALLOWED_CHANGE_EXACT = {
     "tests/test_curriculum_question_preview.py",
     "tests/test_curriculum_extraction_schemas.py",
     "tests/test_curriculum_extraction_validation.py",
+    "tests/test_trusted_source_extraction_packet_generation.py",
+    "tests/test_verified_source_skill_maps.py",
     "tests/test_curriculum_extraction_loader.py",
     "tests/test_corpus_manifest.py",
     "tests/test_standards_data_validation.py",
@@ -514,7 +573,118 @@ def expected_batch_review_status(record: dict, record_origin: str, batch_lookup:
     return "needs_review" if record_origin == "sample" else "needs_review"
 
 
-def validate_resource_batches(manifest: dict, errors: list[str]) -> dict[str, dict]:
+def is_trusted_source_extraction_packet_path(relative: str) -> bool:
+    return TRUSTED_SOURCE_PACKET_NAME_FRAGMENT in Path(relative).name
+
+
+def validate_trusted_source_extraction_packet(
+    *,
+    batch_id: str,
+    relative: str,
+    errors: list[str],
+) -> bool:
+    if not is_trusted_source_extraction_packet_path(relative):
+        return False
+    path = ROOT / relative
+    if not path.exists():
+        errors.append(
+            "Trusted source batch "
+            f"`{batch_id}` links trusted-source extraction accuracy packet `{relative}`, but the file does not exist."
+        )
+        return True
+    text = path.read_text(encoding="utf-8")
+    for phrase in TRUSTED_SOURCE_PACKET_REQUIRED_PHRASES:
+        if phrase not in text:
+            errors.append(
+                "Trusted source batch "
+                f"`{batch_id}` links `{relative}`, but it is not a valid trusted-source extraction "
+                f"accuracy review packet because it is missing required language: {phrase!r}."
+            )
+    for phrase in TRUSTED_SOURCE_PACKET_FORBIDDEN_PHRASES:
+        if phrase in text and f"not_{phrase}" not in text:
+            errors.append(
+                "Trusted source batch "
+                f"`{batch_id}` links `{relative}`, but the packet includes forbidden readiness language: {phrase!r}."
+            )
+    if PRINT_FRIENDLY_PACKET_NAME_FRAGMENT in Path(relative).name:
+        for phrase in PRINT_FRIENDLY_PACKET_REQUIRED_PHRASES:
+            if phrase not in text:
+                errors.append(
+                    "Trusted source batch "
+                    f"`{batch_id}` links print-friendly packet `{relative}`, but it is missing reviewer-friendly "
+                    f"packet language or sections: {phrase!r}."
+                )
+    return True
+
+
+def validate_trusted_source_batch_review_gate(
+    *,
+    batch: dict,
+    source_package: dict,
+    review_artifacts: list[object],
+    errors: list[str],
+) -> None:
+    batch_id = str(batch.get("batch_id"))
+    extraction_review_status = batch.get("extraction_review_status")
+    if source_package.get("teacher_source_status") != "trusted_teacher_source":
+        return
+    if extraction_review_status not in {"pending_yossi_extraction_accuracy_pass", "yossi_extraction_verified"}:
+        return
+    has_packet = False
+    for relative in review_artifacts:
+        if isinstance(relative, str):
+            has_packet = validate_trusted_source_extraction_packet(
+                batch_id=batch_id,
+                relative=relative,
+                errors=errors,
+            ) or has_packet
+    if not has_packet:
+        errors.append(
+            "Trusted source batch "
+            f"`{batch_id}` has extraction_review_status `{extraction_review_status}` but no linked trusted-source "
+            "extraction accuracy review packet. Run `scripts/generate_trusted_source_extraction_review_packet.py` "
+            "and add the packet path to review_artifacts before marking it verified."
+        )
+    if extraction_review_status == "yossi_extraction_verified":
+        review_packet = batch.get("extraction_accuracy_review_artifact")
+        verification_artifact = batch.get("extraction_accuracy_verification_artifact")
+        verified_by = batch.get("extraction_accuracy_verified_by")
+        verified_date = batch.get("extraction_accuracy_verified_date")
+        if not isinstance(review_packet, str) or not review_packet:
+            errors.append(
+                "Trusted source batch "
+                f"`{batch_id}` is yossi_extraction_verified but missing extraction_accuracy_review_artifact."
+            )
+        elif review_packet not in review_artifacts:
+            errors.append(
+                "Trusted source batch "
+                f"`{batch_id}` is yossi_extraction_verified but extraction_accuracy_review_artifact "
+                f"`{review_packet}` is not listed in review_artifacts."
+            )
+        if not isinstance(verification_artifact, str) or not verification_artifact:
+            errors.append(
+                "Trusted source batch "
+                f"`{batch_id}` is yossi_extraction_verified but missing extraction_accuracy_verification_artifact."
+            )
+        elif not (ROOT / verification_artifact).exists():
+            errors.append(
+                "Trusted source batch "
+                f"`{batch_id}` is yossi_extraction_verified but extraction_accuracy_verification_artifact "
+                f"`{verification_artifact}` does not exist."
+            )
+        if not isinstance(verified_by, str) or not verified_by.strip():
+            errors.append(
+                "Trusted source batch "
+                f"`{batch_id}` is yossi_extraction_verified but missing extraction_accuracy_verified_by."
+            )
+        if not isinstance(verified_date, str) or not verified_date.strip():
+            errors.append(
+                "Trusted source batch "
+                f"`{batch_id}` is yossi_extraction_verified but missing extraction_accuracy_verified_date."
+            )
+
+
+def validate_resource_batches(manifest: dict, registry_lookup: dict[str, dict], errors: list[str]) -> dict[str, dict]:
     batch_lookup: dict[str, dict] = {}
     for batch in manifest.get("resource_batches", []):
         if not isinstance(batch, dict):
@@ -570,6 +740,21 @@ def validate_resource_batches(manifest: dict, errors: list[str]) -> dict[str, di
                     errors.append(
                         f"curriculum_extraction_manifest.json: {batch_id} review_artifact missing: {relative}"
                     )
+        source_package_id = batch.get("source_package_id")
+        if source_package_id:
+            source_package = registry_lookup.get(str(source_package_id))
+            if not source_package:
+                errors.append(
+                    f"curriculum_extraction_manifest.json: {batch_id} references unknown source_package_id "
+                    f"'{source_package_id}'"
+                )
+            else:
+                validate_trusted_source_batch_review_gate(
+                    batch=batch,
+                    source_package=source_package,
+                    review_artifacts=review_artifacts,
+                    errors=errors,
+                )
         if status in REVIEWED_BATCH_STATUSES and review_status != "reviewed":
             errors.append(
                 f"curriculum_extraction_manifest.json: {batch_id} reviewed non-runtime batches must have review_status=reviewed"
@@ -1012,7 +1197,7 @@ def validate_curriculum_extraction(*, check_git_diff: bool = False) -> dict:
         errors.append("curriculum_extraction_manifest.json: integration_status must be not_runtime_active")
 
     registry_lookup = validate_registry(registry, errors)
-    batch_lookup = validate_resource_batches(manifest, errors)
+    batch_lookup = validate_resource_batches(manifest, registry_lookup, errors)
     schema_paths = validate_schema_files(manifest, errors)
     raw_source_paths = validate_declared_relative_paths(
         collect_manifest_relative_paths(manifest, "raw_source_files"),
