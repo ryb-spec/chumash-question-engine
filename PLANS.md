@@ -120,3 +120,6 @@
 - [completed] Extend Standard 3 review packet and decision sheet with enrichment evidence only, preserving all teacher-review decisions and statuses
 - [completed] Narrowly extend standards validation and tests, then run required validation and write the enrichment report
 - [completed] Finalize source truth reproducibility: corpus manifest paths, hashes, active scope, validation, report
+- [completed] Design candidate-based morphology, standards, and vocabulary/shoresh enrichment layer without mutating verified phrase maps
+- [completed] Build a small Bereishis 1:1-1:5 enrichment pilot with Yossi-friendly review sheets and closed gates
+- [completed] Add enrichment validator/tests and run full validation without question/runtime promotion

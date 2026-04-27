@@ -252,6 +252,7 @@ SKILL_TAG_ALIASES = {
 ALLOWED_CHANGE_PREFIXES = (
     "data/curriculum_extraction/",
     "data/diagnostic_preview/",
+    "data/source_skill_enrichment/",
     "data/sources/loshon_hatorah/",
     "data/standards/zekelman/",
     "docs/sources/loshon_hatorah/",
@@ -368,6 +369,7 @@ ALLOWED_CHANGE_EXACT = {
     "scripts/generate_diagnostic_preview.py",
     "scripts/validate_bereishis_translations.py",
     "scripts/validate_curriculum_extraction.py",
+    "scripts/validate_source_skill_enrichment.py",
     "scripts/validate_diagnostic_preview.py",
     "scripts/validate_dikduk_rules.py",
     "scripts/validate_standards_data.py",
@@ -384,6 +386,7 @@ ALLOWED_CHANGE_EXACT = {
     "tests/test_curriculum_question_preview.py",
     "tests/test_curriculum_extraction_schemas.py",
     "tests/test_curriculum_extraction_validation.py",
+    "tests/test_source_skill_enrichment.py",
     "tests/test_curriculum_extraction_loader.py",
     "tests/test_standards_data_validation.py",
     "tests/test_source_corpus_block_4_1_to_4_16.py",
