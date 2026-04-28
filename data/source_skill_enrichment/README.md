@@ -232,6 +232,77 @@ Unresolved items remain follow-up by design and all gates remain closed across t
 
 Next recommended slice: Bereishis 1:24-1:31, using the same review-only pattern after this 1:14-1:23 milestone is checkpointed.
 
+## Bereishis 1:24-1:31 Review-Applied Slice
+
+Bereishis 1:24-1:31 review decisions are now applied. This completes candidate coverage for Bereishis Perek 1 and completes Perek 1 enrichment review-application coverage only after this review-application step; it still does not approve questions or any later gate.
+
+Candidate counts:
+
+- morphology: 26
+- vocabulary_shoresh: 40
+- phrase-level standards: 14
+- token-split standards: 56
+- total candidates: 136
+- verified: 83
+- needs_follow_up: 53
+
+Candidate files:
+
+- `morphology_candidates/bereishis_1_24_to_1_31_morphology_candidates.tsv`
+- `vocabulary_shoresh_candidates/bereishis_1_24_to_1_31_vocabulary_shoresh_candidates.tsv`
+- `standards_candidates/bereishis_1_24_to_1_31_standards_candidates.tsv`
+- `standards_candidates/bereishis_1_24_to_1_31_token_split_standards_candidates.tsv`
+
+Yossi review sheets:
+
+- `reports/bereishis_1_24_to_1_31_morphology_enrichment_yossi_review_sheet.md`
+- `reports/bereishis_1_24_to_1_31_morphology_enrichment_yossi_review_sheet.csv`
+- `reports/bereishis_1_24_to_1_31_vocabulary_shoresh_enrichment_yossi_review_sheet.md`
+- `reports/bereishis_1_24_to_1_31_vocabulary_shoresh_enrichment_yossi_review_sheet.csv`
+- `reports/bereishis_1_24_to_1_31_standards_enrichment_yossi_review_sheet.md`
+- `reports/bereishis_1_24_to_1_31_standards_enrichment_yossi_review_sheet.csv`
+- `reports/bereishis_1_24_to_1_31_token_split_standards_yossi_review_sheet.md`
+- `reports/bereishis_1_24_to_1_31_token_split_standards_yossi_review_sheet.csv`
+
+Reports:
+
+- `reports/bereishis_1_24_to_1_31_enrichment_candidate_audit.md`
+- `reports/bereishis_1_24_to_1_31_enrichment_candidate_generation_report.md`
+- `reports/bereishis_1_24_to_1_31_morphology_enrichment_yossi_review_applied.md`
+- `reports/bereishis_1_24_to_1_31_vocabulary_shoresh_enrichment_yossi_review_applied.md`
+- `reports/bereishis_1_24_to_1_31_standards_enrichment_yossi_review_applied.md`
+- `reports/bereishis_1_24_to_1_31_token_split_standards_yossi_review_applied.md`
+- `reports/bereishis_1_24_to_1_31_enrichment_review_summary.md`
+
+This is enrichment review only. It is not question approval, protected-preview approval, reviewed-bank approval, runtime approval, or student-facing approval.
+
+All gates remain closed across this slice:
+
+- `question_allowed = needs_review`
+- `protected_preview_allowed = false`
+- `reviewed_bank_allowed = false`
+- `runtime_allowed = false`
+
+This is enrichment verification only. It is not question approval, protected-preview approval, reviewed-bank approval, runtime approval, or student-facing approval.
+
+Next required action: create the Bereishis Perek 1 enrichment review-application coverage report before opening the next slice.
+
+## Bereishis Perek 1 Enrichment Review-Application Coverage
+
+Coverage report:
+
+- `reports/bereishis_perek_1_enrichment_review_application_coverage_report.md`
+
+Perek 1 enrichment review-application coverage status:
+
+- coverage exists across Bereishis 1:1-1:31
+- unresolved items remain follow-up by design
+- all safety gates remain closed
+
+Recommended next step:
+
+- checkpoint this Perek 1 enrichment milestone before either expanding enrichment to Perek 2 or running a controlled Perek 1 question-eligibility audit
+
 ## Source Priority
 
 For morphology enrichment, prefer Dikduk review sheets/workbooks, Loshon Hakodesh/Loshon HaTorah resources, Parsha Pshat Dikduk curriculum, First 150 Shorashim and Keywords in Bereishis, General Chumash Skills Workbook, then internal skill alignment docs.
