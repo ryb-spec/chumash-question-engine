@@ -252,6 +252,7 @@ SKILL_TAG_ALIASES = {
 ALLOWED_CHANGE_PREFIXES = (
     "data/curriculum_extraction/",
     "data/diagnostic_preview/",
+    "data/question_eligibility_audits/",
     "data/source_skill_enrichment/",
     "data/sources/loshon_hatorah/",
     "data/standards/zekelman/",
@@ -270,6 +271,8 @@ ALLOWED_CHANGE_EXACT = {
     "docs/curriculum_pipeline/source_text_validation_strategy.md",
     "docs/sources/trusted_teacher_source_policy.md",
     "docs/question_templates/approved_question_template_policy.md",
+    "scripts/validate_question_eligibility_audit.py",
+    "tests/test_question_eligibility_audit.py",
     "local_curriculum_sources/source_key_excerpt_batch_001.md",
     "data/source/bereishis_4_1_to_4_16.json",
     "data/dikduk_rules/README.md",
