@@ -14,6 +14,9 @@ SOURCE_MAP_PATH = ROOT / "data" / "verified_source_skill_maps" / "bereishis_1_1_
 NEXT_SOURCE_MAP_PATH = (
     ROOT / "data" / "verified_source_skill_maps" / "bereishis_1_6_to_1_13_source_to_skill_map.tsv"
 )
+EXPANSION_SOURCE_MAP_PATH = (
+    ROOT / "data" / "verified_source_skill_maps" / "bereishis_1_14_to_1_23_source_to_skill_map.tsv"
+)
 MORPHOLOGY_PATH = (
     ENRICHMENT_DIR / "morphology_candidates" / "bereishis_1_1_to_1_5_morphology_candidates.tsv"
 )
@@ -58,6 +61,22 @@ NEXT_TOKEN_SPLIT_STANDARDS_PATH = (
     ENRICHMENT_DIR
     / "standards_candidates"
     / "bereishis_1_6_to_1_13_token_split_standards_candidates.tsv"
+)
+EXPANSION_MORPHOLOGY_PATH = (
+    ENRICHMENT_DIR / "morphology_candidates" / "bereishis_1_14_to_1_23_morphology_candidates.tsv"
+)
+EXPANSION_STANDARDS_PATH = (
+    ENRICHMENT_DIR / "standards_candidates" / "bereishis_1_14_to_1_23_standards_candidates.tsv"
+)
+EXPANSION_VOCABULARY_PATH = (
+    ENRICHMENT_DIR
+    / "vocabulary_shoresh_candidates"
+    / "bereishis_1_14_to_1_23_vocabulary_shoresh_candidates.tsv"
+)
+EXPANSION_TOKEN_SPLIT_STANDARDS_PATH = (
+    ENRICHMENT_DIR
+    / "standards_candidates"
+    / "bereishis_1_14_to_1_23_token_split_standards_candidates.tsv"
 )
 TOKEN_SPLIT_AUDIT_PATH = (
     ENRICHMENT_DIR
@@ -159,6 +178,86 @@ NEXT_FOLLOW_UP_INVENTORY_PATH = (
     / "reports"
     / "bereishis_1_6_to_1_13_enrichment_follow_up_inventory.md"
 )
+EXPANSION_MORPHOLOGY_REVIEW_MD_PATH = (
+    ENRICHMENT_DIR
+    / "reports"
+    / "bereishis_1_14_to_1_23_morphology_enrichment_yossi_review_sheet.md"
+)
+EXPANSION_MORPHOLOGY_REVIEW_CSV_PATH = (
+    ENRICHMENT_DIR
+    / "reports"
+    / "bereishis_1_14_to_1_23_morphology_enrichment_yossi_review_sheet.csv"
+)
+EXPANSION_VOCAB_REVIEW_MD_PATH = (
+    ENRICHMENT_DIR
+    / "reports"
+    / "bereishis_1_14_to_1_23_vocabulary_shoresh_enrichment_yossi_review_sheet.md"
+)
+EXPANSION_VOCAB_REVIEW_CSV_PATH = (
+    ENRICHMENT_DIR
+    / "reports"
+    / "bereishis_1_14_to_1_23_vocabulary_shoresh_enrichment_yossi_review_sheet.csv"
+)
+EXPANSION_STANDARDS_REVIEW_MD_PATH = (
+    ENRICHMENT_DIR
+    / "reports"
+    / "bereishis_1_14_to_1_23_standards_enrichment_yossi_review_sheet.md"
+)
+EXPANSION_STANDARDS_REVIEW_CSV_PATH = (
+    ENRICHMENT_DIR
+    / "reports"
+    / "bereishis_1_14_to_1_23_standards_enrichment_yossi_review_sheet.csv"
+)
+EXPANSION_TOKEN_SPLIT_REVIEW_MD_PATH = (
+    ENRICHMENT_DIR
+    / "reports"
+    / "bereishis_1_14_to_1_23_token_split_standards_yossi_review_sheet.md"
+)
+EXPANSION_TOKEN_SPLIT_REVIEW_CSV_PATH = (
+    ENRICHMENT_DIR
+    / "reports"
+    / "bereishis_1_14_to_1_23_token_split_standards_yossi_review_sheet.csv"
+)
+EXPANSION_AUDIT_REPORT_PATH = (
+    ENRICHMENT_DIR
+    / "reports"
+    / "bereishis_1_14_to_1_23_enrichment_candidate_audit.md"
+)
+EXPANSION_GENERATION_REPORT_PATH = (
+    ENRICHMENT_DIR
+    / "reports"
+    / "bereishis_1_14_to_1_23_enrichment_candidate_generation_report.md"
+)
+EXPANSION_MORPH_APPLIED_REPORT_PATH = (
+    ENRICHMENT_DIR
+    / "reports"
+    / "bereishis_1_14_to_1_23_morphology_enrichment_yossi_review_applied.md"
+)
+EXPANSION_VOCAB_APPLIED_REPORT_PATH = (
+    ENRICHMENT_DIR
+    / "reports"
+    / "bereishis_1_14_to_1_23_vocabulary_shoresh_enrichment_yossi_review_applied.md"
+)
+EXPANSION_STANDARDS_APPLIED_REPORT_PATH = (
+    ENRICHMENT_DIR
+    / "reports"
+    / "bereishis_1_14_to_1_23_standards_enrichment_yossi_review_applied.md"
+)
+EXPANSION_TOKEN_SPLIT_APPLIED_REPORT_PATH = (
+    ENRICHMENT_DIR
+    / "reports"
+    / "bereishis_1_14_to_1_23_token_split_standards_yossi_review_applied.md"
+)
+EXPANSION_REVIEW_SUMMARY_PATH = (
+    ENRICHMENT_DIR
+    / "reports"
+    / "bereishis_1_14_to_1_23_enrichment_review_summary.md"
+)
+EXPANSION_MINI_COMPLETION_REPORT_PATH = (
+    ENRICHMENT_DIR
+    / "reports"
+    / "bereishis_1_14_to_1_23_enrichment_mini_completion_report.md"
+)
 PILOT_COMPLETION_REPORT_PATH = (
     ENRICHMENT_DIR
     / "reports"
@@ -190,6 +289,19 @@ def next_slice_candidate_rows() -> list[dict[str, str]]:
     return load_tsv(NEXT_MORPHOLOGY_PATH) + load_tsv(NEXT_STANDARDS_PATH) + load_tsv(NEXT_VOCABULARY_PATH)
 
 
+def expansion_source_rows_by_id() -> dict[str, dict[str, str]]:
+    rows = load_tsv(EXPANSION_SOURCE_MAP_PATH)
+    return {f"row_{index:03d}": row for index, row in enumerate(rows, 1)}
+
+
+def expansion_candidate_rows() -> list[dict[str, str]]:
+    return (
+        load_tsv(EXPANSION_MORPHOLOGY_PATH)
+        + load_tsv(EXPANSION_STANDARDS_PATH)
+        + load_tsv(EXPANSION_VOCABULARY_PATH)
+    )
+
+
 class SourceSkillEnrichmentTests(unittest.TestCase):
     def test_validator_passes(self):
         summary = validator.validate_source_skill_enrichment()
@@ -218,6 +330,17 @@ class SourceSkillEnrichmentTests(unittest.TestCase):
         self.assertEqual(
             summary["next_slice_mini_completion_report_path"],
             "data/source_skill_enrichment/reports/bereishis_1_6_to_1_13_enrichment_mini_completion_report.md",
+        )
+        self.assertEqual(summary["expansion_morphology_candidate_count"], 25)
+        self.assertEqual(summary["expansion_vocabulary_candidate_count"], 21)
+        self.assertEqual(summary["expansion_standards_candidate_count"], 13)
+        self.assertEqual(summary["expansion_token_split_standards_candidate_count"], 45)
+        self.assertEqual(summary["expansion_total_candidate_count"], 104)
+        self.assertEqual(summary["expansion_verified_candidate_count"], 53)
+        self.assertEqual(summary["expansion_follow_up_candidate_count"], 51)
+        self.assertEqual(
+            summary["expansion_mini_completion_report_path"],
+            "data/source_skill_enrichment/reports/bereishis_1_14_to_1_23_enrichment_mini_completion_report.md",
         )
 
     def test_enrichment_readme_and_audit_exist(self):
@@ -249,6 +372,24 @@ class SourceSkillEnrichmentTests(unittest.TestCase):
         self.assertIn("needs_follow_up: 18", readme_text)
         self.assertIn("Unresolved items remain follow-up by design", readme_text)
         self.assertIn("next recommended slice is Bereishis 1:14-1:23", readme_text)
+        self.assertIn("Bereishis 1:14-1:23 Review-Applied Slice", readme_text)
+        self.assertIn("morphology: 25", readme_text)
+        self.assertIn("vocabulary_shoresh: 21", readme_text)
+        self.assertIn("phrase-level standards: 13", readme_text)
+        self.assertIn("token-split standards: 45", readme_text)
+        self.assertIn("total candidates: 104", readme_text)
+        self.assertIn("verified: 53", readme_text)
+        self.assertIn("needs_follow_up: 51", readme_text)
+        self.assertIn("bereishis_1_14_to_1_23_enrichment_candidate_audit.md", readme_text)
+        self.assertIn("bereishis_1_14_to_1_23_enrichment_candidate_generation_report.md", readme_text)
+        self.assertIn("bereishis_1_14_to_1_23_morphology_enrichment_yossi_review_applied.md", readme_text)
+        self.assertIn("bereishis_1_14_to_1_23_vocabulary_shoresh_enrichment_yossi_review_applied.md", readme_text)
+        self.assertIn("bereishis_1_14_to_1_23_standards_enrichment_yossi_review_applied.md", readme_text)
+        self.assertIn("bereishis_1_14_to_1_23_token_split_standards_yossi_review_applied.md", readme_text)
+        self.assertIn("bereishis_1_14_to_1_23_enrichment_review_summary.md", readme_text)
+        self.assertIn("bereishis_1_14_to_1_23_enrichment_mini_completion_report.md", readme_text)
+        self.assertIn("Unresolved items remain follow-up by design and all gates remain closed across the slice.", readme_text)
+        self.assertIn("Next recommended slice: Bereishis 1:24-1:31", readme_text)
         self.assertIn("What Should Not Be Auto-Filled", audit_text)
         self.assertIn("reviewed-bank examples; reference only", audit_text)
         self.assertIn("Do not backfill all morphology fields", audit_text)
@@ -821,6 +962,179 @@ class SourceSkillEnrichmentTests(unittest.TestCase):
         self.assertIn("| phrase-level standards | 6 | 0 | 6 | 0 | 0 |", text)
         self.assertIn("| token-split standards | 13 | 6 | 7 | 0 | 0 |", text)
         self.assertIn("| total | 32 | 14 | 18 | 0 | 0 |", text)
+
+    def test_expansion_source_map_is_verified_and_safety_closed(self):
+        rows = load_tsv(EXPANSION_SOURCE_MAP_PATH)
+        self.assertEqual(len(rows), 39)
+        self.assertTrue(all(row["extraction_review_status"] == "yossi_extraction_verified" for row in rows))
+        self.assertEqual({row["question_allowed"] for row in rows}, {"needs_review"})
+        self.assertEqual({row["runtime_allowed"] for row in rows}, {"false"})
+        self.assertEqual({row["protected_preview_allowed"] for row in rows}, {"false"})
+        self.assertEqual({row["reviewed_bank_allowed"] for row in rows}, {"false"})
+        self.assertTrue(all("?" not in row["hebrew_word_or_phrase"] for row in rows))
+
+    def test_expansion_candidate_files_have_required_columns(self):
+        for path, expected_columns in (
+            (EXPANSION_MORPHOLOGY_PATH, validator.MORPHOLOGY_COLUMNS),
+            (EXPANSION_STANDARDS_PATH, validator.STANDARDS_COLUMNS),
+            (EXPANSION_VOCABULARY_PATH, validator.VOCABULARY_COLUMNS),
+            (EXPANSION_TOKEN_SPLIT_STANDARDS_PATH, validator.TOKEN_SPLIT_STANDARDS_COLUMNS),
+        ):
+            with self.subTest(path=path):
+                with path.open("r", encoding="utf-8", newline="") as handle:
+                    columns = list(csv.DictReader(handle, delimiter="\t").fieldnames or [])
+                self.assertEqual(columns, expected_columns)
+
+    def test_expansion_candidates_link_to_verified_source_rows_and_keep_safety_closed(self):
+        source_rows = expansion_source_rows_by_id()
+        for row in expansion_candidate_rows():
+            with self.subTest(candidate=row["candidate_id"]):
+                linked = source_rows[row["source_row_id"]]
+                self.assertEqual(
+                    row["source_map_file"],
+                    "data/verified_source_skill_maps/bereishis_1_14_to_1_23_source_to_skill_map.tsv",
+                )
+                self.assertEqual(linked["extraction_review_status"], "yossi_extraction_verified")
+                self.assertEqual(row["ref"], linked["ref"])
+                self.assertEqual(row["hebrew_phrase"], linked["hebrew_word_or_phrase"])
+                self.assertIn(row["enrichment_review_status"], {"yossi_enrichment_verified", "needs_follow_up"})
+                if row["enrichment_review_status"] == "yossi_enrichment_verified":
+                    self.assertEqual(row["yossi_decision"], "verified")
+                if row["enrichment_review_status"] == "needs_follow_up":
+                    self.assertEqual(row["yossi_decision"], "needs_follow_up")
+                self.assertNotEqual(row["yossi_notes"].strip(), "")
+                self.assertEqual(row["question_allowed"], "needs_review")
+                self.assertEqual(row["protected_preview_allowed"], "false")
+                self.assertEqual(row["runtime_allowed"], "false")
+                self.assertEqual(row["reviewed_bank_allowed"], "false")
+
+    def test_expansion_review_sheets_exist_are_utf8_bom_and_blank(self):
+        review_paths = (
+            (EXPANSION_MORPHOLOGY_REVIEW_MD_PATH, EXPANSION_MORPHOLOGY_REVIEW_CSV_PATH, 25),
+            (EXPANSION_VOCAB_REVIEW_MD_PATH, EXPANSION_VOCAB_REVIEW_CSV_PATH, 21),
+            (EXPANSION_STANDARDS_REVIEW_MD_PATH, EXPANSION_STANDARDS_REVIEW_CSV_PATH, 13),
+        )
+        for md_path, csv_path, expected_count in review_paths:
+            with self.subTest(csv_path=csv_path):
+                self.assertTrue(md_path.exists())
+                self.assertTrue(csv_path.exists())
+                self.assertTrue(csv_path.read_bytes().startswith(b"\xef\xbb\xbf"))
+                md_text = md_path.read_text(encoding="utf-8")
+                self.assertIn("This is enrichment review only.", md_text)
+                self.assertNotIn("???", md_text)
+                with csv_path.open("r", encoding="utf-8-sig", newline="") as handle:
+                    rows = list(csv.DictReader(handle))
+                self.assertEqual(list(rows[0].keys()), validator.REVIEW_CSV_COLUMNS)
+                self.assertEqual(len(rows), expected_count)
+                self.assertTrue(all(row["yossi_decision"] == "" for row in rows))
+                self.assertTrue(all(row["yossi_notes"] == "" for row in rows))
+
+    def test_expansion_token_split_candidates_map_to_contract_and_match_review_applied_status(self):
+        contract = json.loads(CONTRACT_PATH.read_text(encoding="utf-8"))
+        canonical_by_id = {record["canonical_skill_id"]: record for record in contract["canonical_skills"]}
+        valid_standards = {
+            standard_id
+            for record in contract["canonical_skills"]
+            for standard_id in record["related_zekelman_standard_ids"]
+        }
+        rows = load_tsv(EXPANSION_TOKEN_SPLIT_STANDARDS_PATH)
+        self.assertEqual(len(rows), 45)
+        self.assertTrue(EXPANSION_TOKEN_SPLIT_REVIEW_CSV_PATH.read_bytes().startswith(b"\xef\xbb\xbf"))
+        review_text = EXPANSION_TOKEN_SPLIT_REVIEW_MD_PATH.read_text(encoding="utf-8")
+        self.assertIn("This is enrichment review only.", review_text)
+        self.assertNotIn("???", review_text)
+        for row in rows:
+            with self.subTest(candidate=row["candidate_id"]):
+                self.assertIn(row["canonical_skill_id"], canonical_by_id)
+                self.assertIn(row["canonical_standard_anchor"], valid_standards)
+                self.assertIn(
+                    row["canonical_standard_anchor"],
+                    canonical_by_id[row["canonical_skill_id"]]["related_zekelman_standard_ids"],
+                )
+                self.assertNotIn("?", row["hebrew_token"])
+                self.assertNotIn("?", row["clean_hebrew_no_nikud"])
+                self.assertIn(row["enrichment_review_status"], {"yossi_enrichment_verified", "needs_follow_up"})
+                if row["enrichment_review_status"] == "yossi_enrichment_verified":
+                    self.assertEqual(row["yossi_decision"], "verified")
+                if row["enrichment_review_status"] == "needs_follow_up":
+                    self.assertEqual(row["yossi_decision"], "needs_follow_up")
+                self.assertNotEqual(row["yossi_notes"].strip(), "")
+                self.assertEqual(row["question_allowed"], "needs_review")
+                self.assertEqual(row["protected_preview_allowed"], "false")
+                self.assertEqual(row["reviewed_bank_allowed"], "false")
+                self.assertEqual(row["runtime_allowed"], "false")
+
+    def test_expansion_review_applied_counts_match_expected(self):
+        morph_rows = load_tsv(EXPANSION_MORPHOLOGY_PATH)
+        vocab_rows = load_tsv(EXPANSION_VOCABULARY_PATH)
+        standards_rows = load_tsv(EXPANSION_STANDARDS_PATH)
+        token_rows = load_tsv(EXPANSION_TOKEN_SPLIT_STANDARDS_PATH)
+
+        def counts(rows: list[dict[str, str]]) -> tuple[int, int]:
+            verified = sum(1 for row in rows if row["enrichment_review_status"] == "yossi_enrichment_verified")
+            follow_up = sum(1 for row in rows if row["enrichment_review_status"] == "needs_follow_up")
+            return verified, follow_up
+
+        self.assertEqual(counts(morph_rows), (11, 14))
+        self.assertEqual(counts(vocab_rows), (14, 7))
+        self.assertEqual(counts(standards_rows), (0, 13))
+        self.assertEqual(counts(token_rows), (28, 17))
+        total_verified = sum(counts(rows)[0] for rows in (morph_rows, vocab_rows, standards_rows, token_rows))
+        total_follow_up = sum(counts(rows)[1] for rows in (morph_rows, vocab_rows, standards_rows, token_rows))
+        self.assertEqual(total_verified, 53)
+        self.assertEqual(total_follow_up, 51)
+        self.assertTrue(all(row["enrichment_review_status"] == "needs_follow_up" for row in standards_rows))
+        self.assertTrue(all(row["yossi_decision"] == "needs_follow_up" for row in standards_rows))
+
+    def test_expansion_applied_reports_and_summary_exist_and_match(self):
+        for path in (
+            EXPANSION_MORPH_APPLIED_REPORT_PATH,
+            EXPANSION_VOCAB_APPLIED_REPORT_PATH,
+            EXPANSION_STANDARDS_APPLIED_REPORT_PATH,
+            EXPANSION_TOKEN_SPLIT_APPLIED_REPORT_PATH,
+            EXPANSION_REVIEW_SUMMARY_PATH,
+        ):
+            with self.subTest(path=path):
+                self.assertTrue(path.exists())
+
+        summary_text = EXPANSION_REVIEW_SUMMARY_PATH.read_text(encoding="utf-8")
+        self.assertIn("Bereishis 1:14-1:23 Enrichment Review Summary", summary_text)
+        self.assertIn("- total candidates: 104", summary_text)
+        self.assertIn("- verified count: 53", summary_text)
+        self.assertIn("- needs_follow_up count: 51", summary_text)
+        self.assertIn("all later gates remain closed", summary_text)
+        self.assertIn("What Was Not Approved", summary_text)
+
+    def test_expansion_mini_completion_report_exists_and_matches_counts_and_safety(self):
+        self.assertTrue(EXPANSION_MINI_COMPLETION_REPORT_PATH.exists())
+        text = EXPANSION_MINI_COMPLETION_REPORT_PATH.read_text(encoding="utf-8")
+        self.assertIn("Bereishis 1:14-1:23 Enrichment Mini-Completion Report", text)
+        self.assertIn("| morphology | 25 | 11 | 14 | 0 | 0 |", text)
+        self.assertIn("| vocabulary/shoresh | 21 | 14 | 7 | 0 | 0 |", text)
+        self.assertIn("| phrase-level standards | 13 | 0 | 13 | 0 | 0 |", text)
+        self.assertIn("| token-split standards | 45 | 28 | 17 | 0 | 0 |", text)
+        self.assertIn("| total | 104 | 53 | 51 | 0 | 0 |", text)
+        self.assertIn("not question approval", text)
+        self.assertIn("not protected-preview approval", text)
+        self.assertIn("not reviewed-bank approval", text)
+        self.assertIn("not runtime approval", text)
+        self.assertIn("not student-facing approval", text)
+        self.assertIn("not answer-key approval", text)
+        self.assertIn("Bereishis 1:24-1:31", text)
+
+    def test_expansion_generation_report_exists_and_matches_counts(self):
+        self.assertTrue(EXPANSION_AUDIT_REPORT_PATH.exists())
+        self.assertTrue(EXPANSION_GENERATION_REPORT_PATH.exists())
+        report_text = EXPANSION_GENERATION_REPORT_PATH.read_text(encoding="utf-8")
+        self.assertIn("data/verified_source_skill_maps/bereishis_1_14_to_1_23_source_to_skill_map.tsv", report_text)
+        self.assertIn("- source-to-skill rows: 39", report_text)
+        self.assertIn("- morphology: 25", report_text)
+        self.assertIn("- vocabulary_shoresh: 21", report_text)
+        self.assertIn("- standards: 13", report_text)
+        self.assertIn("- token_split_standards: 45", report_text)
+        self.assertIn("- total_candidates: 104", report_text)
+        self.assertIn("Hebrew tokens are real UTF-8 Hebrew and not placeholder question marks", report_text)
+        self.assertIn("question_allowed = needs_review", report_text)
 
 
 if __name__ == "__main__":

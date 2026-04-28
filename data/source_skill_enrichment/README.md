@@ -185,6 +185,53 @@ This is enrichment verification only. It is not question approval, protected-pre
 
 Unresolved items remain follow-up by design, all gates remain closed, and the next recommended slice is Bereishis 1:14-1:23.
 
+## Bereishis 1:14-1:23 Review-Applied Slice
+
+Bereishis 1:14-1:23 now has a controlled review-applied enrichment slice built from the approved pilot and review-applied patterns. This slice remains enrichment verification only, all gates remain closed, and no question/protected-preview/reviewed-bank/runtime approval exists.
+
+Candidate counts:
+
+- morphology: 25
+- vocabulary_shoresh: 21
+- phrase-level standards: 13
+- token-split standards: 45
+- total candidates: 104
+- verified: 53
+- needs_follow_up: 51
+
+Candidate files:
+
+- `morphology_candidates/bereishis_1_14_to_1_23_morphology_candidates.tsv`
+- `vocabulary_shoresh_candidates/bereishis_1_14_to_1_23_vocabulary_shoresh_candidates.tsv`
+- `standards_candidates/bereishis_1_14_to_1_23_standards_candidates.tsv`
+- `standards_candidates/bereishis_1_14_to_1_23_token_split_standards_candidates.tsv`
+
+Yossi review sheets:
+
+- `reports/bereishis_1_14_to_1_23_morphology_enrichment_yossi_review_sheet.md`
+- `reports/bereishis_1_14_to_1_23_morphology_enrichment_yossi_review_sheet.csv`
+- `reports/bereishis_1_14_to_1_23_vocabulary_shoresh_enrichment_yossi_review_sheet.md`
+- `reports/bereishis_1_14_to_1_23_vocabulary_shoresh_enrichment_yossi_review_sheet.csv`
+- `reports/bereishis_1_14_to_1_23_standards_enrichment_yossi_review_sheet.md`
+- `reports/bereishis_1_14_to_1_23_standards_enrichment_yossi_review_sheet.csv`
+- `reports/bereishis_1_14_to_1_23_token_split_standards_yossi_review_sheet.md`
+- `reports/bereishis_1_14_to_1_23_token_split_standards_yossi_review_sheet.csv`
+
+Reports:
+
+- `reports/bereishis_1_14_to_1_23_enrichment_candidate_audit.md`
+- `reports/bereishis_1_14_to_1_23_enrichment_candidate_generation_report.md`
+- `reports/bereishis_1_14_to_1_23_morphology_enrichment_yossi_review_applied.md`
+- `reports/bereishis_1_14_to_1_23_vocabulary_shoresh_enrichment_yossi_review_applied.md`
+- `reports/bereishis_1_14_to_1_23_standards_enrichment_yossi_review_applied.md`
+- `reports/bereishis_1_14_to_1_23_token_split_standards_yossi_review_applied.md`
+- `reports/bereishis_1_14_to_1_23_enrichment_review_summary.md`
+- `reports/bereishis_1_14_to_1_23_enrichment_mini_completion_report.md`
+
+Unresolved items remain follow-up by design and all gates remain closed across the slice.
+
+Next recommended slice: Bereishis 1:24-1:31, using the same review-only pattern after this 1:14-1:23 milestone is checkpointed.
+
 ## Source Priority
 
 For morphology enrichment, prefer Dikduk review sheets/workbooks, Loshon Hakodesh/Loshon HaTorah resources, Parsha Pshat Dikduk curriculum, First 150 Shorashim and Keywords in Bereishis, General Chumash Skills Workbook, then internal skill alignment docs.
