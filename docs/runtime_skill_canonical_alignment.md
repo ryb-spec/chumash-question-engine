@@ -7,6 +7,15 @@ The supported runtime remains `streamlit_app.py`. These mappings do not change
 student-facing behavior. They only make the alignment between runtime skills and
 the standards layer more explicit.
 
+The canonical contract for Step 3 now lives at
+`data/standards/canonical_skill_contract.json`.
+It records runtime mappings, Zekelman draft mappings, verified source-map label
+coverage, enrichment-candidate mappings, and conservative review/runtime status
+boundaries in one deterministic file.
+
+That contract does not approve questions, open protected-preview work, or
+promote review-only Standard 3 artifacts into runtime truth.
+
 ## Mapped to existing crosswalk rows
 
 - `identify_prefix_meaning`

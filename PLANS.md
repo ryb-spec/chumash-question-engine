@@ -123,3 +123,6 @@
 - [completed] Design candidate-based morphology, standards, and vocabulary/shoresh enrichment layer without mutating verified phrase maps
 - [completed] Build a small Bereishis 1:1-1:5 enrichment pilot with Yossi-friendly review sheets and closed gates
 - [completed] Add enrichment validator/tests and run full validation without question/runtime promotion
+- [completed] Audit runtime skills, canonical crosswalk rows, Standard 3 draft skill IDs, verified source-map labels, and enrichment candidates for one Step 3 canonical contract
+- [completed] Create a deterministic canonical skill/standards contract plus validator/tests that keep review-only, source-verified, and runtime-ready boundaries distinct
+- [completed] Update skill-catalog alignment, report/docs, and rerun the required validation stack without opening any approval gates

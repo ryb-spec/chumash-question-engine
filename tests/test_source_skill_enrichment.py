@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import csv
+import json
 import unittest
 from pathlib import Path
 
@@ -34,6 +35,32 @@ FOLLOW_UP_REVIEW_CSV_PATH = (
     / "reports"
     / "bereishis_1_1_to_1_5_enrichment_follow_up_yossi_review_sheet.csv"
 )
+TOKEN_SPLIT_STANDARDS_PATH = (
+    ENRICHMENT_DIR
+    / "standards_candidates"
+    / "bereishis_1_1_to_1_5_token_split_standards_candidates.tsv"
+)
+TOKEN_SPLIT_AUDIT_PATH = (
+    ENRICHMENT_DIR
+    / "reports"
+    / "bereishis_1_1_to_1_5_token_split_standards_audit.md"
+)
+TOKEN_SPLIT_REVIEW_MD_PATH = (
+    ENRICHMENT_DIR
+    / "reports"
+    / "bereishis_1_1_to_1_5_token_split_standards_yossi_review_sheet.md"
+)
+TOKEN_SPLIT_REVIEW_CSV_PATH = (
+    ENRICHMENT_DIR
+    / "reports"
+    / "bereishis_1_1_to_1_5_token_split_standards_yossi_review_sheet.csv"
+)
+TOKEN_SPLIT_APPLIED_REPORT_PATH = (
+    ENRICHMENT_DIR
+    / "reports"
+    / "bereishis_1_1_to_1_5_token_split_standards_yossi_review_applied.md"
+)
+CONTRACT_PATH = ROOT / "data" / "standards" / "canonical_skill_contract.json"
 
 
 def load_tsv(path: Path) -> list[dict[str, str]]:
@@ -57,6 +84,7 @@ class SourceSkillEnrichmentTests(unittest.TestCase):
         self.assertEqual(summary["morphology_candidate_count"], 5)
         self.assertEqual(summary["standards_candidate_count"], 6)
         self.assertEqual(summary["vocabulary_candidate_count"], 6)
+        self.assertEqual(summary["token_split_standards_candidate_count"], 10)
         self.assertEqual(summary["review_sheet_count"], 3)
         self.assertEqual(summary["applied_review_report_count"], 3)
         self.assertEqual(summary["follow_up_candidate_count"], 10)
@@ -201,15 +229,42 @@ class SourceSkillEnrichmentTests(unittest.TestCase):
         md_text = FOLLOW_UP_REVIEW_MD_PATH.read_text(encoding="utf-8")
         self.assertIn("This inventory lists exactly the unresolved candidates", inventory_text)
         self.assertIn("Data hygiene audit", inventory_text)
+        self.assertIn("data/standards/canonical_skill_contract.json", inventory_text)
         self.assertIn("Vocabulary/Shoresh Follow-Up", md_text)
         self.assertIn("Morphology Follow-Up", md_text)
         self.assertIn("Standards Follow-Up", md_text)
         self.assertIn("This is enrichment follow-up review only", md_text)
+        self.assertIn("data/standards/canonical_skill_contract.json", md_text)
         self.assertIn("not question approval", md_text)
         self.assertIn("protected-preview approval", md_text)
         self.assertIn("reviewed-bank approval", md_text)
         self.assertIn("runtime approval", md_text)
         self.assertIn("student-facing approval", md_text)
+
+    def test_token_split_standards_artifacts_exist_and_are_safety_scoped(self):
+        self.assertTrue(TOKEN_SPLIT_STANDARDS_PATH.exists())
+        self.assertTrue(TOKEN_SPLIT_AUDIT_PATH.exists())
+        self.assertTrue(TOKEN_SPLIT_REVIEW_MD_PATH.exists())
+        self.assertTrue(TOKEN_SPLIT_REVIEW_CSV_PATH.exists())
+        self.assertTrue(TOKEN_SPLIT_APPLIED_REPORT_PATH.exists())
+        self.assertTrue(TOKEN_SPLIT_REVIEW_CSV_PATH.read_bytes().startswith(b"\xef\xbb\xbf"))
+
+        audit_text = TOKEN_SPLIT_AUDIT_PATH.read_text(encoding="utf-8")
+        review_text = TOKEN_SPLIT_REVIEW_MD_PATH.read_text(encoding="utf-8")
+        applied_text = TOKEN_SPLIT_APPLIED_REPORT_PATH.read_text(encoding="utf-8")
+        self.assertIn("No token-level standards candidate in this audit is verified", audit_text)
+        self.assertIn("no question, protected-preview, reviewed-bank, runtime, or student-facing gate was opened", audit_text)
+        self.assertIn("This is standards enrichment follow-up only", review_text)
+        self.assertIn("question approval", review_text)
+        self.assertIn("protected-preview approval", review_text)
+        self.assertIn("reviewed-bank approval", review_text)
+        self.assertIn("runtime approval", review_text)
+        self.assertIn("student-facing approval", review_text)
+        self.assertNotIn("???", review_text)
+        self.assertIn("total token-split candidates reviewed: 10", applied_text)
+        self.assertIn("verified candidates: 7", applied_text)
+        self.assertIn("needs_follow_up candidates: 3", applied_text)
+        self.assertIn("Hebrew rendering check result", applied_text)
 
     def test_follow_up_sheet_lists_only_unresolved_candidates(self):
         candidates = all_candidate_rows()
@@ -224,6 +279,8 @@ class SourceSkillEnrichmentTests(unittest.TestCase):
             for row in candidates
             if row["enrichment_review_status"] == "yossi_enrichment_verified"
         }
+        contract = json.loads(CONTRACT_PATH.read_text(encoding="utf-8"))
+        canonical_by_id = {record["canonical_skill_id"]: record for record in contract["canonical_skills"]}
         with FOLLOW_UP_REVIEW_CSV_PATH.open("r", encoding="utf-8-sig", newline="") as handle:
             rows = list(csv.DictReader(handle))
         self.assertEqual(list(rows[0].keys()), validator.FOLLOW_UP_CSV_COLUMNS)
@@ -232,6 +289,23 @@ class SourceSkillEnrichmentTests(unittest.TestCase):
         self.assertEqual(len(csv_ids), 10)
         self.assertTrue(all(row["yossi_decision"] == "" for row in rows))
         self.assertTrue(all(row["yossi_notes"] == "" for row in rows))
+        self.assertTrue(all(row["recommended_decision"] != "verified" for row in rows))
+        for row in rows:
+            with self.subTest(candidate=row["candidate_id"]):
+                canonical_skill_ids = [item.strip() for item in row["canonical_skill_ids"].split(";") if item.strip()]
+                canonical_standard_ids = [item.strip() for item in row["canonical_standard_ids"].split(";") if item.strip()]
+                self.assertTrue(canonical_skill_ids)
+                self.assertTrue(canonical_standard_ids)
+                self.assertTrue(row["contract_mapping_notes"].strip())
+                for canonical_skill_id in canonical_skill_ids:
+                    self.assertIn(canonical_skill_id, canonical_by_id)
+                for standard_id in canonical_standard_ids:
+                    self.assertTrue(
+                        any(
+                            standard_id in canonical_by_id[canonical_skill_id]["related_zekelman_standard_ids"]
+                            for canonical_skill_id in canonical_skill_ids
+                        )
+                    )
 
         inventory_text = FOLLOW_UP_INVENTORY_PATH.read_text(encoding="utf-8")
         md_text = FOLLOW_UP_REVIEW_MD_PATH.read_text(encoding="utf-8")
@@ -243,6 +317,75 @@ class SourceSkillEnrichmentTests(unittest.TestCase):
             with self.subTest(verified_candidate=candidate_id):
                 self.assertNotIn(f"### `{candidate_id}`", inventory_text)
                 self.assertNotIn(f"### `{candidate_id}`", md_text)
+
+    def test_token_split_candidates_map_to_contract_and_keep_gates_closed(self):
+        contract = json.loads(CONTRACT_PATH.read_text(encoding="utf-8"))
+        canonical_by_id = {record["canonical_skill_id"]: record for record in contract["canonical_skills"]}
+        valid_standards = {
+            standard_id
+            for record in contract["canonical_skills"]
+            for standard_id in record["related_zekelman_standard_ids"]
+        }
+        rows = load_tsv(TOKEN_SPLIT_STANDARDS_PATH)
+        self.assertEqual(len(rows), 10)
+        parent_ids = {row["candidate_id"] for row in load_tsv(STANDARDS_PATH)}
+        self.assertEqual({row["parent_candidate_id"] for row in rows}, {"std_b1_1_r002", "std_b1_1_r003", "std_b1_3_r013", "std_b1_5_r020"})
+        verified_count = 0
+        follow_up_count = 0
+        for row in rows:
+            with self.subTest(candidate=row["candidate_id"]):
+                self.assertIn(row["parent_candidate_id"], parent_ids)
+                self.assertIn(row["canonical_skill_id"], canonical_by_id)
+                self.assertIn(row["canonical_standard_anchor"], valid_standards)
+                self.assertEqual(row["canonical_standard_anchor"], row["proposed_zekelman_standard"])
+                self.assertIn(row["canonical_standard_anchor"], canonical_by_id[row["canonical_skill_id"]]["related_zekelman_standard_ids"])
+                self.assertNotIn("?", row["hebrew_token"])
+                self.assertNotIn("?", row["clean_hebrew_no_nikud"])
+                self.assertTrue(row["yossi_notes"])
+                self.assertEqual(row["question_allowed"], "needs_review")
+                self.assertEqual(row["protected_preview_allowed"], "false")
+                self.assertEqual(row["reviewed_bank_allowed"], "false")
+                self.assertEqual(row["runtime_allowed"], "false")
+                if row["yossi_decision"] == "verified":
+                    verified_count += 1
+                    self.assertEqual(row["enrichment_review_status"], "yossi_enrichment_verified")
+                elif row["yossi_decision"] == "needs_follow_up":
+                    follow_up_count += 1
+                    self.assertEqual(row["enrichment_review_status"], "needs_follow_up")
+                else:
+                    self.fail(f"unexpected yossi_decision {row['yossi_decision']!r}")
+        self.assertEqual(verified_count, 7)
+        self.assertEqual(follow_up_count, 3)
+
+    def test_parent_bundled_rows_remain_unresolved_after_token_split_preparation(self):
+        by_id = {row["candidate_id"]: row for row in load_tsv(STANDARDS_PATH)}
+        for candidate_id in ("std_b1_1_r002", "std_b1_1_r003", "std_b1_3_r013", "std_b1_5_r020"):
+            with self.subTest(candidate=candidate_id):
+                row = by_id[candidate_id]
+                self.assertEqual(row["enrichment_review_status"], "needs_follow_up")
+                self.assertEqual(row["yossi_decision"], "needs_follow_up")
+                self.assertIn("superseded by token-split follow-up candidates", row["evidence_note"])
+                self.assertIn("remains unresolved", row["yossi_notes"])
+                self.assertEqual(row["question_allowed"], "needs_review")
+                self.assertEqual(row["protected_preview_allowed"], "false")
+                self.assertEqual(row["reviewed_bank_allowed"], "false")
+                self.assertEqual(row["runtime_allowed"], "false")
+
+    def test_token_split_review_csv_matches_applied_tsv(self):
+        token_rows = {row["candidate_id"]: row for row in load_tsv(TOKEN_SPLIT_STANDARDS_PATH)}
+        with TOKEN_SPLIT_REVIEW_CSV_PATH.open("r", encoding="utf-8-sig", newline="") as handle:
+            rows = list(csv.DictReader(handle))
+        self.assertEqual(list(rows[0].keys()), validator.TOKEN_SPLIT_REVIEW_CSV_COLUMNS)
+        self.assertEqual({row["candidate_id"] for row in rows}, set(token_rows))
+        for row in rows:
+            with self.subTest(candidate=row["candidate_id"]):
+                token_row = token_rows[row["candidate_id"]]
+                self.assertEqual(row["hebrew_token"], token_row["hebrew_token"])
+                self.assertEqual(row["parent_phrase"], token_row["hebrew_phrase"])
+                self.assertEqual(row["current_status"], token_row["enrichment_review_status"])
+                self.assertEqual(row["yossi_decision"], token_row["yossi_decision"])
+                self.assertEqual(row["yossi_notes"], token_row["yossi_notes"])
+                self.assertEqual(row["recommended_decision"], "needs_follow_up")
 
     def test_follow_up_evidence_strengthening_did_not_verify_unresolved_candidates(self):
         by_id = {row["candidate_id"]: row for row in all_candidate_rows()}

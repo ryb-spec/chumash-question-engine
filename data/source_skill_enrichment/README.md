@@ -110,6 +110,19 @@ Follow-up artifacts:
 
 The follow-up CSV is UTF-8-BOM encoded for spreadsheet review. The Markdown sheet remains the primary human-review surface. This follow-up review is enrichment-only; it is not question approval, protected-preview approval, reviewed-bank approval, runtime approval, or student-facing approval.
 
+## Token-Split Standards Cleanup
+
+The bundled phrase-level standards follow-up rows for Bereishis 1:1-1:5 remain unresolved until Yossi reviews precise token-level replacements. Token-split candidates are standards-enrichment review only, not question-ready, not protected-preview-ready, not reviewed-bank-ready, not runtime-ready, and not student-facing.
+
+Yossi has now reviewed the token-split sheet: 10 token-split standards candidates were reviewed, 7 are `yossi_enrichment_verified`, and 3 remain `needs_follow_up`. The original phrase-level standards candidates remain in place as unresolved parent rows.
+
+Token-split standards cleanup artifacts:
+
+- `reports/bereishis_1_1_to_1_5_token_split_standards_audit.md`
+- `standards_candidates/bereishis_1_1_to_1_5_token_split_standards_candidates.tsv`
+- `reports/bereishis_1_1_to_1_5_token_split_standards_yossi_review_sheet.md`
+- `reports/bereishis_1_1_to_1_5_token_split_standards_yossi_review_sheet.csv`
+- `reports/bereishis_1_1_to_1_5_token_split_standards_yossi_review_applied.md`
 ## Source Priority
 
 For morphology enrichment, prefer Dikduk review sheets/workbooks, Loshon Hakodesh/Loshon HaTorah resources, Parsha Pshat Dikduk curriculum, First 150 Shorashim and Keywords in Bereishis, General Chumash Skills Workbook, then internal skill alignment docs.

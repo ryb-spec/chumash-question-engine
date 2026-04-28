@@ -1,0 +1,1504 @@
+{
+  "metadata": {
+    "title": "Canonical Skill Standards Contract",
+    "version": "1.0",
+    "branch_scope": "feature/canonical-skill-standards-contract",
+    "active_source_scope": "local_parsed_bereishis_1_1_to_3_24",
+    "canonical_source_sha": "4d96c615ab63e0419bff079db250d71ea9b5de266ff9ab8d589ae80e4afd0b71",
+    "default_status": "review_only",
+    "allowed_statuses": [
+      "review_only",
+      "source_extraction_verified",
+      "teacher_approved_input_candidate",
+      "teacher_approved_for_protected_preview",
+      "protected_preview_only",
+      "reviewed_bank_candidate",
+      "runtime_ready"
+    ],
+    "status_notes": {
+      "review_only": "Planning or governance only. No question, runtime, reviewed-bank, or protected-preview gate is opened.",
+      "source_extraction_verified": "Source-derived extraction accuracy is verified, but this is still not teacher approval or runtime approval.",
+      "teacher_approved_input_candidate": "Teacher input approval is being prepared, but no protected preview or runtime use is implied.",
+      "teacher_approved_for_protected_preview": "Teacher-approved for locked input-list work only, not runtime or reviewed-bank activation.",
+      "protected_preview_only": "Review-only preview lane. Runtime, reviewed-bank, and student-facing use remain closed.",
+      "reviewed_bank_candidate": "Candidate for later reviewed-bank work only. Runtime and student-facing use remain closed.",
+      "runtime_ready": "Already backed by the live runtime catalog. This does not convert any review-only Standard 3 data into runtime truth."
+    },
+    "closed_gate_defaults": {
+      "question_allowed": "needs_review",
+      "runtime_allowed": "false",
+      "protected_preview_allowed": "false",
+      "reviewed_bank_allowed": "false"
+    }
+  },
+  "canonical_skills": [
+    {
+      "canonical_skill_id": "WORD.MEANING_BASIC",
+      "display_name": "Translate a single Hebrew word",
+      "plain_english_definition": "Choose a safe, literal meaning for one isolated Hebrew word.",
+      "student_task_definition": "Match one Hebrew word to its basic meaning.",
+      "skill_lane": "translation_vocabulary",
+      "related_runtime_skill_ids": [
+        "translation"
+      ],
+      "related_question_types": [
+        "translation",
+        "word_meaning",
+        "hebrew_to_english_match",
+        "english_to_hebrew_match"
+      ],
+      "related_zekelman_standard_ids": [
+        "3.01"
+      ],
+      "source_skill_labels_allowed": [],
+      "enrichment_labels_allowed": [
+        "std3_01_noun_vocabulary_recognition",
+        "noun_keyword"
+      ],
+      "status": "runtime_ready",
+      "allowed_usage": [
+        "existing_runtime_word_meaning_lane",
+        "review_only_standards_alignment",
+        "review_only_enrichment_mapping"
+      ],
+      "forbidden_usage": [
+        "do_not_treat_standard_3_review_as_runtime_approval",
+        "do_not_open_protected_preview_gates",
+        "do_not_open_reviewed_bank_gates"
+      ],
+      "evidence_required_for_next_status": "Teacher-approved input evidence would still be required before any Step 4 locked-input or protected-preview use.",
+      "review_notes": "Runtime-backed engine-extension row. Standard 3 and enrichment data remain review-only."
+    },
+    {
+      "canonical_skill_id": "WORD.PART_OF_SPEECH_BASIC",
+      "display_name": "Differentiate noun vs verb",
+      "plain_english_definition": "Identify whether a target word is functioning as a noun or a verb.",
+      "student_task_definition": "Classify a basic part of speech for one Hebrew word.",
+      "skill_lane": "part_of_speech",
+      "related_runtime_skill_ids": [
+        "part_of_speech"
+      ],
+      "related_question_types": [
+        "part_of_speech",
+        "classify_part_of_speech"
+      ],
+      "related_zekelman_standard_ids": [
+        "3.04"
+      ],
+      "source_skill_labels_allowed": [],
+      "enrichment_labels_allowed": [
+        "noun",
+        "verb"
+      ],
+      "status": "runtime_ready",
+      "allowed_usage": [
+        "existing_runtime_part_of_speech_lane",
+        "review_only_standards_alignment"
+      ],
+      "forbidden_usage": [
+        "do_not_claim_full_standard_3_04_coverage",
+        "do_not_open_question_or_runtime_gates_from_enrichment"
+      ],
+      "evidence_required_for_next_status": "Teacher-reviewed Standard 3 scope would be needed before any teacher-approved input lane uses this as a standards-backed skill.",
+      "review_notes": "Runtime lane is broader than the external standard analogue, so standards linkage stays conservative."
+    },
+    {
+      "canonical_skill_id": "WORD.PARTS.SEGMENT",
+      "display_name": "Segment word parts",
+      "plain_english_definition": "Break a word into visible prefixes, core letters, and suffixes.",
+      "student_task_definition": "Show which parts of the word are added letters and which are core letters.",
+      "skill_lane": "word_structure",
+      "related_runtime_skill_ids": [
+        "segment_word_parts"
+      ],
+      "related_question_types": [
+        "parse_word_components",
+        "identify_added_letters"
+      ],
+      "related_zekelman_standard_ids": [
+        "3.02",
+        "3.04",
+        "3.06",
+        "3.07"
+      ],
+      "source_skill_labels_allowed": [],
+      "enrichment_labels_allowed": [],
+      "status": "runtime_ready",
+      "allowed_usage": [
+        "existing_runtime_segmentation_lane",
+        "review_only_standards_alignment"
+      ],
+      "forbidden_usage": [
+        "do_not_claim_teacher_approved_parse_rules",
+        "do_not_open_protected_preview_or_runtime_gates_from_source_verification"
+      ],
+      "evidence_required_for_next_status": "Teacher-approved examples would be required before using this as a locked standards lane.",
+      "review_notes": "This is a general runtime parsing lane and is not the same thing as Standards teacher approval."
+    },
+    {
+      "canonical_skill_id": "WORD.NUMBER_CLASSIFY",
+      "display_name": "Classify singular or plural",
+      "plain_english_definition": "Identify whether a word is singular or plural.",
+      "student_task_definition": "Tell whether the word is singular or plural.",
+      "skill_lane": "noun_features",
+      "related_runtime_skill_ids": [],
+      "related_question_types": [
+        "singular_or_plural"
+      ],
+      "related_zekelman_standard_ids": [
+        "3.04"
+      ],
+      "source_skill_labels_allowed": [],
+      "enrichment_labels_allowed": [
+        "plural_form_singular_meaning"
+      ],
+      "status": "review_only",
+      "allowed_usage": [
+        "standards_review_alignment",
+        "review_only_enrichment_mapping"
+      ],
+      "forbidden_usage": [
+        "no_runtime_promotion",
+        "no_question_approval",
+        "no_protected_preview_approval"
+      ],
+      "evidence_required_for_next_status": "Needs explicit teacher-approved input scope and source-backed exemplars before any protected-preview work.",
+      "review_notes": "Used here to keep noun-feature enrichment claims separate from runtime readiness."
+    },
+    {
+      "canonical_skill_id": "WORD.GENDER_CLASSIFY",
+      "display_name": "Classify masculine or feminine",
+      "plain_english_definition": "Identify grammatical gender for a target word.",
+      "student_task_definition": "Tell whether the word is masculine or feminine.",
+      "skill_lane": "noun_features",
+      "related_runtime_skill_ids": [],
+      "related_question_types": [
+        "classify_part_of_speech"
+      ],
+      "related_zekelman_standard_ids": [
+        "3.04"
+      ],
+      "source_skill_labels_allowed": [],
+      "enrichment_labels_allowed": [],
+      "status": "review_only",
+      "allowed_usage": [
+        "standards_review_alignment",
+        "enrichment_reference_only"
+      ],
+      "forbidden_usage": [
+        "no_runtime_promotion",
+        "no_question_approval"
+      ],
+      "evidence_required_for_next_status": "Needs explicit teacher-reviewed scope and token-level source examples.",
+      "review_notes": "Present to anchor Standard 3 noun/adjective feature work without pretending the runtime already serves it."
+    },
+    {
+      "canonical_skill_id": "ROOT.IDENTIFY",
+      "display_name": "Identify a shoresh",
+      "plain_english_definition": "Identify a clear three-letter shoresh and connect it to meaning.",
+      "student_task_definition": "Choose the shoresh of a word when the letters are visible and defensible.",
+      "skill_lane": "shoresh_identification",
+      "related_runtime_skill_ids": [
+        "shoresh"
+      ],
+      "related_question_types": [
+        "shoresh",
+        "identify_shoresh"
+      ],
+      "related_zekelman_standard_ids": [
+        "3.02"
+      ],
+      "source_skill_labels_allowed": [],
+      "enrichment_labels_allowed": [
+        "std3_02_shoresh_identification",
+        "shoresh"
+      ],
+      "status": "runtime_ready",
+      "allowed_usage": [
+        "existing_runtime_shoresh_lane",
+        "review_only_standard_3_mapping"
+      ],
+      "forbidden_usage": [
+        "do_not_treat_extraction_verification_as_teacher_approval",
+        "do_not_open_protected_preview_or_reviewed_bank_gates"
+      ],
+      "evidence_required_for_next_status": "Teacher-approved shoresh input lists would still be needed before any Step 4 protected-preview work.",
+      "review_notes": "Runtime lane exists today, but Standard 3 shoresh evidence remains review-only unless separately approved."
+    },
+    {
+      "canonical_skill_id": "ROOT.IDENTIFY_DROPPED",
+      "display_name": "Identify a dropped-letter shoresh",
+      "plain_english_definition": "Recover a weak or dropped-letter shoresh when the form still supports a clear answer.",
+      "student_task_definition": "Find the shoresh even when one root letter is not fully visible.",
+      "skill_lane": "shoresh_identification",
+      "related_runtime_skill_ids": [
+        "shoresh"
+      ],
+      "related_question_types": [
+        "shoresh",
+        "identify_shoresh"
+      ],
+      "related_zekelman_standard_ids": [
+        "3.02"
+      ],
+      "source_skill_labels_allowed": [],
+      "enrichment_labels_allowed": [],
+      "status": "runtime_ready",
+      "allowed_usage": [
+        "existing_runtime_reviewed_subset",
+        "review_only_standard_3_alignment"
+      ],
+      "forbidden_usage": [
+        "no_auto_promotion_from_enrichment",
+        "no_teacher_approval_claim"
+      ],
+      "evidence_required_for_next_status": "Any standards-backed or teacher-approved use would need separate reviewed examples and approval evidence.",
+      "review_notes": "This keeps the runtime dropped-letter subset explicit without reading it back into Standard 3 approval."
+    },
+    {
+      "canonical_skill_id": "PREFIX.BASIC_PREPOSITIONS",
+      "display_name": "Translate common prefixes",
+      "plain_english_definition": "Identify the basic meaning carried by visible attached prefix letters.",
+      "student_task_definition": "Tell what the prefix adds to the word or phrase.",
+      "skill_lane": "prefix_meaning",
+      "related_runtime_skill_ids": [
+        "identify_prefix_meaning",
+        "preposition_meaning"
+      ],
+      "related_question_types": [
+        "prefix",
+        "identify_preposition_meaning",
+        "prefix_identification"
+      ],
+      "related_zekelman_standard_ids": [
+        "3.03",
+        "3.06"
+      ],
+      "source_skill_labels_allowed": [],
+      "enrichment_labels_allowed": [
+        "prefix/article split needs evidence"
+      ],
+      "status": "runtime_ready",
+      "allowed_usage": [
+        "existing_runtime_prefix_meaning_lanes",
+        "review_only_standards_alignment",
+        "review_only_enrichment_mapping"
+      ],
+      "forbidden_usage": [
+        "do_not_claim_direct_object_marker_mastery",
+        "do_not_open_protected_preview_or_runtime_gates_from_review_data"
+      ],
+      "evidence_required_for_next_status": "Teacher-approved visible-form examples would still be required for a locked Standard 3 prefix lane.",
+      "review_notes": "This is the closest live runtime analogue for Standard 3 prefix meaning work."
+    },
+    {
+      "canonical_skill_id": "PREFIX.FORM_IDENTIFY",
+      "display_name": "Identify a visible prefix form",
+      "plain_english_definition": "Recognize which prefix letter is attached before asking for the meaning.",
+      "student_task_definition": "Name the visible prefix on the word.",
+      "skill_lane": "prefix_form",
+      "related_runtime_skill_ids": [
+        "prefix"
+      ],
+      "related_question_types": [
+        "prefix",
+        "identify_marker",
+        "prefix_identification"
+      ],
+      "related_zekelman_standard_ids": [
+        "3.06"
+      ],
+      "source_skill_labels_allowed": [],
+      "enrichment_labels_allowed": [
+        "prefix/article split needs evidence"
+      ],
+      "status": "runtime_ready",
+      "allowed_usage": [
+        "existing_runtime_prefix_form_lane",
+        "review_only_standards_alignment"
+      ],
+      "forbidden_usage": [
+        "do_not_claim_teacher_approved_visible_prefix_scope",
+        "do_not_open_preview_or_reviewed_bank_gates"
+      ],
+      "evidence_required_for_next_status": "Needs teacher-approved exact visible forms before any protected-preview lane is opened.",
+      "review_notes": "Engine-extension row that keeps the live prefix form lane explicit."
+    },
+    {
+      "canonical_skill_id": "PREFIX.OTIYOT_EITAN",
+      "display_name": "Recognize otiyot eitan markers",
+      "plain_english_definition": "Use future-tense prefix markers as person and tense clues.",
+      "student_task_definition": "Notice how a leading letter helps show future-tense or related verb information.",
+      "skill_lane": "verb_prefixes",
+      "related_runtime_skill_ids": [
+        "identify_prefix_future"
+      ],
+      "related_question_types": [
+        "identify_prefix",
+        "identify_tense"
+      ],
+      "related_zekelman_standard_ids": [
+        "3.07"
+      ],
+      "source_skill_labels_allowed": [],
+      "enrichment_labels_allowed": [
+        "jussive/verb-form candidate needs evidence"
+      ],
+      "status": "runtime_ready",
+      "allowed_usage": [
+        "existing_runtime_future_prefix_lane",
+        "review_only_standards_alignment"
+      ],
+      "forbidden_usage": [
+        "do_not_treat_review_only_verb_examples_as_runtime_approval"
+      ],
+      "evidence_required_for_next_status": "Needs teacher-selected examples before any protected-preview use.",
+      "review_notes": "A narrow runtime-backed marker lane, not blanket approval for all Standard 3.07 verb work."
+    },
+    {
+      "canonical_skill_id": "SUFFIX.FIRST_PERSON",
+      "display_name": "Translate first-person suffixes",
+      "plain_english_definition": "Recognize first-person suffix meaning on a defended form.",
+      "student_task_definition": "Tell what a first-person suffix means on the word.",
+      "skill_lane": "suffix_meaning",
+      "related_runtime_skill_ids": [
+        "identify_suffix_meaning",
+        "suffix"
+      ],
+      "related_question_types": [
+        "suffix",
+        "suffix_identification"
+      ],
+      "related_zekelman_standard_ids": [
+        "3.05"
+      ],
+      "source_skill_labels_allowed": [],
+      "enrichment_labels_allowed": [],
+      "status": "runtime_ready",
+      "allowed_usage": [
+        "existing_runtime_suffix_meaning_lane"
+      ],
+      "forbidden_usage": [
+        "do_not_claim_teacher_approved_suffix_scope"
+      ],
+      "evidence_required_for_next_status": "Needs exact teacher-approved examples for any locked protected-preview use.",
+      "review_notes": "Current runtime meaning lane only; review-only standards work remains separate."
+    },
+    {
+      "canonical_skill_id": "SUFFIX.SECOND_PERSON",
+      "display_name": "Translate second-person suffixes",
+      "plain_english_definition": "Recognize second-person suffix meaning on a defended form.",
+      "student_task_definition": "Tell what a second-person suffix means on the word.",
+      "skill_lane": "suffix_meaning",
+      "related_runtime_skill_ids": [
+        "identify_suffix_meaning",
+        "suffix"
+      ],
+      "related_question_types": [
+        "suffix",
+        "suffix_identification"
+      ],
+      "related_zekelman_standard_ids": [
+        "3.05"
+      ],
+      "source_skill_labels_allowed": [],
+      "enrichment_labels_allowed": [],
+      "status": "runtime_ready",
+      "allowed_usage": [
+        "existing_runtime_suffix_meaning_lane"
+      ],
+      "forbidden_usage": [
+        "do_not_claim_teacher_approved_suffix_scope"
+      ],
+      "evidence_required_for_next_status": "Needs exact teacher-approved examples for any locked protected-preview use.",
+      "review_notes": "Current runtime meaning lane only; review-only standards work remains separate."
+    },
+    {
+      "canonical_skill_id": "SUFFIX.THIRD_PERSON",
+      "display_name": "Translate third-person suffixes",
+      "plain_english_definition": "Recognize third-person suffix meaning on a defended form.",
+      "student_task_definition": "Tell what a third-person suffix means on the word.",
+      "skill_lane": "suffix_meaning",
+      "related_runtime_skill_ids": [
+        "suffix"
+      ],
+      "related_question_types": [
+        "suffix",
+        "suffix_identification"
+      ],
+      "related_zekelman_standard_ids": [
+        "3.05"
+      ],
+      "source_skill_labels_allowed": [],
+      "enrichment_labels_allowed": [],
+      "status": "runtime_ready",
+      "allowed_usage": [
+        "existing_runtime_suffix_meaning_lane"
+      ],
+      "forbidden_usage": [
+        "do_not_claim_teacher_approved_suffix_scope"
+      ],
+      "evidence_required_for_next_status": "Needs exact teacher-approved examples for any locked protected-preview use.",
+      "review_notes": "Used to map the existing suffix lane conservatively."
+    },
+    {
+      "canonical_skill_id": "SUFFIX.KINUY",
+      "display_name": "Identify pronominal suffixes",
+      "plain_english_definition": "Recognize pronominal suffix meaning on nouns, particles, or similar forms.",
+      "student_task_definition": "Tell which person the pronominal suffix refers to.",
+      "skill_lane": "pronominal_suffix",
+      "related_runtime_skill_ids": [
+        "identify_pronoun_suffix"
+      ],
+      "related_question_types": [
+        "suffix",
+        "suffix_identification"
+      ],
+      "related_zekelman_standard_ids": [
+        "3.05"
+      ],
+      "source_skill_labels_allowed": [],
+      "enrichment_labels_allowed": [],
+      "status": "runtime_ready",
+      "allowed_usage": [
+        "existing_runtime_pronoun_suffix_lane",
+        "review_only_standard_3_alignment"
+      ],
+      "forbidden_usage": [
+        "do_not_claim_pronoun_referent_tracking_approval"
+      ],
+      "evidence_required_for_next_status": "Needs exact teacher-approved examples before any protected-preview input-list use.",
+      "review_notes": "Maps the live pronominal suffix lane without opening any standards review gate."
+    },
+    {
+      "canonical_skill_id": "SUFFIX.SMICHUT_POSSESSION",
+      "display_name": "Recognize possession structures",
+      "plain_english_definition": "Track possession through suffixes or related construct structures.",
+      "student_task_definition": "Explain how the form shows possession.",
+      "skill_lane": "possessive_structures",
+      "related_runtime_skill_ids": [],
+      "related_question_types": [
+        "parse_word_components",
+        "choose_accurate_phrase_translation"
+      ],
+      "related_zekelman_standard_ids": [
+        "3.04",
+        "3.05"
+      ],
+      "source_skill_labels_allowed": [],
+      "enrichment_labels_allowed": [],
+      "status": "review_only",
+      "allowed_usage": [
+        "standards_review_alignment"
+      ],
+      "forbidden_usage": [
+        "no_runtime_promotion",
+        "no_question_approval"
+      ],
+      "evidence_required_for_next_status": "Needs teacher-reviewed examples and clearer source-backed constraints.",
+      "review_notes": "Included so smichut and possession planning do not get collapsed into the live runtime suffix lanes."
+    },
+    {
+      "canonical_skill_id": "PRONOUN.SUBJECT_OBJECT_MATCH",
+      "display_name": "Match pronoun form to grammatical function",
+      "plain_english_definition": "Differentiate pronoun roles and how they align to the clause.",
+      "student_task_definition": "Match a pronoun-related clue to its grammatical role.",
+      "skill_lane": "pronoun_function",
+      "related_runtime_skill_ids": [
+        "match_pronoun_to_verb"
+      ],
+      "related_question_types": [
+        "classify_part_of_speech"
+      ],
+      "related_zekelman_standard_ids": [
+        "3.05"
+      ],
+      "source_skill_labels_allowed": [],
+      "enrichment_labels_allowed": [],
+      "status": "runtime_ready",
+      "allowed_usage": [
+        "existing_runtime_pronoun_to_verb_lane",
+        "review_only_standards_alignment"
+      ],
+      "forbidden_usage": [
+        "do_not_claim_referent_tracking_approval"
+      ],
+      "evidence_required_for_next_status": "Needs explicit teacher approval for any standards-backed protected-preview lane.",
+      "review_notes": "Useful runtime analogue, but still narrower than full referent-tracking work."
+    },
+    {
+      "canonical_skill_id": "PRONOUN.REFERENT_TRACK",
+      "display_name": "Track a pronoun referent",
+      "plain_english_definition": "Identify which noun or actor a pronoun points back to.",
+      "student_task_definition": "Explain who or what the pronoun refers to in context.",
+      "skill_lane": "pronoun_referent",
+      "related_runtime_skill_ids": [],
+      "related_question_types": [
+        "choose_accurate_phrase_translation"
+      ],
+      "related_zekelman_standard_ids": [
+        "3.05"
+      ],
+      "source_skill_labels_allowed": [],
+      "enrichment_labels_allowed": [],
+      "status": "review_only",
+      "allowed_usage": [
+        "standards_review_alignment"
+      ],
+      "forbidden_usage": [
+        "no_runtime_promotion",
+        "no_protected_preview_approval_without_teacher_evidence"
+      ],
+      "evidence_required_for_next_status": "Needs explicit teacher-approved referent examples and review notes before any later gate opens.",
+      "review_notes": "Added to stop referent-tracking from being confused with the narrower runtime pronoun-function lane."
+    },
+    {
+      "canonical_skill_id": "VERB.TENSE.PAST",
+      "display_name": "Identify past tense verbs",
+      "plain_english_definition": "Recognize clear past-tense verb forms.",
+      "student_task_definition": "Tell whether a verb is past tense.",
+      "skill_lane": "verb_tense",
+      "related_runtime_skill_ids": [
+        "identify_tense",
+        "identify_suffix_past",
+        "verb_tense"
+      ],
+      "related_question_types": [
+        "identify_tense",
+        "verb_tense"
+      ],
+      "related_zekelman_standard_ids": [
+        "3.07"
+      ],
+      "source_skill_labels_allowed": [],
+      "enrichment_labels_allowed": [
+        "past 3fs verb parse candidate",
+        "qal verb parse candidate"
+      ],
+      "status": "runtime_ready",
+      "allowed_usage": [
+        "existing_runtime_tense_lanes",
+        "review_only_standards_alignment",
+        "review_only_enrichment_mapping"
+      ],
+      "forbidden_usage": [
+        "do_not_open_teacher_approval_gates_from_source_verification"
+      ],
+      "evidence_required_for_next_status": "Needs exact teacher-approved inputs before any protected-preview use.",
+      "review_notes": "Keeps verified extraction and enrichment evidence separate from runtime/teacher approval."
+    },
+    {
+      "canonical_skill_id": "VERB.TENSE.PRESENT",
+      "display_name": "Identify present tense verbs",
+      "plain_english_definition": "Recognize clear present-tense or participle-style present forms.",
+      "student_task_definition": "Tell whether a verb is functioning as a present-tense form.",
+      "skill_lane": "verb_tense",
+      "related_runtime_skill_ids": [
+        "identify_tense",
+        "identify_present_pattern",
+        "verb_tense"
+      ],
+      "related_question_types": [
+        "identify_tense",
+        "verb_tense"
+      ],
+      "related_zekelman_standard_ids": [
+        "3.07"
+      ],
+      "source_skill_labels_allowed": [],
+      "enrichment_labels_allowed": [],
+      "status": "runtime_ready",
+      "allowed_usage": [
+        "existing_runtime_tense_lanes",
+        "review_only_standards_alignment"
+      ],
+      "forbidden_usage": [
+        "do_not_open_teacher_approval_gates_from_source_verification"
+      ],
+      "evidence_required_for_next_status": "Needs exact teacher-approved inputs before any protected-preview use.",
+      "review_notes": "Used to anchor unresolved present-style verb enrichment and standards references conservatively."
+    },
+    {
+      "canonical_skill_id": "VERB.TENSE.FUTURE",
+      "display_name": "Identify future tense verbs",
+      "plain_english_definition": "Recognize clear future-tense verb forms and nearby marker clues.",
+      "student_task_definition": "Tell whether a verb is future tense.",
+      "skill_lane": "verb_tense",
+      "related_runtime_skill_ids": [
+        "identify_tense",
+        "identify_prefix_future",
+        "verb_tense"
+      ],
+      "related_question_types": [
+        "identify_tense",
+        "verb_tense"
+      ],
+      "related_zekelman_standard_ids": [
+        "3.07"
+      ],
+      "source_skill_labels_allowed": [],
+      "enrichment_labels_allowed": [
+        "jussive/verb-form candidate needs evidence"
+      ],
+      "status": "runtime_ready",
+      "allowed_usage": [
+        "existing_runtime_tense_lanes",
+        "review_only_standards_alignment",
+        "review_only_enrichment_mapping"
+      ],
+      "forbidden_usage": [
+        "do_not_treat_unresolved_jussive_evidence_as_teacher_approval"
+      ],
+      "evidence_required_for_next_status": "Needs exact teacher-approved inputs before any protected-preview use.",
+      "review_notes": "This is the conservative anchor for unresolved future/jussive enrichment items."
+    },
+    {
+      "canonical_skill_id": "VERB.COMMAND",
+      "display_name": "Recognize command forms",
+      "plain_english_definition": "Identify a command form and relate it to nearby future-tense morphology when defensible.",
+      "student_task_definition": "Recognize that a verb is giving a command.",
+      "skill_lane": "verb_mood",
+      "related_runtime_skill_ids": [
+        "convert_future_to_command"
+      ],
+      "related_question_types": [
+        "identify_tense"
+      ],
+      "related_zekelman_standard_ids": [
+        "3.07"
+      ],
+      "source_skill_labels_allowed": [],
+      "enrichment_labels_allowed": [],
+      "status": "runtime_ready",
+      "allowed_usage": [
+        "existing_runtime_command_lane"
+      ],
+      "forbidden_usage": [
+        "do_not_claim_teacher_approved_full_verb_scope"
+      ],
+      "evidence_required_for_next_status": "Needs exact teacher-approved examples before any protected-preview use.",
+      "review_notes": "Runtime-ready because it already exists in the engine, not because Standard 3 review data approved it."
+    },
+    {
+      "canonical_skill_id": "VERB.SUBJECT_OBJECT",
+      "display_name": "Identify subject and object roles",
+      "plain_english_definition": "Track who acts and what receives the action in a clause.",
+      "student_task_definition": "Identify the subject or object in context.",
+      "skill_lane": "clause_roles",
+      "related_runtime_skill_ids": [
+        "subject_identification",
+        "object_identification"
+      ],
+      "related_question_types": [
+        "subject_identification",
+        "object_identification"
+      ],
+      "related_zekelman_standard_ids": [
+        "3.08"
+      ],
+      "source_skill_labels_allowed": [],
+      "enrichment_labels_allowed": [],
+      "status": "runtime_ready",
+      "allowed_usage": [
+        "existing_runtime_clause_role_lanes",
+        "review_only_standards_alignment"
+      ],
+      "forbidden_usage": [
+        "do_not_treat_runtime_use_as_teacher_approved_standard_3_scope"
+      ],
+      "evidence_required_for_next_status": "Needs teacher-approved examples before any standards-backed preview use.",
+      "review_notes": "Live runtime has two narrower lanes; the standard remains broader and review-only."
+    },
+    {
+      "canonical_skill_id": "VERB.MARKER",
+      "display_name": "Identify a grammatical marker letter",
+      "plain_english_definition": "Spot which visible letter is doing grammatical work on the word.",
+      "student_task_definition": "Choose the letter that adds the grammatical clue.",
+      "skill_lane": "verb_markers",
+      "related_runtime_skill_ids": [
+        "identify_verb_marker"
+      ],
+      "related_question_types": [
+        "identify_marker"
+      ],
+      "related_zekelman_standard_ids": [
+        "3.07"
+      ],
+      "source_skill_labels_allowed": [],
+      "enrichment_labels_allowed": [
+        "qal verb parse candidate"
+      ],
+      "status": "runtime_ready",
+      "allowed_usage": [
+        "existing_runtime_marker_lane",
+        "review_only_standards_alignment"
+      ],
+      "forbidden_usage": [
+        "do_not_treat_marker_review_as_runtime_gate_approval"
+      ],
+      "evidence_required_for_next_status": "Needs exact teacher-approved examples before any protected-preview use.",
+      "review_notes": "This is a narrow runtime marker lane and should stay separate from broader standards approval claims."
+    },
+    {
+      "canonical_skill_id": "PHRASE.UNIT_TRANSLATE",
+      "display_name": "Translate a short phrase as a unit",
+      "plain_english_definition": "Read a short Hebrew phrase together as one meaning unit.",
+      "student_task_definition": "Translate a short phrase without breaking it into isolated words only.",
+      "skill_lane": "phrase_translation",
+      "related_runtime_skill_ids": [
+        "phrase_translation"
+      ],
+      "related_question_types": [
+        "phrase_translation",
+        "choose_accurate_phrase_translation"
+      ],
+      "related_zekelman_standard_ids": [
+        "3.08"
+      ],
+      "source_skill_labels_allowed": [
+        "phrase_translation",
+        "translation_context"
+      ],
+      "enrichment_labels_allowed": [],
+      "status": "runtime_ready",
+      "allowed_usage": [
+        "existing_runtime_phrase_translation_lane",
+        "source_extraction_verified_source_map_alignment"
+      ],
+      "forbidden_usage": [
+        "do_not_read_source_extraction_verified_rows_as_question_approval",
+        "do_not_open_protected_preview_or_reviewed_bank_gates"
+      ],
+      "evidence_required_for_next_status": "Teacher-approved input lists would still be required before any protected-preview work uses phrase rows.",
+      "review_notes": "Important boundary skill: live runtime uses phrase translation, but current verified source-to-skill rows stay source-only."
+    },
+    {
+      "canonical_skill_id": "TAAMIM.PASUK_PARSE",
+      "display_name": "Parse a pasuk with taamim",
+      "plain_english_definition": "Use taamim and pausal structure to group and parse a pasuk.",
+      "student_task_definition": "Use taamim to help divide the pasuk into meaning units.",
+      "skill_lane": "taamim_parsing",
+      "related_runtime_skill_ids": [],
+      "related_question_types": [
+        "choose_accurate_phrase_translation"
+      ],
+      "related_zekelman_standard_ids": [
+        "3.09"
+      ],
+      "source_skill_labels_allowed": [],
+      "enrichment_labels_allowed": [],
+      "status": "review_only",
+      "allowed_usage": [
+        "standards_review_alignment"
+      ],
+      "forbidden_usage": [
+        "no_runtime_promotion",
+        "no_question_approval"
+      ],
+      "evidence_required_for_next_status": "Needs explicit teacher-approved examples and taamim-specific source support before any later gate opens.",
+      "review_notes": "Included to give Standard 3.09 a canonical anchor without changing runtime behavior."
+    },
+    {
+      "canonical_skill_id": "PARTICLE.DIRECT_OBJECT_MARKER",
+      "display_name": "Distinguish the direct-object-marker use of et",
+      "plain_english_definition": "Separate the direct-object marker function of et from other readings.",
+      "student_task_definition": "Explain whether et is marking the direct object or functioning differently.",
+      "skill_lane": "function_words",
+      "related_runtime_skill_ids": [],
+      "related_question_types": [
+        "identify_direct_object_marker",
+        "choose_accurate_phrase_translation"
+      ],
+      "related_zekelman_standard_ids": [
+        "3.03",
+        "3.06"
+      ],
+      "source_skill_labels_allowed": [],
+      "enrichment_labels_allowed": [
+        "std3_01_noun_vocabulary_recognition"
+      ],
+      "status": "review_only",
+      "allowed_usage": [
+        "standards_review_alignment",
+        "review_only_enrichment_mapping"
+      ],
+      "forbidden_usage": [
+        "no_runtime_promotion",
+        "no_protected_preview_or_question_approval"
+      ],
+      "evidence_required_for_next_status": "Needs explicit teacher-approved examples and exact wording boundaries before any later gate opens.",
+      "review_notes": "Added because this meaning/function distinction appears in Standard 3 material but does not belong in current runtime truth."
+    },
+    {
+      "canonical_skill_id": "PHRASE.SYNTAX_GROUPING",
+      "display_name": "Group a phrase and adjust Hebrew word order",
+      "plain_english_definition": "Group phrase parts and translate them in a natural English order when needed.",
+      "student_task_definition": "Read the Hebrew phrase structure instead of translating word by word in Hebrew order.",
+      "skill_lane": "syntax_grouping",
+      "related_runtime_skill_ids": [],
+      "related_question_types": [
+        "choose_accurate_phrase_translation",
+        "reorder_translation"
+      ],
+      "related_zekelman_standard_ids": [
+        "3.04",
+        "3.08"
+      ],
+      "source_skill_labels_allowed": [],
+      "enrichment_labels_allowed": [],
+      "status": "review_only",
+      "allowed_usage": [
+        "standards_review_alignment"
+      ],
+      "forbidden_usage": [
+        "no_runtime_promotion",
+        "no_protected_preview_or_question_approval"
+      ],
+      "evidence_required_for_next_status": "Needs teacher-reviewed wording boundaries and approved examples before any later gate opens.",
+      "review_notes": "Added so syntax grouping is not collapsed into the simpler runtime phrase translation lane."
+    },
+    {
+      "canonical_skill_id": "READING.NIKUD_PATTERN_ADVANCED",
+      "display_name": "Recognize advanced nikud patterns",
+      "plain_english_definition": "Identify advanced nikud or syllable-rule patterns in a conservative review-only way.",
+      "student_task_definition": "Notice the advanced nikud rule that affects how the word is read.",
+      "skill_lane": "nikud_reading",
+      "related_runtime_skill_ids": [],
+      "related_question_types": [
+        "identify_nikud_rule"
+      ],
+      "related_zekelman_standard_ids": [
+        "3.10"
+      ],
+      "source_skill_labels_allowed": [],
+      "enrichment_labels_allowed": [],
+      "status": "review_only",
+      "allowed_usage": [
+        "standards_review_alignment"
+      ],
+      "forbidden_usage": [
+        "no_runtime_promotion",
+        "no_question_or_preview_approval"
+      ],
+      "evidence_required_for_next_status": "Needs explicit teacher-approved examples and stronger source-verified rule evidence before any later gate opens.",
+      "review_notes": "Added because Standard 3.10 is broader than any current runtime nikud lane."
+    }
+  ],
+  "runtime_skill_mappings": [
+    {
+      "runtime_skill_id": "identify_prefix_meaning",
+      "canonical_skill_ids": [
+        "PREFIX.BASIC_PREPOSITIONS"
+      ],
+      "mapping_status": "runtime_ready",
+      "evidence_paths": [
+        "skill_catalog.py",
+        "docs/runtime_skill_canonical_alignment.md"
+      ]
+    },
+    {
+      "runtime_skill_id": "identify_suffix_meaning",
+      "canonical_skill_ids": [
+        "SUFFIX.FIRST_PERSON",
+        "SUFFIX.SECOND_PERSON"
+      ],
+      "mapping_status": "runtime_ready",
+      "evidence_paths": [
+        "skill_catalog.py",
+        "docs/runtime_skill_canonical_alignment.md"
+      ]
+    },
+    {
+      "runtime_skill_id": "identify_pronoun_suffix",
+      "canonical_skill_ids": [
+        "SUFFIX.THIRD_PERSON",
+        "SUFFIX.KINUY"
+      ],
+      "mapping_status": "runtime_ready",
+      "evidence_paths": [
+        "skill_catalog.py",
+        "docs/runtime_skill_canonical_alignment.md"
+      ]
+    },
+    {
+      "runtime_skill_id": "identify_verb_marker",
+      "canonical_skill_ids": [
+        "VERB.MARKER"
+      ],
+      "mapping_status": "runtime_ready",
+      "evidence_paths": [
+        "skill_catalog.py",
+        "docs/runtime_skill_canonical_alignment.md"
+      ]
+    },
+    {
+      "runtime_skill_id": "segment_word_parts",
+      "canonical_skill_ids": [
+        "WORD.PARTS.SEGMENT"
+      ],
+      "mapping_status": "runtime_ready",
+      "evidence_paths": [
+        "skill_catalog.py",
+        "docs/runtime_skill_canonical_alignment.md"
+      ]
+    },
+    {
+      "runtime_skill_id": "identify_tense",
+      "canonical_skill_ids": [
+        "VERB.TENSE.PAST",
+        "VERB.TENSE.PRESENT",
+        "VERB.TENSE.FUTURE"
+      ],
+      "mapping_status": "runtime_ready",
+      "evidence_paths": [
+        "skill_catalog.py",
+        "docs/runtime_skill_canonical_alignment.md"
+      ]
+    },
+    {
+      "runtime_skill_id": "identify_prefix_future",
+      "canonical_skill_ids": [
+        "PREFIX.OTIYOT_EITAN",
+        "VERB.TENSE.FUTURE"
+      ],
+      "mapping_status": "runtime_ready",
+      "evidence_paths": [
+        "skill_catalog.py",
+        "docs/runtime_skill_canonical_alignment.md"
+      ]
+    },
+    {
+      "runtime_skill_id": "identify_suffix_past",
+      "canonical_skill_ids": [
+        "VERB.TENSE.PAST"
+      ],
+      "mapping_status": "runtime_ready",
+      "evidence_paths": [
+        "skill_catalog.py",
+        "docs/runtime_skill_canonical_alignment.md"
+      ]
+    },
+    {
+      "runtime_skill_id": "identify_present_pattern",
+      "canonical_skill_ids": [
+        "VERB.TENSE.PRESENT"
+      ],
+      "mapping_status": "runtime_ready",
+      "evidence_paths": [
+        "skill_catalog.py",
+        "docs/runtime_skill_canonical_alignment.md"
+      ]
+    },
+    {
+      "runtime_skill_id": "convert_future_to_command",
+      "canonical_skill_ids": [
+        "VERB.COMMAND"
+      ],
+      "mapping_status": "runtime_ready",
+      "evidence_paths": [
+        "skill_catalog.py",
+        "docs/runtime_skill_canonical_alignment.md"
+      ]
+    },
+    {
+      "runtime_skill_id": "match_pronoun_to_verb",
+      "canonical_skill_ids": [
+        "PRONOUN.SUBJECT_OBJECT_MATCH"
+      ],
+      "mapping_status": "runtime_ready",
+      "evidence_paths": [
+        "skill_catalog.py",
+        "docs/runtime_skill_canonical_alignment.md"
+      ]
+    },
+    {
+      "runtime_skill_id": "part_of_speech",
+      "canonical_skill_ids": [
+        "WORD.PART_OF_SPEECH_BASIC"
+      ],
+      "mapping_status": "runtime_ready",
+      "evidence_paths": [
+        "skill_catalog.py",
+        "docs/runtime_skill_canonical_alignment.md"
+      ]
+    },
+    {
+      "runtime_skill_id": "shoresh",
+      "canonical_skill_ids": [
+        "ROOT.IDENTIFY",
+        "ROOT.IDENTIFY_DROPPED"
+      ],
+      "mapping_status": "runtime_ready",
+      "evidence_paths": [
+        "skill_catalog.py",
+        "docs/runtime_skill_canonical_alignment.md"
+      ]
+    },
+    {
+      "runtime_skill_id": "prefix",
+      "canonical_skill_ids": [
+        "PREFIX.FORM_IDENTIFY"
+      ],
+      "mapping_status": "runtime_ready",
+      "evidence_paths": [
+        "skill_catalog.py",
+        "docs/runtime_skill_canonical_alignment.md"
+      ]
+    },
+    {
+      "runtime_skill_id": "suffix",
+      "canonical_skill_ids": [
+        "SUFFIX.FIRST_PERSON",
+        "SUFFIX.SECOND_PERSON",
+        "SUFFIX.THIRD_PERSON"
+      ],
+      "mapping_status": "runtime_ready",
+      "evidence_paths": [
+        "skill_catalog.py",
+        "docs/runtime_skill_canonical_alignment.md"
+      ]
+    },
+    {
+      "runtime_skill_id": "translation",
+      "canonical_skill_ids": [
+        "WORD.MEANING_BASIC"
+      ],
+      "mapping_status": "runtime_ready",
+      "evidence_paths": [
+        "skill_catalog.py",
+        "docs/runtime_skill_canonical_alignment.md"
+      ]
+    },
+    {
+      "runtime_skill_id": "verb_tense",
+      "canonical_skill_ids": [
+        "VERB.TENSE.PAST",
+        "VERB.TENSE.PRESENT",
+        "VERB.TENSE.FUTURE"
+      ],
+      "mapping_status": "runtime_ready",
+      "evidence_paths": [
+        "skill_catalog.py",
+        "docs/runtime_skill_canonical_alignment.md"
+      ]
+    },
+    {
+      "runtime_skill_id": "subject_identification",
+      "canonical_skill_ids": [
+        "VERB.SUBJECT_OBJECT"
+      ],
+      "mapping_status": "runtime_ready",
+      "evidence_paths": [
+        "skill_catalog.py",
+        "docs/runtime_skill_canonical_alignment.md"
+      ]
+    },
+    {
+      "runtime_skill_id": "object_identification",
+      "canonical_skill_ids": [
+        "VERB.SUBJECT_OBJECT"
+      ],
+      "mapping_status": "runtime_ready",
+      "evidence_paths": [
+        "skill_catalog.py",
+        "docs/runtime_skill_canonical_alignment.md"
+      ]
+    },
+    {
+      "runtime_skill_id": "preposition_meaning",
+      "canonical_skill_ids": [
+        "PREFIX.BASIC_PREPOSITIONS"
+      ],
+      "mapping_status": "runtime_ready",
+      "evidence_paths": [
+        "skill_catalog.py",
+        "docs/runtime_skill_canonical_alignment.md"
+      ]
+    },
+    {
+      "runtime_skill_id": "phrase_translation",
+      "canonical_skill_ids": [
+        "PHRASE.UNIT_TRANSLATE"
+      ],
+      "mapping_status": "runtime_ready",
+      "evidence_paths": [
+        "skill_catalog.py",
+        "docs/runtime_skill_canonical_alignment.md"
+      ]
+    }
+  ],
+  "zekelman_skill_mappings": [
+    {
+      "zekelman_standard_id": "3.01",
+      "zekelman_skill_id": "std3_01_noun_vocabulary_recognition",
+      "canonical_skill_ids": [
+        "WORD.MEANING_BASIC"
+      ],
+      "mapping_status": "review_only",
+      "evidence_paths": [
+        "data/standards/zekelman/crosswalks/zekelman_2025_standard_3_skill_mapping_draft.json"
+      ]
+    },
+    {
+      "zekelman_standard_id": "3.02",
+      "zekelman_skill_id": "std3_02_shoresh_identification",
+      "canonical_skill_ids": [
+        "ROOT.IDENTIFY",
+        "ROOT.IDENTIFY_DROPPED"
+      ],
+      "mapping_status": "review_only",
+      "evidence_paths": [
+        "data/standards/zekelman/crosswalks/zekelman_2025_standard_3_skill_mapping_draft.json"
+      ]
+    },
+    {
+      "zekelman_standard_id": "3.03",
+      "zekelman_skill_id": "std3_03_function_word_translation_precision",
+      "canonical_skill_ids": [
+        "PREFIX.BASIC_PREPOSITIONS",
+        "PARTICLE.DIRECT_OBJECT_MARKER"
+      ],
+      "mapping_status": "review_only",
+      "evidence_paths": [
+        "data/standards/zekelman/crosswalks/zekelman_2025_standard_3_skill_mapping_draft.json"
+      ]
+    },
+    {
+      "zekelman_standard_id": "3.04",
+      "zekelman_skill_id": "std3_04_noun_features",
+      "canonical_skill_ids": [
+        "WORD.PART_OF_SPEECH_BASIC",
+        "WORD.NUMBER_CLASSIFY",
+        "WORD.GENDER_CLASSIFY"
+      ],
+      "mapping_status": "review_only",
+      "evidence_paths": [
+        "data/standards/zekelman/crosswalks/zekelman_2025_standard_3_skill_mapping_draft.json"
+      ]
+    },
+    {
+      "zekelman_standard_id": "3.04",
+      "zekelman_skill_id": "std3_04_smichut_recognition",
+      "canonical_skill_ids": [
+        "SUFFIX.SMICHUT_POSSESSION",
+        "PHRASE.SYNTAX_GROUPING"
+      ],
+      "mapping_status": "review_only",
+      "evidence_paths": [
+        "data/standards/zekelman/crosswalks/zekelman_2025_standard_3_skill_mapping_draft.json"
+      ]
+    },
+    {
+      "zekelman_standard_id": "3.05",
+      "zekelman_skill_id": "std3_05_pronoun_referent_identification",
+      "canonical_skill_ids": [
+        "PRONOUN.REFERENT_TRACK"
+      ],
+      "mapping_status": "review_only",
+      "evidence_paths": [
+        "data/standards/zekelman/crosswalks/zekelman_2025_standard_3_skill_mapping_draft.json"
+      ]
+    },
+    {
+      "zekelman_standard_id": "3.05",
+      "zekelman_skill_id": "std3_05_pronominal_suffix_identification",
+      "canonical_skill_ids": [
+        "SUFFIX.KINUY",
+        "SUFFIX.THIRD_PERSON"
+      ],
+      "mapping_status": "review_only",
+      "evidence_paths": [
+        "data/standards/zekelman/crosswalks/zekelman_2025_standard_3_skill_mapping_draft.json"
+      ]
+    },
+    {
+      "zekelman_standard_id": "3.06",
+      "zekelman_skill_id": "std3_06_prefix_function_identification",
+      "canonical_skill_ids": [
+        "PREFIX.BASIC_PREPOSITIONS",
+        "PREFIX.FORM_IDENTIFY"
+      ],
+      "mapping_status": "review_only",
+      "evidence_paths": [
+        "data/standards/zekelman/crosswalks/zekelman_2025_standard_3_skill_mapping_draft.json"
+      ]
+    },
+    {
+      "zekelman_standard_id": "3.06",
+      "zekelman_skill_id": "std3_06_direct_object_marker_resolution",
+      "canonical_skill_ids": [
+        "PARTICLE.DIRECT_OBJECT_MARKER"
+      ],
+      "mapping_status": "review_only",
+      "evidence_paths": [
+        "data/standards/zekelman/crosswalks/zekelman_2025_standard_3_skill_mapping_draft.json"
+      ]
+    },
+    {
+      "zekelman_standard_id": "3.07",
+      "zekelman_skill_id": "std3_07_verb_features",
+      "canonical_skill_ids": [
+        "VERB.MARKER",
+        "VERB.TENSE.PAST",
+        "VERB.TENSE.PRESENT",
+        "VERB.TENSE.FUTURE",
+        "PREFIX.OTIYOT_EITAN"
+      ],
+      "mapping_status": "review_only",
+      "evidence_paths": [
+        "data/standards/zekelman/crosswalks/zekelman_2025_standard_3_skill_mapping_draft.json"
+      ]
+    },
+    {
+      "zekelman_standard_id": "3.08",
+      "zekelman_skill_id": "std3_08_syntax_phrase_structure",
+      "canonical_skill_ids": [
+        "PHRASE.SYNTAX_GROUPING"
+      ],
+      "mapping_status": "review_only",
+      "evidence_paths": [
+        "data/standards/zekelman/crosswalks/zekelman_2025_standard_3_skill_mapping_draft.json"
+      ]
+    },
+    {
+      "zekelman_standard_id": "3.09",
+      "zekelman_skill_id": "std3_09_taamim_clause_parsing",
+      "canonical_skill_ids": [
+        "TAAMIM.PASUK_PARSE"
+      ],
+      "mapping_status": "review_only",
+      "evidence_paths": [
+        "data/standards/zekelman/crosswalks/zekelman_2025_standard_3_skill_mapping_draft.json"
+      ]
+    },
+    {
+      "zekelman_standard_id": "3.10",
+      "zekelman_skill_id": "std3_10_nikud_reading",
+      "canonical_skill_ids": [
+        "READING.NIKUD_PATTERN_ADVANCED"
+      ],
+      "mapping_status": "review_only",
+      "evidence_paths": [
+        "data/standards/zekelman/crosswalks/zekelman_2025_standard_3_skill_mapping_draft.json"
+      ]
+    }
+  ],
+  "verified_source_skill_label_mappings": [
+    {
+      "label_type": "skill_primary",
+      "label": "phrase_translation",
+      "canonical_skill_ids": [
+        "PHRASE.UNIT_TRANSLATE"
+      ],
+      "mapping_status": "source_extraction_verified",
+      "evidence_paths": [
+        "data/verified_source_skill_maps/bereishis_1_1_to_1_5_source_to_skill_map.tsv",
+        "data/verified_source_skill_maps/bereishis_1_1_to_3_24_metsudah_skill_map.tsv"
+      ]
+    },
+    {
+      "label_type": "skill_secondary",
+      "label": "translation_context",
+      "canonical_skill_ids": [
+        "PHRASE.UNIT_TRANSLATE"
+      ],
+      "mapping_status": "source_extraction_verified",
+      "evidence_paths": [
+        "data/verified_source_skill_maps/bereishis_1_1_to_1_5_source_to_skill_map.tsv",
+        "data/verified_source_skill_maps/bereishis_1_1_to_3_24_metsudah_skill_map.tsv"
+      ]
+    },
+    {
+      "label_type": "skill_id",
+      "label": "phrase_translation",
+      "canonical_skill_ids": [
+        "PHRASE.UNIT_TRANSLATE"
+      ],
+      "mapping_status": "source_extraction_verified",
+      "evidence_paths": [
+        "data/verified_source_skill_maps/bereishis_1_1_to_1_5_source_to_skill_map.tsv"
+      ]
+    }
+  ],
+  "source_skill_enrichment_candidate_mappings": [
+    {
+      "candidate_id": "morph_b1_1_r002_t001",
+      "canonical_skill_ids": [
+        "ROOT.IDENTIFY",
+        "VERB.TENSE.PAST"
+      ],
+      "mapping_status": "source_extraction_verified",
+      "evidence_paths": [
+        "data/source_skill_enrichment/morphology_candidates/bereishis_1_1_to_1_5_morphology_candidates.tsv"
+      ]
+    },
+    {
+      "candidate_id": "morph_b1_1_r002_t002",
+      "canonical_skill_ids": [
+        "WORD.PART_OF_SPEECH_BASIC",
+        "WORD.NUMBER_CLASSIFY"
+      ],
+      "mapping_status": "source_extraction_verified",
+      "evidence_paths": [
+        "data/source_skill_enrichment/morphology_candidates/bereishis_1_1_to_1_5_morphology_candidates.tsv"
+      ]
+    },
+    {
+      "candidate_id": "morph_b1_2_r005_t001",
+      "canonical_skill_ids": [
+        "VERB.TENSE.PAST"
+      ],
+      "mapping_status": "source_extraction_verified",
+      "evidence_paths": [
+        "data/source_skill_enrichment/morphology_candidates/bereishis_1_1_to_1_5_morphology_candidates.tsv"
+      ]
+    },
+    {
+      "candidate_id": "morph_b1_2_r004_t001",
+      "canonical_skill_ids": [
+        "PREFIX.BASIC_PREPOSITIONS",
+        "PREFIX.FORM_IDENTIFY"
+      ],
+      "mapping_status": "review_only",
+      "evidence_paths": [
+        "data/source_skill_enrichment/morphology_candidates/bereishis_1_1_to_1_5_morphology_candidates.tsv"
+      ]
+    },
+    {
+      "candidate_id": "morph_b1_3_r013_t001",
+      "canonical_skill_ids": [
+        "PREFIX.OTIYOT_EITAN",
+        "VERB.TENSE.FUTURE"
+      ],
+      "mapping_status": "review_only",
+      "evidence_paths": [
+        "data/source_skill_enrichment/morphology_candidates/bereishis_1_1_to_1_5_morphology_candidates.tsv"
+      ]
+    },
+    {
+      "candidate_id": "std_b1_1_r002",
+      "canonical_skill_ids": [
+        "ROOT.IDENTIFY"
+      ],
+      "mapping_status": "review_only",
+      "evidence_paths": [
+        "data/source_skill_enrichment/standards_candidates/bereishis_1_1_to_1_5_standards_candidates.tsv"
+      ]
+    },
+    {
+      "candidate_id": "std_b1_1_r003",
+      "canonical_skill_ids": [
+        "WORD.MEANING_BASIC",
+        "PARTICLE.DIRECT_OBJECT_MARKER"
+      ],
+      "mapping_status": "review_only",
+      "evidence_paths": [
+        "data/source_skill_enrichment/standards_candidates/bereishis_1_1_to_1_5_standards_candidates.tsv"
+      ]
+    },
+    {
+      "candidate_id": "std_b1_2_r004",
+      "canonical_skill_ids": [
+        "WORD.MEANING_BASIC",
+        "PREFIX.BASIC_PREPOSITIONS"
+      ],
+      "mapping_status": "source_extraction_verified",
+      "evidence_paths": [
+        "data/source_skill_enrichment/standards_candidates/bereishis_1_1_to_1_5_standards_candidates.tsv"
+      ]
+    },
+    {
+      "candidate_id": "std_b1_3_r013",
+      "canonical_skill_ids": [
+        "WORD.MEANING_BASIC",
+        "VERB.TENSE.FUTURE"
+      ],
+      "mapping_status": "review_only",
+      "evidence_paths": [
+        "data/source_skill_enrichment/standards_candidates/bereishis_1_1_to_1_5_standards_candidates.tsv"
+      ]
+    },
+    {
+      "candidate_id": "std_b1_5_r020",
+      "canonical_skill_ids": [
+        "WORD.MEANING_BASIC",
+        "PREFIX.BASIC_PREPOSITIONS"
+      ],
+      "mapping_status": "review_only",
+      "evidence_paths": [
+        "data/source_skill_enrichment/standards_candidates/bereishis_1_1_to_1_5_standards_candidates.tsv"
+      ]
+    },
+    {
+      "candidate_id": "std_b1_2_r010",
+      "canonical_skill_ids": [
+        "VERB.TENSE.PRESENT"
+      ],
+      "mapping_status": "review_only",
+      "evidence_paths": [
+        "data/source_skill_enrichment/standards_candidates/bereishis_1_1_to_1_5_standards_candidates.tsv"
+      ]
+    },
+    {
+      "candidate_id": "vocab_b1_1_r002_t001",
+      "canonical_skill_ids": [
+        "ROOT.IDENTIFY",
+        "WORD.MEANING_BASIC"
+      ],
+      "mapping_status": "review_only",
+      "evidence_paths": [
+        "data/source_skill_enrichment/vocabulary_shoresh_candidates/bereishis_1_1_to_1_5_vocabulary_shoresh_candidates.tsv"
+      ]
+    },
+    {
+      "candidate_id": "vocab_b1_2_r004_t001",
+      "canonical_skill_ids": [
+        "WORD.MEANING_BASIC"
+      ],
+      "mapping_status": "source_extraction_verified",
+      "evidence_paths": [
+        "data/source_skill_enrichment/vocabulary_shoresh_candidates/bereishis_1_1_to_1_5_vocabulary_shoresh_candidates.tsv"
+      ]
+    },
+    {
+      "candidate_id": "vocab_b1_3_r013_t002",
+      "canonical_skill_ids": [
+        "WORD.MEANING_BASIC"
+      ],
+      "mapping_status": "review_only",
+      "evidence_paths": [
+        "data/source_skill_enrichment/vocabulary_shoresh_candidates/bereishis_1_1_to_1_5_vocabulary_shoresh_candidates.tsv"
+      ]
+    },
+    {
+      "candidate_id": "vocab_b1_5_r020_t002",
+      "canonical_skill_ids": [
+        "WORD.MEANING_BASIC"
+      ],
+      "mapping_status": "source_extraction_verified",
+      "evidence_paths": [
+        "data/source_skill_enrichment/vocabulary_shoresh_candidates/bereishis_1_1_to_1_5_vocabulary_shoresh_candidates.tsv"
+      ]
+    },
+    {
+      "candidate_id": "vocab_b1_2_r011_t003",
+      "canonical_skill_ids": [
+        "WORD.MEANING_BASIC"
+      ],
+      "mapping_status": "source_extraction_verified",
+      "evidence_paths": [
+        "data/source_skill_enrichment/vocabulary_shoresh_candidates/bereishis_1_1_to_1_5_vocabulary_shoresh_candidates.tsv"
+      ]
+    },
+    {
+      "candidate_id": "vocab_b1_2_r007_t001",
+      "canonical_skill_ids": [
+        "WORD.MEANING_BASIC"
+      ],
+      "mapping_status": "review_only",
+      "evidence_paths": [
+        "data/source_skill_enrichment/vocabulary_shoresh_candidates/bereishis_1_1_to_1_5_vocabulary_shoresh_candidates.tsv"
+      ]
+    }
+  ]
+}

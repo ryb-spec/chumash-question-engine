@@ -261,6 +261,7 @@ ALLOWED_CHANGE_PREFIXES = (
 ALLOWED_CHANGE_EXACT = {
     ".gitignore",
     "PLANS.md",
+    "docs/runtime_skill_canonical_alignment.md",
     "docs/curriculum_extraction_factory.md",
     "docs/curriculum_extraction_integration_plan.md",
     "docs/codex_prompts/batch_006_source_ready_prompt_seed.md",
@@ -393,6 +394,11 @@ ALLOWED_CHANGE_EXACT = {
     "tests/test_source_texts_validation.py",
     "tests/test_verified_source_skill_maps.py",
     "README_CHROMEBOOK.md",
+    "skill_catalog.py",
+    "data/standards/canonical_skill_contract.json",
+    "data/standards/reports/canonical_skill_standards_contract_report.md",
+    "scripts/validate_canonical_skill_contract.py",
+    "tests/test_canonical_skill_contract.py",
 }
 
 FORBIDDEN_CHANGE_PREFIXES = (
