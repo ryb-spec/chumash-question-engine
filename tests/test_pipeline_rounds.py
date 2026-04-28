@@ -9,6 +9,12 @@ import scripts.validate_pipeline_rounds as validator
 ROOT = Path(__file__).resolve().parents[1]
 CONTRACT = ROOT / "data" / "pipeline_rounds" / "round_2_fast_track_pipeline_contract.v1.json"
 CHECKLIST = ROOT / "data" / "pipeline_rounds" / "reports" / "round_2_starter_checklist.md"
+PEREK2_SOURCE_AUDIT = (
+    ROOT / "data" / "pipeline_rounds" / "reports" / "bereishis_perek_2_gate_1_source_readiness_audit.md"
+)
+PEREK2_GATE1_REPORT = (
+    ROOT / "data" / "pipeline_rounds" / "reports" / "bereishis_perek_2_gate_1_source_enrichment_eligibility_report.md"
+)
 
 
 class PipelineRoundsTests(unittest.TestCase):
@@ -49,6 +55,14 @@ class PipelineRoundsTests(unittest.TestCase):
         text = CHECKLIST.read_text(encoding="utf-8")
         self.assertIn("Round 2 Starter Checklist", text)
         self.assertIn("Stop conditions", text)
+
+    def test_perek2_gate1_reports_exist(self):
+        self.assertTrue(PEREK2_SOURCE_AUDIT.exists())
+        self.assertTrue(PEREK2_GATE1_REPORT.exists())
+        text = PEREK2_GATE1_REPORT.read_text(encoding="utf-8")
+        self.assertIn("Bereishis Perek 2 Gate 1", text)
+        self.assertIn("Enrichment candidate counts", text)
+        self.assertIn("Question-eligibility decisions and approved input-candidate planning are not ready", text)
 
 
 if __name__ == "__main__":

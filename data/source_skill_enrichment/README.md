@@ -310,3 +310,31 @@ For morphology enrichment, prefer Dikduk review sheets/workbooks, Loshon Hakodes
 For standards enrichment, prefer Zekelman Chumash Standards, Zekelman sample assessments, internal skill catalog, runtime skill canonical alignment docs, and verified source-to-skill maps as context.
 
 For translation context, Metsudah remains primary; Koren remains secondary noncommercial support only; Sefaria version-level metadata must stay explicit.
+
+## Bereishis Perek 2 Gate 1 Enrichment Readiness
+
+Bereishis Perek 2 now has Gate 1 review-only enrichment candidates generated from verified source-to-skill rows. These candidates are pending Yossi enrichment review and are not question approval, protected-preview approval, reviewed-bank approval, runtime approval, or student-facing approval.
+
+Candidate files:
+
+- `morphology_candidates/bereishis_perek_2_morphology_candidates.tsv`
+- `vocabulary_shoresh_candidates/bereishis_perek_2_vocabulary_shoresh_candidates.tsv`
+- `standards_candidates/bereishis_perek_2_standards_candidates.tsv`
+- `standards_candidates/bereishis_perek_2_token_split_standards_candidates.tsv`
+
+Review sheets:
+
+- `reports/bereishis_perek_2_morphology_enrichment_yossi_review_sheet.md`
+- `reports/bereishis_perek_2_morphology_enrichment_yossi_review_sheet.csv`
+- `reports/bereishis_perek_2_vocabulary_shoresh_enrichment_yossi_review_sheet.md`
+- `reports/bereishis_perek_2_vocabulary_shoresh_enrichment_yossi_review_sheet.csv`
+- `reports/bereishis_perek_2_standards_enrichment_yossi_review_sheet.md`
+- `reports/bereishis_perek_2_standards_enrichment_yossi_review_sheet.csv`
+- `reports/bereishis_perek_2_token_split_standards_yossi_review_sheet.md`
+- `reports/bereishis_perek_2_token_split_standards_yossi_review_sheet.csv`
+
+Gate 1 summary:
+
+- `data/pipeline_rounds/reports/bereishis_perek_2_gate_1_source_enrichment_eligibility_report.md`
+
+All safety gates remain closed. Question eligibility and input-candidate planning remain blocked until Yossi applies Perek 2 enrichment review decisions.

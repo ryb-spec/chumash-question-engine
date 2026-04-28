@@ -323,6 +323,49 @@ PEREK1_COVERAGE_REPORT_PATH = (
     / "reports"
     / "bereishis_perek_1_enrichment_review_application_coverage_report.md"
 )
+PEREK2_SOURCE_MAP_PATHS = (
+    ROOT / "data" / "verified_source_skill_maps" / "bereishis_2_1_to_2_3_source_to_skill_map.tsv",
+    ROOT / "data" / "verified_source_skill_maps" / "bereishis_2_4_to_2_17_source_to_skill_map.tsv",
+    ROOT / "data" / "verified_source_skill_maps" / "bereishis_2_18_to_2_25_source_to_skill_map.tsv",
+)
+PEREK2_MORPHOLOGY_PATH = (
+    ENRICHMENT_DIR / "morphology_candidates" / "bereishis_perek_2_morphology_candidates.tsv"
+)
+PEREK2_VOCABULARY_PATH = (
+    ENRICHMENT_DIR
+    / "vocabulary_shoresh_candidates"
+    / "bereishis_perek_2_vocabulary_shoresh_candidates.tsv"
+)
+PEREK2_STANDARDS_PATH = (
+    ENRICHMENT_DIR / "standards_candidates" / "bereishis_perek_2_standards_candidates.tsv"
+)
+PEREK2_TOKEN_SPLIT_STANDARDS_PATH = (
+    ENRICHMENT_DIR / "standards_candidates" / "bereishis_perek_2_token_split_standards_candidates.tsv"
+)
+PEREK2_REVIEW_SHEETS = {
+    "morphology": (
+        ENRICHMENT_DIR / "reports" / "bereishis_perek_2_morphology_enrichment_yossi_review_sheet.md",
+        ENRICHMENT_DIR / "reports" / "bereishis_perek_2_morphology_enrichment_yossi_review_sheet.csv",
+    ),
+    "vocabulary_shoresh": (
+        ENRICHMENT_DIR / "reports" / "bereishis_perek_2_vocabulary_shoresh_enrichment_yossi_review_sheet.md",
+        ENRICHMENT_DIR / "reports" / "bereishis_perek_2_vocabulary_shoresh_enrichment_yossi_review_sheet.csv",
+    ),
+    "standards": (
+        ENRICHMENT_DIR / "reports" / "bereishis_perek_2_standards_enrichment_yossi_review_sheet.md",
+        ENRICHMENT_DIR / "reports" / "bereishis_perek_2_standards_enrichment_yossi_review_sheet.csv",
+    ),
+    "token_split_standards": (
+        ENRICHMENT_DIR / "reports" / "bereishis_perek_2_token_split_standards_yossi_review_sheet.md",
+        ENRICHMENT_DIR / "reports" / "bereishis_perek_2_token_split_standards_yossi_review_sheet.csv",
+    ),
+}
+PEREK2_SOURCE_READINESS_AUDIT_PATH = (
+    ROOT / "data" / "pipeline_rounds" / "reports" / "bereishis_perek_2_gate_1_source_readiness_audit.md"
+)
+PEREK2_GATE1_REPORT_PATH = (
+    ROOT / "data" / "pipeline_rounds" / "reports" / "bereishis_perek_2_gate_1_source_enrichment_eligibility_report.md"
+)
 NEXT_MORPHOLOGY_APPLIED_REPORT_PATH = (
     ENRICHMENT_DIR
     / "reports"
@@ -598,6 +641,7 @@ def parse_semicolon_list(raw_value: str) -> list[str]:
 
 def canonical_contract_skill_ids() -> set[str]:
     contract = load_contract()
+
     return {
         record["canonical_skill_id"]
         for record in contract.get("canonical_skills", [])
@@ -2420,6 +2464,145 @@ def validate_next_slice_mini_completion_report(
             errors.append(f"{repo_relative(NEXT_MINI_COMPLETION_REPORT_PATH)} missing required phrase: {phrase!r}")
 
 
+def perek2_source_rows_by_file() -> dict[str, dict[str, dict[str, str]]]:
+    rows_by_file: dict[str, dict[str, dict[str, str]]] = {}
+    for path in PEREK2_SOURCE_MAP_PATHS:
+        _, rows = load_tsv(path)
+        rows_by_file[repo_relative(path)] = {f"row_{index:03d}": row for index, row in enumerate(rows, 1)}
+    return rows_by_file
+
+
+def validate_perek2_gate1_artifacts(errors: list[str]) -> dict[str, int]:
+    expected_files = (
+        PEREK2_MORPHOLOGY_PATH,
+        PEREK2_VOCABULARY_PATH,
+        PEREK2_STANDARDS_PATH,
+        PEREK2_TOKEN_SPLIT_STANDARDS_PATH,
+        PEREK2_SOURCE_READINESS_AUDIT_PATH,
+        PEREK2_GATE1_REPORT_PATH,
+    )
+    for path in expected_files:
+        if not path.exists():
+            errors.append(f"missing Perek 2 Gate 1 artifact: {repo_relative(path)}")
+    for md_path, csv_path in PEREK2_REVIEW_SHEETS.values():
+        if not md_path.exists():
+            errors.append(f"missing Perek 2 review sheet: {repo_relative(md_path)}")
+        if not csv_path.exists():
+            errors.append(f"missing Perek 2 review CSV: {repo_relative(csv_path)}")
+        elif not csv_path.read_bytes().startswith(b"\xef\xbb\xbf"):
+            errors.append(f"Perek 2 review CSV must be UTF-8-BOM: {repo_relative(csv_path)}")
+    if any(not path.exists() for path in expected_files):
+        return {"morphology": 0, "vocabulary": 0, "standards": 0, "token_split": 0, "source_rows": 0}
+
+    perek2_source_rows = perek2_source_rows_by_file()
+    source_row_count = sum(len(rows) for rows in perek2_source_rows.values())
+    for source_file, rows in perek2_source_rows.items():
+        for row_id, row in rows.items():
+            context = f"{source_file}:{row_id}"
+            if row.get("extraction_review_status") != "yossi_extraction_verified":
+                errors.append(f"{context}: source row must be yossi_extraction_verified")
+            for field, expected in (
+                ("question_allowed", "needs_review"),
+                ("protected_preview_allowed", "false"),
+                ("reviewed_bank_allowed", "false"),
+                ("runtime_allowed", "false"),
+            ):
+                if row.get(field) != expected:
+                    errors.append(f"{context}: {field} must be {expected}")
+            if "?" in row.get("hebrew_word_or_phrase", ""):
+                errors.append(f"{context}: Hebrew phrase contains placeholder corruption")
+
+    candidate_specs = (
+        (PEREK2_MORPHOLOGY_PATH, MORPHOLOGY_COLUMNS, "morphology"),
+        (PEREK2_VOCABULARY_PATH, VOCABULARY_COLUMNS, "vocabulary"),
+        (PEREK2_STANDARDS_PATH, STANDARDS_COLUMNS, "standards"),
+        (PEREK2_TOKEN_SPLIT_STANDARDS_PATH, TOKEN_SPLIT_STANDARDS_COLUMNS, "token_split"),
+    )
+    counts: dict[str, int] = {"source_rows": source_row_count}
+    standards_ids: set[str] = set()
+    for path, expected_columns, label in candidate_specs:
+        fields, rows = load_tsv(path)
+        counts[label] = len(rows)
+        if fields != expected_columns:
+            errors.append(f"{repo_relative(path)} columns do not match expected {label} schema")
+        if not rows:
+            errors.append(f"{repo_relative(path)} must not be empty")
+        if label == "standards":
+            standards_ids = {row.get("candidate_id", "") for row in rows}
+        for row in rows:
+            candidate_id = row.get("candidate_id", "unknown")
+            source_file = row.get("source_map_file", "")
+            source_row_id = row.get("source_row_id", "")
+            source_row = perek2_source_rows.get(source_file, {}).get(source_row_id)
+            if source_row is None:
+                errors.append(f"{candidate_id}: must link to a verified Perek 2 source row")
+                continue
+            if row.get("ref") != source_row.get("ref"):
+                errors.append(f"{candidate_id}: ref must match linked source row")
+            if row.get("hebrew_phrase") != source_row.get("hebrew_word_or_phrase"):
+                errors.append(f"{candidate_id}: Hebrew phrase must match linked source row")
+            if row.get("enrichment_review_status") != "pending_yossi_enrichment_review":
+                errors.append(f"{candidate_id}: Perek 2 Gate 1 candidates must remain pending Yossi review")
+            if row.get("yossi_decision") or row.get("yossi_notes"):
+                errors.append(f"{candidate_id}: Yossi decision fields must be blank at Gate 1")
+            for field, expected in (
+                ("question_allowed", "needs_review"),
+                ("protected_preview_allowed", "false"),
+                ("runtime_allowed", "false"),
+                ("reviewed_bank_allowed", "false"),
+            ):
+                if row.get(field) != expected:
+                    errors.append(f"{candidate_id}: {field} must be {expected}")
+            if "?" in row.get("hebrew_phrase", "") or "?" in row.get("hebrew_token", ""):
+                errors.append(f"{candidate_id}: Hebrew fields must not contain placeholder corruption")
+    _, token_rows = load_tsv(PEREK2_TOKEN_SPLIT_STANDARDS_PATH)
+    for row in token_rows:
+        if row.get("parent_candidate_id") not in standards_ids:
+            errors.append(f"{row.get('candidate_id', 'unknown')}: token-split row must link to a Perek 2 standards parent")
+
+    for md_path, csv_path in PEREK2_REVIEW_SHEETS.values():
+        text = md_path.read_text(encoding="utf-8")
+        safety_sentence = (
+            "This is enrichment review only. It is not question approval, protected-preview approval, "
+            "reviewed-bank approval, runtime approval, or student-facing approval."
+        )
+        if safety_sentence not in text:
+            errors.append(f"{repo_relative(md_path)} missing required safety sentence")
+        if "??" in text or "???" in text:
+            errors.append(f"{repo_relative(md_path)} contains placeholder corruption")
+        csv_fields, csv_rows = load_csv(csv_path)
+        if csv_fields != REVIEW_CSV_COLUMNS:
+            errors.append(f"{repo_relative(csv_path)} columns must match review CSV schema")
+        if any(row.get("yossi_decision") or row.get("yossi_notes") for row in csv_rows):
+            errors.append(f"{repo_relative(csv_path)} Yossi decision fields must be blank")
+
+    source_text = PEREK2_SOURCE_READINESS_AUDIT_PATH.read_text(encoding="utf-8")
+    gate_text = PEREK2_GATE1_REPORT_PATH.read_text(encoding="utf-8")
+    readme_text = README_PATH.read_text(encoding="utf-8")
+    for phrase in ("Perek 2 source-to-skill readiness is confirmed", "Enrichment remains review-only"):
+        if phrase not in source_text:
+            errors.append(f"Perek 2 source readiness audit missing phrase: {phrase}")
+    for phrase in (
+        "Question-eligibility decisions and approved input-candidate planning are not ready",
+        "All candidates are review-only",
+        "basic_verb_form_recognition",
+    ):
+        if phrase not in gate_text:
+            errors.append(f"Perek 2 Gate 1 report missing phrase: {phrase}")
+    for path in (
+        PEREK2_MORPHOLOGY_PATH,
+        PEREK2_VOCABULARY_PATH,
+        PEREK2_STANDARDS_PATH,
+        PEREK2_TOKEN_SPLIT_STANDARDS_PATH,
+        PEREK2_GATE1_REPORT_PATH,
+    ):
+        relative = repo_relative(path)
+        if relative not in readme_text and relative.replace("data/source_skill_enrichment/", "") not in readme_text:
+            errors.append(f"source enrichment README must link {relative}")
+
+    return counts
+
+
 def validate_source_skill_enrichment() -> dict[str, object]:
     errors: list[str] = []
     validate_required_files(errors)
@@ -2847,6 +3030,8 @@ def validate_source_skill_enrichment() -> dict[str, object]:
     if perek1_final_follow_up != 53:
         errors.append(f"perek1-final review totals: expected 53 follow-up rows, found {perek1_final_follow_up}")
 
+    perek2_gate1_counts = validate_perek2_gate1_artifacts(errors)
+
     return {
         "valid": not errors,
         "readme_path": repo_relative(README_PATH),
@@ -2932,6 +3117,17 @@ def validate_source_skill_enrichment() -> dict[str, object]:
         "perek1_final_token_split_applied_report_path": repo_relative(PEREK1_FINAL_TOKEN_SPLIT_APPLIED_REPORT_PATH),
         "perek1_final_review_summary_path": repo_relative(PEREK1_FINAL_REVIEW_SUMMARY_PATH),
         "perek1_coverage_report_path": repo_relative(PEREK1_COVERAGE_REPORT_PATH),
+        "perek2_source_readiness_audit_path": repo_relative(PEREK2_SOURCE_READINESS_AUDIT_PATH),
+        "perek2_gate1_report_path": repo_relative(PEREK2_GATE1_REPORT_PATH),
+        "perek2_source_row_count": perek2_gate1_counts["source_rows"],
+        "perek2_morphology_candidate_path": repo_relative(PEREK2_MORPHOLOGY_PATH),
+        "perek2_morphology_candidate_count": perek2_gate1_counts["morphology"],
+        "perek2_vocabulary_candidate_path": repo_relative(PEREK2_VOCABULARY_PATH),
+        "perek2_vocabulary_candidate_count": perek2_gate1_counts["vocabulary"],
+        "perek2_standards_candidate_path": repo_relative(PEREK2_STANDARDS_PATH),
+        "perek2_standards_candidate_count": perek2_gate1_counts["standards"],
+        "perek2_token_split_candidate_path": repo_relative(PEREK2_TOKEN_SPLIT_STANDARDS_PATH),
+        "perek2_token_split_candidate_count": perek2_gate1_counts["token_split"],
         "errors": errors,
     }
 

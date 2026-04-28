@@ -255,16 +255,17 @@ def answer_to_next_ready_ms():
 
 
 @lru_cache(maxsize=256)
-def _cached_candidate_source(analyzer_identity, pasuk):
-    if analyze_generator_pasuk is None:
+def _cached_candidate_source(analyzer, pasuk):
+    if analyzer is None:
         return pasuk
-    return analyze_generator_pasuk(pasuk)
+    return analyzer(pasuk)
 
 
 def candidate_source_for_pasuk(pasuk):
-    if analyze_generator_pasuk is None:
+    analyzer = analyze_generator_pasuk
+    if analyzer is None:
         return pasuk
-    return deepcopy(_cached_candidate_source(id(analyze_generator_pasuk), pasuk))
+    return deepcopy(_cached_candidate_source(analyzer, pasuk))
 
 
 def progress_source_label(progress):

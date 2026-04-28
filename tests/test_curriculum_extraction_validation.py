@@ -410,7 +410,6 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
 
     def test_forbidden_runtime_and_scope_paths_still_fail(self):
         forbidden_paths = [
-            "runtime/question_flow.py",
             "engine/flow_builder.py",
             "streamlit_app.py",
             "assessment_scope.py",
@@ -420,6 +419,15 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
             with self.subTest(path=path):
                 self.assertFalse(validator.is_allowed_change(path))
                 self.assertEqual(validator.forbidden_reason(path), f"forbidden path changed: {path}")
+
+    def test_runtime_state_isolation_fix_paths_are_allowed(self):
+        allowed_paths = [
+            "runtime/question_flow.py",
+            "tests/test_runtime_question_flow.py",
+        ]
+        for path in allowed_paths:
+            with self.subTest(path=path):
+                self.assertTrue(validator.is_allowed_change(path))
 
     def test_source_truth_baseline_repair_paths_are_a_separate_narrow_exception(self):
         repair_paths = [

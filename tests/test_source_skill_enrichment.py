@@ -1426,6 +1426,67 @@ class SourceSkillEnrichmentTests(unittest.TestCase):
         ):
             self.assertIn(phrase, text)
 
+    def test_perek2_gate1_artifacts_exist_and_match_counts(self):
+        summary = validator.validate_source_skill_enrichment()
+        self.assertTrue(summary["valid"], summary["errors"])
+        self.assertEqual(summary["perek2_source_row_count"], 99)
+        self.assertEqual(summary["perek2_morphology_candidate_count"], 328)
+        self.assertEqual(summary["perek2_vocabulary_candidate_count"], 328)
+        self.assertEqual(summary["perek2_standards_candidate_count"], 99)
+        self.assertEqual(summary["perek2_token_split_candidate_count"], 328)
+        self.assertTrue(validator.PEREK2_SOURCE_READINESS_AUDIT_PATH.exists())
+        self.assertTrue(validator.PEREK2_GATE1_REPORT_PATH.exists())
+
+    def test_perek2_candidates_link_to_verified_source_rows_and_are_review_only(self):
+        source_rows = validator.perek2_source_rows_by_file()
+        for path in (
+            validator.PEREK2_MORPHOLOGY_PATH,
+            validator.PEREK2_VOCABULARY_PATH,
+            validator.PEREK2_STANDARDS_PATH,
+            validator.PEREK2_TOKEN_SPLIT_STANDARDS_PATH,
+        ):
+            rows = load_tsv(path)
+            self.assertTrue(rows)
+            for row in rows:
+                with self.subTest(candidate=row["candidate_id"]):
+                    linked = source_rows[row["source_map_file"]][row["source_row_id"]]
+                    self.assertEqual(linked["extraction_review_status"], "yossi_extraction_verified")
+                    self.assertEqual(row["ref"], linked["ref"])
+                    self.assertEqual(row["hebrew_phrase"], linked["hebrew_word_or_phrase"])
+                    self.assertEqual(row["enrichment_review_status"], "pending_yossi_enrichment_review")
+                    self.assertEqual(row["yossi_decision"], "")
+                    self.assertEqual(row["yossi_notes"], "")
+                    self.assertEqual(row["question_allowed"], "needs_review")
+                    self.assertEqual(row["protected_preview_allowed"], "false")
+                    self.assertEqual(row["runtime_allowed"], "false")
+                    self.assertEqual(row["reviewed_bank_allowed"], "false")
+                    self.assertNotIn("?", row["hebrew_phrase"])
+                    self.assertNotIn("?", row.get("hebrew_token", ""))
+
+    def test_perek2_review_sheets_exist_are_utf8_bom_and_blank(self):
+        for md_path, csv_path in validator.PEREK2_REVIEW_SHEETS.values():
+            with self.subTest(csv_path=csv_path):
+                self.assertTrue(md_path.exists())
+                self.assertTrue(csv_path.exists())
+                self.assertTrue(csv_path.read_bytes().startswith(b"\xef\xbb\xbf"))
+                md_text = md_path.read_text(encoding="utf-8")
+                self.assertIn("This is enrichment review only.", md_text)
+                self.assertNotIn("???", md_text)
+                with csv_path.open("r", encoding="utf-8-sig", newline="") as handle:
+                    rows = list(csv.DictReader(handle))
+                self.assertTrue(rows)
+                self.assertEqual(list(rows[0].keys()), validator.REVIEW_CSV_COLUMNS)
+                self.assertTrue(all(row["yossi_decision"] == "" for row in rows))
+                self.assertTrue(all(row["yossi_notes"] == "" for row in rows))
+
+    def test_perek2_gate1_reports_document_blocked_eligibility(self):
+        source_text = validator.PEREK2_SOURCE_READINESS_AUDIT_PATH.read_text(encoding="utf-8")
+        gate_text = validator.PEREK2_GATE1_REPORT_PATH.read_text(encoding="utf-8")
+        self.assertIn("Perek 2 source-to-skill readiness is confirmed", source_text)
+        self.assertIn("Enrichment remains review-only", source_text)
+        self.assertIn("Question-eligibility decisions and approved input-candidate planning are not ready", gate_text)
+        self.assertIn("basic_verb_form_recognition", gate_text)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -32,6 +32,39 @@ class RuntimeQuestionFlowTests(unittest.TestCase):
         streamlit_app.init_session_state()
         st.session_state.practice_type = "Learn Mode"
 
+    def test_candidate_source_cache_keys_by_analyzer_callable(self):
+        question_flow._cached_candidate_source.cache_clear()
+
+        def first_analyzer(pasuk):
+            return {"source": "first", "pasuk": pasuk}
+
+        def second_analyzer(pasuk):
+            return {"source": "second", "pasuk": pasuk}
+
+        self.assertEqual(
+            question_flow._cached_candidate_source(first_analyzer, "pasuk")["source"],
+            "first",
+        )
+        self.assertEqual(
+            question_flow._cached_candidate_source(second_analyzer, "pasuk")["source"],
+            "second",
+        )
+
+    def test_candidate_source_for_pasuk_uses_current_patched_analyzer(self):
+        question_flow._cached_candidate_source.cache_clear()
+
+        def first_analyzer(pasuk):
+            return {"source": "first", "pasuk": pasuk}
+
+        def second_analyzer(pasuk):
+            return {"source": "second", "pasuk": pasuk}
+
+        with patch.object(question_flow, "analyze_generator_pasuk", side_effect=first_analyzer):
+            self.assertEqual(question_flow.candidate_source_for_pasuk("pasuk")["source"], "first")
+
+        with patch.object(question_flow, "analyze_generator_pasuk", side_effect=second_analyzer):
+            self.assertEqual(question_flow.candidate_source_for_pasuk("pasuk")["source"], "second")
+
     def _translation_question(self, word="בָּרָא", prompt="What does בָּרָא mean?"):
         return {
             "skill": "translation",

@@ -8,6 +8,12 @@ DOC = ROOT / "docs" / "pipeline_rounds" / "round_2_fast_track_pipeline.md"
 CONTRACT = ROOT / "data" / "pipeline_rounds" / "round_2_fast_track_pipeline_contract.v1.json"
 CHECKLIST = ROOT / "data" / "pipeline_rounds" / "reports" / "round_2_starter_checklist.md"
 AUDIT = ROOT / "data" / "pipeline_rounds" / "reports" / "perek_1_round_1_pipeline_audit.md"
+PEREK2_SOURCE_AUDIT = (
+    ROOT / "data" / "pipeline_rounds" / "reports" / "bereishis_perek_2_gate_1_source_readiness_audit.md"
+)
+PEREK2_GATE1_REPORT = (
+    ROOT / "data" / "pipeline_rounds" / "reports" / "bereishis_perek_2_gate_1_source_enrichment_eligibility_report.md"
+)
 PROMPTS = [
     ROOT / "docs" / "pipeline_rounds" / "codex_prompts" / "gate_1_source_enrichment_eligibility_prompt.md",
     ROOT / "docs" / "pipeline_rounds" / "codex_prompts" / "gate_2_input_planning_template_controls_prompt.md",
@@ -52,7 +58,7 @@ def load_contract(errors: list[str]) -> dict:
 
 def validate_pipeline_rounds() -> dict[str, object]:
     errors: list[str] = []
-    for path in (DOC, CHECKLIST, AUDIT, *PROMPTS):
+    for path in (DOC, CHECKLIST, AUDIT, PEREK2_SOURCE_AUDIT, PEREK2_GATE1_REPORT, *PROMPTS):
         if not path.exists():
             errors.append(f"missing artifact: {rel(path)}")
     contract = load_contract(errors)
@@ -63,6 +69,7 @@ def validate_pipeline_rounds() -> dict[str, object]:
     checklist_text = CHECKLIST.read_text(encoding="utf-8")
     stop_text = f"{doc_text}\n{checklist_text}".lower()
     audit_text = AUDIT.read_text(encoding="utf-8")
+    perek2_text = PEREK2_GATE1_REPORT.read_text(encoding="utf-8")
     prompt_texts = [path.read_text(encoding="utf-8") for path in PROMPTS]
 
     for phrase in ("Stop conditions", "unverified source-to-skill", "Hebrew corruption", "batch balance table"):
@@ -71,6 +78,14 @@ def validate_pipeline_rounds() -> dict[str, object]:
     for phrase in ("Round 1 gate inventory", "Validators", "Review decision fields", "Manual review"):
         if phrase not in audit_text:
             errors.append(f"audit missing required section/phrase: {phrase}")
+    for phrase in (
+        "Bereishis Perek 2 Gate 1",
+        "Source-to-skill readiness",
+        "Enrichment candidate counts",
+        "Question-eligibility decisions and approved input-candidate planning are not ready",
+    ):
+        if phrase not in perek2_text:
+            errors.append(f"Perek 2 Gate 1 report missing required phrase: {phrase}")
 
     if contract.get("status") != "planning_contract_only":
         errors.append("contract status must be planning_contract_only")
@@ -105,6 +120,7 @@ def validate_pipeline_rounds() -> dict[str, object]:
         "contract_path": rel(CONTRACT),
         "gate_count": len(gate_ids),
         "prompt_count": len(PROMPTS),
+        "perek2_gate1_report_path": rel(PEREK2_GATE1_REPORT),
     }
 
 
