@@ -10,6 +10,9 @@ from typing import Iterable
 ROOT = Path(__file__).resolve().parents[1]
 ENRICHMENT_DIR = ROOT / "data" / "source_skill_enrichment"
 SOURCE_MAP_PATH = ROOT / "data" / "verified_source_skill_maps" / "bereishis_1_1_to_1_5_source_to_skill_map.tsv"
+NEXT_SOURCE_MAP_PATH = (
+    ROOT / "data" / "verified_source_skill_maps" / "bereishis_1_6_to_1_13_source_to_skill_map.tsv"
+)
 CONTRACT_PATH = ROOT / "data" / "standards" / "canonical_skill_contract.json"
 
 MORPHOLOGY_PATH = (
@@ -27,6 +30,22 @@ TOKEN_SPLIT_STANDARDS_PATH = (
     ENRICHMENT_DIR
     / "standards_candidates"
     / "bereishis_1_1_to_1_5_token_split_standards_candidates.tsv"
+)
+NEXT_MORPHOLOGY_PATH = (
+    ENRICHMENT_DIR / "morphology_candidates" / "bereishis_1_6_to_1_13_morphology_candidates.tsv"
+)
+NEXT_STANDARDS_PATH = (
+    ENRICHMENT_DIR / "standards_candidates" / "bereishis_1_6_to_1_13_standards_candidates.tsv"
+)
+NEXT_VOCABULARY_PATH = (
+    ENRICHMENT_DIR
+    / "vocabulary_shoresh_candidates"
+    / "bereishis_1_6_to_1_13_vocabulary_shoresh_candidates.tsv"
+)
+NEXT_TOKEN_SPLIT_STANDARDS_PATH = (
+    ENRICHMENT_DIR
+    / "standards_candidates"
+    / "bereishis_1_6_to_1_13_token_split_standards_candidates.tsv"
 )
 CONTRACT_PATH = ROOT / "data" / "standards" / "canonical_skill_contract.json"
 
@@ -100,6 +119,70 @@ TOKEN_SPLIT_APPLIED_REPORT_PATH = (
     ENRICHMENT_DIR
     / "reports"
     / "bereishis_1_1_to_1_5_token_split_standards_yossi_review_applied.md"
+)
+NEXT_REVIEW_SHEETS = {
+    "morphology": (
+        ENRICHMENT_DIR / "reports" / "bereishis_1_6_to_1_13_morphology_enrichment_yossi_review_sheet.md",
+        ENRICHMENT_DIR / "reports" / "bereishis_1_6_to_1_13_morphology_enrichment_yossi_review_sheet.csv",
+    ),
+    "standards": (
+        ENRICHMENT_DIR / "reports" / "bereishis_1_6_to_1_13_standards_enrichment_yossi_review_sheet.md",
+        ENRICHMENT_DIR / "reports" / "bereishis_1_6_to_1_13_standards_enrichment_yossi_review_sheet.csv",
+    ),
+    "vocabulary_shoresh": (
+        ENRICHMENT_DIR / "reports" / "bereishis_1_6_to_1_13_vocabulary_shoresh_enrichment_yossi_review_sheet.md",
+        ENRICHMENT_DIR / "reports" / "bereishis_1_6_to_1_13_vocabulary_shoresh_enrichment_yossi_review_sheet.csv",
+    ),
+}
+NEXT_TOKEN_SPLIT_REVIEW_MD_PATH = (
+    ENRICHMENT_DIR
+    / "reports"
+    / "bereishis_1_6_to_1_13_token_split_standards_yossi_review_sheet.md"
+)
+NEXT_TOKEN_SPLIT_REVIEW_CSV_PATH = (
+    ENRICHMENT_DIR
+    / "reports"
+    / "bereishis_1_6_to_1_13_token_split_standards_yossi_review_sheet.csv"
+)
+NEXT_GENERATION_REPORT_PATH = (
+    ENRICHMENT_DIR
+    / "reports"
+    / "bereishis_1_6_to_1_13_enrichment_candidate_generation_report.md"
+)
+NEXT_MORPHOLOGY_APPLIED_REPORT_PATH = (
+    ENRICHMENT_DIR
+    / "reports"
+    / "bereishis_1_6_to_1_13_morphology_enrichment_yossi_review_applied.md"
+)
+NEXT_VOCAB_APPLIED_REPORT_PATH = (
+    ENRICHMENT_DIR
+    / "reports"
+    / "bereishis_1_6_to_1_13_vocabulary_shoresh_enrichment_yossi_review_applied.md"
+)
+NEXT_STANDARDS_APPLIED_REPORT_PATH = (
+    ENRICHMENT_DIR
+    / "reports"
+    / "bereishis_1_6_to_1_13_standards_enrichment_yossi_review_applied.md"
+)
+NEXT_TOKEN_SPLIT_APPLIED_REPORT_PATH = (
+    ENRICHMENT_DIR
+    / "reports"
+    / "bereishis_1_6_to_1_13_token_split_standards_yossi_review_applied.md"
+)
+NEXT_SLICE_REVIEW_SUMMARY_PATH = (
+    ENRICHMENT_DIR
+    / "reports"
+    / "bereishis_1_6_to_1_13_enrichment_review_summary.md"
+)
+NEXT_MINI_COMPLETION_REPORT_PATH = (
+    ENRICHMENT_DIR
+    / "reports"
+    / "bereishis_1_6_to_1_13_enrichment_mini_completion_report.md"
+)
+NEXT_FOLLOW_UP_INVENTORY_PATH = (
+    ENRICHMENT_DIR
+    / "reports"
+    / "bereishis_1_6_to_1_13_enrichment_follow_up_inventory.md"
 )
 PILOT_COMPLETION_REPORT_PATH = (
     ENRICHMENT_DIR
@@ -375,8 +458,8 @@ def canonical_contract_record_map() -> dict[str, dict[str, object]]:
     }
 
 
-def source_rows_by_id() -> dict[str, dict[str, str]]:
-    _, rows = load_tsv(SOURCE_MAP_PATH)
+def source_rows_by_id(path: Path = SOURCE_MAP_PATH) -> dict[str, dict[str, str]]:
+    _, rows = load_tsv(path)
     return {f"row_{index:03d}": row for index, row in enumerate(rows, 1)}
 
 
@@ -414,8 +497,14 @@ def validate_required_files(errors: list[str]) -> None:
         STANDARDS_PATH,
         VOCABULARY_PATH,
         SOURCE_MAP_PATH,
+        NEXT_SOURCE_MAP_PATH,
+        NEXT_MORPHOLOGY_PATH,
+        NEXT_STANDARDS_PATH,
+        NEXT_VOCABULARY_PATH,
     ]
     for md_path, csv_path in REVIEW_SHEETS.values():
+        required.extend([md_path, csv_path])
+    for md_path, csv_path in NEXT_REVIEW_SHEETS.values():
         required.extend([md_path, csv_path])
     required.extend(APPLIED_REVIEW_REPORTS.values())
     required.extend([FOLLOW_UP_INVENTORY_PATH, FOLLOW_UP_REVIEW_MD_PATH, FOLLOW_UP_REVIEW_CSV_PATH])
@@ -426,6 +515,17 @@ def validate_required_files(errors: list[str]) -> None:
             TOKEN_SPLIT_REVIEW_MD_PATH,
             TOKEN_SPLIT_REVIEW_CSV_PATH,
             TOKEN_SPLIT_APPLIED_REPORT_PATH,
+            NEXT_TOKEN_SPLIT_STANDARDS_PATH,
+            NEXT_TOKEN_SPLIT_REVIEW_MD_PATH,
+            NEXT_TOKEN_SPLIT_REVIEW_CSV_PATH,
+            NEXT_GENERATION_REPORT_PATH,
+            NEXT_MORPHOLOGY_APPLIED_REPORT_PATH,
+            NEXT_VOCAB_APPLIED_REPORT_PATH,
+            NEXT_STANDARDS_APPLIED_REPORT_PATH,
+            NEXT_TOKEN_SPLIT_APPLIED_REPORT_PATH,
+            NEXT_SLICE_REVIEW_SUMMARY_PATH,
+            NEXT_MINI_COMPLETION_REPORT_PATH,
+            NEXT_FOLLOW_UP_INVENTORY_PATH,
             PILOT_COMPLETION_REPORT_PATH,
             CONTRACT_PATH,
         ]
@@ -446,11 +546,11 @@ def validate_candidate_rows(
     path: Path,
     rows: list[dict[str, str]],
     source_rows: dict[str, dict[str, str]],
+    expected_source_map: str,
     proposed_columns: list[str],
     errors: list[str],
 ) -> None:
     seen: set[str] = set()
-    expected_source_map = repo_relative(SOURCE_MAP_PATH)
     for row in rows:
         candidate_id = row.get("candidate_id", "")
         context = f"{repo_relative(path)} candidate {candidate_id or '<blank>'}"
@@ -936,8 +1036,24 @@ def validate_reports(errors: list[str]) -> None:
             "reports/bereishis_1_1_to_1_5_enrichment_pilot_completion_report.md",
             "pilot is completed as a pattern, not fully resolved",
             "no question/protected-preview/reviewed-bank/runtime approval exists",
-            "original phrase-level standards candidates remain in place as unresolved parent rows",
-            "7 are `yossi_enrichment_verified`, and 3 remain `needs_follow_up`",
+            "Bereishis 1:6-1:13 Review-Applied Slice",
+            "enrichment review only",
+            "all gates remain closed",
+            "bereishis_1_6_to_1_13_morphology_candidates.tsv",
+            "bereishis_1_6_to_1_13_vocabulary_shoresh_candidates.tsv",
+            "bereishis_1_6_to_1_13_standards_candidates.tsv",
+            "bereishis_1_6_to_1_13_token_split_standards_candidates.tsv",
+            "bereishis_1_6_to_1_13_enrichment_candidate_generation_report.md",
+            "bereishis_1_6_to_1_13_morphology_enrichment_yossi_review_applied.md",
+            "bereishis_1_6_to_1_13_vocabulary_shoresh_enrichment_yossi_review_applied.md",
+            "bereishis_1_6_to_1_13_standards_enrichment_yossi_review_applied.md",
+            "bereishis_1_6_to_1_13_token_split_standards_yossi_review_applied.md",
+            "bereishis_1_6_to_1_13_enrichment_review_summary.md",
+            "bereishis_1_6_to_1_13_enrichment_mini_completion_report.md",
+            "verified: 14",
+            "needs_follow_up: 18",
+            "Unresolved items remain follow-up by design",
+            "next recommended slice is Bereishis 1:14-1:23",
         ):
             if phrase not in text:
                 errors.append(f"{repo_relative(README_PATH)} missing required enrichment policy phrase: {phrase!r}")
@@ -1048,26 +1164,413 @@ def validate_pilot_completion_report(
             errors.append(f"{repo_relative(PILOT_COMPLETION_REPORT_PATH)} missing follow-up item {phrase!r}")
 
 
+def validate_source_map_readiness(path: Path, errors: list[str]) -> None:
+    _, rows = load_tsv(path)
+    for index, row in enumerate(rows, 1):
+        context = f"{repo_relative(path)} row_{index:03d}"
+        if row.get("extraction_review_status") != "yossi_extraction_verified":
+            errors.append(f"{context}: extraction_review_status must be yossi_extraction_verified")
+        if row.get("question_allowed") != "needs_review":
+            errors.append(f"{context}: question_allowed must remain needs_review")
+        if row.get("runtime_allowed") != "false":
+            errors.append(f"{context}: runtime_allowed must remain false")
+        if row.get("protected_preview_allowed") != "false":
+            errors.append(f"{context}: protected_preview_allowed must remain false")
+        if row.get("reviewed_bank_allowed") != "false":
+            errors.append(f"{context}: reviewed_bank_allowed must remain false")
+
+
+def validate_pending_review_sheet_bundle(
+    *,
+    label: str,
+    rows: list[dict[str, str]],
+    md_path: Path,
+    csv_path: Path,
+    errors: list[str],
+) -> None:
+    text = md_path.read_text(encoding="utf-8")
+    if "Yossi is reviewing enrichment candidates only." not in text:
+        errors.append(f"{repo_relative(md_path)} must say Yossi is reviewing enrichment candidates only")
+    if SAFETY_WARNING_PHRASES[0] not in text or "This is enrichment review only." not in text:
+        errors.append(f"{repo_relative(md_path)} missing enrichment review safety warning")
+    for decision in ALLOWED_YOSSI_DECISIONS - {""}:
+        if f"`{decision}`" not in text:
+            errors.append(f"{repo_relative(md_path)} missing allowed decision: {decision}")
+
+    if not csv_path.read_bytes().startswith(b"\xef\xbb\xbf"):
+        errors.append(f"{repo_relative(csv_path)} must be UTF-8-BOM encoded")
+    columns, csv_rows = load_csv(csv_path)
+    validate_columns(csv_path, columns, REVIEW_CSV_COLUMNS, errors)
+    candidate_ids = {row["candidate_id"] for row in rows}
+    csv_ids = {row.get("candidate_id", "") for row in csv_rows}
+    if csv_ids != candidate_ids:
+        missing = sorted(candidate_ids - csv_ids)
+        extra = sorted(csv_ids - candidate_ids)
+        errors.append(
+            f"{repo_relative(csv_path)} must list exactly the pending review candidates; missing={missing}, extra={extra}"
+        )
+    rows_by_id = {row["candidate_id"]: row for row in rows}
+    for row in csv_rows:
+        context = f"{repo_relative(csv_path)} candidate {row.get('candidate_id', '<blank>')}"
+        if row.get("recommended_default_decision") not in ALLOWED_YOSSI_DECISIONS - {""}:
+            errors.append(f"{context}: recommended_default_decision is not allowed")
+        token = row.get("hebrew_token", "")
+        if token and "?" in token:
+            errors.append(f"{context}: hebrew_token must render real Hebrew, not placeholder question marks")
+        warning = row.get("safety_warning", "").lower()
+        for phrase in ("question approval", "runtime approval", "student-facing approval"):
+            if phrase not in warning:
+                errors.append(f"{context}: safety_warning must include {phrase!r}")
+        source_row = rows_by_id.get(row.get("candidate_id", ""))
+        if source_row is None:
+            continue
+        if row.get("ref") != source_row.get("ref"):
+            errors.append(f"{context}: ref must match the candidate TSV")
+        if row.get("hebrew_phrase") != source_row.get("hebrew_phrase"):
+            errors.append(f"{context}: hebrew_phrase must match the candidate TSV")
+        if row.get("hebrew_token", "") != source_row.get("hebrew_token", ""):
+            errors.append(f"{context}: hebrew_token must match the candidate TSV")
+        if not row.get("proposed_values", "").strip():
+            errors.append(f"{context}: proposed_values must be populated")
+
+
+def validate_next_slice_token_split_artifacts(
+    *,
+    standards_rows: list[dict[str, str]],
+    source_rows: dict[str, dict[str, str]],
+    errors: list[str],
+) -> list[dict[str, str]]:
+    columns, rows = load_tsv(NEXT_TOKEN_SPLIT_STANDARDS_PATH)
+    validate_columns(NEXT_TOKEN_SPLIT_STANDARDS_PATH, columns, TOKEN_SPLIT_STANDARDS_COLUMNS, errors)
+    expected_source_map = repo_relative(NEXT_SOURCE_MAP_PATH)
+    canonical_skills = canonical_contract_skill_ids()
+    canonical_records = canonical_contract_record_map()
+    canonical_standards = canonical_contract_standard_ids()
+    parent_rows = {row["candidate_id"]: row for row in standards_rows}
+    seen_ids: set[str] = set()
+
+    for row in rows:
+        context = f"{repo_relative(NEXT_TOKEN_SPLIT_STANDARDS_PATH)} candidate {row.get('candidate_id', '<blank>')}"
+        candidate_id = row.get("candidate_id", "").strip()
+        if not candidate_id:
+            errors.append(f"{context}: candidate_id must be populated")
+        elif candidate_id in seen_ids:
+            errors.append(f"{context}: duplicate candidate_id")
+        else:
+            seen_ids.add(candidate_id)
+        parent_candidate_id = row.get("parent_candidate_id", "").strip()
+        if parent_candidate_id not in parent_rows:
+            errors.append(f"{context}: parent_candidate_id must reference an existing next-slice phrase-level standards candidate")
+        if row.get("source_map_file") != expected_source_map:
+            errors.append(f"{context}: source_map_file must match the Bereishis 1:6-1:13 proof map")
+        source_row_id = row.get("source_row_id", "")
+        source_row = source_rows.get(source_row_id)
+        if not source_row:
+            errors.append(f"{context}: source_row_id must reference an existing next-slice source row")
+            continue
+        if row.get("ref") != source_row.get("ref"):
+            errors.append(f"{context}: ref must match the linked source row")
+        if row.get("hebrew_phrase") != source_row.get("hebrew_word_or_phrase"):
+            errors.append(f"{context}: hebrew_phrase must match the linked source row")
+        if not row.get("hebrew_token", "").strip() or "?" in row.get("hebrew_token", ""):
+            errors.append(f"{context}: hebrew_token must contain real Hebrew")
+        if not row.get("clean_hebrew_no_nikud", "").strip() or "?" in row.get("clean_hebrew_no_nikud", ""):
+            errors.append(f"{context}: clean_hebrew_no_nikud must contain real Hebrew")
+        try:
+            if int(row.get("token_index", "0")) <= 0:
+                errors.append(f"{context}: token_index must be a positive integer")
+        except ValueError:
+            errors.append(f"{context}: token_index must be a positive integer")
+        canonical_skill_id = row.get("canonical_skill_id", "").strip()
+        if canonical_skill_id not in canonical_skills:
+            errors.append(f"{context}: unknown canonical_skill_id {canonical_skill_id!r}")
+        canonical_standard_anchor = row.get("canonical_standard_anchor", "").strip()
+        if canonical_standard_anchor not in canonical_standards:
+            errors.append(f"{context}: canonical_standard_anchor must map through the canonical contract")
+        if row.get("proposed_zekelman_standard", "").strip() != canonical_standard_anchor:
+            errors.append(f"{context}: proposed_zekelman_standard must match canonical_standard_anchor")
+        record = canonical_records.get(canonical_skill_id)
+        if record is not None and canonical_standard_anchor not in record.get("related_zekelman_standard_ids", []):
+            errors.append(f"{context}: canonical_standard_anchor is not supported by canonical_skill_id")
+        if row.get("confidence") not in ALLOWED_CONFIDENCE:
+            errors.append(f"{context}: confidence must be one of {sorted(ALLOWED_CONFIDENCE)}")
+        if row.get("question_allowed") != "needs_review":
+            errors.append(f"{context}: question_allowed must remain needs_review")
+        if row.get("protected_preview_allowed") != "false":
+            errors.append(f"{context}: protected_preview_allowed must remain false")
+        if row.get("reviewed_bank_allowed") != "false":
+            errors.append(f"{context}: reviewed_bank_allowed must remain false")
+        if row.get("runtime_allowed") != "false":
+            errors.append(f"{context}: runtime_allowed must remain false")
+
+    md_text = NEXT_TOKEN_SPLIT_REVIEW_MD_PATH.read_text(encoding="utf-8")
+    if "This is enrichment review only." not in md_text:
+        errors.append(f"{repo_relative(NEXT_TOKEN_SPLIT_REVIEW_MD_PATH)} missing token-split enrichment review warning")
+    if "???" in md_text:
+        errors.append(f"{repo_relative(NEXT_TOKEN_SPLIT_REVIEW_MD_PATH)} must render real Hebrew rather than placeholders")
+    for decision in ALLOWED_TOKEN_SPLIT_RECOMMENDED_DECISIONS:
+        if f"`{decision}`" not in md_text:
+            errors.append(f"{repo_relative(NEXT_TOKEN_SPLIT_REVIEW_MD_PATH)} missing allowed decision: {decision}")
+
+    if not NEXT_TOKEN_SPLIT_REVIEW_CSV_PATH.read_bytes().startswith(b"\xef\xbb\xbf"):
+        errors.append(f"{repo_relative(NEXT_TOKEN_SPLIT_REVIEW_CSV_PATH)} must be UTF-8-BOM encoded")
+    csv_columns, csv_rows = load_csv(NEXT_TOKEN_SPLIT_REVIEW_CSV_PATH)
+    validate_columns(NEXT_TOKEN_SPLIT_REVIEW_CSV_PATH, csv_columns, TOKEN_SPLIT_REVIEW_CSV_COLUMNS, errors)
+    candidate_ids = {row["candidate_id"] for row in rows}
+    csv_ids = {row.get("candidate_id", "") for row in csv_rows}
+    if csv_ids != candidate_ids:
+        missing = sorted(candidate_ids - csv_ids)
+        extra = sorted(csv_ids - candidate_ids)
+        errors.append(
+            f"{repo_relative(NEXT_TOKEN_SPLIT_REVIEW_CSV_PATH)} must list exactly the next-slice token-split candidates; missing={missing}, extra={extra}"
+        )
+    rows_by_id = {row["candidate_id"]: row for row in rows}
+    for row in csv_rows:
+        context = f"{repo_relative(NEXT_TOKEN_SPLIT_REVIEW_CSV_PATH)} candidate {row.get('candidate_id', '<blank>')}"
+        if "?" in row.get("hebrew_token", ""):
+            errors.append(f"{context}: hebrew_token must contain real Hebrew")
+        if row.get("recommended_decision") not in ALLOWED_TOKEN_SPLIT_RECOMMENDED_DECISIONS:
+            errors.append(f"{context}: recommended_decision is not allowed")
+        source_row = rows_by_id.get(row.get("candidate_id", ""))
+        if source_row is None:
+            continue
+        if row.get("canonical_skill_id") != source_row.get("canonical_skill_id"):
+            errors.append(f"{context}: canonical_skill_id must match the token-split TSV")
+        if row.get("canonical_standard_anchor") != source_row.get("canonical_standard_anchor"):
+            errors.append(f"{context}: canonical_standard_anchor must match the token-split TSV")
+    return rows
+
+
+def validate_next_slice_generation_report(
+    *,
+    morphology_rows: list[dict[str, str]],
+    vocabulary_rows: list[dict[str, str]],
+    standards_rows: list[dict[str, str]],
+    token_split_rows: list[dict[str, str]],
+    errors: list[str],
+) -> None:
+    text = NEXT_GENERATION_REPORT_PATH.read_text(encoding="utf-8")
+    follow_up_count = sum(
+        1
+        for row in morphology_rows + vocabulary_rows + standards_rows + token_split_rows
+        if row.get("enrichment_review_status") == "needs_follow_up"
+    )
+    for phrase in (
+        "Bereishis 1:6-1:13 Enrichment Candidate Generation Report",
+        repo_relative(NEXT_SOURCE_MAP_PATH),
+        f"- morphology: {len(morphology_rows)}",
+        f"- vocabulary_shoresh: {len(vocabulary_rows)}",
+        f"- standards: {len(standards_rows)}",
+        f"- token_split_standards: {len(token_split_rows)}",
+        f"- candidates currently marked `needs_follow_up`: {follow_up_count}",
+        "token-split rows are review-only and safety-closed",
+        "canonical skill ids and canonical standard anchors",
+        "question_allowed = needs_review",
+        "protected_preview_allowed = false",
+        "reviewed_bank_allowed = false",
+        "runtime_allowed = false",
+        "Next Yossi Action",
+    ):
+        if phrase not in text:
+            errors.append(f"{repo_relative(NEXT_GENERATION_REPORT_PATH)} missing required phrase: {phrase!r}")
+
+
+def validate_next_slice_review_applied_reports(
+    *,
+    morphology_rows: list[dict[str, str]],
+    vocabulary_rows: list[dict[str, str]],
+    standards_rows: list[dict[str, str]],
+    token_split_rows: list[dict[str, str]],
+    errors: list[str],
+) -> None:
+    report_specs = (
+        (
+            NEXT_MORPHOLOGY_APPLIED_REPORT_PATH,
+            len(morphology_rows),
+            review_status_counts(morphology_rows)["yossi_enrichment_verified"],
+            review_status_counts(morphology_rows)["needs_follow_up"],
+        ),
+        (
+            NEXT_VOCAB_APPLIED_REPORT_PATH,
+            len(vocabulary_rows),
+            review_status_counts(vocabulary_rows)["yossi_enrichment_verified"],
+            review_status_counts(vocabulary_rows)["needs_follow_up"],
+        ),
+        (
+            NEXT_STANDARDS_APPLIED_REPORT_PATH,
+            len(standards_rows),
+            review_status_counts(standards_rows)["yossi_enrichment_verified"],
+            review_status_counts(standards_rows)["needs_follow_up"],
+        ),
+        (
+            NEXT_TOKEN_SPLIT_APPLIED_REPORT_PATH,
+            len(token_split_rows),
+            review_status_counts(token_split_rows)["yossi_enrichment_verified"],
+            review_status_counts(token_split_rows)["needs_follow_up"],
+        ),
+    )
+    for path, total, verified, follow_up in report_specs:
+        text = path.read_text(encoding="utf-8")
+        for phrase in (
+            f"- total candidates reviewed: {total}",
+            f"- verified count: {verified}",
+            f"- needs_follow_up count: {follow_up}",
+            "Safety gate confirmation",
+            "question_allowed = needs_review",
+            "protected_preview_allowed = false",
+            "reviewed_bank_allowed = false",
+            "runtime_allowed = false",
+            "What was not approved",
+        ):
+            if phrase not in text:
+                errors.append(f"{repo_relative(path)} missing required phrase: {phrase!r}")
+
+
+def validate_next_slice_review_summary(
+    *,
+    morphology_rows: list[dict[str, str]],
+    vocabulary_rows: list[dict[str, str]],
+    standards_rows: list[dict[str, str]],
+    token_split_rows: list[dict[str, str]],
+    errors: list[str],
+) -> None:
+    text = NEXT_SLICE_REVIEW_SUMMARY_PATH.read_text(encoding="utf-8")
+    total = len(morphology_rows) + len(vocabulary_rows) + len(standards_rows) + len(token_split_rows)
+    m_counts = review_status_counts(morphology_rows)
+    v_counts = review_status_counts(vocabulary_rows)
+    s_counts = review_status_counts(standards_rows)
+    ts_counts = review_status_counts(token_split_rows)
+    verified = (
+        m_counts["yossi_enrichment_verified"]
+        + v_counts["yossi_enrichment_verified"]
+        + s_counts["yossi_enrichment_verified"]
+        + ts_counts["yossi_enrichment_verified"]
+    )
+    follow_up = (
+        m_counts["needs_follow_up"]
+        + v_counts["needs_follow_up"]
+        + s_counts["needs_follow_up"]
+        + ts_counts["needs_follow_up"]
+    )
+    required_phrases = (
+        "Bereishis 1:6-1:13 Enrichment Review Summary",
+        f"- total candidates: {total}",
+        f"- total verified: {verified}",
+        f"- total needs_follow_up: {follow_up}",
+        f"- morphology: verified={m_counts['yossi_enrichment_verified']}, needs_follow_up={m_counts['needs_follow_up']}",
+        f"- vocabulary_shoresh: verified={v_counts['yossi_enrichment_verified']}, needs_follow_up={v_counts['needs_follow_up']}",
+        f"- phrase_level_standards: verified={s_counts['yossi_enrichment_verified']}, needs_follow_up={s_counts['needs_follow_up']}",
+        f"- token_split_standards: verified={ts_counts['yossi_enrichment_verified']}, needs_follow_up={ts_counts['needs_follow_up']}",
+        "jussive/future verb forms",
+        "vav-hahipuch and stem uncertainty",
+        "prefix/preposition standard mapping",
+        "contextual vocabulary such as ימים and יבשה",
+        "phrase-level standards rows remain superseded by token-split rows",
+        "question_allowed = needs_review",
+        "protected_preview_allowed = false",
+        "reviewed_bank_allowed = false",
+        "runtime_allowed = false",
+    )
+    for phrase in required_phrases:
+        if phrase not in text:
+            errors.append(f"{repo_relative(NEXT_SLICE_REVIEW_SUMMARY_PATH)} missing required phrase: {phrase!r}")
+
+    followup_text = NEXT_FOLLOW_UP_INVENTORY_PATH.read_text(encoding="utf-8")
+    for phrase in (
+        "Bereishis 1:6-1:13 Enrichment Follow-Up Inventory",
+        "Morphology follow-up",
+        "Vocabulary/shoresh follow-up",
+        "Phrase-level standards follow-up",
+        "Token-split standards follow-up",
+        "question_allowed = needs_review",
+        "protected_preview_allowed = false",
+        "reviewed_bank_allowed = false",
+        "runtime_allowed = false",
+    ):
+        if phrase not in followup_text:
+            errors.append(f"{repo_relative(NEXT_FOLLOW_UP_INVENTORY_PATH)} missing required phrase: {phrase!r}")
+
+
+def validate_next_slice_mini_completion_report(
+    *,
+    morphology_rows: list[dict[str, str]],
+    vocabulary_rows: list[dict[str, str]],
+    standards_rows: list[dict[str, str]],
+    token_split_rows: list[dict[str, str]],
+    errors: list[str],
+) -> None:
+    text = NEXT_MINI_COMPLETION_REPORT_PATH.read_text(encoding="utf-8")
+    m_counts = review_status_counts(morphology_rows)
+    v_counts = review_status_counts(vocabulary_rows)
+    s_counts = review_status_counts(standards_rows)
+    ts_counts = review_status_counts(token_split_rows)
+    total = len(morphology_rows) + len(vocabulary_rows) + len(standards_rows) + len(token_split_rows)
+    verified = (
+        m_counts["yossi_enrichment_verified"]
+        + v_counts["yossi_enrichment_verified"]
+        + s_counts["yossi_enrichment_verified"]
+        + ts_counts["yossi_enrichment_verified"]
+    )
+    follow_up = (
+        m_counts["needs_follow_up"]
+        + v_counts["needs_follow_up"]
+        + s_counts["needs_follow_up"]
+        + ts_counts["needs_follow_up"]
+    )
+    required_phrases = (
+        "Bereishis 1:6-1:13 Enrichment Mini-Completion Report",
+        "question generation remains blocked",
+        "protected-preview remains blocked",
+        "reviewed bank remains blocked",
+        "runtime remains blocked",
+        "student-facing use remains blocked",
+        "not question approval",
+        "not protected-preview approval",
+        "not reviewed-bank approval",
+        "not runtime approval",
+        "not student-facing approval",
+        "not answer-key approval",
+        "Bereishis 1:14-1:23",
+        f"| morphology | {len(morphology_rows)} | {m_counts['yossi_enrichment_verified']} | {m_counts['needs_follow_up']} | {m_counts['source_only']} | {m_counts['blocked_unclear_evidence']} |",
+        f"| vocabulary/shoresh | {len(vocabulary_rows)} | {v_counts['yossi_enrichment_verified']} | {v_counts['needs_follow_up']} | {v_counts['source_only']} | {v_counts['blocked_unclear_evidence']} |",
+        f"| phrase-level standards | {len(standards_rows)} | {s_counts['yossi_enrichment_verified']} | {s_counts['needs_follow_up']} | {s_counts['source_only']} | {s_counts['blocked_unclear_evidence']} |",
+        f"| token-split standards | {len(token_split_rows)} | {ts_counts['yossi_enrichment_verified']} | {ts_counts['needs_follow_up']} | {ts_counts['source_only']} | {ts_counts['blocked_unclear_evidence']} |",
+        f"| total | {total} | {verified} | {follow_up} | 0 | 0 |",
+    )
+    for phrase in required_phrases:
+        if phrase not in text:
+            errors.append(f"{repo_relative(NEXT_MINI_COMPLETION_REPORT_PATH)} missing required phrase: {phrase!r}")
+
+
 def validate_source_skill_enrichment() -> dict[str, object]:
     errors: list[str] = []
     validate_required_files(errors)
     if errors:
         return {"valid": False, "errors": errors}
 
-    source_rows = source_rows_by_id()
+    source_rows = source_rows_by_id(SOURCE_MAP_PATH)
+    next_source_rows = source_rows_by_id(NEXT_SOURCE_MAP_PATH)
+    validate_source_map_readiness(NEXT_SOURCE_MAP_PATH, errors)
 
     morphology_columns, morphology_rows = load_tsv(MORPHOLOGY_PATH)
     standards_columns, standards_rows = load_tsv(STANDARDS_PATH)
     vocabulary_columns, vocabulary_rows = load_tsv(VOCABULARY_PATH)
+    next_morphology_columns, next_morphology_rows = load_tsv(NEXT_MORPHOLOGY_PATH)
+    next_standards_columns, next_standards_rows = load_tsv(NEXT_STANDARDS_PATH)
+    next_vocabulary_columns, next_vocabulary_rows = load_tsv(NEXT_VOCABULARY_PATH)
 
     validate_columns(MORPHOLOGY_PATH, morphology_columns, MORPHOLOGY_COLUMNS, errors)
     validate_columns(STANDARDS_PATH, standards_columns, STANDARDS_COLUMNS, errors)
     validate_columns(VOCABULARY_PATH, vocabulary_columns, VOCABULARY_COLUMNS, errors)
+    validate_columns(NEXT_MORPHOLOGY_PATH, next_morphology_columns, MORPHOLOGY_COLUMNS, errors)
+    validate_columns(NEXT_STANDARDS_PATH, next_standards_columns, STANDARDS_COLUMNS, errors)
+    validate_columns(NEXT_VOCABULARY_PATH, next_vocabulary_columns, VOCABULARY_COLUMNS, errors)
 
     validate_candidate_rows(
         path=MORPHOLOGY_PATH,
         rows=morphology_rows,
         source_rows=source_rows,
+        expected_source_map=repo_relative(SOURCE_MAP_PATH),
         proposed_columns=[
             "proposed_shoresh",
             "proposed_prefixes",
@@ -1085,6 +1588,7 @@ def validate_source_skill_enrichment() -> dict[str, object]:
         path=STANDARDS_PATH,
         rows=standards_rows,
         source_rows=source_rows,
+        expected_source_map=repo_relative(SOURCE_MAP_PATH),
         proposed_columns=["proposed_skill_id", "proposed_zekelman_standard", "proposed_standard_level"],
         errors=errors,
     )
@@ -1092,12 +1596,59 @@ def validate_source_skill_enrichment() -> dict[str, object]:
         path=VOCABULARY_PATH,
         rows=vocabulary_rows,
         source_rows=source_rows,
+        expected_source_map=repo_relative(SOURCE_MAP_PATH),
+        proposed_columns=["proposed_translation", "proposed_shoresh_or_keyword", "proposed_vocabulary_category"],
+        errors=errors,
+    )
+    validate_candidate_rows(
+        path=NEXT_MORPHOLOGY_PATH,
+        rows=next_morphology_rows,
+        source_rows=next_source_rows,
+        expected_source_map=repo_relative(NEXT_SOURCE_MAP_PATH),
+        proposed_columns=[
+            "proposed_shoresh",
+            "proposed_prefixes",
+            "proposed_suffixes",
+            "proposed_tense",
+            "proposed_person",
+            "proposed_gender",
+            "proposed_number",
+            "proposed_part_of_speech",
+            "proposed_dikduk_feature",
+        ],
+        errors=errors,
+    )
+    validate_candidate_rows(
+        path=NEXT_STANDARDS_PATH,
+        rows=next_standards_rows,
+        source_rows=next_source_rows,
+        expected_source_map=repo_relative(NEXT_SOURCE_MAP_PATH),
+        proposed_columns=["proposed_skill_id", "proposed_zekelman_standard", "proposed_standard_level"],
+        errors=errors,
+    )
+    validate_candidate_rows(
+        path=NEXT_VOCABULARY_PATH,
+        rows=next_vocabulary_rows,
+        source_rows=next_source_rows,
+        expected_source_map=repo_relative(NEXT_SOURCE_MAP_PATH),
         proposed_columns=["proposed_translation", "proposed_shoresh_or_keyword", "proposed_vocabulary_category"],
         errors=errors,
     )
     validate_review_sheets(errors)
+    for label, (md_path, csv_path) in NEXT_REVIEW_SHEETS.items():
+        rows = {
+            "morphology": next_morphology_rows,
+            "standards": next_standards_rows,
+            "vocabulary_shoresh": next_vocabulary_rows,
+        }[label]
+        validate_pending_review_sheet_bundle(label=label, rows=rows, md_path=md_path, csv_path=csv_path, errors=errors)
     token_split_rows = validate_token_split_standards_artifacts(
         standards_rows=standards_rows,
+        errors=errors,
+    )
+    next_token_split_rows = validate_next_slice_token_split_artifacts(
+        standards_rows=next_standards_rows,
+        source_rows=next_source_rows,
         errors=errors,
     )
     validate_follow_up_artifacts(
@@ -1114,6 +1665,68 @@ def validate_source_skill_enrichment() -> dict[str, object]:
         token_split_rows=token_split_rows,
         errors=errors,
     )
+    validate_next_slice_generation_report(
+        morphology_rows=next_morphology_rows,
+        vocabulary_rows=next_vocabulary_rows,
+        standards_rows=next_standards_rows,
+        token_split_rows=next_token_split_rows,
+        errors=errors,
+    )
+    validate_next_slice_review_applied_reports(
+        morphology_rows=next_morphology_rows,
+        vocabulary_rows=next_vocabulary_rows,
+        standards_rows=next_standards_rows,
+        token_split_rows=next_token_split_rows,
+        errors=errors,
+    )
+    validate_next_slice_review_summary(
+        morphology_rows=next_morphology_rows,
+        vocabulary_rows=next_vocabulary_rows,
+        standards_rows=next_standards_rows,
+        token_split_rows=next_token_split_rows,
+        errors=errors,
+    )
+    validate_next_slice_mini_completion_report(
+        morphology_rows=next_morphology_rows,
+        vocabulary_rows=next_vocabulary_rows,
+        standards_rows=next_standards_rows,
+        token_split_rows=next_token_split_rows,
+        errors=errors,
+    )
+
+    next_morph_counts = review_status_counts(next_morphology_rows)
+    next_vocab_counts = review_status_counts(next_vocabulary_rows)
+    next_standards_counts = review_status_counts(next_standards_rows)
+    next_token_counts = review_status_counts(next_token_split_rows)
+    expected_review_counts = (
+        ("morphology", next_morph_counts, 3, 4),
+        ("vocabulary_shoresh", next_vocab_counts, 5, 1),
+        ("phrase_level_standards", next_standards_counts, 0, 6),
+        ("token_split_standards", next_token_counts, 6, 7),
+    )
+    for label, counts, verified_expected, follow_up_expected in expected_review_counts:
+        if counts["yossi_enrichment_verified"] != verified_expected:
+            errors.append(
+                f"{label}: expected {verified_expected} yossi_enrichment_verified rows, found {counts['yossi_enrichment_verified']}"
+            )
+        if counts["needs_follow_up"] != follow_up_expected:
+            errors.append(f"{label}: expected {follow_up_expected} needs_follow_up rows, found {counts['needs_follow_up']}")
+    total_verified = (
+        next_morph_counts["yossi_enrichment_verified"]
+        + next_vocab_counts["yossi_enrichment_verified"]
+        + next_standards_counts["yossi_enrichment_verified"]
+        + next_token_counts["yossi_enrichment_verified"]
+    )
+    total_follow_up = (
+        next_morph_counts["needs_follow_up"]
+        + next_vocab_counts["needs_follow_up"]
+        + next_standards_counts["needs_follow_up"]
+        + next_token_counts["needs_follow_up"]
+    )
+    if total_verified != 14:
+        errors.append(f"next-slice review totals: expected 14 verified rows, found {total_verified}")
+    if total_follow_up != 18:
+        errors.append(f"next-slice review totals: expected 18 follow-up rows, found {total_follow_up}")
 
     return {
         "valid": not errors,
@@ -1139,6 +1752,25 @@ def validate_source_skill_enrichment() -> dict[str, object]:
         "follow_up_candidate_count": sum(
             1 for row in morphology_rows + standards_rows + vocabulary_rows if candidate_is_unresolved(row)
         ),
+        "next_slice_source_map_path": repo_relative(NEXT_SOURCE_MAP_PATH),
+        "next_slice_morphology_candidate_path": repo_relative(NEXT_MORPHOLOGY_PATH),
+        "next_slice_standards_candidate_path": repo_relative(NEXT_STANDARDS_PATH),
+        "next_slice_vocabulary_candidate_path": repo_relative(NEXT_VOCABULARY_PATH),
+        "next_slice_morphology_candidate_count": len(next_morphology_rows),
+        "next_slice_standards_candidate_count": len(next_standards_rows),
+        "next_slice_vocabulary_candidate_count": len(next_vocabulary_rows),
+        "next_slice_token_split_standards_candidate_path": repo_relative(NEXT_TOKEN_SPLIT_STANDARDS_PATH),
+        "next_slice_token_split_standards_candidate_count": len(next_token_split_rows),
+        "next_slice_generation_report_path": repo_relative(NEXT_GENERATION_REPORT_PATH),
+        "next_slice_morphology_applied_report_path": repo_relative(NEXT_MORPHOLOGY_APPLIED_REPORT_PATH),
+        "next_slice_vocabulary_applied_report_path": repo_relative(NEXT_VOCAB_APPLIED_REPORT_PATH),
+        "next_slice_standards_applied_report_path": repo_relative(NEXT_STANDARDS_APPLIED_REPORT_PATH),
+        "next_slice_token_split_applied_report_path": repo_relative(NEXT_TOKEN_SPLIT_APPLIED_REPORT_PATH),
+        "next_slice_review_summary_path": repo_relative(NEXT_SLICE_REVIEW_SUMMARY_PATH),
+        "next_slice_mini_completion_report_path": repo_relative(NEXT_MINI_COMPLETION_REPORT_PATH),
+        "next_slice_follow_up_inventory_path": repo_relative(NEXT_FOLLOW_UP_INVENTORY_PATH),
+        "next_slice_total_verified": total_verified,
+        "next_slice_total_needs_follow_up": total_follow_up,
         "errors": errors,
     }
 
