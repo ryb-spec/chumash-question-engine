@@ -123,6 +123,23 @@ Token-split standards cleanup artifacts:
 - `reports/bereishis_1_1_to_1_5_token_split_standards_yossi_review_sheet.md`
 - `reports/bereishis_1_1_to_1_5_token_split_standards_yossi_review_sheet.csv`
 - `reports/bereishis_1_1_to_1_5_token_split_standards_yossi_review_applied.md`
+
+## Pilot Completion Milestone
+
+The Bereishis 1:1-1:5 enrichment pilot is completed as a pattern, not fully resolved as a slice. Unresolved items remain follow-up only, all safety gates are closed, and no question/protected-preview/reviewed-bank/runtime approval exists.
+
+Completion milestone report:
+
+- `reports/bereishis_1_1_to_1_5_enrichment_pilot_completion_report.md`
+
+Outstanding follow-up retained by design:
+
+- `וחשך`
+- `יהי`
+- `שמים`
+- prefixed `ל`
+- original phrase-level standards candidates remain in place as unresolved parent rows until later review decisions narrow or replace them
+
 ## Source Priority
 
 For morphology enrichment, prefer Dikduk review sheets/workbooks, Loshon Hakodesh/Loshon HaTorah resources, Parsha Pshat Dikduk curriculum, First 150 Shorashim and Keywords in Bereishis, General Chumash Skills Workbook, then internal skill alignment docs.

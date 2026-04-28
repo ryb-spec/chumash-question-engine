@@ -101,6 +101,11 @@ TOKEN_SPLIT_APPLIED_REPORT_PATH = (
     / "reports"
     / "bereishis_1_1_to_1_5_token_split_standards_yossi_review_applied.md"
 )
+PILOT_COMPLETION_REPORT_PATH = (
+    ENRICHMENT_DIR
+    / "reports"
+    / "bereishis_1_1_to_1_5_enrichment_pilot_completion_report.md"
+)
 
 MORPHOLOGY_COLUMNS = [
     "candidate_id",
@@ -298,6 +303,12 @@ SAFETY_WARNING_PHRASES = (
     "not student-facing approval",
 )
 FORBIDDEN_READY_VALUES = {"true", "yes", "approved", "runtime-ready", "question-ready", "student-facing"}
+SAFETY_GATES_SUMMARY = (
+    "question_allowed:needs_review/"
+    "protected_preview_allowed:false/"
+    "reviewed_bank_allowed:false/"
+    "runtime_allowed:false"
+)
 
 
 def repo_relative(path: Path) -> str:
@@ -373,6 +384,28 @@ def has_claim(row: dict[str, str], proposed_columns: Iterable[str]) -> bool:
     return any((row.get(column) or "").strip() for column in proposed_columns)
 
 
+def review_status_counts(rows: list[dict[str, str]]) -> dict[str, int]:
+    counts = {
+        "yossi_enrichment_verified": 0,
+        "needs_follow_up": 0,
+        "source_only": 0,
+        "blocked_unclear_evidence": 0,
+    }
+    for row in rows:
+        status = row.get("enrichment_review_status", "")
+        if status in counts:
+            counts[status] += 1
+    return counts
+
+
+def superseded_phrase_level_count(rows: list[dict[str, str]]) -> int:
+    return sum(
+        1
+        for row in rows
+        if "superseded by token-split follow-up candidates" in row.get("evidence_note", "").lower()
+    )
+
+
 def validate_required_files(errors: list[str]) -> None:
     required = [
         README_PATH,
@@ -393,6 +426,7 @@ def validate_required_files(errors: list[str]) -> None:
             TOKEN_SPLIT_REVIEW_MD_PATH,
             TOKEN_SPLIT_REVIEW_CSV_PATH,
             TOKEN_SPLIT_APPLIED_REPORT_PATH,
+            PILOT_COMPLETION_REPORT_PATH,
             CONTRACT_PATH,
         ]
     )
@@ -898,6 +932,10 @@ def validate_reports(errors: list[str]) -> None:
             "No enrichment candidate may claim question-ready",
             "Pilot Review Status",
             "Token-Split Standards Cleanup",
+            "Pilot Completion Milestone",
+            "reports/bereishis_1_1_to_1_5_enrichment_pilot_completion_report.md",
+            "pilot is completed as a pattern, not fully resolved",
+            "no question/protected-preview/reviewed-bank/runtime approval exists",
             "original phrase-level standards candidates remain in place as unresolved parent rows",
             "7 are `yossi_enrichment_verified`, and 3 remain `needs_follow_up`",
         ):
@@ -921,6 +959,93 @@ def validate_reports(errors: list[str]) -> None:
                     errors.append(f"{repo_relative(path)} missing applied-review safety warning phrase: {phrase!r}")
             if "No source-to-skill map rows were changed" not in text:
                 errors.append(f"{repo_relative(path)} must confirm source-to-skill maps were not changed")
+
+
+def validate_pilot_completion_report(
+    *,
+    morphology_rows: list[dict[str, str]],
+    standards_rows: list[dict[str, str]],
+    vocabulary_rows: list[dict[str, str]],
+    token_split_rows: list[dict[str, str]],
+    errors: list[str],
+) -> None:
+    if not PILOT_COMPLETION_REPORT_PATH.exists():
+        return
+
+    text = PILOT_COMPLETION_REPORT_PATH.read_text(encoding="utf-8")
+    for phrase in (
+        "Bereishis 1:1-1:5 now has a reviewed enrichment pilot pattern across morphology, vocabulary/shoresh, and standards.",
+        "source-to-skill maps remain phrase-level extraction truth",
+        "enrichment lives in separate candidate layers",
+        "token-level morphology and standards are handled outside the source-to-skill maps",
+        "canonical skill contract anchors standards and skill IDs",
+        "question eligibility remains a later gate",
+        "Hebrew corruption was detected in the token-split TSV/CSV",
+        "source artifacts were corrected to real UTF-8 Hebrew",
+        "validation now checks real Hebrew rendering",
+        "question generation remains blocked",
+        "protected preview remains blocked",
+        "reviewed bank remains blocked",
+        "runtime remains blocked",
+        "student-facing use remains blocked",
+        "generate candidate rows only from verified source-to-skill rows",
+        "map skill/standard IDs through canonical contract",
+        "use token-level splits for standards where phrase-level row is too broad",
+        "apply only reviewed decisions",
+        "leave uncertain items follow-up",
+        "Bereishis 1:6-1:13",
+        "data/standards/canonical_skill_contract.json",
+    ):
+        if phrase not in text:
+            errors.append(f"{repo_relative(PILOT_COMPLETION_REPORT_PATH)} missing required phrase: {phrase!r}")
+
+    morphology_counts = review_status_counts(morphology_rows)
+    vocabulary_counts = review_status_counts(vocabulary_rows)
+    standards_counts = review_status_counts(standards_rows)
+    token_split_counts = review_status_counts(token_split_rows)
+    expected_lines = (
+        (
+            "morphology",
+            f"- morphology: total={len(morphology_rows)}; verified={morphology_counts['yossi_enrichment_verified']}; "
+            f"needs_follow_up={morphology_counts['needs_follow_up']}; source_only={morphology_counts['source_only']}; "
+            f"blocked={morphology_counts['blocked_unclear_evidence']}; safety_gates={SAFETY_GATES_SUMMARY}"
+        ),
+        (
+            "vocabulary/shoresh",
+            f"- vocabulary_shoresh: total={len(vocabulary_rows)}; verified={vocabulary_counts['yossi_enrichment_verified']}; "
+            f"needs_follow_up={vocabulary_counts['needs_follow_up']}; source_only={vocabulary_counts['source_only']}; "
+            f"blocked={vocabulary_counts['blocked_unclear_evidence']}; safety_gates={SAFETY_GATES_SUMMARY}"
+        ),
+        (
+            "phrase-level standards",
+            f"- phrase_level_standards: total={len(standards_rows)}; verified={standards_counts['yossi_enrichment_verified']}; "
+            f"needs_follow_up={standards_counts['needs_follow_up']}; superseded_unresolved={superseded_phrase_level_count(standards_rows)}; "
+            f"safety_gates={SAFETY_GATES_SUMMARY}"
+        ),
+        (
+            "token-split standards",
+            f"- token_split_standards: total={len(token_split_rows)}; verified={token_split_counts['yossi_enrichment_verified']}; "
+            f"needs_follow_up={token_split_counts['needs_follow_up']}; source_only={token_split_counts['source_only']}; "
+            f"blocked={token_split_counts['blocked_unclear_evidence']}; safety_gates={SAFETY_GATES_SUMMARY}"
+        ),
+    )
+    for label, line in expected_lines:
+        if line not in text:
+            errors.append(f"{repo_relative(PILOT_COMPLETION_REPORT_PATH)} missing or stale {label} count line")
+
+    for phrase in (
+        "וחשך",
+        "יהי",
+        "שמים",
+        "prefixed ל",
+        "std_b1_1_r002",
+        "std_b1_1_r003",
+        "std_b1_3_r013",
+        "std_b1_5_r020",
+        "std_b1_2_r010",
+    ):
+        if phrase not in text:
+            errors.append(f"{repo_relative(PILOT_COMPLETION_REPORT_PATH)} missing follow-up item {phrase!r}")
 
 
 def validate_source_skill_enrichment() -> dict[str, object]:
@@ -982,11 +1107,19 @@ def validate_source_skill_enrichment() -> dict[str, object]:
         errors=errors,
     )
     validate_reports(errors)
+    validate_pilot_completion_report(
+        morphology_rows=morphology_rows,
+        standards_rows=standards_rows,
+        vocabulary_rows=vocabulary_rows,
+        token_split_rows=token_split_rows,
+        errors=errors,
+    )
 
     return {
         "valid": not errors,
         "readme_path": repo_relative(README_PATH),
         "audit_report_path": repo_relative(AUDIT_REPORT_PATH),
+        "pilot_completion_report_path": repo_relative(PILOT_COMPLETION_REPORT_PATH),
         "morphology_candidate_path": repo_relative(MORPHOLOGY_PATH),
         "standards_candidate_path": repo_relative(STANDARDS_PATH),
         "vocabulary_candidate_path": repo_relative(VOCABULARY_PATH),

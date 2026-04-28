@@ -60,6 +60,11 @@ TOKEN_SPLIT_APPLIED_REPORT_PATH = (
     / "reports"
     / "bereishis_1_1_to_1_5_token_split_standards_yossi_review_applied.md"
 )
+PILOT_COMPLETION_REPORT_PATH = (
+    ENRICHMENT_DIR
+    / "reports"
+    / "bereishis_1_1_to_1_5_enrichment_pilot_completion_report.md"
+)
 CONTRACT_PATH = ROOT / "data" / "standards" / "canonical_skill_contract.json"
 
 
@@ -88,6 +93,10 @@ class SourceSkillEnrichmentTests(unittest.TestCase):
         self.assertEqual(summary["review_sheet_count"], 3)
         self.assertEqual(summary["applied_review_report_count"], 3)
         self.assertEqual(summary["follow_up_candidate_count"], 10)
+        self.assertEqual(
+            summary["pilot_completion_report_path"],
+            "data/source_skill_enrichment/reports/bereishis_1_1_to_1_5_enrichment_pilot_completion_report.md",
+        )
 
     def test_enrichment_readme_and_audit_exist(self):
         readme = ENRICHMENT_DIR / "README.md"
@@ -102,9 +111,77 @@ class SourceSkillEnrichmentTests(unittest.TestCase):
         self.assertIn("Pilot Follow-Up Evidence Status", readme_text)
         self.assertIn("10 candidates unresolved before evidence strengthening", readme_text)
         self.assertIn("did not verify any unresolved candidate", readme_text)
+        self.assertIn("Pilot Completion Milestone", readme_text)
+        self.assertIn("bereishis_1_1_to_1_5_enrichment_pilot_completion_report.md", readme_text)
+        self.assertIn("pilot is completed as a pattern, not fully resolved", readme_text)
+        self.assertIn("no question/protected-preview/reviewed-bank/runtime approval exists", readme_text)
         self.assertIn("What Should Not Be Auto-Filled", audit_text)
         self.assertIn("reviewed-bank examples; reference only", audit_text)
         self.assertIn("Do not backfill all morphology fields", audit_text)
+
+    def test_pilot_completion_report_exists_and_matches_candidate_counts(self):
+        self.assertTrue(PILOT_COMPLETION_REPORT_PATH.exists())
+        report_text = PILOT_COMPLETION_REPORT_PATH.read_text(encoding="utf-8")
+        self.assertIn(
+            "Bereishis 1:1-1:5 now has a reviewed enrichment pilot pattern across morphology, vocabulary/shoresh, and standards.",
+            report_text,
+        )
+        self.assertIn("Bereishis 1:6-1:13", report_text)
+        self.assertIn("Hebrew corruption was detected in the token-split TSV/CSV", report_text)
+        self.assertIn("validation now checks real Hebrew rendering", report_text)
+        safety_summary = (
+            "question_allowed:needs_review/"
+            "protected_preview_allowed:false/"
+            "reviewed_bank_allowed:false/"
+            "runtime_allowed:false"
+        )
+
+        def status_counts(rows: list[dict[str, str]]) -> dict[str, int]:
+            counts = {
+                "yossi_enrichment_verified": 0,
+                "needs_follow_up": 0,
+                "source_only": 0,
+                "blocked_unclear_evidence": 0,
+            }
+            for row in rows:
+                status = row["enrichment_review_status"]
+                if status in counts:
+                    counts[status] += 1
+            return counts
+
+        morphology_rows = load_tsv(MORPHOLOGY_PATH)
+        vocabulary_rows = load_tsv(VOCABULARY_PATH)
+        standards_rows = load_tsv(STANDARDS_PATH)
+        token_split_rows = load_tsv(TOKEN_SPLIT_STANDARDS_PATH)
+        morphology_counts = status_counts(morphology_rows)
+        vocabulary_counts = status_counts(vocabulary_rows)
+        standards_counts = status_counts(standards_rows)
+        token_split_counts = status_counts(token_split_rows)
+        superseded_phrase_count = sum(
+            1
+            for row in standards_rows
+            if "superseded by token-split follow-up candidates" in row["evidence_note"].lower()
+        )
+        for expected_line in (
+            f"- morphology: total={len(morphology_rows)}; verified={morphology_counts['yossi_enrichment_verified']}; needs_follow_up={morphology_counts['needs_follow_up']}; source_only={morphology_counts['source_only']}; blocked={morphology_counts['blocked_unclear_evidence']}; safety_gates={safety_summary}",
+            f"- vocabulary_shoresh: total={len(vocabulary_rows)}; verified={vocabulary_counts['yossi_enrichment_verified']}; needs_follow_up={vocabulary_counts['needs_follow_up']}; source_only={vocabulary_counts['source_only']}; blocked={vocabulary_counts['blocked_unclear_evidence']}; safety_gates={safety_summary}",
+            f"- phrase_level_standards: total={len(standards_rows)}; verified={standards_counts['yossi_enrichment_verified']}; needs_follow_up={standards_counts['needs_follow_up']}; superseded_unresolved={superseded_phrase_count}; safety_gates={safety_summary}",
+            f"- token_split_standards: total={len(token_split_rows)}; verified={token_split_counts['yossi_enrichment_verified']}; needs_follow_up={token_split_counts['needs_follow_up']}; source_only={token_split_counts['source_only']}; blocked={token_split_counts['blocked_unclear_evidence']}; safety_gates={safety_summary}",
+        ):
+            self.assertIn(expected_line, report_text)
+
+        for required_item in (
+            "וחשך",
+            "יהי",
+            "שמים",
+            "prefixed ל",
+            "std_b1_1_r002",
+            "std_b1_1_r003",
+            "std_b1_3_r013",
+            "std_b1_5_r020",
+            "std_b1_2_r010",
+        ):
+            self.assertIn(required_item, report_text)
 
     def test_candidate_files_have_required_columns(self):
         for path, expected_columns in (
