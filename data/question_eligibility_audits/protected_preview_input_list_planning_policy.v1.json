@@ -1,0 +1,138 @@
+{
+  "policy_version": "protected_preview_input_list_planning_policy.v1",
+  "status": "planning_policy_only",
+  "scope": "Bereishis Perek 1 approved input candidates",
+  "approved_input_candidate_count": 133,
+  "allowed_families": [
+    "vocabulary_meaning",
+    "basic_noun_recognition",
+    "direct_object_marker_recognition",
+    "shoresh_identification"
+  ],
+  "deferred_families": [
+    "basic_verb_form_recognition"
+  ],
+  "excluded_families": [
+    "basic_verb_form_recognition",
+    "phrase_translation_context",
+    "basic_prefix_recognition",
+    "not_recommended"
+  ],
+  "required_future_input_fields": [
+    "input_candidate_id",
+    "audit_id",
+    "ref",
+    "hebrew_token",
+    "hebrew_phrase",
+    "approved_family",
+    "canonical_skill_id",
+    "canonical_standard_anchor",
+    "source_candidate_type",
+    "risk_level",
+    "risk_reasons",
+    "required_template_family",
+    "wording_policy_version",
+    "teacher_wording_review_status",
+    "answer_key_review_status",
+    "distractor_review_status",
+    "context_display_review_status",
+    "protected_preview_candidate_status",
+    "protected_preview_allowed",
+    "reviewed_bank_allowed",
+    "runtime_allowed",
+    "student_facing_allowed",
+    "notes"
+  ],
+  "default_future_input_statuses": {
+    "teacher_wording_review_status": "needs_review",
+    "answer_key_review_status": "needs_review",
+    "distractor_review_status": "needs_review",
+    "context_display_review_status": "needs_review",
+    "protected_preview_candidate_status": "planning_only",
+    "protected_preview_allowed": false,
+    "reviewed_bank_allowed": false,
+    "runtime_allowed": false,
+    "student_facing_allowed": false
+  },
+  "first_batch_balance_rules": {
+    "total_suggested_size": "20-30",
+    "prioritize_risk_level": "low",
+    "prioritize_families": [
+      "vocabulary_meaning",
+      "basic_noun_recognition"
+    ],
+    "small_sample_families": {
+      "direct_object_marker_recognition": "small_sample_only",
+      "shoresh_identification": "1-3_rows"
+    },
+    "exclude_families": [
+      "basic_verb_form_recognition"
+    ],
+    "avoid_duplicate_hebrew_tokens": true,
+    "avoid_sensitive_phrases": true,
+    "avoid_broad_phrase_level_rows": true,
+    "avoid_high_risk_rows": true,
+    "avoid_advanced_morphology": true,
+    "preserve_perek_pasuk_spread_if_possible": true
+  },
+  "family_constraints": {
+    "vocabulary_meaning": [
+      "one token only",
+      "one reviewed meaning only",
+      "context phrase optional",
+      "no full phrase translation"
+    ],
+    "basic_noun_recognition": [
+      "token must be clean noun/object/person/place/thing",
+      "no construct/suffix-sensitive forms unless separately approved",
+      "no advanced parts of speech"
+    ],
+    "direct_object_marker_recognition": [
+      "must ask function, not translation",
+      "must not translate את as the",
+      "must not translate את as with",
+      "must require exact wording review",
+      "small batch only"
+    ],
+    "shoresh_identification": [
+      "clean root only",
+      "no compound/root-sensitive forms",
+      "exact root letters must be reviewed"
+    ],
+    "basic_verb_form_recognition": [
+      "explicitly deferred",
+      "no input list rows allowed yet"
+    ]
+  },
+  "forbidden_outputs": [
+    "actual_questions",
+    "answer_choices",
+    "answer_keys",
+    "protected_preview_input_rows",
+    "protected_preview_generation",
+    "reviewed_bank_entries",
+    "runtime_data",
+    "student_facing_content"
+  ],
+  "safety_gate_defaults": {
+    "protected_preview_allowed": false,
+    "reviewed_bank_allowed": false,
+    "runtime_allowed": false,
+    "student_facing_allowed": false
+  },
+  "actual_input_rows": [],
+  "planning_policy_review_status": "yossi_approved_with_revision",
+  "review_decision": "approve_with_revision",
+  "review_notes": "Approved to proceed to a future input-list planning task under the stated constraints. Future input-list planning must include a batch balance table showing total selected input candidates, count by family, count by risk level, count by perek/pasuk range, duplicate Hebrew tokens if any, and the reason each direct-object-marker and shoresh row was included. This does not approve questions, answer choices, answer keys, protected-preview use, reviewed-bank use, runtime use, or student-facing use.",
+  "future_input_list_planning_may_proceed": true,
+  "batch_balance_table_required": true,
+  "batch_balance_required_fields": [
+    "total_selected_input_candidates",
+    "count_by_family",
+    "count_by_risk_level",
+    "count_by_perek_pasuk_range",
+    "duplicate_hebrew_tokens",
+    "direct_object_marker_inclusion_reasons",
+    "shoresh_inclusion_reasons"
+  ]
+}
