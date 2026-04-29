@@ -317,3 +317,15 @@ Status: only ????? and ???? are eligible for next packet-iteration readiness. ??
 - `bereishis_perek_5_6_teacher_review_checklist_readiness_2026_04_29.md` records readiness for teacher review only.
 - `prompts/bereishis_perek_5_6_teacher_review_decisions_apply_prompt.md` is the future decision-application prompt.
 - Validator/test: `scripts/validate_perek_5_6_teacher_review_checklist.py` and `tests/test_perek_5_6_teacher_review_checklist.py`.
+
+## Bereishis Perek 5-6 teacher-review decisions applied - 2026-04-29
+
+- Decisions-applied report: `../gate_2_source_discovery/reports/bereishis_perek_5_6_teacher_review_decisions_applied_2026_04_29.md`
+- Decisions-applied JSON: `../gate_2_source_discovery/reports/bereishis_perek_5_6_teacher_review_decisions_applied_2026_04_29.json`
+- Next-gate readiness report: `bereishis_perek_5_6_post_teacher_review_next_gate_readiness_2026_04_29.md`
+- Hold/source-follow-up register: `../gate_2_source_discovery/reports/bereishis_perek_5_6_hold_source_followup_register_2026_04_29.md`
+- Candidate-planning TSV: `../gate_2_source_discovery/bereishis_perek_5_6_candidate_planning.tsv`
+- Future candidate-planning review prompt: `prompts/bereishis_perek_5_6_candidate_planning_review_prompt.md`
+- Validator/test: `../../scripts/validate_perek_5_6_teacher_review_decisions_applied.py` and `../../tests/test_perek_5_6_teacher_review_decisions_applied.py`
+
+Status: seven Perek 5-6 candidates may move to candidate-planning review only. Five candidates remain held, source-only, or source-follow-up. No runtime activation, active-scope expansion, reviewed-bank promotion, protected-preview packet creation, or student-facing content was created.

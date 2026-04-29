@@ -306,3 +306,24 @@ Review each candidate as source-backed evidence only. Because there is no dedica
 ## What happens after teacher review
 
 After Yossi/teacher fills decisions separately, a later task may apply those explicit decisions into decision-applied artifacts while keeping all runtime, reviewed-bank, protected-preview, and student-facing gates false unless a later explicit gate says otherwise.
+
+## Teacher-review decisions applied - 2026-04-29
+
+Yossi's explicit teacher-review decisions have now been applied. This update records decisions only; it does not create runtime content, reviewed-bank content, protected-preview content, or student-facing content.
+
+| Candidate | Perek | Ref | Target | Decision | Eligible next? | Note |
+|---|---:|---|---|---|---|---|
+| g2srcdisc_p5_001 | 5 | Bereishis 5:1 | סֵפֶר | approve_for_next_candidate_planning | true | Do not cluster with other genealogy-opening terms. |
+| g2srcdisc_p5_002 | 5 | Bereishis 5:1 | תּוֹלְדֹת | approve_with_revision | true | Keep wording strictly part-of-speech; do not make this a translation or genealogy-concept question. |
+| g2srcdisc_p5_003 | 5 | Bereishis 5:4 | בָּנִים | hold_for_spacing_or_balance | false | Hold for spacing/balance before any future packet or planning layer. |
+| g2srcdisc_p5_004 | 5 | Bereishis 5:4 | בָנוֹת | hold_for_spacing_or_balance | false | Hold for spacing/balance before any future packet or planning layer. |
+| g2srcdisc_p5_005 | 5 | Bereishis 5:28 | בֵּן | approve_for_next_candidate_planning | true | Avoid clustering with בָּנִים / בָנוֹת in a tiny packet. |
+| g2srcdisc_p6_001 | 6 | Bereishis 6:3 | בָשָׂר | approve_with_revision | true | Keep part-of-speech only; do not use multiple בָשָׂר-context items together. |
+| g2srcdisc_p6_002 | 6 | Bereishis 6:11 | חָמָס | source_only | false | Preserve as source evidence only; do not advance toward candidate planning yet. |
+| g2srcdisc_p6_003 | 6 | Bereishis 6:14 | תֵּבַת | approve_with_revision | true | Keep as part-of-speech only; avoid translation/context-heavy treatment; avoid clustering with other ark terms. |
+| g2srcdisc_p6_004 | 6 | Bereishis 6:14 | קִנִּים | needs_source_follow_up | false | Teacher/source review required before any next gate. |
+| g2srcdisc_p6_005 | 6 | Bereishis 6:16 | צֹהַר | needs_source_follow_up | false | Teacher/source review required before any next gate. |
+| g2srcdisc_p6_006 | 6 | Bereishis 6:16 | פֶתַח | approve_with_revision | true | Keep as part-of-speech only; avoid clustering with צֹהַר / תֵּבָה in a tiny packet. |
+| g2srcdisc_p6_007 | 6 | Bereishis 6:17 | מַבּוּל | approve_with_revision | true | Do not make this a translation/context question without later review. |
+
+All gates remain false for every candidate.
