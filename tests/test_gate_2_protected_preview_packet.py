@@ -71,6 +71,8 @@ class Gate2ProtectedPreviewPacketTests(unittest.TestCase):
             validator.P3_REPORT,
             validator.P3_REVIEW_CHECKLIST,
             validator.P3_REVIEW_CHECKLIST_TSV,
+            validator.P3_REVIEW_DECISIONS_APPLIED,
+            validator.P3_REVIEW_DECISIONS_APPLIED_TSV,
             validator.P3_STATUS_INDEX,
         ):
             self.assertTrue(path.exists(), path)
@@ -122,24 +124,61 @@ class Gate2ProtectedPreviewPacketTests(unittest.TestCase):
             heading = f"### {row['protected_preview_packet_item_id']} / {row['protected_preview_candidate_id']}"
             self.assertEqual(text.count(heading), 1)
 
-    def test_perek_3_review_checklist_tsv_is_exact_and_blank(self):
+    def test_perek_3_review_checklist_tsv_records_applied_decisions_only(self):
         fields, rows = validator.load_tsv(validator.P3_REVIEW_CHECKLIST_TSV)
         self.assertEqual(fields, validator.REVIEW_CHECKLIST_COLUMNS)
         self.assertEqual(len(rows), 4)
         self.assertEqual({row["candidate_id"] for row in rows}, validator.EXPECTED_P3_APPROVED)
+        decisions = {row["candidate_id"]: row["reviewer_decision"] for row in rows}
+        self.assertEqual(decisions["g2ppcand_p3_004"], "approve_with_revision")
+        self.assertEqual(
+            {candidate_id for candidate_id, decision in decisions.items() if decision == "approve_for_limited_post_preview_iteration"},
+            {"g2ppcand_p3_003", "g2ppcand_p3_007", "g2ppcand_p3_008"},
+        )
         for row in rows:
             self.assertEqual(row["runtime_allowed"], "false")
             self.assertEqual(row["reviewed_bank_allowed"], "false")
             self.assertEqual(row["student_facing_allowed"], "false")
-            for field in ("reviewer_decision", "issue_category", "revision_required", "reviewer_notes", "reviewer_name", "review_date"):
+            self.assertTrue(row["reviewer_decision"])
+            self.assertTrue(row["reviewer_notes"])
+            if row["candidate_id"] == "g2ppcand_p3_004":
+                self.assertIn("repetition/session-balance", row["revision_required"])
+            for field in ("reviewer_name", "review_date"):
                 self.assertEqual(row[field], "")
+
+    def test_perek_3_applied_review_decisions_report_and_tsv_exist(self):
+        self.assertTrue(validator.P3_REVIEW_DECISIONS_APPLIED.exists())
+        self.assertTrue(validator.P3_REVIEW_DECISIONS_APPLIED_TSV.exists())
+        text = validator.P3_REVIEW_DECISIONS_APPLIED.read_text(encoding="utf-8")
+        self.assertIn("Decision summary", text)
+        self.assertIn("repetition/session-balance", text)
+        self.assertIn("No runtime activation", text)
+        self.assertIn("No reviewed-bank promotion", text)
+        self.assertIn("No item content revision", text)
+
+    def test_perek_3_applied_review_decisions_tsv_counts_and_gates(self):
+        fields, rows = validator.load_tsv(validator.P3_REVIEW_DECISIONS_APPLIED_TSV)
+        self.assertEqual(fields, validator.APPLIED_REVIEW_COLUMNS)
+        self.assertEqual(len(rows), 4)
+        self.assertEqual({row["candidate_id"] for row in rows}, validator.EXPECTED_P3_APPROVED)
+        decisions = [row["reviewer_decision"] for row in rows]
+        self.assertEqual(decisions.count("approve_for_limited_post_preview_iteration"), 3)
+        self.assertEqual(decisions.count("approve_with_revision"), 1)
+        revision_rows = [row for row in rows if row["reviewer_decision"] == "approve_with_revision"]
+        self.assertEqual([row["candidate_id"] for row in revision_rows], ["g2ppcand_p3_004"])
+        self.assertIn("repetition/session-balance", revision_rows[0]["required_revision"])
+        for row in rows:
+            for gate in validator.APPLIED_REVIEW_GATE_COLUMNS:
+                self.assertEqual(row[gate], "false")
 
     def test_perek_3_status_index_says_packet_exists_and_gates_closed(self):
         text = validator.P3_STATUS_INDEX.read_text(encoding="utf-8")
         self.assertIn("historical pre-decision artifact", text)
         self.assertIn("applied-decision report is the current status source", text)
         self.assertIn("four-item internal protected-preview packet now exists", text)
-        self.assertIn("four-item internal review checklist now exists", text)
+        self.assertIn("Internal review decisions are recorded", text)
+        self.assertIn("g2ppcand_p3_004", text)
+        self.assertIn("repetition/session-balance", text)
         self.assertIn("No Perek 3 runtime activation", text)
         self.assertIn("No reviewed-bank promotion", text)
         self.assertIn("No student-facing content", text)

@@ -23,6 +23,8 @@ P3_TSV = DIR / "bereishis_perek_3_internal_protected_preview_packet.tsv"
 P3_REPORT = REPORTS / "bereishis_perek_3_internal_protected_preview_packet_report.md"
 P3_REVIEW_CHECKLIST = REPORTS / "bereishis_perek_3_internal_protected_preview_review_checklist.md"
 P3_REVIEW_CHECKLIST_TSV = REPORTS / "bereishis_perek_3_internal_protected_preview_review_checklist.tsv"
+P3_REVIEW_DECISIONS_APPLIED = REPORTS / "bereishis_perek_3_internal_protected_preview_review_decisions_applied.md"
+P3_REVIEW_DECISIONS_APPLIED_TSV = REPORTS / "bereishis_perek_3_internal_protected_preview_review_decisions_applied.tsv"
 P3_CAND = ROOT / "data" / "gate_2_protected_preview_candidates" / "bereishis_perek_3_protected_preview_candidates.tsv"
 P3_STATUS_INDEX = (
     ROOT
@@ -90,6 +92,38 @@ REVIEW_CHECKLIST_COLUMNS = [
     "reviewer_name",
     "review_date",
 ]
+APPLIED_REVIEW_COLUMNS = [
+    "packet_item_id",
+    "candidate_id",
+    "ref",
+    "hebrew_token",
+    "hebrew_phrase",
+    "skill_family",
+    "reviewer_decision",
+    "reviewer_note",
+    "required_revision",
+    "runtime_allowed",
+    "reviewed_bank_allowed",
+    "student_facing_allowed",
+    "broader_use_allowed",
+    "reviewed_bank_promotion_allowed",
+    "runtime_activation_allowed",
+]
+APPLIED_REVIEW_GATE_COLUMNS = [
+    "runtime_allowed",
+    "reviewed_bank_allowed",
+    "student_facing_allowed",
+    "broader_use_allowed",
+    "reviewed_bank_promotion_allowed",
+    "runtime_activation_allowed",
+]
+EXPECTED_P3_INTERNAL_REVIEW_COUNTS = {
+    "approve_for_limited_post_preview_iteration": 3,
+    "approve_with_revision": 1,
+    "needs_follow_up": 0,
+    "reject_for_broader_use": 0,
+    "source_only": 0,
+}
 
 
 def rel(path: Path) -> str:
@@ -238,6 +272,8 @@ def validate_gate_2_protected_preview_packet() -> dict[str, object]:
         P3_REPORT,
         P3_REVIEW_CHECKLIST,
         P3_REVIEW_CHECKLIST_TSV,
+        P3_REVIEW_DECISIONS_APPLIED,
+        P3_REVIEW_DECISIONS_APPLIED_TSV,
         P3_CAND,
         P3_STATUS_INDEX,
     )
@@ -300,11 +336,26 @@ def validate_gate_2_protected_preview_packet() -> dict[str, object]:
         errors.append("packet reports contain placeholder corruption")
 
     readme = README.read_text(encoding="utf-8")
-    for path in (TSV, PACKET, GEN, COMPLETE, EXCLUDED, P3_TSV, P3_REPORT, P3_REVIEW_CHECKLIST, P3_REVIEW_CHECKLIST_TSV):
+    for path in (
+        TSV,
+        PACKET,
+        GEN,
+        COMPLETE,
+        EXCLUDED,
+        P3_TSV,
+        P3_REPORT,
+        P3_REVIEW_CHECKLIST,
+        P3_REVIEW_CHECKLIST_TSV,
+        P3_REVIEW_DECISIONS_APPLIED,
+        P3_REVIEW_DECISIONS_APPLIED_TSV,
+    ):
         if rel(path) not in readme:
             errors.append(f"README must link {rel(path)}")
 
-    p3_text = "\n".join(path.read_text(encoding="utf-8") for path in (README, P3_REPORT, P3_STATUS_INDEX, P3_REVIEW_CHECKLIST))
+    p3_text = "\n".join(
+        path.read_text(encoding="utf-8")
+        for path in (README, P3_REPORT, P3_STATUS_INDEX, P3_REVIEW_CHECKLIST, P3_REVIEW_DECISIONS_APPLIED)
+    )
     for candidate_id in sorted(EXPECTED_P3_APPROVED):
         if candidate_id not in p3_text:
             errors.append(f"Perek 3 packet report/status missing {candidate_id}")
@@ -319,6 +370,7 @@ def validate_gate_2_protected_preview_packet() -> dict[str, object]:
         "does not apply decisions",
         "does not activate or promote anything",
         "approve_for_limited_post_preview_iteration",
+        "repetition/session-balance",
     ):
         if phrase not in p3_text:
             errors.append(f"Perek 3 packet/status required phrase missing: {phrase}")
@@ -343,9 +395,44 @@ def validate_gate_2_protected_preview_packet() -> dict[str, object]:
         for gate in GATES:
             if row.get(gate) != "false":
                 errors.append(f"{rid}: checklist TSV {gate} must be false")
-        for reviewer_field in ("reviewer_decision", "issue_category", "revision_required", "reviewer_notes", "reviewer_name", "review_date"):
+        if row.get("candidate_id") == "g2ppcand_p3_004":
+            if row.get("reviewer_decision") != "approve_with_revision":
+                errors.append(f"{rid}: g2ppcand_p3_004 checklist decision must be approve_with_revision")
+            if "repetition/session-balance" not in row.get("revision_required", ""):
+                errors.append(f"{rid}: g2ppcand_p3_004 checklist revision must mention repetition/session-balance")
+        elif row.get("reviewer_decision") != "approve_for_limited_post_preview_iteration":
+            errors.append(f"{rid}: checklist approved rows must be approve_for_limited_post_preview_iteration")
+        for reviewer_field in ("reviewer_name", "review_date"):
             if row.get(reviewer_field):
-                errors.append(f"{rid}: checklist TSV reviewer field must be blank: {reviewer_field}")
+                errors.append(f"{rid}: checklist TSV reviewer metadata field must be blank: {reviewer_field}")
+
+    applied_fields, applied_rows = load_tsv(P3_REVIEW_DECISIONS_APPLIED_TSV)
+    if applied_fields != APPLIED_REVIEW_COLUMNS:
+        errors.append("Perek 3 applied review TSV columns do not match required schema")
+    if len(applied_rows) != 4:
+        errors.append(f"Perek 3 applied review TSV must have exactly 4 rows, found {len(applied_rows)}")
+    applied_ids = {row.get("candidate_id", "") for row in applied_rows}
+    if applied_ids != EXPECTED_P3_APPROVED:
+        errors.append("Perek 3 applied review TSV candidate IDs must exactly match approved packet IDs")
+    applied_counts = Counter(row.get("reviewer_decision", "") for row in applied_rows)
+    for decision, expected_count in EXPECTED_P3_INTERNAL_REVIEW_COUNTS.items():
+        if applied_counts.get(decision, 0) != expected_count:
+            errors.append(f"Perek 3 applied review expected {expected_count} {decision} rows, found {applied_counts.get(decision, 0)}")
+    for row in applied_rows:
+        rid = row.get("packet_item_id", "?")
+        cid = row.get("candidate_id", "")
+        if cid in P3_EXCLUDED:
+            errors.append(f"{rid}: excluded Perek 3 candidate included in applied review TSV")
+        for gate in APPLIED_REVIEW_GATE_COLUMNS:
+            if row.get(gate) != "false":
+                errors.append(f"{rid}: applied review TSV {gate} must be false")
+        if cid == "g2ppcand_p3_004":
+            if row.get("reviewer_decision") != "approve_with_revision":
+                errors.append(f"{rid}: g2ppcand_p3_004 must be approve_with_revision")
+            if "repetition/session-balance" not in row.get("required_revision", ""):
+                errors.append(f"{rid}: g2ppcand_p3_004 required revision must mention repetition/session-balance")
+        elif row.get("reviewer_decision") != "approve_for_limited_post_preview_iteration":
+            errors.append(f"{rid}: non-revision applied review rows must be approve_for_limited_post_preview_iteration")
 
     return {
         "valid": not errors,
