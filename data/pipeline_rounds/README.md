@@ -278,3 +278,19 @@ Status: Perek 4 has a four-item internal protected-preview packet for internal r
 
 Status: two clean Perek 4 packet items may enter limited internal preview observation only. Revision/source-follow-up items remain blocked. Perek 4 remains non-runtime, non-reviewed-bank, and non-public/student-facing.
 
+## Perek 4 limited internal preview decisions and next packet-iteration readiness
+
+- Decisions-applied report: `../gate_2_protected_preview_packets/reports/bereishis_perek_4_limited_internal_preview_decisions_applied_2026_04_29.md`
+- Decisions-applied JSON: `../gate_2_protected_preview_packets/reports/bereishis_perek_4_limited_internal_preview_decisions_applied_2026_04_29.json`
+- Next packet-iteration readiness: `perek_4_limited_internal_preview_next_packet_iteration_readiness_2026_04_29.md`
+- Hold register: `../gate_2_protected_preview_packets/reports/bereishis_perek_4_limited_internal_preview_hold_register_2026_04_29.md`
+- Validator: `../../scripts/validate_perek_4_limited_internal_preview_decisions.py`
+- Test: `../../tests/test_perek_4_limited_internal_preview_decisions.py`
+
+Status: only ????? and ???? are eligible for next packet-iteration readiness. ??????? and ??????? remain held, and ???? remains source-follow-up. No runtime activation, active-scope expansion, reviewed-bank promotion, or public/student-facing content occurred.
+
+## Perek 4 limited internal preview next packet iteration readiness - 2026-04-29
+
+- `perek_4_limited_internal_preview_next_packet_iteration_readiness_2026_04_29.md` identifies the next safe two-item packet iteration lane for `g2ppacket_p4_001` and `g2ppacket_p4_002` only.
+- Runtime activation, active scope expansion, reviewed-bank promotion, and public/student-facing use remain blocked.
+- Validator/test: `scripts/validate_perek_4_limited_internal_preview_decisions.py` and `tests/test_perek_4_limited_internal_preview_decisions.py`.
