@@ -329,3 +329,13 @@ Status: only ????? and ???? are eligible for next packet-iteration readiness. ??
 - Validator/test: `../../scripts/validate_perek_5_6_teacher_review_decisions_applied.py` and `../../tests/test_perek_5_6_teacher_review_decisions_applied.py`
 
 Status: seven Perek 5-6 candidates may move to candidate-planning review only. Five candidates remain held, source-only, or source-follow-up. No runtime activation, active-scope expansion, reviewed-bank promotion, protected-preview packet creation, or student-facing content was created.
+
+## Bereishis Perek 5-6 candidate-planning review checklist - 2026-04-29
+
+- Candidate-planning review checklist: `../gate_2_source_discovery/reports/bereishis_perek_5_6_candidate_planning_review_checklist_2026_04_29.md`
+- Candidate-planning review checklist JSON: `../gate_2_source_discovery/reports/bereishis_perek_5_6_candidate_planning_review_checklist_2026_04_29.json`
+- Checklist readiness report: `bereishis_perek_5_6_candidate_planning_review_checklist_readiness_2026_04_29.md`
+- Future decision-application prompt: `prompts/bereishis_perek_5_6_candidate_planning_decisions_apply_prompt.md`
+- Validator/test: `../../scripts/validate_perek_5_6_candidate_planning_review_checklist.py` and `../../tests/test_perek_5_6_candidate_planning_review_checklist.py`
+
+Status: seven Perek 5-6 candidates are ready for candidate-planning review only; five held/source-only/source-follow-up candidates remain excluded. No runtime activation, active-scope expansion, reviewed-bank promotion, protected-preview packet creation, or student-facing content was created.
