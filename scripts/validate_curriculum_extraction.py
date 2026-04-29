@@ -376,6 +376,7 @@ ALLOWED_CHANGE_EXACT = {
     "data/pipeline_rounds/perek_3_short_repilot_scope_leak_report_2026_04_29.md",
     "data/pipeline_rounds/perek_3_short_repilot_to_perek_4_ready_gate_2026_04_29.md",
     "data/pipeline_rounds/perek_3_short_repilot_to_perek_4_ready_gate_2026_04_29.json",
+    "data/pipeline_rounds/perek_3_short_repilot_scope_leak_fix_report_2026_04_29.md",
     "data/pipeline_rounds/repo_hygiene_inventory_2026_04_29.md",
     "data/source/bereishis_4_1_to_4_16.json",
     "data/dikduk_rules/README.md",
@@ -489,6 +490,7 @@ ALLOWED_CHANGE_EXACT = {
     "scripts/validate_perek_3_yossi_language_decisions.py",
     "scripts/validate_perek_3_short_repilot_scope_enforcement.py",
     "scripts/validate_perek_3_short_repilot_results.py",
+    "scripts/validate_perek_3_short_repilot_scope_leak_fix.py",
     "scripts/validate_standards_data.py",
     "scripts/run_curriculum_quality_checks.py",
     "scripts/load_curriculum_extraction.py",
@@ -509,6 +511,7 @@ ALLOWED_CHANGE_EXACT = {
     "tests/test_perek_3_yossi_language_decisions.py",
     "tests/test_perek_3_short_repilot_scope_enforcement.py",
     "tests/test_perek_3_short_repilot_results.py",
+    "tests/test_perek_3_short_repilot_scope_leak_fix.py",
     "tests/test_prefix_question_generation.py",
     "tests/test_tense_morphology_questions.py",
     "tests/test_translation_sources_loader.py",
@@ -592,6 +595,10 @@ PEREK_3_PILOT_DISTRACTOR_SOURCE_REMEDIATION_ALLOWED_CHANGED_LINES = {
     '        "children",',
     '        "way"',
     '        "cursed",',
+}
+
+PEREK_3_SHORT_REPILOT_SCOPE_LEAK_FIX_EXACT = {
+    "data/active_scope_reviewed_questions.json",
 }
 
 IGNORED_GENERATED_CHANGE_EXACT = {
@@ -1213,6 +1220,53 @@ def is_allowed_perek_3_pilot_distractor_source_remediation(path: str) -> bool:
     )
 
 
+def is_allowed_perek_3_short_repilot_scope_leak_fix(path: str) -> bool:
+    if path not in PEREK_3_SHORT_REPILOT_SCOPE_LEAK_FIX_EXACT:
+        return False
+    result = subprocess.run(
+        ["git", "diff", "--unified=2", "--", path],
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        check=False,
+    )
+    if result.returncode != 0:
+        return False
+    diff = result.stdout
+    if not diff:
+        return False
+    if "בְּאִשְׁתּוֹ" not in diff:
+        return False
+    if "What is the prefix in" not in diff:
+        return False
+    if "which beginning letter is the prefix" not in diff:
+        return False
+
+    changed_lines = []
+    for line in diff.splitlines():
+        if line.startswith(("+++", "---")):
+            continue
+        if line.startswith(("+", "-")):
+            changed_lines.append(line[1:])
+    if not changed_lines:
+        return False
+
+    def allowed_prompt_line(line: str) -> bool:
+        stripped = line.strip()
+        if stripped.startswith('"question_text": "What is the prefix in '):
+            return stripped.endswith('?",')
+        if stripped.startswith('"question": "What is the prefix in '):
+            return stripped.endswith('?",')
+        if stripped.startswith('"question_text": "In ') and "which beginning letter is the prefix?" in stripped:
+            return stripped.endswith('",')
+        if stripped.startswith('"question": "In ') and "which beginning letter is the prefix?" in stripped:
+            return stripped.endswith('",')
+        return False
+
+    return all(allowed_prompt_line(line) for line in changed_lines)
+
+
 def forbidden_reason(path: str) -> str:
     for prefix in FORBIDDEN_CHANGE_PREFIXES:
         if path == prefix or path.startswith(prefix):
@@ -1335,6 +1389,7 @@ def validate_curriculum_extraction(*, check_git_diff: bool = False) -> dict:
                 and not is_allowed_source_truth_baseline_repair(path)
                 and not is_allowed_perek_3_pilot_wording_fix(path)
                 and not is_allowed_perek_3_pilot_distractor_source_remediation(path)
+                and not is_allowed_perek_3_short_repilot_scope_leak_fix(path)
             ):
                 errors.append(forbidden_reason(path))
 
