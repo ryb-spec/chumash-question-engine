@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "perek_4_two_item_iteration_created": true,
+  "perek_4_full_closure": false,
+  "perek_4_runtime_active": false,
+  "runtime_scope_widened": false,
+  "reviewed_bank_promoted": false,
+  "student_facing_created": false,
+  "perek_5_6_source_discovery_allowed_next": true,
+  "perek_5_6_runtime_allowed": false,
+  "perek_5_6_reviewed_bank_allowed": false,
+  "perek_5_6_student_facing_allowed": false,
+  "perek_5_6_protected_preview_packet_allowed": false,
+  "unresolved_perek_4_items": [
+    "g2srcdisc_p4_003",
+    "g2srcdisc_p4_004",
+    "g2srcdisc_p4_005"
+  ],
+  "next_allowed_task_title": "Begin Perek 5-6 Source Discovery Only"
+}

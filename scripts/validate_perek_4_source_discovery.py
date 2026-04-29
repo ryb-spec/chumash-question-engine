@@ -17,6 +17,9 @@ STATUS_INDEX = ROOT / "data/gate_2_source_discovery/reports/bereishis_perek_4_so
 NEXT_PROMPT = ROOT / "data/pipeline_rounds/prompts/bereishis_perek_4_review_checklist_prompt.md"
 PROTECTED_PREVIEW_PACKET_DIR = ROOT / "data/gate_2_protected_preview_packets"
 AUTHORIZED_PEREK_4_INTERNAL_PACKET_FILES = {
+    "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_two_item_limited_internal_packet_iteration_2026_04_29.json",
+    "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_two_item_limited_internal_packet_iteration_2026_04_29.md",
+    "data/gate_2_protected_preview_packets/bereishis_perek_4_two_item_limited_internal_packet_iteration.tsv",
     "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_limited_internal_preview_hold_register_2026_04_29.md",
     "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_limited_internal_preview_decisions_applied_2026_04_29.json",
     "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_limited_internal_preview_decisions_applied_2026_04_29.md",
