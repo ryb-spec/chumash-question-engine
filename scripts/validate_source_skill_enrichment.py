@@ -3,6 +3,7 @@ from __future__ import annotations
 import csv
 import json
 import sys
+from collections import Counter
 from pathlib import Path
 from typing import Iterable
 
@@ -366,6 +367,48 @@ PEREK2_SOURCE_READINESS_AUDIT_PATH = (
 PEREK2_GATE1_REPORT_PATH = (
     ROOT / "data" / "pipeline_rounds" / "reports" / "bereishis_perek_2_gate_1_source_enrichment_eligibility_report.md"
 )
+PEREK2_COMPRESSED_AUDIT_PATH = (
+    ENRICHMENT_DIR / "reports" / "bereishis_perek_2_enrichment_review_compression_audit.md"
+)
+PEREK2_COMPRESSED_PACKET_PATH = (
+    ENRICHMENT_DIR / "reports" / "bereishis_perek_2_enrichment_compressed_yossi_review_packet.md"
+)
+PEREK2_COMPRESSED_CSV_PATH = (
+    ENRICHMENT_DIR / "reports" / "bereishis_perek_2_enrichment_compressed_yossi_review_sheet.csv"
+)
+PEREK2_COMPRESSED_CROSSWALK_PATH = (
+    ENRICHMENT_DIR / "reports" / "bereishis_perek_2_enrichment_raw_to_compressed_crosswalk.tsv"
+)
+PEREK2_COMPRESSED_SUMMARY_PATH = (
+    ENRICHMENT_DIR / "reports" / "bereishis_perek_2_enrichment_compressed_review_summary.md"
+)
+PEREK2_CLEAN_GROUP_INVENTORY_PATH = (
+    ENRICHMENT_DIR / "reports" / "bereishis_perek_2_clean_group_evidence_inventory.md"
+)
+PEREK2_CLEAN_GROUP_PACKET_PATH = (
+    ENRICHMENT_DIR / "reports" / "bereishis_perek_2_clean_group_yossi_review_packet.md"
+)
+PEREK2_CLEAN_GROUP_CSV_PATH = (
+    ENRICHMENT_DIR / "reports" / "bereishis_perek_2_clean_group_yossi_review_sheet.csv"
+)
+PEREK2_CLEAN_GROUP_CROSSWALK_PATH = (
+    ENRICHMENT_DIR / "reports" / "bereishis_perek_2_clean_group_raw_crosswalk.tsv"
+)
+PEREK2_CLEAN_GROUP_SUMMARY_PATH = (
+    ENRICHMENT_DIR / "reports" / "bereishis_perek_2_clean_group_evidence_strengthening_summary.md"
+)
+PEREK2_CLEAN_GROUP_APPLIED_PATH = (
+    ENRICHMENT_DIR / "reports" / "bereishis_perek_2_clean_group_yossi_review_applied.md"
+)
+PEREK2_GATE1_ENRICHMENT_DECISION_STATUS_PATH = (
+    ROOT / "data" / "pipeline_rounds" / "reports" / "bereishis_perek_2_gate_1_enrichment_decision_status_report.md"
+)
+PEREK2_GATE2_CANDIDATE_POOL_SUMMARY_PATH = (
+    ROOT / "data" / "pipeline_rounds" / "reports" / "bereishis_perek_2_gate_2_candidate_pool_summary.md"
+)
+PEREK2_FORBIDDEN_GATE2_BATCH_PATH = (
+    ROOT / "data" / "pipeline_rounds" / "bereishis_perek_2_gate_2_input_planning_batch.tsv"
+)
 NEXT_MORPHOLOGY_APPLIED_REPORT_PATH = (
     ENRICHMENT_DIR
     / "reports"
@@ -533,6 +576,67 @@ REVIEW_CSV_COLUMNS = [
     "yossi_notes",
     "safety_warning",
 ]
+
+PEREK2_COMPRESSED_REVIEW_COLUMNS = [
+    "review_group_id",
+    "category",
+    "hebrew_token_or_pattern",
+    "refs_or_count",
+    "representative_candidate_ids",
+    "source_candidate_files",
+    "evidence_summary",
+    "recommended_decision",
+    "risk_level",
+    "yossi_decision",
+    "yossi_notes",
+]
+
+PEREK2_COMPRESSED_CROSSWALK_COLUMNS = [
+    "source_candidate_file",
+    "source_candidate_id",
+    "ref",
+    "hebrew_token",
+    "category",
+    "compressed_review_group_id",
+    "recommended_group_decision",
+]
+
+PEREK2_CLEAN_GROUP_REVIEW_COLUMNS = [
+    "review_group_id",
+    "category",
+    "hebrew_token_or_pattern",
+    "refs_or_count",
+    "representative_candidate_ids",
+    "evidence_summary",
+    "strengthened_confidence",
+    "recommended_yossi_decision",
+    "recommendation_reason",
+    "yossi_decision",
+    "yossi_notes",
+]
+
+PEREK2_CLEAN_GROUP_CROSSWALK_COLUMNS = [
+    "source_candidate_file",
+    "source_candidate_id",
+    "ref",
+    "hebrew_token",
+    "category",
+    "clean_review_group_id",
+    "recommended_yossi_decision",
+]
+
+PEREK2_CLEAN_GROUP_CATEGORIES = {
+    "clean_vocabulary_noun_group",
+    "token_split_clean_noun_standards",
+    "clean_shoresh_group",
+}
+
+PEREK2_CLEAN_GROUP_VERIFIED_IDS = {
+    f"p2_comp_{number:03d}" for number in range(14, 45)
+}
+PEREK2_CLEAN_GROUP_FOLLOW_UP_IDS = {
+    f"p2_comp_{number:03d}" for number in range(120, 158)
+}
 
 FOLLOW_UP_CSV_COLUMNS = [
     "candidate_id",
@@ -2512,6 +2616,17 @@ def validate_perek2_gate1_artifacts(errors: list[str]) -> dict[str, int]:
             if "?" in row.get("hebrew_word_or_phrase", ""):
                 errors.append(f"{context}: Hebrew phrase contains placeholder corruption")
 
+    expected_clean_decisions: dict[tuple[str, str], tuple[str, str]] = {}
+    if PEREK2_CLEAN_GROUP_CROSSWALK_PATH.exists():
+        with PEREK2_CLEAN_GROUP_CROSSWALK_PATH.open("r", encoding="utf-8", newline="") as handle:
+            for clean_row in csv.DictReader(handle, delimiter="\t"):
+                group_id = clean_row.get("clean_review_group_id", "")
+                key = (clean_row.get("source_candidate_file", ""), clean_row.get("source_candidate_id", ""))
+                if group_id in PEREK2_CLEAN_GROUP_VERIFIED_IDS:
+                    expected_clean_decisions[key] = ("yossi_enrichment_verified", "verified")
+                elif group_id in PEREK2_CLEAN_GROUP_FOLLOW_UP_IDS:
+                    expected_clean_decisions[key] = ("needs_follow_up", "needs_follow_up")
+
     candidate_specs = (
         (PEREK2_MORPHOLOGY_PATH, MORPHOLOGY_COLUMNS, "morphology"),
         (PEREK2_VOCABULARY_PATH, VOCABULARY_COLUMNS, "vocabulary"),
@@ -2531,6 +2646,10 @@ def validate_perek2_gate1_artifacts(errors: list[str]) -> dict[str, int]:
             standards_ids = {row.get("candidate_id", "") for row in rows}
         for row in rows:
             candidate_id = row.get("candidate_id", "unknown")
+            expected_status, expected_decision = expected_clean_decisions.get(
+                (repo_relative(path), candidate_id),
+                ("pending_yossi_enrichment_review", ""),
+            )
             source_file = row.get("source_map_file", "")
             source_row_id = row.get("source_row_id", "")
             source_row = perek2_source_rows.get(source_file, {}).get(source_row_id)
@@ -2541,10 +2660,14 @@ def validate_perek2_gate1_artifacts(errors: list[str]) -> dict[str, int]:
                 errors.append(f"{candidate_id}: ref must match linked source row")
             if row.get("hebrew_phrase") != source_row.get("hebrew_word_or_phrase"):
                 errors.append(f"{candidate_id}: Hebrew phrase must match linked source row")
-            if row.get("enrichment_review_status") != "pending_yossi_enrichment_review":
-                errors.append(f"{candidate_id}: Perek 2 Gate 1 candidates must remain pending Yossi review")
-            if row.get("yossi_decision") or row.get("yossi_notes"):
-                errors.append(f"{candidate_id}: Yossi decision fields must be blank at Gate 1")
+            if row.get("enrichment_review_status") != expected_status:
+                errors.append(f"{candidate_id}: Perek 2 Gate 1 candidate has unexpected enrichment status")
+            if row.get("yossi_decision") != expected_decision:
+                errors.append(f"{candidate_id}: Perek 2 Gate 1 candidate has unexpected Yossi decision")
+            if expected_decision and not row.get("yossi_notes"):
+                errors.append(f"{candidate_id}: Applied Yossi decision must include notes")
+            if not expected_decision and row.get("yossi_notes"):
+                errors.append(f"{candidate_id}: Yossi notes must be blank outside clean-group decisions")
             for field, expected in (
                 ("question_allowed", "needs_review"),
                 ("protected_preview_allowed", "false"),
@@ -2601,6 +2724,371 @@ def validate_perek2_gate1_artifacts(errors: list[str]) -> dict[str, int]:
             errors.append(f"source enrichment README must link {relative}")
 
     return counts
+
+
+def validate_perek2_compressed_review_artifacts(errors: list[str]) -> dict[str, int]:
+    paths = (
+        PEREK2_COMPRESSED_AUDIT_PATH,
+        PEREK2_COMPRESSED_PACKET_PATH,
+        PEREK2_COMPRESSED_CSV_PATH,
+        PEREK2_COMPRESSED_CROSSWALK_PATH,
+        PEREK2_COMPRESSED_SUMMARY_PATH,
+    )
+    for path in paths:
+        if not path.exists():
+            errors.append(f"missing Perek 2 compressed review artifact: {repo_relative(path)}")
+            return {"compressed_groups": 0, "crosswalk_rows": 0}
+
+    if not PEREK2_COMPRESSED_CSV_PATH.read_bytes().startswith(b"\xef\xbb\xbf"):
+        errors.append("Perek 2 compressed review CSV must be UTF-8-BOM")
+
+    with PEREK2_COMPRESSED_CSV_PATH.open("r", encoding="utf-8-sig", newline="") as handle:
+        compressed_rows = list(csv.DictReader(handle))
+    if compressed_rows and list(compressed_rows[0].keys()) != PEREK2_COMPRESSED_REVIEW_COLUMNS:
+        errors.append("Perek 2 compressed review CSV columns do not match expected schema")
+    if not compressed_rows:
+        errors.append("Perek 2 compressed review CSV must contain review groups")
+
+    with PEREK2_COMPRESSED_CROSSWALK_PATH.open("r", encoding="utf-8", newline="") as handle:
+        crosswalk_rows = list(csv.DictReader(handle, delimiter="\t"))
+    if crosswalk_rows and list(crosswalk_rows[0].keys()) != PEREK2_COMPRESSED_CROSSWALK_COLUMNS:
+        errors.append("Perek 2 raw-to-compressed crosswalk columns do not match expected schema")
+
+    raw_rows = []
+    for path in (
+        PEREK2_MORPHOLOGY_PATH,
+        PEREK2_VOCABULARY_PATH,
+        PEREK2_STANDARDS_PATH,
+        PEREK2_TOKEN_SPLIT_STANDARDS_PATH,
+    ):
+        _, rows = load_tsv(path)
+        raw_rows.extend((repo_relative(path), row) for row in rows)
+
+    raw_keys = [(path, row["candidate_id"]) for path, row in raw_rows]
+    crosswalk_keys = [
+        (row.get("source_candidate_file", ""), row.get("source_candidate_id", ""))
+        for row in crosswalk_rows
+    ]
+    if len(crosswalk_rows) != len(raw_rows):
+        errors.append(
+            f"Perek 2 crosswalk row count mismatch: expected {len(raw_rows)}, found {len(crosswalk_rows)}"
+        )
+    duplicate_crosswalk_keys = [key for key, count in Counter(crosswalk_keys).items() if count != 1]
+    if duplicate_crosswalk_keys:
+        errors.append(f"Perek 2 crosswalk duplicate/missing uniqueness keys: {duplicate_crosswalk_keys[:5]}")
+    missing_raw_keys = sorted(set(raw_keys) - set(crosswalk_keys))
+    extra_crosswalk_keys = sorted(set(crosswalk_keys) - set(raw_keys))
+    if missing_raw_keys:
+        errors.append(f"Perek 2 crosswalk missing raw candidates: {missing_raw_keys[:5]}")
+    if extra_crosswalk_keys:
+        errors.append(f"Perek 2 crosswalk contains unknown raw candidates: {extra_crosswalk_keys[:5]}")
+
+    group_ids = {row.get("review_group_id", "") for row in compressed_rows}
+    referenced_group_ids = {row.get("compressed_review_group_id", "") for row in crosswalk_rows}
+    if not referenced_group_ids.issubset(group_ids):
+        errors.append("Perek 2 crosswalk references compressed group IDs not present in compressed CSV")
+
+    expected_clean_decisions: dict[tuple[str, str], tuple[str, str]] = {}
+    if PEREK2_CLEAN_GROUP_CROSSWALK_PATH.exists():
+        with PEREK2_CLEAN_GROUP_CROSSWALK_PATH.open("r", encoding="utf-8", newline="") as handle:
+            clean_crosswalk_rows = list(csv.DictReader(handle, delimiter="\t"))
+        for row in clean_crosswalk_rows:
+            key = (row.get("source_candidate_file", ""), row.get("source_candidate_id", ""))
+            group_id = row.get("clean_review_group_id", "")
+            if group_id in PEREK2_CLEAN_GROUP_VERIFIED_IDS:
+                expected_clean_decisions[key] = ("yossi_enrichment_verified", "verified")
+            elif group_id in PEREK2_CLEAN_GROUP_FOLLOW_UP_IDS:
+                expected_clean_decisions[key] = ("needs_follow_up", "needs_follow_up")
+
+    for row in compressed_rows:
+        if row.get("yossi_decision") or row.get("yossi_notes"):
+            errors.append(f"Perek 2 compressed group has nonblank Yossi field: {row.get('review_group_id')}")
+        if row.get("recommended_decision") not in ALLOWED_YOSSI_DECISIONS:
+            errors.append(f"Perek 2 compressed group has unsupported recommended decision: {row.get('review_group_id')}")
+        if "?" in row.get("hebrew_token_or_pattern", ""):
+            errors.append(f"Perek 2 compressed group has placeholder Hebrew: {row.get('review_group_id')}")
+
+    for path, row in raw_rows:
+        key = (path, row["candidate_id"])
+        expected_status, expected_decision = expected_clean_decisions.get(
+            key,
+            ("pending_yossi_enrichment_review", ""),
+        )
+        if row.get("enrichment_review_status") != expected_status:
+            errors.append(f"Perek 2 raw candidate has unexpected review status: {row.get('candidate_id')}")
+        if row.get("yossi_decision") != expected_decision:
+            errors.append(f"Perek 2 raw candidate has unexpected Yossi decision: {row.get('candidate_id')}")
+        if key not in expected_clean_decisions and row.get("yossi_notes"):
+            errors.append(f"Perek 2 raw candidate outside clean crosswalk has Yossi notes: {row.get('candidate_id')}")
+        if key in expected_clean_decisions and not row.get("yossi_notes"):
+            errors.append(f"Perek 2 clean-group raw candidate missing Yossi notes: {row.get('candidate_id')}")
+        if row.get("question_allowed") != "needs_review":
+            errors.append(f"Perek 2 raw candidate opened question gate: {row.get('candidate_id')}")
+        for gate in ("protected_preview_allowed", "reviewed_bank_allowed", "runtime_allowed"):
+            if row.get(gate) != "false":
+                errors.append(f"Perek 2 raw candidate opened {gate}: {row.get('candidate_id')}")
+
+    artifact_text = "\n".join(
+        path.read_text(encoding="utf-8-sig" if path.suffix == ".csv" else "utf-8")
+        for path in paths
+    )
+    for forbidden in (
+        "???",
+        "question-ready",
+        "protected-preview-ready",
+        "reviewed-bank-ready",
+        "runtime-ready",
+        "student-facing release",
+    ):
+        if forbidden in artifact_text:
+            errors.append(f"Perek 2 compressed review artifact contains forbidden/corrupt phrase: {forbidden}")
+    for phrase in (
+        "This is enrichment review only.",
+        "not question approval",
+        "not protected-preview approval",
+        "not reviewed-bank approval",
+        "not runtime approval",
+        "not student-facing approval",
+    ):
+        if phrase not in artifact_text:
+            errors.append(f"Perek 2 compressed review artifacts missing safety phrase: {phrase}")
+
+    readme_text = README_PATH.read_text(encoding="utf-8")
+    for path in paths:
+        if repo_relative(path).replace("data/source_skill_enrichment/", "") not in readme_text:
+            errors.append(f"README missing Perek 2 compressed artifact link: {repo_relative(path)}")
+
+    return {"compressed_groups": len(compressed_rows), "crosswalk_rows": len(crosswalk_rows)}
+
+
+def validate_perek2_clean_group_artifacts(errors: list[str]) -> dict[str, int]:
+    paths = (
+        PEREK2_CLEAN_GROUP_INVENTORY_PATH,
+        PEREK2_CLEAN_GROUP_PACKET_PATH,
+        PEREK2_CLEAN_GROUP_CSV_PATH,
+        PEREK2_CLEAN_GROUP_CROSSWALK_PATH,
+        PEREK2_CLEAN_GROUP_SUMMARY_PATH,
+        PEREK2_CLEAN_GROUP_APPLIED_PATH,
+    )
+    for path in paths:
+        if not path.exists():
+            errors.append(f"missing Perek 2 clean-group artifact: {repo_relative(path)}")
+            return {"clean_groups": 0, "clean_crosswalk_rows": 0}
+
+    if not PEREK2_CLEAN_GROUP_CSV_PATH.read_bytes().startswith(b"\xef\xbb\xbf"):
+        errors.append("Perek 2 clean-group CSV must be UTF-8-BOM")
+
+    with PEREK2_CLEAN_GROUP_CSV_PATH.open("r", encoding="utf-8-sig", newline="") as handle:
+        clean_rows = list(csv.DictReader(handle))
+    if clean_rows and list(clean_rows[0].keys()) != PEREK2_CLEAN_GROUP_REVIEW_COLUMNS:
+        errors.append("Perek 2 clean-group CSV columns do not match expected schema")
+    if not clean_rows:
+        errors.append("Perek 2 clean-group CSV must contain review groups")
+
+    with PEREK2_CLEAN_GROUP_CROSSWALK_PATH.open("r", encoding="utf-8", newline="") as handle:
+        clean_crosswalk_rows = list(csv.DictReader(handle, delimiter="\t"))
+    if clean_crosswalk_rows and list(clean_crosswalk_rows[0].keys()) != PEREK2_CLEAN_GROUP_CROSSWALK_COLUMNS:
+        errors.append("Perek 2 clean-group crosswalk columns do not match expected schema")
+
+    with PEREK2_COMPRESSED_CSV_PATH.open("r", encoding="utf-8-sig", newline="") as handle:
+        compressed_rows = list(csv.DictReader(handle))
+    compressed_by_id = {row["review_group_id"]: row for row in compressed_rows}
+    compressed_clean_group_ids = {
+        row["review_group_id"]
+        for row in compressed_rows
+        if row.get("category") in PEREK2_CLEAN_GROUP_CATEGORIES
+    }
+    clean_group_ids = {row.get("review_group_id", "") for row in clean_rows}
+    if clean_group_ids != compressed_clean_group_ids:
+        errors.append("Perek 2 clean-group CSV does not exactly match clean compressed review groups")
+
+    for row in clean_rows:
+        group_id = row.get("review_group_id", "")
+        compressed = compressed_by_id.get(group_id)
+        if not compressed:
+            errors.append(f"Perek 2 clean-group row references missing compressed group: {group_id}")
+            continue
+        if row.get("category") != compressed.get("category"):
+            errors.append(f"Perek 2 clean-group category mismatch for {group_id}")
+        if row.get("category") not in PEREK2_CLEAN_GROUP_CATEGORIES:
+            errors.append(f"Perek 2 clean-group row has non-clean category: {group_id}")
+        expected_decision = (
+            "verified"
+            if group_id in PEREK2_CLEAN_GROUP_VERIFIED_IDS
+            else "needs_follow_up"
+            if group_id in PEREK2_CLEAN_GROUP_FOLLOW_UP_IDS
+            else ""
+        )
+        if row.get("yossi_decision") != expected_decision:
+            errors.append(f"Perek 2 clean-group row has unexpected Yossi decision: {group_id}")
+        if not row.get("yossi_notes"):
+            errors.append(f"Perek 2 clean-group row missing Yossi notes: {group_id}")
+        if row.get("recommended_yossi_decision") not in ALLOWED_YOSSI_DECISIONS:
+            errors.append(f"Perek 2 clean-group row has unsupported recommended decision: {group_id}")
+        if "?" in row.get("hebrew_token_or_pattern", ""):
+            errors.append(f"Perek 2 clean-group row has placeholder Hebrew: {group_id}")
+
+    clean_crosswalk_group_ids = {row.get("clean_review_group_id", "") for row in clean_crosswalk_rows}
+    if not clean_crosswalk_group_ids.issubset(clean_group_ids):
+        errors.append("Perek 2 clean-group crosswalk references group IDs not present in clean CSV")
+    if [key for key, count in Counter(
+        (row.get("source_candidate_file", ""), row.get("source_candidate_id", ""))
+        for row in clean_crosswalk_rows
+    ).items() if count != 1]:
+        errors.append("Perek 2 clean-group crosswalk contains duplicate raw candidate mappings")
+
+    raw_by_file: dict[str, dict[str, dict[str, str]]] = {}
+    for path in (PEREK2_VOCABULARY_PATH, PEREK2_TOKEN_SPLIT_STANDARDS_PATH):
+        _, rows = load_tsv(path)
+        raw_by_file[repo_relative(path)] = {row["candidate_id"]: row for row in rows}
+
+    for row in clean_crosswalk_rows:
+        raw = raw_by_file.get(row.get("source_candidate_file", ""), {}).get(row.get("source_candidate_id", ""))
+        if not raw:
+            errors.append(f"Perek 2 clean-group crosswalk references unknown raw candidate: {row}")
+            continue
+        group_id = row.get("clean_review_group_id", "")
+        expected_status = "yossi_enrichment_verified" if group_id in PEREK2_CLEAN_GROUP_VERIFIED_IDS else "needs_follow_up"
+        expected_decision = "verified" if group_id in PEREK2_CLEAN_GROUP_VERIFIED_IDS else "needs_follow_up"
+        if raw.get("enrichment_review_status") != expected_status:
+            errors.append(f"Perek 2 clean-group raw candidate has unexpected status: {raw.get('candidate_id')}")
+        if raw.get("yossi_decision") != expected_decision:
+            errors.append(f"Perek 2 clean-group raw candidate has unexpected Yossi decision: {raw.get('candidate_id')}")
+        if not raw.get("yossi_notes"):
+            errors.append(f"Perek 2 clean-group raw candidate missing Yossi notes: {raw.get('candidate_id')}")
+        if raw.get("question_allowed") != "needs_review":
+            errors.append(f"Perek 2 clean-group raw candidate opened question gate: {raw.get('candidate_id')}")
+        for gate in ("protected_preview_allowed", "reviewed_bank_allowed", "runtime_allowed"):
+            if raw.get(gate) != "false":
+                errors.append(f"Perek 2 clean-group raw candidate opened {gate}: {raw.get('candidate_id')}")
+
+    artifact_text = "\n".join(
+        path.read_text(encoding="utf-8-sig" if path.suffix == ".csv" else "utf-8")
+        for path in paths
+    )
+    for forbidden in (
+        "???",
+        "question-ready",
+        "protected-preview-ready",
+        "reviewed-bank-ready",
+        "runtime-ready",
+        "student-facing release",
+    ):
+        if forbidden in artifact_text:
+            errors.append(f"Perek 2 clean-group artifact contains forbidden/corrupt phrase: {forbidden}")
+    for phrase in (
+        "This is enrichment review only",
+        "not question approval",
+        "not protected-preview approval",
+        "not reviewed-bank approval",
+        "not runtime approval",
+        "not student-facing approval",
+        "Yossi",
+    ):
+        if phrase not in artifact_text:
+            errors.append(f"Perek 2 clean-group artifacts missing safety phrase: {phrase}")
+
+    decision_counts = Counter(row.get("yossi_decision", "") for row in clean_rows)
+    raw_decision_counts = Counter(row.get("recommended_yossi_decision", "") for row in clean_crosswalk_rows)
+    if decision_counts.get("verified", 0) != 31:
+        errors.append("Perek 2 clean-group verified group count must be 31")
+    if decision_counts.get("needs_follow_up", 0) != 38:
+        errors.append("Perek 2 clean-group follow-up group count must be 38")
+    if raw_decision_counts.get("verified", 0) != 91:
+        errors.append("Perek 2 clean-group verified raw candidate count must be 91")
+    if raw_decision_counts.get("needs_follow_up", 0) != 100:
+        errors.append("Perek 2 clean-group follow-up raw candidate count must be 100")
+    for row in clean_rows:
+        if row.get("category") in {"clean_vocabulary_noun_group", "clean_shoresh_group"} and row.get("yossi_decision") == "verified":
+            errors.append(f"Perek 2 vocabulary/shoresh clean group must not be verified: {row.get('review_group_id')}")
+        if row.get("yossi_decision") == "verified" and row.get("category") != "token_split_clean_noun_standards":
+            errors.append(f"Perek 2 verified clean group must be token-split noun standards: {row.get('review_group_id')}")
+
+    readme_text = README_PATH.read_text(encoding="utf-8")
+    for path in paths:
+        if repo_relative(path).replace("data/source_skill_enrichment/", "") not in readme_text:
+            errors.append(f"README missing Perek 2 clean-group artifact link: {repo_relative(path)}")
+
+    return {"clean_groups": len(clean_rows), "clean_crosswalk_rows": len(clean_crosswalk_rows)}
+
+
+def validate_perek2_gate1_decision_status_artifacts(errors: list[str]) -> dict[str, int]:
+    paths = (
+        PEREK2_GATE1_ENRICHMENT_DECISION_STATUS_PATH,
+        PEREK2_GATE2_CANDIDATE_POOL_SUMMARY_PATH,
+    )
+    for path in paths:
+        if not path.exists():
+            errors.append(f"missing Perek 2 Gate 1 decision-status artifact: {repo_relative(path)}")
+            return {"verified_groups": 0, "verified_raw": 0, "follow_up_groups": 0, "follow_up_raw": 0}
+    if PEREK2_FORBIDDEN_GATE2_BATCH_PATH.exists():
+        errors.append(f"Gate 2 batch file must not exist yet: {repo_relative(PEREK2_FORBIDDEN_GATE2_BATCH_PATH)}")
+
+    status_text = PEREK2_GATE1_ENRICHMENT_DECISION_STATUS_PATH.read_text(encoding="utf-8")
+    pool_text = PEREK2_GATE2_CANDIDATE_POOL_SUMMARY_PATH.read_text(encoding="utf-8")
+    combined_text = f"{status_text}\n{pool_text}"
+    required_phrases = (
+        "31 token-split clean noun standards groups",
+        "91 raw token-split standards candidates",
+        "38 clean vocabulary/noun and clean shoresh groups",
+        "100 raw vocabulary/shoresh candidates",
+        "only the 91 verified token-split clean noun standards raw candidates",
+        "no follow-up groups",
+        "no morphology",
+        "no verb forms",
+        "no prefix/preposition",
+        "function-word rows",
+        "direct-object marker rows",
+        "no direct-object-marker",
+        "no shoresh",
+        "no phrase-level standards",
+        "context-heavy rows",
+        "No Gate 2 input-candidate batch was created",
+        "This is not a Gate 2 batch selection",
+    )
+    for phrase in required_phrases:
+        if phrase not in combined_text:
+            errors.append(f"Perek 2 Gate 1 decision-status artifacts missing required phrase: {phrase}")
+    for forbidden in (
+        "???",
+        "protected-preview-ready",
+        "reviewed-bank-ready",
+        "runtime-ready",
+        "student-facing release",
+    ):
+        if forbidden in combined_text:
+            errors.append(f"Perek 2 Gate 1 decision-status artifacts contain forbidden/corrupt phrase: {forbidden}")
+
+    with PEREK2_CLEAN_GROUP_CSV_PATH.open("r", encoding="utf-8-sig", newline="") as handle:
+        clean_rows = list(csv.DictReader(handle))
+    with PEREK2_CLEAN_GROUP_CROSSWALK_PATH.open("r", encoding="utf-8", newline="") as handle:
+        clean_crosswalk_rows = list(csv.DictReader(handle, delimiter="\t"))
+    verified_groups = [row for row in clean_rows if row.get("yossi_decision") == "verified"]
+    follow_up_groups = [row for row in clean_rows if row.get("yossi_decision") == "needs_follow_up"]
+    verified_raw = [row for row in clean_crosswalk_rows if row.get("recommended_yossi_decision") == "verified"]
+    follow_up_raw = [row for row in clean_crosswalk_rows if row.get("recommended_yossi_decision") == "needs_follow_up"]
+    if len(verified_groups) != 31:
+        errors.append(f"Perek 2 Gate 1 status expected 31 verified groups, found {len(verified_groups)}")
+    if len(verified_raw) != 91:
+        errors.append(f"Perek 2 Gate 1 status expected 91 verified raw rows, found {len(verified_raw)}")
+    if len(follow_up_groups) != 38:
+        errors.append(f"Perek 2 Gate 1 status expected 38 follow-up groups, found {len(follow_up_groups)}")
+    if len(follow_up_raw) != 100:
+        errors.append(f"Perek 2 Gate 1 status expected 100 follow-up raw rows, found {len(follow_up_raw)}")
+    if any(row.get("category") != "token_split_clean_noun_standards" for row in verified_groups):
+        errors.append("Perek 2 Gate 1 status verified groups must be token-split clean noun standards only")
+
+    readme_text = README_PATH.read_text(encoding="utf-8")
+    for path in paths:
+        if repo_relative(path) not in readme_text:
+            errors.append(f"source enrichment README missing Gate 1 decision-status link: {repo_relative(path)}")
+
+    return {
+        "verified_groups": len(verified_groups),
+        "verified_raw": len(verified_raw),
+        "follow_up_groups": len(follow_up_groups),
+        "follow_up_raw": len(follow_up_raw),
+    }
 
 
 def validate_source_skill_enrichment() -> dict[str, object]:
@@ -3031,6 +3519,9 @@ def validate_source_skill_enrichment() -> dict[str, object]:
         errors.append(f"perek1-final review totals: expected 53 follow-up rows, found {perek1_final_follow_up}")
 
     perek2_gate1_counts = validate_perek2_gate1_artifacts(errors)
+    perek2_compressed_counts = validate_perek2_compressed_review_artifacts(errors)
+    perek2_clean_group_counts = validate_perek2_clean_group_artifacts(errors)
+    perek2_decision_status_counts = validate_perek2_gate1_decision_status_artifacts(errors)
 
     return {
         "valid": not errors,
@@ -3128,6 +3619,27 @@ def validate_source_skill_enrichment() -> dict[str, object]:
         "perek2_standards_candidate_count": perek2_gate1_counts["standards"],
         "perek2_token_split_candidate_path": repo_relative(PEREK2_TOKEN_SPLIT_STANDARDS_PATH),
         "perek2_token_split_candidate_count": perek2_gate1_counts["token_split"],
+        "perek2_compressed_audit_path": repo_relative(PEREK2_COMPRESSED_AUDIT_PATH),
+        "perek2_compressed_packet_path": repo_relative(PEREK2_COMPRESSED_PACKET_PATH),
+        "perek2_compressed_csv_path": repo_relative(PEREK2_COMPRESSED_CSV_PATH),
+        "perek2_compressed_crosswalk_path": repo_relative(PEREK2_COMPRESSED_CROSSWALK_PATH),
+        "perek2_compressed_summary_path": repo_relative(PEREK2_COMPRESSED_SUMMARY_PATH),
+        "perek2_compressed_group_count": perek2_compressed_counts["compressed_groups"],
+        "perek2_compressed_crosswalk_row_count": perek2_compressed_counts["crosswalk_rows"],
+        "perek2_clean_group_inventory_path": repo_relative(PEREK2_CLEAN_GROUP_INVENTORY_PATH),
+        "perek2_clean_group_packet_path": repo_relative(PEREK2_CLEAN_GROUP_PACKET_PATH),
+        "perek2_clean_group_csv_path": repo_relative(PEREK2_CLEAN_GROUP_CSV_PATH),
+        "perek2_clean_group_crosswalk_path": repo_relative(PEREK2_CLEAN_GROUP_CROSSWALK_PATH),
+        "perek2_clean_group_summary_path": repo_relative(PEREK2_CLEAN_GROUP_SUMMARY_PATH),
+        "perek2_clean_group_applied_path": repo_relative(PEREK2_CLEAN_GROUP_APPLIED_PATH),
+        "perek2_clean_group_count": perek2_clean_group_counts["clean_groups"],
+        "perek2_clean_group_crosswalk_row_count": perek2_clean_group_counts["clean_crosswalk_rows"],
+        "perek2_gate1_enrichment_decision_status_path": repo_relative(PEREK2_GATE1_ENRICHMENT_DECISION_STATUS_PATH),
+        "perek2_gate2_candidate_pool_summary_path": repo_relative(PEREK2_GATE2_CANDIDATE_POOL_SUMMARY_PATH),
+        "perek2_gate1_verified_group_count": perek2_decision_status_counts["verified_groups"],
+        "perek2_gate1_verified_raw_count": perek2_decision_status_counts["verified_raw"],
+        "perek2_gate1_follow_up_group_count": perek2_decision_status_counts["follow_up_groups"],
+        "perek2_gate1_follow_up_raw_count": perek2_decision_status_counts["follow_up_raw"],
         "errors": errors,
     }
 

@@ -1439,6 +1439,12 @@ class SourceSkillEnrichmentTests(unittest.TestCase):
 
     def test_perek2_candidates_link_to_verified_source_rows_and_are_review_only(self):
         source_rows = validator.perek2_source_rows_by_file()
+        with validator.PEREK2_CLEAN_GROUP_CROSSWALK_PATH.open("r", encoding="utf-8", newline="") as handle:
+            clean_crosswalk = list(csv.DictReader(handle, delimiter="\t"))
+        expected_clean = {
+            (row["source_candidate_file"], row["source_candidate_id"]): row["recommended_yossi_decision"]
+            for row in clean_crosswalk
+        }
         for path in (
             validator.PEREK2_MORPHOLOGY_PATH,
             validator.PEREK2_VOCABULARY_PATH,
@@ -1453,9 +1459,19 @@ class SourceSkillEnrichmentTests(unittest.TestCase):
                     self.assertEqual(linked["extraction_review_status"], "yossi_extraction_verified")
                     self.assertEqual(row["ref"], linked["ref"])
                     self.assertEqual(row["hebrew_phrase"], linked["hebrew_word_or_phrase"])
-                    self.assertEqual(row["enrichment_review_status"], "pending_yossi_enrichment_review")
-                    self.assertEqual(row["yossi_decision"], "")
-                    self.assertEqual(row["yossi_notes"], "")
+                    decision = expected_clean.get((validator.repo_relative(path), row["candidate_id"]))
+                    if decision == "verified":
+                        self.assertEqual(row["enrichment_review_status"], "yossi_enrichment_verified")
+                        self.assertEqual(row["yossi_decision"], "verified")
+                        self.assertTrue(row["yossi_notes"])
+                    elif decision == "needs_follow_up":
+                        self.assertEqual(row["enrichment_review_status"], "needs_follow_up")
+                        self.assertEqual(row["yossi_decision"], "needs_follow_up")
+                        self.assertTrue(row["yossi_notes"])
+                    else:
+                        self.assertEqual(row["enrichment_review_status"], "pending_yossi_enrichment_review")
+                        self.assertEqual(row["yossi_decision"], "")
+                        self.assertEqual(row["yossi_notes"], "")
                     self.assertEqual(row["question_allowed"], "needs_review")
                     self.assertEqual(row["protected_preview_allowed"], "false")
                     self.assertEqual(row["runtime_allowed"], "false")
@@ -1486,6 +1502,192 @@ class SourceSkillEnrichmentTests(unittest.TestCase):
         self.assertIn("Enrichment remains review-only", source_text)
         self.assertIn("Question-eligibility decisions and approved input-candidate planning are not ready", gate_text)
         self.assertIn("basic_verb_form_recognition", gate_text)
+
+    def test_perek2_compressed_review_artifacts_exist_and_match_counts(self):
+        summary = validator.validate_source_skill_enrichment()
+        self.assertTrue(summary["valid"], summary["errors"])
+        self.assertEqual(summary["perek2_compressed_group_count"], 167)
+        self.assertEqual(summary["perek2_compressed_crosswalk_row_count"], 1083)
+        self.assertTrue(validator.PEREK2_COMPRESSED_AUDIT_PATH.exists())
+        self.assertTrue(validator.PEREK2_COMPRESSED_PACKET_PATH.exists())
+        self.assertTrue(validator.PEREK2_COMPRESSED_CSV_PATH.exists())
+        self.assertTrue(validator.PEREK2_COMPRESSED_CROSSWALK_PATH.exists())
+        self.assertTrue(validator.PEREK2_COMPRESSED_SUMMARY_PATH.exists())
+
+    def test_perek2_compressed_csv_is_utf8_bom_and_decision_fields_blank(self):
+        self.assertTrue(validator.PEREK2_COMPRESSED_CSV_PATH.read_bytes().startswith(b"\xef\xbb\xbf"))
+        with validator.PEREK2_COMPRESSED_CSV_PATH.open("r", encoding="utf-8-sig", newline="") as handle:
+            rows = list(csv.DictReader(handle))
+        self.assertEqual(list(rows[0].keys()), validator.PEREK2_COMPRESSED_REVIEW_COLUMNS)
+        self.assertEqual(len(rows), 167)
+        self.assertTrue(all(row["yossi_decision"] == "" for row in rows))
+        self.assertTrue(all(row["yossi_notes"] == "" for row in rows))
+        self.assertTrue(all("?" not in row["hebrew_token_or_pattern"] for row in rows))
+
+    def test_perek2_crosswalk_maps_every_raw_candidate_once(self):
+        raw_keys = []
+        for path in (
+            validator.PEREK2_MORPHOLOGY_PATH,
+            validator.PEREK2_VOCABULARY_PATH,
+            validator.PEREK2_STANDARDS_PATH,
+            validator.PEREK2_TOKEN_SPLIT_STANDARDS_PATH,
+        ):
+            raw_keys.extend((validator.repo_relative(path), row["candidate_id"]) for row in load_tsv(path))
+        with validator.PEREK2_COMPRESSED_CROSSWALK_PATH.open("r", encoding="utf-8", newline="") as handle:
+            rows = list(csv.DictReader(handle, delimiter="\t"))
+        with validator.PEREK2_COMPRESSED_CSV_PATH.open("r", encoding="utf-8-sig", newline="") as handle:
+            groups = list(csv.DictReader(handle))
+        self.assertEqual(list(rows[0].keys()), validator.PEREK2_COMPRESSED_CROSSWALK_COLUMNS)
+        crosswalk_keys = [(row["source_candidate_file"], row["source_candidate_id"]) for row in rows]
+        group_ids = {row["review_group_id"] for row in groups}
+        self.assertEqual(len(rows), 1083)
+        self.assertEqual(len(set(crosswalk_keys)), 1083)
+        self.assertEqual(set(crosswalk_keys), set(raw_keys))
+        self.assertTrue({row["compressed_review_group_id"] for row in rows}.issubset(group_ids))
+
+    def test_perek2_compressed_reports_preserve_safety_boundaries(self):
+        packet_text = validator.PEREK2_COMPRESSED_PACKET_PATH.read_text(encoding="utf-8")
+        summary_text = validator.PEREK2_COMPRESSED_SUMMARY_PATH.read_text(encoding="utf-8")
+        audit_text = validator.PEREK2_COMPRESSED_AUDIT_PATH.read_text(encoding="utf-8")
+        for text in (packet_text, summary_text, audit_text):
+            self.assertIn("This is enrichment review only.", text)
+            self.assertIn("not question approval", text)
+            self.assertIn("not protected-preview approval", text)
+            self.assertIn("not reviewed-bank approval", text)
+            self.assertIn("not runtime approval", text)
+            self.assertIn("not student-facing approval", text)
+            self.assertNotIn("???", text)
+        self.assertIn("raw candidate count: 1083", packet_text)
+        self.assertIn("- raw candidate total: 1083", summary_text)
+        self.assertIn("- compressed group total: 167", summary_text)
+
+    def test_perek2_clean_group_artifacts_exist_and_match_counts(self):
+        summary = validator.validate_source_skill_enrichment()
+        self.assertTrue(summary["valid"], summary["errors"])
+        self.assertEqual(summary["perek2_clean_group_count"], 69)
+        self.assertEqual(summary["perek2_clean_group_crosswalk_row_count"], 191)
+        self.assertTrue(validator.PEREK2_CLEAN_GROUP_INVENTORY_PATH.exists())
+        self.assertTrue(validator.PEREK2_CLEAN_GROUP_PACKET_PATH.exists())
+        self.assertTrue(validator.PEREK2_CLEAN_GROUP_CSV_PATH.exists())
+        self.assertTrue(validator.PEREK2_CLEAN_GROUP_CROSSWALK_PATH.exists())
+        self.assertTrue(validator.PEREK2_CLEAN_GROUP_SUMMARY_PATH.exists())
+        self.assertTrue(validator.PEREK2_CLEAN_GROUP_APPLIED_PATH.exists())
+
+    def test_perek2_clean_group_csv_crosswalk_and_applied_decisions(self):
+        self.assertTrue(validator.PEREK2_CLEAN_GROUP_CSV_PATH.read_bytes().startswith(b"\xef\xbb\xbf"))
+        with validator.PEREK2_CLEAN_GROUP_CSV_PATH.open("r", encoding="utf-8-sig", newline="") as handle:
+            groups = list(csv.DictReader(handle))
+        with validator.PEREK2_CLEAN_GROUP_CROSSWALK_PATH.open("r", encoding="utf-8", newline="") as handle:
+            crosswalk = list(csv.DictReader(handle, delimiter="\t"))
+        self.assertEqual(list(groups[0].keys()), validator.PEREK2_CLEAN_GROUP_REVIEW_COLUMNS)
+        self.assertEqual(list(crosswalk[0].keys()), validator.PEREK2_CLEAN_GROUP_CROSSWALK_COLUMNS)
+        self.assertEqual(len(groups), 69)
+        self.assertEqual(len(crosswalk), 191)
+        self.assertTrue(all(row["category"] in validator.PEREK2_CLEAN_GROUP_CATEGORIES for row in groups))
+        self.assertTrue(all(row["yossi_notes"] for row in groups))
+        self.assertTrue(all("?" not in row["hebrew_token_or_pattern"] for row in groups))
+        self.assertEqual(
+            sum(1 for row in groups if row["yossi_decision"] == "verified"),
+            31,
+        )
+        self.assertEqual(
+            sum(1 for row in groups if row["yossi_decision"] == "needs_follow_up"),
+            38,
+        )
+        self.assertTrue(
+            all(
+                row["category"] == "token_split_clean_noun_standards"
+                for row in groups
+                if row["yossi_decision"] == "verified"
+            )
+        )
+        self.assertTrue(
+            all(
+                row["yossi_decision"] != "verified"
+                for row in groups
+                if row["category"] in {"clean_vocabulary_noun_group", "clean_shoresh_group"}
+            )
+        )
+        group_ids = {row["review_group_id"] for row in groups}
+        self.assertTrue({row["clean_review_group_id"] for row in crosswalk}.issubset(group_ids))
+        self.assertEqual(sum(1 for row in crosswalk if row["recommended_yossi_decision"] == "verified"), 91)
+        self.assertEqual(sum(1 for row in crosswalk if row["recommended_yossi_decision"] == "needs_follow_up"), 100)
+
+    def test_perek2_clean_group_reports_preserve_review_only_safety(self):
+        packet_text = validator.PEREK2_CLEAN_GROUP_PACKET_PATH.read_text(encoding="utf-8")
+        summary_text = validator.PEREK2_CLEAN_GROUP_SUMMARY_PATH.read_text(encoding="utf-8")
+        inventory_text = validator.PEREK2_CLEAN_GROUP_INVENTORY_PATH.read_text(encoding="utf-8")
+        applied_text = validator.PEREK2_CLEAN_GROUP_APPLIED_PATH.read_text(encoding="utf-8")
+        for text in (packet_text, summary_text, inventory_text, applied_text):
+            self.assertIn("This is enrichment review only", text)
+            self.assertIn("not question approval", text)
+            self.assertIn("not protected-preview approval", text)
+            self.assertIn("not reviewed-bank approval", text)
+            self.assertIn("not runtime approval", text)
+            self.assertIn("not student-facing approval", text)
+            self.assertNotIn("???", text)
+        self.assertIn("groups reviewed: 69", packet_text)
+        self.assertIn("- raw candidates covered: 191", summary_text)
+        self.assertIn("- verified groups: 31", applied_text)
+        self.assertIn("- verified raw candidates: 91", applied_text)
+        self.assertIn("- needs_follow_up groups: 38", applied_text)
+        self.assertIn("- needs_follow_up raw candidates: 100", applied_text)
+
+    def test_perek2_clean_group_raw_rows_have_only_allowed_decisions(self):
+        with validator.PEREK2_CLEAN_GROUP_CROSSWALK_PATH.open("r", encoding="utf-8", newline="") as handle:
+            crosswalk = list(csv.DictReader(handle, delimiter="\t"))
+        expected = {
+            (row["source_candidate_file"], row["source_candidate_id"]): row["recommended_yossi_decision"]
+            for row in crosswalk
+        }
+        for path in (
+            validator.PEREK2_VOCABULARY_PATH,
+            validator.PEREK2_TOKEN_SPLIT_STANDARDS_PATH,
+        ):
+            for row in load_tsv(path):
+                key = (validator.repo_relative(path), row["candidate_id"])
+                decision = expected.get(key)
+                if decision == "verified":
+                    self.assertEqual(row["enrichment_review_status"], "yossi_enrichment_verified")
+                    self.assertEqual(row["yossi_decision"], "verified")
+                    self.assertEqual(row["question_allowed"], "needs_review")
+                    self.assertEqual(row["protected_preview_allowed"], "false")
+                    self.assertEqual(row["reviewed_bank_allowed"], "false")
+                    self.assertEqual(row["runtime_allowed"], "false")
+                elif decision == "needs_follow_up":
+                    self.assertEqual(row["enrichment_review_status"], "needs_follow_up")
+                    self.assertEqual(row["yossi_decision"], "needs_follow_up")
+
+    def test_perek2_gate1_decision_status_reports_exist_and_match_counts(self):
+        summary = validator.validate_source_skill_enrichment()
+        self.assertTrue(summary["valid"], summary["errors"])
+        self.assertEqual(summary["perek2_gate1_verified_group_count"], 31)
+        self.assertEqual(summary["perek2_gate1_verified_raw_count"], 91)
+        self.assertEqual(summary["perek2_gate1_follow_up_group_count"], 38)
+        self.assertEqual(summary["perek2_gate1_follow_up_raw_count"], 100)
+        self.assertTrue(validator.PEREK2_GATE1_ENRICHMENT_DECISION_STATUS_PATH.exists())
+        self.assertTrue(validator.PEREK2_GATE2_CANDIDATE_POOL_SUMMARY_PATH.exists())
+        self.assertFalse(validator.PEREK2_FORBIDDEN_GATE2_BATCH_PATH.exists())
+
+    def test_perek2_gate1_status_blocks_unsafe_gate2_sources(self):
+        status_text = validator.PEREK2_GATE1_ENRICHMENT_DECISION_STATUS_PATH.read_text(encoding="utf-8")
+        pool_text = validator.PEREK2_GATE2_CANDIDATE_POOL_SUMMARY_PATH.read_text(encoding="utf-8")
+        combined = f"{status_text}\n{pool_text}"
+        for phrase in (
+            "follow-up vocabulary/noun groups",
+            "follow-up shoresh groups",
+            "morphology",
+            "verb forms",
+            "prefix/preposition",
+            "function-word rows",
+            "phrase-level standards",
+            "context-heavy rows",
+            "only the 91 verified token-split clean noun standards raw candidates",
+        ):
+            self.assertIn(phrase, combined)
+        self.assertIn("direct-object marker rows", combined)
+        self.assertIn("No Gate 2 input-candidate batch was created", combined)
+        self.assertNotIn("???", combined)
 
 
 if __name__ == "__main__":

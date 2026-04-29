@@ -338,3 +338,72 @@ Gate 1 summary:
 - `data/pipeline_rounds/reports/bereishis_perek_2_gate_1_source_enrichment_eligibility_report.md`
 
 All safety gates remain closed. Question eligibility and input-candidate planning remain blocked until Yossi applies Perek 2 enrichment review decisions.
+
+## Bereishis Perek 2 Compressed Enrichment Review
+
+The raw Bereishis Perek 2 enrichment review surface has been compressed from 1,083 raw candidates into review groups for a practical Yossi first pass. This compression does not apply Yossi decisions and does not verify any raw candidate.
+
+Compressed review artifacts:
+
+- `reports/bereishis_perek_2_enrichment_review_compression_audit.md`
+- `reports/bereishis_perek_2_enrichment_compressed_yossi_review_packet.md`
+- `reports/bereishis_perek_2_enrichment_compressed_yossi_review_sheet.csv`
+- `reports/bereishis_perek_2_enrichment_raw_to_compressed_crosswalk.tsv`
+- `reports/bereishis_perek_2_enrichment_compressed_review_summary.md`
+
+Raw Perek 2 enrichment candidates outside the later clean-group decision crosswalk remain review-only. Clean-group decisions have been applied separately for enrichment mapping only, and all gates remain closed:
+
+- `question_allowed = needs_review`
+- `protected_preview_allowed = false`
+- `reviewed_bank_allowed = false`
+- `runtime_allowed = false`
+
+## Bereishis Perek 2 Clean-Group Evidence Strengthening
+
+The clean-group evidence packet focuses only on clean vocabulary/noun groups, token-split clean noun standards, and clean shoresh groups from the compressed Perek 2 enrichment review layer.
+
+Clean-group review artifacts:
+
+- `reports/bereishis_perek_2_clean_group_evidence_inventory.md`
+- `reports/bereishis_perek_2_clean_group_yossi_review_packet.md`
+- `reports/bereishis_perek_2_clean_group_yossi_review_sheet.csv`
+- `reports/bereishis_perek_2_clean_group_raw_crosswalk.tsv`
+- `reports/bereishis_perek_2_clean_group_evidence_strengthening_summary.md`
+
+Clean-group Yossi decisions have now been applied separately for enrichment mapping only. Raw Perek 2 enrichment candidates outside that crosswalk remain review-only, and all question/protected-preview/reviewed-bank/runtime/student-facing gates remain closed.
+
+## Bereishis Perek 2 Clean-Group Review Applied
+
+Yossi's clean-group enrichment decisions have been applied through the clean-group raw crosswalk.
+
+- [clean-group Yossi review applied report](reports/bereishis_perek_2_clean_group_yossi_review_applied.md)
+- verified: 31 token-split clean noun standards groups / 91 raw candidates
+- needs_follow_up: 38 clean vocabulary/noun and clean shoresh groups / 100 raw candidates
+
+This is enrichment verification only. No question/protected-preview/reviewed-bank/runtime/student-facing gates were opened.
+
+## Bereishis Perek 2 Gate 1 Enrichment-Decision Status
+
+Perek 2 clean-group decisions have been applied for enrichment mapping only, and Gate 2 has not started.
+
+- Gate 1 enrichment-decision status report: `data/pipeline_rounds/reports/bereishis_perek_2_gate_1_enrichment_decision_status_report.md`
+- Gate 2 candidate-pool summary: `data/pipeline_rounds/reports/bereishis_perek_2_gate_2_candidate_pool_summary.md`
+- verified subset: 31 token-split clean noun standards groups / 91 raw token-split standards candidates
+- follow-up subset: 38 clean vocabulary/noun and clean shoresh groups / 100 raw vocabulary/shoresh candidates
+- constrained Gate 2 may proceed only from verified token-split clean noun standards rows
+- follow-up vocabulary/noun groups, follow-up shoresh groups, morphology, verb forms, prefix/preposition, function-word rows, direct-object marker rows, phrase-level standards, context-heavy rows, and high-risk rows remain excluded from Gate 2 for now
+- no Gate 2 batch file exists
+- all raw Perek 2 enrichment candidates remain safety-gated with question/protected-preview/reviewed-bank/runtime/student-facing gates closed
+
+## Bereishis Perek 2 Constrained Gate 2 Proposal
+
+A constrained Gate 2 input-planning proposal has been created from verified token-split clean noun standards rows only.
+
+- Gate 2 proposal TSV: `data/gate_2_input_planning/bereishis_perek_2_gate_2_input_planning_proposal.tsv`
+- selected rows: 20
+- source pool: 91 verified token-split clean noun standards raw candidates
+- no follow-up vocabulary/noun rows used
+- no follow-up shoresh rows used
+- no morphology, verb-form, prefix/preposition, function-word, direct-object-marker, phrase-level parent, context-heavy, or high-risk rows used
+- all gates remain closed
+- no questions, answer choices, answer keys, distractors, controlled drafts, protected-preview content, reviewed-bank entries, runtime data, or student-facing content were created
