@@ -13,28 +13,13 @@ ROOT = Path(__file__).resolve().parents[1]
 
 OVERRIDE_MD = ROOT / "data/pipeline_rounds/perek_3_to_perek_4_yossi_override_2026_04_29.md"
 OVERRIDE_JSON = ROOT / "data/pipeline_rounds/perek_3_to_perek_4_yossi_override_2026_04_29.json"
-PACKET_MD = (
-    ROOT
-    / "data/gate_2_protected_preview_candidates/reports/"
-    "bereishis_perek_4_compressed_teacher_review_packet_2026_04_29.md"
-)
-PACKET_JSON = (
-    ROOT
-    / "data/gate_2_protected_preview_candidates/reports/"
-    "bereishis_perek_4_compressed_teacher_review_packet_2026_04_29.json"
-)
+PACKET_MD = ROOT / "data/gate_2_protected_preview_candidates/reports/bereishis_perek_4_compressed_teacher_review_packet_2026_04_29.md"
+PACKET_JSON = ROOT / "data/gate_2_protected_preview_candidates/reports/bereishis_perek_4_compressed_teacher_review_packet_2026_04_29.json"
+DECISIONS_JSON = ROOT / "data/gate_2_protected_preview_candidates/reports/bereishis_perek_4_teacher_review_decisions_applied_2026_04_29.json"
 READINESS_MD = ROOT / "data/pipeline_rounds/perek_4_teacher_review_packet_readiness_2026_04_29.md"
 SOURCE_INVENTORY = ROOT / "data/gate_2_source_discovery/bereishis_perek_4_review_only_safe_candidate_inventory.tsv"
 
-REQUIRED_FILES = (
-    OVERRIDE_MD,
-    OVERRIDE_JSON,
-    PACKET_MD,
-    PACKET_JSON,
-    READINESS_MD,
-    SOURCE_INVENTORY,
-)
-
+REQUIRED_FILES = (OVERRIDE_MD, OVERRIDE_JSON, PACKET_MD, PACKET_JSON, DECISIONS_JSON, READINESS_MD, SOURCE_INVENTORY)
 FALSE_CANDIDATE_GATE_FIELDS = (
     "runtime_allowed",
     "reviewed_bank_allowed",
@@ -43,7 +28,13 @@ FALSE_CANDIDATE_GATE_FIELDS = (
     "broader_use_allowed",
     "perek_4_activated",
 )
-
+EXPECTED_DECISIONS = {
+    "g2srcdisc_p4_001": "approve_with_revision",
+    "g2srcdisc_p4_002": "approve_for_protected_preview",
+    "g2srcdisc_p4_003": "approve_with_revision",
+    "g2srcdisc_p4_004": "approve_with_revision",
+    "g2srcdisc_p4_005": "needs_source_follow_up",
+}
 FORBIDDEN_PATTERNS = (
     "runtime_allowed=true",
     "runtime_allowed: true",
@@ -60,8 +51,6 @@ FORBIDDEN_PATTERNS = (
     "Perek 4 is active runtime",
     "Perek 4 runtime is active",
     "Perek 4 runtime activation is approved",
-    "fake teacher decision",
-    "fake student observation",
 )
 
 
@@ -111,6 +100,7 @@ def validate() -> dict:
 
     override = _load_json(OVERRIDE_JSON, errors)
     packet = _load_json(PACKET_JSON, errors)
+    decisions_payload = _load_json(DECISIONS_JSON, errors)
     inventory_rows = _read_inventory_rows(errors)
     inventory_ids = [row.get("candidate_id", "") for row in inventory_rows]
 
@@ -128,8 +118,9 @@ def validate() -> dict:
         _require_bool(override, key, False, errors, OVERRIDE_JSON)
     _require_bool(override, "unresolved_perek_3_items_remain", True, errors, OVERRIDE_JSON)
 
-    if packet.get("packet_status") != "teacher_review_only":
-        errors.append("packet_status must be teacher_review_only")
+    if packet.get("packet_status") != "teacher_review_decisions_applied":
+        errors.append("packet_status must be teacher_review_decisions_applied after Yossi decisions are applied")
+    _require_bool(packet, "teacher_review_decisions_applied", True, errors, PACKET_JSON)
     for key in (
         "perek_4_activated",
         "runtime_scope_widened",
@@ -137,6 +128,8 @@ def validate() -> dict:
         "fake_teacher_decisions_created",
         "fake_student_observations_created",
         "source_truth_changed",
+        "protected_preview_packet_created",
+        "student_facing_content_created",
     ):
         _require_bool(packet, key, False, errors, PACKET_JSON)
     if packet.get("source_inventory_path") != _relative(SOURCE_INVENTORY):
@@ -149,17 +142,30 @@ def validate() -> dict:
     packet_ids = [str(candidate.get("candidate_id", "")) for candidate in candidates if isinstance(candidate, dict)]
     if packet_ids != inventory_ids:
         errors.append(f"packet candidate IDs must match source inventory order: {inventory_ids}")
+    if packet_ids != list(EXPECTED_DECISIONS):
+        errors.append("packet candidate IDs must match the expected five Perek 4 source-discovery IDs")
+
+    decisions = decisions_payload.get("decisions")
+    if not isinstance(decisions, list):
+        errors.append("decisions-applied JSON must include a decisions list")
+        decisions = []
+    decisions_by_id = {str(decision.get("candidate_id", "")): decision for decision in decisions if isinstance(decision, dict)}
 
     for index, candidate in enumerate(candidates, start=1):
         if not isinstance(candidate, dict):
             errors.append(f"candidate {index} must be an object")
             continue
         context = candidate.get("candidate_id", f"candidate {index}")
-        if candidate.get("teacher_decision") is not None:
-            errors.append(f"{context}: teacher_decision must be null")
+        expected_decision = EXPECTED_DECISIONS.get(context)
+        if candidate.get("teacher_decision") != expected_decision:
+            errors.append(f"{context}: teacher_decision must be {expected_decision}")
+        if decisions_by_id.get(context, {}).get("teacher_decision") != expected_decision:
+            errors.append(f"{context}: decisions-applied JSON must match packet teacher_decision")
         for field in FALSE_CANDIDATE_GATE_FIELDS:
             if candidate.get(field) is not False:
                 errors.append(f"{context}: {field} must be false")
+        if candidate.get("protected_preview_packet_allowed_now") is not False:
+            errors.append(f"{context}: protected_preview_packet_allowed_now must be false")
         for field in (
             "pasuk_ref",
             "hebrew_target",
@@ -169,6 +175,7 @@ def validate() -> dict:
             "source_artifact",
             "source_row_id",
             "risk_level",
+            "teacher_notes",
         ):
             if not candidate.get(field):
                 errors.append(f"{context}: {field} must be populated")
@@ -177,6 +184,9 @@ def validate() -> dict:
             errors.append(f"{context}: distractors must contain exactly three proposed choices")
         if candidate.get("expected_answer") != "noun":
             errors.append(f"{context}: expected_answer must remain noun for basic noun recognition")
+    first = next((candidate for candidate in candidates if candidate.get("candidate_id") == "g2srcdisc_p4_001"), {})
+    if "In this phrase" not in str(first.get("proposed_question", "")):
+        errors.append("g2srcdisc_p4_001 proposed_question must include 'In this phrase'")
 
     override_text = _read_text(OVERRIDE_MD)
     packet_text = _read_text(PACKET_MD)
@@ -185,15 +195,14 @@ def validate() -> dict:
         "This override allows Perek 4 teacher-review packet preparation only. It does not allow runtime activation or active scope expansion.",
         "Perek 3 is not fully closed.",
         "phrase_translation remains excluded/unverified",
-        "אָשִׁית",
     ):
         if required not in override_text:
             errors.append(f"override record missing required phrase: {required}")
     for required in (
-        "teacher-review only",
+        "teacher-review",
         "not runtime content",
         "not a protected-preview packet",
-        "No teacher decisions are applied by this packet.",
+        "Yossi's decisions are now applied",
         "runtime_allowed=false",
         "reviewed_bank_allowed=false",
         "protected_preview_allowed=false",
@@ -209,19 +218,13 @@ def validate() -> dict:
         if required not in readiness_text:
             errors.append(f"readiness report missing required phrase: {required}")
 
-    for path in (OVERRIDE_MD, OVERRIDE_JSON, PACKET_MD, PACKET_JSON, READINESS_MD):
+    for path in (OVERRIDE_MD, OVERRIDE_JSON, PACKET_MD, PACKET_JSON, DECISIONS_JSON, READINESS_MD):
         text = _read_text(path)
         for pattern in FORBIDDEN_PATTERNS:
             if pattern in text:
                 errors.append(f"{_relative(path)} contains forbidden claim: {pattern}")
 
-    return {
-        "ok": not errors,
-        "errors": errors,
-        "candidate_count": len(candidates),
-        "candidate_ids": packet_ids,
-        "source_inventory_candidate_ids": inventory_ids,
-    }
+    return {"ok": not errors, "errors": errors, "candidate_count": len(candidates), "candidate_ids": packet_ids, "source_inventory_candidate_ids": inventory_ids}
 
 
 def main() -> int:

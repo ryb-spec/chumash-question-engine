@@ -10,6 +10,14 @@ from scripts import validate_perek_4_compressed_teacher_review_packet as validat
 
 ROOT = Path(__file__).resolve().parents[1]
 
+EXPECTED_DECISIONS = {
+    "g2srcdisc_p4_001": "approve_with_revision",
+    "g2srcdisc_p4_002": "approve_for_protected_preview",
+    "g2srcdisc_p4_003": "approve_with_revision",
+    "g2srcdisc_p4_004": "approve_with_revision",
+    "g2srcdisc_p4_005": "needs_source_follow_up",
+}
+
 
 def test_required_artifacts_exist():
     for path in validator.REQUIRED_FILES:
@@ -28,11 +36,12 @@ def test_override_json_safety_booleans():
     assert payload["fake_data_created"] is False
 
 
-def test_packet_json_is_teacher_review_only_and_matches_inventory():
+def test_packet_json_is_teacher_review_decisions_applied_and_matches_inventory():
     result = validator.validate()
     assert result["ok"], result["errors"]
     payload = json.loads(validator.PACKET_JSON.read_text(encoding="utf-8"))
-    assert payload["packet_status"] == "teacher_review_only"
+    assert payload["packet_status"] == "teacher_review_decisions_applied"
+    assert payload["teacher_review_decisions_applied"] is True
     assert payload["candidate_count"] == 5
     assert result["candidate_ids"] == result["source_inventory_candidate_ids"]
     assert payload["perek_4_activated"] is False
@@ -41,13 +50,14 @@ def test_packet_json_is_teacher_review_only_and_matches_inventory():
     assert payload["fake_teacher_decisions_created"] is False
 
 
-def test_every_candidate_keeps_gates_closed_and_no_teacher_decision():
+def test_every_candidate_keeps_gates_closed_and_has_expected_teacher_decision():
     payload = json.loads(validator.PACKET_JSON.read_text(encoding="utf-8"))
     for candidate in payload["candidates"]:
-        assert candidate["teacher_decision"] is None
+        assert candidate["teacher_decision"] == EXPECTED_DECISIONS[candidate["candidate_id"]]
         assert candidate["runtime_allowed"] is False
         assert candidate["reviewed_bank_allowed"] is False
         assert candidate["protected_preview_allowed"] is False
+        assert candidate["protected_preview_packet_allowed_now"] is False
         assert candidate["student_facing_allowed"] is False
         assert candidate["broader_use_allowed"] is False
         assert candidate["perek_4_activated"] is False
@@ -55,13 +65,19 @@ def test_every_candidate_keeps_gates_closed_and_no_teacher_decision():
         assert len(candidate["distractors"]) == 3
 
 
+def test_revised_ish_wording_is_applied():
+    payload = json.loads(validator.PACKET_JSON.read_text(encoding="utf-8"))
+    item = next(candidate for candidate in payload["candidates"] if candidate["candidate_id"] == "g2srcdisc_p4_001")
+    assert "In this phrase" in item["proposed_question"]
+
+
 def test_packet_and_readiness_reports_state_safety_boundaries():
     packet_text = validator.PACKET_MD.read_text(encoding="utf-8")
     readiness_text = validator.READINESS_MD.read_text(encoding="utf-8")
-    assert "teacher-review only" in packet_text
+    assert "teacher-review" in packet_text
     assert "not runtime content" in packet_text
     assert "not a protected-preview packet" in packet_text
-    assert "No teacher decisions are applied by this packet." in packet_text
+    assert "Yossi's decisions are now applied" in packet_text
     assert "This packet is not a protected-preview packet and is not runtime content" in readiness_text
     assert "No Perek 4 runtime activation occurred." in readiness_text
     assert "No active scope expansion occurred." in readiness_text
