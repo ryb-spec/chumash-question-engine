@@ -190,8 +190,10 @@ def validate_perek_3_pilot_evidence_pack() -> dict[str, Any]:
         intake = read_text(OBSERVATION_INTAKE)
         if "Reviewer Instructions — Real Evidence Only" not in intake:
             errors.append("observation intake missing real-evidence reviewer instructions")
-        if "No observed rows have been recorded" not in intake:
-            errors.append("observation intake must state that no observed rows are recorded yet")
+        has_blank_intake_notice = "No observed rows have been recorded" in intake
+        has_recorded_evidence_notice = "Fresh Perek 3 pilot evidence recorded - 2026-04-29" in intake
+        if not (has_blank_intake_notice or has_recorded_evidence_notice):
+            errors.append("observation intake must state either blank-intake status or recorded fresh-pilot evidence")
         if "g2ppcand_p3_004" in intake and "blocked" not in intake.lower():
             errors.append("observation intake mentions g2ppcand_p3_004 without blocked status")
 
