@@ -109,3 +109,13 @@ Status: Yossi candidate decisions applied and still fail-closed. Decision counts
 - g2ppcand_p3_004 remains blocked from broader use because of repetition/session-balance risk.
 - No runtime activation, reviewed-bank promotion, student-facing content, item revision, or new protected-preview packet is created by this handoff.
 
+
+## Bereishis Perek 3 completion and Perek 4 launch gate
+
+- Observation intake: `data/gate_2_protected_preview_packets/reports/bereishis_perek_3_limited_post_preview_observation_intake.md`
+- Completion status dashboard: `data/gate_2_protected_preview_packets/reports/bereishis_perek_3_completion_status_dashboard.md`
+- Risk register: `data/gate_2_protected_preview_packets/reports/bereishis_perek_3_risk_register.md`
+- Final handoff index: `data/gate_2_protected_preview_packets/reports/bereishis_perek_3_final_handoff_index.md`
+- Perek 3 to Perek 4 launch gate: `data/pipeline_rounds/bereishis_perek_3_to_perek_4_launch_gate.md`
+- Perek 4 source discovery prompt: `data/pipeline_rounds/prompts/bereishis_perek_4_source_discovery_prompt.md`
+- Recommendation: go for Perek 4 source-discovery only in a later explicit task; no Perek 4 candidates, runtime activation, reviewed-bank promotion, protected-preview packet, or student-facing content are created here.

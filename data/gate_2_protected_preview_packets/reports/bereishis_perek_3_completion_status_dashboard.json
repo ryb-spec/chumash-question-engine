@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0",
+  "stage": "perek_3_protected_preview_governance_completion_ready",
+  "completed_layers": [
+    "internal_protected_preview_packet_creation",
+    "internal_review_checklist_creation",
+    "applied_internal_review_decisions",
+    "item_004_revision_planning",
+    "three_item_limited_post_preview_readiness",
+    "reviewer_handoff",
+    "observation_intake_prepared"
+  ],
+  "active_item_ids": [
+    "g2ppcand_p3_003",
+    "g2ppcand_p3_007",
+    "g2ppcand_p3_008"
+  ],
+  "blocked_item_ids": [
+    "g2ppcand_p3_004"
+  ],
+  "counts": {
+    "original_internal_packet_rows": 4,
+    "active_limited_readiness_rows": 3,
+    "blocked_rows": 1,
+    "observed_rows": 0,
+    "decisions_applied_after_observation": 0,
+    "runtime_ready_rows": 0,
+    "reviewed_bank_ready_rows": 0,
+    "student_facing_rows": 0
+  },
+  "safety_state": {
+    "runtime_activation": false,
+    "perek_3_runtime_activation": false,
+    "reviewed_bank_promotion": false,
+    "student_facing_content": false,
+    "item_revision": false,
+    "observation_decisions_applied": false,
+    "protected_preview_packet_creation": false
+  }
+}

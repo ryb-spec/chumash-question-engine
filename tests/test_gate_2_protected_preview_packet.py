@@ -1,6 +1,7 @@
 ﻿from __future__ import annotations
 
 import csv
+import json
 import tempfile
 import unittest
 from collections import Counter
@@ -83,6 +84,17 @@ class Gate2ProtectedPreviewPacketTests(unittest.TestCase):
             validator.P3_OBSERVATION_TEMPLATE_TSV,
             validator.P3_REVIEWER_HANDOFF,
             validator.P3_REVIEWER_HANDOFF_TSV,
+            validator.P3_OBSERVATION_INTAKE,
+            validator.P3_OBSERVATION_INTAKE_TSV,
+            validator.P3_OBSERVATION_INTAKE_INSTRUCTIONS,
+            validator.P3_COMPLETION_DASHBOARD,
+            validator.P3_COMPLETION_DASHBOARD_JSON,
+            validator.P3_RISK_REGISTER,
+            validator.P3_RISK_REGISTER_TSV,
+            validator.P3_FINAL_HANDOFF_INDEX,
+            validator.P3_TO_P4_LAUNCH_GATE,
+            validator.P3_TO_P4_LAUNCH_GATE_JSON,
+            validator.P4_SOURCE_DISCOVERY_PROMPT,
             validator.P3_STATUS_INDEX,
         ):
             self.assertTrue(path.exists(), path)
@@ -315,6 +327,126 @@ class Gate2ProtectedPreviewPacketTests(unittest.TestCase):
             for field in validator.REVIEWER_HANDOFF_BLANK_COLUMNS:
                 self.assertEqual(row[field], "")
 
+    def test_perek_3_observation_intake_exists_and_is_blank_three_item_sheet(self):
+        text = validator.P3_OBSERVATION_INTAKE.read_text(encoding="utf-8")
+        instructions = validator.P3_OBSERVATION_INTAKE_INSTRUCTIONS.read_text(encoding="utf-8")
+        self.assertIn("observation intake", text)
+        self.assertIn("These are future recommendation values only.", text)
+        self.assertIn("They are not applied by this task.", text)
+        self.assertIn("A later explicit decision-application task is required", text)
+        self.assertIn("g2ppcand_p3_004", text)
+        self.assertIn("not an active observation item", text)
+        for decision in (
+            "keep_limited_iteration",
+            "revise_before_next_iteration",
+            "needs_follow_up",
+            "reject_for_broader_use",
+            "candidate_for_future_reviewed_bank_consideration",
+        ):
+            self.assertIn(decision, instructions)
+        fields, rows = validator.load_tsv(validator.P3_OBSERVATION_INTAKE_TSV)
+        self.assertEqual(fields, validator.OBSERVATION_INTAKE_COLUMNS)
+        self.assertEqual(len(rows), 3)
+        self.assertEqual({row["candidate_id"] for row in rows}, validator.EXPECTED_P3_LIMITED_READINESS)
+        self.assertNotIn("g2ppcand_p3_004", {row["candidate_id"] for row in rows})
+        for row in rows:
+            for field in validator.OBSERVATION_INTAKE_BLANK_COLUMNS:
+                self.assertEqual(row[field], "")
+
+    def test_perek_3_completion_dashboard_counts_are_closed(self):
+        text = validator.P3_COMPLETION_DASHBOARD.read_text(encoding="utf-8")
+        self.assertIn("Observed rows: 0", text)
+        self.assertIn("Runtime-ready rows: 0", text)
+        self.assertIn("Reviewed-bank-ready rows: 0", text)
+        self.assertIn("Student-facing rows: 0", text)
+        self.assertIn("No observation decisions applied", text)
+        payload = json.loads(validator.P3_COMPLETION_DASHBOARD_JSON.read_text(encoding="utf-8"))
+        self.assertEqual(payload["counts"]["original_internal_packet_rows"], 4)
+        self.assertEqual(payload["counts"]["active_limited_readiness_rows"], 3)
+        self.assertEqual(payload["counts"]["blocked_rows"], 1)
+        self.assertEqual(payload["counts"]["observed_rows"], 0)
+        self.assertEqual(payload["counts"]["runtime_ready_rows"], 0)
+        self.assertEqual(payload["counts"]["reviewed_bank_ready_rows"], 0)
+        self.assertEqual(payload["counts"]["student_facing_rows"], 0)
+        self.assertFalse(payload["safety_state"]["runtime_activation"])
+        self.assertFalse(payload["safety_state"]["reviewed_bank_promotion"])
+
+    def test_perek_3_risk_register_contains_expected_closed_gate_risks(self):
+        text = validator.P3_RISK_REGISTER.read_text(encoding="utf-8")
+        self.assertIn("Duplicate `עֵץ` / session-balance risk", text)
+        self.assertIn("Small sample size risk", text)
+        self.assertIn("Narrow skill-family risk", text)
+        self.assertIn("No actual observation data yet", text)
+        self.assertIn("No reviewed-bank approval", text)
+        self.assertIn("No runtime approval", text)
+        fields, rows = validator.load_tsv(validator.P3_RISK_REGISTER_TSV)
+        self.assertEqual(fields, validator.RISK_REGISTER_COLUMNS)
+        self.assertTrue(any("Duplicate עֵץ" in row["risk_name"] for row in rows))
+        for row in rows:
+            self.assertEqual(row["runtime_allowed"], "false")
+            self.assertEqual(row["reviewed_bank_allowed"], "false")
+            self.assertEqual(row["student_facing_allowed"], "false")
+
+    def test_perek_3_to_perek_4_launch_gate_is_source_discovery_only(self):
+        text = validator.P3_TO_P4_LAUNCH_GATE.read_text(encoding="utf-8")
+        self.assertIn("Go for Perek 4 source-discovery only.", text)
+        self.assertIn("No for Perek 4 runtime activation.", text)
+        self.assertIn("No for Perek 4 reviewed-bank promotion.", text)
+        self.assertIn("No for Perek 4 student-facing content.", text)
+        self.assertIn("does not create Perek 4 candidates", text)
+        payload = json.loads(validator.P3_TO_P4_LAUNCH_GATE_JSON.read_text(encoding="utf-8"))
+        self.assertEqual(payload["go_no_go_recommendation"]["perek_4_source_discovery_only"], "go")
+        self.assertEqual(payload["go_no_go_recommendation"]["perek_4_runtime_activation"], "no")
+        self.assertEqual(payload["go_no_go_recommendation"]["perek_4_reviewed_bank_promotion"], "no")
+        self.assertEqual(payload["go_no_go_recommendation"]["perek_4_student_facing_content"], "no")
+
+    def test_perek_4_source_discovery_prompt_is_review_only(self):
+        text = validator.P4_SOURCE_DISCOVERY_PROMPT.read_text(encoding="utf-8")
+        self.assertIn("source-to-skill discovery only", text)
+        self.assertIn("review-only safe candidate inventory", text)
+        self.assertIn("avoid runtime", text)
+        self.assertIn("avoid reviewed-bank promotion", text)
+        self.assertIn("avoid student-facing content", text)
+        self.assertIn("avoid packet creation unless explicitly asked later", text)
+        self.assertIn("include duplicate-token/session-balance warnings", text)
+        self.assertIn("Keep every row review-only and fail-closed.", text)
+
+    def test_perek_3_final_handoff_index_links_key_artifacts(self):
+        text = validator.P3_FINAL_HANDOFF_INDEX.read_text(encoding="utf-8")
+        for path in (
+            validator.P3_CAND,
+            validator.P3_STATUS_INDEX,
+            validator.P3_TSV,
+            validator.P3_REPORT,
+            validator.P3_REVIEW_CHECKLIST,
+            validator.P3_REVIEW_CHECKLIST_TSV,
+            validator.P3_REVIEW_DECISIONS_APPLIED,
+            validator.P3_REVIEW_DECISIONS_APPLIED_TSV,
+            validator.P3_ITEM_004_REVISION_PLAN,
+            validator.P3_ITEM_004_REVISION_PLAN_TSV,
+            validator.P3_LIMITED_READINESS,
+            validator.P3_LIMITED_READINESS_TSV,
+            validator.P3_BLOCKED_REGISTER,
+            validator.P3_BLOCKED_REGISTER_TSV,
+            validator.P3_OBSERVATION_TEMPLATE,
+            validator.P3_OBSERVATION_TEMPLATE_TSV,
+            validator.P3_REVIEWER_HANDOFF,
+            validator.P3_REVIEWER_HANDOFF_TSV,
+            validator.P3_OBSERVATION_INTAKE,
+            validator.P3_OBSERVATION_INTAKE_TSV,
+            validator.P3_OBSERVATION_INTAKE_INSTRUCTIONS,
+            validator.P3_COMPLETION_DASHBOARD,
+            validator.P3_RISK_REGISTER,
+            validator.P3_TO_P4_LAUNCH_GATE,
+            validator.P4_SOURCE_DISCOVERY_PROMPT,
+        ):
+            self.assertIn(validator.rel(path), text)
+        self.assertIn("Active limited-review lane: 3 items.", text)
+        self.assertIn("Blocked item: 1.", text)
+        self.assertIn("Runtime-ready: 0.", text)
+        self.assertIn("Reviewed-bank-ready: 0.", text)
+        self.assertIn("Student-facing: 0.", text)
+
     def test_perek_3_status_index_says_packet_exists_and_gates_closed(self):
         text = validator.P3_STATUS_INDEX.read_text(encoding="utf-8")
         self.assertIn("historical pre-decision artifact", text)
@@ -328,6 +460,10 @@ class Gate2ProtectedPreviewPacketTests(unittest.TestCase):
         self.assertIn("blocked broader-use register keeps `g2ppcand_p3_004` out of the limited readiness lane", text)
         self.assertIn("Future observation decisions must be recorded in a later explicit task", text)
         self.assertIn("limited post-preview reviewer handoff", text)
+        self.assertIn("observation intake", text)
+        self.assertIn("completion status dashboard", text)
+        self.assertIn("risk register", text)
+        self.assertIn("Perek 4 source-discovery only", text)
         self.assertIn("No Perek 3 runtime activation", text)
         self.assertIn("No reviewed-bank promotion", text)
         self.assertIn("No student-facing content", text)

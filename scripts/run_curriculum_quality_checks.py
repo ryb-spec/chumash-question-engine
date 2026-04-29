@@ -420,6 +420,18 @@ def build_perek3_status() -> dict[str, Any]:
     reviewer_handoff_path = repo_path(
         "data/gate_2_protected_preview_packets/reports/bereishis_perek_3_limited_post_preview_reviewer_handoff.md"
     )
+    observation_intake_path = repo_path(
+        "data/gate_2_protected_preview_packets/reports/bereishis_perek_3_limited_post_preview_observation_intake.md"
+    )
+    completion_dashboard_path = repo_path(
+        "data/gate_2_protected_preview_packets/reports/bereishis_perek_3_completion_status_dashboard.md"
+    )
+    risk_register_path = repo_path("data/gate_2_protected_preview_packets/reports/bereishis_perek_3_risk_register.md")
+    final_handoff_index_path = repo_path(
+        "data/gate_2_protected_preview_packets/reports/bereishis_perek_3_final_handoff_index.md"
+    )
+    launch_gate_path = repo_path("data/pipeline_rounds/bereishis_perek_3_to_perek_4_launch_gate.md")
+    perek4_prompt_path = repo_path("data/pipeline_rounds/prompts/bereishis_perek_4_source_discovery_prompt.md")
     return {
         "candidate_tsv": repo_relative(candidates_path.relative_to(ROOT)),
         "historical_review_packet": "data/gate_2_protected_preview_candidates/reports/bereishis_perek_3_protected_preview_candidate_review_packet.md",
@@ -433,6 +445,12 @@ def build_perek3_status() -> dict[str, Any]:
         "blocked_broader_use_register": repo_relative(blocked_register_path.relative_to(ROOT)),
         "limited_post_preview_observation_template": repo_relative(observation_template_path.relative_to(ROOT)),
         "limited_post_preview_reviewer_handoff": repo_relative(reviewer_handoff_path.relative_to(ROOT)),
+        "limited_post_preview_observation_intake": repo_relative(observation_intake_path.relative_to(ROOT)),
+        "completion_status_dashboard": repo_relative(completion_dashboard_path.relative_to(ROOT)),
+        "risk_register": repo_relative(risk_register_path.relative_to(ROOT)),
+        "final_handoff_index": repo_relative(final_handoff_index_path.relative_to(ROOT)),
+        "perek_3_to_perek_4_launch_gate": repo_relative(launch_gate_path.relative_to(ROOT)),
+        "perek_4_source_discovery_prompt": repo_relative(perek4_prompt_path.relative_to(ROOT)),
         "decision_counts": {
             "approve_for_internal_protected_preview_packet": decision_counts.get("approve_for_internal_protected_preview_packet", 0),
             "approve_with_revision": decision_counts.get("approve_with_revision", 0),
@@ -467,6 +485,12 @@ def write_perek3_status_index() -> dict[str, Any]:
         f"- Blocked broader-use register: `{data['blocked_broader_use_register']}`",
         f"- Limited post-preview observation template: `{data['limited_post_preview_observation_template']}`",
         f"- Limited post-preview reviewer handoff: `{data['limited_post_preview_reviewer_handoff']}`",
+        f"- Limited post-preview observation intake: `{data['limited_post_preview_observation_intake']}`",
+        f"- Completion status dashboard: `{data['completion_status_dashboard']}`",
+        f"- Risk register: `{data['risk_register']}`",
+        f"- Final handoff index: `{data['final_handoff_index']}`",
+        f"- Perek 3 to Perek 4 launch gate: `{data['perek_3_to_perek_4_launch_gate']}`",
+        f"- Perek 4 source discovery prompt: `{data['perek_4_source_discovery_prompt']}`",
         f"- Status index: `{data['status_index']}`",
         "",
         "## Decision counts",
@@ -495,6 +519,11 @@ def write_perek3_status_index() -> dict[str, Any]:
             "- A three-item limited post-preview iteration readiness lane exists for `g2ppcand_p3_003`, `g2ppcand_p3_007`, and `g2ppcand_p3_008` only.",
             "- A blocked broader-use register keeps `g2ppcand_p3_004` out of the limited readiness lane.",
             "- A limited post-preview reviewer handoff exists for the three clean readiness-lane items only.",
+            "- Observation intake is prepared with blank fields for the three clean readiness-lane items only.",
+            "- The completion status dashboard records observed rows: 0, runtime-ready rows: 0, reviewed-bank-ready rows: 0, and student-facing rows: 0.",
+            "- The risk register keeps duplicate `עֵץ` / session-balance risk visible and keeps all gates closed.",
+            "- The final handoff index links the Perek 3 protected-preview governance artifacts.",
+            "- The Perek 3 to Perek 4 launch gate recommends Perek 4 source-discovery only.",
             "- Future observation decisions must be recorded in a later explicit task.",
             "- No approve-with-revision rows were included.",
             "- No needs-follow-up rows were included.",
@@ -935,6 +964,12 @@ def write_control_index(output_paths: dict[str, str]) -> None:
         "- Perek 3 blocked broader-use register: `data/gate_2_protected_preview_packets/reports/bereishis_perek_3_blocked_from_broader_use_register.md`",
         "- Perek 3 limited post-preview observation template: `data/gate_2_protected_preview_packets/reports/bereishis_perek_3_limited_post_preview_observation_template.md`",
         "- Perek 3 limited post-preview reviewer handoff: `data/gate_2_protected_preview_packets/reports/bereishis_perek_3_limited_post_preview_reviewer_handoff.md`",
+        "- Perek 3 limited post-preview observation intake: `data/gate_2_protected_preview_packets/reports/bereishis_perek_3_limited_post_preview_observation_intake.md`",
+        "- Perek 3 completion status dashboard: `data/gate_2_protected_preview_packets/reports/bereishis_perek_3_completion_status_dashboard.md`",
+        "- Perek 3 protected-preview risk register: `data/gate_2_protected_preview_packets/reports/bereishis_perek_3_risk_register.md`",
+        "- Perek 3 final handoff index: `data/gate_2_protected_preview_packets/reports/bereishis_perek_3_final_handoff_index.md`",
+        "- Perek 3 to Perek 4 launch gate: `data/pipeline_rounds/bereishis_perek_3_to_perek_4_launch_gate.md`",
+        "- Perek 4 source discovery prompt: `data/pipeline_rounds/prompts/bereishis_perek_4_source_discovery_prompt.md`",
         "- Source audit report: `data/curriculum_extraction/reports/audits/AUDIT_OVERNIGHT_CURRICULUM_QUALITY_REVIEW.md`",
         "",
         "## Use guidance",

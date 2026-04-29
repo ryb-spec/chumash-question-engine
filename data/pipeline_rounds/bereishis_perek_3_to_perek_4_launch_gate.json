@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0",
+  "purpose": "Prepare a fail-closed transition from Perek 3 protected-preview governance to Perek 4 source-discovery only.",
+  "go_no_go_recommendation": {
+    "perek_4_source_discovery_only": "go",
+    "perek_4_runtime_activation": "no",
+    "perek_4_reviewed_bank_promotion": "no",
+    "perek_4_student_facing_content": "no",
+    "broad_perek_4_and_5_expansion_together": "no"
+  },
+  "perek_3_completion_signals": [
+    "internal_packet_exists",
+    "review_checklist_exists",
+    "review_decisions_applied",
+    "item_004_revision_plan_exists",
+    "three_item_readiness_lane_exists",
+    "blocked_register_exists",
+    "reviewer_handoff_exists",
+    "observation_intake_exists",
+    "validators_tests_pass"
+  ],
+  "perek_3_unresolved_items": [
+    "actual_observations_not_recorded",
+    "observation_decisions_not_applied",
+    "item_004_remains_blocked",
+    "no_runtime_promotion",
+    "no_reviewed_bank_promotion"
+  ],
+  "perek_4_guardrails": [
+    "fail_closed",
+    "no_runtime",
+    "no_reviewed_bank",
+    "no_student_facing_content",
+    "no_fake_expansion",
+    "no_broad_candidate_generation",
+    "preserve_source_provenance",
+    "detect_duplicate_token_session_balance_risk_early",
+    "review_only_until_later_explicit_task"
+  ]
+}
