@@ -252,3 +252,16 @@ Status: four Perek 4 candidates advance to protected-preview-candidate review on
 
 Status: Perek 4 has readiness for a later explicit internal protected-preview packet task from four eligible items only. `g2srcdisc_p4_005` remains blocked, and no protected-preview packet, runtime activation, reviewed-bank promotion, or student-facing content was created.
 
+## Perek 4 internal protected-preview packet created
+
+- Packet TSV: `../gate_2_protected_preview_packets/bereishis_perek_4_internal_protected_preview_packet.tsv`
+- Packet Markdown: `../gate_2_protected_preview_packets/reports/bereishis_perek_4_internal_protected_preview_packet_2026_04_29.md`
+- Packet JSON: `../gate_2_protected_preview_packets/reports/bereishis_perek_4_internal_protected_preview_packet_2026_04_29.json`
+- Generation report: `../gate_2_protected_preview_packets/reports/bereishis_perek_4_internal_protected_preview_packet_generation_report_2026_04_29.md`
+- Review checklist: `../gate_2_protected_preview_packets/reports/bereishis_perek_4_internal_protected_preview_review_checklist_2026_04_29.md`
+- Packet-created status: `perek_4_internal_protected_preview_packet_created_2026_04_29.md`
+- Validator: `../../scripts/validate_perek_4_internal_protected_preview_packet.py`
+- Test: `../../tests/test_perek_4_internal_protected_preview_packet.py`
+
+Status: Perek 4 has a four-item internal protected-preview packet for internal review only. Perek 4 runtime activation, active-scope expansion, reviewed-bank promotion, and public/student-facing content remain blocked.
+

@@ -78,3 +78,12 @@ Status: Yossi's planning decisions advance four Perek 4 candidates to protected-
 
 Status: two Perek 4 candidates are approved for a later internal packet task, two are approved with revision notes preserved, and `g2srcdisc_p4_005` remains blocked. No internal protected-preview packet, runtime activation, reviewed-bank promotion, or student-facing content was created.
 
+## Bereishis Perek 4 internal protected-preview packet created
+
+- Packet TSV: `../gate_2_protected_preview_packets/bereishis_perek_4_internal_protected_preview_packet.tsv`
+- Packet report: `../gate_2_protected_preview_packets/reports/bereishis_perek_4_internal_protected_preview_packet_2026_04_29.md`
+- Packet JSON: `../gate_2_protected_preview_packets/reports/bereishis_perek_4_internal_protected_preview_packet_2026_04_29.json`
+- Internal review checklist: `../gate_2_protected_preview_packets/reports/bereishis_perek_4_internal_protected_preview_review_checklist_2026_04_29.md`
+
+Status: four candidate-reviewed Perek 4 items moved into internal protected-preview packet review only. `g2srcdisc_p4_005` remains blocked. No runtime activation, reviewed-bank promotion, or public/student-facing content was created.
+

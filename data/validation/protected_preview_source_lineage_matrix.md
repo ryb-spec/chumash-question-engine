@@ -5,7 +5,7 @@ This is an audit-only lineage report. It does not approve protected-preview rele
 Missing lineage fields use `not_available`; missing lineage does not imply invalid source, and present lineage does not imply runtime approval.
 
 - TSV matrix: `data/validation/protected_preview_source_lineage_matrix.tsv`
-- Rows: 14
+- Rows: 18
 
 | Packet item | Candidate | Ref | Skill | Runtime allowed | Reviewed-bank allowed | Student-facing allowed | Source-to-skill ID |
 |---|---|---|---|---|---|---|---|
@@ -23,3 +23,7 @@ Missing lineage fields use `not_available`; missing lineage does not imply inval
 | `g2ppacket_p3_002` | `g2ppcand_p3_004` | Bereishis 3:2 | `basic_noun_recognition` | `false` | `false` | `false` | `p3_source_candidate_004` |
 | `g2ppacket_p3_003` | `g2ppcand_p3_007` | Bereishis 3:7 | `basic_noun_recognition` | `false` | `false` | `false` | `p3_source_candidate_007` |
 | `g2ppacket_p3_004` | `g2ppcand_p3_008` | Bereishis 3:7 | `basic_noun_recognition` | `false` | `false` | `false` | `p3_source_candidate_008` |
+| `not_available` | `not_available` | not_available | `not_available` | `false` | `false` | `false` | `not_available` |
+| `not_available` | `not_available` | not_available | `not_available` | `false` | `false` | `false` | `not_available` |
+| `not_available` | `not_available` | not_available | `not_available` | `false` | `false` | `false` | `not_available` |
+| `not_available` | `not_available` | not_available | `not_available` | `false` | `false` | `false` | `not_available` |
