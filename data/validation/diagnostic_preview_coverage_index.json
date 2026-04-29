@@ -1,0 +1,23 @@
+{
+  "records": [
+    {
+      "caution_count": "not_available",
+      "config_path": "data/diagnostic_preview/configs/bereishis_1_1_to_2_3_dikduk_translation_preview.json",
+      "covered_ref_count": "not_available",
+      "covered_refs": "not_available",
+      "preview_id": "bereishis_1_1_to_2_3_dikduk_translation_preview",
+      "question_count_by_lane": {},
+      "question_count_by_skill": {},
+      "reviewable_item_count": "not_available",
+      "runtime_approval_warning": "Diagnostic preview coverage does not equal runtime approval, reviewed-bank approval, or protected-preview approval.",
+      "summary_paths": []
+    }
+  ],
+  "schema_version": "1.0",
+  "warnings": [
+    "Diagnostic preview coverage does not equal runtime approval.",
+    "Diagnostic preview coverage does not equal reviewed-bank approval.",
+    "Diagnostic preview coverage does not equal protected-preview approval.",
+    "Coverage gaps marked not_available are unknown, not inferred."
+  ]
+}

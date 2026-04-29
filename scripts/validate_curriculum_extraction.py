@@ -283,6 +283,7 @@ ALLOWED_CHANGE_PREFIXES = (
 
 ALLOWED_CHANGE_EXACT = {
     ".gitignore",
+    "README.md",
     "PLANS.md",
     "docs/runtime_skill_canonical_alignment.md",
     "docs/curriculum_extraction_factory.md",
@@ -435,6 +436,7 @@ ALLOWED_CHANGE_EXACT = {
     "scripts/validate_diagnostic_preview.py",
     "scripts/validate_dikduk_rules.py",
     "scripts/validate_standards_data.py",
+    "scripts/run_curriculum_quality_checks.py",
     "scripts/load_curriculum_extraction.py",
     "scripts/validate_source_texts.py",
     "scripts/validate_verified_source_skill_maps.py",
@@ -442,6 +444,7 @@ ALLOWED_CHANGE_EXACT = {
     "tests/conftest.py",
     "tests/test_diagnostic_preview_generation.py",
     "tests/test_diagnostic_preview_validation.py",
+    "tests/test_curriculum_quality_checks.py",
     "tests/test_dikduk_rule_loader.py",
     "tests/test_dikduk_rules_validation.py",
     "tests/test_translation_sources_loader.py",
@@ -460,6 +463,20 @@ ALLOWED_CHANGE_EXACT = {
     "data/standards/reports/canonical_skill_standards_contract_report.md",
     "scripts/validate_canonical_skill_contract.py",
     "tests/test_canonical_skill_contract.py",
+    "data/validation/curriculum_quality_check_summary.md",
+    "data/validation/curriculum_quality_check_summary.json",
+    "data/validation/curriculum_quality_control_index.md",
+    "data/validation/diagnostic_preview_coverage_index.md",
+    "data/validation/diagnostic_preview_coverage_index.json",
+    "data/validation/protected_preview_source_lineage_matrix.md",
+    "data/validation/protected_preview_source_lineage_matrix.tsv",
+    "data/validation/runtime_review_exposure_index.md",
+    "data/validation/runtime_review_exposure_index.json",
+    "data/validation/standards_evidence_gap_matrix.md",
+    "data/validation/standards_evidence_gap_matrix.json",
+    "data/validation/question_quality_risk_summary.md",
+    "data/validation/question_quality_risk_summary.json",
+    "data/gate_2_protected_preview_candidates/reports/bereishis_perek_3_candidate_status_index.md",
 }
 
 FORBIDDEN_CHANGE_PREFIXES = (

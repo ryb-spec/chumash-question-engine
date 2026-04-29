@@ -52,13 +52,30 @@ streamlit run streamlit_app.py
 
 3. Open the local URL shown by Streamlit.
 
-## Tests
+## Current Recommended Validation
 
-Run the current characterization and active-engine test suite with:
+Fast local validation for curriculum quality and guard behavior:
 
 ```powershell
-python -m unittest tests.test_supported_runtime tests.test_paths tests.test_progress_store tests.test_progress_migration tests.test_streamlit_runtime_scope tests.test_streamlit_modes_smoke tests.test_question_target_selection tests.test_question_types_contract tests.test_normalization tests.test_tokenization tests.test_candidate_generation -v
+python -m pytest tests/test_curriculum_extraction_validation.py
+python -m pytest tests/test_curriculum_quality_checks.py
 ```
+
+Run the non-runtime curriculum quality control orchestrator:
+
+```powershell
+python scripts/run_curriculum_quality_checks.py
+```
+
+Run the full suite before commit:
+
+```powershell
+python -m pytest
+```
+
+The curriculum quality orchestrator writes non-runtime validation and review-governance reports. Those reports do not activate content, promote reviewed-bank items, create protected-preview packets, or create student-facing content. Standalone validators remain important for focused work, and Perek 3 activation or reviewed-bank promotion require separate explicit tasks.
+
+Legacy unittest commands may still be useful for historical characterization, but the primary local and CI path is pytest.
 
 ## Legacy And Dev-Only Pieces
 
