@@ -155,6 +155,9 @@ def test_quality_control_index_exists_and_links_reports():
     assert "bereishis_perek_3_internal_protected_preview_review_checklist.md" in text
     assert "bereishis_perek_3_internal_protected_preview_review_decisions_applied.md" in text
     assert "bereishis_perek_3_item_004_revision_plan.md" in text
+    assert "bereishis_perek_3_limited_post_preview_iteration_readiness.md" in text
+    assert "bereishis_perek_3_blocked_from_broader_use_register.md" in text
+    assert "bereishis_perek_3_limited_post_preview_observation_template.md" in text
     assert "non-runtime" in text
     assert "does not activate runtime" in text or "does not activate" in text
 
@@ -168,6 +171,9 @@ def test_perek_3_status_index_clarifies_current_status_and_packet_boundary():
     assert "Internal review decisions are recorded" in text
     assert "repetition/session-balance" in text
     assert "planning-only revision plan" in text
+    assert "three-item limited post-preview iteration readiness lane exists" in text
+    assert "blocked broader-use register keeps `g2ppcand_p3_004` out of the limited readiness lane" in text
+    assert "Future observation decisions must be recorded in a later explicit task" in text
     assert "No approve-with-revision rows were included" in text
     assert "No needs-follow-up rows were included" in text
     assert "No Perek 3 runtime activation" in text
