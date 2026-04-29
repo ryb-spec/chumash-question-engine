@@ -87,3 +87,11 @@ Status: two Perek 4 candidates are approved for a later internal packet task, tw
 
 Status: four candidate-reviewed Perek 4 items moved into internal protected-preview packet review only. `g2srcdisc_p4_005` remains blocked. No runtime activation, reviewed-bank promotion, or public/student-facing content was created.
 
+## Bereishis Perek 4 internal review decisions applied
+
+- Internal review decisions: `../gate_2_protected_preview_packets/reports/bereishis_perek_4_internal_protected_preview_review_decisions_applied_2026_04_29.md`
+- Limited internal preview readiness: `../gate_2_protected_preview_packets/reports/bereishis_perek_4_limited_internal_preview_readiness_2026_04_29.md`
+- Blocked/revision register: `../gate_2_protected_preview_packets/reports/bereishis_perek_4_blocked_revision_register_2026_04_29.md`
+
+Status: `g2srcdisc_p4_001` and `g2srcdisc_p4_002` are clean-ready for limited internal preview observation only. `g2srcdisc_p4_003`, `g2srcdisc_p4_004`, and `g2srcdisc_p4_005` remain blocked from the clean lane. No runtime activation, reviewed-bank promotion, or public/student-facing content was created.
+

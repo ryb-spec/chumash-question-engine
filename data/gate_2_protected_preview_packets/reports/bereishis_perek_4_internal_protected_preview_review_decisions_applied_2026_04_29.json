@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "branch_name": "feature/perek-4-internal-review-decisions-applied",
+  "decision_date": "2026-04-29",
+  "packet_path": "data/gate_2_protected_preview_packets/bereishis_perek_4_internal_protected_preview_packet.tsv",
+  "item_count": 4,
+  "approve_for_limited_internal_preview_count": 2,
+  "approve_with_revision_count": 2,
+  "blocked_external_candidate_count": 1,
+  "clean_readiness_lane_packet_item_ids": [
+    "g2ppacket_p4_001",
+    "g2ppacket_p4_002"
+  ],
+  "revision_or_blocked_ids": [
+    "g2ppacket_p4_003",
+    "g2ppacket_p4_004",
+    "g2srcdisc_p4_005"
+  ],
+  "decisions": [
+    {
+      "packet_item_id": "g2ppacket_p4_001",
+      "source_candidate_id": "g2srcdisc_p4_001",
+      "pasuk_ref": "Bereishis 4:1",
+      "hebrew_target": "אִישׁ",
+      "decision": "approve_for_limited_internal_preview",
+      "revision_required": false,
+      "revision_note": "No revision required. Wording is clear with In this phrase; noun target is appropriate.",
+      "eligible_for_limited_internal_preview": true,
+      "runtime_allowed": false,
+      "reviewed_bank_allowed": false,
+      "student_facing_allowed": false,
+      "perek_4_activated": false
+    },
+    {
+      "packet_item_id": "g2ppacket_p4_002",
+      "source_candidate_id": "g2srcdisc_p4_002",
+      "pasuk_ref": "Bereishis 4:2",
+      "hebrew_target": "צֹאן",
+      "decision": "approve_for_limited_internal_preview",
+      "revision_required": false,
+      "revision_note": "No revision required. Clean noun-recognition item.",
+      "eligible_for_limited_internal_preview": true,
+      "runtime_allowed": false,
+      "reviewed_bank_allowed": false,
+      "student_facing_allowed": false,
+      "perek_4_activated": false
+    },
+    {
+      "packet_item_id": "g2ppacket_p4_003",
+      "source_candidate_id": "g2srcdisc_p4_003",
+      "pasuk_ref": "Bereishis 4:2",
+      "hebrew_target": "אֲדָמָה",
+      "decision": "approve_with_revision",
+      "revision_required": true,
+      "revision_note": "Keep spacing/session-balance warning; do not cluster near other noun-recognition items.",
+      "eligible_for_limited_internal_preview": false,
+      "runtime_allowed": false,
+      "reviewed_bank_allowed": false,
+      "student_facing_allowed": false,
+      "perek_4_activated": false
+    },
+    {
+      "packet_item_id": "g2ppacket_p4_004",
+      "source_candidate_id": "g2srcdisc_p4_004",
+      "pasuk_ref": "Bereishis 4:3",
+      "hebrew_target": "מִנְחָה",
+      "decision": "approve_with_revision",
+      "revision_required": true,
+      "revision_note": "Keep as part-of-speech only, not vocabulary translation; preserve Minchah/offering alias review and spacing/session-balance warning.",
+      "eligible_for_limited_internal_preview": false,
+      "runtime_allowed": false,
+      "reviewed_bank_allowed": false,
+      "student_facing_allowed": false,
+      "perek_4_activated": false
+    }
+  ],
+  "runtime_allowed": false,
+  "reviewed_bank_allowed": false,
+  "student_facing_allowed": false,
+  "perek_4_activated": false,
+  "fake_observations_created": false,
+  "fake_student_data_created": false
+}
