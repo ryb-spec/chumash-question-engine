@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.0",
+  "iteration_status": "two_item_limited_internal_packet_iteration",
+  "perek": 4,
+  "item_count": 2,
+  "included_candidate_ids": [
+    "g2srcdisc_p4_001",
+    "g2srcdisc_p4_002"
+  ],
+  "excluded_or_held_ids": [
+    "g2srcdisc_p4_003",
+    "g2srcdisc_p4_004",
+    "g2srcdisc_p4_005"
+  ],
+  "items": [
+    {
+      "iteration_item_id": "g2p4final_iter_001",
+      "source_packet_item_id": "g2ppacket_p4_001",
+      "source_candidate_id": "g2srcdisc_p4_001",
+      "pasuk_ref": "Bereishis 4:1",
+      "hebrew_target": "אִישׁ",
+      "question": "In this phrase, what type of word is אִישׁ?",
+      "expected_answer": "noun",
+      "distractors": [
+        "verb",
+        "adjective",
+        "prefix"
+      ],
+      "skill_family": "basic_noun_recognition",
+      "canonical_skill_id": "WORD.PART_OF_SPEECH_BASIC",
+      "prior_internal_decision": "approve_for_later_packet_iteration",
+      "readiness_reason": "Clear noun target; revised wording is clear; distractors are fair.",
+      "observation_result": null,
+      "runtime_allowed": false,
+      "reviewed_bank_allowed": false,
+      "student_facing_allowed": false,
+      "perek_4_activated": false
+    },
+    {
+      "iteration_item_id": "g2p4final_iter_002",
+      "source_packet_item_id": "g2ppacket_p4_002",
+      "source_candidate_id": "g2srcdisc_p4_002",
+      "pasuk_ref": "Bereishis 4:2",
+      "hebrew_target": "צֹאן",
+      "question": "What type of word is צֹאן?",
+      "expected_answer": "noun",
+      "distractors": [
+        "verb",
+        "adjective",
+        "prefix"
+      ],
+      "skill_family": "basic_noun_recognition",
+      "canonical_skill_id": "WORD.PART_OF_SPEECH_BASIC",
+      "prior_internal_decision": "approve_for_later_packet_iteration",
+      "readiness_reason": "Clean noun-recognition item; good for next limited packet iteration.",
+      "observation_result": null,
+      "runtime_allowed": false,
+      "reviewed_bank_allowed": false,
+      "student_facing_allowed": false,
+      "perek_4_activated": false
+    }
+  ]
+}

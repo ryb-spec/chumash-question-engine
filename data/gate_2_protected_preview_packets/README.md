@@ -93,3 +93,10 @@ Status: `g2ppacket_p4_001` and `g2ppacket_p4_002` are eligible for next packet-i
 - `reports/bereishis_perek_4_limited_internal_preview_decisions_applied_2026_04_29.json` is the machine-readable decision record.
 - `reports/bereishis_perek_4_limited_internal_preview_hold_register_2026_04_29.md` keeps held/source-follow-up items blocked and visible.
 - `../../scripts/validate_perek_4_limited_internal_preview_decisions.py` and `../../tests/test_perek_4_limited_internal_preview_decisions.py` validate this gate.
+
+## Perek 4 final two-item limited internal packet iteration - 2026-04-29
+
+- `bereishis_perek_4_two_item_limited_internal_packet_iteration.tsv` contains only `g2ppacket_p4_001` and `g2ppacket_p4_002`.
+- `reports/bereishis_perek_4_two_item_limited_internal_packet_iteration_2026_04_29.md` provides the internal-only item cards and observation fields.
+- `reports/bereishis_perek_4_two_item_limited_internal_packet_iteration_2026_04_29.json` is the machine-readable final iteration record.
+- `../../scripts/validate_perek_4_final_iteration_and_perek_5_6_gate.py` and `../../tests/test_perek_4_final_iteration_and_perek_5_6_gate.py` validate the final iteration and launch gate.

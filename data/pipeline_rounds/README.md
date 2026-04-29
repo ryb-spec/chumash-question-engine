@@ -294,3 +294,10 @@ Status: only ????? and ???? are eligible for next packet-iteration readiness. ??
 - `perek_4_limited_internal_preview_next_packet_iteration_readiness_2026_04_29.md` identifies the next safe two-item packet iteration lane for `g2ppacket_p4_001` and `g2ppacket_p4_002` only.
 - Runtime activation, active scope expansion, reviewed-bank promotion, and public/student-facing use remain blocked.
 - Validator/test: `scripts/validate_perek_4_limited_internal_preview_decisions.py` and `tests/test_perek_4_limited_internal_preview_decisions.py`.
+
+## Perek 4 final iteration and Perek 5-6 source-discovery launch gate - 2026-04-29
+
+- `perek_4_final_internal_iteration_and_perek_5_6_source_discovery_gate_2026_04_29.md` records the final Perek 4 internal-only stopping point and permits Perek 5-6 source discovery only.
+- `perek_4_final_internal_iteration_and_perek_5_6_source_discovery_gate_2026_04_29.json` is the machine-readable gate.
+- `prompts/bereishis_perek_5_6_source_discovery_prompt.md` is a paste-ready prompt for a later Perek 5-6 source-discovery-only task.
+- Runtime activation, active scope expansion, reviewed-bank promotion, protected-preview packet creation, and student-facing use remain blocked.
