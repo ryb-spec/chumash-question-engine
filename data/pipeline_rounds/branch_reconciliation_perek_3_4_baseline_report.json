@@ -1,0 +1,233 @@
+{
+  "schema_version": "1.0",
+  "current_branch": "chore/branch-reconciliation-perek-3-4-baseline",
+  "main_branch": "main",
+  "branches": [
+    {
+      "branch": "audit/overnight-curriculum-quality-review",
+      "exists": true,
+      "latest_sha": "01c373b",
+      "latest_message": "Govern overnight curriculum audit artifacts",
+      "merged_into_main": false,
+      "merged_into_current": false,
+      "ahead_main": 21,
+      "behind_main": 0,
+      "contains_unique_work": true,
+      "safe_to_merge_note": "Merge early; governance/audit artifact baseline."
+    },
+    {
+      "branch": "fix/curriculum-quality-control-center",
+      "exists": true,
+      "latest_sha": "f7d8916",
+      "latest_message": "Add curriculum quality control center",
+      "merged_into_main": false,
+      "merged_into_current": false,
+      "ahead_main": 22,
+      "behind_main": 0,
+      "contains_unique_work": true,
+      "safe_to_merge_note": "Merge after audit branch; adds orchestrator and reports."
+    },
+    {
+      "branch": "feature/perek-3-approved-protected-preview-packet",
+      "exists": true,
+      "latest_sha": "8671330",
+      "latest_message": "Create Bereishis Perek 3 internal protected-preview packet",
+      "merged_into_main": false,
+      "merged_into_current": false,
+      "ahead_main": 23,
+      "behind_main": 0,
+      "contains_unique_work": true,
+      "safe_to_merge_note": "Merge after quality-control center."
+    },
+    {
+      "branch": "feature/perek-3-internal-review-checklist",
+      "exists": true,
+      "latest_sha": "dad75cb",
+      "latest_message": "Add Perek 3 internal protected-preview review checklist",
+      "merged_into_main": false,
+      "merged_into_current": false,
+      "ahead_main": 24,
+      "behind_main": 0,
+      "contains_unique_work": true,
+      "safe_to_merge_note": "Merge after Perek 3 packet."
+    },
+    {
+      "branch": "feature/perek-3-internal-review-decisions",
+      "exists": true,
+      "latest_sha": "5f78d83",
+      "latest_message": "Record Perek 3 internal protected-preview review decisions",
+      "merged_into_main": false,
+      "merged_into_current": false,
+      "ahead_main": 25,
+      "behind_main": 0,
+      "contains_unique_work": true,
+      "safe_to_merge_note": "Merge after checklist."
+    },
+    {
+      "branch": "feature/perek-3-item-004-revision-plan",
+      "exists": true,
+      "latest_sha": "ce64f74",
+      "latest_message": "Add Perek 3 item 004 revision plan",
+      "merged_into_main": false,
+      "merged_into_current": false,
+      "ahead_main": 26,
+      "behind_main": 0,
+      "contains_unique_work": true,
+      "safe_to_merge_note": "Merge after applied decisions."
+    },
+    {
+      "branch": "feature/perek-3-limited-post-preview-readiness",
+      "exists": true,
+      "latest_sha": "991e28f",
+      "latest_message": "Add Perek 3 limited post-preview readiness lane",
+      "merged_into_main": false,
+      "merged_into_current": false,
+      "ahead_main": 27,
+      "behind_main": 0,
+      "contains_unique_work": true,
+      "safe_to_merge_note": "Merge after item 004 revision plan."
+    },
+    {
+      "branch": "feature/perek-3-limited-reviewer-handoff",
+      "exists": true,
+      "latest_sha": "e51843c",
+      "latest_message": "Add Perek 3 limited post-preview reviewer handoff",
+      "merged_into_main": false,
+      "merged_into_current": false,
+      "ahead_main": 28,
+      "behind_main": 0,
+      "contains_unique_work": true,
+      "safe_to_merge_note": "Merge after readiness lane."
+    },
+    {
+      "branch": "feature/perek-3-completion-and-perek-4-launch-gate",
+      "exists": true,
+      "latest_sha": "1572b05",
+      "latest_message": "Complete Perek 3 governance and prepare Perek 4 launch gate",
+      "merged_into_main": false,
+      "merged_into_current": false,
+      "ahead_main": 29,
+      "behind_main": 0,
+      "contains_unique_work": true,
+      "safe_to_merge_note": "Merge after reviewer handoff."
+    },
+    {
+      "branch": "feature/perek-4-source-discovery-inventory",
+      "exists": true,
+      "latest_sha": "ce00510",
+      "latest_message": "Add Perek 4 source discovery inventory",
+      "merged_into_main": false,
+      "merged_into_current": false,
+      "ahead_main": 30,
+      "behind_main": 0,
+      "contains_unique_work": true,
+      "safe_to_merge_note": "Merge after Perek 3 completion/launch gate."
+    },
+    {
+      "branch": "feature/perek-3-pilot-evidence-pack",
+      "exists": true,
+      "latest_sha": "f27f7c4",
+      "latest_message": "Add Perek 3 pilot evidence pack",
+      "merged_into_main": false,
+      "merged_into_current": true,
+      "ahead_main": 1,
+      "behind_main": 0,
+      "contains_unique_work": true,
+      "safe_to_merge_note": "Merge last into integration branch; reconcile README/intake/allowlist overlaps."
+    }
+  ],
+  "artifact_presence": {
+    "quality_control_center": {
+      "current_branch": "missing",
+      "main": "missing",
+      "other_branch": "fix/curriculum-quality-control-center"
+    },
+    "gate_2_protected_preview_validators": {
+      "current_branch": "missing",
+      "main": "missing",
+      "other_branch": "audit/overnight-curriculum-quality-review and later quality/Perek branches"
+    },
+    "perek_3_packet_review_chain": {
+      "current_branch": "missing except pilot observation intake",
+      "main": "missing",
+      "other_branch": "feature/perek-3-approved-protected-preview-packet through feature/perek-3-completion-and-perek-4-launch-gate"
+    },
+    "perek_4_source_discovery": {
+      "current_branch": "missing",
+      "main": "missing",
+      "other_branch": "feature/perek-4-source-discovery-inventory"
+    },
+    "perek_3_pilot_evidence_pack": {
+      "current_branch": "present",
+      "main": "missing",
+      "other_branch": "feature/perek-3-pilot-evidence-pack"
+    }
+  },
+  "source_integrity": {
+    "validate_source_texts": "passed",
+    "source_text_tests": "14 passed",
+    "sha256": "4d96c615ab63e0419bff079db250d71ea9b5de266ff9ab8d589ae80e4afd0b71",
+    "source_file_dirty": false,
+    "source_truth_modified": false
+  },
+  "validators": [
+    {"command": "python scripts/run_curriculum_quality_checks.py", "status": "skipped", "note": "missing on current branch"},
+    {"command": "python scripts/validate_pipeline_rounds.py", "status": "skipped", "note": "missing on current branch"},
+    {"command": "python scripts/validate_gate_2_protected_preview_candidates.py", "status": "skipped", "note": "missing on current branch"},
+    {"command": "python scripts/validate_gate_2_protected_preview_packet.py", "status": "skipped", "note": "missing on current branch"},
+    {"command": "python scripts/validate_perek_4_source_discovery.py", "status": "skipped", "note": "missing on current branch"},
+    {"command": "python scripts/validate_perek_3_pilot_evidence_pack.py", "status": "passed", "note": "current branch contains pilot evidence validator"},
+    {"command": "python scripts/validate_curriculum_extraction.py", "status": "passed", "note": "valid true"},
+    {"command": "python scripts/validate_curriculum_extraction.py --check-git-diff", "status": "passed", "note": "valid true before report creation"},
+    {"command": "python -m pytest tests/test_perek_3_pilot_evidence_pack.py", "status": "passed", "note": "6 passed"},
+    {"command": "python -m pytest tests/test_curriculum_extraction_validation.py tests/test_diagnostic_preview_validation.py", "status": "passed", "note": "44 passed"},
+    {"command": "python -m pytest", "status": "passed", "note": "581 passed"}
+  ],
+  "proposed_merge_order": [
+    "audit/overnight-curriculum-quality-review",
+    "fix/curriculum-quality-control-center",
+    "feature/perek-3-approved-protected-preview-packet",
+    "feature/perek-3-internal-review-checklist",
+    "feature/perek-3-internal-review-decisions",
+    "feature/perek-3-item-004-revision-plan",
+    "feature/perek-3-limited-post-preview-readiness",
+    "feature/perek-3-limited-reviewer-handoff",
+    "feature/perek-3-completion-and-perek-4-launch-gate",
+    "feature/perek-4-source-discovery-inventory",
+    "feature/perek-3-pilot-evidence-pack"
+  ],
+  "go_no_go": {
+    "merge_pilot_evidence_pack_forward": "Go after ordered integration baseline",
+    "perek_4_source_review_checklist": "No-Go until source discovery branch is merged and validated",
+    "runtime_activation": "No-Go",
+    "reviewed_bank_promotion": "No-Go",
+    "student_facing_content": "No-Go"
+  },
+  "safety_boundaries": {
+    "no_runtime_activation": true,
+    "no_active_scope_change": true,
+    "no_reviewed_bank_promotion": true,
+    "no_student_facing_content": true,
+    "no_source_truth_changes": true,
+    "no_validators_weakened": true,
+    "no_branch_deletion": true,
+    "no_force_push": true
+  },
+  "next_commands": [
+    "git switch main",
+    "git pull --ff-only origin main",
+    "git switch -c integration/perek-3-4-quality-control-baseline",
+    "git merge --no-ff audit/overnight-curriculum-quality-review",
+    "git merge --no-ff fix/curriculum-quality-control-center",
+    "git merge --no-ff feature/perek-3-approved-protected-preview-packet",
+    "git merge --no-ff feature/perek-3-internal-review-checklist",
+    "git merge --no-ff feature/perek-3-internal-review-decisions",
+    "git merge --no-ff feature/perek-3-item-004-revision-plan",
+    "git merge --no-ff feature/perek-3-limited-post-preview-readiness",
+    "git merge --no-ff feature/perek-3-limited-reviewer-handoff",
+    "git merge --no-ff feature/perek-3-completion-and-perek-4-launch-gate",
+    "git merge --no-ff feature/perek-4-source-discovery-inventory",
+    "git merge --no-ff feature/perek-3-pilot-evidence-pack",
+    "python -m pytest"
+  ]
+}
