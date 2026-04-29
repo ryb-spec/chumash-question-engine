@@ -30,7 +30,7 @@ def test_blocked_candidate_excluded_and_listed():
     assert validator.BLOCKED_ID not in [item["source_candidate_id"] for item in payload["items"]]
 
 
-def test_all_safety_booleans_are_false_and_internal_decisions_null():
+def test_all_safety_booleans_are_false_and_internal_decisions_safe():
     payload = json.loads(validator.PACKET_JSON.read_text(encoding="utf-8"))
     for field in validator.FALSE_FIELDS:
         assert payload[field] is False
@@ -38,7 +38,8 @@ def test_all_safety_booleans_are_false_and_internal_decisions_null():
     assert payload["fake_review_decisions_created"] is False
     assert payload["fake_student_data_created"] is False
     for item in payload["items"]:
-        assert item["internal_review_decision"] is None
+        expected = validator.EXPECTED_INTERNAL_REVIEW_DECISIONS.get(item["packet_item_id"])
+        assert item["internal_review_decision"] in (None, expected)
         for field in validator.FALSE_FIELDS:
             assert item[field] is False
 

@@ -109,3 +109,12 @@ Internal reviewer notes: ____________________
 Packet status: `internal_protected_preview_only`.
 
 Every item remains `runtime_allowed=false`, `reviewed_bank_allowed=false`, `student_facing_allowed=false`, and `perek_4_activated=false`.
+
+## Internal review decisions applied
+
+- `g2ppacket_p4_001` / `g2srcdisc_p4_001`: `approve_for_limited_internal_preview`. No revision required. Wording is clear with In this phrase; noun target is appropriate.
+- `g2ppacket_p4_002` / `g2srcdisc_p4_002`: `approve_for_limited_internal_preview`. No revision required. Clean noun-recognition item.
+- `g2ppacket_p4_003` / `g2srcdisc_p4_003`: `approve_with_revision`. Keep spacing/session-balance warning; do not cluster near other noun-recognition items.
+- `g2ppacket_p4_004` / `g2srcdisc_p4_004`: `approve_with_revision`. Keep as part-of-speech only, not vocabulary translation; preserve Minchah/offering alias review and spacing/session-balance warning.
+
+All runtime, reviewed-bank, student-facing, and Perek 4 activation gates remain false.

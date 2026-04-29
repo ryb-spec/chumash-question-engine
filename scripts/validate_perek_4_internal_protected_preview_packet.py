@@ -22,6 +22,12 @@ PIPELINE_STATUS = ROOT / "data/pipeline_rounds/perek_4_internal_protected_previe
 REQUIRED_FILES = (PACKET_TSV, PACKET_MD, PACKET_JSON, GENERATION_REPORT, REVIEW_CHECKLIST, PIPELINE_STATUS)
 EXPECTED_IDS = ["g2srcdisc_p4_001", "g2srcdisc_p4_002", "g2srcdisc_p4_003", "g2srcdisc_p4_004"]
 BLOCKED_ID = "g2srcdisc_p4_005"
+EXPECTED_INTERNAL_REVIEW_DECISIONS = {
+    "g2ppacket_p4_001": "approve_for_limited_internal_preview",
+    "g2ppacket_p4_002": "approve_for_limited_internal_preview",
+    "g2ppacket_p4_003": "approve_with_revision",
+    "g2ppacket_p4_004": "approve_with_revision",
+}
 FALSE_FIELDS = ("runtime_allowed", "reviewed_bank_allowed", "student_facing_allowed", "perek_4_activated")
 REQUIRED_TSV_COLUMNS = [
     "packet_item_id",
@@ -110,8 +116,9 @@ def _validate_tsv(errors: list[str]) -> list[str]:
             errors.append(f"{context}: internal_packet_allowed must be true")
         if row.get("internal_packet_status") != "internal_protected_preview_only":
             errors.append(f"{context}: internal_packet_status must be internal_protected_preview_only")
-        if row.get("internal_review_decision"):
-            errors.append(f"{context}: internal_review_decision must be blank")
+        decision = row.get("internal_review_decision", "")
+        if decision and decision != EXPECTED_INTERNAL_REVIEW_DECISIONS.get(context):
+            errors.append(f"{context}: internal_review_decision must be blank or the expected applied decision")
         for field in FALSE_FIELDS:
             if row.get(field) != "false":
                 errors.append(f"{context}: {field} must be false")
@@ -134,6 +141,8 @@ def _validate_json(payload: dict, errors: list[str]) -> list[str]:
         errors.append("reviewed_bank_promoted must be false")
     if payload.get("fake_review_decisions_created") is not False:
         errors.append("fake_review_decisions_created must be false")
+    if payload.get("internal_review_decisions_applied") not in (None, True):
+        errors.append("internal_review_decisions_applied must be absent or true")
     if payload.get("fake_student_data_created") is not False:
         errors.append("fake_student_data_created must be false")
     for field in FALSE_FIELDS:
@@ -151,8 +160,9 @@ def _validate_json(payload: dict, errors: list[str]) -> list[str]:
         if not isinstance(item, dict):
             continue
         context = str(item.get("packet_item_id", "packet JSON item"))
-        if item.get("internal_review_decision") is not None:
-            errors.append(f"{context}: internal_review_decision must be null")
+        decision = item.get("internal_review_decision")
+        if decision is not None and decision != EXPECTED_INTERNAL_REVIEW_DECISIONS.get(context):
+            errors.append(f"{context}: internal_review_decision must be null or the expected applied decision")
         for field in FALSE_FIELDS:
             _require_false(item, field, errors, context)
         if item.get("source_candidate_id") == "g2srcdisc_p4_001" and "In this phrase" not in str(item.get("question", "")):

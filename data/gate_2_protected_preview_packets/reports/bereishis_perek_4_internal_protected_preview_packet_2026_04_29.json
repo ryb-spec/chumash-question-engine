@@ -24,11 +24,14 @@
       "revision_note": "Revised wording preserved: In this phrase, what type of word is אִישׁ?",
       "spacing_note": "Do not cluster too tightly with other basic noun-recognition items in a tiny packet.",
       "source_or_alias_note": "Noun target is appropriate for internal protected-preview review.",
-      "internal_review_decision": null,
+      "internal_review_decision": "approve_for_limited_internal_preview",
       "runtime_allowed": false,
       "reviewed_bank_allowed": false,
       "student_facing_allowed": false,
-      "perek_4_activated": false
+      "perek_4_activated": false,
+      "internal_review_reason": "Wording is clear with In this phrase; noun target is appropriate.",
+      "revision_required_after_internal_review": false,
+      "eligible_for_limited_internal_preview": true
     },
     {
       "packet_item_id": "g2ppacket_p4_002",
@@ -47,11 +50,14 @@
       "revision_note": "No revision required by Yossi candidate review.",
       "spacing_note": "Do not cluster too tightly with other basic noun-recognition items in a tiny packet.",
       "source_or_alias_note": "Clean noun-recognition item for internal protected-preview review.",
-      "internal_review_decision": null,
+      "internal_review_decision": "approve_for_limited_internal_preview",
       "runtime_allowed": false,
       "reviewed_bank_allowed": false,
       "student_facing_allowed": false,
-      "perek_4_activated": false
+      "perek_4_activated": false,
+      "internal_review_reason": "Clean noun-recognition item.",
+      "revision_required_after_internal_review": false,
+      "eligible_for_limited_internal_preview": true
     },
     {
       "packet_item_id": "g2ppacket_p4_003",
@@ -70,11 +76,14 @@
       "revision_note": "Keep spacing/session-balance note; do not place close to similar noun-recognition items.",
       "spacing_note": "Spacing/session-balance warning required before any internal use; avoid adjacent similar noun-recognition items.",
       "source_or_alias_note": "Part-of-speech target only; do not convert into vocabulary translation.",
-      "internal_review_decision": null,
+      "internal_review_decision": "approve_with_revision",
       "runtime_allowed": false,
       "reviewed_bank_allowed": false,
       "student_facing_allowed": false,
-      "perek_4_activated": false
+      "perek_4_activated": false,
+      "internal_review_reason": "Good noun target, but spacing/session-balance warning must be preserved.",
+      "revision_required_after_internal_review": true,
+      "eligible_for_limited_internal_preview": false
     },
     {
       "packet_item_id": "g2ppacket_p4_004",
@@ -93,11 +102,14 @@
       "revision_note": "Keep as part-of-speech only, not vocabulary translation; preserve Minchah/offering alias review and spacing/session-balance warning.",
       "spacing_note": "Spacing/session-balance warning required before any internal use; avoid adjacent similar noun-recognition items.",
       "source_or_alias_note": "Preserve Minchah/offering alias review; this packet asks part of speech only.",
-      "internal_review_decision": null,
+      "internal_review_decision": "approve_with_revision",
       "runtime_allowed": false,
       "reviewed_bank_allowed": false,
       "student_facing_allowed": false,
-      "perek_4_activated": false
+      "perek_4_activated": false,
+      "internal_review_reason": "Good noun target, but alias review and spacing/session-balance warning must be preserved.",
+      "revision_required_after_internal_review": true,
+      "eligible_for_limited_internal_preview": false
     }
   ],
   "runtime_allowed": false,
@@ -106,5 +118,17 @@
   "perek_4_activated": false,
   "reviewed_bank_promoted": false,
   "fake_review_decisions_created": false,
-  "fake_student_data_created": false
+  "fake_student_data_created": false,
+  "internal_review_decisions_applied": true,
+  "approve_for_limited_internal_preview_count": 2,
+  "approve_with_revision_count": 2,
+  "limited_internal_preview_ready_item_ids": [
+    "g2ppacket_p4_001",
+    "g2ppacket_p4_002"
+  ],
+  "revision_or_blocked_item_ids": [
+    "g2ppacket_p4_003",
+    "g2ppacket_p4_004",
+    "g2srcdisc_p4_005"
+  ]
 }

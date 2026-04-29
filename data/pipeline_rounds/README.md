@@ -265,3 +265,16 @@ Status: Perek 4 has readiness for a later explicit internal protected-preview pa
 
 Status: Perek 4 has a four-item internal protected-preview packet for internal review only. Perek 4 runtime activation, active-scope expansion, reviewed-bank promotion, and public/student-facing content remain blocked.
 
+## Perek 4 internal review decisions and limited preview readiness
+
+- Decisions-applied report: `../gate_2_protected_preview_packets/reports/bereishis_perek_4_internal_protected_preview_review_decisions_applied_2026_04_29.md`
+- Decisions-applied JSON: `../gate_2_protected_preview_packets/reports/bereishis_perek_4_internal_protected_preview_review_decisions_applied_2026_04_29.json`
+- Limited readiness lane: `../gate_2_protected_preview_packets/reports/bereishis_perek_4_limited_internal_preview_readiness_2026_04_29.md`
+- Blocked/revision register: `../gate_2_protected_preview_packets/reports/bereishis_perek_4_blocked_revision_register_2026_04_29.md`
+- Observation template: `../gate_2_protected_preview_packets/reports/bereishis_perek_4_limited_internal_preview_observation_template_2026_04_29.md`
+- Pipeline status: `perek_4_internal_review_decisions_and_limited_preview_readiness_2026_04_29.md`
+- Validator: `../../scripts/validate_perek_4_internal_review_decisions.py`
+- Test: `../../tests/test_perek_4_internal_review_decisions.py`
+
+Status: two clean Perek 4 packet items may enter limited internal preview observation only. Revision/source-follow-up items remain blocked. Perek 4 remains non-runtime, non-reviewed-bank, and non-public/student-facing.
+

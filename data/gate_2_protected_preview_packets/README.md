@@ -65,3 +65,15 @@ Perek 3 contains a four-item internal protected-preview packet from explicitly a
 
 Status: four Perek 4 items are packaged for internal protected-preview review only. `g2srcdisc_p4_005` remains blocked. Runtime, reviewed-bank, and public/student-facing gates remain closed.
 
+## Bereishis Perek 4 internal review decisions and limited readiness
+
+- Internal review decisions applied: `data/gate_2_protected_preview_packets/reports/bereishis_perek_4_internal_protected_preview_review_decisions_applied_2026_04_29.md`
+- Internal review decisions JSON: `data/gate_2_protected_preview_packets/reports/bereishis_perek_4_internal_protected_preview_review_decisions_applied_2026_04_29.json`
+- Limited internal preview readiness lane: `data/gate_2_protected_preview_packets/reports/bereishis_perek_4_limited_internal_preview_readiness_2026_04_29.md`
+- Blocked/revision register: `data/gate_2_protected_preview_packets/reports/bereishis_perek_4_blocked_revision_register_2026_04_29.md`
+- Observation template: `data/gate_2_protected_preview_packets/reports/bereishis_perek_4_limited_internal_preview_observation_template_2026_04_29.md`
+- Validator: `scripts/validate_perek_4_internal_review_decisions.py`
+- Test: `tests/test_perek_4_internal_review_decisions.py`
+
+Status: two clean Perek 4 items are ready for limited internal preview observation only. Two packet items remain revision-blocked, and `g2srcdisc_p4_005` remains source-follow-up. Runtime, reviewed-bank, and public/student-facing gates remain closed.
+
