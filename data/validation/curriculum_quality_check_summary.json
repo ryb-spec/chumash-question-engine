@@ -10,7 +10,7 @@
     "source_lineage_visibility_gap",
     "readme_command_drift"
   ],
-  "branch": "feature/perek-4-protected-preview-candidate-review-decisions",
+  "branch": "feature/perek-4-internal-protected-preview-packet",
   "checks": [
     {
       "args": [
@@ -18,7 +18,7 @@
         "scripts/validate_gate_2_controlled_draft_generation.py"
       ],
       "category": "Gate 2",
-      "duration_seconds": 0.051,
+      "duration_seconds": 0.046,
       "exit_code": 0,
       "label": "Gate 2 controlled draft validation",
       "note": "",
@@ -33,7 +33,7 @@
         "scripts/validate_gate_2_input_planning.py"
       ],
       "category": "Gate 2",
-      "duration_seconds": 0.063,
+      "duration_seconds": 0.051,
       "exit_code": 0,
       "label": "Gate 2 input planning validation",
       "note": "",
@@ -48,7 +48,7 @@
         "scripts/validate_curriculum_extraction.py"
       ],
       "category": "curriculum extraction",
-      "duration_seconds": 0.133,
+      "duration_seconds": 0.132,
       "exit_code": 0,
       "label": "curriculum extraction validation",
       "note": "",
@@ -95,7 +95,7 @@
         "scripts/validate_dikduk_rules.py"
       ],
       "category": "dikduk",
-      "duration_seconds": 0.044,
+      "duration_seconds": 0.052,
       "exit_code": 0,
       "label": "dikduk rules validation",
       "note": "",
@@ -110,7 +110,7 @@
         "scripts/validate_question_eligibility_audit.py"
       ],
       "category": "eligibility",
-      "duration_seconds": 0.062,
+      "duration_seconds": 0.081,
       "exit_code": 0,
       "label": "question eligibility audit validation",
       "note": "",
@@ -125,7 +125,7 @@
         "scripts/validate_source_skill_enrichment.py"
       ],
       "category": "enrichment",
-      "duration_seconds": 0.184,
+      "duration_seconds": 0.189,
       "exit_code": 0,
       "label": "source skill enrichment validation",
       "note": "",
@@ -140,7 +140,7 @@
         "scripts/validate_pipeline_rounds.py"
       ],
       "category": "pipeline",
-      "duration_seconds": 0.044,
+      "duration_seconds": 0.048,
       "exit_code": 0,
       "label": "pipeline rounds validation",
       "note": "",
@@ -155,7 +155,7 @@
         "scripts/validate_gate_2_protected_preview_candidates.py"
       ],
       "category": "protected preview",
-      "duration_seconds": 0.043,
+      "duration_seconds": 0.054,
       "exit_code": 0,
       "label": "Gate 2 protected-preview candidates validation",
       "note": "",
@@ -170,7 +170,7 @@
         "scripts/validate_gate_2_protected_preview_packet.py"
       ],
       "category": "protected preview",
-      "duration_seconds": 0.06,
+      "duration_seconds": 0.07,
       "exit_code": 0,
       "label": "Gate 2 protected-preview packet validation",
       "note": "",
@@ -185,7 +185,7 @@
         "scripts/validate_protected_preview_candidates.py"
       ],
       "category": "protected preview",
-      "duration_seconds": 0.046,
+      "duration_seconds": 0.053,
       "exit_code": 0,
       "label": "Round 1 protected-preview candidates validation",
       "note": "",
@@ -200,7 +200,7 @@
         "scripts/validate_protected_preview_packet.py"
       ],
       "category": "protected preview",
-      "duration_seconds": 0.04,
+      "duration_seconds": 0.059,
       "exit_code": 0,
       "label": "Round 1 protected-preview packet validation",
       "note": "",
@@ -227,7 +227,7 @@
         "scripts/validate_perek_4_source_discovery.py"
       ],
       "category": "source discovery",
-      "duration_seconds": 0.046,
+      "duration_seconds": 0.052,
       "exit_code": 0,
       "label": "Perek 4 source discovery validation",
       "note": "",
@@ -242,7 +242,7 @@
         "scripts/validate_bereishis_translations.py"
       ],
       "category": "source integrity",
-      "duration_seconds": 0.096,
+      "duration_seconds": 0.107,
       "exit_code": 0,
       "label": "Bereishis translation validation",
       "note": "",
@@ -257,7 +257,7 @@
         "scripts/validate_source_texts.py"
       ],
       "category": "source integrity",
-      "duration_seconds": 0.088,
+      "duration_seconds": 0.104,
       "exit_code": 0,
       "label": "source text validation",
       "note": "",
@@ -272,7 +272,7 @@
         "scripts/validate_verified_source_skill_maps.py"
       ],
       "category": "source integrity",
-      "duration_seconds": 0.089,
+      "duration_seconds": 0.096,
       "exit_code": 0,
       "label": "verified source-to-skill maps",
       "note": "",
@@ -287,7 +287,7 @@
         "scripts/validate_canonical_skill_contract.py"
       ],
       "category": "standards",
-      "duration_seconds": 0.077,
+      "duration_seconds": 0.094,
       "exit_code": 0,
       "label": "canonical skill contract validation",
       "note": "",
@@ -302,7 +302,7 @@
         "scripts/validate_standards_data.py"
       ],
       "category": "standards",
-      "duration_seconds": 0.094,
+      "duration_seconds": 0.089,
       "exit_code": 0,
       "label": "standards data validation",
       "note": "",

@@ -52,3 +52,16 @@ Perek 3 contains a four-item internal protected-preview packet from explicitly a
 - Risk register TSV: `data/gate_2_protected_preview_packets/reports/bereishis_perek_3_risk_register.tsv`
 - Final handoff index: `data/gate_2_protected_preview_packets/reports/bereishis_perek_3_final_handoff_index.md`
 - Status: Perek 3 protected-preview governance is prepared for human observation intake only. No observations or new decisions are applied, item 004 remains blocked, runtime-ready rows remain 0, reviewed-bank-ready rows remain 0, and student-facing rows remain 0.
+
+## Bereishis Perek 4 internal protected-preview packet
+
+- Packet TSV: `data/gate_2_protected_preview_packets/bereishis_perek_4_internal_protected_preview_packet.tsv`
+- Packet Markdown: `data/gate_2_protected_preview_packets/reports/bereishis_perek_4_internal_protected_preview_packet_2026_04_29.md`
+- Packet JSON: `data/gate_2_protected_preview_packets/reports/bereishis_perek_4_internal_protected_preview_packet_2026_04_29.json`
+- Generation report: `data/gate_2_protected_preview_packets/reports/bereishis_perek_4_internal_protected_preview_packet_generation_report_2026_04_29.md`
+- Internal review checklist: `data/gate_2_protected_preview_packets/reports/bereishis_perek_4_internal_protected_preview_review_checklist_2026_04_29.md`
+- Validator: `scripts/validate_perek_4_internal_protected_preview_packet.py`
+- Test: `tests/test_perek_4_internal_protected_preview_packet.py`
+
+Status: four Perek 4 items are packaged for internal protected-preview review only. `g2srcdisc_p4_005` remains blocked. Runtime, reviewed-bank, and public/student-facing gates remain closed.
+

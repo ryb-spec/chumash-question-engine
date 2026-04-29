@@ -1,0 +1,110 @@
+{
+  "schema_version": 1,
+  "packet_status": "internal_protected_preview_only",
+  "perek": 4,
+  "item_count": 4,
+  "blocked_candidate_ids": [
+    "g2srcdisc_p4_005"
+  ],
+  "items": [
+    {
+      "packet_item_id": "g2ppacket_p4_001",
+      "source_candidate_id": "g2srcdisc_p4_001",
+      "pasuk_ref": "Bereishis 4:1",
+      "hebrew_target": "אִישׁ",
+      "question": "In this phrase, what type of word is אִישׁ?",
+      "expected_answer": "noun",
+      "distractors": [
+        "verb",
+        "adjective",
+        "prefix"
+      ],
+      "skill_family": "basic_noun_recognition",
+      "canonical_skill_id": "WORD.PART_OF_SPEECH_BASIC",
+      "revision_note": "Revised wording preserved: In this phrase, what type of word is אִישׁ?",
+      "spacing_note": "Do not cluster too tightly with other basic noun-recognition items in a tiny packet.",
+      "source_or_alias_note": "Noun target is appropriate for internal protected-preview review.",
+      "internal_review_decision": null,
+      "runtime_allowed": false,
+      "reviewed_bank_allowed": false,
+      "student_facing_allowed": false,
+      "perek_4_activated": false
+    },
+    {
+      "packet_item_id": "g2ppacket_p4_002",
+      "source_candidate_id": "g2srcdisc_p4_002",
+      "pasuk_ref": "Bereishis 4:2",
+      "hebrew_target": "צֹאן",
+      "question": "What type of word is צֹאן?",
+      "expected_answer": "noun",
+      "distractors": [
+        "verb",
+        "adjective",
+        "prefix"
+      ],
+      "skill_family": "basic_noun_recognition",
+      "canonical_skill_id": "WORD.PART_OF_SPEECH_BASIC",
+      "revision_note": "No revision required by Yossi candidate review.",
+      "spacing_note": "Do not cluster too tightly with other basic noun-recognition items in a tiny packet.",
+      "source_or_alias_note": "Clean noun-recognition item for internal protected-preview review.",
+      "internal_review_decision": null,
+      "runtime_allowed": false,
+      "reviewed_bank_allowed": false,
+      "student_facing_allowed": false,
+      "perek_4_activated": false
+    },
+    {
+      "packet_item_id": "g2ppacket_p4_003",
+      "source_candidate_id": "g2srcdisc_p4_003",
+      "pasuk_ref": "Bereishis 4:2",
+      "hebrew_target": "אֲדָמָה",
+      "question": "What type of word is אֲדָמָה?",
+      "expected_answer": "noun",
+      "distractors": [
+        "verb",
+        "adjective",
+        "prefix"
+      ],
+      "skill_family": "basic_noun_recognition",
+      "canonical_skill_id": "WORD.PART_OF_SPEECH_BASIC",
+      "revision_note": "Keep spacing/session-balance note; do not place close to similar noun-recognition items.",
+      "spacing_note": "Spacing/session-balance warning required before any internal use; avoid adjacent similar noun-recognition items.",
+      "source_or_alias_note": "Part-of-speech target only; do not convert into vocabulary translation.",
+      "internal_review_decision": null,
+      "runtime_allowed": false,
+      "reviewed_bank_allowed": false,
+      "student_facing_allowed": false,
+      "perek_4_activated": false
+    },
+    {
+      "packet_item_id": "g2ppacket_p4_004",
+      "source_candidate_id": "g2srcdisc_p4_004",
+      "pasuk_ref": "Bereishis 4:3",
+      "hebrew_target": "מִנְחָה",
+      "question": "What type of word is מִנְחָה?",
+      "expected_answer": "noun",
+      "distractors": [
+        "verb",
+        "adjective",
+        "prefix"
+      ],
+      "skill_family": "basic_noun_recognition",
+      "canonical_skill_id": "WORD.PART_OF_SPEECH_BASIC",
+      "revision_note": "Keep as part-of-speech only, not vocabulary translation; preserve Minchah/offering alias review and spacing/session-balance warning.",
+      "spacing_note": "Spacing/session-balance warning required before any internal use; avoid adjacent similar noun-recognition items.",
+      "source_or_alias_note": "Preserve Minchah/offering alias review; this packet asks part of speech only.",
+      "internal_review_decision": null,
+      "runtime_allowed": false,
+      "reviewed_bank_allowed": false,
+      "student_facing_allowed": false,
+      "perek_4_activated": false
+    }
+  ],
+  "runtime_allowed": false,
+  "reviewed_bank_allowed": false,
+  "student_facing_allowed": false,
+  "perek_4_activated": false,
+  "reviewed_bank_promoted": false,
+  "fake_review_decisions_created": false,
+  "fake_student_data_created": false
+}
