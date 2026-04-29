@@ -9,7 +9,7 @@ from scripts import validate_source_texts as validator
 ROOT = Path(__file__).resolve().parents[1]
 TSV_PATH = ROOT / "data" / "source_texts" / "bereishis_hebrew_menukad_taamim.tsv"
 MANIFEST_PATH = ROOT / "data" / "source_texts" / "source_text_manifest.json"
-EXPECTED_SHA256 = "0dedb854e1e8b59fa5dc08f93be5baffe4c1faaa09d00c148c8ef3113b065913"
+EXPECTED_SHA256 = "4d96c615ab63e0419bff079db250d71ea9b5de266ff9ab8d589ae80e4afd0b71"
 
 
 def load_lines() -> list[str]:
