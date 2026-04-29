@@ -14,6 +14,7 @@ def test_validator_passes():
     summary = validator.validate_gate_2_protected_preview_candidates()
     assert summary["row_count"] == 10
     assert summary["perek3_row_count"] == 10
+    assert summary["perek3_internal_packet_row_count"] == 4
 
 
 def test_perek2_approved_candidate_layer_still_valid():
@@ -89,5 +90,14 @@ def test_perek3_review_packet_readiness_and_applied_reports_exist():
     assert "No final protected-preview packet was created." in applied
 
 
-def test_no_perek3_internal_packet_created():
-    assert not validator.PEREK3_FORBIDDEN_PACKET.exists()
+def test_perek3_internal_packet_created_from_approved_ids_only():
+    assert validator.PEREK3_INTERNAL_PACKET.exists()
+    assert validator.PEREK3_INTERNAL_PACKET_REPORT.exists()
+    rows = _read_rows(validator.PEREK3_INTERNAL_PACKET)
+    assert len(rows) == 4
+    assert {row["protected_preview_candidate_id"] for row in rows} == validator.P3_APPROVED_PACKET_IDS
+    assert not {row["protected_preview_candidate_id"] for row in rows}.intersection({"g2ppcand_p3_001", "g2ppcand_p3_002", "g2ppcand_p3_005", "g2ppcand_p3_006", "g2ppcand_p3_009", "g2ppcand_p3_010"})
+    for row in rows:
+        assert row["runtime_allowed"] == "false"
+        assert row["reviewed_bank_allowed"] == "false"
+        assert row["student_facing_allowed"] == "false"

@@ -1,21 +1,34 @@
-from __future__ import annotations
+﻿from __future__ import annotations
 
 import csv
 import json
 import re
 from collections import Counter
 from pathlib import Path
+from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 DIR = ROOT / "data" / "gate_2_protected_preview_packets"
 REPORTS = DIR / "reports"
 README = DIR / "README.md"
+
 TSV = DIR / "bereishis_perek_2_internal_protected_preview_packet.tsv"
 PACKET = REPORTS / "bereishis_perek_2_internal_protected_preview_packet.md"
 GEN = REPORTS / "bereishis_perek_2_internal_protected_preview_packet_generation_report.md"
 COMPLETE = REPORTS / "bereishis_perek_2_round_2_completion_report.md"
 EXCLUDED = REPORTS / "bereishis_perek_2_internal_protected_preview_packet_excluded_preserved_report.md"
 CAND = ROOT / "data" / "gate_2_protected_preview_candidates" / "bereishis_perek_2_protected_preview_candidates.tsv"
+
+P3_TSV = DIR / "bereishis_perek_3_internal_protected_preview_packet.tsv"
+P3_REPORT = REPORTS / "bereishis_perek_3_internal_protected_preview_packet_report.md"
+P3_CAND = ROOT / "data" / "gate_2_protected_preview_candidates" / "bereishis_perek_3_protected_preview_candidates.tsv"
+P3_STATUS_INDEX = (
+    ROOT
+    / "data"
+    / "gate_2_protected_preview_candidates"
+    / "reports"
+    / "bereishis_perek_3_candidate_status_index.md"
+)
 
 REQUIRED_COLUMNS = [
     "protected_preview_packet_item_id",
@@ -45,13 +58,25 @@ GATES = ["reviewed_bank_allowed", "runtime_allowed", "student_facing_allowed"]
 REVISION = {"g2p2_001", "g2p2_010", "g2p2_012", "g2p2_013"}
 FOLLOWUP = {"g2p2_011", "g2p2_015"}
 EXCLUDED_GATE2 = REVISION | FOLLOWUP | {"g2p2_004", "g2p2_005", "g2p2_008", "g2p2_018"}
+EXPECTED_P3_APPROVED = {
+    "g2ppcand_p3_003",
+    "g2ppcand_p3_004",
+    "g2ppcand_p3_007",
+    "g2ppcand_p3_008",
+}
+P3_REVISION = {"g2ppcand_p3_001", "g2ppcand_p3_005", "g2ppcand_p3_009", "g2ppcand_p3_010"}
+P3_FOLLOWUP = {"g2ppcand_p3_002", "g2ppcand_p3_006"}
+P3_EXCLUDED = P3_REVISION | P3_FOLLOWUP
 DECISION = "approve_for_internal_protected_preview_packet"
 STATUS = "yossi_approved_for_internal_protected_preview_packet"
 HEBREW_RE = re.compile(r"[\u0590-\u05FF]")
 
 
 def rel(path: Path) -> str:
-    return path.relative_to(ROOT).as_posix()
+    try:
+        return path.relative_to(ROOT).as_posix()
+    except ValueError:
+        return path.as_posix()
 
 
 def load_tsv(path: Path) -> tuple[list[str], list[dict[str, str]]]:
@@ -68,42 +93,67 @@ def bad_phrase(text: str, phrase: str) -> bool:
     for line in text.lower().splitlines():
         if phrase in line and not any(
             marker in line
-            for marker in ("not ", "no ", "false", "closed", "does not", "still requires", "requires post-preview", "remain excluded")
+            for marker in (
+                "not ",
+                "no ",
+                "false",
+                "closed",
+                "does not",
+                "still requires",
+                "requires post-preview",
+                "remain excluded",
+                "not reviewed-bank",
+                "not runtime",
+                "not student-facing",
+            )
         ):
             return True
     return False
 
 
-def validate_gate_2_protected_preview_packet() -> dict[str, object]:
-    errors: list[str] = []
-    for path in (README, TSV, PACKET, GEN, COMPLETE, EXCLUDED, CAND):
-        if not path.exists():
-            errors.append(f"missing internal packet artifact: {rel(path)}")
-    if errors:
-        return {"valid": False, "errors": errors}
-
-    fields, rows = load_tsv(TSV)
-    if fields != REQUIRED_COLUMNS:
-        errors.append("internal packet TSV columns do not match required schema")
-    if len(rows) != 10:
-        errors.append(f"internal packet TSV must have exactly 10 rows, found {len(rows)}")
-
-    _, candidate_rows = load_tsv(CAND)
-    approved = {
+def approved_candidates(candidate_tsv: Path) -> dict[str, dict[str, str]]:
+    _, candidate_rows = load_tsv(candidate_tsv)
+    return {
         row["protected_preview_candidate_id"]: row
         for row in candidate_rows
         if row.get("yossi_protected_preview_decision") == DECISION
         and row.get("protected_preview_candidate_status") == STATUS
     }
-    included: set[str] = set()
-    family_counts: Counter[str] = Counter()
 
+
+def validate_packet_spec(
+    *,
+    name: str,
+    packet_tsv: Path,
+    candidate_tsv: Path,
+    expected_count: int,
+    expected_candidate_ids: set[str] | None,
+    excluded_gate_ids: set[str],
+    excluded_candidate_ids: set[str],
+    errors: list[str],
+    family_counts: Counter[str],
+) -> dict[str, Any]:
+    fields, rows = load_tsv(packet_tsv)
+    if fields != REQUIRED_COLUMNS:
+        errors.append(f"{name}: internal packet TSV columns do not match required schema")
+    if len(rows) != expected_count:
+        errors.append(f"{name}: internal packet TSV must have exactly {expected_count} rows, found {len(rows)}")
+
+    approved = approved_candidates(candidate_tsv)
+    approved_id_set = set(approved)
+    expected_ids = expected_candidate_ids if expected_candidate_ids is not None else approved_id_set
+    if approved_id_set != expected_ids:
+        errors.append(f"{name}: approved candidate ID set does not match expected packet set")
+
+    included: set[str] = set()
     for row in rows:
         rid = row.get("protected_preview_packet_item_id", "?")
         candidate_id = row.get("protected_preview_candidate_id", "")
         included.add(candidate_id)
         family_counts[row.get("approved_family", "")] += 1
         source = approved.get(candidate_id)
+        if candidate_id in excluded_candidate_ids:
+            errors.append(f"{rid}: revision/follow-up candidate included")
         if not source:
             errors.append(f"{rid}: must link to approved protected-preview candidate")
         else:
@@ -124,7 +174,7 @@ def validate_gate_2_protected_preview_packet() -> dict[str, object]:
             ):
                 if row.get(field, "") != source.get(field, ""):
                     errors.append(f"{rid}: {field} must match source candidate")
-            if source.get("gate_2_input_candidate_id") in EXCLUDED_GATE2:
+            if source.get("gate_2_input_candidate_id") in excluded_gate_ids:
                 errors.append(f"{rid}: excluded Gate 2 row included")
         if row.get("approved_family") != "basic_noun_recognition":
             errors.append(f"{rid}: unsafe family included")
@@ -141,13 +191,67 @@ def validate_gate_2_protected_preview_packet() -> dict[str, object]:
             errors.append(f"{rid}: internal preview decision fields must be blank")
         if not has_hebrew(row.get("hebrew_token", "")) or not has_hebrew(row.get("hebrew_phrase", "")):
             errors.append(f"{rid}: must contain real Hebrew")
-        if any(bad in "\t".join(row.values()) for bad in ("???", "×", "Ö")):
+        if any(bad in "\t".join(row.values()) for bad in ("???", "Ã—", "Ã–")):
             errors.append(f"{rid}: contains placeholder corruption")
 
-    if included != set(approved):
-        errors.append("internal packet rows must exactly match approved protected-preview candidates")
+    if included != expected_ids:
+        errors.append(f"{name}: internal packet rows must exactly match expected approved candidates")
 
-    text = "\n".join(path.read_text(encoding="utf-8") for path in (README, PACKET, GEN, COMPLETE, EXCLUDED))
+    return {
+        "packet_path": rel(packet_tsv),
+        "row_count": len(rows),
+        "candidate_ids": sorted(included),
+    }
+
+
+def validate_gate_2_protected_preview_packet() -> dict[str, object]:
+    errors: list[str] = []
+    required_artifacts = (
+        README,
+        TSV,
+        PACKET,
+        GEN,
+        COMPLETE,
+        EXCLUDED,
+        CAND,
+        P3_TSV,
+        P3_REPORT,
+        P3_CAND,
+        P3_STATUS_INDEX,
+    )
+    for path in required_artifacts:
+        if not path.exists():
+            errors.append(f"missing internal packet artifact: {rel(path)}")
+    if errors:
+        return {"valid": False, "errors": errors}
+
+    family_counts: Counter[str] = Counter()
+    perek_summaries = {
+        "perek_2": validate_packet_spec(
+            name="perek_2",
+            packet_tsv=TSV,
+            candidate_tsv=CAND,
+            expected_count=10,
+            expected_candidate_ids=None,
+            excluded_gate_ids=EXCLUDED_GATE2,
+            excluded_candidate_ids=set(),
+            errors=errors,
+            family_counts=family_counts,
+        ),
+        "perek_3": validate_packet_spec(
+            name="perek_3",
+            packet_tsv=P3_TSV,
+            candidate_tsv=P3_CAND,
+            expected_count=4,
+            expected_candidate_ids=EXPECTED_P3_APPROVED,
+            excluded_gate_ids=set(),
+            excluded_candidate_ids=P3_EXCLUDED,
+            errors=errors,
+            family_counts=family_counts,
+        ),
+    }
+
+    p2_text = "\n".join(path.read_text(encoding="utf-8") for path in (README, PACKET, GEN, COMPLETE, EXCLUDED))
     for phrase in (
         "internal protected-preview packet only",
         "Packet item count: 10",
@@ -156,10 +260,10 @@ def validate_gate_2_protected_preview_packet() -> dict[str, object]:
         "Runtime changes: 0",
         "Student-facing content: 0",
     ):
-        if phrase not in text:
+        if phrase not in p2_text:
             errors.append(f"required phrase missing: {phrase}")
     for gid in REVISION | FOLLOWUP:
-        if gid not in text:
+        if gid not in p2_text:
             errors.append(f"excluded report missing {gid}")
     for phrase in (
         "reviewed_bank_ready",
@@ -168,22 +272,41 @@ def validate_gate_2_protected_preview_packet() -> dict[str, object]:
         "approved_for_runtime",
         "approved_for_student_facing",
     ):
-        if bad_phrase(text, phrase):
+        if bad_phrase(p2_text, phrase):
             errors.append(f"forbidden phrase appears without clear negation: {phrase}")
-    if "??" in text or "×" in text or "Ö" in text:
+    if "??" in p2_text or "Ã—" in p2_text or "Ã–" in p2_text:
         errors.append("packet reports contain placeholder corruption")
 
     readme = README.read_text(encoding="utf-8")
-    for path in (TSV, PACKET, GEN, COMPLETE, EXCLUDED):
+    for path in (TSV, PACKET, GEN, COMPLETE, EXCLUDED, P3_TSV, P3_REPORT):
         if rel(path) not in readme:
             errors.append(f"README must link {rel(path)}")
+
+    p3_text = "\n".join(path.read_text(encoding="utf-8") for path in (README, P3_REPORT, P3_STATUS_INDEX))
+    for candidate_id in sorted(EXPECTED_P3_APPROVED):
+        if candidate_id not in p3_text:
+            errors.append(f"Perek 3 packet report/status missing {candidate_id}")
+    for phrase in (
+        "Included approved rows: 4",
+        "Excluded revision rows: 4",
+        "Excluded follow-up rows: 2",
+        "No Perek 3 runtime activation",
+        "No reviewed-bank promotion",
+        "No student-facing content",
+        "four-item internal protected-preview packet now exists",
+    ):
+        if phrase not in p3_text:
+            errors.append(f"Perek 3 packet/status required phrase missing: {phrase}")
+    if EXPECTED_P3_APPROVED.intersection(P3_EXCLUDED):
+        errors.append("Perek 3 expected packet IDs overlap excluded IDs")
 
     return {
         "valid": not errors,
         "errors": errors,
         "packet_path": rel(TSV),
-        "row_count": len(rows),
+        "row_count": sum(int(summary["row_count"]) for summary in perek_summaries.values()),
         "family_counts": dict(family_counts),
+        "perek_summaries": perek_summaries,
     }
 
 

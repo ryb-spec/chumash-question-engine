@@ -9,6 +9,7 @@ Perek 3 protected-preview candidate decisions have been applied. The applied-dec
 - Candidate TSV: `data/gate_2_protected_preview_candidates/bereishis_perek_3_protected_preview_candidates.tsv`
 - Original historical candidate review packet: `data/gate_2_protected_preview_candidates/reports/bereishis_perek_3_protected_preview_candidate_review_packet.md`
 - Applied-decision report: `data/gate_2_protected_preview_candidates/reports/bereishis_perek_3_protected_preview_candidate_yossi_review_applied.md`
+- Four-item internal protected-preview packet TSV: `data/gate_2_protected_preview_packets/bereishis_perek_3_internal_protected_preview_packet.tsv`
 - Status index: `data/gate_2_protected_preview_candidates/reports/bereishis_perek_3_candidate_status_index.md`
 
 ## Decision counts
@@ -28,15 +29,17 @@ Perek 3 protected-preview candidate decisions have been applied. The applied-dec
 
 ## Exclusion warning
 
-Revision items are not included in any internal packet by this task. Follow-up items are not included in any internal packet by this task.
+Revision items are not included in the internal packet. Follow-up items are not included in the internal packet.
 
 ## Explicit safety state
 
-- No Perek 3 internal protected-preview packet was created by this task.
+- A four-item internal protected-preview packet now exists for the approved IDs only.
+- No approve-with-revision rows were included.
+- No needs-follow-up rows were included.
 - No Perek 3 runtime activation.
 - No reviewed-bank promotion.
 - No student-facing content.
 
 ## Next permitted action
 
-A future explicit packet-creation task may create a 4-item internal protected-preview packet from approved IDs only. This task does not do that.
+Yossi/teacher review may now review the four-item internal packet. Any later reviewed-bank, runtime, or student-facing step requires a separate explicit task and must keep gates fail-closed until approved.

@@ -26,7 +26,14 @@ PEREK3_SOURCE_MAPS = [
     ROOT / "data" / "verified_source_skill_maps" / "bereishis_3_8_to_3_16_source_to_skill_map.tsv",
     ROOT / "data" / "verified_source_skill_maps" / "bereishis_3_17_to_3_24_source_to_skill_map.tsv",
 ]
-PEREK3_FORBIDDEN_PACKET = ROOT / "data" / "gate_2_protected_preview_packets" / "bereishis_perek_3_internal_protected_preview_packet.tsv"
+PEREK3_INTERNAL_PACKET = ROOT / "data" / "gate_2_protected_preview_packets" / "bereishis_perek_3_internal_protected_preview_packet.tsv"
+PEREK3_INTERNAL_PACKET_REPORT = (
+    ROOT
+    / "data"
+    / "gate_2_protected_preview_packets"
+    / "reports"
+    / "bereishis_perek_3_internal_protected_preview_packet_report.md"
+)
 
 REQUIRED_COLUMNS = [
     "protected_preview_candidate_id",
@@ -82,6 +89,12 @@ P3_EXPECTED_DECISION_COUNTS = {
     "needs_follow_up": 2,
     "reject_for_preview": 0,
     "source_only": 0,
+}
+P3_APPROVED_PACKET_IDS = {
+    "g2ppcand_p3_003",
+    "g2ppcand_p3_004",
+    "g2ppcand_p3_007",
+    "g2ppcand_p3_008",
 }
 P3_EXPECTED_STATUS_BY_DECISION = {
     "approve_for_internal_protected_preview_packet": P2_APPROVED_STATUS,
@@ -194,8 +207,9 @@ def _validate_perek3_candidates() -> tuple[list[dict[str, str]], dict[str, objec
     for path in [PEREK3_TSV, PEREK3_PACKET, PEREK3_SOURCE_READINESS_REPORT, PEREK3_REVIEW_APPLIED_REPORT]:
         if not path.exists():
             raise AssertionError(f"Missing Perek 3 protected-preview candidate artifact: {path}")
-    if PEREK3_FORBIDDEN_PACKET.exists():
-        raise AssertionError(f"Perek 3 final/internal packet must not exist for this decision-application task: {PEREK3_FORBIDDEN_PACKET}")
+    for path in [PEREK3_INTERNAL_PACKET, PEREK3_INTERNAL_PACKET_REPORT]:
+        if not path.exists():
+            raise AssertionError(f"Missing Perek 3 internal protected-preview packet artifact: {path}")
 
     rows = _read_tsv(PEREK3_TSV)
     _require_columns(PEREK3_TSV, rows)
@@ -257,6 +271,22 @@ def _validate_perek3_candidates() -> tuple[list[dict[str, str]], dict[str, objec
         if decision_counts.get(decision, 0) != expected_count:
             raise AssertionError(f"Perek 3 expected {expected_count} {decision} rows, found {decision_counts.get(decision, 0)}")
 
+    packet_rows = _read_tsv(PEREK3_INTERNAL_PACKET)
+    packet_ids = {row.get("protected_preview_candidate_id", "") for row in packet_rows}
+    if len(packet_rows) != 4:
+        raise AssertionError(f"Perek 3 internal packet must contain exactly 4 rows, found {len(packet_rows)}")
+    if packet_ids != P3_APPROVED_PACKET_IDS:
+        raise AssertionError(f"Perek 3 internal packet candidate IDs do not match approved set: {sorted(packet_ids)}")
+    candidates_by_id = {row["protected_preview_candidate_id"]: row for row in rows}
+    for packet_row in packet_rows:
+        cid = packet_row.get("protected_preview_candidate_id", "")
+        candidate = candidates_by_id.get(cid)
+        if not candidate or candidate.get("yossi_protected_preview_decision") != "approve_for_internal_protected_preview_packet":
+            raise AssertionError(f"Perek 3 packet row is not explicitly approved: {cid}")
+        for col in ["reviewed_bank_allowed", "runtime_allowed", "student_facing_allowed"]:
+            if packet_row.get(col) != "false":
+                raise AssertionError(f"Perek 3 packet {cid} opened {col}: {packet_row.get(col)}")
+
     applied_text = PEREK3_REVIEW_APPLIED_REPORT.read_text(encoding="utf-8")
     required_applied_phrases = [
         "Yossi decisions were applied",
@@ -275,9 +305,12 @@ def _validate_perek3_candidates() -> tuple[list[dict[str, str]], dict[str, objec
     readme_text = README.read_text(encoding="utf-8")
     if "bereishis_perek_3_protected_preview_candidate_yossi_review_applied.md" not in readme_text:
         raise AssertionError("Perek 3 decision-applied report is not discoverable from candidate README")
+    if "bereishis_perek_3_internal_protected_preview_packet.tsv" not in readme_text:
+        raise AssertionError("Perek 3 internal packet is not discoverable from candidate README")
 
     return rows, {
         "perek3_row_count": len(rows),
+        "perek3_internal_packet_row_count": len(packet_rows),
         "perek3_family_counts": dict(Counter(row["approved_family"] for row in rows)),
         "perek3_status_counts": dict(Counter(row["protected_preview_candidate_status"] for row in rows)),
         "perek3_decision_counts": dict(decision_counts),
