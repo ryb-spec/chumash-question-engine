@@ -87,5 +87,8 @@ This directory contains reusable pipeline-round planning artifacts.
 - Yossi review packet: `data/gate_2_protected_preview_candidates/reports/bereishis_perek_3_protected_preview_candidate_review_packet.md`
 - Source/readiness report: `data/gate_2_protected_preview_candidates/reports/bereishis_perek_3_protected_preview_candidate_source_readiness_report.md`
 
-Status: Yossi candidate decisions applied and still fail-closed. Decision counts: 4 `approve_for_internal_protected_preview_packet`, 4 `approve_with_revision`, 2 `needs_follow_up`. Perek 3 has not been activated in runtime, has not been promoted to reviewed bank, and has not been approved for a final protected-preview packet.
+Status: Yossi candidate decisions applied and still fail-closed. Decision counts: 4 `approve_for_internal_protected_preview_packet`, 4 `approve_with_revision`, 2 `needs_follow_up`. A four-item internal protected-preview packet now exists for the approved IDs only. Perek 3 has not been activated in runtime, has not been promoted to reviewed bank, and has not been approved for student-facing use.
 - Yossi decision-applied report: `data/gate_2_protected_preview_candidates/reports/bereishis_perek_3_protected_preview_candidate_yossi_review_applied.md`
+- Current status index: `data/gate_2_protected_preview_candidates/reports/bereishis_perek_3_candidate_status_index.md`
+- Internal packet TSV: `data/gate_2_protected_preview_packets/bereishis_perek_3_internal_protected_preview_packet.tsv`
+- Internal packet report: `data/gate_2_protected_preview_packets/reports/bereishis_perek_3_internal_protected_preview_packet_report.md`

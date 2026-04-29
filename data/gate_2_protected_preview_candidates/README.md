@@ -27,5 +27,7 @@ Artifacts:
 - Yossi review packet: `data/gate_2_protected_preview_candidates/reports/bereishis_perek_3_protected_preview_candidate_review_packet.md`
 - Source/readiness report: `data/gate_2_protected_preview_candidates/reports/bereishis_perek_3_protected_preview_candidate_source_readiness_report.md`
 
-Perek 3 Yossi candidate decisions have been applied: 4 candidates are approved for a later internal protected-preview packet task only, 4 require revision, and 2 need follow-up. No final Perek 3 packet has been created. Protected-preview, reviewed-bank, runtime, and student-facing gates remain closed.
+Perek 3 Yossi candidate decisions have been applied: 4 candidates were approved for an internal protected-preview packet, 4 require revision, and 2 need follow-up. A four-item internal protected-preview packet now exists for the approved IDs only. Protected-preview release, reviewed-bank, runtime, and student-facing gates remain closed.
 - Yossi decision-applied report: `data/gate_2_protected_preview_candidates/reports/bereishis_perek_3_protected_preview_candidate_yossi_review_applied.md`
+- Current status index: `data/gate_2_protected_preview_candidates/reports/bereishis_perek_3_candidate_status_index.md`
+- Internal packet TSV: `data/gate_2_protected_preview_packets/bereishis_perek_3_internal_protected_preview_packet.tsv`

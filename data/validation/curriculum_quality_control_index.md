@@ -19,6 +19,7 @@ It does not activate runtime content, promote reviewed-bank data, approve protec
 - Question quality risk summary: `data/validation/question_quality_risk_summary.md`
 - Question quality risk JSON: `data/validation/question_quality_risk_summary.json`
 - Perek 3 candidate status index: `data/gate_2_protected_preview_candidates/reports/bereishis_perek_3_candidate_status_index.md`
+- Perek 3 internal protected-preview packet report: `data/gate_2_protected_preview_packets/reports/bereishis_perek_3_internal_protected_preview_packet_report.md`
 - Source audit report: `data/curriculum_extraction/reports/audits/AUDIT_OVERNIGHT_CURRICULUM_QUALITY_REVIEW.md`
 
 ## Use guidance
