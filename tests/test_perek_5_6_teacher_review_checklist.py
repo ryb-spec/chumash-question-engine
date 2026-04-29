@@ -11,6 +11,7 @@ DISCOVERY_DIR = ROOT / "data" / "gate_2_source_discovery"
 REPORT_DIR = DISCOVERY_DIR / "reports"
 INVENTORY = DISCOVERY_DIR / "bereishis_perek_5_6_review_only_safe_candidate_inventory.tsv"
 CHECKLIST_JSON = REPORT_DIR / "bereishis_perek_5_6_compressed_teacher_review_checklist_2026_04_29.json"
+DECISIONS_APPLIED_JSON = REPORT_DIR / "bereishis_perek_5_6_teacher_review_decisions_applied_2026_04_29.json"
 DECISION_TEMPLATE = DISCOVERY_DIR / "bereishis_perek_5_6_teacher_review_decision_template.tsv"
 APPLY_PROMPT = ROOT / "data" / "pipeline_rounds" / "prompts" / "bereishis_perek_5_6_teacher_review_decisions_apply_prompt.md"
 VALIDATOR = ROOT / "scripts" / "validate_perek_5_6_teacher_review_checklist.py"
@@ -49,14 +50,31 @@ def test_json_parses_and_count_matches_source_inventory():
     assert len(checklist["candidates"]) == len(inventory_rows)
 
 
-def test_all_decisions_are_null_or_blank():
+def test_all_decisions_are_blank_or_match_decision_applied_successor():
     checklist = json.loads(CHECKLIST_JSON.read_text(encoding="utf-8"))
+    decisions_applied = (
+        json.loads(DECISIONS_APPLIED_JSON.read_text(encoding="utf-8"))
+        if DECISIONS_APPLIED_JSON.exists()
+        else None
+    )
+    applied_by_id = {}
+    if decisions_applied is not None:
+        applied_by_id = {
+            decision["candidate_id"]: decision["teacher_decision"]
+            for decision in decisions_applied["decisions"]
+        }
     for candidate in checklist["candidates"]:
         assert candidate["teacher_review_needed"] is True
-        assert candidate["teacher_decision"] is None
-        assert candidate["teacher_notes"] == ""
+        if decisions_applied is None:
+            assert candidate["teacher_decision"] is None
+            assert candidate["teacher_notes"] == ""
+        else:
+            assert candidate["teacher_decision"] == applied_by_id[candidate["candidate_id"]]
     for row in read_tsv(DECISION_TEMPLATE):
-        assert row["teacher_decision"] == ""
+        if decisions_applied is None:
+            assert row["teacher_decision"] == ""
+        else:
+            assert row["teacher_decision"] == applied_by_id[row["candidate_id"]]
 
 
 def test_all_gates_false():

@@ -16,6 +16,7 @@ CHECKLIST_JSON = REPORT_DIR / "bereishis_perek_5_6_compressed_teacher_review_che
 READINESS_MD = PIPELINE_DIR / "bereishis_perek_5_6_teacher_review_checklist_readiness_2026_04_29.md"
 DECISION_TEMPLATE = DISCOVERY_DIR / "bereishis_perek_5_6_teacher_review_decision_template.tsv"
 APPLY_PROMPT = PIPELINE_DIR / "prompts" / "bereishis_perek_5_6_teacher_review_decisions_apply_prompt.md"
+DECISIONS_APPLIED_JSON = REPORT_DIR / "bereishis_perek_5_6_teacher_review_decisions_applied_2026_04_29.json"
 
 ALLOWED_DECISIONS = {
     "approve_for_next_candidate_planning",
@@ -93,6 +94,13 @@ def validate() -> None:
 
     inventory_rows = _read_tsv(INVENTORY)
     checklist = _load_json(CHECKLIST_JSON)
+    decisions_applied = _load_json(DECISIONS_APPLIED_JSON) if DECISIONS_APPLIED_JSON.exists() else None
+    applied_decisions_by_id = {}
+    if decisions_applied is not None:
+        applied_decisions_by_id = {
+            decision.get("candidate_id"): decision
+            for decision in decisions_applied.get("decisions", [])
+        }
     candidates = checklist.get("candidates")
     if checklist.get("checklist_status") != "teacher_review_only":
         _fail("Checklist status must be teacher_review_only.")
@@ -114,10 +122,17 @@ def validate() -> None:
         cid = candidate.get("candidate_id")
         if candidate.get("teacher_review_needed") is not True:
             _fail(f"{cid} must have teacher_review_needed=true.")
-        if candidate.get("teacher_decision") is not None:
-            _fail(f"{cid} must have teacher_decision=null.")
-        if candidate.get("teacher_notes") != "":
-            _fail(f"{cid} must have blank teacher_notes.")
+        if decisions_applied is None:
+            if candidate.get("teacher_decision") is not None:
+                _fail(f"{cid} must have teacher_decision=null.")
+            if candidate.get("teacher_notes") != "":
+                _fail(f"{cid} must have blank teacher_notes.")
+        else:
+            applied = applied_decisions_by_id.get(cid)
+            if not applied:
+                _fail(f"{cid} missing from decision-applied artifact.")
+            if candidate.get("teacher_decision") != applied.get("teacher_decision"):
+                _fail(f"{cid} checklist decision must match decision-applied artifact.")
         for field in FALSE_FIELDS:
             if candidate.get(field) is not False:
                 _fail(f"{cid} must keep {field}=false.")
@@ -126,11 +141,19 @@ def validate() -> None:
     if len(template_rows) != len(inventory_rows):
         _fail("Decision template row count must match source inventory.")
     for row in template_rows:
-        if row.get("teacher_decision", "") != "":
-            _fail(f"Decision template teacher_decision must be blank for {row.get('candidate_id')}.")
+        cid = row.get("candidate_id")
+        if decisions_applied is None:
+            if row.get("teacher_decision", "") != "":
+                _fail(f"Decision template teacher_decision must be blank for {cid}.")
+        else:
+            applied = applied_decisions_by_id.get(cid)
+            if not applied:
+                _fail(f"{cid} missing from decision-applied artifact.")
+            if row.get("teacher_decision", "") != applied.get("teacher_decision"):
+                _fail(f"Decision template teacher_decision must match decision-applied artifact for {cid}.")
         values = set(row.get("allowed_decision_values", "").split("|"))
         if values != ALLOWED_DECISIONS:
-            _fail(f"Decision template allowed values mismatch for {row.get('candidate_id')}.")
+            _fail(f"Decision template allowed values mismatch for {cid}.")
 
     md = _read(CHECKLIST_MD)
     for phrase in [
