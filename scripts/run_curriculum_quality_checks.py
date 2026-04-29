@@ -403,12 +403,16 @@ def build_perek3_status() -> dict[str, Any]:
         if row.get("yossi_protected_preview_decision") == "approve_for_internal_protected_preview_packet"
     ]
     packet_path = repo_path("data/gate_2_protected_preview_packets/bereishis_perek_3_internal_protected_preview_packet.tsv")
+    checklist_path = repo_path(
+        "data/gate_2_protected_preview_packets/reports/bereishis_perek_3_internal_protected_preview_review_checklist.md"
+    )
     return {
         "candidate_tsv": repo_relative(candidates_path.relative_to(ROOT)),
         "historical_review_packet": "data/gate_2_protected_preview_candidates/reports/bereishis_perek_3_protected_preview_candidate_review_packet.md",
         "applied_decision_report": "data/gate_2_protected_preview_candidates/reports/bereishis_perek_3_protected_preview_candidate_yossi_review_applied.md",
         "status_index": repo_relative(PEREK3_STATUS_INDEX_PATH),
         "internal_packet_tsv": repo_relative(packet_path.relative_to(ROOT)),
+        "internal_review_checklist": repo_relative(checklist_path.relative_to(ROOT)),
         "decision_counts": {
             "approve_for_internal_protected_preview_packet": decision_counts.get("approve_for_internal_protected_preview_packet", 0),
             "approve_with_revision": decision_counts.get("approve_with_revision", 0),
@@ -436,6 +440,7 @@ def write_perek3_status_index() -> dict[str, Any]:
         f"- Original historical candidate review packet: `{data['historical_review_packet']}`",
         f"- Applied-decision report: `{data['applied_decision_report']}`",
         f"- Four-item internal protected-preview packet TSV: `{data['internal_packet_tsv']}`",
+        f"- Internal review checklist: `{data['internal_review_checklist']}`",
         f"- Status index: `{data['status_index']}`",
         "",
         "## Decision counts",
@@ -457,6 +462,7 @@ def write_perek3_status_index() -> dict[str, Any]:
             "## Explicit safety state",
             "",
             "- A four-item internal protected-preview packet now exists for the approved IDs only.",
+            "- A four-item internal review checklist now exists with blank reviewer decision fields only.",
             "- No approve-with-revision rows were included.",
             "- No needs-follow-up rows were included.",
             "- No Perek 3 runtime activation.",
@@ -889,6 +895,7 @@ def write_control_index(output_paths: dict[str, str]) -> None:
         f"- Question quality risk JSON: `{repo_relative(QUESTION_RISK_JSON)}`",
         f"- Perek 3 candidate status index: `{repo_relative(PEREK3_STATUS_INDEX_PATH)}`",
         "- Perek 3 internal protected-preview packet report: `data/gate_2_protected_preview_packets/reports/bereishis_perek_3_internal_protected_preview_packet_report.md`",
+        "- Perek 3 internal protected-preview review checklist: `data/gate_2_protected_preview_packets/reports/bereishis_perek_3_internal_protected_preview_review_checklist.md`",
         "- Source audit report: `data/curriculum_extraction/reports/audits/AUDIT_OVERNIGHT_CURRICULUM_QUALITY_REVIEW.md`",
         "",
         "## Use guidance",

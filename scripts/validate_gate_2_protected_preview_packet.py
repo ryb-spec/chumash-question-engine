@@ -21,6 +21,8 @@ CAND = ROOT / "data" / "gate_2_protected_preview_candidates" / "bereishis_perek_
 
 P3_TSV = DIR / "bereishis_perek_3_internal_protected_preview_packet.tsv"
 P3_REPORT = REPORTS / "bereishis_perek_3_internal_protected_preview_packet_report.md"
+P3_REVIEW_CHECKLIST = REPORTS / "bereishis_perek_3_internal_protected_preview_review_checklist.md"
+P3_REVIEW_CHECKLIST_TSV = REPORTS / "bereishis_perek_3_internal_protected_preview_review_checklist.tsv"
 P3_CAND = ROOT / "data" / "gate_2_protected_preview_candidates" / "bereishis_perek_3_protected_preview_candidates.tsv"
 P3_STATUS_INDEX = (
     ROOT
@@ -70,6 +72,24 @@ P3_EXCLUDED = P3_REVISION | P3_FOLLOWUP
 DECISION = "approve_for_internal_protected_preview_packet"
 STATUS = "yossi_approved_for_internal_protected_preview_packet"
 HEBREW_RE = re.compile(r"[\u0590-\u05FF]")
+REVIEW_CHECKLIST_COLUMNS = [
+    "packet_item_id",
+    "candidate_id",
+    "ref",
+    "hebrew_token",
+    "hebrew_phrase",
+    "skill_family",
+    "current_review_status",
+    "runtime_allowed",
+    "reviewed_bank_allowed",
+    "student_facing_allowed",
+    "reviewer_decision",
+    "issue_category",
+    "revision_required",
+    "reviewer_notes",
+    "reviewer_name",
+    "review_date",
+]
 
 
 def rel(path: Path) -> str:
@@ -216,6 +236,8 @@ def validate_gate_2_protected_preview_packet() -> dict[str, object]:
         CAND,
         P3_TSV,
         P3_REPORT,
+        P3_REVIEW_CHECKLIST,
+        P3_REVIEW_CHECKLIST_TSV,
         P3_CAND,
         P3_STATUS_INDEX,
     )
@@ -278,11 +300,11 @@ def validate_gate_2_protected_preview_packet() -> dict[str, object]:
         errors.append("packet reports contain placeholder corruption")
 
     readme = README.read_text(encoding="utf-8")
-    for path in (TSV, PACKET, GEN, COMPLETE, EXCLUDED, P3_TSV, P3_REPORT):
+    for path in (TSV, PACKET, GEN, COMPLETE, EXCLUDED, P3_TSV, P3_REPORT, P3_REVIEW_CHECKLIST, P3_REVIEW_CHECKLIST_TSV):
         if rel(path) not in readme:
             errors.append(f"README must link {rel(path)}")
 
-    p3_text = "\n".join(path.read_text(encoding="utf-8") for path in (README, P3_REPORT, P3_STATUS_INDEX))
+    p3_text = "\n".join(path.read_text(encoding="utf-8") for path in (README, P3_REPORT, P3_STATUS_INDEX, P3_REVIEW_CHECKLIST))
     for candidate_id in sorted(EXPECTED_P3_APPROVED):
         if candidate_id not in p3_text:
             errors.append(f"Perek 3 packet report/status missing {candidate_id}")
@@ -294,11 +316,36 @@ def validate_gate_2_protected_preview_packet() -> dict[str, object]:
         "No reviewed-bank promotion",
         "No student-facing content",
         "four-item internal protected-preview packet now exists",
+        "does not apply decisions",
+        "does not activate or promote anything",
+        "approve_for_limited_post_preview_iteration",
     ):
         if phrase not in p3_text:
             errors.append(f"Perek 3 packet/status required phrase missing: {phrase}")
     if EXPECTED_P3_APPROVED.intersection(P3_EXCLUDED):
         errors.append("Perek 3 expected packet IDs overlap excluded IDs")
+    for candidate_id in sorted(P3_EXCLUDED):
+        if f"### " in P3_REVIEW_CHECKLIST.read_text(encoding="utf-8") and f" / {candidate_id}" in P3_REVIEW_CHECKLIST.read_text(encoding="utf-8"):
+            errors.append(f"Perek 3 excluded candidate appears as checklist item card: {candidate_id}")
+
+    checklist_fields, checklist_rows = load_tsv(P3_REVIEW_CHECKLIST_TSV)
+    if checklist_fields != REVIEW_CHECKLIST_COLUMNS:
+        errors.append("Perek 3 review checklist TSV columns do not match required schema")
+    if len(checklist_rows) != 4:
+        errors.append(f"Perek 3 review checklist TSV must have exactly 4 rows, found {len(checklist_rows)}")
+    checklist_ids = {row.get("candidate_id", "") for row in checklist_rows}
+    if checklist_ids != EXPECTED_P3_APPROVED:
+        errors.append("Perek 3 review checklist TSV candidate IDs must exactly match approved packet IDs")
+    for row in checklist_rows:
+        rid = row.get("packet_item_id", "?")
+        if row.get("candidate_id") in P3_EXCLUDED:
+            errors.append(f"{rid}: excluded Perek 3 candidate included in checklist TSV")
+        for gate in GATES:
+            if row.get(gate) != "false":
+                errors.append(f"{rid}: checklist TSV {gate} must be false")
+        for reviewer_field in ("reviewer_decision", "issue_category", "revision_required", "reviewer_notes", "reviewer_name", "review_date"):
+            if row.get(reviewer_field):
+                errors.append(f"{rid}: checklist TSV reviewer field must be blank: {reviewer_field}")
 
     return {
         "valid": not errors,

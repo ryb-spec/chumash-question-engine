@@ -92,3 +92,4 @@ Status: Yossi candidate decisions applied and still fail-closed. Decision counts
 - Current status index: `data/gate_2_protected_preview_candidates/reports/bereishis_perek_3_candidate_status_index.md`
 - Internal packet TSV: `data/gate_2_protected_preview_packets/bereishis_perek_3_internal_protected_preview_packet.tsv`
 - Internal packet report: `data/gate_2_protected_preview_packets/reports/bereishis_perek_3_internal_protected_preview_packet_report.md`
+- Internal review checklist: `data/gate_2_protected_preview_packets/reports/bereishis_perek_3_internal_protected_preview_review_checklist.md`
