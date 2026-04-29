@@ -39,17 +39,32 @@ def test_perek3_candidate_file_exists_and_matches_schema():
     assert all(row["source_ref"].startswith("Bereishis 3:") for row in rows)
 
 
-def test_perek3_candidates_remain_review_only_and_fail_closed():
+def test_perek3_decision_counts_are_exact():
+    rows = _read_rows(validator.PEREK3_TSV)
+    decisions = [row["yossi_protected_preview_decision"] for row in rows]
+    assert decisions.count("approve_for_internal_protected_preview_packet") == 4
+    assert decisions.count("approve_with_revision") == 4
+    assert decisions.count("needs_follow_up") == 2
+    assert "reject_for_preview" not in decisions
+    assert "source_only" not in decisions
+
+
+def test_perek3_decisions_recorded_with_expected_statuses_and_notes():
     rows = _read_rows(validator.PEREK3_TSV)
     for row in rows:
-        assert row["protected_preview_candidate_status"] == validator.P3_PENDING_STATUS
+        decision = row["yossi_protected_preview_decision"]
+        assert row["protected_preview_candidate_status"] == validator.P3_EXPECTED_STATUS_BY_DECISION[decision]
+        assert row["yossi_protected_preview_notes"]
         assert row["draft_review_status"] == validator.NEEDS_YOSSI_REVIEW
         for col in validator.REVIEW_STATUS_COLUMNS:
             assert row[col] == validator.NEEDS_YOSSI_REVIEW
+
+
+def test_perek3_gates_remain_closed_after_decision_application():
+    rows = _read_rows(validator.PEREK3_TSV)
+    for row in rows:
         for col in validator.CLOSED_GATES:
             assert row[col] == "false"
-        assert row["yossi_protected_preview_decision"] == ""
-        assert row["yossi_protected_preview_notes"] == ""
 
 
 def test_perek3_rows_are_source_backed_and_have_review_notes():
@@ -62,14 +77,16 @@ def test_perek3_rows_are_source_backed_and_have_review_notes():
         assert row["explanation"]
 
 
-def test_perek3_review_packet_and_readiness_report_exist():
+def test_perek3_review_packet_readiness_and_applied_reports_exist():
     assert validator.PEREK3_PACKET.exists()
     assert validator.PEREK3_SOURCE_READINESS_REPORT.exists()
-    packet = validator.PEREK3_PACKET.read_text(encoding="utf-8")
-    assert "This is not runtime approval." in packet
-    assert "This is not reviewed-bank approval." in packet
-    assert "This is not protected-preview approval." in packet
-    assert "All Bereishis Perek 3 candidates in this packet remain pending" in packet
+    assert validator.PEREK3_REVIEW_APPLIED_REPORT.exists()
+    applied = validator.PEREK3_REVIEW_APPLIED_REPORT.read_text(encoding="utf-8")
+    assert "Yossi decisions were applied" in applied
+    assert "`approve_for_internal_protected_preview_packet`: 4" in applied
+    assert "`approve_with_revision`: 4" in applied
+    assert "`needs_follow_up`: 2" in applied
+    assert "No final protected-preview packet was created." in applied
 
 
 def test_no_perek3_internal_packet_created():

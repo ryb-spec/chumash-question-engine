@@ -20,6 +20,7 @@ CONTROLLED_DRAFT = ROOT / "data" / "gate_2_controlled_draft_generation" / "berei
 PEREK3_TSV = DIR / "bereishis_perek_3_protected_preview_candidates.tsv"
 PEREK3_PACKET = REPORTS / "bereishis_perek_3_protected_preview_candidate_review_packet.md"
 PEREK3_SOURCE_READINESS_REPORT = REPORTS / "bereishis_perek_3_protected_preview_candidate_source_readiness_report.md"
+PEREK3_REVIEW_APPLIED_REPORT = REPORTS / "bereishis_perek_3_protected_preview_candidate_yossi_review_applied.md"
 PEREK3_SOURCE_MAPS = [
     ROOT / "data" / "verified_source_skill_maps" / "bereishis_3_1_to_3_7_source_to_skill_map.tsv",
     ROOT / "data" / "verified_source_skill_maps" / "bereishis_3_8_to_3_16_source_to_skill_map.tsv",
@@ -59,7 +60,8 @@ REQUIRED_COLUMNS = [
 
 P2_APPROVED_STATUS = "yossi_approved_for_internal_protected_preview_packet"
 P2_APPROVED_DECISION = "approve_for_internal_protected_preview_packet"
-P3_PENDING_STATUS = "candidate_review_only"
+P3_REVISION_STATUS = "yossi_approved_with_revision_before_internal_protected_preview_packet"
+P3_FOLLOW_UP_STATUS = "needs_follow_up"
 NEEDS_YOSSI_REVIEW = "needs_yossi_review"
 CLOSED_GATES = [
     "protected_preview_allowed",
@@ -74,12 +76,21 @@ REVIEW_STATUS_COLUMNS = [
     "hebrew_rendering_review_status",
     "context_display_review_status",
 ]
+P3_EXPECTED_DECISION_COUNTS = {
+    "approve_for_internal_protected_preview_packet": 4,
+    "approve_with_revision": 4,
+    "needs_follow_up": 2,
+    "reject_for_preview": 0,
+    "source_only": 0,
+}
+P3_EXPECTED_STATUS_BY_DECISION = {
+    "approve_for_internal_protected_preview_packet": P2_APPROVED_STATUS,
+    "approve_with_revision": P3_REVISION_STATUS,
+    "needs_follow_up": P3_FOLLOW_UP_STATUS,
+}
 FORBIDDEN_P3_STATUS_FRAGMENTS = [
-    "yossi_approved",
-    "approved_for_internal_protected_preview_packet",
     "reviewed_bank_ready",
     "runtime_ready",
-    "student_facing",
     "approved_for_reviewed_bank",
     "approved_for_runtime",
     "approved_for_student_facing",
@@ -180,16 +191,16 @@ def _validate_perek2_candidates() -> tuple[list[dict[str, str]], dict[str, objec
 
 
 def _validate_perek3_candidates() -> tuple[list[dict[str, str]], dict[str, object]]:
-    for path in [PEREK3_TSV, PEREK3_PACKET, PEREK3_SOURCE_READINESS_REPORT]:
+    for path in [PEREK3_TSV, PEREK3_PACKET, PEREK3_SOURCE_READINESS_REPORT, PEREK3_REVIEW_APPLIED_REPORT]:
         if not path.exists():
             raise AssertionError(f"Missing Perek 3 protected-preview candidate artifact: {path}")
     if PEREK3_FORBIDDEN_PACKET.exists():
-        raise AssertionError(f"Perek 3 final/internal packet must not exist for this review-only task: {PEREK3_FORBIDDEN_PACKET}")
+        raise AssertionError(f"Perek 3 final/internal packet must not exist for this decision-application task: {PEREK3_FORBIDDEN_PACKET}")
 
     rows = _read_tsv(PEREK3_TSV)
     _require_columns(PEREK3_TSV, rows)
     if len(rows) != 10:
-        raise AssertionError(f"Expected 10 Perek 3 review-only candidate rows, found {len(rows)}")
+        raise AssertionError(f"Expected 10 Perek 3 candidate rows, found {len(rows)}")
     _check_no_placeholder_corruption(rows, PEREK3_TSV)
 
     source_refs = _load_perek3_source_refs()
@@ -210,8 +221,14 @@ def _validate_perek3_candidates() -> tuple[list[dict[str, str]], dict[str, objec
             raise AssertionError(f"Perek 3 candidate {cid} phrase/token not found in verified source maps")
         if row["approved_family"] != "basic_noun_recognition":
             raise AssertionError(f"Perek 3 candidate {cid} uses non-conservative family: {row['approved_family']}")
-        if row["protected_preview_candidate_status"] != P3_PENDING_STATUS:
-            raise AssertionError(f"Perek 3 candidate {cid} is not pending review-only: {row['protected_preview_candidate_status']}")
+        decision = row["yossi_protected_preview_decision"]
+        expected_status = P3_EXPECTED_STATUS_BY_DECISION.get(decision)
+        if expected_status is None:
+            raise AssertionError(f"Perek 3 candidate {cid} has unexpected Yossi decision: {decision}")
+        if row["protected_preview_candidate_status"] != expected_status:
+            raise AssertionError(f"Perek 3 candidate {cid} has wrong status for {decision}: {row['protected_preview_candidate_status']}")
+        if not row["yossi_protected_preview_notes"].strip():
+            raise AssertionError(f"Perek 3 candidate {cid} is missing Yossi notes")
         if row["draft_review_status"] != NEEDS_YOSSI_REVIEW:
             raise AssertionError(f"Perek 3 candidate {cid} draft review status should remain pending")
         for col in REVIEW_STATUS_COLUMNS:
@@ -220,15 +237,13 @@ def _validate_perek3_candidates() -> tuple[list[dict[str, str]], dict[str, objec
         for col in CLOSED_GATES:
             if row[col] != "false":
                 raise AssertionError(f"Perek 3 candidate {cid} opened {col}: {row[col]}")
-        if row["yossi_protected_preview_decision"] or row["yossi_protected_preview_notes"]:
-            raise AssertionError(f"Perek 3 candidate {cid} must not have Yossi decision fields filled")
         joined_status = "|".join([
             row["protected_preview_candidate_status"],
             row["yossi_protected_preview_decision"],
             row["yossi_protected_preview_notes"],
         ])
         if any(fragment in joined_status for fragment in FORBIDDEN_P3_STATUS_FRAGMENTS):
-            raise AssertionError(f"Perek 3 candidate {cid} contains forbidden approval/status language")
+            raise AssertionError(f"Perek 3 candidate {cid} contains forbidden runtime/reviewed-bank approval language")
         for required_text_col in ["explanation", "source_evidence_note", "caution_note"]:
             if not row[required_text_col].strip():
                 raise AssertionError(f"Perek 3 candidate {cid} missing {required_text_col}")
@@ -237,31 +252,35 @@ def _validate_perek3_candidates() -> tuple[list[dict[str, str]], dict[str, objec
         if "not protected-preview approval" not in row["caution_note"]:
             raise AssertionError(f"Perek 3 candidate {cid} missing fail-closed caution note")
 
-    packet_text = PEREK3_PACKET.read_text(encoding="utf-8")
-    required_packet_phrases = [
+    decision_counts = Counter(row["yossi_protected_preview_decision"] for row in rows)
+    for decision, expected_count in P3_EXPECTED_DECISION_COUNTS.items():
+        if decision_counts.get(decision, 0) != expected_count:
+            raise AssertionError(f"Perek 3 expected {expected_count} {decision} rows, found {decision_counts.get(decision, 0)}")
+
+    applied_text = PEREK3_REVIEW_APPLIED_REPORT.read_text(encoding="utf-8")
+    required_applied_phrases = [
+        "Yossi decisions were applied",
+        "`approve_for_internal_protected_preview_packet`: 4",
+        "`approve_with_revision`: 4",
+        "`needs_follow_up`: 2",
         "This is not runtime approval.",
         "This is not reviewed-bank approval.",
-        "This is not protected-preview approval.",
-        "All Bereishis Perek 3 candidates in this packet remain pending and review-only.",
-        "approve_for_internal_protected_preview_packet",
-        "approve_with_revision",
-        "needs_follow_up",
-        "reject_for_preview",
-        "source_only",
+        "This is not student-facing approval.",
+        "No final protected-preview packet was created.",
     ]
-    for phrase in required_packet_phrases:
-        if phrase not in packet_text:
-            raise AssertionError(f"Perek 3 review packet missing phrase: {phrase}")
+    for phrase in required_applied_phrases:
+        if phrase not in applied_text:
+            raise AssertionError(f"Perek 3 applied report missing phrase: {phrase}")
 
     readme_text = README.read_text(encoding="utf-8")
-    if "bereishis_perek_3_protected_preview_candidates.tsv" not in readme_text:
-        raise AssertionError("Perek 3 candidate TSV is not discoverable from candidate README")
+    if "bereishis_perek_3_protected_preview_candidate_yossi_review_applied.md" not in readme_text:
+        raise AssertionError("Perek 3 decision-applied report is not discoverable from candidate README")
 
     return rows, {
         "perek3_row_count": len(rows),
         "perek3_family_counts": dict(Counter(row["approved_family"] for row in rows)),
         "perek3_status_counts": dict(Counter(row["protected_preview_candidate_status"] for row in rows)),
-        "perek3_decision_counts": dict(Counter(row["yossi_protected_preview_decision"] for row in rows)),
+        "perek3_decision_counts": dict(decision_counts),
     }
 
 

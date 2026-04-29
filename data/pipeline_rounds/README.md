@@ -87,4 +87,5 @@ This directory contains reusable pipeline-round planning artifacts.
 - Yossi review packet: `data/gate_2_protected_preview_candidates/reports/bereishis_perek_3_protected_preview_candidate_review_packet.md`
 - Source/readiness report: `data/gate_2_protected_preview_candidates/reports/bereishis_perek_3_protected_preview_candidate_source_readiness_report.md`
 
-Status: review-only and fail-closed. Perek 3 has not been activated in runtime, has not been promoted to reviewed bank, and has not been approved for a final protected-preview packet. All Perek 3 candidate decisions remain pending Yossi review.
+Status: Yossi candidate decisions applied and still fail-closed. Decision counts: 4 `approve_for_internal_protected_preview_packet`, 4 `approve_with_revision`, 2 `needs_follow_up`. Perek 3 has not been activated in runtime, has not been promoted to reviewed bank, and has not been approved for a final protected-preview packet.
+- Yossi decision-applied report: `data/gate_2_protected_preview_candidates/reports/bereishis_perek_3_protected_preview_candidate_yossi_review_applied.md`
