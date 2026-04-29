@@ -119,3 +119,10 @@
 - [completed] Create conservative Loshon rule candidates and a Zekelman Standard 3 supplemental crosswalk for unresolved/partial review areas
 - [completed] Extend Standard 3 review packet and decision sheet with enrichment evidence only, preserving all teacher-review decisions and statuses
 - [completed] Narrowly extend standards validation and tests, then run required validation and write the enrichment report
+- [completed] Finalize source truth reproducibility: corpus manifest paths, hashes, active scope, validation, report
+- [completed] Design candidate-based morphology, standards, and vocabulary/shoresh enrichment layer without mutating verified phrase maps
+- [completed] Build a small Bereishis 1:1-1:5 enrichment pilot with Yossi-friendly review sheets and closed gates
+- [completed] Add enrichment validator/tests and run full validation without question/runtime promotion
+- [completed] Audit runtime skills, canonical crosswalk rows, Standard 3 draft skill IDs, verified source-map labels, and enrichment candidates for one Step 3 canonical contract
+- [completed] Create a deterministic canonical skill/standards contract plus validator/tests that keep review-only, source-verified, and runtime-ready boundaries distinct
+- [completed] Update skill-catalog alignment, report/docs, and rerun the required validation stack without opening any approval gates

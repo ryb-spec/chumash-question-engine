@@ -1,0 +1,191 @@
+{
+  "policy_version": "exact_template_wording_policy.v1",
+  "status": "exact_wording_policy_only",
+  "allowed_families": [
+    "vocabulary_meaning",
+    "basic_noun_recognition",
+    "direct_object_marker_recognition",
+    "shoresh_identification"
+  ],
+  "deferred_families": [
+    "basic_verb_form_recognition"
+  ],
+  "family_wording_patterns": {
+    "vocabulary_meaning": {
+      "patterns": [
+        "In this phrase, what does {hebrew_token} mean?",
+        "Choose the basic meaning of {hebrew_token}.",
+        "In this pasuk phrase, {hebrew_token} means ____."
+      ],
+      "required_placeholders": [
+        "hebrew_token",
+        "hebrew_phrase",
+        "approved_meaning",
+        "context_display"
+      ],
+      "required_revision_language": [
+        "full phrase translation forbidden",
+        "deeper interpretation forbidden",
+        "multiple vocabulary targets forbidden",
+        "unreviewed meanings forbidden"
+      ],
+      "exact_template_wording_pattern_allowed": true,
+      "final_question_allowed": false,
+      "answer_choices_allowed": false,
+      "answer_key_allowed": false,
+      "protected_preview_allowed": false,
+      "reviewed_bank_allowed": false,
+      "runtime_allowed": false,
+      "student_facing_allowed": false,
+      "exact_wording_review_status": "yossi_exact_wording_family_approved",
+      "yossi_revision_notes": [
+        "Exact wording family approved for future pre-generation planning only."
+      ]
+    },
+    "basic_noun_recognition": {
+      "patterns": [
+        "Which word in this phrase is a noun?",
+        "What type of word is {hebrew_token}?",
+        "{hebrew_token} names a person/place/thing. What type of word is it?"
+      ],
+      "required_placeholders": [
+        "hebrew_token",
+        "hebrew_phrase",
+        "noun_category_review"
+      ],
+      "required_revision_language": [
+        "wording must stay simple: noun/object/person/place/thing only",
+        "no advanced grammar labels",
+        "no construct/suffix/adjective/advanced part-of-speech claims"
+      ],
+      "exact_template_wording_pattern_allowed": true,
+      "final_question_allowed": false,
+      "answer_choices_allowed": false,
+      "answer_key_allowed": false,
+      "protected_preview_allowed": false,
+      "reviewed_bank_allowed": false,
+      "runtime_allowed": false,
+      "student_facing_allowed": false,
+      "exact_wording_review_status": "yossi_approved_with_revision",
+      "yossi_revision_notes": [
+        "Wording must stay simple: noun/object/person/place/thing.",
+        "Do not use advanced grammar labels.",
+        "Do not ask about construct, suffix, adjective, or advanced part-of-speech distinctions."
+      ]
+    },
+    "direct_object_marker_recognition": {
+      "patterns": [
+        "What is the job of את in this phrase?",
+        "Which word marks the direct object?",
+        "In this phrase, את points to the object receiving the action."
+      ],
+      "required_placeholders": [
+        "hebrew_token",
+        "hebrew_phrase",
+        "function_wording_review"
+      ],
+      "required_revision_language": [
+        "ask about function, not translation",
+        "do not ask What does את mean?",
+        "do not translate את as the",
+        "do not translate את as with"
+      ],
+      "exact_template_wording_pattern_allowed": true,
+      "final_question_allowed": false,
+      "answer_choices_allowed": false,
+      "answer_key_allowed": false,
+      "protected_preview_allowed": false,
+      "reviewed_bank_allowed": false,
+      "runtime_allowed": false,
+      "student_facing_allowed": false,
+      "exact_wording_review_status": "yossi_approved_with_revision",
+      "yossi_revision_notes": [
+        "Wording must ask about the function of את.",
+        "Do not ask What does את mean?",
+        "Do not translate את as the.",
+        "Do not translate את as with.",
+        "Exact final wording still needs teacher review."
+      ]
+    },
+    "shoresh_identification": {
+      "patterns": [
+        "What is the shoresh of {hebrew_token}?",
+        "Which root letters are inside {hebrew_token}?",
+        "Identify the shoresh for this reviewed word: {hebrew_token}."
+      ],
+      "required_placeholders": [
+        "hebrew_token",
+        "target_shoresh",
+        "shoresh_review_status"
+      ],
+      "required_revision_language": [
+        "surface word and target shoresh must be clearly separated",
+        "for הבדיל, target shoresh is בדל",
+        "do not imply הבדיל itself is the shoresh"
+      ],
+      "exact_template_wording_pattern_allowed": true,
+      "final_question_allowed": false,
+      "answer_choices_allowed": false,
+      "answer_key_allowed": false,
+      "protected_preview_allowed": false,
+      "reviewed_bank_allowed": false,
+      "runtime_allowed": false,
+      "student_facing_allowed": false,
+      "exact_wording_review_status": "yossi_approved_with_revision",
+      "yossi_revision_notes": [
+        "Wording must separate surface word from target shoresh.",
+        "For ppplan_b1_024 / הבדיל, the target shoresh is בדל.",
+        "Do not imply הבדיל itself is the shoresh.",
+        "Exact final wording and answer-key language still need teacher review."
+      ]
+    }
+  },
+  "forbidden_outputs": [
+    "final_questions",
+    "student_ready_prompts",
+    "answer_choices",
+    "answer_keys",
+    "protected_preview_input_rows",
+    "protected_preview_content",
+    "reviewed_bank_entries",
+    "runtime_data",
+    "student_facing_content"
+  ],
+  "required_review_gates": [
+    "teacher_wording_review_status",
+    "answer_key_review_status",
+    "distractor_review_status",
+    "context_display_review_status",
+    "hebrew_rendering_review_status",
+    "protected_preview_gate_review_status"
+  ],
+  "safety_gate_defaults": {
+    "final_question_allowed": false,
+    "answer_choices_allowed": false,
+    "answer_key_allowed": false,
+    "protected_preview_allowed": false,
+    "reviewed_bank_allowed": false,
+    "runtime_allowed": false,
+    "student_facing_allowed": false
+  },
+  "answer_choices": [],
+  "answer_keys": [],
+  "student_facing_final_items": [],
+  "basic_verb_form_recognition": {
+    "status": "deferred",
+    "exact_template_wording_pattern_allowed": false,
+    "reason": "No verb-form exact wording patterns may be created until a separate morphology-question wording standard exists.",
+    "final_question_allowed": false,
+    "answer_choices_allowed": false,
+    "answer_key_allowed": false,
+    "protected_preview_allowed": false,
+    "reviewed_bank_allowed": false,
+    "runtime_allowed": false,
+    "student_facing_allowed": false,
+    "exact_wording_review_status": "deferred",
+    "revision_notes": [
+      "Remains deferred.",
+      "No verb-form exact wording, answer-key, distractor, protected-preview, or runtime planning may proceed."
+    ]
+  }
+}

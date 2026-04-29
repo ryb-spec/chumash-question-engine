@@ -1,0 +1,236 @@
+{
+  "policy_version": "template_skeleton_policy.v1",
+  "status": "skeleton_policy_only",
+  "allowed_families": [
+    "vocabulary_meaning",
+    "basic_noun_recognition",
+    "direct_object_marker_recognition",
+    "shoresh_identification"
+  ],
+  "deferred_families": [
+    "basic_verb_form_recognition"
+  ],
+  "family_skeleton_rules": {
+    "vocabulary_meaning": {
+      "purpose": "Plan a non-student-facing skeleton for one reviewed Hebrew vocabulary token.",
+      "allowed_non_student_facing_skeleton_shape": "meaning_of_single_reviewed_token_skeleton",
+      "required_variables": [
+        "hebrew_token",
+        "hebrew_phrase",
+        "approved_family",
+        "meaning_review_status",
+        "context_display_review_status"
+      ],
+      "forbidden_wording": [
+        "full phrase translation",
+        "deeper interpretation",
+        "multiple vocabulary targets",
+        "unreviewed meanings",
+        "answer choices",
+        "answer key"
+      ],
+      "required_review_gates": [
+        "teacher_wording_review_status",
+        "answer_key_review_status",
+        "distractor_review_status",
+        "context_display_review_status",
+        "hebrew_rendering_review_status",
+        "protected_preview_gate_review_status"
+      ],
+      "cautions": [
+        "Context phrase may be displayed later only after context-display review.",
+        "Article/prefix forms require later answer-key review."
+      ],
+      "template_skeleton_allowed": true,
+      "final_question_allowed": false,
+      "answer_choices_allowed": false,
+      "answer_key_allowed": false,
+      "protected_preview_allowed": false,
+      "reviewed_bank_allowed": false,
+      "runtime_allowed": false,
+      "student_facing_allowed": false,
+      "family_skeleton_review_status": "yossi_skeleton_family_approved",
+      "yossi_revision_notes": [
+        "Skeleton family approved for future exact non-student-facing template wording planning only."
+      ]
+    },
+    "basic_noun_recognition": {
+      "purpose": "Plan a non-student-facing skeleton for simple noun/object/person/place/thing recognition.",
+      "allowed_non_student_facing_skeleton_shape": "basic_noun_token_recognition_skeleton",
+      "required_variables": [
+        "hebrew_token",
+        "hebrew_phrase",
+        "noun_review_status",
+        "context_display_review_status"
+      ],
+      "forbidden_wording": [
+        "construct or suffix-sensitive claims without review",
+        "adjectives or verbs unless separately reviewed",
+        "advanced grammar labels",
+        "answer choices",
+        "answer key"
+      ],
+      "required_review_gates": [
+        "teacher_wording_review_status",
+        "answer_key_review_status",
+        "distractor_review_status",
+        "context_display_review_status",
+        "hebrew_rendering_review_status",
+        "protected_preview_gate_review_status"
+      ],
+      "cautions": [
+        "Keep level-appropriate and avoid advanced parts of speech."
+      ],
+      "template_skeleton_allowed": true,
+      "final_question_allowed": false,
+      "answer_choices_allowed": false,
+      "answer_key_allowed": false,
+      "protected_preview_allowed": false,
+      "reviewed_bank_allowed": false,
+      "runtime_allowed": false,
+      "student_facing_allowed": false,
+      "family_skeleton_review_status": "yossi_approved_with_revision",
+      "yossi_revision_notes": [
+        "Future exact wording must stay simple: noun/object/person/place/thing.",
+        "Do not use advanced grammar labels.",
+        "Do not ask about construct, suffix, adjective, or advanced part-of-speech distinctions."
+      ]
+    },
+    "direct_object_marker_recognition": {
+      "purpose": "Plan a non-student-facing skeleton about the function of the direct-object marker.",
+      "allowed_non_student_facing_skeleton_shape": "direct_object_marker_function_skeleton",
+      "required_variables": [
+        "hebrew_token",
+        "hebrew_phrase",
+        "function_review_status",
+        "wording_review_status"
+      ],
+      "forbidden_wording": [
+        "what does את mean",
+        "translate את as the",
+        "translate את as with",
+        "prefix or conjunction analysis",
+        "answer choices",
+        "answer key"
+      ],
+      "required_review_gates": [
+        "teacher_wording_review_status",
+        "answer_key_review_status",
+        "distractor_review_status",
+        "context_display_review_status",
+        "hebrew_rendering_review_status",
+        "protected_preview_gate_review_status"
+      ],
+      "cautions": [
+        "Function wording only; do not ask what את means as a simple translation."
+      ],
+      "template_skeleton_allowed": true,
+      "final_question_allowed": false,
+      "answer_choices_allowed": false,
+      "answer_key_allowed": false,
+      "protected_preview_allowed": false,
+      "reviewed_bank_allowed": false,
+      "runtime_allowed": false,
+      "student_facing_allowed": false,
+      "family_skeleton_review_status": "yossi_approved_with_revision",
+      "yossi_revision_notes": [
+        "Future exact wording must ask about the function of את.",
+        "Do not ask What does את mean?",
+        "Do not translate את as the or with.",
+        "All את rows still require teacher wording review."
+      ]
+    },
+    "shoresh_identification": {
+      "purpose": "Plan a non-student-facing skeleton for one reviewed shoresh target.",
+      "allowed_non_student_facing_skeleton_shape": "single_token_shoresh_identification_skeleton",
+      "required_variables": [
+        "hebrew_token",
+        "target_shoresh",
+        "shoresh_review_status",
+        "wording_review_status"
+      ],
+      "forbidden_wording": [
+        "unresolved compound forms",
+        "advanced binyan or stem",
+        "prefix/suffix-heavy forms without review",
+        "answer choices",
+        "answer key"
+      ],
+      "required_review_gates": [
+        "teacher_wording_review_status",
+        "answer_key_review_status",
+        "distractor_review_status",
+        "context_display_review_status",
+        "hebrew_rendering_review_status",
+        "protected_preview_gate_review_status"
+      ],
+      "cautions": [
+        "For הבדיל, target shoresh is בדל; surface token is הבדיל."
+      ],
+      "template_skeleton_allowed": true,
+      "final_question_allowed": false,
+      "answer_choices_allowed": false,
+      "answer_key_allowed": false,
+      "protected_preview_allowed": false,
+      "reviewed_bank_allowed": false,
+      "runtime_allowed": false,
+      "student_facing_allowed": false,
+      "family_skeleton_review_status": "yossi_approved_with_revision",
+      "yossi_revision_notes": [
+        "Future exact wording must clearly separate the surface word from the target shoresh.",
+        "For ppplan_b1_024 / הבדיל, the target shoresh is בדל.",
+        "Do not imply הבדיל itself is the shoresh.",
+        "All shoresh rows still require teacher wording review and answer-key review."
+      ]
+    }
+  },
+  "required_review_gates": [
+    "teacher_wording_review_status",
+    "answer_key_review_status",
+    "distractor_review_status",
+    "context_display_review_status",
+    "hebrew_rendering_review_status",
+    "protected_preview_gate_review_status"
+  ],
+  "forbidden_outputs": [
+    "final_questions",
+    "student_ready_prompts",
+    "answer_choices",
+    "answer_keys",
+    "protected_preview_input_rows",
+    "protected_preview_content",
+    "reviewed_bank_entries",
+    "runtime_data",
+    "student_facing_content"
+  ],
+  "safety_gate_defaults": {
+    "final_question_allowed": false,
+    "answer_choices_allowed": false,
+    "answer_key_allowed": false,
+    "protected_preview_allowed": false,
+    "reviewed_bank_allowed": false,
+    "runtime_allowed": false,
+    "student_facing_allowed": false
+  },
+  "actual_question_text": [],
+  "answer_choices": [],
+  "answer_keys": [],
+  "deferred_family_review_statuses": {
+    "basic_verb_form_recognition": "deferred"
+  },
+  "basic_verb_form_recognition": {
+    "family_skeleton_review_status": "deferred",
+    "revision_notes": [
+      "Keep deferred.",
+      "No verb-form skeletons may be approved until a separate morphology-question wording standard exists."
+    ],
+    "template_skeleton_allowed": false,
+    "final_question_allowed": false,
+    "answer_choices_allowed": false,
+    "answer_key_allowed": false,
+    "protected_preview_allowed": false,
+    "reviewed_bank_allowed": false,
+    "runtime_allowed": false,
+    "student_facing_allowed": false
+  }
+}

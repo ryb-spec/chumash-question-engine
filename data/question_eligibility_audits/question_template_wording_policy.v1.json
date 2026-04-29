@@ -1,0 +1,194 @@
+{
+  "policy_version": "question_template_wording_policy.v1",
+  "status": "policy_only_not_generation_ready",
+  "scope": "Bereishis Perek 1 approved first-pass input candidates",
+  "allowed_families": [
+    "vocabulary_meaning",
+    "basic_noun_recognition",
+    "direct_object_marker_recognition",
+    "shoresh_identification"
+  ],
+  "deferred_families": [
+    "basic_verb_form_recognition"
+  ],
+  "forbidden_families": [
+    "phrase_translation_context",
+    "basic_prefix_recognition",
+    "unreviewed_morphology",
+    "unreviewed_standards_bundle"
+  ],
+  "required_teacher_review_fields": [
+    "hebrew_token",
+    "english_meaning_or_function",
+    "context_phrase_needed",
+    "skill_family",
+    "sensitivity_risk",
+    "distractor_source_policy",
+    "answer_key_wording"
+  ],
+  "forbidden_output_types": [
+    "generated_question",
+    "answer_choice_set",
+    "answer_key",
+    "protected_preview_input_row",
+    "protected_preview_content",
+    "reviewed_bank_entry",
+    "runtime_payload",
+    "student-facing item"
+  ],
+  "safety_gate_defaults": {
+    "question_allowed": "needs_review",
+    "protected_preview_allowed": false,
+    "reviewed_bank_allowed": false,
+    "runtime_allowed": false,
+    "student_use_allowed": false
+  },
+  "family_rules": {
+    "vocabulary_meaning": {
+      "allowed_intents": [
+        "ask for the basic meaning of one reviewed Hebrew token",
+        "use only reviewed or source-supported meaning",
+        "use context phrase only as support"
+      ],
+      "forbidden_intents": [
+        "ask for unreviewed translations",
+        "ask for full phrase translation",
+        "ask interpretive or deeper-meaning claims",
+        "combine multiple vocabulary tokens in one item",
+        "generate answer choices or answer keys"
+      ],
+      "required_review_fields": [
+        "hebrew_token",
+        "english_meaning",
+        "context_phrase_needed",
+        "sensitivity_risk",
+        "distractor_bank_allowed_later"
+      ],
+      "future_template_allowed": false,
+      "protected_preview_allowed": false,
+      "reviewed_bank_allowed": false,
+      "runtime_allowed": false,
+      "family_policy_review_status": "yossi_family_policy_approved",
+      "family_policy_review_note": "Yossi approved the family-level wording policy only. This is not question approval, answer-key approval, protected-preview approval, reviewed-bank approval, runtime approval, or student-facing approval."
+    },
+    "basic_noun_recognition": {
+      "allowed_intents": [
+        "identify a simple reviewed noun token",
+        "use only token-level verified 3.01 rows",
+        "keep grammar language at the approved basic level"
+      ],
+      "forbidden_intents": [
+        "target multi-lane phrases",
+        "ask about constructs, suffixes, adjectives, or advanced grammar unless separately reviewed",
+        "treat every vocabulary row as automatically question-safe",
+        "generate answer choices or answer keys"
+      ],
+      "required_review_fields": [
+        "hebrew_token",
+        "noun_status",
+        "age_level_appropriateness",
+        "construct_or_suffix_risk",
+        "overclaiming_risk"
+      ],
+      "future_template_allowed": false,
+      "protected_preview_allowed": false,
+      "reviewed_bank_allowed": false,
+      "runtime_allowed": false,
+      "family_policy_review_status": "yossi_family_policy_approved",
+      "family_policy_review_note": "Yossi approved the family-level wording policy only. This is not question approval, answer-key approval, protected-preview approval, reviewed-bank approval, runtime approval, or student-facing approval."
+    },
+    "direct_object_marker_recognition": {
+      "allowed_intents": [
+        "ask about the function of את as a direct-object marker",
+        "recognize that את points to the object receiving the action",
+        "use only clean token-level direct-object-marker rows"
+      ],
+      "forbidden_intents": [
+        "ask what את means as a simple English translation",
+        "translate את as the",
+        "translate את as with",
+        "combine את with conjunction or prefix analysis unless separately approved",
+        "generate answer choices or answer keys"
+      ],
+      "required_review_fields": [
+        "source_phrase",
+        "direct_object_marker_usage",
+        "function_not_translation_wording",
+        "distractor_risk",
+        "level_appropriateness"
+      ],
+      "future_template_allowed": false,
+      "protected_preview_allowed": false,
+      "reviewed_bank_allowed": false,
+      "runtime_allowed": false,
+      "family_policy_review_status": "yossi_family_policy_approved",
+      "family_policy_review_note": "Yossi approved the family-level wording policy only. This is not question approval, answer-key approval, protected-preview approval, reviewed-bank approval, runtime approval, or student-facing approval.",
+      "required_cautions": [
+        "must use function wording",
+        "must not ask what את means as a simple translation",
+        "must not translate את as the",
+        "must not translate את as with",
+        "must require future exact wording review"
+      ]
+    },
+    "shoresh_identification": {
+      "allowed_intents": [
+        "ask for the root of one reviewed Hebrew token",
+        "use clean token-level verified root candidates",
+        "prefer visible roots appropriate for students"
+      ],
+      "forbidden_intents": [
+        "ask root for unresolved or compound forms",
+        "ask root where prefixes or suffixes make the token too hard without separate approval",
+        "ask advanced binyan or stem questions",
+        "generate answer choices or answer keys"
+      ],
+      "required_review_fields": [
+        "hebrew_token",
+        "root_letters",
+        "prefix_suffix_explanation_needed",
+        "ambiguity_risk"
+      ],
+      "future_template_allowed": false,
+      "protected_preview_allowed": false,
+      "reviewed_bank_allowed": false,
+      "runtime_allowed": false,
+      "family_policy_review_status": "yossi_family_policy_approved",
+      "family_policy_review_note": "Yossi approved the family-level wording policy only. This is not question approval, answer-key approval, protected-preview approval, reviewed-bank approval, runtime approval, or student-facing approval."
+    },
+    "basic_verb_form_recognition": {
+      "status": "deferred",
+      "future_template_allowed": false,
+      "protected_preview_allowed": false,
+      "reviewed_bank_allowed": false,
+      "runtime_allowed": false,
+      "required_future_policy_topics": [
+        "tense labels",
+        "vav-hahipuch",
+        "future/jussive ambiguity",
+        "imperative forms",
+        "person/gender/number",
+        "visible form vs meaning",
+        "avoid overclaiming"
+      ],
+      "family_policy_review_status": "deferred",
+      "family_policy_review_note": "Kept deferred. Morphology/basic verb-form questions require a separate morphology-question wording standard."
+    }
+  },
+  "family_policy_review_summary": {
+    "families_reviewed": 5,
+    "approved_family_policies": 4,
+    "deferred_family_policies": 1,
+    "approved_families": [
+      "basic_noun_recognition",
+      "direct_object_marker_recognition",
+      "shoresh_identification",
+      "vocabulary_meaning"
+    ],
+    "deferred_families": [
+      "basic_verb_form_recognition"
+    ],
+    "protected_preview_planning_approved": false,
+    "question_generation_approved": false
+  }
+}

@@ -1,0 +1,75 @@
+# Yossi Source-to-Skill Review Sheet
+
+## Review Summary
+
+- Scope: Bereishis 2:18-2:25
+- Source map: `data/verified_source_skill_maps/bereishis_2_18_to_2_25_source_to_skill_map.tsv`
+- Source map row count: 36
+- Rows needing review in this sheet: 36
+- Clean sample rows in this sheet: 0
+- Allowed decisions: `verified`, `fix_translation`, `fix_hebrew_phrase`, `fix_phrase_boundary`, `fix_skill_classification`, `source_only`, `block_for_questions`, `needs_follow_up`
+
+Mark each row with one of the allowed decisions. If everything is accurate, use `verified`.
+
+Your job is not to approve questions. Your job is only to confirm whether the source-to-skill extraction is accurate enough to mark this slice extraction-verified. All question, preview, reviewed-bank, runtime, and student-facing gates remain closed.
+
+## What Yossi Is Confirming
+
+- Hebrew phrase text is correct.
+- English/source translation is aligned to the correct Hebrew phrase.
+- Phrase boundaries and joins are reasonable.
+- Parentheticals are attached to the correct phrase.
+- Skill/classification is reasonable for source-to-skill planning.
+- Any row that should remain source-only is identified.
+- Any correction needed before extraction verification is clear.
+
+## What Yossi Is Not Approving
+
+- Not question approval.
+- Not protected-preview approval.
+- Not reviewed-bank approval.
+- Not runtime approval.
+- Not student-facing release.
+- Not answer-key approval.
+- Not generated-question approval.
+
+## Review Rows
+
+| Row ID | Ref | Hebrew phrase | Linear translation | Issue type | What to check | Default | Yossi decision | Notes |
+|---|---|---|---|---|---|---|---|---|
+| bereishis_2_18_to_2_25_source_to_skill_map_row_002 | Bereishis 2:18 | לֹא טוֹב | (it is) not good | long_parenthetical;phrase_boundary_check;source_only_recommended | Confirm the parenthetical belongs to this Hebrew phrase. Confirm Hebrew-English phrase alignment against the trusted source. Keep source-only unless a separate future question/protected-preview gate approves use. | verified |  |  |
+| bereishis_2_18_to_2_25_source_to_skill_map_row_009 | Bereishis 2:19 | לִרְאוֹת מַה יִּקְרָא לוֹ | to see what he will call to him (to each one) | long_parenthetical;phrase_boundary_check;source_only_recommended | Confirm the parenthetical belongs to this Hebrew phrase. Confirm Hebrew-English phrase alignment against the trusted source. Keep source-only unless a separate future question/protected-preview gate approves use. | verified |  |  |
+| bereishis_2_18_to_2_25_source_to_skill_map_row_010 | Bereishis 2:19 | וְכֹל אֲשֶׁר יִקְרָא לוֹ הָאָדָם נֶפֶשׁ חַיָּה | and any live soul that the person will call to him (a name) | long_parenthetical;long_hebrew_boundary;phrase_boundary_check;source_only_recommended | Confirm the parenthetical belongs to this Hebrew phrase. Confirm the Hebrew phrase boundary and segment join are reasonable. Confirm Hebrew-English phrase alignment against the trusted source. Keep source-only unless a separate future question/protected-preview gate approves use. | verified |  |  |
+| bereishis_2_18_to_2_25_source_to_skill_map_row_020 | Bereishis 2:21 | וַיִּסְגֹּר בָּשָׂר תַּחְתֶּנָּה | and He closed flesh under (in place of) her (the missing side) | long_parenthetical;phrase_boundary_check;source_only_recommended | Confirm the parenthetical belongs to this Hebrew phrase. Confirm Hebrew-English phrase alignment against the trusted source. Keep source-only unless a separate future question/protected-preview gate approves use. | verified |  |  |
+| bereishis_2_18_to_2_25_source_to_skill_map_row_023 | Bereishis 2:22 | לְאִשָּׁה | (into) a woman | long_parenthetical;phrase_boundary_check;source_only_recommended | Confirm the parenthetical belongs to this Hebrew phrase. Confirm Hebrew-English phrase alignment against the trusted source. Keep source-only unless a separate future question/protected-preview gate approves use. | verified |  |  |
+| bereishis_2_18_to_2_25_source_to_skill_map_row_032 | Bereishis 2:24 | וְדָבַק בְּאִשְׁתּוֹ | and he should attach in his woman (wife) | long_parenthetical;phrase_boundary_check;source_only_recommended | Confirm the parenthetical belongs to this Hebrew phrase. Confirm Hebrew-English phrase alignment against the trusted source. Keep source-only unless a separate future question/protected-preview gate approves use. | verified |  |  |
+| bereishis_2_18_to_2_25_source_to_skill_map_row_017 | Bereishis 2:21 | וַיַּפֵּל יְהוָה אֱלֹהִים תַּרְדֵּמָה עַל הָאָדָם | and Hashem caused a deep sleep to fall on the person | long_hebrew_boundary;phrase_boundary_check;source_only_recommended | Confirm the Hebrew phrase boundary and segment join are reasonable. Confirm Hebrew-English phrase alignment against the trusted source. Keep source-only unless a separate future question/protected-preview gate approves use. | verified |  |  |
+| bereishis_2_18_to_2_25_source_to_skill_map_row_001 | Bereishis 2:18 | וַיֹּאמֶר יְהוָה אֱלֹהִים | and Hashem said | phrase_boundary_check;source_only_recommended | Confirm Hebrew-English phrase alignment against the trusted source. Keep source-only unless a separate future question/protected-preview gate approves use. | verified |  |  |
+| bereishis_2_18_to_2_25_source_to_skill_map_row_003 | Bereishis 2:18 | הֱיוֹת הָאָדָם לְבַדּוֹ | the person being alone | phrase_boundary_check;source_only_recommended | Confirm Hebrew-English phrase alignment against the trusted source. Keep source-only unless a separate future question/protected-preview gate approves use. | verified |  |  |
+| bereishis_2_18_to_2_25_source_to_skill_map_row_004 | Bereishis 2:18 | אֶעֱשֶׂה לּוֹ עֵזֶר כְּנֶגְדּוֹ | I will make for him a helper opposite him | phrase_boundary_check;source_only_recommended | Confirm Hebrew-English phrase alignment against the trusted source. Keep source-only unless a separate future question/protected-preview gate approves use. | verified |  |  |
+| bereishis_2_18_to_2_25_source_to_skill_map_row_005 | Bereishis 2:19 | וַיִּצֶר יְהוָה אֱלֹהִים מִן הָאֲדָמָה | and Hashem formed from the ground | phrase_boundary_check;source_only_recommended | Confirm Hebrew-English phrase alignment against the trusted source. Keep source-only unless a separate future question/protected-preview gate approves use. | verified |  |  |
+| bereishis_2_18_to_2_25_source_to_skill_map_row_006 | Bereishis 2:19 | כָּל חַיַּת הַשָּׂדֶה | all the wild animals of the field | phrase_boundary_check;source_only_recommended | Confirm Hebrew-English phrase alignment against the trusted source. Keep source-only unless a separate future question/protected-preview gate approves use. | verified |  |  |
+| bereishis_2_18_to_2_25_source_to_skill_map_row_007 | Bereishis 2:19 | וְאֵת כָּל עוֹף הַשָּׁמַיִם | and all the birds of the sky | phrase_boundary_check;source_only_recommended | Confirm Hebrew-English phrase alignment against the trusted source. Keep source-only unless a separate future question/protected-preview gate approves use. | verified |  |  |
+| bereishis_2_18_to_2_25_source_to_skill_map_row_008 | Bereishis 2:19 | וַיָּבֵא אֶל הָאָדָם | and He brought them to the person | phrase_boundary_check;source_only_recommended | Confirm Hebrew-English phrase alignment against the trusted source. Keep source-only unless a separate future question/protected-preview gate approves use. | verified |  |  |
+| bereishis_2_18_to_2_25_source_to_skill_map_row_011 | Bereishis 2:19 | הוּא שְׁמוֹ | that name is his name | phrase_boundary_check;source_only_recommended | Confirm Hebrew-English phrase alignment against the trusted source. Keep source-only unless a separate future question/protected-preview gate approves use. | verified |  |  |
+| bereishis_2_18_to_2_25_source_to_skill_map_row_012 | Bereishis 2:20 | וַיִּקְרָא הָאָדָם שֵׁמוֹת | and the person called names | phrase_boundary_check;source_only_recommended | Confirm Hebrew-English phrase alignment against the trusted source. Keep source-only unless a separate future question/protected-preview gate approves use. | verified |  |  |
+| bereishis_2_18_to_2_25_source_to_skill_map_row_013 | Bereishis 2:20 | לְכָל הַבְּהֵמָה וּלְעוֹף הַשָּׁמַיִם | to all the domestic animals and to the birds of the sky | phrase_boundary_check;source_only_recommended | Confirm Hebrew-English phrase alignment against the trusted source. Keep source-only unless a separate future question/protected-preview gate approves use. | verified |  |  |
+| bereishis_2_18_to_2_25_source_to_skill_map_row_014 | Bereishis 2:20 | וּלְכֹל חַיַּת הַשָּׂדֶה | and to all the wild animals of the field | phrase_boundary_check;source_only_recommended | Confirm Hebrew-English phrase alignment against the trusted source. Keep source-only unless a separate future question/protected-preview gate approves use. | verified |  |  |
+| bereishis_2_18_to_2_25_source_to_skill_map_row_015 | Bereishis 2:20 | וּלְאָדָם | and for Adam | phrase_boundary_check;source_only_recommended | Confirm Hebrew-English phrase alignment against the trusted source. Keep source-only unless a separate future question/protected-preview gate approves use. | verified |  |  |
+| bereishis_2_18_to_2_25_source_to_skill_map_row_016 | Bereishis 2:20 | לֹא מָצָא עֵזֶר כְּנֶגְדּוֹ | he didn't find a helper opposite him | phrase_boundary_check;source_only_recommended | Confirm Hebrew-English phrase alignment against the trusted source. Keep source-only unless a separate future question/protected-preview gate approves use. | verified |  |  |
+| bereishis_2_18_to_2_25_source_to_skill_map_row_018 | Bereishis 2:21 | וַיִּישָׁן | and he slept | phrase_boundary_check;source_only_recommended | Confirm Hebrew-English phrase alignment against the trusted source. Keep source-only unless a separate future question/protected-preview gate approves use. | verified |  |  |
+| bereishis_2_18_to_2_25_source_to_skill_map_row_019 | Bereishis 2:21 | וַיִּקַּח אַחַת מִצַּלְעֹתָיו | and He took one of his sides | phrase_boundary_check;source_only_recommended | Confirm Hebrew-English phrase alignment against the trusted source. Keep source-only unless a separate future question/protected-preview gate approves use. | verified |  |  |
+| bereishis_2_18_to_2_25_source_to_skill_map_row_021 | Bereishis 2:22 | וַיִּבֶן יְהוָה אֱלֹהִים | and Hashem built | phrase_boundary_check;source_only_recommended | Confirm Hebrew-English phrase alignment against the trusted source. Keep source-only unless a separate future question/protected-preview gate approves use. | verified |  |  |
+| bereishis_2_18_to_2_25_source_to_skill_map_row_022 | Bereishis 2:22 | אֶת הַצֵּלָע אֲשֶׁר לָקַח מִן הָאָדָם | the side that He took from the person | phrase_boundary_check;source_only_recommended | Confirm Hebrew-English phrase alignment against the trusted source. Keep source-only unless a separate future question/protected-preview gate approves use. | verified |  |  |
+| bereishis_2_18_to_2_25_source_to_skill_map_row_024 | Bereishis 2:22 | וַיְבִאֶהָ אֶל הָאָדָם | and He brought her to the person | phrase_boundary_check;source_only_recommended | Confirm Hebrew-English phrase alignment against the trusted source. Keep source-only unless a separate future question/protected-preview gate approves use. | verified |  |  |
+| bereishis_2_18_to_2_25_source_to_skill_map_row_025 | Bereishis 2:23 | וַיֹּאמֶר הָאָדָם | and the person said | phrase_boundary_check;source_only_recommended | Confirm Hebrew-English phrase alignment against the trusted source. Keep source-only unless a separate future question/protected-preview gate approves use. | verified |  |  |
+| bereishis_2_18_to_2_25_source_to_skill_map_row_026 | Bereishis 2:23 | זֹאת הַפַּעַם | this time | phrase_boundary_check;source_only_recommended | Confirm Hebrew-English phrase alignment against the trusted source. Keep source-only unless a separate future question/protected-preview gate approves use. | verified |  |  |
+| bereishis_2_18_to_2_25_source_to_skill_map_row_027 | Bereishis 2:23 | עֶצֶם מֵעֲצָמַי וּבָשָׂר מִבְּשָׂרִי | bone from my bones and flesh from my flesh | phrase_boundary_check;source_only_recommended | Confirm Hebrew-English phrase alignment against the trusted source. Keep source-only unless a separate future question/protected-preview gate approves use. | verified |  |  |
+| bereishis_2_18_to_2_25_source_to_skill_map_row_028 | Bereishis 2:23 | לְזֹאת יִקָּרֵא אִשָּׁה | to this it will be called woman | phrase_boundary_check;source_only_recommended | Confirm Hebrew-English phrase alignment against the trusted source. Keep source-only unless a separate future question/protected-preview gate approves use. | verified |  |  |
+| bereishis_2_18_to_2_25_source_to_skill_map_row_029 | Bereishis 2:23 | כִּי מֵאִישׁ לֻקֳחָה זֹּאת | because from a man this was taken | phrase_boundary_check;source_only_recommended | Confirm Hebrew-English phrase alignment against the trusted source. Keep source-only unless a separate future question/protected-preview gate approves use. | verified |  |  |
+| bereishis_2_18_to_2_25_source_to_skill_map_row_030 | Bereishis 2:24 | עַל כֵּן יַעֲזָב אִישׁ | therefore a man should leave | phrase_boundary_check;source_only_recommended | Confirm Hebrew-English phrase alignment against the trusted source. Keep source-only unless a separate future question/protected-preview gate approves use. | verified |  |  |
+| bereishis_2_18_to_2_25_source_to_skill_map_row_031 | Bereishis 2:24 | אֶת אָבִיו וְאֶת אִמּוֹ | his father and mother | phrase_boundary_check;source_only_recommended | Confirm Hebrew-English phrase alignment against the trusted source. Keep source-only unless a separate future question/protected-preview gate approves use. | verified |  |  |
+| bereishis_2_18_to_2_25_source_to_skill_map_row_033 | Bereishis 2:24 | וְהָיוּ לְבָשָׂר אֶחָד | and they will be to one flesh | phrase_boundary_check;source_only_recommended | Confirm Hebrew-English phrase alignment against the trusted source. Keep source-only unless a separate future question/protected-preview gate approves use. | verified |  |  |
+| bereishis_2_18_to_2_25_source_to_skill_map_row_034 | Bereishis 2:25 | וַיִּהְיוּ שְׁנֵיהֶם עֲרוּמִּים | and they were both unclothed | phrase_boundary_check;source_only_recommended | Confirm Hebrew-English phrase alignment against the trusted source. Keep source-only unless a separate future question/protected-preview gate approves use. | verified |  |  |
+| bereishis_2_18_to_2_25_source_to_skill_map_row_035 | Bereishis 2:25 | הָאָדָם וְאִשְׁתּוֹ | the person and his woman | phrase_boundary_check;source_only_recommended | Confirm Hebrew-English phrase alignment against the trusted source. Keep source-only unless a separate future question/protected-preview gate approves use. | verified |  |  |
+| bereishis_2_18_to_2_25_source_to_skill_map_row_036 | Bereishis 2:25 | וְלֹא יִתְבֹּשָׁשׁוּ | and they would not become embarrassed | phrase_boundary_check;source_only_recommended | Confirm Hebrew-English phrase alignment against the trusted source. Keep source-only unless a separate future question/protected-preview gate approves use. | verified |  |  |

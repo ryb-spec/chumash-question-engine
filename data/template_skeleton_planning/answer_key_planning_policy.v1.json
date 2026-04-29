@@ -1,0 +1,55 @@
+{
+  "policy_version": "answer_key_planning_policy.v1",
+  "status": "answer_key_policy_only",
+  "allowed_families": [
+    "vocabulary_meaning",
+    "basic_noun_recognition",
+    "direct_object_marker_recognition",
+    "shoresh_identification"
+  ],
+  "deferred_families": [
+    "basic_verb_form_recognition"
+  ],
+  "individual_row_answer_keys": [],
+  "family_rules": {
+    "vocabulary_meaning": [
+      "reviewed meaning only",
+      "article/prefix review decides base meaning only vs article-inclusive meaning vs context-sensitive acceptable variants"
+    ],
+    "basic_noun_recognition": [
+      "simple category labels only: noun, person, place, thing, object",
+      "no advanced grammar labels",
+      "no construct/suffix/adjective claims without separate review"
+    ],
+    "direct_object_marker_recognition": [
+      "function not translation",
+      "must not say את = the",
+      "must not say את = with",
+      "must not treat את as normal vocabulary word"
+    ],
+    "shoresh_identification": [
+      "target shoresh only after review",
+      "for הבדיל, target shoresh is בדל",
+      "distinguish surface form from shoresh"
+    ]
+  },
+  "answer_key_allowed": false,
+  "protected_preview_allowed": false,
+  "reviewed_bank_allowed": false,
+  "runtime_allowed": false,
+  "student_facing_allowed": false,
+  "answer_key_planning_policy_review_status": "yossi_approved_with_revision",
+  "row_level_review_required_before_generation": true,
+  "required_row_level_review_fields": [
+    "exact_wording_review_status",
+    "answer_key_language_review_status",
+    "distractor_constraints_review_status",
+    "context_display_review_status",
+    "hebrew_rendering_review_status",
+    "protected_preview_gate_review_status"
+  ],
+  "review_decision_note": "Yossi policy decision applied. Row-level exact wording, answer-key language, distractor constraints, context display, Hebrew rendering, and protected-preview gate review remain required before any generation.",
+  "answer_choices_allowed": false,
+  "distractors_allowed": false,
+  "final_question_allowed": false
+}

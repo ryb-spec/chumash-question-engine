@@ -1,7 +1,9 @@
 from __future__ import annotations
 
+import json
 from dataclasses import dataclass
 from functools import lru_cache
+from pathlib import Path
 
 from foundation_resources import load_foundation_resource
 
@@ -47,6 +49,10 @@ MICRO_STANDARD_LABELS = {
     "CF4": "Decode several clues at once",
     "CF5": "Explain a complex form",
 }
+
+CANONICAL_SKILL_CONTRACT_PATH = (
+    Path(__file__).resolve().parent / "data" / "standards" / "canonical_skill_contract.json"
+)
 
 
 @dataclass(frozen=True)
@@ -363,8 +369,31 @@ def skill_prerequisites(skill_or_alias):
 
 
 def canonical_skill_record(canonical_skill_id):
-    record = canonical_skill_record_map().get(canonical_skill_id)
-    return dict(record) if record is not None else None
+    crosswalk_record = canonical_skill_record_map().get(canonical_skill_id)
+    contract_record = canonical_skill_contract_record_map().get(canonical_skill_id)
+    if crosswalk_record is None and contract_record is None:
+        return None
+    merged = {}
+    if contract_record is not None:
+        merged.update(contract_record)
+    if crosswalk_record is not None:
+        merged.update(crosswalk_record)
+    return merged
+
+
+@lru_cache(maxsize=1)
+def canonical_skill_contract():
+    with CANONICAL_SKILL_CONTRACT_PATH.open("r", encoding="utf-8") as handle:
+        return json.load(handle)
+
+
+@lru_cache(maxsize=1)
+def canonical_skill_contract_record_map():
+    return {
+        record["canonical_skill_id"]: dict(record)
+        for record in canonical_skill_contract().get("canonical_skills", [])
+        if record.get("canonical_skill_id")
+    }
 
 
 def canonical_skill_ids_for_runtime_skill(skill_or_alias):

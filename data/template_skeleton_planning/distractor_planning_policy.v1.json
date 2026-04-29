@@ -1,0 +1,59 @@
+{
+  "policy_version": "distractor_planning_policy.v1",
+  "status": "distractor_policy_only",
+  "allowed_families": [
+    "vocabulary_meaning",
+    "basic_noun_recognition",
+    "direct_object_marker_recognition",
+    "shoresh_identification"
+  ],
+  "deferred_families": [
+    "basic_verb_form_recognition"
+  ],
+  "individual_distractors": [],
+  "family_constraints": {
+    "vocabulary_meaning": [
+      "approved vocabulary pool only",
+      "same general type where possible",
+      "avoid theological/sensitive distractors",
+      "avoid absurd choices",
+      "avoid unreviewed meanings"
+    ],
+    "basic_noun_recognition": [
+      "simple categories only",
+      "avoid advanced grammar labels",
+      "avoid adjectives/verbs unless reviewed",
+      "avoid constructs/suffix confusion"
+    ],
+    "direct_object_marker_recognition": [
+      "avoid false translations of את",
+      "must not say את means the",
+      "must not say את means with",
+      "test function carefully"
+    ],
+    "shoresh_identification": [
+      "plausible reviewed root choices only",
+      "avoid unresolved or compound forms",
+      "avoid binyan/stem distractors"
+    ]
+  },
+  "distractors_allowed": false,
+  "answer_choices_allowed": false,
+  "protected_preview_allowed": false,
+  "reviewed_bank_allowed": false,
+  "runtime_allowed": false,
+  "student_facing_allowed": false,
+  "distractor_planning_policy_review_status": "yossi_approved_with_revision",
+  "row_level_review_required_before_generation": true,
+  "required_row_level_review_fields": [
+    "exact_wording_review_status",
+    "answer_key_language_review_status",
+    "distractor_constraints_review_status",
+    "context_display_review_status",
+    "hebrew_rendering_review_status",
+    "protected_preview_gate_review_status"
+  ],
+  "review_decision_note": "Yossi policy decision applied. Row-level exact wording, answer-key language, distractor constraints, context display, Hebrew rendering, and protected-preview gate review remain required before any generation.",
+  "answer_key_allowed": false,
+  "final_question_allowed": false
+}

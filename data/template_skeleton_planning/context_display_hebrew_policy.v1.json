@@ -1,0 +1,48 @@
+{
+  "policy_version": "context_display_hebrew_policy.v1",
+  "status": "context_display_hebrew_policy_only",
+  "allowed_families": [
+    "vocabulary_meaning",
+    "basic_noun_recognition",
+    "direct_object_marker_recognition",
+    "shoresh_identification"
+  ],
+  "deferred_families": [
+    "basic_verb_form_recognition"
+  ],
+  "context_rules": [
+    "phrase context may be shown only after context-display review",
+    "token-only display is enough when clean and context-independent",
+    "articles/prefixes require display review",
+    "direct-object marker rows may need context for function visibility",
+    "shoresh rows separate surface word from target shoresh"
+  ],
+  "hebrew_rules": [
+    "real UTF-8 Hebrew only",
+    "no placeholder corruption",
+    "review nikud-sensitive and punctuation-sensitive fields"
+  ],
+  "rendered_student_items": [],
+  "protected_preview_content": [],
+  "runtime_content": [],
+  "student_facing_content": [],
+  "protected_preview_allowed": false,
+  "runtime_allowed": false,
+  "student_facing_allowed": false,
+  "context_display_hebrew_policy_review_status": "yossi_policy_approved",
+  "row_level_review_required_before_generation": true,
+  "required_row_level_review_fields": [
+    "exact_wording_review_status",
+    "answer_key_language_review_status",
+    "distractor_constraints_review_status",
+    "context_display_review_status",
+    "hebrew_rendering_review_status",
+    "protected_preview_gate_review_status"
+  ],
+  "review_decision_note": "Yossi policy decision applied. Row-level exact wording, answer-key language, distractor constraints, context display, Hebrew rendering, and protected-preview gate review remain required before any generation.",
+  "answer_key_allowed": false,
+  "answer_choices_allowed": false,
+  "distractors_allowed": false,
+  "final_question_allowed": false,
+  "reviewed_bank_allowed": false
+}

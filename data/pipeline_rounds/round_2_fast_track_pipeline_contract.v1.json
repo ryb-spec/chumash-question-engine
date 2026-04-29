@@ -1,0 +1,139 @@
+{
+  "pipeline_version": "round_2_fast_track.v1",
+  "status": "planning_contract_only",
+  "allowed_families": [
+    "vocabulary_meaning",
+    "basic_noun_recognition",
+    "direct_object_marker_recognition",
+    "shoresh_identification"
+  ],
+  "deferred_families": [
+    "basic_verb_form_recognition"
+  ],
+  "gate_definitions": [
+    {
+      "gate_id": "gate_1_source_enrichment_eligibility_readiness",
+      "purpose": "Confirm source-to-skill, enrichment, review application, and eligibility readiness.",
+      "must_not_generate_content": true
+    },
+    {
+      "gate_id": "gate_2_input_planning_template_controls",
+      "purpose": "Select a balanced input batch and create template/control review artifacts.",
+      "must_include_batch_balance_table": true
+    },
+    {
+      "gate_id": "gate_3_controlled_draft_packet",
+      "purpose": "Create teacher-review-only controlled drafts from row-approved inputs.",
+      "teacher_review_only": true
+    },
+    {
+      "gate_id": "gate_4_internal_protected_preview_packet",
+      "purpose": "Create internal protected-preview packet artifacts only after candidate approval.",
+      "internal_review_only": true
+    }
+  ],
+  "required_artifacts_by_gate": {
+    "gate_1_source_enrichment_eligibility_readiness": [
+      "verified source-to-skill map",
+      "enrichment candidate files",
+      "enrichment review-applied reports",
+      "question-eligibility audit",
+      "approved input-candidate planning sheet"
+    ],
+    "gate_2_input_planning_template_controls": [
+      "20-30 row input planning TSV",
+      "batch balance report",
+      "template skeleton planning TSV",
+      "exact wording planning TSV",
+      "row-level pre-generation review sheet"
+    ],
+    "gate_3_controlled_draft_packet": [
+      "controlled draft TSV",
+      "teacher review packet",
+      "generation report",
+      "skipped or excluded report",
+      "draft review-applied report"
+    ],
+    "gate_4_internal_protected_preview_packet": [
+      "protected-preview candidate TSV",
+      "internal protected-preview packet TSV",
+      "internal packet Markdown",
+      "round completion report",
+      "excluded-preserved report"
+    ]
+  },
+  "required_validators_by_gate": {
+    "gate_1_source_enrichment_eligibility_readiness": [
+      "scripts/validate_verified_source_skill_maps.py",
+      "scripts/validate_source_texts.py",
+      "scripts/validate_source_skill_enrichment.py",
+      "scripts/validate_question_eligibility_audit.py"
+    ],
+    "gate_2_input_planning_template_controls": [
+      "scripts/validate_protected_preview_input_planning.py",
+      "scripts/validate_template_skeleton_planning.py",
+      "scripts/validate_pre_generation_review.py"
+    ],
+    "gate_3_controlled_draft_packet": [
+      "scripts/validate_controlled_draft_generation.py"
+    ],
+    "gate_4_internal_protected_preview_packet": [
+      "scripts/validate_protected_preview_planning_gate.py",
+      "scripts/validate_protected_preview_candidates.py",
+      "scripts/validate_protected_preview_packet.py"
+    ]
+  },
+  "required_review_decisions": {
+    "eligibility": [
+      "approve_as_input_candidate",
+      "needs_follow_up",
+      "source_only",
+      "block_for_questions"
+    ],
+    "input_planning": [
+      "approve_for_template_skeleton_planning",
+      "needs_follow_up",
+      "source_only",
+      "block_for_now"
+    ],
+    "pre_generation": [
+      "approve_for_controlled_draft_generation",
+      "approve_with_revision",
+      "needs_follow_up",
+      "block_for_now",
+      "source_only"
+    ],
+    "controlled_draft": [
+      "approve_draft_item",
+      "approve_with_revision",
+      "needs_follow_up",
+      "reject_item",
+      "source_only"
+    ],
+    "internal_preview": [
+      "works_as_drafted",
+      "works_with_revision",
+      "needs_follow_up",
+      "reject_item",
+      "source_only"
+    ]
+  },
+  "stop_conditions": [
+    "unverified_source_to_skill_rows",
+    "unresolved_enrichment_rows_used_as_inputs",
+    "verb_form_rows_without_policy",
+    "high_risk_rows_included",
+    "hebrew_corruption",
+    "missing_batch_balance_table",
+    "protected_preview_release_gate_opened_accidentally",
+    "reviewed_bank_gate_opened_accidentally",
+    "runtime_gate_opened_accidentally",
+    "student_facing_gate_opened_accidentally"
+  ],
+  "safety_gate_defaults": {
+    "protected_preview_allowed": false,
+    "reviewed_bank_allowed": false,
+    "runtime_allowed": false,
+    "student_facing_allowed": false
+  }
+}

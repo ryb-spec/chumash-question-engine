@@ -222,6 +222,11 @@ RECORD_REVIEW_STATUS_BY_BATCH_STATUS = {
     "reviewed_for_planning_non_runtime": "needs_review",
 }
 
+ALLOWED_AUDIT_REPORT_PREFIXES = (
+    "data/curriculum_extraction/reports/audits/",
+)
+ALLOWED_AUDIT_REPORT_SUFFIXES = {".md", ".pdf"}
+
 SKILL_TAG_ALIASES = {
     "phrase_translation": {"translation_context", "skill_tag.translation_context"},
     "translation_context": {"translation_context", "skill_tag.translation_context"},
@@ -252,20 +257,80 @@ SKILL_TAG_ALIASES = {
 ALLOWED_CHANGE_PREFIXES = (
     "data/curriculum_extraction/",
     "data/diagnostic_preview/",
+    "data/question_eligibility_audits/",
+    "data/gate_2_input_planning/",
+    "data/gate_2_pre_generation_review/",
+    "data/gate_2_controlled_draft_generation/",
+    "data/gate_2_protected_preview_candidates/",
+    "data/gate_2_protected_preview_packets/",
+    "data/gate_2_exact_wording_planning/",
+    "data/gate_2_template_skeleton_planning/",
+    "data/protected_preview_input_planning/",
+        "data/protected_preview_planning_gate/",
+        "data/protected_preview_candidates/",
+    "data/protected_preview_packets/",
+    "data/pipeline_rounds/",
+    "data/pre_generation_review/",
+    "data/controlled_draft_generation/",
+    "data/source_skill_enrichment/",
     "data/sources/loshon_hatorah/",
     "data/standards/zekelman/",
+    "data/template_skeleton_planning/",
+    "docs/question_templates/",
+    "docs/pipeline_rounds/",
     "docs/sources/loshon_hatorah/",
 )
 
 ALLOWED_CHANGE_EXACT = {
     ".gitignore",
     "PLANS.md",
+    "docs/runtime_skill_canonical_alignment.md",
     "docs/curriculum_extraction_factory.md",
     "docs/curriculum_extraction_integration_plan.md",
     "docs/codex_prompts/batch_006_source_ready_prompt_seed.md",
     "docs/curriculum_pipeline/source_text_foundation_plan.md",
     "docs/curriculum_pipeline/source_text_handoff.md",
     "docs/curriculum_pipeline/source_text_validation_strategy.md",
+    "docs/sources/trusted_teacher_source_policy.md",
+    "docs/question_templates/approved_question_template_policy.md",
+    "runtime/question_flow.py",
+    "scripts/validate_question_eligibility_audit.py",
+    "scripts/validate_question_template_wording_policy.py",
+    "scripts/validate_template_skeleton_planning.py",
+    "scripts/validate_protected_preview_input_list_planning_policy.py",
+    "scripts/validate_protected_preview_input_planning.py",
+        "scripts/validate_protected_preview_planning_gate.py",
+        "scripts/validate_protected_preview_candidates.py",
+    "scripts/validate_protected_preview_packet.py",
+    "scripts/validate_gate_2_input_planning.py",
+    "scripts/validate_gate_2_pre_generation_review.py",
+    "scripts/validate_gate_2_controlled_draft_generation.py",
+    "scripts/validate_gate_2_protected_preview_candidates.py",
+    "scripts/validate_gate_2_protected_preview_packet.py",
+    "scripts/validate_gate_2_exact_wording_planning.py",
+    "scripts/validate_gate_2_template_skeleton_planning.py",
+    "scripts/validate_pipeline_rounds.py",
+    "scripts/validate_pre_generation_review.py",
+    "scripts/validate_controlled_draft_generation.py",
+    "tests/test_question_eligibility_audit.py",
+    "tests/test_question_template_wording_policy.py",
+    "tests/test_runtime_question_flow.py",
+    "tests/test_template_skeleton_planning.py",
+    "tests/test_protected_preview_input_list_planning_policy.py",
+    "tests/test_protected_preview_input_planning.py",
+        "tests/test_protected_preview_planning_gate.py",
+        "tests/test_protected_preview_candidates.py",
+    "tests/test_protected_preview_packet.py",
+    "tests/test_gate_2_input_planning.py",
+    "tests/test_gate_2_pre_generation_review.py",
+    "tests/test_gate_2_controlled_draft_generation.py",
+    "tests/test_gate_2_protected_preview_candidates.py",
+    "tests/test_gate_2_protected_preview_packet.py",
+    "tests/test_gate_2_exact_wording_planning.py",
+    "tests/test_gate_2_template_skeleton_planning.py",
+    "tests/test_pipeline_rounds.py",
+    "tests/test_pre_generation_review.py",
+    "tests/test_controlled_draft_generation.py",
     "local_curriculum_sources/source_key_excerpt_batch_001.md",
     "data/source/bereishis_4_1_to_4_16.json",
     "data/dikduk_rules/README.md",
@@ -299,18 +364,80 @@ ALLOWED_CHANGE_EXACT = {
     "data/source_texts/translations/sefaria/bereishis_english_translation_human_review_packet.md",
     "data/source_texts/translations/sefaria/raw_samples/koren_sample.json",
     "data/source_texts/translations/sefaria/raw_samples/metsudah_sample.json",
+    "data/verified_source_skill_maps/README.md",
+    "data/verified_source_skill_maps/bereishis_1_1_to_3_24_metsudah_skill_map.tsv",
+    "data/verified_source_skill_maps/bereishis_1_1_to_1_5_source_to_skill_map.tsv",
+    "data/verified_source_skill_maps/bereishis_1_6_to_1_13_source_to_skill_map.tsv",
+    "data/verified_source_skill_maps/bereishis_1_14_to_1_23_source_to_skill_map.tsv",
+    "data/verified_source_skill_maps/bereishis_1_24_to_1_31_source_to_skill_map.tsv",
+    "data/verified_source_skill_maps/reports/bereishis_1_1_to_3_24_metsudah_skill_map_extraction_accuracy_review_packet.md",
+    "data/verified_source_skill_maps/reports/bereishis_1_1_to_1_5_source_to_skill_map_exceptions_review_packet.md",
+    "data/verified_source_skill_maps/reports/bereishis_1_1_to_1_5_yossi_extraction_verification_report.md",
+    "data/verified_source_skill_maps/reports/bereishis_1_6_to_1_13_source_to_skill_map_build_report.md",
+    "data/verified_source_skill_maps/reports/bereishis_1_6_to_1_13_source_to_skill_map_exceptions_review_packet.md",
+    "data/verified_source_skill_maps/reports/bereishis_1_6_to_1_13_yossi_extraction_verification_report.md",
+    "data/verified_source_skill_maps/reports/bereishis_1_14_to_1_23_source_to_skill_map_build_report.md",
+    "data/verified_source_skill_maps/reports/bereishis_1_14_to_1_23_source_to_skill_map_exceptions_review_packet.md",
+    "data/verified_source_skill_maps/reports/bereishis_1_14_to_1_23_yossi_extraction_verification_report.md",
+    "data/verified_source_skill_maps/reports/bereishis_1_24_to_1_31_source_to_skill_map_build_report.md",
+    "data/verified_source_skill_maps/reports/bereishis_1_24_to_1_31_source_to_skill_map_exceptions_review_packet.md",
+    "data/verified_source_skill_maps/reports/bereishis_1_24_to_1_31_yossi_extraction_verification_report.md",
+    "data/verified_source_skill_maps/reports/bereishis_perek_1_source_to_skill_completion_report.md",
+    "data/verified_source_skill_maps/reports/source_to_skill_map_audit.json",
+    "data/verified_source_skill_maps/bereishis_2_1_to_2_3_source_to_skill_map.tsv",
+    "data/verified_source_skill_maps/reports/bereishis_2_1_to_2_3_source_to_skill_map_build_report.md",
+    "data/verified_source_skill_maps/reports/bereishis_2_1_to_2_3_source_to_skill_map_exceptions_review_packet.md",
+    "data/verified_source_skill_maps/reports/bereishis_2_1_to_2_3_yossi_review_sheet.csv",
+    "data/verified_source_skill_maps/reports/bereishis_2_1_to_2_3_yossi_review_sheet.md",
+    "data/verified_source_skill_maps/reports/bereishis_2_1_to_2_3_yossi_extraction_verification_report.md",
+    "data/verified_source_skill_maps/bereishis_2_4_to_2_17_source_to_skill_map.tsv",
+    "data/verified_source_skill_maps/reports/bereishis_2_4_to_2_17_source_to_skill_map_build_report.md",
+    "data/verified_source_skill_maps/reports/bereishis_2_4_to_2_17_source_to_skill_map_exceptions_review_packet.md",
+    "data/verified_source_skill_maps/reports/bereishis_2_4_to_2_17_yossi_review_sheet.csv",
+    "data/verified_source_skill_maps/reports/bereishis_2_4_to_2_17_yossi_review_sheet.md",
+    "data/verified_source_skill_maps/reports/bereishis_2_4_to_2_17_yossi_extraction_verification_report.md",
+    "data/verified_source_skill_maps/bereishis_2_18_to_2_25_source_to_skill_map.tsv",
+    "data/verified_source_skill_maps/reports/bereishis_2_18_to_2_25_source_to_skill_map_build_report.md",
+    "data/verified_source_skill_maps/reports/bereishis_2_18_to_2_25_source_to_skill_map_exceptions_review_packet.md",
+    "data/verified_source_skill_maps/reports/bereishis_2_18_to_2_25_yossi_review_sheet.csv",
+    "data/verified_source_skill_maps/reports/bereishis_2_18_to_2_25_yossi_review_sheet.md",
+    "data/verified_source_skill_maps/reports/bereishis_2_18_to_2_25_yossi_extraction_verification_report.md",
+    "data/verified_source_skill_maps/reports/bereishis_perek_2_source_to_skill_completion_report.md",
+    "data/verified_source_skill_maps/bereishis_3_1_to_3_7_source_to_skill_map.tsv",
+    "data/verified_source_skill_maps/reports/bereishis_3_1_to_3_7_source_to_skill_map_build_report.md",
+    "data/verified_source_skill_maps/reports/bereishis_3_1_to_3_7_source_to_skill_map_exceptions_review_packet.md",
+    "data/verified_source_skill_maps/reports/bereishis_3_1_to_3_7_yossi_review_sheet.csv",
+    "data/verified_source_skill_maps/reports/bereishis_3_1_to_3_7_yossi_review_sheet.md",
+    "data/verified_source_skill_maps/reports/bereishis_3_1_to_3_7_yossi_extraction_verification_report.md",
+    "data/verified_source_skill_maps/bereishis_3_8_to_3_16_source_to_skill_map.tsv",
+    "data/verified_source_skill_maps/reports/bereishis_3_8_to_3_16_source_to_skill_map_build_report.md",
+    "data/verified_source_skill_maps/reports/bereishis_3_8_to_3_16_source_to_skill_map_exceptions_review_packet.md",
+    "data/verified_source_skill_maps/reports/bereishis_3_8_to_3_16_yossi_review_sheet.csv",
+    "data/verified_source_skill_maps/reports/bereishis_3_8_to_3_16_yossi_review_sheet.md",
+    "data/verified_source_skill_maps/reports/bereishis_3_8_to_3_16_yossi_extraction_verification_report.md",
+    "data/verified_source_skill_maps/bereishis_3_17_to_3_24_source_to_skill_map.tsv",
+    "data/verified_source_skill_maps/reports/bereishis_3_17_to_3_24_source_to_skill_map_build_report.md",
+    "data/verified_source_skill_maps/reports/bereishis_3_17_to_3_24_source_to_skill_map_exceptions_review_packet.md",
+    "data/verified_source_skill_maps/reports/bereishis_3_17_to_3_24_yossi_review_sheet.csv",
+    "data/verified_source_skill_maps/reports/bereishis_3_17_to_3_24_yossi_review_sheet.md",
+    "data/verified_source_skill_maps/reports/bereishis_3_17_to_3_24_yossi_extraction_verification_report.md",
+    "data/verified_source_skill_maps/reports/bereishis_perek_3_source_to_skill_completion_report.md",
     "dikduk_rules_loader.py",
     "translation_sources_loader.py",
+    "scripts/build_source_to_skill_map.py",
+    "scripts/generate_yossi_review_sheet.py",
     "scripts/generate_curriculum_question_preview.py",
     "scripts/fetch_sefaria_bereishis_translations.py",
     "scripts/generate_diagnostic_preview.py",
     "scripts/validate_bereishis_translations.py",
     "scripts/validate_curriculum_extraction.py",
+    "scripts/validate_source_skill_enrichment.py",
     "scripts/validate_diagnostic_preview.py",
     "scripts/validate_dikduk_rules.py",
     "scripts/validate_standards_data.py",
     "scripts/load_curriculum_extraction.py",
     "scripts/validate_source_texts.py",
+    "scripts/validate_verified_source_skill_maps.py",
     "tests/test_bereishis_translation_sources.py",
     "tests/conftest.py",
     "tests/test_diagnostic_preview_generation.py",
@@ -321,11 +448,18 @@ ALLOWED_CHANGE_EXACT = {
     "tests/test_curriculum_question_preview.py",
     "tests/test_curriculum_extraction_schemas.py",
     "tests/test_curriculum_extraction_validation.py",
+    "tests/test_source_skill_enrichment.py",
     "tests/test_curriculum_extraction_loader.py",
     "tests/test_standards_data_validation.py",
     "tests/test_source_corpus_block_4_1_to_4_16.py",
     "tests/test_source_texts_validation.py",
+    "tests/test_verified_source_skill_maps.py",
     "README_CHROMEBOOK.md",
+    "skill_catalog.py",
+    "data/standards/canonical_skill_contract.json",
+    "data/standards/reports/canonical_skill_standards_contract_report.md",
+    "scripts/validate_canonical_skill_contract.py",
+    "tests/test_canonical_skill_contract.py",
 }
 
 FORBIDDEN_CHANGE_PREFIXES = (
@@ -341,6 +475,12 @@ FORBIDDEN_CHANGE_PREFIXES = (
     "skill_tracker.py",
     "progress_store.py",
 )
+
+SOURCE_TRUTH_BASELINE_REPAIR_EXACT = {
+    "data/corpus_manifest.json",
+    "data/source_texts/reports/source_truth_reproducibility_finalization_report.md",
+    "tests/test_corpus_manifest.py",
+}
 
 IGNORED_GENERATED_CHANGE_EXACT = {
     "data/attempt_log.jsonl",
@@ -888,9 +1028,15 @@ def collect_changed_paths() -> list[str]:
 
 
 def is_allowed_change(path: str) -> bool:
+    if any(path.startswith(prefix) for prefix in ALLOWED_AUDIT_REPORT_PREFIXES):
+        return Path(path).suffix in ALLOWED_AUDIT_REPORT_SUFFIXES
     if path in ALLOWED_CHANGE_EXACT:
         return True
     return any(path.startswith(prefix) for prefix in ALLOWED_CHANGE_PREFIXES)
+
+
+def is_allowed_source_truth_baseline_repair(path: str) -> bool:
+    return path in SOURCE_TRUTH_BASELINE_REPAIR_EXACT
 
 
 def forbidden_reason(path: str) -> str:
@@ -1010,7 +1156,7 @@ def validate_curriculum_extraction(*, check_git_diff: bool = False) -> dict:
     if check_git_diff:
         changed_paths = collect_changed_paths()
         for path in changed_paths:
-            if not is_allowed_change(path):
+            if not is_allowed_change(path) and not is_allowed_source_truth_baseline_repair(path):
                 errors.append(forbidden_reason(path))
 
     record_counts = Counter(record.get("record_type") for record in all_records if record.get("record_type"))

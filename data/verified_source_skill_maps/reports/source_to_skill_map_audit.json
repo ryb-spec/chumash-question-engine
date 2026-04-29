@@ -1,0 +1,44 @@
+{
+  "audit_finding": "partial_not_full_canonical_map",
+  "shortest_path_decision": "C_existing_data_is_partial_create_small_proof_consolidation_map",
+  "map_created": "data/verified_source_skill_maps/bereishis_1_1_to_1_5_source_to_skill_map.tsv",
+  "candidate_sources": [
+    {
+      "path": "data/source_texts/translations/sefaria/bereishis_english_metsudah.jsonl",
+      "contributes": [
+        "source_translation_metsudah"
+      ]
+    },
+    {
+      "path": "data/source_texts/translations/sefaria/bereishis_english_koren.jsonl",
+      "contributes": [
+        "secondary_translation_koren"
+      ]
+    },
+    {
+      "path": "data/curriculum_extraction/normalized/linear_chumash_bereishis_1_1_to_1_5_pasuk_segments.seed.jsonl",
+      "contributes": [
+        "hebrew_phrase",
+        "alternate_translation",
+        "skill_primary"
+      ]
+    }
+  ],
+  "field_coverage": [
+    {
+      "field": "shoresh",
+      "coverage_status": "exists partially",
+      "safe_to_consolidate_automatically": false
+    },
+    {
+      "field": "zekelman_standard",
+      "coverage_status": "missing",
+      "safe_to_consolidate_automatically": false
+    },
+    {
+      "field": "source_translation_metsudah",
+      "coverage_status": "already available",
+      "safe_to_consolidate_automatically": true
+    }
+  ]
+}
