@@ -420,6 +420,28 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
                 self.assertFalse(validator.is_allowed_change(path))
                 self.assertEqual(validator.forbidden_reason(path), f"forbidden path changed: {path}")
 
+    def test_governed_audit_artifact_paths_are_allowed_but_root_audits_are_forbidden(self):
+        allowed_paths = [
+            "data/curriculum_extraction/reports/audits/AUDIT_OVERNIGHT_CURRICULUM_QUALITY_REVIEW.md",
+            "data/curriculum_extraction/reports/audits/AUDIT_OVERNIGHT_CURRICULUM_QUALITY_REVIEW.pdf",
+        ]
+        for path in allowed_paths:
+            with self.subTest(path=path):
+                self.assertTrue(validator.is_allowed_change(path))
+
+        forbidden_paths = [
+            "AUDIT_OVERNIGHT_CURRICULUM_QUALITY_REVIEW.md",
+            "AUDIT_OVERNIGHT_CURRICULUM_QUALITY_REVIEW.pdf",
+            "data/curriculum_extraction/reports/audits/AUDIT_OVERNIGHT_CURRICULUM_QUALITY_REVIEW.json",
+        ]
+        for path in forbidden_paths:
+            with self.subTest(path=path):
+                self.assertFalse(validator.is_allowed_change(path))
+                self.assertEqual(
+                    validator.forbidden_reason(path),
+                    f"path outside isolated curriculum extraction allowlist: {path}",
+                )
+
     def test_runtime_state_isolation_fix_paths_are_allowed(self):
         allowed_paths = [
             "runtime/question_flow.py",

@@ -222,6 +222,11 @@ RECORD_REVIEW_STATUS_BY_BATCH_STATUS = {
     "reviewed_for_planning_non_runtime": "needs_review",
 }
 
+ALLOWED_AUDIT_REPORT_PREFIXES = (
+    "data/curriculum_extraction/reports/audits/",
+)
+ALLOWED_AUDIT_REPORT_SUFFIXES = {".md", ".pdf"}
+
 SKILL_TAG_ALIASES = {
     "phrase_translation": {"translation_context", "skill_tag.translation_context"},
     "translation_context": {"translation_context", "skill_tag.translation_context"},
@@ -1023,6 +1028,8 @@ def collect_changed_paths() -> list[str]:
 
 
 def is_allowed_change(path: str) -> bool:
+    if any(path.startswith(prefix) for prefix in ALLOWED_AUDIT_REPORT_PREFIXES):
+        return Path(path).suffix in ALLOWED_AUDIT_REPORT_SUFFIXES
     if path in ALLOWED_CHANGE_EXACT:
         return True
     return any(path.startswith(prefix) for prefix in ALLOWED_CHANGE_PREFIXES)
