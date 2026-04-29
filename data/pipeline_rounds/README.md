@@ -152,3 +152,15 @@ Status: pilot-evidence preparation only. No runtime behavior changed, no active 
 - Test: `../../tests/test_perek_3_pilot_remediation_plan.py`
 
 Status: remediation planning only. No runtime behavior changed, no question generation changed, no content was promoted, and Perek 4 was not activated.
+
+## Perek 3 pilot distractor/source remediation
+
+- Distractor/source audit: `perek_3_pilot_distractor_source_audit_2026_04_29.md`
+- Phrase-translation distractor audit: `perek_3_phrase_translation_distractor_audit_2026_04_29.md`
+- `אָשִׁית` / `שית` source follow-up: `perek_3_ashis_shis_source_followup_2026_04_29.md`
+- Remediation completion gate: `perek_3_pilot_remediation_completion_gate_2026_04_29.md`
+- Remediation completion JSON: `perek_3_pilot_remediation_completion_gate_2026_04_29.json`
+- Validator: `../../scripts/validate_perek_3_pilot_distractor_source_remediation.py`
+- Test: `../../tests/test_perek_3_pilot_distractor_source_remediation.py`
+
+Status: `דֶּרֶךְ` and `אֲרוּרָה` translation distractor sets were repaired narrowly at the stored-choice level. Phrase-translation distractors and `אָשִׁית` / `שית` remain open for teacher/source follow-up. No runtime scope expansion, question-selection change, source-truth change, reviewed-bank/runtime promotion, or Perek 4 activation occurred.

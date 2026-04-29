@@ -368,6 +368,7 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
             if not validator.is_allowed_change(path)
             and not validator.is_allowed_source_truth_baseline_repair(path)
             and not validator.is_allowed_perek_3_pilot_wording_fix(path)
+            and not validator.is_allowed_perek_3_pilot_distractor_source_remediation(path)
         ]
         self.assertEqual(disallowed, [], [validator.forbidden_reason(path) for path in disallowed])
 
@@ -473,6 +474,51 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
             self.assertFalse(validator.is_allowed_perek_3_pilot_wording_fix("engine/flow_builder.py"))
 
         self.assertFalse(validator.is_allowed_change("engine/flow_builder.py"))
+
+    def test_perek_3_pilot_distractor_source_remediation_allows_only_exact_choice_repair(self):
+        safe_diff = """diff --git a/data/active_scope_reviewed_questions.json b/data/active_scope_reviewed_questions.json
+@@
+      "question_text": "What does אֲרוּרָה mean?",
+-        "Eden",
+-        "Eve",
+-        "all"
++        "naked",
++        "living",
++        "heel"
+@@
+      "question_text": "What does דֶּרֶךְ mean?",
+-        "Eve",
+-        "Eden",
+-        "all",
++        "heel",
++        "children",
++        "naked",
+"""
+        with mock.patch.object(validator.subprocess, "run") as run_mock:
+            run_mock.return_value.returncode = 0
+            run_mock.return_value.stdout = safe_diff
+            self.assertTrue(
+                validator.is_allowed_perek_3_pilot_distractor_source_remediation(
+                    "data/active_scope_reviewed_questions.json"
+                )
+            )
+
+        unsafe_diff = """diff --git a/data/active_scope_reviewed_questions.json b/data/active_scope_reviewed_questions.json
+@@
+      "question_text": "What does אֲרוּרָה mean?",
+-      "correct_answer": "cursed",
++      "correct_answer": "blessed",
+"""
+        with mock.patch.object(validator.subprocess, "run") as run_mock:
+            run_mock.return_value.returncode = 0
+            run_mock.return_value.stdout = unsafe_diff
+            self.assertFalse(
+                validator.is_allowed_perek_3_pilot_distractor_source_remediation(
+                    "data/active_scope_reviewed_questions.json"
+                )
+            )
+
+        self.assertFalse(validator.is_allowed_change("data/active_scope_reviewed_questions.json"))
 
     def test_source_truth_baseline_repair_paths_are_a_separate_narrow_exception(self):
         repair_paths = [
@@ -604,6 +650,11 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
             "data/pipeline_rounds/perek_3_pilot_remediation_sequence_2026_04_29.md",
             "data/pipeline_rounds/perek_3_pilot_teacher_decision_checklist_2026_04_29.md",
             "data/pipeline_rounds/perek_3_pilot_wording_clarity_fix_report_2026_04_29.md",
+            "data/pipeline_rounds/perek_3_pilot_distractor_source_audit_2026_04_29.md",
+            "data/pipeline_rounds/perek_3_phrase_translation_distractor_audit_2026_04_29.md",
+            "data/pipeline_rounds/perek_3_ashis_shis_source_followup_2026_04_29.md",
+            "data/pipeline_rounds/perek_3_pilot_remediation_completion_gate_2026_04_29.md",
+            "data/pipeline_rounds/perek_3_pilot_remediation_completion_gate_2026_04_29.json",
             "data/pipeline_rounds/repo_hygiene_inventory_2026_04_29.md",
             "data/standards/zekelman/review/zekelman_2025_standard_3_review_tracking.json",
             "data/standards/zekelman/review/zekelman_2025_standard_3_teacher_review_packet.md",
@@ -638,6 +689,7 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
             "scripts/validate_perek_3_pilot_observation_summary.py",
             "scripts/validate_perek_3_pilot_remediation_plan.py",
             "scripts/validate_perek_3_pilot_wording_clarity_fix.py",
+            "scripts/validate_perek_3_pilot_distractor_source_remediation.py",
             "scripts/validate_standards_data.py",
             "tests/conftest.py",
             "tests/test_curriculum_extraction_validation.py",
@@ -651,6 +703,7 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
             "tests/test_perek_3_pilot_observation_summary.py",
             "tests/test_perek_3_pilot_remediation_plan.py",
             "tests/test_perek_3_pilot_wording_clarity_fix.py",
+            "tests/test_perek_3_pilot_distractor_source_remediation.py",
             "tests/test_prefix_question_generation.py",
             "tests/test_tense_morphology_questions.py",
             "tests/test_translation_sources_loader.py",

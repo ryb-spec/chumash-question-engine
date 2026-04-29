@@ -359,6 +359,11 @@ ALLOWED_CHANGE_EXACT = {
     "data/pipeline_rounds/perek_3_pilot_remediation_sequence_2026_04_29.md",
     "data/pipeline_rounds/perek_3_pilot_teacher_decision_checklist_2026_04_29.md",
     "data/pipeline_rounds/perek_3_pilot_wording_clarity_fix_report_2026_04_29.md",
+    "data/pipeline_rounds/perek_3_pilot_distractor_source_audit_2026_04_29.md",
+    "data/pipeline_rounds/perek_3_phrase_translation_distractor_audit_2026_04_29.md",
+    "data/pipeline_rounds/perek_3_ashis_shis_source_followup_2026_04_29.md",
+    "data/pipeline_rounds/perek_3_pilot_remediation_completion_gate_2026_04_29.md",
+    "data/pipeline_rounds/perek_3_pilot_remediation_completion_gate_2026_04_29.json",
     "data/pipeline_rounds/repo_hygiene_inventory_2026_04_29.md",
     "data/source/bereishis_4_1_to_4_16.json",
     "data/dikduk_rules/README.md",
@@ -468,6 +473,7 @@ ALLOWED_CHANGE_EXACT = {
     "scripts/validate_perek_3_pilot_observation_summary.py",
     "scripts/validate_perek_3_pilot_remediation_plan.py",
     "scripts/validate_perek_3_pilot_wording_clarity_fix.py",
+    "scripts/validate_perek_3_pilot_distractor_source_remediation.py",
     "scripts/validate_standards_data.py",
     "scripts/run_curriculum_quality_checks.py",
     "scripts/load_curriculum_extraction.py",
@@ -484,6 +490,7 @@ ALLOWED_CHANGE_EXACT = {
     "tests/test_perek_3_pilot_observation_summary.py",
     "tests/test_perek_3_pilot_remediation_plan.py",
     "tests/test_perek_3_pilot_wording_clarity_fix.py",
+    "tests/test_perek_3_pilot_distractor_source_remediation.py",
     "tests/test_prefix_question_generation.py",
     "tests/test_tense_morphology_questions.py",
     "tests/test_translation_sources_loader.py",
@@ -548,6 +555,26 @@ PEREK_3_PILOT_WORDING_FIX_ALLOWED_DIFF_FRAGMENTS = (
     "What is the prefix in",
     "which beginning letter is the prefix",
 )
+PEREK_3_PILOT_DISTRACTOR_SOURCE_REMEDIATION_EXACT = {
+    "data/active_scope_reviewed_questions.json",
+}
+PEREK_3_PILOT_DISTRACTOR_SOURCE_REMEDIATION_REQUIRED_DIFF_CONTEXT = (
+    '"question_text": "What does אֲרוּרָה mean?"',
+    '"question_text": "What does דֶּרֶךְ mean?"',
+)
+PEREK_3_PILOT_DISTRACTOR_SOURCE_REMEDIATION_ALLOWED_CHANGED_LINES = {
+    '        "Eden",',
+    '        "Eve",',
+    '        "all"',
+    '        "all",',
+    '        "naked",',
+    '        "living",',
+    '        "heel"',
+    '        "heel",',
+    '        "children",',
+    '        "way"',
+    '        "cursed",',
+}
 
 IGNORED_GENERATED_CHANGE_EXACT = {
     "data/attempt_log.jsonl",
@@ -1109,7 +1136,14 @@ def is_allowed_source_truth_baseline_repair(path: str) -> bool:
 def is_allowed_perek_3_pilot_wording_fix(path: str) -> bool:
     if path not in PEREK_3_PILOT_WORDING_FIX_EXACT:
         return False
-    result = subprocess.run(["git", "diff", "--", path], capture_output=True, text=True, check=False)
+    result = subprocess.run(
+        ["git", "diff", "--", path],
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        check=False,
+    )
     if result.returncode != 0:
         return False
     changed_lines = []
@@ -1122,6 +1156,41 @@ def is_allowed_perek_3_pilot_wording_fix(path: str) -> bool:
         return False
     return all(
         any(fragment in line for fragment in PEREK_3_PILOT_WORDING_FIX_ALLOWED_DIFF_FRAGMENTS)
+        for line in changed_lines
+    )
+
+
+def is_allowed_perek_3_pilot_distractor_source_remediation(path: str) -> bool:
+    if path not in PEREK_3_PILOT_DISTRACTOR_SOURCE_REMEDIATION_EXACT:
+        return False
+    result = subprocess.run(
+        ["git", "diff", "--unified=20", "--", path],
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        check=False,
+    )
+    if result.returncode != 0:
+        return False
+    diff = result.stdout
+    if not diff:
+        return False
+    if not all(
+        context in diff
+        for context in PEREK_3_PILOT_DISTRACTOR_SOURCE_REMEDIATION_REQUIRED_DIFF_CONTEXT
+    ):
+        return False
+    changed_lines = []
+    for line in diff.splitlines():
+        if line.startswith(("+++", "---")):
+            continue
+        if line.startswith(("+", "-")):
+            changed_lines.append(line[1:])
+    if not changed_lines:
+        return False
+    return all(
+        line in PEREK_3_PILOT_DISTRACTOR_SOURCE_REMEDIATION_ALLOWED_CHANGED_LINES
         for line in changed_lines
     )
 
@@ -1247,6 +1316,7 @@ def validate_curriculum_extraction(*, check_git_diff: bool = False) -> dict:
                 not is_allowed_change(path)
                 and not is_allowed_source_truth_baseline_repair(path)
                 and not is_allowed_perek_3_pilot_wording_fix(path)
+                and not is_allowed_perek_3_pilot_distractor_source_remediation(path)
             ):
                 errors.append(forbidden_reason(path))
 
