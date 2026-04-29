@@ -1,21 +1,31 @@
-from __future__ import annotations
+﻿from __future__ import annotations
 
 import csv
 import json
-import re
 from collections import Counter
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DIR = ROOT / "data" / "gate_2_protected_preview_candidates"
-README = DIR / "README.md"
-TSV = DIR / "bereishis_perek_2_protected_preview_candidates.tsv"
 REPORTS = DIR / "reports"
+README = DIR / "README.md"
+
+TSV = DIR / "bereishis_perek_2_protected_preview_candidates.tsv"
 PACKET = REPORTS / "bereishis_perek_2_protected_preview_candidate_review_packet.md"
-REPORT = REPORTS / "bereishis_perek_2_protected_preview_candidate_generation_report.md"
+GENERATION_REPORT = REPORTS / "bereishis_perek_2_protected_preview_candidate_generation_report.md"
 EXCLUDED_REPORT = REPORTS / "bereishis_perek_2_protected_preview_candidate_excluded_preserved_report.md"
-APPLIED_REPORT = REPORTS / "bereishis_perek_2_protected_preview_candidate_yossi_review_applied.md"
-DRAFT_TSV = ROOT / "data" / "gate_2_controlled_draft_generation" / "bereishis_perek_2_controlled_draft.tsv"
+REVIEW_APPLIED_REPORT = REPORTS / "bereishis_perek_2_protected_preview_candidate_yossi_review_applied.md"
+CONTROLLED_DRAFT = ROOT / "data" / "gate_2_controlled_draft_generation" / "bereishis_perek_2_controlled_draft.tsv"
+
+PEREK3_TSV = DIR / "bereishis_perek_3_protected_preview_candidates.tsv"
+PEREK3_PACKET = REPORTS / "bereishis_perek_3_protected_preview_candidate_review_packet.md"
+PEREK3_SOURCE_READINESS_REPORT = REPORTS / "bereishis_perek_3_protected_preview_candidate_source_readiness_report.md"
+PEREK3_SOURCE_MAPS = [
+    ROOT / "data" / "verified_source_skill_maps" / "bereishis_3_1_to_3_7_source_to_skill_map.tsv",
+    ROOT / "data" / "verified_source_skill_maps" / "bereishis_3_8_to_3_16_source_to_skill_map.tsv",
+    ROOT / "data" / "verified_source_skill_maps" / "bereishis_3_17_to_3_24_source_to_skill_map.tsv",
+]
+PEREK3_FORBIDDEN_PACKET = ROOT / "data" / "gate_2_protected_preview_packets" / "bereishis_perek_3_internal_protected_preview_packet.tsv"
 
 REQUIRED_COLUMNS = [
     "protected_preview_candidate_id",
@@ -46,150 +56,225 @@ REQUIRED_COLUMNS = [
     "yossi_protected_preview_decision",
     "yossi_protected_preview_notes",
 ]
-REVIEW_FIELDS = [
+
+P2_APPROVED_STATUS = "yossi_approved_for_internal_protected_preview_packet"
+P2_APPROVED_DECISION = "approve_for_internal_protected_preview_packet"
+P3_PENDING_STATUS = "candidate_review_only"
+NEEDS_YOSSI_REVIEW = "needs_yossi_review"
+CLOSED_GATES = [
+    "protected_preview_allowed",
+    "reviewed_bank_allowed",
+    "runtime_allowed",
+    "student_facing_allowed",
+]
+REVIEW_STATUS_COLUMNS = [
     "protected_preview_review_status",
     "answer_key_review_status",
     "distractor_review_status",
     "hebrew_rendering_review_status",
     "context_display_review_status",
 ]
-GATES = ["protected_preview_allowed", "reviewed_bank_allowed", "runtime_allowed", "student_facing_allowed"]
-REVISION = {"g2p2_001", "g2p2_010", "g2p2_012", "g2p2_013"}
-FOLLOWUP = {"g2p2_011", "g2p2_015"}
-EXCLUDED = {"g2p2_004", "g2p2_005", "g2p2_008", "g2p2_018"} | REVISION | FOLLOWUP
-DECISION = "approve_for_internal_protected_preview_packet"
-STATUS = "yossi_approved_for_internal_protected_preview_packet"
-HEBREW_RE = re.compile(r"[\u0590-\u05FF]")
+FORBIDDEN_P3_STATUS_FRAGMENTS = [
+    "yossi_approved",
+    "approved_for_internal_protected_preview_packet",
+    "reviewed_bank_ready",
+    "runtime_ready",
+    "student_facing",
+    "approved_for_reviewed_bank",
+    "approved_for_runtime",
+    "approved_for_student_facing",
+]
 
 
-def rel(path: Path) -> str:
-    return path.relative_to(ROOT).as_posix()
+def _read_tsv(path: Path) -> list[dict[str, str]]:
+    if not path.exists():
+        raise AssertionError(f"Missing TSV: {path}")
+    with path.open("r", encoding="utf-8", newline="") as f:
+        return list(csv.DictReader(f, delimiter="\t"))
 
 
-def load_tsv(path: Path) -> tuple[list[str], list[dict[str, str]]]:
-    with path.open("r", encoding="utf-8", newline="") as handle:
-        reader = csv.DictReader(handle, delimiter="\t")
-        return list(reader.fieldnames or []), list(reader)
+def _require_columns(path: Path, rows: list[dict[str, str]]) -> None:
+    if not rows:
+        raise AssertionError(f"No rows in {path}")
+    missing = [col for col in REQUIRED_COLUMNS if col not in rows[0]]
+    if missing:
+        raise AssertionError(f"{path} missing columns: {missing}")
+    extras = [col for col in rows[0] if col not in REQUIRED_COLUMNS]
+    if extras:
+        raise AssertionError(f"{path} has unexpected columns: {extras}")
+
+
+def _has_hebrew(text: str) -> bool:
+    return any("\u0590" <= ch <= "\u05ff" for ch in text)
+
+
+def _check_no_placeholder_corruption(rows: list[dict[str, str]], path: Path) -> None:
+    bad_fragments = ["???", "TBD", "PLACEHOLDER", "REPLACE_ME"]
+    for row in rows:
+        joined = "\t".join(row.values())
+        if any(fragment in joined for fragment in bad_fragments):
+            raise AssertionError(f"Placeholder/corruption marker found in {path}: {row.get('protected_preview_candidate_id')}")
+        if not _has_hebrew(row.get("hebrew_token", "")):
+            raise AssertionError(f"Missing real Hebrew token in {path}: {row.get('protected_preview_candidate_id')}")
+        if not _has_hebrew(row.get("hebrew_phrase", "")):
+            raise AssertionError(f"Missing real Hebrew phrase in {path}: {row.get('protected_preview_candidate_id')}")
+
+
+def _load_controlled_drafts() -> dict[str, dict[str, str]]:
+    return {row["controlled_draft_item_id"]: row for row in _read_tsv(CONTROLLED_DRAFT)}
+
+
+def _load_perek3_source_refs() -> dict[str, list[str]]:
+    refs: dict[str, list[str]] = {}
+    for path in PEREK3_SOURCE_MAPS:
+        if not path.exists():
+            raise AssertionError(f"Missing Perek 3 source map: {path}")
+        for row in _read_tsv(path):
+            ref = row.get("ref", "")
+            phrase = (
+                row.get("hebrew_word_or_phrase")
+                or row.get("hebrew_phrase")
+                or row.get("source_hebrew")
+                or row.get("hebrew")
+                or ""
+            )
+            status = row.get("extraction_review_status", "")
+            if status != "yossi_extraction_verified":
+                continue
+            refs.setdefault(ref, []).append(phrase)
+    return refs
+
+
+def _validate_perek2_candidates() -> tuple[list[dict[str, str]], dict[str, object]]:
+    for path in [README, TSV, PACKET, GENERATION_REPORT, EXCLUDED_REPORT, REVIEW_APPLIED_REPORT]:
+        if not path.exists():
+            raise AssertionError(f"Missing Perek 2 protected-preview candidate artifact: {path}")
+
+    rows = _read_tsv(TSV)
+    _require_columns(TSV, rows)
+    if len(rows) != 10:
+        raise AssertionError(f"Expected 10 Perek 2 candidate rows, found {len(rows)}")
+    _check_no_placeholder_corruption(rows, TSV)
+
+    drafts = _load_controlled_drafts()
+    for row in rows:
+        cid = row["protected_preview_candidate_id"]
+        draft_id = row["controlled_draft_item_id"]
+        if draft_id not in drafts:
+            raise AssertionError(f"Perek 2 candidate {cid} does not link to controlled draft {draft_id}")
+        if drafts[draft_id].get("draft_review_status") != "yossi_draft_approved":
+            raise AssertionError(f"Perek 2 candidate {cid} links to unapproved controlled draft {draft_id}")
+        if row["protected_preview_candidate_status"] != P2_APPROVED_STATUS:
+            raise AssertionError(f"Unexpected Perek 2 candidate status for {cid}: {row['protected_preview_candidate_status']}")
+        if row["yossi_protected_preview_decision"] != P2_APPROVED_DECISION:
+            raise AssertionError(f"Unexpected Perek 2 Yossi decision for {cid}: {row['yossi_protected_preview_decision']}")
+        for col in CLOSED_GATES:
+            if row[col] != "false":
+                raise AssertionError(f"Perek 2 candidate {cid} opened {col}: {row[col]}")
+
+    return rows, {
+        "row_count": len(rows),
+        "family_counts": dict(Counter(row["approved_family"] for row in rows)),
+        "decision_counts": dict(Counter(row["yossi_protected_preview_decision"] for row in rows)),
+    }
+
+
+def _validate_perek3_candidates() -> tuple[list[dict[str, str]], dict[str, object]]:
+    for path in [PEREK3_TSV, PEREK3_PACKET, PEREK3_SOURCE_READINESS_REPORT]:
+        if not path.exists():
+            raise AssertionError(f"Missing Perek 3 protected-preview candidate artifact: {path}")
+    if PEREK3_FORBIDDEN_PACKET.exists():
+        raise AssertionError(f"Perek 3 final/internal packet must not exist for this review-only task: {PEREK3_FORBIDDEN_PACKET}")
+
+    rows = _read_tsv(PEREK3_TSV)
+    _require_columns(PEREK3_TSV, rows)
+    if len(rows) != 10:
+        raise AssertionError(f"Expected 10 Perek 3 review-only candidate rows, found {len(rows)}")
+    _check_no_placeholder_corruption(rows, PEREK3_TSV)
+
+    source_refs = _load_perek3_source_refs()
+    seen_ids: set[str] = set()
+    for row in rows:
+        cid = row["protected_preview_candidate_id"]
+        if cid in seen_ids:
+            raise AssertionError(f"Duplicate Perek 3 candidate id: {cid}")
+        seen_ids.add(cid)
+        if not cid.startswith("g2ppcand_p3_"):
+            raise AssertionError(f"Unexpected Perek 3 candidate id: {cid}")
+        if not row["source_ref"].startswith("Bereishis 3:"):
+            raise AssertionError(f"Perek 3 candidate has non-Perek 3 ref: {cid} / {row['source_ref']}")
+        if row["source_ref"] not in source_refs:
+            raise AssertionError(f"Perek 3 candidate {cid} is not backed by a verified source map ref: {row['source_ref']}")
+        phrases_for_ref = source_refs[row["source_ref"]]
+        if row["hebrew_phrase"] not in phrases_for_ref and not any(row["hebrew_token"] in phrase for phrase in phrases_for_ref):
+            raise AssertionError(f"Perek 3 candidate {cid} phrase/token not found in verified source maps")
+        if row["approved_family"] != "basic_noun_recognition":
+            raise AssertionError(f"Perek 3 candidate {cid} uses non-conservative family: {row['approved_family']}")
+        if row["protected_preview_candidate_status"] != P3_PENDING_STATUS:
+            raise AssertionError(f"Perek 3 candidate {cid} is not pending review-only: {row['protected_preview_candidate_status']}")
+        if row["draft_review_status"] != NEEDS_YOSSI_REVIEW:
+            raise AssertionError(f"Perek 3 candidate {cid} draft review status should remain pending")
+        for col in REVIEW_STATUS_COLUMNS:
+            if row[col] != NEEDS_YOSSI_REVIEW:
+                raise AssertionError(f"Perek 3 candidate {cid} has non-pending {col}: {row[col]}")
+        for col in CLOSED_GATES:
+            if row[col] != "false":
+                raise AssertionError(f"Perek 3 candidate {cid} opened {col}: {row[col]}")
+        if row["yossi_protected_preview_decision"] or row["yossi_protected_preview_notes"]:
+            raise AssertionError(f"Perek 3 candidate {cid} must not have Yossi decision fields filled")
+        joined_status = "|".join([
+            row["protected_preview_candidate_status"],
+            row["yossi_protected_preview_decision"],
+            row["yossi_protected_preview_notes"],
+        ])
+        if any(fragment in joined_status for fragment in FORBIDDEN_P3_STATUS_FRAGMENTS):
+            raise AssertionError(f"Perek 3 candidate {cid} contains forbidden approval/status language")
+        for required_text_col in ["explanation", "source_evidence_note", "caution_note"]:
+            if not row[required_text_col].strip():
+                raise AssertionError(f"Perek 3 candidate {cid} missing {required_text_col}")
+        if "verified Perek 3 source-to-skill" not in row["source_evidence_note"]:
+            raise AssertionError(f"Perek 3 candidate {cid} missing explicit source-to-skill evidence note")
+        if "not protected-preview approval" not in row["caution_note"]:
+            raise AssertionError(f"Perek 3 candidate {cid} missing fail-closed caution note")
+
+    packet_text = PEREK3_PACKET.read_text(encoding="utf-8")
+    required_packet_phrases = [
+        "This is not runtime approval.",
+        "This is not reviewed-bank approval.",
+        "This is not protected-preview approval.",
+        "All Bereishis Perek 3 candidates in this packet remain pending and review-only.",
+        "approve_for_internal_protected_preview_packet",
+        "approve_with_revision",
+        "needs_follow_up",
+        "reject_for_preview",
+        "source_only",
+    ]
+    for phrase in required_packet_phrases:
+        if phrase not in packet_text:
+            raise AssertionError(f"Perek 3 review packet missing phrase: {phrase}")
+
+    readme_text = README.read_text(encoding="utf-8")
+    if "bereishis_perek_3_protected_preview_candidates.tsv" not in readme_text:
+        raise AssertionError("Perek 3 candidate TSV is not discoverable from candidate README")
+
+    return rows, {
+        "perek3_row_count": len(rows),
+        "perek3_family_counts": dict(Counter(row["approved_family"] for row in rows)),
+        "perek3_status_counts": dict(Counter(row["protected_preview_candidate_status"] for row in rows)),
+        "perek3_decision_counts": dict(Counter(row["yossi_protected_preview_decision"] for row in rows)),
+    }
 
 
 def validate_gate_2_protected_preview_candidates() -> dict[str, object]:
-    errors: list[str] = []
-    for path in (README, TSV, PACKET, REPORT, EXCLUDED_REPORT, APPLIED_REPORT, DRAFT_TSV):
-        if not path.exists():
-            errors.append(f"missing protected-preview candidate artifact: {rel(path)}")
-    if errors:
-        return {"valid": False, "errors": errors}
-
-    fields, rows = load_tsv(TSV)
-    if fields != REQUIRED_COLUMNS:
-        errors.append("candidate TSV columns do not match required schema")
-    if len(rows) != 10:
-        errors.append(f"candidate TSV must have exactly 10 rows, found {len(rows)}")
-
-    _, drafts = load_tsv(DRAFT_TSV)
-    approved = {
-        row["controlled_draft_item_id"]: row
-        for row in drafts
-        if row.get("yossi_draft_decision") == "approve_draft_item"
-        and row.get("draft_review_status") == "yossi_draft_approved"
+    p2_rows, p2_summary = _validate_perek2_candidates()
+    p3_rows, p3_summary = _validate_perek3_candidates()
+    summary: dict[str, object] = {
+        **p2_summary,
+        **p3_summary,
+        "total_candidate_rows": len(p2_rows) + len(p3_rows),
     }
-    included: set[str] = set()
-    decisions: Counter[str] = Counter()
-
-    for row in rows:
-        cid = row.get("protected_preview_candidate_id", "?")
-        did = row.get("controlled_draft_item_id", "")
-        gid = row.get("gate_2_input_candidate_id", "")
-        included.add(did)
-        decisions[row.get("yossi_protected_preview_decision", "")] += 1
-        draft = approved.get(did)
-        if not draft:
-            errors.append(f"{cid}: must link to approved controlled draft")
-        else:
-            for source_field, target_field in (
-                ("draft_prompt", "prompt"),
-                ("controlled_draft_item_id", "controlled_draft_item_id"),
-                ("gate_2_input_candidate_id", "gate_2_input_candidate_id"),
-                ("source_ref", "source_ref"),
-                ("approved_family", "approved_family"),
-                ("hebrew_token", "hebrew_token"),
-                ("hebrew_phrase", "hebrew_phrase"),
-                ("answer_choices", "answer_choices"),
-                ("expected_answer", "expected_answer"),
-                ("correct_answer", "correct_answer"),
-                ("explanation", "explanation"),
-                ("source_evidence_note", "source_evidence_note"),
-                ("caution_note", "caution_note"),
-                ("draft_review_status", "draft_review_status"),
-            ):
-                if row.get(target_field, "") != draft.get(source_field, ""):
-                    errors.append(f"{cid}: {target_field} must match draft row")
-        if gid in EXCLUDED:
-            errors.append(f"{cid}: skipped/follow-up/excluded row included")
-        if row.get("approved_family") != "basic_noun_recognition":
-            errors.append(f"{cid}: unsafe family included")
-        if row.get("protected_preview_candidate_status") != STATUS:
-            errors.append(f"{cid}: status must be {STATUS}")
-        for field in REVIEW_FIELDS:
-            if row.get(field) != "needs_yossi_review":
-                errors.append(f"{cid}: {field} must be needs_yossi_review")
-        for field in GATES:
-            if row.get(field) != "false":
-                errors.append(f"{cid}: {field} must be false")
-        if row.get("yossi_protected_preview_decision") != DECISION:
-            errors.append(f"{cid}: Yossi decision must be {DECISION}")
-        if "internal protected-preview packet only" not in row.get("yossi_protected_preview_notes", ""):
-            errors.append(f"{cid}: Yossi note must preserve internal-only boundary")
-        for field in ("hebrew_token", "hebrew_phrase"):
-            value = row.get(field, "")
-            if not HEBREW_RE.search(value):
-                errors.append(f"{cid}: {field} must contain Hebrew")
-            if "???" in value or "×" in value or "Ö" in value:
-                errors.append(f"{cid}: {field} contains corruption")
-
-    if included != set(approved):
-        errors.append("candidate rows must exactly match approved controlled drafts")
-    if decisions.get(DECISION, 0) != 10:
-        errors.append(f"exactly 10 rows must have {DECISION}")
-
-    text = "\n".join(path.read_text(encoding="utf-8") for path in (README, PACKET, REPORT, EXCLUDED_REPORT, APPLIED_REPORT))
-    for phrase in ("not protected-preview release", "not reviewed-bank", "not runtime", "not student-facing", "All gates closed"):
-        if phrase not in text:
-            errors.append(f"missing safety phrase: {phrase}")
-    for phrase in (
-        "approved_for_preview",
-        "protected_preview_ready",
-        "reviewed_bank_ready",
-        "runtime_ready",
-        "approved_for_reviewed_bank",
-        "approved_for_runtime",
-        "approved_for_student_facing",
-    ):
-        if phrase in text:
-            errors.append(f"forbidden release/readiness phrase appears: {phrase}")
-    excluded_text = EXCLUDED_REPORT.read_text(encoding="utf-8")
-    for gid in REVISION | FOLLOWUP:
-        if gid not in excluded_text:
-            errors.append(f"excluded-preserved report missing {gid}")
-    for bad in ("???", "×", "Ö"):
-        if bad in text:
-            errors.append(f"artifacts contain corrupt phrase: {bad}")
-
-    return {
-        "valid": not errors,
-        "errors": errors,
-        "candidate_path": rel(TSV),
-        "row_count": len(rows),
-        "decision_counts": dict(decisions),
-        "family_counts": dict(Counter(row.get("approved_family", "") for row in rows)),
-    }
-
-
-def main() -> int:
-    summary = validate_gate_2_protected_preview_candidates()
-    print(json.dumps(summary, ensure_ascii=False, indent=2))
-    return 0 if summary["valid"] else 1
+    return summary
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    print(json.dumps(validate_gate_2_protected_preview_candidates(), ensure_ascii=False, indent=2, sort_keys=True))

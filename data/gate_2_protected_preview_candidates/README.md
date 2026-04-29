@@ -19,3 +19,12 @@ Artifacts:
 - Candidate review-applied report: `reports/bereishis_perek_2_protected_preview_candidate_yossi_review_applied.md`
 - Internal packet layer created: `data/gate_2_protected_preview_packets/`
 - Reviewed-bank/runtime/student-facing gates remain closed.
+
+
+## Bereishis Perek 3 Gate 2 review-only candidates
+
+- Candidate TSV: `data/gate_2_protected_preview_candidates/bereishis_perek_3_protected_preview_candidates.tsv`
+- Yossi review packet: `data/gate_2_protected_preview_candidates/reports/bereishis_perek_3_protected_preview_candidate_review_packet.md`
+- Source/readiness report: `data/gate_2_protected_preview_candidates/reports/bereishis_perek_3_protected_preview_candidate_source_readiness_report.md`
+
+Perek 3 candidates are pending review only. They are not approved for protected-preview packet use, reviewed-bank use, runtime use, or student-facing use. All downstream gates remain closed.

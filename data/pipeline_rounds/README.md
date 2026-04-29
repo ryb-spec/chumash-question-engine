@@ -79,3 +79,12 @@ This directory contains reusable pipeline-round planning artifacts.
 - Excluded-preserved report: `data/gate_2_protected_preview_packets/reports/bereishis_perek_2_internal_protected_preview_packet_excluded_preserved_report.md`
 - Status: Perek 2 is complete as a 10-item internal protected-preview packet milestone.
 - No reviewed-bank entries, runtime data, or student-facing content were created.
+
+
+## Bereishis Perek 3 Gate 2 protected-preview candidate review status
+
+- Candidate TSV: `data/gate_2_protected_preview_candidates/bereishis_perek_3_protected_preview_candidates.tsv`
+- Yossi review packet: `data/gate_2_protected_preview_candidates/reports/bereishis_perek_3_protected_preview_candidate_review_packet.md`
+- Source/readiness report: `data/gate_2_protected_preview_candidates/reports/bereishis_perek_3_protected_preview_candidate_source_readiness_report.md`
+
+Status: review-only and fail-closed. Perek 3 has not been activated in runtime, has not been promoted to reviewed bank, and has not been approved for a final protected-preview packet. All Perek 3 candidate decisions remain pending Yossi review.
