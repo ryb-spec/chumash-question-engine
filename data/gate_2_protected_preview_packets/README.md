@@ -18,5 +18,7 @@ This packet is for internal/Yossi/teacher review only. Every item still requires
 
 - `data/gate_2_protected_preview_packets/bereishis_perek_3_internal_protected_preview_packet.tsv`
 - `data/gate_2_protected_preview_packets/reports/bereishis_perek_3_internal_protected_preview_packet_report.md`
+- `data/gate_2_protected_preview_packets/reports/bereishis_perek_3_internal_protected_preview_review_checklist.md`
+- `data/gate_2_protected_preview_packets/reports/bereishis_perek_3_internal_protected_preview_review_checklist.tsv`
 
 Perek 3 contains a four-item internal protected-preview packet from explicitly approved candidates only. Revision and follow-up rows remain outside the packet. Runtime, reviewed-bank, and student-facing gates remain closed.

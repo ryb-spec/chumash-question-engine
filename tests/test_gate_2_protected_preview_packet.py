@@ -69,6 +69,8 @@ class Gate2ProtectedPreviewPacketTests(unittest.TestCase):
             validator.COMPLETE,
             validator.EXCLUDED,
             validator.P3_REPORT,
+            validator.P3_REVIEW_CHECKLIST,
+            validator.P3_REVIEW_CHECKLIST_TSV,
             validator.P3_STATUS_INDEX,
         ):
             self.assertTrue(path.exists(), path)
@@ -85,11 +87,59 @@ class Gate2ProtectedPreviewPacketTests(unittest.TestCase):
         self.assertIn("No Perek 3 runtime activation", text)
         self.assertIn("No reviewed-bank promotion", text)
 
+    def test_perek_3_review_checklist_exists_and_names_approved_ids_only(self):
+        text = validator.P3_REVIEW_CHECKLIST.read_text(encoding="utf-8")
+        for candidate_id in validator.EXPECTED_P3_APPROVED:
+            self.assertIn(candidate_id, text)
+            self.assertIn(f" / {candidate_id}", text)
+        for candidate_id in validator.P3_EXCLUDED:
+            self.assertNotIn(f" / {candidate_id}", text)
+
+    def test_perek_3_review_checklist_is_review_only_and_blank(self):
+        text = validator.P3_REVIEW_CHECKLIST.read_text(encoding="utf-8")
+        required_phrases = [
+            "This is not runtime content.",
+            "This is not reviewed-bank content.",
+            "This is not student-facing content.",
+            "This does not apply decisions.",
+            "This does not activate or promote anything.",
+            "approve_for_limited_post_preview_iteration",
+            "approve_with_revision",
+            "needs_follow_up",
+            "reject_for_broader_use",
+            "source_only",
+            "Are two עֵץ items too repetitive",
+            "Reviewer decision: ",
+            "Reviewer notes: ",
+        ]
+        for phrase in required_phrases:
+            self.assertIn(phrase, text)
+
+    def test_perek_3_review_checklist_has_one_card_per_packet_item(self):
+        text = validator.P3_REVIEW_CHECKLIST.read_text(encoding="utf-8")
+        _, rows = validator.load_tsv(validator.P3_TSV)
+        for row in rows:
+            heading = f"### {row['protected_preview_packet_item_id']} / {row['protected_preview_candidate_id']}"
+            self.assertEqual(text.count(heading), 1)
+
+    def test_perek_3_review_checklist_tsv_is_exact_and_blank(self):
+        fields, rows = validator.load_tsv(validator.P3_REVIEW_CHECKLIST_TSV)
+        self.assertEqual(fields, validator.REVIEW_CHECKLIST_COLUMNS)
+        self.assertEqual(len(rows), 4)
+        self.assertEqual({row["candidate_id"] for row in rows}, validator.EXPECTED_P3_APPROVED)
+        for row in rows:
+            self.assertEqual(row["runtime_allowed"], "false")
+            self.assertEqual(row["reviewed_bank_allowed"], "false")
+            self.assertEqual(row["student_facing_allowed"], "false")
+            for field in ("reviewer_decision", "issue_category", "revision_required", "reviewer_notes", "reviewer_name", "review_date"):
+                self.assertEqual(row[field], "")
+
     def test_perek_3_status_index_says_packet_exists_and_gates_closed(self):
         text = validator.P3_STATUS_INDEX.read_text(encoding="utf-8")
         self.assertIn("historical pre-decision artifact", text)
         self.assertIn("applied-decision report is the current status source", text)
         self.assertIn("four-item internal protected-preview packet now exists", text)
+        self.assertIn("four-item internal review checklist now exists", text)
         self.assertIn("No Perek 3 runtime activation", text)
         self.assertIn("No reviewed-bank promotion", text)
         self.assertIn("No student-facing content", text)
