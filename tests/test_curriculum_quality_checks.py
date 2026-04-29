@@ -154,6 +154,7 @@ def test_quality_control_index_exists_and_links_reports():
     assert "bereishis_perek_3_internal_protected_preview_packet_report.md" in text
     assert "bereishis_perek_3_internal_protected_preview_review_checklist.md" in text
     assert "bereishis_perek_3_internal_protected_preview_review_decisions_applied.md" in text
+    assert "bereishis_perek_3_item_004_revision_plan.md" in text
     assert "non-runtime" in text
     assert "does not activate runtime" in text or "does not activate" in text
 
@@ -166,6 +167,7 @@ def test_perek_3_status_index_clarifies_current_status_and_packet_boundary():
     assert "four-item internal protected-preview packet now exists" in text
     assert "Internal review decisions are recorded" in text
     assert "repetition/session-balance" in text
+    assert "planning-only revision plan" in text
     assert "No approve-with-revision rows were included" in text
     assert "No needs-follow-up rows were included" in text
     assert "No Perek 3 runtime activation" in text

@@ -409,6 +409,7 @@ def build_perek3_status() -> dict[str, Any]:
     review_decisions_path = repo_path(
         "data/gate_2_protected_preview_packets/reports/bereishis_perek_3_internal_protected_preview_review_decisions_applied.md"
     )
+    revision_plan_path = repo_path("data/gate_2_protected_preview_packets/reports/bereishis_perek_3_item_004_revision_plan.md")
     return {
         "candidate_tsv": repo_relative(candidates_path.relative_to(ROOT)),
         "historical_review_packet": "data/gate_2_protected_preview_candidates/reports/bereishis_perek_3_protected_preview_candidate_review_packet.md",
@@ -417,6 +418,7 @@ def build_perek3_status() -> dict[str, Any]:
         "internal_packet_tsv": repo_relative(packet_path.relative_to(ROOT)),
         "internal_review_checklist": repo_relative(checklist_path.relative_to(ROOT)),
         "internal_review_decisions_applied": repo_relative(review_decisions_path.relative_to(ROOT)),
+        "item_004_revision_plan": repo_relative(revision_plan_path.relative_to(ROOT)),
         "decision_counts": {
             "approve_for_internal_protected_preview_packet": decision_counts.get("approve_for_internal_protected_preview_packet", 0),
             "approve_with_revision": decision_counts.get("approve_with_revision", 0),
@@ -446,6 +448,7 @@ def write_perek3_status_index() -> dict[str, Any]:
         f"- Four-item internal protected-preview packet TSV: `{data['internal_packet_tsv']}`",
         f"- Internal review checklist: `{data['internal_review_checklist']}`",
         f"- Internal review decisions applied report: `{data['internal_review_decisions_applied']}`",
+        f"- Item 004 revision plan: `{data['item_004_revision_plan']}`",
         f"- Status index: `{data['status_index']}`",
         "",
         "## Decision counts",
@@ -470,6 +473,7 @@ def write_perek3_status_index() -> dict[str, Any]:
             "- A four-item internal review checklist exists, and its TSV reviewer fields now record the applied internal review decisions.",
             "- Internal review decisions are recorded: 3 `approve_for_limited_post_preview_iteration`, 1 `approve_with_revision`, 0 `needs_follow_up`, 0 `reject_for_broader_use`, 0 `source_only`.",
             "- `g2ppcand_p3_004` remains blocked from broader use until its repetition/session-balance revision concern is addressed and re-reviewed.",
+            "- A planning-only revision plan exists for `g2ppcand_p3_004`; it does not revise item content or apply a new decision.",
             "- No approve-with-revision rows were included.",
             "- No needs-follow-up rows were included.",
             "- No Perek 3 runtime activation.",
@@ -904,6 +908,7 @@ def write_control_index(output_paths: dict[str, str]) -> None:
         "- Perek 3 internal protected-preview packet report: `data/gate_2_protected_preview_packets/reports/bereishis_perek_3_internal_protected_preview_packet_report.md`",
         "- Perek 3 internal protected-preview review checklist: `data/gate_2_protected_preview_packets/reports/bereishis_perek_3_internal_protected_preview_review_checklist.md`",
         "- Perek 3 internal protected-preview review decisions applied: `data/gate_2_protected_preview_packets/reports/bereishis_perek_3_internal_protected_preview_review_decisions_applied.md`",
+        "- Perek 3 item 004 revision plan: `data/gate_2_protected_preview_packets/reports/bereishis_perek_3_item_004_revision_plan.md`",
         "- Source audit report: `data/curriculum_extraction/reports/audits/AUDIT_OVERNIGHT_CURRICULUM_QUALITY_REVIEW.md`",
         "",
         "## Use guidance",

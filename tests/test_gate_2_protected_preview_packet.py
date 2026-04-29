@@ -73,6 +73,8 @@ class Gate2ProtectedPreviewPacketTests(unittest.TestCase):
             validator.P3_REVIEW_CHECKLIST_TSV,
             validator.P3_REVIEW_DECISIONS_APPLIED,
             validator.P3_REVIEW_DECISIONS_APPLIED_TSV,
+            validator.P3_ITEM_004_REVISION_PLAN,
+            validator.P3_ITEM_004_REVISION_PLAN_TSV,
             validator.P3_STATUS_INDEX,
         ):
             self.assertTrue(path.exists(), path)
@@ -171,6 +173,35 @@ class Gate2ProtectedPreviewPacketTests(unittest.TestCase):
             for gate in validator.APPLIED_REVIEW_GATE_COLUMNS:
                 self.assertEqual(row[gate], "false")
 
+    def test_perek_3_item_004_revision_plan_exists_and_is_planning_only(self):
+        text = validator.P3_ITEM_004_REVISION_PLAN.read_text(encoding="utf-8")
+        self.assertIn("planning artifact only", text)
+        self.assertIn("g2ppcand_p3_004", text)
+        self.assertIn("g2ppacket_p3_002", text)
+        self.assertIn("repetition/session-balance", text)
+        self.assertIn("It does not revise the item.", text)
+        self.assertIn("It does not apply a new decision.", text)
+        self.assertIn("No runtime activation", text)
+        self.assertIn("No reviewed-bank promotion", text)
+        self.assertIn("No student-facing content creation", text)
+        self.assertIn("broader use blocked", text)
+        for candidate_id in validator.EXPECTED_P3_APPROVED - {"g2ppcand_p3_004"}:
+            self.assertNotIn(f"Candidate: `{candidate_id}`", text)
+
+    def test_perek_3_item_004_revision_plan_tsv_is_one_row_and_blocked(self):
+        fields, rows = validator.load_tsv(validator.P3_ITEM_004_REVISION_PLAN_TSV)
+        self.assertEqual(fields, validator.REVISION_PLAN_COLUMNS)
+        self.assertEqual(len(rows), 1)
+        row = rows[0]
+        self.assertEqual(row["packet_item_id"], "g2ppacket_p3_002")
+        self.assertEqual(row["candidate_id"], "g2ppcand_p3_004")
+        self.assertEqual(row["current_decision"], "approve_with_revision")
+        self.assertIn("repetition/session-balance", row["revision_issue"])
+        self.assertEqual(row["broader_use_blocked"], "true")
+        self.assertEqual(row["runtime_allowed"], "false")
+        self.assertEqual(row["reviewed_bank_allowed"], "false")
+        self.assertEqual(row["student_facing_allowed"], "false")
+
     def test_perek_3_status_index_says_packet_exists_and_gates_closed(self):
         text = validator.P3_STATUS_INDEX.read_text(encoding="utf-8")
         self.assertIn("historical pre-decision artifact", text)
@@ -179,6 +210,7 @@ class Gate2ProtectedPreviewPacketTests(unittest.TestCase):
         self.assertIn("Internal review decisions are recorded", text)
         self.assertIn("g2ppcand_p3_004", text)
         self.assertIn("repetition/session-balance", text)
+        self.assertIn("planning-only revision plan", text)
         self.assertIn("No Perek 3 runtime activation", text)
         self.assertIn("No reviewed-bank promotion", text)
         self.assertIn("No student-facing content", text)

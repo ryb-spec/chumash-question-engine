@@ -12,6 +12,7 @@ Perek 3 protected-preview candidate decisions have been applied. The applied-dec
 - Four-item internal protected-preview packet TSV: `data/gate_2_protected_preview_packets/bereishis_perek_3_internal_protected_preview_packet.tsv`
 - Internal review checklist: `data/gate_2_protected_preview_packets/reports/bereishis_perek_3_internal_protected_preview_review_checklist.md`
 - Internal review decisions applied report: `data/gate_2_protected_preview_packets/reports/bereishis_perek_3_internal_protected_preview_review_decisions_applied.md`
+- Item 004 revision plan: `data/gate_2_protected_preview_packets/reports/bereishis_perek_3_item_004_revision_plan.md`
 - Status index: `data/gate_2_protected_preview_candidates/reports/bereishis_perek_3_candidate_status_index.md`
 
 ## Decision counts
@@ -39,6 +40,7 @@ Revision items are not included in the internal packet. Follow-up items are not 
 - A four-item internal review checklist exists, and its TSV reviewer fields now record the applied internal review decisions.
 - Internal review decisions are recorded: 3 `approve_for_limited_post_preview_iteration`, 1 `approve_with_revision`, 0 `needs_follow_up`, 0 `reject_for_broader_use`, 0 `source_only`.
 - `g2ppcand_p3_004` remains blocked from broader use until its repetition/session-balance revision concern is addressed and re-reviewed.
+- A planning-only revision plan exists for `g2ppcand_p3_004`; it does not revise item content or apply a new decision.
 - No approve-with-revision rows were included.
 - No needs-follow-up rows were included.
 - No Perek 3 runtime activation.
