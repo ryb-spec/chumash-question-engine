@@ -31,3 +31,10 @@ Perek 3 Yossi candidate decisions have been applied: 4 candidates were approved 
 - Yossi decision-applied report: `data/gate_2_protected_preview_candidates/reports/bereishis_perek_3_protected_preview_candidate_yossi_review_applied.md`
 - Current status index: `data/gate_2_protected_preview_candidates/reports/bereishis_perek_3_candidate_status_index.md`
 - Internal packet TSV: `data/gate_2_protected_preview_packets/bereishis_perek_3_internal_protected_preview_packet.tsv`
+
+## Bereishis Perek 4 compressed teacher-review packet
+
+- Compressed teacher-review packet: `data/gate_2_protected_preview_candidates/reports/bereishis_perek_4_compressed_teacher_review_packet_2026_04_29.md`
+- Machine-readable packet: `data/gate_2_protected_preview_candidates/reports/bereishis_perek_4_compressed_teacher_review_packet_2026_04_29.json`
+
+This Perek 4 packet is teacher-review only and uses existing source-discovery candidates only. It is not a protected-preview packet, not reviewed-bank content, not runtime data, and not student-facing content.

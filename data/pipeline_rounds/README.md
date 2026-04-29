@@ -198,3 +198,15 @@ Status: raw short re-pilot logs produced useful evidence for revised tense/form 
 - Test: `../../tests/test_perek_3_short_repilot_scope_leak_fix.py`
 
 Status: stale active reviewed-bank prefix prompt wording was repaired at the stored prompt level. The phrase_translation leak remains manual-watch plus validator-guarded; a clean short re-pilot is still required before Perek 4 teacher-review packet work unless Yossi explicitly overrides.
+
+## Perek 4 compressed teacher-review packet
+
+- Yossi override: `perek_3_to_perek_4_yossi_override_2026_04_29.md`
+- Yossi override JSON: `perek_3_to_perek_4_yossi_override_2026_04_29.json`
+- Compressed teacher-review packet: `../gate_2_protected_preview_candidates/reports/bereishis_perek_4_compressed_teacher_review_packet_2026_04_29.md`
+- Compressed teacher-review packet JSON: `../gate_2_protected_preview_candidates/reports/bereishis_perek_4_compressed_teacher_review_packet_2026_04_29.json`
+- Readiness report: `perek_4_teacher_review_packet_readiness_2026_04_29.md`
+- Validator: `../../scripts/validate_perek_4_compressed_teacher_review_packet.py`
+- Test: `../../tests/test_perek_4_compressed_teacher_review_packet.py`
+
+Status: Yossi explicitly allowed Perek 4 teacher-review packet preparation despite the normal clean-short-repilot gate. The packet includes only existing Perek 4 source-discovery candidates and remains teacher-review only; no runtime activation, active-scope expansion, reviewed-bank promotion, protected-preview packet creation, or student-facing content occurred.
