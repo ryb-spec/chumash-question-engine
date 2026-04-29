@@ -47,4 +47,13 @@ This Perek 4 packet is teacher-review only and uses existing source-discovery ca
 - Protected-preview-candidate planning TSV: `bereishis_perek_4_protected_preview_candidate_planning.tsv`
 
 Yossi applied five Perek 4 teacher-review decisions. Four source-discovery candidates may move to protected-preview-candidate planning only, while `g2srcdisc_p4_005` remains source-follow-up. Runtime, reviewed-bank, protected-preview-packet, and student-facing gates remain closed.
+## Bereishis Perek 4 candidate-planning review checklist
+
+- Checklist: `reports/bereishis_perek_4_candidate_planning_review_checklist_2026_04_29.md`
+- Checklist JSON: `reports/bereishis_perek_4_candidate_planning_review_checklist_2026_04_29.json`
+- Readiness report: `../pipeline_rounds/perek_4_candidate_planning_review_checklist_readiness_2026_04_29.md`
+- Validator: `../../scripts/validate_perek_4_candidate_planning_review_checklist.py`
+- Test: `../../tests/test_perek_4_candidate_planning_review_checklist.py`
+
+Status: planning review only for the four eligible Perek 4 candidates. `g2srcdisc_p4_005` remains blocked for source follow-up. Runtime, reviewed-bank, protected-preview-packet, and student-facing gates remain closed.
 

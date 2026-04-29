@@ -222,4 +222,13 @@ Status: Yossi explicitly allowed Perek 4 teacher-review packet preparation despi
 - Test: `../../tests/test_perek_4_teacher_review_decisions_applied.py`
 
 Status: Yossi's five Perek 4 teacher-review decisions are applied. Four candidates are eligible for protected-preview-candidate planning only; `g2srcdisc_p4_005` remains source-follow-up. No Perek 4 runtime activation, active-scope expansion, reviewed-bank promotion, protected-preview packet creation, or student-facing content occurred.
+## Perek 4 candidate-planning review checklist
+
+- Checklist: `../gate_2_protected_preview_candidates/reports/bereishis_perek_4_candidate_planning_review_checklist_2026_04_29.md`
+- Checklist JSON: `../gate_2_protected_preview_candidates/reports/bereishis_perek_4_candidate_planning_review_checklist_2026_04_29.json`
+- Readiness report: `perek_4_candidate_planning_review_checklist_readiness_2026_04_29.md`
+- Validator: `../../scripts/validate_perek_4_candidate_planning_review_checklist.py`
+- Test: `../../tests/test_perek_4_candidate_planning_review_checklist.py`
+
+Status: the next Perek 4 gate is a planning-review checklist only. Four eligible candidates can be reviewed; `g2srcdisc_p4_005` remains blocked. No Perek 4 activation, active-scope expansion, reviewed-bank promotion, protected-preview packet creation, or student-facing content occurred.
 
