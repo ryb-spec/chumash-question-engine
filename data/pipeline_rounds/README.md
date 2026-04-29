@@ -210,3 +210,16 @@ Status: stale active reviewed-bank prefix prompt wording was repaired at the sto
 - Test: `../../tests/test_perek_4_compressed_teacher_review_packet.py`
 
 Status: Yossi explicitly allowed Perek 4 teacher-review packet preparation despite the normal clean-short-repilot gate. The packet includes only existing Perek 4 source-discovery candidates and remains teacher-review only; no runtime activation, active-scope expansion, reviewed-bank promotion, protected-preview packet creation, or student-facing content occurred.
+## Perek 4 teacher-review decisions applied
+
+- Decisions-applied report: `../gate_2_protected_preview_candidates/reports/bereishis_perek_4_teacher_review_decisions_applied_2026_04_29.md`
+- Decisions-applied JSON: `../gate_2_protected_preview_candidates/reports/bereishis_perek_4_teacher_review_decisions_applied_2026_04_29.json`
+- `????` source follow-up: `../gate_2_protected_preview_candidates/reports/bereishis_perek_4_ot_source_followup_2026_04_29.md`
+- Revision plan: `../gate_2_protected_preview_candidates/reports/bereishis_perek_4_teacher_review_revision_plan_2026_04_29.md`
+- Next-gate readiness: `perek_4_post_teacher_review_next_gate_readiness_2026_04_29.md`
+- Protected-preview-candidate planning TSV: `../gate_2_protected_preview_candidates/bereishis_perek_4_protected_preview_candidate_planning.tsv`
+- Validator: `../../scripts/validate_perek_4_teacher_review_decisions_applied.py`
+- Test: `../../tests/test_perek_4_teacher_review_decisions_applied.py`
+
+Status: Yossi's five Perek 4 teacher-review decisions are applied. Four candidates are eligible for protected-preview-candidate planning only; `g2srcdisc_p4_005` remains source-follow-up. No Perek 4 runtime activation, active-scope expansion, reviewed-bank promotion, protected-preview packet creation, or student-facing content occurred.
+

@@ -38,3 +38,13 @@ Perek 3 Yossi candidate decisions have been applied: 4 candidates were approved 
 - Machine-readable packet: `data/gate_2_protected_preview_candidates/reports/bereishis_perek_4_compressed_teacher_review_packet_2026_04_29.json`
 
 This Perek 4 packet is teacher-review only and uses existing source-discovery candidates only. It is not a protected-preview packet, not reviewed-bank content, not runtime data, and not student-facing content.
+## Bereishis Perek 4 teacher-review decisions applied
+
+- Decisions-applied report: `reports/bereishis_perek_4_teacher_review_decisions_applied_2026_04_29.md`
+- Decisions-applied JSON: `reports/bereishis_perek_4_teacher_review_decisions_applied_2026_04_29.json`
+- `????` source follow-up: `reports/bereishis_perek_4_ot_source_followup_2026_04_29.md`
+- Revision plan: `reports/bereishis_perek_4_teacher_review_revision_plan_2026_04_29.md`
+- Protected-preview-candidate planning TSV: `bereishis_perek_4_protected_preview_candidate_planning.tsv`
+
+Yossi applied five Perek 4 teacher-review decisions. Four source-discovery candidates may move to protected-preview-candidate planning only, while `g2srcdisc_p4_005` remains source-follow-up. Runtime, reviewed-bank, protected-preview-packet, and student-facing gates remain closed.
+
