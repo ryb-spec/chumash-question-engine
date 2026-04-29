@@ -15,6 +15,20 @@ This gate records whether the short Perek 3 re-pilot evidence is clean enough to
 
 The short re-pilot did not produce a clean closure signal because excluded `phrase_translation` items were served and an old prefix prompt appeared in a later served event.
 
+## Scope leak fix update
+
+The stale active reviewed-bank prefix prompt wording has been repaired at the stored prompt level. The old pattern `What is the prefix in <word>?` is no longer allowed for stored `prefix_level_1_identify_prefix_letter` rows.
+
+The `phrase_translation` leak is not runtime-filtered in this task. It is still excluded from the next short re-pilot and remains manual-watch plus validator-guarded.
+
+Scope leak fix completed: true.
+
+Clean short re-pilot still required: true.
+
+Full Perek 3 closure remains allowed now: false.
+
+Perek 4 teacher-review packet may proceed only after a clean short re-pilot or explicit Yossi override.
+
 ## Go / no-go
 
 | Lane | Recommendation | Reason |

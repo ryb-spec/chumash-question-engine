@@ -188,3 +188,13 @@ Status: Yossi decided `אָשִׁית` / `שית` is not beginner-ready for the 
 - Test: `../../tests/test_perek_3_short_repilot_results.py`
 
 Status: raw short re-pilot logs produced useful evidence for revised tense/form wording and one revised prefix prompt, but manual-only scope control leaked excluded phrase_translation items and a later served event still used the old prefix wording. Perek 3 is not fully closed, runtime expansion remains blocked, and Perek 4 review-packet work should wait for Yossi's scope-leak decision.
+
+## Perek 3 short re-pilot scope leak fix
+
+- Scope leak fix report: `perek_3_short_repilot_scope_leak_fix_report_2026_04_29.md`
+- Updated enforcement plan: `perek_3_short_repilot_enforcement_plan_2026_04_29.md`
+- Updated Perek 3 to Perek 4 gate: `perek_3_short_repilot_to_perek_4_ready_gate_2026_04_29.md`
+- Validator: `../../scripts/validate_perek_3_short_repilot_scope_leak_fix.py`
+- Test: `../../tests/test_perek_3_short_repilot_scope_leak_fix.py`
+
+Status: stale active reviewed-bank prefix prompt wording was repaired at the stored prompt level. The phrase_translation leak remains manual-watch plus validator-guarded; a clean short re-pilot is still required before Perek 4 teacher-review packet work unless Yossi explicitly overrides.

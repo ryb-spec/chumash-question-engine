@@ -369,6 +369,7 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
             and not validator.is_allowed_source_truth_baseline_repair(path)
             and not validator.is_allowed_perek_3_pilot_wording_fix(path)
             and not validator.is_allowed_perek_3_pilot_distractor_source_remediation(path)
+            and not validator.is_allowed_perek_3_short_repilot_scope_leak_fix(path)
         ]
         self.assertEqual(disallowed, [], [validator.forbidden_reason(path) for path in disallowed])
 
@@ -514,6 +515,40 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
             run_mock.return_value.stdout = unsafe_diff
             self.assertFalse(
                 validator.is_allowed_perek_3_pilot_distractor_source_remediation(
+                    "data/active_scope_reviewed_questions.json"
+                )
+            )
+
+        self.assertFalse(validator.is_allowed_change("data/active_scope_reviewed_questions.json"))
+
+    def test_perek_3_short_repilot_scope_leak_fix_allows_only_prefix_prompt_repair(self):
+        safe_diff = """diff --git a/data/active_scope_reviewed_questions.json b/data/active_scope_reviewed_questions.json
+@@
+-      "question_text": "What is the prefix in בְּאִשְׁתּוֹ?",
+-      "question": "What is the prefix in בְּאִשְׁתּוֹ?",
++      "question_text": "In בְּאִשְׁתּוֹ, which beginning letter is the prefix?",
++      "question": "In בְּאִשְׁתּוֹ, which beginning letter is the prefix?",
+"""
+        with mock.patch.object(validator.subprocess, "run") as run_mock:
+            run_mock.return_value.returncode = 0
+            run_mock.return_value.stdout = safe_diff
+            self.assertTrue(
+                validator.is_allowed_perek_3_short_repilot_scope_leak_fix(
+                    "data/active_scope_reviewed_questions.json"
+                )
+            )
+
+        unsafe_diff = """diff --git a/data/active_scope_reviewed_questions.json b/data/active_scope_reviewed_questions.json
+@@
+       "question_text": "What is the prefix in בְּאִשְׁתּוֹ?",
+-      "correct_answer": "ב",
++      "correct_answer": "כ",
+"""
+        with mock.patch.object(validator.subprocess, "run") as run_mock:
+            run_mock.return_value.returncode = 0
+            run_mock.return_value.stdout = unsafe_diff
+            self.assertFalse(
+                validator.is_allowed_perek_3_short_repilot_scope_leak_fix(
                     "data/active_scope_reviewed_questions.json"
                 )
             )
@@ -667,6 +702,7 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
             "data/pipeline_rounds/perek_3_short_repilot_scope_leak_report_2026_04_29.md",
             "data/pipeline_rounds/perek_3_short_repilot_to_perek_4_ready_gate_2026_04_29.md",
             "data/pipeline_rounds/perek_3_short_repilot_to_perek_4_ready_gate_2026_04_29.json",
+            "data/pipeline_rounds/perek_3_short_repilot_scope_leak_fix_report_2026_04_29.md",
             "data/pipeline_rounds/repo_hygiene_inventory_2026_04_29.md",
             "data/standards/zekelman/review/zekelman_2025_standard_3_review_tracking.json",
             "data/standards/zekelman/review/zekelman_2025_standard_3_teacher_review_packet.md",
@@ -705,6 +741,7 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
             "scripts/validate_perek_3_yossi_language_decisions.py",
             "scripts/validate_perek_3_short_repilot_scope_enforcement.py",
             "scripts/validate_perek_3_short_repilot_results.py",
+            "scripts/validate_perek_3_short_repilot_scope_leak_fix.py",
             "scripts/validate_standards_data.py",
             "tests/conftest.py",
             "tests/test_curriculum_extraction_validation.py",
@@ -722,6 +759,7 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
             "tests/test_perek_3_yossi_language_decisions.py",
             "tests/test_perek_3_short_repilot_scope_enforcement.py",
             "tests/test_perek_3_short_repilot_results.py",
+            "tests/test_perek_3_short_repilot_scope_leak_fix.py",
             "tests/test_prefix_question_generation.py",
             "tests/test_tense_morphology_questions.py",
             "tests/test_translation_sources_loader.py",

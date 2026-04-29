@@ -70,6 +70,30 @@ Manual scope watch required: true.
 
 The short re-pilot is ready only if Yossi actively watches for the excluded lanes. This plan does not claim that the runtime itself prevents those lanes from being served.
 
+## Scope leak fix update
+
+The 2026-04-29 short re-pilot results found two leaks:
+
+- stored active reviewed-bank prefix prompts still used `What is the prefix in <word>?`;
+- excluded `phrase_translation` items were served.
+
+The stale stored prefix wording leak was addressed at the data level for active reviewed-bank prefix-identification prompts. The approved stored wording is now:
+
+`In <word>, which beginning letter is the prefix?`
+
+The `phrase_translation` leak is not runtime-enforced in this task. It remains manual-watch plus validator-guarded because adding a short-repilot-only runtime filter would change question-selection behavior outside this narrow task.
+
+Updated clean short re-pilot readiness:
+
+- ready_for_clean_short_repilot: true
+- old_prefix_wording_leak_addressed: true
+- phrase_translation_leak_addressed_by_runtime_filter: false
+- phrase_translation_leak_guarded_by_validator: true
+- manual_scope_watch_required: true
+- perek_4_teacher_review_packet_allowed_after_clean_short_repilot: true
+- Perek 4 activated: false
+- Runtime scope widened: false
+
 ## Safety boundary confirmation
 
 - Runtime scope widened: no.
