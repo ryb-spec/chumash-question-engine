@@ -1,0 +1,7 @@
+risk_id	risk_name	affected_item_ids	severity	status	mitigation	broader_use_blocked	runtime_allowed	reviewed_bank_allowed	student_facing_allowed	next_required_action
+p3_risk_001	Duplicate עֵץ/session-balance risk	g2ppcand_p3_004	high	blocked	blocked from broader use	true	false	false	false	resolve by spacing metadata, wording/wrapping revision, or future replacement/revision task
+p3_risk_002	Small sample size risk	g2ppcand_p3_003|g2ppcand_p3_007|g2ppcand_p3_008	medium	active_watch	use only as limited internal evidence	false	false	false	false	collect observations before drawing conclusions
+p3_risk_003	Narrow skill-family risk	g2ppcand_p3_003|g2ppcand_p3_007|g2ppcand_p3_008	medium	active_watch	do not generalize to broader Perek 3 mastery	false	false	false	false	keep scope to basic_noun_recognition only
+p3_risk_004	No actual observation data yet	g2ppcand_p3_003|g2ppcand_p3_007|g2ppcand_p3_008	high	open	observation intake prepared	false	false	false	false	collect real observations
+p3_risk_005	No reviewed-bank approval	all_perek_3_items	high	closed_gate	explicit later reviewed-bank task required	true	false	false	false	keep reviewed_bank_allowed=false
+p3_risk_006	No runtime approval	all_perek_3_items	high	closed_gate	explicit later runtime task required	true	false	false	false	keep runtime_allowed=false

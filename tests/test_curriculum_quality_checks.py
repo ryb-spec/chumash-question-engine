@@ -159,6 +159,12 @@ def test_quality_control_index_exists_and_links_reports():
     assert "bereishis_perek_3_blocked_from_broader_use_register.md" in text
     assert "bereishis_perek_3_limited_post_preview_observation_template.md" in text
     assert "bereishis_perek_3_limited_post_preview_reviewer_handoff.md" in text
+    assert "bereishis_perek_3_limited_post_preview_observation_intake.md" in text
+    assert "bereishis_perek_3_completion_status_dashboard.md" in text
+    assert "bereishis_perek_3_risk_register.md" in text
+    assert "bereishis_perek_3_final_handoff_index.md" in text
+    assert "bereishis_perek_3_to_perek_4_launch_gate.md" in text
+    assert "bereishis_perek_4_source_discovery_prompt.md" in text
     assert "non-runtime" in text
     assert "does not activate runtime" in text or "does not activate" in text
 
@@ -175,6 +181,11 @@ def test_perek_3_status_index_clarifies_current_status_and_packet_boundary():
     assert "three-item limited post-preview iteration readiness lane exists" in text
     assert "blocked broader-use register keeps `g2ppcand_p3_004` out of the limited readiness lane" in text
     assert "limited post-preview reviewer handoff" in text
+    assert "Observation intake is prepared" in text
+    assert "completion status dashboard" in text
+    assert "risk register" in text
+    assert "final handoff index" in text
+    assert "Perek 4 source-discovery only" in text
     assert "Future observation decisions must be recorded in a later explicit task" in text
     assert "No approve-with-revision rows were included" in text
     assert "No needs-follow-up rows were included" in text

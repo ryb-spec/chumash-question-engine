@@ -35,6 +35,19 @@ P3_OBSERVATION_TEMPLATE = REPORTS / "bereishis_perek_3_limited_post_preview_obse
 P3_OBSERVATION_TEMPLATE_TSV = REPORTS / "bereishis_perek_3_limited_post_preview_observation_template.tsv"
 P3_REVIEWER_HANDOFF = REPORTS / "bereishis_perek_3_limited_post_preview_reviewer_handoff.md"
 P3_REVIEWER_HANDOFF_TSV = REPORTS / "bereishis_perek_3_limited_post_preview_reviewer_handoff_checklist.tsv"
+P3_OBSERVATION_INTAKE = REPORTS / "bereishis_perek_3_limited_post_preview_observation_intake.md"
+P3_OBSERVATION_INTAKE_TSV = REPORTS / "bereishis_perek_3_limited_post_preview_observation_intake.tsv"
+P3_OBSERVATION_INTAKE_INSTRUCTIONS = REPORTS / "bereishis_perek_3_limited_post_preview_observation_intake_instructions.md"
+P3_COMPLETION_DASHBOARD = REPORTS / "bereishis_perek_3_completion_status_dashboard.md"
+P3_COMPLETION_DASHBOARD_JSON = REPORTS / "bereishis_perek_3_completion_status_dashboard.json"
+P3_RISK_REGISTER = REPORTS / "bereishis_perek_3_risk_register.md"
+P3_RISK_REGISTER_TSV = REPORTS / "bereishis_perek_3_risk_register.tsv"
+P3_FINAL_HANDOFF_INDEX = REPORTS / "bereishis_perek_3_final_handoff_index.md"
+P3_TO_P4_LAUNCH_GATE = ROOT / "data" / "pipeline_rounds" / "bereishis_perek_3_to_perek_4_launch_gate.md"
+P3_TO_P4_LAUNCH_GATE_JSON = ROOT / "data" / "pipeline_rounds" / "bereishis_perek_3_to_perek_4_launch_gate.json"
+P4_SOURCE_DISCOVERY_PROMPT = (
+    ROOT / "data" / "pipeline_rounds" / "prompts" / "bereishis_perek_4_source_discovery_prompt.md"
+)
 P3_CAND = ROOT / "data" / "gate_2_protected_preview_candidates" / "bereishis_perek_3_protected_preview_candidates.tsv"
 P3_STATUS_INDEX = (
     ROOT
@@ -249,6 +262,53 @@ REVIEWER_HANDOFF_BLANK_COLUMNS = [
     "recommended_next_decision",
     "notes",
 ]
+OBSERVATION_INTAKE_COLUMNS = [
+    "packet_item_id",
+    "candidate_id",
+    "ref",
+    "hebrew_token",
+    "reviewer_name",
+    "review_date",
+    "prompt_clarity_rating",
+    "token_display_clarity_rating",
+    "answer_choice_fairness_rating",
+    "explanation_accuracy_rating",
+    "noun_recognition_only",
+    "difficulty_rating",
+    "repetition_or_fatigue_note",
+    "observed_student_confusion",
+    "reviewer_confidence",
+    "recommended_next_decision",
+    "reviewer_notes",
+]
+OBSERVATION_INTAKE_BLANK_COLUMNS = [
+    "reviewer_name",
+    "review_date",
+    "prompt_clarity_rating",
+    "token_display_clarity_rating",
+    "answer_choice_fairness_rating",
+    "explanation_accuracy_rating",
+    "noun_recognition_only",
+    "difficulty_rating",
+    "repetition_or_fatigue_note",
+    "observed_student_confusion",
+    "reviewer_confidence",
+    "recommended_next_decision",
+    "reviewer_notes",
+]
+RISK_REGISTER_COLUMNS = [
+    "risk_id",
+    "risk_name",
+    "affected_item_ids",
+    "severity",
+    "status",
+    "mitigation",
+    "broader_use_blocked",
+    "runtime_allowed",
+    "reviewed_bank_allowed",
+    "student_facing_allowed",
+    "next_required_action",
+]
 
 
 def rel(path: Path) -> str:
@@ -409,6 +469,17 @@ def validate_gate_2_protected_preview_packet() -> dict[str, object]:
         P3_OBSERVATION_TEMPLATE_TSV,
         P3_REVIEWER_HANDOFF,
         P3_REVIEWER_HANDOFF_TSV,
+        P3_OBSERVATION_INTAKE,
+        P3_OBSERVATION_INTAKE_TSV,
+        P3_OBSERVATION_INTAKE_INSTRUCTIONS,
+        P3_COMPLETION_DASHBOARD,
+        P3_COMPLETION_DASHBOARD_JSON,
+        P3_RISK_REGISTER,
+        P3_RISK_REGISTER_TSV,
+        P3_FINAL_HANDOFF_INDEX,
+        P3_TO_P4_LAUNCH_GATE,
+        P3_TO_P4_LAUNCH_GATE_JSON,
+        P4_SOURCE_DISCOVERY_PROMPT,
         P3_CAND,
         P3_STATUS_INDEX,
     )
@@ -493,6 +564,14 @@ def validate_gate_2_protected_preview_packet() -> dict[str, object]:
         P3_OBSERVATION_TEMPLATE_TSV,
         P3_REVIEWER_HANDOFF,
         P3_REVIEWER_HANDOFF_TSV,
+        P3_OBSERVATION_INTAKE,
+        P3_OBSERVATION_INTAKE_TSV,
+        P3_OBSERVATION_INTAKE_INSTRUCTIONS,
+        P3_COMPLETION_DASHBOARD,
+        P3_COMPLETION_DASHBOARD_JSON,
+        P3_RISK_REGISTER,
+        P3_RISK_REGISTER_TSV,
+        P3_FINAL_HANDOFF_INDEX,
     ):
         if rel(path) not in readme:
             errors.append(f"README must link {rel(path)}")
@@ -510,6 +589,13 @@ def validate_gate_2_protected_preview_packet() -> dict[str, object]:
             P3_BLOCKED_REGISTER,
             P3_OBSERVATION_TEMPLATE,
             P3_REVIEWER_HANDOFF,
+            P3_OBSERVATION_INTAKE,
+            P3_OBSERVATION_INTAKE_INSTRUCTIONS,
+            P3_COMPLETION_DASHBOARD,
+            P3_RISK_REGISTER,
+            P3_FINAL_HANDOFF_INDEX,
+            P3_TO_P4_LAUNCH_GATE,
+            P4_SOURCE_DISCOVERY_PROMPT,
         )
     )
     for candidate_id in sorted(EXPECTED_P3_APPROVED):
@@ -534,6 +620,10 @@ def validate_gate_2_protected_preview_packet() -> dict[str, object]:
         "A blocked broader-use register keeps `g2ppcand_p3_004` out of the limited readiness lane",
         "Future observation decisions must be recorded in a later explicit task",
         "limited post-preview reviewer handoff",
+        "observation intake",
+        "completion status dashboard",
+        "risk register",
+        "Perek 4 source-discovery only",
         "No protected-preview packet creation",
     ):
         if phrase not in p3_text:
@@ -802,6 +892,191 @@ def validate_gate_2_protected_preview_packet() -> dict[str, object]:
         for field in REVIEWER_HANDOFF_BLANK_COLUMNS:
             if row.get(field):
                 errors.append(f"{rid}: reviewer handoff checklist field must be blank: {field}")
+
+    intake_text = P3_OBSERVATION_INTAKE.read_text(encoding="utf-8")
+    instructions_text = P3_OBSERVATION_INTAKE_INSTRUCTIONS.read_text(encoding="utf-8")
+    for phrase in (
+        "observation intake",
+        "These are future recommendation values only.",
+        "They are not applied by this task.",
+        "A later explicit decision-application task is required",
+        "No observation results applied",
+        "No new review decisions applied",
+        "No item content revision",
+        "No runtime activation",
+        "No reviewed-bank promotion",
+        "No student-facing content creation",
+    ):
+        if phrase not in intake_text:
+            errors.append(f"Perek 3 observation intake missing phrase: {phrase}")
+    for phrase in (
+        "keep_limited_iteration",
+        "revise_before_next_iteration",
+        "needs_follow_up",
+        "reject_for_broader_use",
+        "candidate_for_future_reviewed_bank_consideration",
+        "A later explicit decision-application task is required.",
+    ):
+        if phrase not in instructions_text:
+            errors.append(f"Perek 3 observation intake instructions missing phrase: {phrase}")
+    if "g2ppcand_p3_004" not in intake_text or "not an active observation item" not in intake_text:
+        errors.append("Perek 3 observation intake must keep g2ppcand_p3_004 blocked, not active")
+
+    intake_fields, intake_rows = load_tsv(P3_OBSERVATION_INTAKE_TSV)
+    if intake_fields != OBSERVATION_INTAKE_COLUMNS:
+        errors.append("Perek 3 observation intake TSV columns do not match required schema")
+    if len(intake_rows) != 3:
+        errors.append(f"Perek 3 observation intake TSV must have exactly 3 rows, found {len(intake_rows)}")
+    intake_ids = {row.get("candidate_id", "") for row in intake_rows}
+    if intake_ids != EXPECTED_P3_LIMITED_READINESS:
+        errors.append("Perek 3 observation intake TSV candidate IDs must exactly match the three clean items")
+    if intake_ids.intersection(P3_BLOCKED_FROM_BROADER_USE):
+        errors.append("Perek 3 blocked item appears in observation intake TSV")
+    for row in intake_rows:
+        rid = row.get("packet_item_id", "?")
+        for field in OBSERVATION_INTAKE_BLANK_COLUMNS:
+            if row.get(field):
+                errors.append(f"{rid}: observation intake field must be blank: {field}")
+
+    dashboard_text = P3_COMPLETION_DASHBOARD.read_text(encoding="utf-8")
+    for phrase in (
+        "Perek 3 has completed internal protected-preview packet creation.",
+        "Perek 3 now has observation intake prepared.",
+        "Observed rows: 0",
+        "Runtime-ready rows: 0",
+        "Reviewed-bank-ready rows: 0",
+        "Student-facing rows: 0",
+        "No runtime activation",
+        "No reviewed-bank promotion",
+        "No student-facing content",
+        "No item revision",
+        "No observation decisions applied",
+    ):
+        if phrase not in dashboard_text:
+            errors.append(f"Perek 3 completion dashboard missing phrase: {phrase}")
+    try:
+        dashboard_payload = json.loads(P3_COMPLETION_DASHBOARD_JSON.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as error:
+        errors.append(f"Perek 3 completion dashboard JSON invalid: {error}")
+        dashboard_payload = {}
+    counts = dashboard_payload.get("counts", {}) if isinstance(dashboard_payload, dict) else {}
+    for key, expected in (
+        ("original_internal_packet_rows", 4),
+        ("active_limited_readiness_rows", 3),
+        ("blocked_rows", 1),
+        ("observed_rows", 0),
+        ("decisions_applied_after_observation", 0),
+        ("runtime_ready_rows", 0),
+        ("reviewed_bank_ready_rows", 0),
+        ("student_facing_rows", 0),
+    ):
+        if counts.get(key) != expected:
+            errors.append(f"Perek 3 completion dashboard JSON expected {key}={expected}")
+
+    risk_text = P3_RISK_REGISTER.read_text(encoding="utf-8")
+    for phrase in (
+        "Duplicate `עֵץ` / session-balance risk",
+        "Small sample size risk",
+        "Narrow skill-family risk",
+        "No actual observation data yet",
+        "No reviewed-bank approval",
+        "No runtime approval",
+        "Runtime allowed: false.",
+        "Reviewed-bank allowed: false.",
+        "Student-facing allowed: false.",
+    ):
+        if phrase not in risk_text:
+            errors.append(f"Perek 3 risk register missing phrase: {phrase}")
+    risk_fields, risk_rows = load_tsv(P3_RISK_REGISTER_TSV)
+    if risk_fields != RISK_REGISTER_COLUMNS:
+        errors.append("Perek 3 risk register TSV columns do not match required schema")
+    risk_names = {row.get("risk_name", "") for row in risk_rows}
+    if not any("Duplicate עֵץ" in name and "session-balance" in name for name in risk_names):
+        errors.append("Perek 3 risk register TSV must include duplicate עֵץ/session-balance risk")
+    for row in risk_rows:
+        rid = row.get("risk_id", "?")
+        for gate in GATES:
+            if row.get(gate) != "false":
+                errors.append(f"{rid}: risk register TSV {gate} must be false")
+
+    launch_text = P3_TO_P4_LAUNCH_GATE.read_text(encoding="utf-8")
+    for phrase in (
+        "Go for Perek 4 source-discovery only.",
+        "No for Perek 4 runtime activation.",
+        "No for Perek 4 reviewed-bank promotion.",
+        "No for Perek 4 student-facing content.",
+        "does not create Perek 4 candidates",
+        "Start with Perek 4 only, not Perek 4 and 5 together.",
+        "Create a Perek 4 source-to-skill discovery and safe-candidate inventory, not a packet.",
+    ):
+        if phrase not in launch_text:
+            errors.append(f"Perek 3 to Perek 4 launch gate missing phrase: {phrase}")
+    try:
+        launch_payload = json.loads(P3_TO_P4_LAUNCH_GATE_JSON.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as error:
+        errors.append(f"Perek 3 to Perek 4 launch gate JSON invalid: {error}")
+        launch_payload = {}
+    recommendation = launch_payload.get("go_no_go_recommendation", {}) if isinstance(launch_payload, dict) else {}
+    if recommendation.get("perek_4_source_discovery_only") != "go":
+        errors.append("Perek 4 launch gate JSON must recommend go for source discovery only")
+    for key in ("perek_4_runtime_activation", "perek_4_reviewed_bank_promotion", "perek_4_student_facing_content"):
+        if recommendation.get(key) != "no":
+            errors.append(f"Perek 4 launch gate JSON must keep {key}=no")
+
+    p4_prompt_text = P4_SOURCE_DISCOVERY_PROMPT.read_text(encoding="utf-8")
+    for phrase in (
+        "source-to-skill discovery only",
+        "review-only safe candidate inventory",
+        "avoid runtime",
+        "avoid reviewed-bank promotion",
+        "avoid student-facing content",
+        "avoid packet creation unless explicitly asked later",
+        "include duplicate-token/session-balance warnings",
+        "Keep every row review-only and fail-closed.",
+    ):
+        if phrase not in p4_prompt_text:
+            errors.append(f"Perek 4 source discovery prompt missing phrase: {phrase}")
+
+    final_index_text = P3_FINAL_HANDOFF_INDEX.read_text(encoding="utf-8")
+    for path in (
+        P3_CAND,
+        P3_STATUS_INDEX,
+        P3_TSV,
+        P3_REPORT,
+        P3_REVIEW_CHECKLIST,
+        P3_REVIEW_CHECKLIST_TSV,
+        P3_REVIEW_DECISIONS_APPLIED,
+        P3_REVIEW_DECISIONS_APPLIED_TSV,
+        P3_ITEM_004_REVISION_PLAN,
+        P3_ITEM_004_REVISION_PLAN_TSV,
+        P3_LIMITED_READINESS,
+        P3_LIMITED_READINESS_TSV,
+        P3_BLOCKED_REGISTER,
+        P3_BLOCKED_REGISTER_TSV,
+        P3_OBSERVATION_TEMPLATE,
+        P3_OBSERVATION_TEMPLATE_TSV,
+        P3_REVIEWER_HANDOFF,
+        P3_REVIEWER_HANDOFF_TSV,
+        P3_OBSERVATION_INTAKE,
+        P3_OBSERVATION_INTAKE_TSV,
+        P3_OBSERVATION_INTAKE_INSTRUCTIONS,
+        P3_COMPLETION_DASHBOARD,
+        P3_RISK_REGISTER,
+        P3_TO_P4_LAUNCH_GATE,
+        P4_SOURCE_DISCOVERY_PROMPT,
+    ):
+        if rel(path) not in final_index_text:
+            errors.append(f"Perek 3 final handoff index must link {rel(path)}")
+    for phrase in (
+        "Active limited-review lane: 3 items.",
+        "Blocked item: 1.",
+        "Runtime-ready: 0.",
+        "Reviewed-bank-ready: 0.",
+        "Student-facing: 0.",
+        "creates no Perek 4 candidates",
+    ):
+        if phrase not in final_index_text:
+            errors.append(f"Perek 3 final handoff index missing phrase: {phrase}")
 
     return {
         "valid": not errors,
