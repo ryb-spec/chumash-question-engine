@@ -241,4 +241,14 @@ Status: the next Perek 4 gate is a planning-review checklist only. Four eligible
 - Test: `../../tests/test_perek_4_candidate_planning_decisions_applied.py`
 
 Status: four Perek 4 candidates advance to protected-preview-candidate review only; `g2srcdisc_p4_005` remains source-follow-up. No protected-preview packet, runtime activation, active-scope expansion, reviewed-bank promotion, or student-facing content was created.
+## Perek 4 protected-preview candidate review decisions applied
+
+- Decisions-applied report: `../gate_2_protected_preview_candidates/reports/bereishis_perek_4_protected_preview_candidate_review_decisions_applied_2026_04_29.md`
+- Decisions-applied JSON: `../gate_2_protected_preview_candidates/reports/bereishis_perek_4_protected_preview_candidate_review_decisions_applied_2026_04_29.json`
+- Internal packet readiness report: `perek_4_internal_protected_preview_packet_readiness_2026_04_29.md`
+- Planning-only packet artifact: `../gate_2_protected_preview_packets/reports/bereishis_perek_4_internal_protected_preview_packet_planning_2026_04_29.md`
+- Validator: `../../scripts/validate_perek_4_protected_preview_candidate_review_decisions.py`
+- Test: `../../tests/test_perek_4_protected_preview_candidate_review_decisions.py`
+
+Status: Perek 4 has readiness for a later explicit internal protected-preview packet task from four eligible items only. `g2srcdisc_p4_005` remains blocked, and no protected-preview packet, runtime activation, reviewed-bank promotion, or student-facing content was created.
 

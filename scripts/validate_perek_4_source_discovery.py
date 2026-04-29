@@ -93,7 +93,15 @@ def read_tsv(path: Path) -> list[dict[str, str]]:
 def perek4_packet_paths() -> list[Path]:
     if not PROTECTED_PREVIEW_PACKET_DIR.exists():
         return []
-    return sorted(path for path in PROTECTED_PREVIEW_PACKET_DIR.rglob("*perek_4*") if path.is_file())
+    packet_paths: list[Path] = []
+    for path in sorted(PROTECTED_PREVIEW_PACKET_DIR.rglob("*perek_4*")):
+        if not path.is_file():
+            continue
+        path_text = repo_relative(path)
+        if "packet_planning" in path.name or "planning-only" in read_text(path):
+            continue
+        packet_paths.append(path)
+    return packet_paths
 
 
 def validate_perek_4_source_discovery() -> dict[str, object]:
