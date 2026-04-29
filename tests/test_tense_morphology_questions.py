@@ -72,6 +72,8 @@ class TenseMorphologyQuestionTests(unittest.TestCase):
         question = generate_question("identify_tense", pasuk_by_ref(1, 6))
 
         self.assertEqual(question.get("selected_word"), "וִיהִי")
+        self.assertEqual(question.get("question"), "What tense or verb form is this word?")
+        self.assertNotEqual(question.get("question"), "What form is shown?")
         self.assertEqual(question.get("correct_answer"), "future")
         self.assertEqual(question.get("tense_code"), "future_jussive")
         self.assertEqual(question.get("word_gloss"), "and let it be")

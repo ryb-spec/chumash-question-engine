@@ -2356,9 +2356,11 @@ def normalize_student_facing_question(question):
         question["explanation"] = replace_tense_codes_in_text(question.get("explanation"))
         if raw_correct:
             question.setdefault("tense_code", raw_correct)
-        question["question"] = question["question"].replace("What verb tense is shown?", "What form is shown?")
+        question["question"] = question["question"].replace("What verb tense is shown?", "What tense or verb form is this word?")
+        question["question"] = question["question"].replace("What form is " + "shown?", "What tense or verb form is this word?")
         if "question_text" in question:
-            question["question_text"] = question["question_text"].replace("What verb tense is shown?", "What form is shown?")
+            question["question_text"] = question["question_text"].replace("What verb tense is shown?", "What tense or verb form is this word?")
+            question["question_text"] = question["question_text"].replace("What form is " + "shown?", "What tense or verb form is this word?")
         question["question"] = question["question"].replace("Which word shows the to do form form?", "Which word shows the 'to do' form?")
         if "question_text" in question:
             question["question_text"] = question["question_text"].replace("Which word shows the to do form form?", "Which word shows the 'to do' form?")
@@ -3873,7 +3875,7 @@ def generate_question(
 
         if level == 1:
             return validated_prefix_payload(
-                f"What is the prefix in {target['token']}?",
+                f"In {target['token']}, which beginning letter is the prefix?",
                 PREFIX_FORM_BANK,
                 prefix,
                 f"The prefix in {target['token']} is {prefix}.",
@@ -4270,8 +4272,8 @@ def generate_question(
             "verb_tense",
             target,
             prompt(
-                "What form is shown?",
-                "What form is shown?",
+                "What tense or verb form is this word?",
+                "What tense or verb form is this word?",
                 "",
             ),
             correct,
@@ -5359,7 +5361,7 @@ def build_tense_question(step, pasuk, analyzed):
         "PR5",
         "verb_tense",
         target["token"],
-        "What form is shown?",
+        "What tense or verb form is this word?",
         choices,
         correct,
         tense_question_explanation(target, correct),

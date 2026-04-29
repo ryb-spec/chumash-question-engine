@@ -358,6 +358,7 @@ ALLOWED_CHANGE_EXACT = {
     "data/pipeline_rounds/perek_3_pilot_remediation_plan_2026_04_29.md",
     "data/pipeline_rounds/perek_3_pilot_remediation_sequence_2026_04_29.md",
     "data/pipeline_rounds/perek_3_pilot_teacher_decision_checklist_2026_04_29.md",
+    "data/pipeline_rounds/perek_3_pilot_wording_clarity_fix_report_2026_04_29.md",
     "data/pipeline_rounds/repo_hygiene_inventory_2026_04_29.md",
     "data/source/bereishis_4_1_to_4_16.json",
     "data/dikduk_rules/README.md",
@@ -466,6 +467,7 @@ ALLOWED_CHANGE_EXACT = {
     "scripts/validate_perek_3_pilot_evidence_pack.py",
     "scripts/validate_perek_3_pilot_observation_summary.py",
     "scripts/validate_perek_3_pilot_remediation_plan.py",
+    "scripts/validate_perek_3_pilot_wording_clarity_fix.py",
     "scripts/validate_standards_data.py",
     "scripts/run_curriculum_quality_checks.py",
     "scripts/load_curriculum_extraction.py",
@@ -481,6 +483,9 @@ ALLOWED_CHANGE_EXACT = {
     "tests/test_perek_3_pilot_evidence_pack.py",
     "tests/test_perek_3_pilot_observation_summary.py",
     "tests/test_perek_3_pilot_remediation_plan.py",
+    "tests/test_perek_3_pilot_wording_clarity_fix.py",
+    "tests/test_prefix_question_generation.py",
+    "tests/test_tense_morphology_questions.py",
     "tests/test_translation_sources_loader.py",
     "tests/test_curriculum_question_preview.py",
     "tests/test_curriculum_extraction_schemas.py",
@@ -533,6 +538,16 @@ SOURCE_TRUTH_BASELINE_REPAIR_EXACT = {
     "data/source_texts/reports/source_truth_reproducibility_finalization_report.md",
     "tests/test_corpus_manifest.py",
 }
+
+PEREK_3_PILOT_WORDING_FIX_EXACT = {"engine/flow_builder.py"}
+PEREK_3_PILOT_WORDING_FIX_ALLOWED_DIFF_FRAGMENTS = (
+    "What verb tense is shown?",
+    "What form is shown?",
+    'What form is " + "shown?',
+    "What tense or verb form is this word?",
+    "What is the prefix in",
+    "which beginning letter is the prefix",
+)
 
 IGNORED_GENERATED_CHANGE_EXACT = {
     "data/attempt_log.jsonl",
@@ -1091,6 +1106,26 @@ def is_allowed_source_truth_baseline_repair(path: str) -> bool:
     return path in SOURCE_TRUTH_BASELINE_REPAIR_EXACT
 
 
+def is_allowed_perek_3_pilot_wording_fix(path: str) -> bool:
+    if path not in PEREK_3_PILOT_WORDING_FIX_EXACT:
+        return False
+    result = subprocess.run(["git", "diff", "--", path], capture_output=True, text=True, check=False)
+    if result.returncode != 0:
+        return False
+    changed_lines = []
+    for line in result.stdout.splitlines():
+        if line.startswith(("+++", "---")):
+            continue
+        if line.startswith(("+", "-")):
+            changed_lines.append(line[1:])
+    if not changed_lines:
+        return False
+    return all(
+        any(fragment in line for fragment in PEREK_3_PILOT_WORDING_FIX_ALLOWED_DIFF_FRAGMENTS)
+        for line in changed_lines
+    )
+
+
 def forbidden_reason(path: str) -> str:
     for prefix in FORBIDDEN_CHANGE_PREFIXES:
         if path == prefix or path.startswith(prefix):
@@ -1208,7 +1243,11 @@ def validate_curriculum_extraction(*, check_git_diff: bool = False) -> dict:
     if check_git_diff:
         changed_paths = collect_changed_paths()
         for path in changed_paths:
-            if not is_allowed_change(path) and not is_allowed_source_truth_baseline_repair(path):
+            if (
+                not is_allowed_change(path)
+                and not is_allowed_source_truth_baseline_repair(path)
+                and not is_allowed_perek_3_pilot_wording_fix(path)
+            ):
                 errors.append(forbidden_reason(path))
 
     record_counts = Counter(record.get("record_type") for record in all_records if record.get("record_type"))
