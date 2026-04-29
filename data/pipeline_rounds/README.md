@@ -141,3 +141,14 @@ Status: Yossi candidate decisions applied and still fail-closed. Decision counts
 - Observation intake: `../gate_2_protected_preview_packets/reports/bereishis_perek_3_limited_post_preview_observation_intake.md`
 
 Status: pilot-evidence preparation only. No runtime behavior changed, no active scope changed, no content was promoted, and Perek 4 was not activated.
+
+## Perek 3 pilot remediation strategy
+
+- Remediation plan: `perek_3_pilot_remediation_plan_2026_04_29.md`
+- Remediation JSON: `perek_3_pilot_remediation_plan_2026_04_29.json`
+- Teacher decision checklist: `perek_3_pilot_teacher_decision_checklist_2026_04_29.md`
+- Remediation sequence: `perek_3_pilot_remediation_sequence_2026_04_29.md`
+- Validator: `../../scripts/validate_perek_3_pilot_remediation_plan.py`
+- Test: `../../tests/test_perek_3_pilot_remediation_plan.py`
+
+Status: remediation planning only. No runtime behavior changed, no question generation changed, no content was promoted, and Perek 4 was not activated.
