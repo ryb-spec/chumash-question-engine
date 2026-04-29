@@ -75,8 +75,14 @@ def _validate_review_tsv(errors: list[str]) -> list[str]:
         errors.append("review TSV must exclude g2srcdisc_p4_005")
     for row in rows:
         context = row.get("candidate_id", "review row")
-        if row.get("teacher_review_status") != "pending_protected_preview_candidate_review":
-            errors.append(f"{context}: teacher_review_status must be pending_protected_preview_candidate_review")
+        allowed_review_statuses = {
+            "pending_protected_preview_candidate_review",
+            "protected_preview_candidate_review_decision_applied",
+        }
+        if row.get("teacher_review_status") not in allowed_review_statuses:
+            errors.append(
+                f"{context}: teacher_review_status must be one of {sorted(allowed_review_statuses)}"
+            )
         if row.get("final_approval_status") != "none":
             errors.append(f"{context}: final_approval_status must be none")
         for field in FALSE_FIELDS:

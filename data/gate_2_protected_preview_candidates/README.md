@@ -66,4 +66,15 @@ Status: planning review only for the four eligible Perek 4 candidates. `g2srcdis
 - Test: `../../tests/test_perek_4_candidate_planning_decisions_applied.py`
 
 Status: Yossi's planning decisions advance four Perek 4 candidates to protected-preview-candidate review only. `g2srcdisc_p4_005` remains blocked. Runtime, reviewed-bank, protected-preview-packet, and student-facing gates remain closed.
+## Bereishis Perek 4 protected-preview candidate review decisions applied
+
+- Decisions-applied report: `reports/bereishis_perek_4_protected_preview_candidate_review_decisions_applied_2026_04_29.md`
+- Decisions-applied JSON: `reports/bereishis_perek_4_protected_preview_candidate_review_decisions_applied_2026_04_29.json`
+- Updated candidate review TSV: `bereishis_perek_4_protected_preview_candidate_review.tsv`
+- Internal packet readiness report: `../pipeline_rounds/perek_4_internal_protected_preview_packet_readiness_2026_04_29.md`
+- Planning-only packet artifact: `../gate_2_protected_preview_packets/reports/bereishis_perek_4_internal_protected_preview_packet_planning_2026_04_29.md`
+- Validator: `../../scripts/validate_perek_4_protected_preview_candidate_review_decisions.py`
+- Test: `../../tests/test_perek_4_protected_preview_candidate_review_decisions.py`
+
+Status: two Perek 4 candidates are approved for a later internal packet task, two are approved with revision notes preserved, and `g2srcdisc_p4_005` remains blocked. No internal protected-preview packet, runtime activation, reviewed-bank promotion, or student-facing content was created.
 

@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "branch_name": "feature/perek-4-protected-preview-candidate-review-decisions",
+  "decision_date": "2026-04-29",
+  "candidate_count": 5,
+  "approved_for_internal_packet_count": 2,
+  "approve_with_revision_count": 2,
+  "blocked_count": 1,
+  "decisions": [
+    {
+      "candidate_id": "g2srcdisc_p4_001",
+      "pasuk_ref": "Bereishis 4:1",
+      "hebrew_target": "אִישׁ",
+      "decision": "approve_for_internal_protected_preview_packet",
+      "revision_required": false,
+      "revision_note": "Revised wording is clear enough; noun target is appropriate.",
+      "eligible_for_internal_protected_preview_packet": true,
+      "runtime_allowed": false,
+      "reviewed_bank_allowed": false,
+      "student_facing_allowed": false,
+      "perek_4_activated": false
+    },
+    {
+      "candidate_id": "g2srcdisc_p4_002",
+      "pasuk_ref": "Bereishis 4:2",
+      "hebrew_target": "צֹאן",
+      "decision": "approve_for_internal_protected_preview_packet",
+      "revision_required": false,
+      "revision_note": "Clean noun-recognition item.",
+      "eligible_for_internal_protected_preview_packet": true,
+      "runtime_allowed": false,
+      "reviewed_bank_allowed": false,
+      "student_facing_allowed": false,
+      "perek_4_activated": false
+    },
+    {
+      "candidate_id": "g2srcdisc_p4_003",
+      "pasuk_ref": "Bereishis 4:2",
+      "hebrew_target": "אֲדָמָה",
+      "decision": "approve_with_revision",
+      "revision_required": true,
+      "revision_note": "Keep spacing/session-balance note; do not place close to similar noun-recognition items.",
+      "eligible_for_internal_protected_preview_packet": true,
+      "runtime_allowed": false,
+      "reviewed_bank_allowed": false,
+      "student_facing_allowed": false,
+      "perek_4_activated": false
+    },
+    {
+      "candidate_id": "g2srcdisc_p4_004",
+      "pasuk_ref": "Bereishis 4:3",
+      "hebrew_target": "מִנְחָה",
+      "decision": "approve_with_revision",
+      "revision_required": true,
+      "revision_note": "Keep as part-of-speech only, not vocabulary translation; preserve Minchah/offering alias review and spacing/session-balance warning.",
+      "eligible_for_internal_protected_preview_packet": true,
+      "runtime_allowed": false,
+      "reviewed_bank_allowed": false,
+      "student_facing_allowed": false,
+      "perek_4_activated": false
+    },
+    {
+      "candidate_id": "g2srcdisc_p4_005",
+      "pasuk_ref": "Bereishis 4:15",
+      "hebrew_target": "אוֹת",
+      "decision": "needs_source_follow_up",
+      "revision_required": false,
+      "revision_note": "Blocked; excluded from candidate review and internal packet readiness.",
+      "eligible_for_internal_protected_preview_packet": false,
+      "runtime_allowed": false,
+      "reviewed_bank_allowed": false,
+      "student_facing_allowed": false,
+      "perek_4_activated": false
+    }
+  ],
+  "eligible_candidate_ids": [
+    "g2srcdisc_p4_001",
+    "g2srcdisc_p4_002",
+    "g2srcdisc_p4_003",
+    "g2srcdisc_p4_004"
+  ],
+  "blocked_candidate_ids": [
+    "g2srcdisc_p4_005"
+  ],
+  "runtime_allowed": false,
+  "reviewed_bank_allowed": false,
+  "student_facing_allowed": false,
+  "perek_4_activated": false,
+  "protected_preview_packet_created": false,
+  "fake_teacher_decisions_created": false,
+  "fake_student_data_created": false
+}
