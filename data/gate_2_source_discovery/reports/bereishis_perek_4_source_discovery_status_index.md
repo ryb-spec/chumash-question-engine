@@ -26,3 +26,10 @@ Perek 4 source discovery has started. A review-only safe candidate inventory exi
 ## Next recommended task
 
 Create a Perek 4 teacher/source review checklist from the review-only inventory, only after this source-discovery task is committed and validated. The next task should keep all gates closed and should not create a protected-preview packet.
+
+## Teacher-review preparation update
+
+- Compressed teacher-review packet: `data/gate_2_protected_preview_candidates/reports/bereishis_perek_4_compressed_teacher_review_packet_2026_04_29.md`
+- Readiness report: `data/pipeline_rounds/perek_4_teacher_review_packet_readiness_2026_04_29.md`
+
+Status: Yossi approved teacher-review packet preparation only. Perek 4 remains non-runtime, non-reviewed-bank, non-protected-preview, and non-student-facing.

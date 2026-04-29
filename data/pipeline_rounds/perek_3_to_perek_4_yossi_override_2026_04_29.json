@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "override_date": "2026-04-29",
+  "override_given_by": "Yossi",
+  "allows_perek_4_teacher_review_packet": true,
+  "allows_perek_4_runtime_activation": false,
+  "allows_active_scope_expansion": false,
+  "allows_reviewed_bank_promotion": false,
+  "allows_protected_preview_packet_creation": false,
+  "allows_student_facing_content": false,
+  "allows_new_perek_4_candidate_discovery": false,
+  "unresolved_perek_3_items_remain": true,
+  "perek_3_full_closure_allowed_now": false,
+  "fake_data_created": false,
+  "reason": [
+    "Perek 3 pilot wording fixes were implemented and validated.",
+    "דֶּרֶךְ and אֲרוּרָה translation distractor repairs were implemented and validated.",
+    "The stale active reviewed-bank prefix prompt was repaired.",
+    "Remaining Perek 3 phrase_translation and אָשִׁית / שית issues are known and gated."
+  ]
+}
