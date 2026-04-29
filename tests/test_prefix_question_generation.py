@@ -29,6 +29,11 @@ class PrefixQuestionGenerationTests(unittest.TestCase):
         )
 
         self.assertNotEqual(question.get("status"), "skipped")
+        self.assertEqual(
+            question.get("question"),
+            "In \u05dc\u05b8\u05d0\u05d5\u05b9\u05e8, which beginning letter is the prefix?",
+        )
+        self.assertNotIn("What is the prefix in", question.get("question", ""))
         self.assertEqual(question.get("selected_word"), "\u05dc\u05b8\u05d0\u05d5\u05b9\u05e8")
         self.assertEqual(question.get("correct_answer"), "\u05dc")
 
