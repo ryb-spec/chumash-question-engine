@@ -1,0 +1,29 @@
+{
+  "branch_name": "feature/perek-3-pilot-distractor-source-remediation",
+  "pilot_date": "2026-04-29",
+  "issues_addressed": [
+    "p3_pilot_004_derech_distractors",
+    "p3_pilot_005_arurah_distractors",
+    "p3_pilot_006_phrase_translation_distractor_audit",
+    "p3_pilot_003_ashis_shis_source_followup"
+  ],
+  "issues_fixed": [
+    "p3_pilot_004_derech_distractors",
+    "p3_pilot_005_arurah_distractors"
+  ],
+  "issues_remaining": [
+    "p3_pilot_006_phrase_translation_distractor_audit",
+    "p3_pilot_003_ashis_shis_source_followup"
+  ],
+  "ready_for_short_repilot": false,
+  "ready_for_runtime_expansion": false,
+  "perek_4_activated": false,
+  "runtime_scope_widened": false,
+  "fake_data_created": false,
+  "reviewed_bank_promoted": false,
+  "source_truth_changed": false,
+  "distractor_logic_changed": false,
+  "question_selection_changed": false,
+  "data_level_distractor_choices_changed": true,
+  "next_manual_step": "Ask Yossi/source reviewer to resolve the phrase_translation distractor review direction and the \u05d0\u05b8\u05e9\u05b4\u05c1\u05d9\u05ea / \u05e9\u05d9\u05ea source follow-up before a short re-pilot."
+}

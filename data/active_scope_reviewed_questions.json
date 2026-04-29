@@ -1191,10 +1191,10 @@
       "question_text": "What does אֲרוּרָה mean?",
       "question": "What does אֲרוּרָה mean?",
       "choices": [
-        "Eden",
-        "Eve",
+        "naked",
+        "living",
         "cursed",
-        "all"
+        "heel"
       ],
       "correct_answer": "cursed",
       "skill": "translation",
@@ -1625,9 +1625,9 @@
       "question_text": "What does דֶּרֶךְ mean?",
       "question": "What does דֶּרֶךְ mean?",
       "choices": [
-        "Eve",
-        "Eden",
-        "all",
+        "heel",
+        "children",
+        "naked",
         "way"
       ],
       "correct_answer": "way",
