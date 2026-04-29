@@ -1,0 +1,38 @@
+{
+  "branch_name": "feature/perek-3-pilot-evidence-pack",
+  "created_artifacts": [
+    "docs/pilots/perek_3_fresh_pilot_runbook.md",
+    "docs/review/question_quality_rubric.md",
+    "data/gate_2_protected_preview_packets/reports/bereishis_perek_3_limited_post_preview_observation_intake.md",
+    "docs/product/bhh_chumash_ai_pilot_one_page_brief.md",
+    "data/pipeline_rounds/claude_review_action_plan_2026_04_29.md",
+    "data/pipeline_rounds/repo_hygiene_inventory_2026_04_29.md",
+    "data/pipeline_rounds/perek_3_pilot_evidence_manifest_2026_04_29.json",
+    "scripts/validate_perek_3_pilot_evidence_pack.py",
+    "tests/test_perek_3_pilot_evidence_pack.py",
+    "docs/README.md",
+    "scripts/README.md",
+    "data/pipeline_rounds/README.md"
+  ],
+  "fake_data_created": false,
+  "hard_boundaries_confirmed": [
+    "No runtime behavior changed.",
+    "No active runtime scope changed.",
+    "No Perek 3 item promoted.",
+    "No Perek 4 activation.",
+    "No reviewed-bank promotion.",
+    "No student-facing content created.",
+    "No engine/flow_builder.py refactor.",
+    "No fake observations created."
+  ],
+  "manual_next_step": "Run fresh Perek 3 pilot with 3–5 students in Learn Mode only.",
+  "modified_artifacts": [],
+  "no_runtime_behavior_changed": true,
+  "perek_4_activated": false,
+  "runtime_scope_statement": "Active runtime scope remains local_parsed_bereishis_1_1_to_3_24, ending at Bereishis 3:24. No active Perek 4 runtime scope was found.",
+  "task_title": "Build the Perek 3 Fresh Pilot Evidence System and Claude Review Response Layer",
+  "validators": [
+    "python scripts/validate_perek_3_pilot_evidence_pack.py",
+    "python -m pytest tests/test_perek_3_pilot_evidence_pack.py"
+  ]
+}

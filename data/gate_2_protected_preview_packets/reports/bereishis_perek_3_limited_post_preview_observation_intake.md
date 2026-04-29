@@ -1,4 +1,17 @@
-﻿# Bereishis Perek 3 limited post-preview observation intake
+# Bereishis Perek 3 limited post-preview observation intake
+
+## Reviewer Instructions — Real Evidence Only
+
+This file is for observed evidence only.
+
+- Do not fill from memory.
+- Do not invent student results.
+- Do not infer approval because an item looks good.
+- Do not approve unless an item was actually observed or explicitly teacher-reviewed.
+- Use `docs/review/question_quality_rubric.md`.
+- Record candidate ID, pasuk/ref, skill, prompt/target, student behavior, teacher note, rubric decision, and follow-up action.
+- If rows already exist in a future version of this file, do not overwrite them.
+- No observed rows have been recorded in this branch yet; leave observation fields blank until real pilot evidence exists.
 
 ## Purpose
 
@@ -8,15 +21,17 @@ This is not runtime content. This is not reviewed-bank content. This is not stud
 
 ## Active observation items
 
-The observation intake covers exactly these active limited-review items:
+The observation intake covers exactly these active limited-review items. These rows are intake placeholders, not observations.
 
-- `g2ppacket_p3_001` / `g2ppcand_p3_003` / Bereishis 3:1 / `עֵץ`
-- `g2ppacket_p3_003` / `g2ppcand_p3_007` / Bereishis 3:7 / `עֲלֵה`
-- `g2ppacket_p3_004` / `g2ppcand_p3_008` / Bereishis 3:7 / `תְאֵנָה`
+| packet_item_id | candidate_id | ref | target | skill | prompt_or_target | student_behavior | teacher_note | rubric_decision | follow_up_action |
+|---|---|---|---|---|---|---|---|---|---|
+| `g2ppacket_p3_001` | `g2ppcand_p3_003` | Bereishis 3:1 | ??? | basic noun recognition | not_available |  |  |  |  |
+| `g2ppacket_p3_003` | `g2ppcand_p3_007` | Bereishis 3:7 | ????? | basic noun recognition | not_available |  |  |  |  |
+| `g2ppacket_p3_004` | `g2ppcand_p3_008` | Bereishis 3:7 | ??????? | basic noun recognition | not_available |  |  |  |  |
 
 ## Blocked item exclusion
 
-`g2ppacket_p3_002` / `g2ppcand_p3_004` is not an active observation item in this intake. It remains blocked because of duplicate `עֵץ` / session-balance risk and requires future spacing metadata, wording/wrapping revision, or a replacement/revision task.
+`g2ppacket_p3_002` / `g2ppcand_p3_004` is not an active observation item in this intake. It remains blocked because it duplicates the target word ??? and prompt pattern from `g2ppcand_p3_003`, creating session-balance risk. Do not include it as an active observation item unless a later explicit revision/spacing task changes its status.
 
 ## Future recommendation values
 
@@ -39,5 +54,7 @@ These are future recommendation values only. They are not applied by this task. 
 - No Perek 3 runtime activation.
 - No reviewed-bank promotion.
 - No protected-preview packet creation.
+- No Perek 4 activation.
 - No student-facing content creation.
+- No fake observations.
 - No runtime/UI/scoring/mastery/assessment-flow changes.
