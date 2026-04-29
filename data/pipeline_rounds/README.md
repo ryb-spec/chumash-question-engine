@@ -308,3 +308,12 @@ Status: only ????? and ???? are eligible for next packet-iteration readiness. ??
 - `prompts/bereishis_perek_5_6_review_checklist_prompt.md` is the future compressed teacher-review checklist prompt.
 - Source discovery remains non-runtime, non-reviewed-bank, non-protected-preview, and non-student-facing.
 - Validator/test: `scripts/validate_perek_5_6_source_discovery.py` and `tests/test_perek_5_6_source_discovery.py`.
+
+## Bereishis Perek 5-6 compressed teacher-review checklist - 2026-04-29
+
+- `../gate_2_source_discovery/reports/bereishis_perek_5_6_compressed_teacher_review_checklist_2026_04_29.md` is the teacher-review checklist.
+- `../gate_2_source_discovery/reports/bereishis_perek_5_6_compressed_teacher_review_checklist_2026_04_29.json` is the machine-readable checklist with null decisions.
+- `../gate_2_source_discovery/bereishis_perek_5_6_teacher_review_decision_template.tsv` is the blank decision template.
+- `bereishis_perek_5_6_teacher_review_checklist_readiness_2026_04_29.md` records readiness for teacher review only.
+- `prompts/bereishis_perek_5_6_teacher_review_decisions_apply_prompt.md` is the future decision-application prompt.
+- Validator/test: `scripts/validate_perek_5_6_teacher_review_checklist.py` and `tests/test_perek_5_6_teacher_review_checklist.py`.
