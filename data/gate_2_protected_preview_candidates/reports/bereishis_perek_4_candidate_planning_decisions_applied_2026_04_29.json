@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "branch_name": "feature/perek-4-candidate-planning-decisions-applied",
+  "decision_date": "2026-04-29",
+  "source_checklist_path": "data/gate_2_protected_preview_candidates/reports/bereishis_perek_4_candidate_planning_review_checklist_2026_04_29.json",
+  "candidate_count": 5,
+  "advancing_candidate_count": 4,
+  "blocked_candidate_count": 1,
+  "decisions": [
+    {
+      "candidate_id": "g2srcdisc_p4_001",
+      "pasuk_ref": "Bereishis 4:1",
+      "hebrew_target": "אִישׁ",
+      "planning_review_decision": "advance_to_protected_preview_candidate_review",
+      "eligible_for_protected_preview_candidate_review": true,
+      "revision_required_before_review": false,
+      "required_note": "Use revised wording: In this phrase, what type of word is אִישׁ?",
+      "source_follow_up_required": false,
+      "runtime_allowed": false,
+      "reviewed_bank_allowed": false,
+      "protected_preview_packet_allowed_now": false,
+      "student_facing_allowed": false,
+      "perek_4_activated": false
+    },
+    {
+      "candidate_id": "g2srcdisc_p4_002",
+      "pasuk_ref": "Bereishis 4:2",
+      "hebrew_target": "צֹאן",
+      "planning_review_decision": "advance_to_protected_preview_candidate_review",
+      "eligible_for_protected_preview_candidate_review": true,
+      "revision_required_before_review": false,
+      "required_note": "No revision needed.",
+      "source_follow_up_required": false,
+      "runtime_allowed": false,
+      "reviewed_bank_allowed": false,
+      "protected_preview_packet_allowed_now": false,
+      "student_facing_allowed": false,
+      "perek_4_activated": false
+    },
+    {
+      "candidate_id": "g2srcdisc_p4_003",
+      "pasuk_ref": "Bereishis 4:2",
+      "hebrew_target": "אֲדָמָה",
+      "planning_review_decision": "advance_with_minor_revision",
+      "eligible_for_protected_preview_candidate_review": true,
+      "revision_required_before_review": true,
+      "required_note": "Do not place too close to similar noun-recognition items in future packet planning.",
+      "source_follow_up_required": false,
+      "runtime_allowed": false,
+      "reviewed_bank_allowed": false,
+      "protected_preview_packet_allowed_now": false,
+      "student_facing_allowed": false,
+      "perek_4_activated": false
+    },
+    {
+      "candidate_id": "g2srcdisc_p4_004",
+      "pasuk_ref": "Bereishis 4:3",
+      "hebrew_target": "מִנְחָה",
+      "planning_review_decision": "advance_with_minor_revision",
+      "eligible_for_protected_preview_candidate_review": true,
+      "revision_required_before_review": true,
+      "required_note": "Keep this as part-of-speech only, not vocabulary translation, unless later reviewed. Preserve Minchah/offering alias review and session-balance warning.",
+      "source_follow_up_required": false,
+      "runtime_allowed": false,
+      "reviewed_bank_allowed": false,
+      "protected_preview_packet_allowed_now": false,
+      "student_facing_allowed": false,
+      "perek_4_activated": false
+    },
+    {
+      "candidate_id": "g2srcdisc_p4_005",
+      "pasuk_ref": "Bereishis 4:15",
+      "hebrew_target": "אוֹת",
+      "planning_review_decision": "needs_source_follow_up",
+      "eligible_for_protected_preview_candidate_review": false,
+      "revision_required_before_review": false,
+      "required_note": "Not eligible for this checklist. Do not advance.",
+      "source_follow_up_required": true,
+      "runtime_allowed": false,
+      "reviewed_bank_allowed": false,
+      "protected_preview_packet_allowed_now": false,
+      "student_facing_allowed": false,
+      "perek_4_activated": false
+    }
+  ],
+  "advancing_candidate_ids": [
+    "g2srcdisc_p4_001",
+    "g2srcdisc_p4_002",
+    "g2srcdisc_p4_003",
+    "g2srcdisc_p4_004"
+  ],
+  "blocked_candidate_ids": [
+    "g2srcdisc_p4_005"
+  ],
+  "runtime_allowed": false,
+  "reviewed_bank_allowed": false,
+  "protected_preview_packet_allowed_now": false,
+  "student_facing_allowed": false,
+  "perek_4_activated": false,
+  "protected_preview_packet_created": false,
+  "fake_teacher_decisions_created": false,
+  "fake_student_data_created": false
+}
