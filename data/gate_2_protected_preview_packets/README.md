@@ -77,3 +77,19 @@ Status: four Perek 4 items are packaged for internal protected-preview review on
 
 Status: two clean Perek 4 items are ready for limited internal preview observation only. Two packet items remain revision-blocked, and `g2srcdisc_p4_005` remains source-follow-up. Runtime, reviewed-bank, and public/student-facing gates remain closed.
 
+## Bereishis Perek 4 limited internal preview decisions applied
+
+- Decisions-applied report: `data/gate_2_protected_preview_packets/reports/bereishis_perek_4_limited_internal_preview_decisions_applied_2026_04_29.md`
+- Decisions-applied JSON: `data/gate_2_protected_preview_packets/reports/bereishis_perek_4_limited_internal_preview_decisions_applied_2026_04_29.json`
+- Hold register: `data/gate_2_protected_preview_packets/reports/bereishis_perek_4_limited_internal_preview_hold_register_2026_04_29.md`
+- Validator: `scripts/validate_perek_4_limited_internal_preview_decisions.py`
+- Test: `tests/test_perek_4_limited_internal_preview_decisions.py`
+
+Status: `g2ppacket_p4_001` and `g2ppacket_p4_002` are eligible for next packet-iteration readiness only. `g2ppacket_p4_003` and `g2ppacket_p4_004` remain held, and `g2srcdisc_p4_005` remains source-follow-up. Runtime, reviewed-bank, and public/student-facing gates remain closed.
+
+## Perek 4 limited internal preview decisions - 2026-04-29
+
+- `reports/bereishis_perek_4_limited_internal_preview_decisions_applied_2026_04_29.md` records Yossi's limited internal preview decisions.
+- `reports/bereishis_perek_4_limited_internal_preview_decisions_applied_2026_04_29.json` is the machine-readable decision record.
+- `reports/bereishis_perek_4_limited_internal_preview_hold_register_2026_04_29.md` keeps held/source-follow-up items blocked and visible.
+- `../../scripts/validate_perek_4_limited_internal_preview_decisions.py` and `../../tests/test_perek_4_limited_internal_preview_decisions.py` validate this gate.
