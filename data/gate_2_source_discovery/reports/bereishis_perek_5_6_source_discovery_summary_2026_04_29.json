@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "discovery_scope": "Bereishis Perek 5–6",
+  "perek_5_activated": false,
+  "perek_6_activated": false,
+  "runtime_scope_widened": false,
+  "reviewed_bank_promoted": false,
+  "protected_preview_packet_created": false,
+  "student_facing_created": false,
+  "fake_teacher_decisions_created": false,
+  "fake_student_observations_created": false,
+  "source_truth_changed": false,
+  "inventory_path": "data/gate_2_source_discovery/bereishis_perek_5_6_review_only_safe_candidate_inventory.tsv",
+  "candidate_count": 12,
+  "perek_5_candidate_count": 5,
+  "perek_6_candidate_count": 7,
+  "excluded_risk_lanes_count": 9,
+  "duplicate_warning_count": 12,
+  "next_allowed_task": "Create compressed Perek 5–6 teacher-review checklist only"
+}
