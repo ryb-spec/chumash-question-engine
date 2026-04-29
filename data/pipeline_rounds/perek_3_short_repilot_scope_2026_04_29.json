@@ -1,0 +1,21 @@
+{
+  "students": "1-2",
+  "mode": "Learn Mode",
+  "questions_per_student": "8-10",
+  "include_targets": [
+    "revised tense/form wording",
+    "revised prefix prompt wording",
+    "\u05d3\u05b6\u05bc\u05e8\u05b6\u05da\u05b0 translation distractor repair",
+    "\u05d0\u05b2\u05e8\u05d5\u05bc\u05e8\u05b8\u05d4 translation distractor repair"
+  ],
+  "exclude_targets": [
+    "\u05d0\u05b8\u05e9\u05b4\u05c1\u05d9\u05ea / \u05e9\u05d9\u05ea shoresh item",
+    "unverified phrase_translation items",
+    "Perek 4 content",
+    "runtime expansion"
+  ],
+  "perek_4_activated": false,
+  "runtime_scope_widened": false,
+  "full_closure_allowed": false,
+  "short_repilot_ready": true
+}

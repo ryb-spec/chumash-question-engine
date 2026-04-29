@@ -164,3 +164,15 @@ Status: remediation planning only. No runtime behavior changed, no question gene
 - Test: `../../tests/test_perek_3_pilot_distractor_source_remediation.py`
 
 Status: `דֶּרֶךְ` and `אֲרוּרָה` translation distractor sets were repaired narrowly at the stored-choice level. Phrase-translation distractors and `אָשִׁית` / `שית` remain open for teacher/source follow-up. No runtime scope expansion, question-selection change, source-truth change, reviewed-bank/runtime promotion, or Perek 4 activation occurred.
+
+## Perek 3 Yossi language decisions and short re-pilot gate
+
+- Yossi language decisions: `perek_3_yossi_language_decisions_2026_04_29.md`
+- Yossi language decisions JSON: `perek_3_yossi_language_decisions_2026_04_29.json`
+- Short re-pilot scope: `perek_3_short_repilot_scope_2026_04_29.md`
+- Short re-pilot scope JSON: `perek_3_short_repilot_scope_2026_04_29.json`
+- Updated completion gate: `perek_3_pilot_remediation_completion_gate_2026_04_29.md`
+- Validator: `../../scripts/validate_perek_3_yossi_language_decisions.py`
+- Test: `../../tests/test_perek_3_yossi_language_decisions.py`
+
+Status: Yossi decided `אָשִׁית` / `שית` is not beginner-ready for the short Perek 3 re-pilot, and phrase_translation distractors must test the whole phrase. The short re-pilot is ready only with those unresolved lanes excluded; full closure, runtime expansion, reviewed-bank/runtime promotion, and Perek 4 activation remain blocked.

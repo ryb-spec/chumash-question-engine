@@ -1,0 +1,33 @@
+{
+  "branch_name": "feature/perek-3-yossi-language-decisions-final-gate",
+  "decisions": [
+    {
+      "decision_id": "p3_yossi_language_001_ashis_shis",
+      "title": "Exclude \u05d0\u05b8\u05e9\u05b4\u05c1\u05d9\u05ea / \u05e9\u05d9\u05ea from beginner shoresh re-pilot lane",
+      "summary": "\u05d0\u05b8\u05e9\u05b4\u05c1\u05d9\u05ea / \u05e9\u05d9\u05ea is advanced or source-follow-up for this pilot level; this does not mean \u05e9\u05d9\u05ea is wrong."
+    },
+    {
+      "decision_id": "p3_yossi_language_002_phrase_translation_policy",
+      "title": "Phrase-translation distractors must test the whole phrase",
+      "summary": "Unverified phrase_translation items remain excluded from the short re-pilot until item-level whole-phrase distractor audit is complete."
+    }
+  ],
+  "ashis_shis_decision": {
+    "suppress_or_quarantine_for_short_repilot": true,
+    "source_truth_changed": false,
+    "approved": false,
+    "beginner_shoresh_ready": false,
+    "teacher_follow_up_required": true
+  },
+  "phrase_translation_decision": {
+    "whole_phrase_distractor_policy": true,
+    "broad_logic_change_now": false,
+    "item_level_audit_required_for_full_closure": true,
+    "exclude_unverified_items_from_short_repilot": true
+  },
+  "short_repilot_allowed_if_excluded": true,
+  "full_perek_3_closure_allowed_now": false,
+  "runtime_expansion_allowed_now": false,
+  "perek_4_activation_allowed_now": false,
+  "fake_data_created": false
+}
