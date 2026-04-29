@@ -75,6 +75,7 @@ REQUIRED_VALIDATOR_SCRIPTS = [
     ),
     ("enrichment", "source skill enrichment validation", "scripts/validate_source_skill_enrichment.py"),
     ("eligibility", "question eligibility audit validation", "scripts/validate_question_eligibility_audit.py"),
+    ("source discovery", "Perek 4 source discovery validation", "scripts/validate_perek_4_source_discovery.py"),
 ]
 
 OPTIONAL_VALIDATOR_SCRIPTS = [
@@ -970,6 +971,12 @@ def write_control_index(output_paths: dict[str, str]) -> None:
         "- Perek 3 final handoff index: `data/gate_2_protected_preview_packets/reports/bereishis_perek_3_final_handoff_index.md`",
         "- Perek 3 to Perek 4 launch gate: `data/pipeline_rounds/bereishis_perek_3_to_perek_4_launch_gate.md`",
         "- Perek 4 source discovery prompt: `data/pipeline_rounds/prompts/bereishis_perek_4_source_discovery_prompt.md`",
+        "- Perek 4 source discovery report: `data/gate_2_source_discovery/reports/bereishis_perek_4_source_discovery_report.md`",
+        "- Perek 4 review-only safe candidate inventory: `data/gate_2_source_discovery/bereishis_perek_4_review_only_safe_candidate_inventory.tsv`",
+        "- Perek 4 duplicate/session-balance warnings: `data/gate_2_source_discovery/reports/bereishis_perek_4_duplicate_session_balance_warnings.md`",
+        "- Perek 4 excluded risk lanes: `data/gate_2_source_discovery/reports/bereishis_perek_4_excluded_risk_lanes.md`",
+        "- Perek 4 source discovery status index: `data/gate_2_source_discovery/reports/bereishis_perek_4_source_discovery_status_index.md`",
+        "- Perek 4 review checklist next prompt: `data/pipeline_rounds/prompts/bereishis_perek_4_review_checklist_prompt.md`",
         "- Source audit report: `data/curriculum_extraction/reports/audits/AUDIT_OVERNIGHT_CURRICULUM_QUALITY_REVIEW.md`",
         "",
         "## Use guidance",

@@ -119,3 +119,13 @@ Status: Yossi candidate decisions applied and still fail-closed. Decision counts
 - Perek 3 to Perek 4 launch gate: `data/pipeline_rounds/bereishis_perek_3_to_perek_4_launch_gate.md`
 - Perek 4 source discovery prompt: `data/pipeline_rounds/prompts/bereishis_perek_4_source_discovery_prompt.md`
 - Recommendation: go for Perek 4 source-discovery only in a later explicit task; no Perek 4 candidates, runtime activation, reviewed-bank promotion, protected-preview packet, or student-facing content are created here.
+
+## Bereishis Perek 4 source discovery
+
+- Source discovery report: `data/gate_2_source_discovery/reports/bereishis_perek_4_source_discovery_report.md`
+- Review-only safe candidate inventory: `data/gate_2_source_discovery/bereishis_perek_4_review_only_safe_candidate_inventory.tsv`
+- Duplicate/session-balance warnings: `data/gate_2_source_discovery/reports/bereishis_perek_4_duplicate_session_balance_warnings.md`
+- Excluded risk lanes: `data/gate_2_source_discovery/reports/bereishis_perek_4_excluded_risk_lanes.md`
+- Status index: `data/gate_2_source_discovery/reports/bereishis_perek_4_source_discovery_status_index.md`
+- Next review-checklist prompt: `data/pipeline_rounds/prompts/bereishis_perek_4_review_checklist_prompt.md`
+- Status: Perek 4 source discovery has begun as review-only evidence inventory. No Perek 4 protected-preview packet, runtime activation, reviewed-bank promotion, student-facing content, Perek 5 expansion, or source-truth change was created.

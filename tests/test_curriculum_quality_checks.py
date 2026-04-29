@@ -34,6 +34,7 @@ def test_check_registry_includes_core_validators_that_exist():
         "scripts/validate_gate_2_protected_preview_packet.py",
         "scripts/validate_source_skill_enrichment.py",
         "scripts/validate_question_eligibility_audit.py",
+        "scripts/validate_perek_4_source_discovery.py",
     ]
     for script in expected_scripts:
         assert any(script in command for command in commands), script
@@ -165,6 +166,12 @@ def test_quality_control_index_exists_and_links_reports():
     assert "bereishis_perek_3_final_handoff_index.md" in text
     assert "bereishis_perek_3_to_perek_4_launch_gate.md" in text
     assert "bereishis_perek_4_source_discovery_prompt.md" in text
+    assert "bereishis_perek_4_source_discovery_report.md" in text
+    assert "bereishis_perek_4_review_only_safe_candidate_inventory.tsv" in text
+    assert "bereishis_perek_4_duplicate_session_balance_warnings.md" in text
+    assert "bereishis_perek_4_excluded_risk_lanes.md" in text
+    assert "bereishis_perek_4_source_discovery_status_index.md" in text
+    assert "bereishis_perek_4_review_checklist_prompt.md" in text
     assert "non-runtime" in text
     assert "does not activate runtime" in text or "does not activate" in text
 
