@@ -24,5 +24,11 @@ This packet is for internal/Yossi/teacher review only. Every item still requires
 - `data/gate_2_protected_preview_packets/reports/bereishis_perek_3_internal_protected_preview_review_decisions_applied.tsv`
 - `data/gate_2_protected_preview_packets/reports/bereishis_perek_3_item_004_revision_plan.md`
 - `data/gate_2_protected_preview_packets/reports/bereishis_perek_3_item_004_revision_plan.tsv`
+- `data/gate_2_protected_preview_packets/reports/bereishis_perek_3_limited_post_preview_iteration_readiness.md`
+- `data/gate_2_protected_preview_packets/reports/bereishis_perek_3_limited_post_preview_iteration_readiness.tsv`
+- `data/gate_2_protected_preview_packets/reports/bereishis_perek_3_blocked_from_broader_use_register.md`
+- `data/gate_2_protected_preview_packets/reports/bereishis_perek_3_blocked_from_broader_use_register.tsv`
+- `data/gate_2_protected_preview_packets/reports/bereishis_perek_3_limited_post_preview_observation_template.md`
+- `data/gate_2_protected_preview_packets/reports/bereishis_perek_3_limited_post_preview_observation_template.tsv`
 
-Perek 3 contains a four-item internal protected-preview packet from explicitly approved candidates only. Internal review decisions are recorded for those four packet items: 3 are approved for limited post-preview iteration and 1 is approved with revision for repetition/session-balance. The `g2ppcand_p3_004` revision plan is planning-only and keeps broader use blocked. Revision and follow-up rows outside the packet remain excluded. Runtime, reviewed-bank, and student-facing gates remain closed.
+Perek 3 contains a four-item internal protected-preview packet from explicitly approved candidates only. Internal review decisions are recorded for those four packet items: 3 are approved for limited post-preview iteration and 1 is approved with revision for repetition/session-balance. A three-item limited post-preview iteration readiness lane exists for the clean items only; `g2ppcand_p3_004` remains in the blocked register. Revision and follow-up rows outside the packet remain excluded. Runtime, reviewed-bank, and student-facing gates remain closed.

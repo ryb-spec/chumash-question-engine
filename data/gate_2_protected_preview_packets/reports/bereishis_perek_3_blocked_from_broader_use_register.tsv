@@ -1,0 +1,2 @@
+packet_item_id	candidate_id	ref	hebrew_token	current_decision	block_reason	related_duplicate_item	broader_use_blocked	runtime_allowed	reviewed_bank_allowed	student_facing_allowed	future_resolution_required
+g2ppacket_p3_002	g2ppcand_p3_004	Bereishis 3:2	עֵץ	approve_with_revision	repetition/session-balance risk	g2ppcand_p3_003	true	false	false	false	spacing metadata OR wording/wrapping revision OR future replacement/revision task

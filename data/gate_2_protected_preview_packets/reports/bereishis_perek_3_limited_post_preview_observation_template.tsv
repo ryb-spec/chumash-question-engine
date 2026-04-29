@@ -1,0 +1,4 @@
+packet_item_id	candidate_id	ref	hebrew_token	reviewer_name	review_date	observed_student_confusion	prompt_clarity_rating	distractor_fairness_rating	explanation_accuracy_rating	too_easy_too_hard	repetition_or_fatigue_note	source_confidence	recommended_next_decision	notes
+g2ppacket_p3_001	g2ppcand_p3_003	Bereishis 3:1	עֵץ											
+g2ppacket_p3_003	g2ppcand_p3_007	Bereishis 3:7	עֲלֵה											
+g2ppacket_p3_004	g2ppcand_p3_008	Bereishis 3:7	תְאֵנָה											

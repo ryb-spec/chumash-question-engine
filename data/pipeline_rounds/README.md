@@ -96,3 +96,7 @@ Status: Yossi candidate decisions applied and still fail-closed. Decision counts
 - Internal review decisions applied report: `data/gate_2_protected_preview_packets/reports/bereishis_perek_3_internal_protected_preview_review_decisions_applied.md`
 - Item 004 revision plan: `data/gate_2_protected_preview_packets/reports/bereishis_perek_3_item_004_revision_plan.md`
 - Internal review status: 3 items approved for limited post-preview iteration; 1 item approved with revision for repetition/session-balance. No runtime activation, reviewed-bank promotion, or student-facing use.
+- Limited post-preview readiness lane: `data/gate_2_protected_preview_packets/reports/bereishis_perek_3_limited_post_preview_iteration_readiness.md`
+- Blocked broader-use register: `data/gate_2_protected_preview_packets/reports/bereishis_perek_3_blocked_from_broader_use_register.md`
+- Observation template: `data/gate_2_protected_preview_packets/reports/bereishis_perek_3_limited_post_preview_observation_template.md`
+- Limited readiness status: 3 clean items may be observed internally in a limited iteration lane; `g2ppcand_p3_004` remains blocked from broader use. Future observation decisions require a later explicit task.

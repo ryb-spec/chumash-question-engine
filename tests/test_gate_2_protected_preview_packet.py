@@ -75,6 +75,12 @@ class Gate2ProtectedPreviewPacketTests(unittest.TestCase):
             validator.P3_REVIEW_DECISIONS_APPLIED_TSV,
             validator.P3_ITEM_004_REVISION_PLAN,
             validator.P3_ITEM_004_REVISION_PLAN_TSV,
+            validator.P3_LIMITED_READINESS,
+            validator.P3_LIMITED_READINESS_TSV,
+            validator.P3_BLOCKED_REGISTER,
+            validator.P3_BLOCKED_REGISTER_TSV,
+            validator.P3_OBSERVATION_TEMPLATE,
+            validator.P3_OBSERVATION_TEMPLATE_TSV,
             validator.P3_STATUS_INDEX,
         ):
             self.assertTrue(path.exists(), path)
@@ -202,6 +208,71 @@ class Gate2ProtectedPreviewPacketTests(unittest.TestCase):
         self.assertEqual(row["reviewed_bank_allowed"], "false")
         self.assertEqual(row["student_facing_allowed"], "false")
 
+    def test_perek_3_limited_readiness_report_exists_and_explains_three_item_lane(self):
+        text = validator.P3_LIMITED_READINESS.read_text(encoding="utf-8")
+        self.assertIn("Internal-only limited post-preview iteration readiness", text)
+        self.assertIn("Why only 3 items", text)
+        self.assertIn("No runtime activation", text)
+        self.assertIn("No reviewed-bank promotion", text)
+        self.assertIn("No student-facing content creation", text)
+        self.assertIn("No protected-preview packet creation", text)
+        for candidate_id in validator.EXPECTED_P3_LIMITED_READINESS:
+            self.assertIn(candidate_id, text)
+        self.assertIn("g2ppcand_p3_004", text)
+        self.assertIn("blocked from broader use", text)
+        self.assertIn("not rejected, not revised, not promoted", text)
+
+    def test_perek_3_limited_readiness_tsv_has_exact_three_clean_items(self):
+        fields, rows = validator.load_tsv(validator.P3_LIMITED_READINESS_TSV)
+        self.assertEqual(fields, validator.LIMITED_READINESS_COLUMNS)
+        self.assertEqual(len(rows), 3)
+        self.assertEqual({row["candidate_id"] for row in rows}, validator.EXPECTED_P3_LIMITED_READINESS)
+        self.assertNotIn("g2ppcand_p3_004", {row["candidate_id"] for row in rows})
+        for row in rows:
+            self.assertEqual(row["applied_review_decision"], "approve_for_limited_post_preview_iteration")
+            self.assertEqual(row["limited_iteration_ready"], "true")
+            self.assertEqual(row["post_iteration_decision"], "")
+            for gate in validator.LIMITED_READINESS_GATE_COLUMNS:
+                self.assertEqual(row[gate], "false")
+
+    def test_perek_3_blocked_register_contains_only_item_004(self):
+        text = validator.P3_BLOCKED_REGISTER.read_text(encoding="utf-8")
+        self.assertIn("Blocked from broader use register", text)
+        self.assertIn("g2ppcand_p3_004", text)
+        self.assertIn("repetition/session-balance", text)
+        self.assertIn("broader_use_blocked=true", text)
+        self.assertIn("This item is not rejected.", text)
+        self.assertIn("This item is not revised by this task.", text)
+        self.assertIn("This item is not approved for broader use.", text)
+        fields, rows = validator.load_tsv(validator.P3_BLOCKED_REGISTER_TSV)
+        self.assertEqual(fields, validator.BLOCKED_REGISTER_COLUMNS)
+        self.assertEqual(len(rows), 1)
+        row = rows[0]
+        self.assertEqual(row["packet_item_id"], "g2ppacket_p3_002")
+        self.assertEqual(row["candidate_id"], "g2ppcand_p3_004")
+        self.assertEqual(row["current_decision"], "approve_with_revision")
+        self.assertIn("repetition/session-balance", row["block_reason"])
+        self.assertEqual(row["related_duplicate_item"], "g2ppcand_p3_003")
+        self.assertEqual(row["broader_use_blocked"], "true")
+        self.assertEqual(row["runtime_allowed"], "false")
+        self.assertEqual(row["reviewed_bank_allowed"], "false")
+        self.assertEqual(row["student_facing_allowed"], "false")
+
+    def test_perek_3_observation_template_has_three_active_items_and_blank_fields(self):
+        text = validator.P3_OBSERVATION_TEMPLATE.read_text(encoding="utf-8")
+        self.assertIn("Limited post-preview observation template", text)
+        for candidate_id in validator.EXPECTED_P3_LIMITED_READINESS:
+            self.assertIn(candidate_id, text)
+        self.assertNotIn("### g2ppacket_p3_002 / g2ppcand_p3_004", text)
+        fields, rows = validator.load_tsv(validator.P3_OBSERVATION_TEMPLATE_TSV)
+        self.assertEqual(fields, validator.OBSERVATION_TEMPLATE_COLUMNS)
+        self.assertEqual(len(rows), 3)
+        self.assertEqual({row["candidate_id"] for row in rows}, validator.EXPECTED_P3_LIMITED_READINESS)
+        self.assertNotIn("g2ppcand_p3_004", {row["candidate_id"] for row in rows})
+        for row in rows:
+            for field in validator.OBSERVATION_BLANK_COLUMNS:
+                self.assertEqual(row[field], "")
+
     def test_perek_3_status_index_says_packet_exists_and_gates_closed(self):
         text = validator.P3_STATUS_INDEX.read_text(encoding="utf-8")
         self.assertIn("historical pre-decision artifact", text)
@@ -211,6 +282,9 @@ class Gate2ProtectedPreviewPacketTests(unittest.TestCase):
         self.assertIn("g2ppcand_p3_004", text)
         self.assertIn("repetition/session-balance", text)
         self.assertIn("planning-only revision plan", text)
+        self.assertIn("three-item limited post-preview iteration readiness lane exists", text)
+        self.assertIn("blocked broader-use register keeps `g2ppcand_p3_004` out of the limited readiness lane", text)
+        self.assertIn("Future observation decisions must be recorded in a later explicit task", text)
         self.assertIn("No Perek 3 runtime activation", text)
         self.assertIn("No reviewed-bank promotion", text)
         self.assertIn("No student-facing content", text)

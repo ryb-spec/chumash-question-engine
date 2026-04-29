@@ -27,6 +27,12 @@ P3_REVIEW_DECISIONS_APPLIED = REPORTS / "bereishis_perek_3_internal_protected_pr
 P3_REVIEW_DECISIONS_APPLIED_TSV = REPORTS / "bereishis_perek_3_internal_protected_preview_review_decisions_applied.tsv"
 P3_ITEM_004_REVISION_PLAN = REPORTS / "bereishis_perek_3_item_004_revision_plan.md"
 P3_ITEM_004_REVISION_PLAN_TSV = REPORTS / "bereishis_perek_3_item_004_revision_plan.tsv"
+P3_LIMITED_READINESS = REPORTS / "bereishis_perek_3_limited_post_preview_iteration_readiness.md"
+P3_LIMITED_READINESS_TSV = REPORTS / "bereishis_perek_3_limited_post_preview_iteration_readiness.tsv"
+P3_BLOCKED_REGISTER = REPORTS / "bereishis_perek_3_blocked_from_broader_use_register.md"
+P3_BLOCKED_REGISTER_TSV = REPORTS / "bereishis_perek_3_blocked_from_broader_use_register.tsv"
+P3_OBSERVATION_TEMPLATE = REPORTS / "bereishis_perek_3_limited_post_preview_observation_template.md"
+P3_OBSERVATION_TEMPLATE_TSV = REPORTS / "bereishis_perek_3_limited_post_preview_observation_template.tsv"
 P3_CAND = ROOT / "data" / "gate_2_protected_preview_candidates" / "bereishis_perek_3_protected_preview_candidates.tsv"
 P3_STATUS_INDEX = (
     ROOT
@@ -126,6 +132,12 @@ EXPECTED_P3_INTERNAL_REVIEW_COUNTS = {
     "reject_for_broader_use": 0,
     "source_only": 0,
 }
+EXPECTED_P3_LIMITED_READINESS = {
+    "g2ppcand_p3_003",
+    "g2ppcand_p3_007",
+    "g2ppcand_p3_008",
+}
+P3_BLOCKED_FROM_BROADER_USE = {"g2ppcand_p3_004"}
 REVISION_PLAN_COLUMNS = [
     "packet_item_id",
     "candidate_id",
@@ -139,6 +151,77 @@ REVISION_PLAN_COLUMNS = [
     "reviewed_bank_allowed",
     "student_facing_allowed",
     "future_acceptance_criteria",
+]
+LIMITED_READINESS_COLUMNS = [
+    "packet_item_id",
+    "candidate_id",
+    "ref",
+    "hebrew_token",
+    "hebrew_phrase",
+    "skill_family",
+    "applied_review_decision",
+    "limited_iteration_ready",
+    "readiness_reason",
+    "runtime_allowed",
+    "reviewed_bank_allowed",
+    "student_facing_allowed",
+    "broader_use_allowed",
+    "reviewed_bank_promotion_allowed",
+    "runtime_activation_allowed",
+    "next_review_focus",
+    "post_iteration_decision",
+]
+LIMITED_READINESS_GATE_COLUMNS = [
+    "runtime_allowed",
+    "reviewed_bank_allowed",
+    "student_facing_allowed",
+    "broader_use_allowed",
+    "reviewed_bank_promotion_allowed",
+    "runtime_activation_allowed",
+]
+BLOCKED_REGISTER_COLUMNS = [
+    "packet_item_id",
+    "candidate_id",
+    "ref",
+    "hebrew_token",
+    "current_decision",
+    "block_reason",
+    "related_duplicate_item",
+    "broader_use_blocked",
+    "runtime_allowed",
+    "reviewed_bank_allowed",
+    "student_facing_allowed",
+    "future_resolution_required",
+]
+OBSERVATION_TEMPLATE_COLUMNS = [
+    "packet_item_id",
+    "candidate_id",
+    "ref",
+    "hebrew_token",
+    "reviewer_name",
+    "review_date",
+    "observed_student_confusion",
+    "prompt_clarity_rating",
+    "distractor_fairness_rating",
+    "explanation_accuracy_rating",
+    "too_easy_too_hard",
+    "repetition_or_fatigue_note",
+    "source_confidence",
+    "recommended_next_decision",
+    "notes",
+]
+OBSERVATION_BLANK_COLUMNS = [
+    "reviewer_name",
+    "review_date",
+    "observed_student_confusion",
+    "prompt_clarity_rating",
+    "distractor_fairness_rating",
+    "explanation_accuracy_rating",
+    "too_easy_too_hard",
+    "repetition_or_fatigue_note",
+    "source_confidence",
+    "recommended_next_decision",
+    "notes",
 ]
 
 
@@ -292,6 +375,12 @@ def validate_gate_2_protected_preview_packet() -> dict[str, object]:
         P3_REVIEW_DECISIONS_APPLIED_TSV,
         P3_ITEM_004_REVISION_PLAN,
         P3_ITEM_004_REVISION_PLAN_TSV,
+        P3_LIMITED_READINESS,
+        P3_LIMITED_READINESS_TSV,
+        P3_BLOCKED_REGISTER,
+        P3_BLOCKED_REGISTER_TSV,
+        P3_OBSERVATION_TEMPLATE,
+        P3_OBSERVATION_TEMPLATE_TSV,
         P3_CAND,
         P3_STATUS_INDEX,
     )
@@ -368,6 +457,12 @@ def validate_gate_2_protected_preview_packet() -> dict[str, object]:
         P3_REVIEW_DECISIONS_APPLIED_TSV,
         P3_ITEM_004_REVISION_PLAN,
         P3_ITEM_004_REVISION_PLAN_TSV,
+        P3_LIMITED_READINESS,
+        P3_LIMITED_READINESS_TSV,
+        P3_BLOCKED_REGISTER,
+        P3_BLOCKED_REGISTER_TSV,
+        P3_OBSERVATION_TEMPLATE,
+        P3_OBSERVATION_TEMPLATE_TSV,
     ):
         if rel(path) not in readme:
             errors.append(f"README must link {rel(path)}")
@@ -381,6 +476,9 @@ def validate_gate_2_protected_preview_packet() -> dict[str, object]:
             P3_REVIEW_CHECKLIST,
             P3_REVIEW_DECISIONS_APPLIED,
             P3_ITEM_004_REVISION_PLAN,
+            P3_LIMITED_READINESS,
+            P3_BLOCKED_REGISTER,
+            P3_OBSERVATION_TEMPLATE,
         )
     )
     for candidate_id in sorted(EXPECTED_P3_APPROVED):
@@ -400,6 +498,11 @@ def validate_gate_2_protected_preview_packet() -> dict[str, object]:
         "repetition/session-balance",
         "planning artifact only",
         "broader use blocked",
+        "limited post-preview iteration readiness",
+        "A three-item limited post-preview iteration readiness lane exists",
+        "A blocked broader-use register keeps `g2ppcand_p3_004` out of the limited readiness lane",
+        "Future observation decisions must be recorded in a later explicit task",
+        "No protected-preview packet creation",
     ):
         if phrase not in p3_text:
             errors.append(f"Perek 3 packet/status required phrase missing: {phrase}")
@@ -500,6 +603,128 @@ def validate_gate_2_protected_preview_packet() -> dict[str, object]:
                 errors.append(f"Perek 3 item 004 revision plan TSV {gate} must be false")
         if "repetition/session-balance" not in row.get("revision_issue", ""):
             errors.append("Perek 3 item 004 revision plan TSV must mention repetition/session-balance")
+
+    readiness_text = P3_LIMITED_READINESS.read_text(encoding="utf-8")
+    for phrase in (
+        "Internal-only limited post-preview iteration readiness",
+        "This is not runtime content.",
+        "This is not reviewed-bank content.",
+        "This is not student-facing content.",
+        "This does not revise item content.",
+        "This does not apply new review decisions.",
+        "This does not create a new protected-preview packet.",
+        "blocked from broader use",
+        "Why only 3 items",
+        "No runtime activation",
+        "No reviewed-bank promotion",
+        "No protected-preview packet creation",
+        "No student-facing content creation",
+    ):
+        if phrase not in readiness_text:
+            errors.append(f"Perek 3 limited readiness report missing phrase: {phrase}")
+    for candidate_id in EXPECTED_P3_LIMITED_READINESS:
+        if candidate_id not in readiness_text:
+            errors.append(f"Perek 3 limited readiness report missing included candidate: {candidate_id}")
+    if "g2ppcand_p3_004" not in readiness_text or "not rejected, not revised, not promoted" not in readiness_text:
+        errors.append("Perek 3 limited readiness report must name item 004 as blocked but not rejected/revised/promoted")
+
+    readiness_fields, readiness_rows = load_tsv(P3_LIMITED_READINESS_TSV)
+    if readiness_fields != LIMITED_READINESS_COLUMNS:
+        errors.append("Perek 3 limited readiness TSV columns do not match required schema")
+    if len(readiness_rows) != 3:
+        errors.append(f"Perek 3 limited readiness TSV must have exactly 3 rows, found {len(readiness_rows)}")
+    readiness_ids = {row.get("candidate_id", "") for row in readiness_rows}
+    if readiness_ids != EXPECTED_P3_LIMITED_READINESS:
+        errors.append("Perek 3 limited readiness TSV candidate IDs must exactly match the three clean items")
+    if readiness_ids.intersection(P3_BLOCKED_FROM_BROADER_USE):
+        errors.append("Perek 3 blocked item appears in limited readiness TSV")
+    for row in readiness_rows:
+        rid = row.get("packet_item_id", "?")
+        if row.get("applied_review_decision") != "approve_for_limited_post_preview_iteration":
+            errors.append(f"{rid}: limited readiness row must preserve approve_for_limited_post_preview_iteration")
+        if row.get("limited_iteration_ready") != "true":
+            errors.append(f"{rid}: limited_iteration_ready must be true")
+        if row.get("post_iteration_decision"):
+            errors.append(f"{rid}: post_iteration_decision must remain blank")
+        for gate in LIMITED_READINESS_GATE_COLUMNS:
+            if row.get(gate) != "false":
+                errors.append(f"{rid}: limited readiness TSV {gate} must be false")
+
+    blocked_text = P3_BLOCKED_REGISTER.read_text(encoding="utf-8")
+    for phrase in (
+        "Blocked from broader use register",
+        "g2ppcand_p3_004",
+        "g2ppacket_p3_002",
+        "repetition/session-balance",
+        "broader_use_blocked=true",
+        "This item is not rejected.",
+        "This item is not revised by this task.",
+        "This item is not approved for broader use.",
+        "This item remains internal evidence only.",
+        "No runtime activation",
+        "No reviewed-bank promotion",
+        "No student-facing content creation",
+    ):
+        if phrase not in blocked_text:
+            errors.append(f"Perek 3 blocked register missing phrase: {phrase}")
+
+    blocked_fields, blocked_rows = load_tsv(P3_BLOCKED_REGISTER_TSV)
+    if blocked_fields != BLOCKED_REGISTER_COLUMNS:
+        errors.append("Perek 3 blocked register TSV columns do not match required schema")
+    if len(blocked_rows) != 1:
+        errors.append(f"Perek 3 blocked register TSV must have exactly 1 row, found {len(blocked_rows)}")
+    if blocked_rows:
+        row = blocked_rows[0]
+        if row.get("candidate_id") != "g2ppcand_p3_004" or row.get("packet_item_id") != "g2ppacket_p3_002":
+            errors.append("Perek 3 blocked register TSV must target g2ppcand_p3_004 / g2ppacket_p3_002 only")
+        if row.get("current_decision") != "approve_with_revision":
+            errors.append("Perek 3 blocked register TSV must preserve approve_with_revision")
+        if row.get("related_duplicate_item") != "g2ppcand_p3_003":
+            errors.append("Perek 3 blocked register TSV must identify g2ppcand_p3_003 as duplicate item")
+        if row.get("broader_use_blocked") != "true":
+            errors.append("Perek 3 blocked register TSV must keep broader_use_blocked=true")
+        if "repetition/session-balance" not in row.get("block_reason", ""):
+            errors.append("Perek 3 blocked register TSV must mention repetition/session-balance")
+        for gate in GATES:
+            if row.get(gate) != "false":
+                errors.append(f"Perek 3 blocked register TSV {gate} must be false")
+
+    observation_text = P3_OBSERVATION_TEMPLATE.read_text(encoding="utf-8")
+    for phrase in (
+        "Limited post-preview observation template",
+        "Observation fields are blank",
+        "keep_limited_iteration",
+        "revise_before_next_iteration",
+        "needs_follow_up",
+        "reject_for_broader_use",
+        "candidate_for_future_reviewed_bank_consideration",
+        "No runtime activation",
+        "No reviewed-bank promotion",
+        "No student-facing content creation",
+    ):
+        if phrase not in observation_text:
+            errors.append(f"Perek 3 observation template missing phrase: {phrase}")
+    for candidate_id in EXPECTED_P3_LIMITED_READINESS:
+        if candidate_id not in observation_text:
+            errors.append(f"Perek 3 observation template missing active candidate: {candidate_id}")
+    if "### g2ppacket_p3_002 / g2ppcand_p3_004" in observation_text:
+        errors.append("Perek 3 blocked item appears as an active observation card")
+
+    observation_fields, observation_rows = load_tsv(P3_OBSERVATION_TEMPLATE_TSV)
+    if observation_fields != OBSERVATION_TEMPLATE_COLUMNS:
+        errors.append("Perek 3 observation template TSV columns do not match required schema")
+    if len(observation_rows) != 3:
+        errors.append(f"Perek 3 observation template TSV must have exactly 3 rows, found {len(observation_rows)}")
+    observation_ids = {row.get("candidate_id", "") for row in observation_rows}
+    if observation_ids != EXPECTED_P3_LIMITED_READINESS:
+        errors.append("Perek 3 observation template TSV candidate IDs must exactly match the three clean items")
+    if observation_ids.intersection(P3_BLOCKED_FROM_BROADER_USE):
+        errors.append("Perek 3 blocked item appears in observation template TSV")
+    for row in observation_rows:
+        rid = row.get("packet_item_id", "?")
+        for field in OBSERVATION_BLANK_COLUMNS:
+            if row.get(field):
+                errors.append(f"{rid}: observation template field must be blank: {field}")
 
     return {
         "valid": not errors,
