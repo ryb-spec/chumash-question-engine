@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "branch_name": "feature/perek-3-short-repilot-results-and-perek-4-ready-gate",
+  "pilot_date": "2026-04-29",
+  "evidence_sources": [
+    "data/attempt_log.jsonl",
+    "data/pilot/pilot_session_events.jsonl",
+    "data/pipeline_rounds/perek_3_short_repilot_scope_2026_04_29.md",
+    "data/pipeline_rounds/perek_3_short_repilot_manual_checklist_2026_04_29.md",
+    "data/pipeline_rounds/perek_3_short_repilot_enforcement_plan_2026_04_29.md"
+  ],
+  "raw_logs_used": true,
+  "raw_logs_manually_modified": false,
+  "mode": "Learn Mode",
+  "primary_session_id": "pilot-20260429T190709Z-c9d9987e",
+  "additional_session_ids_reviewed": [
+    "pilot-20260429T190951Z-d1910a27"
+  ],
+  "active_scope_observed": "local_parsed_bereishis_1_1_to_3_24",
+  "trusted_active_scope_observed": true,
+  "answered_attempts_reviewed": 8,
+  "correct_answered_attempts_reviewed": 8,
+  "all_answered_attempts_correct": true,
+  "perek_4_content_served": false,
+  "ashis_shis_beginner_shoresh_served": false,
+  "unverified_phrase_translation_served": true,
+  "excluded_content_scope_leak_count": 2,
+  "old_prefix_prompt_served": true,
+  "wording_regression_event_count": 1,
+  "ready_for_clean_short_repilot_closure": false,
+  "ready_for_full_perek_3_closure": false,
+  "ready_for_runtime_expansion": false,
+  "ready_for_reviewed_bank_promotion": false,
+  "perek_4_activated": false,
+  "perek_4_runtime_activation_allowed": false,
+  "perek_4_reviewed_bank_promotion_allowed": false,
+  "perek_4_teacher_review_packet_ready_from_this_evidence": false,
+  "runtime_scope_widened": false,
+  "question_generation_changed": false,
+  "reviewed_bank_promoted": false,
+  "source_truth_changed": false,
+  "fake_data_created": false,
+  "findings": [
+    {
+      "finding_id": "p3_short_repilot_pos_001",
+      "type": "positive_evidence",
+      "question_family": "prefix_level_1_identify_prefix_letter",
+      "example": "In בְּיוֹם, which beginning letter is the prefix?",
+      "result": "answered_correctly",
+      "counts_for_clean_scope": true
+    },
+    {
+      "finding_id": "p3_short_repilot_pos_002",
+      "type": "positive_evidence",
+      "question_family": "verb_tense",
+      "example": "What tense or verb form is this word?",
+      "result": "answered_correctly",
+      "counts_for_clean_scope": true
+    },
+    {
+      "finding_id": "p3_short_repilot_leak_001",
+      "type": "scope_leak",
+      "question_family": "phrase_translation",
+      "example": "בְּעֶצֶב תֵּלְדִי בָנִים",
+      "pasuk_ref": "Bereishis 3:16",
+      "result": "answered_correctly_but_excluded_from_clean_scope",
+      "counts_for_clean_scope": false
+    },
+    {
+      "finding_id": "p3_short_repilot_leak_002",
+      "type": "scope_leak",
+      "question_family": "phrase_translation",
+      "example": "וְאֵיבָה אָשִׁית",
+      "pasuk_ref": "Bereishis 3:15",
+      "result": "answered_correctly_but_excluded_from_clean_scope",
+      "counts_for_clean_scope": false
+    },
+    {
+      "finding_id": "p3_short_repilot_wording_001",
+      "type": "wording_regression",
+      "question_family": "prefix_level_1_identify_prefix_letter",
+      "example": "What is the prefix in בְּאִשְׁתּוֹ?",
+      "result": "served_not_answered_in_attempt_diff",
+      "counts_for_clean_scope": false
+    }
+  ],
+  "recommended_next_step": "Repair or filter the remaining short re-pilot scope leaks, especially unverified phrase_translation serving and the active reviewed-bank old prefix prompt, then rerun a cleaner short Perek 3 re-pilot."
+}

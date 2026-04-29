@@ -176,3 +176,15 @@ Status: `דֶּרֶךְ` and `אֲרוּרָה` translation distractor sets were
 - Test: `../../tests/test_perek_3_yossi_language_decisions.py`
 
 Status: Yossi decided `אָשִׁית` / `שית` is not beginner-ready for the short Perek 3 re-pilot, and phrase_translation distractors must test the whole phrase. The short re-pilot is ready only with those unresolved lanes excluded; full closure, runtime expansion, reviewed-bank/runtime promotion, and Perek 4 activation remain blocked.
+
+## Perek 3 short re-pilot results and Perek 4 ready gate
+
+- Short re-pilot results: `perek_3_short_repilot_results_2026_04_29.md`
+- Short re-pilot results JSON: `perek_3_short_repilot_results_2026_04_29.json`
+- Scope leak report: `perek_3_short_repilot_scope_leak_report_2026_04_29.md`
+- Perek 3 to Perek 4 ready gate: `perek_3_short_repilot_to_perek_4_ready_gate_2026_04_29.md`
+- Perek 3 to Perek 4 ready gate JSON: `perek_3_short_repilot_to_perek_4_ready_gate_2026_04_29.json`
+- Validator: `../../scripts/validate_perek_3_short_repilot_results.py`
+- Test: `../../tests/test_perek_3_short_repilot_results.py`
+
+Status: raw short re-pilot logs produced useful evidence for revised tense/form wording and one revised prefix prompt, but manual-only scope control leaked excluded phrase_translation items and a later served event still used the old prefix wording. Perek 3 is not fully closed, runtime expansion remains blocked, and Perek 4 review-packet work should wait for Yossi's scope-leak decision.
