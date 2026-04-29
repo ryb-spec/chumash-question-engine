@@ -16,6 +16,7 @@ Perek 3 protected-preview candidate decisions have been applied. The applied-dec
 - Limited post-preview readiness lane: `data/gate_2_protected_preview_packets/reports/bereishis_perek_3_limited_post_preview_iteration_readiness.md`
 - Blocked broader-use register: `data/gate_2_protected_preview_packets/reports/bereishis_perek_3_blocked_from_broader_use_register.md`
 - Limited post-preview observation template: `data/gate_2_protected_preview_packets/reports/bereishis_perek_3_limited_post_preview_observation_template.md`
+- Limited post-preview reviewer handoff: `data/gate_2_protected_preview_packets/reports/bereishis_perek_3_limited_post_preview_reviewer_handoff.md`
 - Status index: `data/gate_2_protected_preview_candidates/reports/bereishis_perek_3_candidate_status_index.md`
 
 ## Decision counts
@@ -46,6 +47,7 @@ Revision items are not included in the internal packet. Follow-up items are not 
 - A planning-only revision plan exists for `g2ppcand_p3_004`; it does not revise item content or apply a new decision.
 - A three-item limited post-preview iteration readiness lane exists for `g2ppcand_p3_003`, `g2ppcand_p3_007`, and `g2ppcand_p3_008` only.
 - A blocked broader-use register keeps `g2ppcand_p3_004` out of the limited readiness lane.
+- A limited post-preview reviewer handoff exists for the three clean readiness-lane items only.
 - Future observation decisions must be recorded in a later explicit task.
 - No approve-with-revision rows were included.
 - No needs-follow-up rows were included.

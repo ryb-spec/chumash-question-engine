@@ -26,6 +26,7 @@ It does not activate runtime content, promote reviewed-bank data, approve protec
 - Perek 3 limited post-preview iteration readiness: `data/gate_2_protected_preview_packets/reports/bereishis_perek_3_limited_post_preview_iteration_readiness.md`
 - Perek 3 blocked broader-use register: `data/gate_2_protected_preview_packets/reports/bereishis_perek_3_blocked_from_broader_use_register.md`
 - Perek 3 limited post-preview observation template: `data/gate_2_protected_preview_packets/reports/bereishis_perek_3_limited_post_preview_observation_template.md`
+- Perek 3 limited post-preview reviewer handoff: `data/gate_2_protected_preview_packets/reports/bereishis_perek_3_limited_post_preview_reviewer_handoff.md`
 - Source audit report: `data/curriculum_extraction/reports/audits/AUDIT_OVERNIGHT_CURRICULUM_QUALITY_REVIEW.md`
 
 ## Use guidance
