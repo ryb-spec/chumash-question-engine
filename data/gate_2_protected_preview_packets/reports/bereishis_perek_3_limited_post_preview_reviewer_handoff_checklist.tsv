@@ -1,0 +1,4 @@
+packet_item_id	candidate_id	ref	hebrew_token	reviewer_seen	prompt_clear	answer_choices_fair	explanation_accurate	noun_recognition_only	too_easy_or_confusing	recommended_next_decision	notes
+g2ppacket_p3_001	g2ppcand_p3_003	Bereishis 3:1	עֵץ								
+g2ppacket_p3_003	g2ppcand_p3_007	Bereishis 3:7	עֲלֵה								
+g2ppacket_p3_004	g2ppcand_p3_008	Bereishis 3:7	תְאֵנָה								

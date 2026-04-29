@@ -33,6 +33,8 @@ P3_BLOCKED_REGISTER = REPORTS / "bereishis_perek_3_blocked_from_broader_use_regi
 P3_BLOCKED_REGISTER_TSV = REPORTS / "bereishis_perek_3_blocked_from_broader_use_register.tsv"
 P3_OBSERVATION_TEMPLATE = REPORTS / "bereishis_perek_3_limited_post_preview_observation_template.md"
 P3_OBSERVATION_TEMPLATE_TSV = REPORTS / "bereishis_perek_3_limited_post_preview_observation_template.tsv"
+P3_REVIEWER_HANDOFF = REPORTS / "bereishis_perek_3_limited_post_preview_reviewer_handoff.md"
+P3_REVIEWER_HANDOFF_TSV = REPORTS / "bereishis_perek_3_limited_post_preview_reviewer_handoff_checklist.tsv"
 P3_CAND = ROOT / "data" / "gate_2_protected_preview_candidates" / "bereishis_perek_3_protected_preview_candidates.tsv"
 P3_STATUS_INDEX = (
     ROOT
@@ -223,6 +225,30 @@ OBSERVATION_BLANK_COLUMNS = [
     "recommended_next_decision",
     "notes",
 ]
+REVIEWER_HANDOFF_COLUMNS = [
+    "packet_item_id",
+    "candidate_id",
+    "ref",
+    "hebrew_token",
+    "reviewer_seen",
+    "prompt_clear",
+    "answer_choices_fair",
+    "explanation_accurate",
+    "noun_recognition_only",
+    "too_easy_or_confusing",
+    "recommended_next_decision",
+    "notes",
+]
+REVIEWER_HANDOFF_BLANK_COLUMNS = [
+    "reviewer_seen",
+    "prompt_clear",
+    "answer_choices_fair",
+    "explanation_accurate",
+    "noun_recognition_only",
+    "too_easy_or_confusing",
+    "recommended_next_decision",
+    "notes",
+]
 
 
 def rel(path: Path) -> str:
@@ -381,6 +407,8 @@ def validate_gate_2_protected_preview_packet() -> dict[str, object]:
         P3_BLOCKED_REGISTER_TSV,
         P3_OBSERVATION_TEMPLATE,
         P3_OBSERVATION_TEMPLATE_TSV,
+        P3_REVIEWER_HANDOFF,
+        P3_REVIEWER_HANDOFF_TSV,
         P3_CAND,
         P3_STATUS_INDEX,
     )
@@ -463,6 +491,8 @@ def validate_gate_2_protected_preview_packet() -> dict[str, object]:
         P3_BLOCKED_REGISTER_TSV,
         P3_OBSERVATION_TEMPLATE,
         P3_OBSERVATION_TEMPLATE_TSV,
+        P3_REVIEWER_HANDOFF,
+        P3_REVIEWER_HANDOFF_TSV,
     ):
         if rel(path) not in readme:
             errors.append(f"README must link {rel(path)}")
@@ -479,6 +509,7 @@ def validate_gate_2_protected_preview_packet() -> dict[str, object]:
             P3_LIMITED_READINESS,
             P3_BLOCKED_REGISTER,
             P3_OBSERVATION_TEMPLATE,
+            P3_REVIEWER_HANDOFF,
         )
     )
     for candidate_id in sorted(EXPECTED_P3_APPROVED):
@@ -502,6 +533,7 @@ def validate_gate_2_protected_preview_packet() -> dict[str, object]:
         "A three-item limited post-preview iteration readiness lane exists",
         "A blocked broader-use register keeps `g2ppcand_p3_004` out of the limited readiness lane",
         "Future observation decisions must be recorded in a later explicit task",
+        "limited post-preview reviewer handoff",
         "No protected-preview packet creation",
     ):
         if phrase not in p3_text:
@@ -725,6 +757,51 @@ def validate_gate_2_protected_preview_packet() -> dict[str, object]:
         for field in OBSERVATION_BLANK_COLUMNS:
             if row.get(field):
                 errors.append(f"{rid}: observation template field must be blank: {field}")
+
+    handoff_text = P3_REVIEWER_HANDOFF.read_text(encoding="utf-8")
+    for phrase in (
+        "limited post-preview reviewer handoff",
+        "Internal reviewer handoff only.",
+        "Not runtime.",
+        "Not reviewed bank.",
+        "Not student-facing.",
+        "Does not apply decisions.",
+        "Does not revise items.",
+        "Does not activate or promote content.",
+        "Reviewer instructions",
+        "Observation fields must remain blank until real observations are recorded.",
+        "These decisions are not applied by this handoff packet.",
+        "g2ppcand_p3_004",
+        "blocked and should not be used in this limited review lane",
+        "It is not rejected.",
+        "It is not revised.",
+        "No runtime activation",
+        "No reviewed-bank promotion",
+        "No student-facing content creation",
+    ):
+        if phrase not in handoff_text:
+            errors.append(f"Perek 3 reviewer handoff missing phrase: {phrase}")
+    for candidate_id in EXPECTED_P3_LIMITED_READINESS:
+        if candidate_id not in handoff_text:
+            errors.append(f"Perek 3 reviewer handoff missing active candidate: {candidate_id}")
+    if "### g2ppacket_p3_002 / g2ppcand_p3_004" in handoff_text:
+        errors.append("Perek 3 blocked item appears as an active reviewer handoff card")
+
+    handoff_fields, handoff_rows = load_tsv(P3_REVIEWER_HANDOFF_TSV)
+    if handoff_fields != REVIEWER_HANDOFF_COLUMNS:
+        errors.append("Perek 3 reviewer handoff checklist TSV columns do not match required schema")
+    if len(handoff_rows) != 3:
+        errors.append(f"Perek 3 reviewer handoff checklist TSV must have exactly 3 rows, found {len(handoff_rows)}")
+    handoff_ids = {row.get("candidate_id", "") for row in handoff_rows}
+    if handoff_ids != EXPECTED_P3_LIMITED_READINESS:
+        errors.append("Perek 3 reviewer handoff checklist TSV candidate IDs must exactly match the three clean items")
+    if handoff_ids.intersection(P3_BLOCKED_FROM_BROADER_USE):
+        errors.append("Perek 3 blocked item appears in reviewer handoff checklist TSV")
+    for row in handoff_rows:
+        rid = row.get("packet_item_id", "?")
+        for field in REVIEWER_HANDOFF_BLANK_COLUMNS:
+            if row.get(field):
+                errors.append(f"{rid}: reviewer handoff checklist field must be blank: {field}")
 
     return {
         "valid": not errors,

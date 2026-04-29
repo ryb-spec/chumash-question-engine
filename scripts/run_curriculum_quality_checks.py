@@ -417,6 +417,9 @@ def build_perek3_status() -> dict[str, Any]:
     observation_template_path = repo_path(
         "data/gate_2_protected_preview_packets/reports/bereishis_perek_3_limited_post_preview_observation_template.md"
     )
+    reviewer_handoff_path = repo_path(
+        "data/gate_2_protected_preview_packets/reports/bereishis_perek_3_limited_post_preview_reviewer_handoff.md"
+    )
     return {
         "candidate_tsv": repo_relative(candidates_path.relative_to(ROOT)),
         "historical_review_packet": "data/gate_2_protected_preview_candidates/reports/bereishis_perek_3_protected_preview_candidate_review_packet.md",
@@ -429,6 +432,7 @@ def build_perek3_status() -> dict[str, Any]:
         "limited_post_preview_readiness": repo_relative(readiness_path.relative_to(ROOT)),
         "blocked_broader_use_register": repo_relative(blocked_register_path.relative_to(ROOT)),
         "limited_post_preview_observation_template": repo_relative(observation_template_path.relative_to(ROOT)),
+        "limited_post_preview_reviewer_handoff": repo_relative(reviewer_handoff_path.relative_to(ROOT)),
         "decision_counts": {
             "approve_for_internal_protected_preview_packet": decision_counts.get("approve_for_internal_protected_preview_packet", 0),
             "approve_with_revision": decision_counts.get("approve_with_revision", 0),
@@ -462,6 +466,7 @@ def write_perek3_status_index() -> dict[str, Any]:
         f"- Limited post-preview readiness lane: `{data['limited_post_preview_readiness']}`",
         f"- Blocked broader-use register: `{data['blocked_broader_use_register']}`",
         f"- Limited post-preview observation template: `{data['limited_post_preview_observation_template']}`",
+        f"- Limited post-preview reviewer handoff: `{data['limited_post_preview_reviewer_handoff']}`",
         f"- Status index: `{data['status_index']}`",
         "",
         "## Decision counts",
@@ -489,6 +494,7 @@ def write_perek3_status_index() -> dict[str, Any]:
             "- A planning-only revision plan exists for `g2ppcand_p3_004`; it does not revise item content or apply a new decision.",
             "- A three-item limited post-preview iteration readiness lane exists for `g2ppcand_p3_003`, `g2ppcand_p3_007`, and `g2ppcand_p3_008` only.",
             "- A blocked broader-use register keeps `g2ppcand_p3_004` out of the limited readiness lane.",
+            "- A limited post-preview reviewer handoff exists for the three clean readiness-lane items only.",
             "- Future observation decisions must be recorded in a later explicit task.",
             "- No approve-with-revision rows were included.",
             "- No needs-follow-up rows were included.",
@@ -928,6 +934,7 @@ def write_control_index(output_paths: dict[str, str]) -> None:
         "- Perek 3 limited post-preview iteration readiness: `data/gate_2_protected_preview_packets/reports/bereishis_perek_3_limited_post_preview_iteration_readiness.md`",
         "- Perek 3 blocked broader-use register: `data/gate_2_protected_preview_packets/reports/bereishis_perek_3_blocked_from_broader_use_register.md`",
         "- Perek 3 limited post-preview observation template: `data/gate_2_protected_preview_packets/reports/bereishis_perek_3_limited_post_preview_observation_template.md`",
+        "- Perek 3 limited post-preview reviewer handoff: `data/gate_2_protected_preview_packets/reports/bereishis_perek_3_limited_post_preview_reviewer_handoff.md`",
         "- Source audit report: `data/curriculum_extraction/reports/audits/AUDIT_OVERNIGHT_CURRICULUM_QUALITY_REVIEW.md`",
         "",
         "## Use guidance",

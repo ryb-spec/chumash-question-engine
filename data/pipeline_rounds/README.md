@@ -1,4 +1,4 @@
-# Pipeline Rounds
+﻿# Pipeline Rounds
 
 This directory contains reusable pipeline-round planning artifacts.
 
@@ -100,3 +100,12 @@ Status: Yossi candidate decisions applied and still fail-closed. Decision counts
 - Blocked broader-use register: `data/gate_2_protected_preview_packets/reports/bereishis_perek_3_blocked_from_broader_use_register.md`
 - Observation template: `data/gate_2_protected_preview_packets/reports/bereishis_perek_3_limited_post_preview_observation_template.md`
 - Limited readiness status: 3 clean items may be observed internally in a limited iteration lane; `g2ppcand_p3_004` remains blocked from broader use. Future observation decisions require a later explicit task.
+
+## Bereishis Perek 3 limited reviewer handoff
+
+- Reviewer handoff packet: data/gate_2_protected_preview_packets/reports/bereishis_perek_3_limited_post_preview_reviewer_handoff.md
+- Reviewer handoff checklist TSV: data/gate_2_protected_preview_packets/reports/bereishis_perek_3_limited_post_preview_reviewer_handoff_checklist.tsv
+- The handoff covers only g2ppcand_p3_003, g2ppcand_p3_007, and g2ppcand_p3_008.
+- g2ppcand_p3_004 remains blocked from broader use because of repetition/session-balance risk.
+- No runtime activation, reviewed-bank promotion, student-facing content, item revision, or new protected-preview packet is created by this handoff.
+

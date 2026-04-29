@@ -81,6 +81,8 @@ class Gate2ProtectedPreviewPacketTests(unittest.TestCase):
             validator.P3_BLOCKED_REGISTER_TSV,
             validator.P3_OBSERVATION_TEMPLATE,
             validator.P3_OBSERVATION_TEMPLATE_TSV,
+            validator.P3_REVIEWER_HANDOFF,
+            validator.P3_REVIEWER_HANDOFF_TSV,
             validator.P3_STATUS_INDEX,
         ):
             self.assertTrue(path.exists(), path)
@@ -273,6 +275,46 @@ class Gate2ProtectedPreviewPacketTests(unittest.TestCase):
             for field in validator.OBSERVATION_BLANK_COLUMNS:
                 self.assertEqual(row[field], "")
 
+    def test_perek_3_reviewer_handoff_exists_and_covers_three_active_items(self):
+        text = validator.P3_REVIEWER_HANDOFF.read_text(encoding="utf-8")
+        self.assertIn("limited post-preview reviewer handoff", text)
+        self.assertIn("Reviewer instructions", text)
+        self.assertIn("Observation fields must remain blank until real observations are recorded.", text)
+        for candidate_id in validator.EXPECTED_P3_LIMITED_READINESS:
+            self.assertIn(candidate_id, text)
+        self.assertIn("g2ppcand_p3_004", text)
+        self.assertIn("blocked and should not be used in this limited review lane", text)
+        self.assertNotIn("### g2ppacket_p3_002 / g2ppcand_p3_004", text)
+
+    def test_perek_3_reviewer_handoff_safety_boundary_language(self):
+        text = validator.P3_REVIEWER_HANDOFF.read_text(encoding="utf-8")
+        required_phrases = [
+            "Not runtime.",
+            "Not reviewed bank.",
+            "Not student-facing.",
+            "Does not apply decisions.",
+            "Does not revise items.",
+            "Does not activate or promote content.",
+            "No runtime activation",
+            "No Perek 3 runtime activation",
+            "No reviewed-bank promotion",
+            "No protected-preview packet creation",
+            "No student-facing content creation",
+            "No item content revision",
+        ]
+        for phrase in required_phrases:
+            self.assertIn(phrase, text)
+
+    def test_perek_3_reviewer_handoff_checklist_tsv_is_blank_three_item_sheet(self):
+        fields, rows = validator.load_tsv(validator.P3_REVIEWER_HANDOFF_TSV)
+        self.assertEqual(fields, validator.REVIEWER_HANDOFF_COLUMNS)
+        self.assertEqual(len(rows), 3)
+        self.assertEqual({row["candidate_id"] for row in rows}, validator.EXPECTED_P3_LIMITED_READINESS)
+        self.assertNotIn("g2ppcand_p3_004", {row["candidate_id"] for row in rows})
+        for row in rows:
+            for field in validator.REVIEWER_HANDOFF_BLANK_COLUMNS:
+                self.assertEqual(row[field], "")
+
     def test_perek_3_status_index_says_packet_exists_and_gates_closed(self):
         text = validator.P3_STATUS_INDEX.read_text(encoding="utf-8")
         self.assertIn("historical pre-decision artifact", text)
@@ -285,6 +327,7 @@ class Gate2ProtectedPreviewPacketTests(unittest.TestCase):
         self.assertIn("three-item limited post-preview iteration readiness lane exists", text)
         self.assertIn("blocked broader-use register keeps `g2ppcand_p3_004` out of the limited readiness lane", text)
         self.assertIn("Future observation decisions must be recorded in a later explicit task", text)
+        self.assertIn("limited post-preview reviewer handoff", text)
         self.assertIn("No Perek 3 runtime activation", text)
         self.assertIn("No reviewed-bank promotion", text)
         self.assertIn("No student-facing content", text)
