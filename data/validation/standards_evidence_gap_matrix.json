@@ -1,0 +1,472 @@
+{
+  "canonical_status_counts": {
+    "review_only": 8,
+    "runtime_ready": 20
+  },
+  "records": [
+    {
+      "canonical_skill_id": "PARTICLE.DIRECT_OBJECT_MARKER",
+      "diagnostic_preview_evidence_count": 0,
+      "protected_preview_evidence_count": 0,
+      "reviewed_bank_evidence_count": "not_available",
+      "risk_note": "Final teacher-facing standards grouping requires review.",
+      "runtime_skill_ids": [
+        "not_available"
+      ],
+      "source_to_skill_evidence_count": 0,
+      "status": "review_only",
+      "teacher_review_needed": true,
+      "zekelman_mapping_status": [
+        "3.03:review_only",
+        "3.06:review_only"
+      ]
+    },
+    {
+      "canonical_skill_id": "PHRASE.SYNTAX_GROUPING",
+      "diagnostic_preview_evidence_count": 0,
+      "protected_preview_evidence_count": 0,
+      "reviewed_bank_evidence_count": "not_available",
+      "risk_note": "Final teacher-facing standards grouping requires review.",
+      "runtime_skill_ids": [
+        "not_available"
+      ],
+      "source_to_skill_evidence_count": 0,
+      "status": "review_only",
+      "teacher_review_needed": true,
+      "zekelman_mapping_status": [
+        "3.04:review_only",
+        "3.08:review_only"
+      ]
+    },
+    {
+      "canonical_skill_id": "PHRASE.UNIT_TRANSLATE",
+      "diagnostic_preview_evidence_count": 0,
+      "protected_preview_evidence_count": 0,
+      "reviewed_bank_evidence_count": "not_available",
+      "risk_note": "Final teacher-facing standards grouping requires review.",
+      "runtime_skill_ids": [
+        "phrase_translation"
+      ],
+      "source_to_skill_evidence_count": 360,
+      "status": "runtime_ready",
+      "teacher_review_needed": false,
+      "zekelman_mapping_status": [
+        "not_available"
+      ]
+    },
+    {
+      "canonical_skill_id": "PREFIX.BASIC_PREPOSITIONS",
+      "diagnostic_preview_evidence_count": 0,
+      "protected_preview_evidence_count": 0,
+      "reviewed_bank_evidence_count": "not_available",
+      "risk_note": "Final teacher-facing standards grouping requires review.",
+      "runtime_skill_ids": [
+        "identify_prefix_meaning",
+        "preposition_meaning"
+      ],
+      "source_to_skill_evidence_count": 0,
+      "status": "runtime_ready",
+      "teacher_review_needed": true,
+      "zekelman_mapping_status": [
+        "3.03:review_only",
+        "3.06:review_only"
+      ]
+    },
+    {
+      "canonical_skill_id": "PREFIX.FORM_IDENTIFY",
+      "diagnostic_preview_evidence_count": 0,
+      "protected_preview_evidence_count": 0,
+      "reviewed_bank_evidence_count": "not_available",
+      "risk_note": "Final teacher-facing standards grouping requires review.",
+      "runtime_skill_ids": [
+        "prefix"
+      ],
+      "source_to_skill_evidence_count": 0,
+      "status": "runtime_ready",
+      "teacher_review_needed": true,
+      "zekelman_mapping_status": [
+        "3.06:review_only"
+      ]
+    },
+    {
+      "canonical_skill_id": "PREFIX.OTIYOT_EITAN",
+      "diagnostic_preview_evidence_count": 0,
+      "protected_preview_evidence_count": 0,
+      "reviewed_bank_evidence_count": "not_available",
+      "risk_note": "Final teacher-facing standards grouping requires review.",
+      "runtime_skill_ids": [
+        "identify_prefix_future"
+      ],
+      "source_to_skill_evidence_count": 0,
+      "status": "runtime_ready",
+      "teacher_review_needed": true,
+      "zekelman_mapping_status": [
+        "3.07:review_only"
+      ]
+    },
+    {
+      "canonical_skill_id": "PRONOUN.REFERENT_TRACK",
+      "diagnostic_preview_evidence_count": 0,
+      "protected_preview_evidence_count": 0,
+      "reviewed_bank_evidence_count": "not_available",
+      "risk_note": "Final teacher-facing standards grouping requires review.",
+      "runtime_skill_ids": [
+        "not_available"
+      ],
+      "source_to_skill_evidence_count": 0,
+      "status": "review_only",
+      "teacher_review_needed": true,
+      "zekelman_mapping_status": [
+        "3.05:review_only"
+      ]
+    },
+    {
+      "canonical_skill_id": "PRONOUN.SUBJECT_OBJECT_MATCH",
+      "diagnostic_preview_evidence_count": 0,
+      "protected_preview_evidence_count": 0,
+      "reviewed_bank_evidence_count": "not_available",
+      "risk_note": "Final teacher-facing standards grouping requires review.",
+      "runtime_skill_ids": [
+        "match_pronoun_to_verb"
+      ],
+      "source_to_skill_evidence_count": 0,
+      "status": "runtime_ready",
+      "teacher_review_needed": false,
+      "zekelman_mapping_status": [
+        "not_available"
+      ]
+    },
+    {
+      "canonical_skill_id": "READING.NIKUD_PATTERN_ADVANCED",
+      "diagnostic_preview_evidence_count": 0,
+      "protected_preview_evidence_count": 0,
+      "reviewed_bank_evidence_count": "not_available",
+      "risk_note": "Final teacher-facing standards grouping requires review.",
+      "runtime_skill_ids": [
+        "not_available"
+      ],
+      "source_to_skill_evidence_count": 0,
+      "status": "review_only",
+      "teacher_review_needed": true,
+      "zekelman_mapping_status": [
+        "3.10:review_only"
+      ]
+    },
+    {
+      "canonical_skill_id": "ROOT.IDENTIFY",
+      "diagnostic_preview_evidence_count": 0,
+      "protected_preview_evidence_count": 0,
+      "reviewed_bank_evidence_count": "not_available",
+      "risk_note": "Final teacher-facing standards grouping requires review.",
+      "runtime_skill_ids": [
+        "shoresh"
+      ],
+      "source_to_skill_evidence_count": 0,
+      "status": "runtime_ready",
+      "teacher_review_needed": true,
+      "zekelman_mapping_status": [
+        "3.02:review_only"
+      ]
+    },
+    {
+      "canonical_skill_id": "ROOT.IDENTIFY_DROPPED",
+      "diagnostic_preview_evidence_count": 0,
+      "protected_preview_evidence_count": 0,
+      "reviewed_bank_evidence_count": "not_available",
+      "risk_note": "Final teacher-facing standards grouping requires review.",
+      "runtime_skill_ids": [
+        "shoresh"
+      ],
+      "source_to_skill_evidence_count": 0,
+      "status": "runtime_ready",
+      "teacher_review_needed": true,
+      "zekelman_mapping_status": [
+        "3.02:review_only"
+      ]
+    },
+    {
+      "canonical_skill_id": "SUFFIX.FIRST_PERSON",
+      "diagnostic_preview_evidence_count": 0,
+      "protected_preview_evidence_count": 0,
+      "reviewed_bank_evidence_count": "not_available",
+      "risk_note": "Final teacher-facing standards grouping requires review.",
+      "runtime_skill_ids": [
+        "identify_suffix_meaning",
+        "suffix"
+      ],
+      "source_to_skill_evidence_count": 0,
+      "status": "runtime_ready",
+      "teacher_review_needed": false,
+      "zekelman_mapping_status": [
+        "not_available"
+      ]
+    },
+    {
+      "canonical_skill_id": "SUFFIX.KINUY",
+      "diagnostic_preview_evidence_count": 0,
+      "protected_preview_evidence_count": 0,
+      "reviewed_bank_evidence_count": "not_available",
+      "risk_note": "Final teacher-facing standards grouping requires review.",
+      "runtime_skill_ids": [
+        "identify_pronoun_suffix"
+      ],
+      "source_to_skill_evidence_count": 0,
+      "status": "runtime_ready",
+      "teacher_review_needed": true,
+      "zekelman_mapping_status": [
+        "3.05:review_only"
+      ]
+    },
+    {
+      "canonical_skill_id": "SUFFIX.SECOND_PERSON",
+      "diagnostic_preview_evidence_count": 0,
+      "protected_preview_evidence_count": 0,
+      "reviewed_bank_evidence_count": "not_available",
+      "risk_note": "Final teacher-facing standards grouping requires review.",
+      "runtime_skill_ids": [
+        "identify_suffix_meaning",
+        "suffix"
+      ],
+      "source_to_skill_evidence_count": 0,
+      "status": "runtime_ready",
+      "teacher_review_needed": false,
+      "zekelman_mapping_status": [
+        "not_available"
+      ]
+    },
+    {
+      "canonical_skill_id": "SUFFIX.SMICHUT_POSSESSION",
+      "diagnostic_preview_evidence_count": 0,
+      "protected_preview_evidence_count": 0,
+      "reviewed_bank_evidence_count": "not_available",
+      "risk_note": "Final teacher-facing standards grouping requires review.",
+      "runtime_skill_ids": [
+        "not_available"
+      ],
+      "source_to_skill_evidence_count": 0,
+      "status": "review_only",
+      "teacher_review_needed": true,
+      "zekelman_mapping_status": [
+        "3.04:review_only"
+      ]
+    },
+    {
+      "canonical_skill_id": "SUFFIX.THIRD_PERSON",
+      "diagnostic_preview_evidence_count": 0,
+      "protected_preview_evidence_count": 0,
+      "reviewed_bank_evidence_count": "not_available",
+      "risk_note": "Final teacher-facing standards grouping requires review.",
+      "runtime_skill_ids": [
+        "identify_pronoun_suffix",
+        "suffix"
+      ],
+      "source_to_skill_evidence_count": 0,
+      "status": "runtime_ready",
+      "teacher_review_needed": true,
+      "zekelman_mapping_status": [
+        "3.05:review_only"
+      ]
+    },
+    {
+      "canonical_skill_id": "TAAMIM.PASUK_PARSE",
+      "diagnostic_preview_evidence_count": 0,
+      "protected_preview_evidence_count": 0,
+      "reviewed_bank_evidence_count": "not_available",
+      "risk_note": "Final teacher-facing standards grouping requires review.",
+      "runtime_skill_ids": [
+        "not_available"
+      ],
+      "source_to_skill_evidence_count": 0,
+      "status": "review_only",
+      "teacher_review_needed": true,
+      "zekelman_mapping_status": [
+        "3.09:review_only"
+      ]
+    },
+    {
+      "canonical_skill_id": "VERB.COMMAND",
+      "diagnostic_preview_evidence_count": 0,
+      "protected_preview_evidence_count": 0,
+      "reviewed_bank_evidence_count": "not_available",
+      "risk_note": "Final teacher-facing standards grouping requires review.",
+      "runtime_skill_ids": [
+        "convert_future_to_command"
+      ],
+      "source_to_skill_evidence_count": 0,
+      "status": "runtime_ready",
+      "teacher_review_needed": false,
+      "zekelman_mapping_status": [
+        "not_available"
+      ]
+    },
+    {
+      "canonical_skill_id": "VERB.MARKER",
+      "diagnostic_preview_evidence_count": 0,
+      "protected_preview_evidence_count": 0,
+      "reviewed_bank_evidence_count": "not_available",
+      "risk_note": "Final teacher-facing standards grouping requires review.",
+      "runtime_skill_ids": [
+        "identify_verb_marker"
+      ],
+      "source_to_skill_evidence_count": 0,
+      "status": "runtime_ready",
+      "teacher_review_needed": true,
+      "zekelman_mapping_status": [
+        "3.07:review_only"
+      ]
+    },
+    {
+      "canonical_skill_id": "VERB.SUBJECT_OBJECT",
+      "diagnostic_preview_evidence_count": 0,
+      "protected_preview_evidence_count": 0,
+      "reviewed_bank_evidence_count": "not_available",
+      "risk_note": "Final teacher-facing standards grouping requires review.",
+      "runtime_skill_ids": [
+        "object_identification",
+        "subject_identification"
+      ],
+      "source_to_skill_evidence_count": 0,
+      "status": "runtime_ready",
+      "teacher_review_needed": false,
+      "zekelman_mapping_status": [
+        "not_available"
+      ]
+    },
+    {
+      "canonical_skill_id": "VERB.TENSE.FUTURE",
+      "diagnostic_preview_evidence_count": 0,
+      "protected_preview_evidence_count": 0,
+      "reviewed_bank_evidence_count": "not_available",
+      "risk_note": "Final teacher-facing standards grouping requires review.",
+      "runtime_skill_ids": [
+        "identify_prefix_future",
+        "identify_tense",
+        "verb_tense"
+      ],
+      "source_to_skill_evidence_count": 0,
+      "status": "runtime_ready",
+      "teacher_review_needed": true,
+      "zekelman_mapping_status": [
+        "3.07:review_only"
+      ]
+    },
+    {
+      "canonical_skill_id": "VERB.TENSE.PAST",
+      "diagnostic_preview_evidence_count": 0,
+      "protected_preview_evidence_count": 0,
+      "reviewed_bank_evidence_count": "not_available",
+      "risk_note": "Final teacher-facing standards grouping requires review.",
+      "runtime_skill_ids": [
+        "identify_suffix_past",
+        "identify_tense",
+        "verb_tense"
+      ],
+      "source_to_skill_evidence_count": 0,
+      "status": "runtime_ready",
+      "teacher_review_needed": true,
+      "zekelman_mapping_status": [
+        "3.07:review_only"
+      ]
+    },
+    {
+      "canonical_skill_id": "VERB.TENSE.PRESENT",
+      "diagnostic_preview_evidence_count": 0,
+      "protected_preview_evidence_count": 0,
+      "reviewed_bank_evidence_count": "not_available",
+      "risk_note": "Final teacher-facing standards grouping requires review.",
+      "runtime_skill_ids": [
+        "identify_present_pattern",
+        "identify_tense",
+        "verb_tense"
+      ],
+      "source_to_skill_evidence_count": 0,
+      "status": "runtime_ready",
+      "teacher_review_needed": true,
+      "zekelman_mapping_status": [
+        "3.07:review_only"
+      ]
+    },
+    {
+      "canonical_skill_id": "WORD.GENDER_CLASSIFY",
+      "diagnostic_preview_evidence_count": 0,
+      "protected_preview_evidence_count": 0,
+      "reviewed_bank_evidence_count": "not_available",
+      "risk_note": "Final teacher-facing standards grouping requires review.",
+      "runtime_skill_ids": [
+        "not_available"
+      ],
+      "source_to_skill_evidence_count": 0,
+      "status": "review_only",
+      "teacher_review_needed": true,
+      "zekelman_mapping_status": [
+        "3.04:review_only"
+      ]
+    },
+    {
+      "canonical_skill_id": "WORD.MEANING_BASIC",
+      "diagnostic_preview_evidence_count": 0,
+      "protected_preview_evidence_count": 0,
+      "reviewed_bank_evidence_count": "not_available",
+      "risk_note": "Final teacher-facing standards grouping requires review.",
+      "runtime_skill_ids": [
+        "translation"
+      ],
+      "source_to_skill_evidence_count": 0,
+      "status": "runtime_ready",
+      "teacher_review_needed": true,
+      "zekelman_mapping_status": [
+        "3.01:review_only"
+      ]
+    },
+    {
+      "canonical_skill_id": "WORD.NUMBER_CLASSIFY",
+      "diagnostic_preview_evidence_count": 0,
+      "protected_preview_evidence_count": 0,
+      "reviewed_bank_evidence_count": "not_available",
+      "risk_note": "Final teacher-facing standards grouping requires review.",
+      "runtime_skill_ids": [
+        "not_available"
+      ],
+      "source_to_skill_evidence_count": 0,
+      "status": "review_only",
+      "teacher_review_needed": true,
+      "zekelman_mapping_status": [
+        "3.04:review_only"
+      ]
+    },
+    {
+      "canonical_skill_id": "WORD.PARTS.SEGMENT",
+      "diagnostic_preview_evidence_count": 0,
+      "protected_preview_evidence_count": 0,
+      "reviewed_bank_evidence_count": "not_available",
+      "risk_note": "Final teacher-facing standards grouping requires review.",
+      "runtime_skill_ids": [
+        "segment_word_parts"
+      ],
+      "source_to_skill_evidence_count": 0,
+      "status": "runtime_ready",
+      "teacher_review_needed": false,
+      "zekelman_mapping_status": [
+        "not_available"
+      ]
+    },
+    {
+      "canonical_skill_id": "WORD.PART_OF_SPEECH_BASIC",
+      "diagnostic_preview_evidence_count": 0,
+      "protected_preview_evidence_count": 0,
+      "reviewed_bank_evidence_count": "not_available",
+      "risk_note": "Final teacher-facing standards grouping requires review.",
+      "runtime_skill_ids": [
+        "part_of_speech"
+      ],
+      "source_to_skill_evidence_count": 0,
+      "status": "runtime_ready",
+      "teacher_review_needed": true,
+      "zekelman_mapping_status": [
+        "3.04:review_only"
+      ]
+    }
+  ],
+  "schema_version": "1.0",
+  "warning": "This matrix does not create new standards or decide final teacher dashboard groupings."
+}

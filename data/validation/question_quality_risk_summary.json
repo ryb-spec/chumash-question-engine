@@ -1,0 +1,50 @@
+{
+  "audit_report_metrics": {
+    "suffix": {
+      "safe_valid_rate": "36.4%",
+      "total": 258,
+      "valid": 94
+    },
+    "translation_context": {
+      "safe_valid_rate": "20.1%",
+      "total": 1109,
+      "valid": 223
+    }
+  },
+  "current_question_validation_audit_scope": "local_parsed_bereishis_1_1_to_2_9",
+  "recommendation_categories": {
+    "do_not_expand_yet": [
+      "vav hahipuch",
+      "advanced verb forms",
+      "Rashi/commentary",
+      "higher-order inference"
+    ],
+    "engineering_review_required": [
+      "runtime exposure reporting",
+      "standards evidence dashboard"
+    ],
+    "safe_reviewed_lanes": [
+      "basic_noun_recognition where reviewed"
+    ],
+    "teacher_review_required": [
+      "translation/context",
+      "suffix forms",
+      "shoresh pools",
+      "phrase translation"
+    ]
+  },
+  "runtime_change_warning": "This report does not change question generators, runtime behavior, or validation thresholds.",
+  "schema_version": "1.0",
+  "source_paths": [
+    "data/curriculum_extraction/reports/audits/AUDIT_OVERNIGHT_CURRICULUM_QUALITY_REVIEW.md",
+    "data/validation/question_validation_audit.json"
+  ],
+  "top_rejection_reasons": [
+    "placeholder_translation",
+    "low_instructional_value",
+    "grammatical_particle",
+    "compound_morphology",
+    "no_clear_suffix",
+    "lexical_plural_ending"
+  ]
+}

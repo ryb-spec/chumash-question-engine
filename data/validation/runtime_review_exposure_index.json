@@ -1,0 +1,113 @@
+{
+  "active_scope": {
+    "notes": [
+      "Current supported Streamlit runtime scope.",
+      "Backward-compatible with existing data/ root runtime paths while extending through Bereishis 3:24."
+    ],
+    "parsed_corpus_id": "parsed_bereishis_1_1_to_3_24_root",
+    "parsed_files": {
+      "parsed_pesukim": "data/parsed_pesukim.json",
+      "pesukim": "data/pesukim_100.json",
+      "translation_reviews": "data/translation_reviews.json",
+      "word_bank": "data/word_bank.json",
+      "word_occurrences": "data/word_occurrences.json"
+    },
+    "pesukim_count": 80,
+    "range": {
+      "end": {
+        "pasuk": 24,
+        "perek": 3
+      },
+      "start": {
+        "pasuk": 1,
+        "perek": 1
+      }
+    },
+    "scope_id": "local_parsed_bereishis_1_1_to_3_24",
+    "sefer": "Bereishis",
+    "source_corpus_id": "source_bereishis_1_1_to_3_24_local",
+    "source_files": [
+      "data/source/bereishis_1_1_to_1_30.json",
+      "data/source/bereishis_1_31_to_2_9.json",
+      "data/source/bereishis_2_10_to_2_17.json",
+      "data/source/bereishis_2_18_to_2_25.json",
+      "data/source/bereishis_3_1_to_3_8.json",
+      "data/source/bereishis_3_9_to_3_16.json",
+      "data/source/bereishis_3_17_to_3_24.json"
+    ],
+    "status": "active",
+    "supported_runtime": true,
+    "type": "runtime_scope"
+  },
+  "diagnostic_lane_counts": {},
+  "family_exposure": [
+    {
+      "diagnostic_evidence_detected": "unknown",
+      "family_or_skill": "basic_noun_recognition",
+      "protected_preview_evidence_detected": "yes",
+      "recommended_status": "safe reviewed lane",
+      "reviewed_evidence_detected": "yes",
+      "risk_level": "medium",
+      "runtime_evidence_detected": "yes"
+    },
+    {
+      "diagnostic_evidence_detected": "no",
+      "family_or_skill": "translation/context",
+      "protected_preview_evidence_detected": "unknown",
+      "recommended_status": "teacher review required",
+      "reviewed_evidence_detected": "unknown",
+      "risk_level": "high",
+      "runtime_evidence_detected": "yes"
+    },
+    {
+      "diagnostic_evidence_detected": "unknown",
+      "family_or_skill": "suffix/compound morphology",
+      "protected_preview_evidence_detected": "unknown",
+      "recommended_status": "teacher review required",
+      "reviewed_evidence_detected": "unknown",
+      "risk_level": "high",
+      "runtime_evidence_detected": "yes"
+    },
+    {
+      "diagnostic_evidence_detected": "unknown",
+      "family_or_skill": "phrase translation",
+      "protected_preview_evidence_detected": "unknown",
+      "recommended_status": "teacher review required",
+      "reviewed_evidence_detected": "unknown",
+      "risk_level": "high",
+      "runtime_evidence_detected": "yes"
+    },
+    {
+      "diagnostic_evidence_detected": "unknown",
+      "family_or_skill": "pasuk comprehension/context",
+      "protected_preview_evidence_detected": "unknown",
+      "recommended_status": "teacher review required",
+      "reviewed_evidence_detected": "unknown",
+      "risk_level": "high",
+      "runtime_evidence_detected": "unknown"
+    },
+    {
+      "diagnostic_evidence_detected": "unknown",
+      "family_or_skill": "vav hahipuch/advanced verb forms",
+      "protected_preview_evidence_detected": "no",
+      "recommended_status": "do not expand yet",
+      "reviewed_evidence_detected": "no",
+      "risk_level": "high",
+      "runtime_evidence_detected": "unknown"
+    },
+    {
+      "diagnostic_evidence_detected": "no",
+      "family_or_skill": "Rashi/commentary/higher-order inference",
+      "protected_preview_evidence_detected": "no",
+      "recommended_status": "do not expand yet",
+      "reviewed_evidence_detected": "no",
+      "risk_level": "high",
+      "runtime_evidence_detected": "no"
+    }
+  ],
+  "protected_preview_family_counts": {
+    "basic_noun_recognition": 10
+  },
+  "schema_version": "1.0",
+  "warning": "Read-only report. No runtime code, scope, generation caps, UI, scoring, or mastery behavior changed."
+}

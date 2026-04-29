@@ -1,0 +1,336 @@
+{
+  "audit_warning_keys": [
+    "runtime_coverage_broader_than_reviewed_preview_coverage",
+    "translation_context_low_safe_valid_rate",
+    "suffix_compound_morphology_fragile",
+    "standards_evidence_not_teacher_facing_enough",
+    "diagnostic_preview_under_scoped",
+    "perek_3_stale_packet_status_clarity",
+    "validators_scattered_manual",
+    "source_lineage_visibility_gap",
+    "readme_command_drift"
+  ],
+  "branch": "fix/curriculum-quality-control-center",
+  "checks": [
+    {
+      "args": [
+        "C:\\Users\\ybassman\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+        "scripts/validate_gate_2_controlled_draft_generation.py"
+      ],
+      "category": "Gate 2",
+      "duration_seconds": 0.043,
+      "exit_code": 0,
+      "label": "Gate 2 controlled draft validation",
+      "note": "",
+      "required": false,
+      "status": "PASS",
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"valid\": true,\n  \"errors\": [],\n  \"draft_path\": \"data/gate_2_controlled_draft_generation/bereishis_perek_2_controlled_draft.tsv\",\n  \"row_count\": 10,\n  \"decision_counts\": {\n    \"approve_draft_item\": 10\n  },\n  \"family_counts\": {\n    \"basic_noun_recognition\": 10\n  }\n}"
+    },
+    {
+      "args": [
+        "C:\\Users\\ybassman\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+        "scripts/validate_gate_2_input_planning.py"
+      ],
+      "category": "Gate 2",
+      "duration_seconds": 0.047,
+      "exit_code": 0,
+      "label": "Gate 2 input planning validation",
+      "note": "",
+      "required": false,
+      "status": "PASS",
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"valid\": true,\n  \"errors\": [],\n  \"proposal_path\": \"data/gate_2_input_planning/bereishis_perek_2_gate_2_input_planning_proposal.tsv\",\n  \"row_count\": 20,\n  \"unique_token_count\": 20,\n  \"ref_count\": 17,\n  \"review_csv_path\": \"data/gate_2_input_planning/reports/bereishis_perek_2_gate_2_yossi_review_sheet.csv\",\n  \"decision_counts\": {\n    \"approve_for_template_planning\": 14,\n    \"approve_with_revision\": 4,\n    \"needs_follow_up\": 2\n  }\n}"
+    },
+    {
+      "args": [
+        "C:\\Users\\ybassman\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+        "scripts/validate_curriculum_extraction.py"
+      ],
+      "category": "curriculum extraction",
+      "duration_seconds": 0.111,
+      "exit_code": 0,
+      "label": "curriculum extraction validation",
+      "note": "",
+      "required": true,
+      "status": "PASS",
+      "stderr_tail": "",
+      "stdout_tail": "  \"data/curriculum_extraction/generated_questions_preview/batch_001_preview_v2.jsonl\": {\n      \"english_to_hebrew_match\": 25,\n      \"hebrew_to_english_match\": 25,\n      \"phrase_translation\": 50,\n      \"prefix_identification\": 15,\n      \"shoresh_identification\": 25,\n      \"suffix_identification\": 15\n    },\n    \"data/curriculum_extraction/generated_questions_preview/batch_002_preview.jsonl\": {\n      \"english_to_hebrew_match\": 25,\n      \"hebrew_to_english_match\": 25,\n      \"phrase_translation\": 50\n    },\n    \"data/curriculum_extraction/generated_questions_preview/batch_003_preview.jsonl\": {\n      \"english_to_hebrew_match\": 25,\n      \"hebrew_to_english_match\": 25,\n      \"phrase_translation\": 50\n    },\n    \"data/curriculum_extraction/generated_questions_preview/batch_004_preview.jsonl\": {\n      \"english_to_hebrew_match\": 25,\n      \"hebrew_to_english_match\": 25,\n      \"phrase_translation\": 50\n    },\n    \"data/curriculum_extraction/generated_questions_preview/batch_005_preview.jsonl\": {\n      \"english_to_hebrew_match\": 25,\n      \"hebrew_to_english_match\": 25,\n      \"phrase_translation\": 50\n    }\n  },\n  \"record_type_counts\": {\n    \"comprehension_question\": 13,\n    \"pasuk_segment\": 422,\n    \"question_template\": 5,\n    \"skill_tag\": 8,\n    \"translation_rule\": 8,\n    \"vocab_entry\": 21,\n    \"word_parse\": 13,\n    \"word_parse_task\": 11\n  },\n  \"review_status_counts\": {\n    \"needs_review\": 426,\n    \"reviewed\": 75\n  },\n  \"runtime_status_counts\": {\n    \"not_runtime_active\": 501\n  },\n  \"preview_question_type_counts\": {\n    \"english_to_hebrew_match\": 150,\n    \"hebrew_to_english_match\": 150,\n    \"phrase_translation\": 300,\n    \"prefix_identification\": 30,\n    \"shoresh_identification\": 50,\n    \"suffix_identification\": 30\n  },\n  \"checked_git_diff\": false,\n  \"changed_paths\": [],\n  \"errors\": []\n}"
+    },
+    {
+      "args": [
+        "C:\\Users\\ybassman\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+        "scripts/validate_diagnostic_preview.py",
+        "--config",
+        "data/diagnostic_preview/configs/bereishis_1_1_to_2_3_dikduk_translation_preview.json"
+      ],
+      "category": "diagnostic preview",
+      "duration_seconds": 0.239,
+      "exit_code": 0,
+      "label": "diagnostic preview validation: bereishis_1_1_to_2_3_dikduk_translation_preview.json",
+      "note": "",
+      "required": true,
+      "status": "PASS",
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"valid\": true,\n  \"errors\": [],\n  \"warnings\": [],\n  \"total_blueprints\": 77,\n  \"total_questions\": 77,\n  \"question_count_by_lane\": {\n    \"dikduk\": 26,\n    \"error_diagnosis\": 10,\n    \"translation\": 26,\n    \"translation_comparison\": 5,\n    \"word_analysis\": 10\n  },\n  \"reviewable_preview\": {\n    \"total_questions\": 33,\n    \"likely_review_status_counts\": {\n      \"caution\": 6,\n      \"likely_approve\": 27\n    },\n    \"review_flag_counts\": {\n      \"depends_on_unintroduced_knowledge\": 3,\n      \"good_student_candidate\": 27,\n      \"possible_multiple_correct_answers\": 3,\n      \"too_easy\": 5,\n      \"too_hard\": 1,\n      \"translation_sensitive\": 3\n    }\n  }\n}"
+    },
+    {
+      "args": [
+        "C:\\Users\\ybassman\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+        "scripts/validate_dikduk_foundations.py"
+      ],
+      "category": "dikduk",
+      "duration_seconds": 0.067,
+      "exit_code": 0,
+      "label": "dikduk foundations validation",
+      "note": "",
+      "required": false,
+      "status": "PASS",
+      "stderr_tail": "",
+      "stdout_tail": "Dikduk foundations package is valid."
+    },
+    {
+      "args": [
+        "C:\\Users\\ybassman\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+        "scripts/validate_dikduk_rules.py"
+      ],
+      "category": "dikduk",
+      "duration_seconds": 0.045,
+      "exit_code": 0,
+      "label": "dikduk rules validation",
+      "note": "",
+      "required": false,
+      "status": "PASS",
+      "stderr_tail": "",
+      "stdout_tail": "PASS: dikduk rules package is valid.\npackage dir: C:\\Users\\ybassman\\Documents\\GitHub\\chumash-question-engine\\data\\dikduk_rules\nrule groups: 15\nrules: 37\nquestion templates: 47\nstudent error patterns: 25"
+    },
+    {
+      "args": [
+        "C:\\Users\\ybassman\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+        "scripts/validate_question_eligibility_audit.py"
+      ],
+      "category": "eligibility",
+      "duration_seconds": 0.067,
+      "exit_code": 0,
+      "label": "question eligibility audit validation",
+      "note": "",
+      "required": true,
+      "status": "PASS",
+      "stderr_tail": "",
+      "stdout_tail": "on_eligibility_audits/bereishis_perek_1_question_eligibility_audit.tsv\",\n  \"report_path\": \"data/question_eligibility_audits/reports/bereishis_perek_1_question_eligibility_audit_report.md\",\n  \"review_md_path\": \"data/question_eligibility_audits/reports/bereishis_perek_1_question_eligibility_yossi_review_sheet.md\",\n  \"review_csv_path\": \"data/question_eligibility_audits/reports/bereishis_perek_1_question_eligibility_yossi_review_sheet.csv\",\n  \"applied_report_path\": \"data/question_eligibility_audits/reports/bereishis_perek_1_question_eligibility_yossi_review_applied.md\",\n  \"planning_md_path\": \"data/question_eligibility_audits/reports/bereishis_perek_1_approved_input_candidate_planning_sheet.md\",\n  \"planning_csv_path\": \"data/question_eligibility_audits/reports/bereishis_perek_1_approved_input_candidate_planning_sheet.csv\",\n  \"audit_row_count\": 299,\n  \"verified_enrichment_rows_considered\": 164,\n  \"recommendation_counts\": {\n    \"blocked_for_questions\": 5,\n    \"eligible_candidate_for_yossi_question_review\": 158,\n    \"needs_follow_up\": 130,\n    \"source_only\": 6\n  },\n  \"decision_counts\": {\n    \"approve_as_input_candidate\": 133,\n    \"block_for_questions\": 5,\n    \"needs_follow_up\": 155,\n    \"source_only\": 6\n  },\n  \"approved_family_counts\": {\n    \"basic_noun_recognition\": 60,\n    \"direct_object_marker_recognition\": 14,\n    \"shoresh_identification\": 3,\n    \"vocabulary_meaning\": 56\n  },\n  \"question_family_counts\": {\n    \"basic_noun_recognition\": 60,\n    \"basic_verb_form_recognition\": 25,\n    \"direct_object_marker_recognition\": 14,\n    \"not_recommended\": 141,\n    \"shoresh_identification\": 3,\n    \"vocabulary_meaning\": 56\n  },\n  \"risk_level_counts\": {\n    \"high\": 66,\n    \"low\": 119,\n    \"medium\": 114\n  },\n  \"review_sheet_row_count\": 194,\n  \"planning_sheet_row_count\": 133,\n  \"errors\": []\n}"
+    },
+    {
+      "args": [
+        "C:\\Users\\ybassman\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+        "scripts/validate_source_skill_enrichment.py"
+      ],
+      "category": "enrichment",
+      "duration_seconds": 0.197,
+      "exit_code": 0,
+      "label": "source skill enrichment validation",
+      "note": "",
+      "required": true,
+      "status": "PASS",
+      "stderr_tail": "",
+      "stdout_tail": "path\": \"data/source_skill_enrichment/reports/bereishis_perek_2_enrichment_compressed_yossi_review_sheet.csv\",\n  \"perek2_compressed_crosswalk_path\": \"data/source_skill_enrichment/reports/bereishis_perek_2_enrichment_raw_to_compressed_crosswalk.tsv\",\n  \"perek2_compressed_summary_path\": \"data/source_skill_enrichment/reports/bereishis_perek_2_enrichment_compressed_review_summary.md\",\n  \"perek2_compressed_group_count\": 167,\n  \"perek2_compressed_crosswalk_row_count\": 1083,\n  \"perek2_clean_group_inventory_path\": \"data/source_skill_enrichment/reports/bereishis_perek_2_clean_group_evidence_inventory.md\",\n  \"perek2_clean_group_packet_path\": \"data/source_skill_enrichment/reports/bereishis_perek_2_clean_group_yossi_review_packet.md\",\n  \"perek2_clean_group_csv_path\": \"data/source_skill_enrichment/reports/bereishis_perek_2_clean_group_yossi_review_sheet.csv\",\n  \"perek2_clean_group_crosswalk_path\": \"data/source_skill_enrichment/reports/bereishis_perek_2_clean_group_raw_crosswalk.tsv\",\n  \"perek2_clean_group_summary_path\": \"data/source_skill_enrichment/reports/bereishis_perek_2_clean_group_evidence_strengthening_summary.md\",\n  \"perek2_clean_group_applied_path\": \"data/source_skill_enrichment/reports/bereishis_perek_2_clean_group_yossi_review_applied.md\",\n  \"perek2_clean_group_count\": 69,\n  \"perek2_clean_group_crosswalk_row_count\": 191,\n  \"perek2_gate1_enrichment_decision_status_path\": \"data/pipeline_rounds/reports/bereishis_perek_2_gate_1_enrichment_decision_status_report.md\",\n  \"perek2_gate2_candidate_pool_summary_path\": \"data/pipeline_rounds/reports/bereishis_perek_2_gate_2_candidate_pool_summary.md\",\n  \"perek2_gate1_verified_group_count\": 31,\n  \"perek2_gate1_verified_raw_count\": 91,\n  \"perek2_gate1_follow_up_group_count\": 38,\n  \"perek2_gate1_follow_up_raw_count\": 100,\n  \"errors\": []\n}"
+    },
+    {
+      "args": [
+        "C:\\Users\\ybassman\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+        "scripts/validate_pipeline_rounds.py"
+      ],
+      "category": "pipeline",
+      "duration_seconds": 0.049,
+      "exit_code": 0,
+      "label": "pipeline rounds validation",
+      "note": "",
+      "required": true,
+      "status": "PASS",
+      "stderr_tail": "",
+      "stdout_tail": "Pipeline rounds validation passed.\nContract: data/pipeline_rounds/round_2_fast_track_pipeline_contract.v1.json\nGate count: 4\nPrompt count: 4"
+    },
+    {
+      "args": [
+        "C:\\Users\\ybassman\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+        "scripts/validate_gate_2_protected_preview_candidates.py"
+      ],
+      "category": "protected preview",
+      "duration_seconds": 0.058,
+      "exit_code": 0,
+      "label": "Gate 2 protected-preview candidates validation",
+      "note": "",
+      "required": true,
+      "status": "PASS",
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"decision_counts\": {\n    \"approve_for_internal_protected_preview_packet\": 10\n  },\n  \"family_counts\": {\n    \"basic_noun_recognition\": 10\n  },\n  \"perek3_decision_counts\": {\n    \"approve_for_internal_protected_preview_packet\": 4,\n    \"approve_with_revision\": 4,\n    \"needs_follow_up\": 2\n  },\n  \"perek3_family_counts\": {\n    \"basic_noun_recognition\": 10\n  },\n  \"perek3_row_count\": 10,\n  \"perek3_status_counts\": {\n    \"needs_follow_up\": 2,\n    \"yossi_approved_for_internal_protected_preview_packet\": 4,\n    \"yossi_approved_with_revision_before_internal_protected_preview_packet\": 4\n  },\n  \"row_count\": 10,\n  \"total_candidate_rows\": 20\n}"
+    },
+    {
+      "args": [
+        "C:\\Users\\ybassman\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+        "scripts/validate_gate_2_protected_preview_packet.py"
+      ],
+      "category": "protected preview",
+      "duration_seconds": 0.047,
+      "exit_code": 0,
+      "label": "Gate 2 protected-preview packet validation",
+      "note": "",
+      "required": true,
+      "status": "PASS",
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"valid\": true,\n  \"errors\": [],\n  \"packet_path\": \"data/gate_2_protected_preview_packets/bereishis_perek_2_internal_protected_preview_packet.tsv\",\n  \"row_count\": 10,\n  \"family_counts\": {\n    \"basic_noun_recognition\": 10\n  }\n}"
+    },
+    {
+      "args": [
+        "C:\\Users\\ybassman\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+        "scripts/validate_protected_preview_candidates.py"
+      ],
+      "category": "protected preview",
+      "duration_seconds": 0.046,
+      "exit_code": 0,
+      "label": "Round 1 protected-preview candidates validation",
+      "note": "",
+      "required": false,
+      "status": "PASS",
+      "stderr_tail": "",
+      "stdout_tail": "Protected-preview candidates validation passed.\nRows: 18\nFamily counts: {'vocabulary_meaning': 9, 'basic_noun_recognition': 8, 'shoresh_identification': 1}"
+    },
+    {
+      "args": [
+        "C:\\Users\\ybassman\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+        "scripts/validate_protected_preview_packet.py"
+      ],
+      "category": "protected preview",
+      "duration_seconds": 0.05,
+      "exit_code": 0,
+      "label": "Round 1 protected-preview packet validation",
+      "note": "",
+      "required": false,
+      "status": "PASS",
+      "stderr_tail": "",
+      "stdout_tail": "Protected-preview packet validation passed.\nRows: 18\nFamily counts: {'vocabulary_meaning': 9, 'basic_noun_recognition': 8, 'shoresh_identification': 1}"
+    },
+    {
+      "args": [],
+      "category": "question quality",
+      "duration_seconds": 0.0,
+      "exit_code": null,
+      "label": "question validation audit metrics",
+      "note": "Existing question-validation metrics are read from data/validation/question_validation_audit.json and the overnight audit report; the generator is not run because it rewrites tracked audit artifacts.",
+      "required": false,
+      "status": "WARN",
+      "stderr_tail": "",
+      "stdout_tail": ""
+    },
+    {
+      "args": [
+        "C:\\Users\\ybassman\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+        "scripts/validate_bereishis_translations.py"
+      ],
+      "category": "source integrity",
+      "duration_seconds": 0.11,
+      "exit_code": 0,
+      "label": "Bereishis translation validation",
+      "note": "",
+      "required": true,
+      "status": "PASS",
+      "stderr_tail": "",
+      "stdout_tail": "Bereishis translation package validation PASSED\n- Canonical Hebrew refs: 1533\n- Koren rows: 1533; missing refs: 0\n- Metsudah rows: 1533; missing refs: 0"
+    },
+    {
+      "args": [
+        "C:\\Users\\ybassman\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+        "scripts/validate_source_texts.py"
+      ],
+      "category": "source integrity",
+      "duration_seconds": 0.103,
+      "exit_code": 0,
+      "label": "source text validation",
+      "note": "",
+      "required": true,
+      "status": "PASS",
+      "stderr_tail": "",
+      "stdout_tail": "PASS: source-text validation status is complete.\nfile path: C:/Users/ybassman/Documents/GitHub/chumash-question-engine/data/source_texts/bereishis_hebrew_menukad_taamim.tsv\nrow count: 1533\nfirst ref: Bereishis 1:1\nlast ref: Bereishis 50:26\nduplicate count: 0\nmissing count: 0\nmalformed count: 0\nempty Hebrew count: 0\nsource issue count: 0\nSHA-256: 4d96c615ab63e0419bff079db250d71ea9b5de266ff9ab8d589ae80e4afd0b71"
+    },
+    {
+      "args": [
+        "C:\\Users\\ybassman\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+        "scripts/validate_verified_source_skill_maps.py"
+      ],
+      "category": "source integrity",
+      "duration_seconds": 0.101,
+      "exit_code": 0,
+      "label": "verified source-to-skill maps",
+      "note": "",
+      "required": true,
+      "status": "PASS",
+      "stderr_tail": "",
+      "stdout_tail": " \"review_notes\",\n    \"uncertainty_reason\",\n    \"source_files_used\"\n  ],\n  \"perek_three_expansion_slice_columns\": [\n    \"sefer\",\n    \"perek\",\n    \"pasuk\",\n    \"ref\",\n    \"hebrew_word_or_phrase\",\n    \"clean_hebrew_no_nikud\",\n    \"source_translation_metsudah\",\n    \"alternate_translation\",\n    \"secondary_translation_koren\",\n    \"source_id\",\n    \"source_version_title\",\n    \"source_license\",\n    \"source_preference\",\n    \"requires_attribution\",\n    \"shoresh\",\n    \"prefixes\",\n    \"suffixes\",\n    \"tense\",\n    \"part_of_speech\",\n    \"dikduk_feature\",\n    \"skill_primary\",\n    \"skill_secondary\",\n    \"skill_id\",\n    \"zekelman_standard\",\n    \"difficulty_level\",\n    \"question_allowed\",\n    \"question_type_allowed\",\n    \"blocked_question_types\",\n    \"runtime_allowed\",\n    \"protected_preview_allowed\",\n    \"reviewed_bank_allowed\",\n    \"extraction_review_status\",\n    \"review_notes\",\n    \"uncertainty_reason\",\n    \"source_files_used\"\n  ],\n  \"perek_three_final_slice_columns\": [\n    \"sefer\",\n    \"perek\",\n    \"pasuk\",\n    \"ref\",\n    \"hebrew_word_or_phrase\",\n    \"clean_hebrew_no_nikud\",\n    \"source_translation_metsudah\",\n    \"alternate_translation\",\n    \"secondary_translation_koren\",\n    \"source_id\",\n    \"source_version_title\",\n    \"source_license\",\n    \"source_preference\",\n    \"requires_attribution\",\n    \"shoresh\",\n    \"prefixes\",\n    \"suffixes\",\n    \"tense\",\n    \"part_of_speech\",\n    \"dikduk_feature\",\n    \"skill_primary\",\n    \"skill_secondary\",\n    \"skill_id\",\n    \"zekelman_standard\",\n    \"difficulty_level\",\n    \"question_allowed\",\n    \"question_type_allowed\",\n    \"blocked_question_types\",\n    \"runtime_allowed\",\n    \"protected_preview_allowed\",\n    \"reviewed_bank_allowed\",\n    \"extraction_review_status\",\n    \"review_notes\",\n    \"uncertainty_reason\",\n    \"source_files_used\"\n  ],\n  \"errors\": []\n}"
+    },
+    {
+      "args": [
+        "C:\\Users\\ybassman\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+        "scripts/validate_canonical_skill_contract.py"
+      ],
+      "category": "standards",
+      "duration_seconds": 0.095,
+      "exit_code": 0,
+      "label": "canonical skill contract validation",
+      "note": "",
+      "required": true,
+      "status": "PASS",
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"valid\": true,\n  \"contract_path\": \"data/standards/canonical_skill_contract.json\",\n  \"canonical_skill_count\": 28,\n  \"runtime_skill_mapping_count\": 21,\n  \"zekelman_skill_mapping_count\": 13,\n  \"verified_source_label_mapping_count\": 3,\n  \"source_skill_enrichment_candidate_mapping_count\": 17,\n  \"active_source_scope\": \"local_parsed_bereishis_1_1_to_3_24\",\n  \"canonical_source_sha\": \"4d96c615ab63e0419bff079db250d71ea9b5de266ff9ab8d589ae80e4afd0b71\",\n  \"errors\": []\n}"
+    },
+    {
+      "args": [
+        "C:\\Users\\ybassman\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+        "scripts/validate_standards_data.py"
+      ],
+      "category": "standards",
+      "duration_seconds": 0.074,
+      "exit_code": 0,
+      "label": "standards data validation",
+      "note": "",
+      "required": true,
+      "status": "PASS",
+      "stderr_tail": "",
+      "stdout_tail": "PASS: standards-data validation passed.\nchecked JSON files: 8\nstandard records: 10\ndraft skill mappings: 13\nreview items: 8\nloshon sources: 3\nloshon documents: 3\nloshon rule candidates: 27\nloshon crosswalk mappings: 29\nerrors: 0"
+    }
+  ],
+  "counts": {
+    "optional_failed": 0,
+    "optional_passed": 6,
+    "required_failed": 0,
+    "required_passed": 12,
+    "skipped": 0,
+    "warnings": 1
+  },
+  "generated_by": "scripts/run_curriculum_quality_checks.py",
+  "output_paths": {
+    "control_index": "data/validation/curriculum_quality_control_index.md",
+    "diagnostic_preview_coverage_index_json": "data/validation/diagnostic_preview_coverage_index.json",
+    "diagnostic_preview_coverage_index_md": "data/validation/diagnostic_preview_coverage_index.md",
+    "perek_3_status_index": "data/gate_2_protected_preview_candidates/reports/bereishis_perek_3_candidate_status_index.md",
+    "protected_preview_source_lineage_matrix_md": "data/validation/protected_preview_source_lineage_matrix.md",
+    "protected_preview_source_lineage_matrix_tsv": "data/validation/protected_preview_source_lineage_matrix.tsv",
+    "question_quality_risk_summary_json": "data/validation/question_quality_risk_summary.json",
+    "question_quality_risk_summary_md": "data/validation/question_quality_risk_summary.md",
+    "runtime_review_exposure_index_json": "data/validation/runtime_review_exposure_index.json",
+    "runtime_review_exposure_index_md": "data/validation/runtime_review_exposure_index.md",
+    "standards_evidence_gap_matrix_json": "data/validation/standards_evidence_gap_matrix.json",
+    "standards_evidence_gap_matrix_md": "data/validation/standards_evidence_gap_matrix.md",
+    "summary_json": "data/validation/curriculum_quality_check_summary.json",
+    "summary_md": "data/validation/curriculum_quality_check_summary.md"
+  },
+  "overall_status": "WARN",
+  "safety_boundary_confirmations": {
+    "no_perek_3_activation": true,
+    "no_protected_preview_packet_creation": true,
+    "no_reviewed_bank_promotion": true,
+    "no_runtime_activation": true,
+    "no_runtime_ui_scoring_mastery_assessment_flow_changes": true,
+    "no_student_facing_content_creation": true
+  },
+  "schema_version": "1.0",
+  "strict": false
+}
