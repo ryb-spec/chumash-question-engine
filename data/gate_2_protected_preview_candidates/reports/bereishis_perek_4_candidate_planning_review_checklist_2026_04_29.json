@@ -1,0 +1,115 @@
+{
+  "schema_version": 1,
+  "checklist_status": "planning_review_only",
+  "source_planning_tsv": "data/gate_2_protected_preview_candidates/bereishis_perek_4_protected_preview_candidate_planning.tsv",
+  "eligible_candidate_ids": [
+    "g2srcdisc_p4_001",
+    "g2srcdisc_p4_002",
+    "g2srcdisc_p4_003",
+    "g2srcdisc_p4_004"
+  ],
+  "blocked_candidate_ids": [
+    "g2srcdisc_p4_005"
+  ],
+  "allowed_planning_decisions": [
+    "advance_to_protected_preview_candidate_review",
+    "advance_with_minor_revision",
+    "hold_for_spacing_or_balance",
+    "needs_source_follow_up",
+    "reject",
+    "source_only"
+  ],
+  "candidates": [
+    {
+      "candidate_id": "g2srcdisc_p4_001",
+      "pasuk_ref": "Bereishis 4:1",
+      "hebrew_target": "אִישׁ",
+      "prior_teacher_decision": "approve_with_revision",
+      "proposed_question": "In this phrase, what type of word is אִישׁ?",
+      "expected_answer": "noun",
+      "distractors": [
+        "verb",
+        "adjective",
+        "prefix"
+      ],
+      "revision_applied": true,
+      "remaining_risk_note": "No special spacing note beyond normal noun-recognition balance.; Risk flags: source_literal_wording_review. Source confidence: canonical_hebrew_available;batch_005_reviewed_for_planning_non_runtime;record_confidence_low. Teacher must confirm that this is appropriate as basic noun recognition before any later gate.",
+      "planning_review_decision": null,
+      "runtime_allowed": false,
+      "reviewed_bank_allowed": false,
+      "protected_preview_packet_allowed_now": false,
+      "student_facing_allowed": false,
+      "perek_4_activated": false
+    },
+    {
+      "candidate_id": "g2srcdisc_p4_002",
+      "pasuk_ref": "Bereishis 4:2",
+      "hebrew_target": "צֹאן",
+      "prior_teacher_decision": "approve_for_protected_preview",
+      "proposed_question": "What type of word is צֹאן?",
+      "expected_answer": "noun",
+      "distractors": [
+        "verb",
+        "adjective",
+        "prefix"
+      ],
+      "revision_applied": false,
+      "remaining_risk_note": "Use normal packet spacing.; Risk flags: nearby_suffix_form_not_safe_candidate. Source confidence: canonical_hebrew_available;batch_005_reviewed_for_planning_non_runtime;record_confidence_low. Teacher must confirm that this is appropriate as basic noun recognition before any later gate.",
+      "planning_review_decision": null,
+      "runtime_allowed": false,
+      "reviewed_bank_allowed": false,
+      "protected_preview_packet_allowed_now": false,
+      "student_facing_allowed": false,
+      "perek_4_activated": false
+    },
+    {
+      "candidate_id": "g2srcdisc_p4_003",
+      "pasuk_ref": "Bereishis 4:2",
+      "hebrew_target": "אֲדָמָה",
+      "prior_teacher_decision": "approve_with_revision",
+      "proposed_question": "What type of word is אֲדָמָה?",
+      "expected_answer": "noun",
+      "distractors": [
+        "verb",
+        "adjective",
+        "prefix"
+      ],
+      "revision_applied": true,
+      "remaining_risk_note": "Required: preserve duplicate/session-balance warning and avoid placing too close to similar noun-recognition items in any future packet planning.; Risk flags: repeated_token_cluster. Duplicate-token/session-balance warning must be considered before any future packet planning. Source confidence: canonical_hebrew_available;batch_005_reviewed_for_planning_non_runtime;record_confidence_low. Teacher must confirm that this is appropriate as basic noun recognition before any later gate.",
+      "planning_review_decision": null,
+      "runtime_allowed": false,
+      "reviewed_bank_allowed": false,
+      "protected_preview_packet_allowed_now": false,
+      "student_facing_allowed": false,
+      "perek_4_activated": false
+    },
+    {
+      "candidate_id": "g2srcdisc_p4_004",
+      "pasuk_ref": "Bereishis 4:3",
+      "hebrew_target": "מִנְחָה",
+      "prior_teacher_decision": "approve_with_revision",
+      "proposed_question": "What type of word is מִנְחָה?",
+      "expected_answer": "noun",
+      "distractors": [
+        "verb",
+        "adjective",
+        "prefix"
+      ],
+      "revision_applied": true,
+      "remaining_risk_note": "Required: preserve duplicate/session-balance warning and avoid clustering with nearby noun-recognition items.; Required: preserve Minchah/offering alias review; do not convert this into a vocabulary translation item without later review.; Risk flags: repeated_token_cluster;accepted_alias_review_minchah. Duplicate-token/session-balance warning must be considered before any future packet planning. Source confidence: canonical_hebrew_available;batch_005_reviewed_for_planning_non_runtime;record_confidence_low. Teacher must confirm that this is appropriate as basic noun recognition before any later gate.",
+      "planning_review_decision": null,
+      "runtime_allowed": false,
+      "reviewed_bank_allowed": false,
+      "protected_preview_packet_allowed_now": false,
+      "student_facing_allowed": false,
+      "perek_4_activated": false
+    }
+  ],
+  "runtime_allowed": false,
+  "reviewed_bank_allowed": false,
+  "protected_preview_packet_allowed_now": false,
+  "student_facing_allowed": false,
+  "perek_4_activated": false,
+  "fake_teacher_decisions_created": false,
+  "protected_preview_packet_created": false
+}
