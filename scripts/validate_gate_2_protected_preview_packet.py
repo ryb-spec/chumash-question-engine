@@ -25,6 +25,8 @@ P3_REVIEW_CHECKLIST = REPORTS / "bereishis_perek_3_internal_protected_preview_re
 P3_REVIEW_CHECKLIST_TSV = REPORTS / "bereishis_perek_3_internal_protected_preview_review_checklist.tsv"
 P3_REVIEW_DECISIONS_APPLIED = REPORTS / "bereishis_perek_3_internal_protected_preview_review_decisions_applied.md"
 P3_REVIEW_DECISIONS_APPLIED_TSV = REPORTS / "bereishis_perek_3_internal_protected_preview_review_decisions_applied.tsv"
+P3_ITEM_004_REVISION_PLAN = REPORTS / "bereishis_perek_3_item_004_revision_plan.md"
+P3_ITEM_004_REVISION_PLAN_TSV = REPORTS / "bereishis_perek_3_item_004_revision_plan.tsv"
 P3_CAND = ROOT / "data" / "gate_2_protected_preview_candidates" / "bereishis_perek_3_protected_preview_candidates.tsv"
 P3_STATUS_INDEX = (
     ROOT
@@ -124,6 +126,20 @@ EXPECTED_P3_INTERNAL_REVIEW_COUNTS = {
     "reject_for_broader_use": 0,
     "source_only": 0,
 }
+REVISION_PLAN_COLUMNS = [
+    "packet_item_id",
+    "candidate_id",
+    "ref",
+    "hebrew_token",
+    "current_decision",
+    "revision_issue",
+    "recommended_path",
+    "broader_use_blocked",
+    "runtime_allowed",
+    "reviewed_bank_allowed",
+    "student_facing_allowed",
+    "future_acceptance_criteria",
+]
 
 
 def rel(path: Path) -> str:
@@ -274,6 +290,8 @@ def validate_gate_2_protected_preview_packet() -> dict[str, object]:
         P3_REVIEW_CHECKLIST_TSV,
         P3_REVIEW_DECISIONS_APPLIED,
         P3_REVIEW_DECISIONS_APPLIED_TSV,
+        P3_ITEM_004_REVISION_PLAN,
+        P3_ITEM_004_REVISION_PLAN_TSV,
         P3_CAND,
         P3_STATUS_INDEX,
     )
@@ -348,13 +366,22 @@ def validate_gate_2_protected_preview_packet() -> dict[str, object]:
         P3_REVIEW_CHECKLIST_TSV,
         P3_REVIEW_DECISIONS_APPLIED,
         P3_REVIEW_DECISIONS_APPLIED_TSV,
+        P3_ITEM_004_REVISION_PLAN,
+        P3_ITEM_004_REVISION_PLAN_TSV,
     ):
         if rel(path) not in readme:
             errors.append(f"README must link {rel(path)}")
 
     p3_text = "\n".join(
         path.read_text(encoding="utf-8")
-        for path in (README, P3_REPORT, P3_STATUS_INDEX, P3_REVIEW_CHECKLIST, P3_REVIEW_DECISIONS_APPLIED)
+        for path in (
+            README,
+            P3_REPORT,
+            P3_STATUS_INDEX,
+            P3_REVIEW_CHECKLIST,
+            P3_REVIEW_DECISIONS_APPLIED,
+            P3_ITEM_004_REVISION_PLAN,
+        )
     )
     for candidate_id in sorted(EXPECTED_P3_APPROVED):
         if candidate_id not in p3_text:
@@ -371,6 +398,8 @@ def validate_gate_2_protected_preview_packet() -> dict[str, object]:
         "does not activate or promote anything",
         "approve_for_limited_post_preview_iteration",
         "repetition/session-balance",
+        "planning artifact only",
+        "broader use blocked",
     ):
         if phrase not in p3_text:
             errors.append(f"Perek 3 packet/status required phrase missing: {phrase}")
@@ -433,6 +462,44 @@ def validate_gate_2_protected_preview_packet() -> dict[str, object]:
                 errors.append(f"{rid}: g2ppcand_p3_004 required revision must mention repetition/session-balance")
         elif row.get("reviewer_decision") != "approve_for_limited_post_preview_iteration":
             errors.append(f"{rid}: non-revision applied review rows must be approve_for_limited_post_preview_iteration")
+
+    revision_plan_text = P3_ITEM_004_REVISION_PLAN.read_text(encoding="utf-8")
+    if "g2ppcand_p3_004" not in revision_plan_text or "g2ppacket_p3_002" not in revision_plan_text:
+        errors.append("Perek 3 item 004 revision plan must identify g2ppcand_p3_004 / g2ppacket_p3_002")
+    for candidate_id in EXPECTED_P3_APPROVED - {"g2ppcand_p3_004"}:
+        if f"Candidate: `{candidate_id}`" in revision_plan_text:
+            errors.append(f"Perek 3 revision plan targets non-revision candidate: {candidate_id}")
+    for phrase in (
+        "planning artifact only",
+        "It does not revise the item.",
+        "It does not apply a new decision.",
+        "No runtime activation",
+        "No reviewed-bank promotion",
+        "No student-facing content creation",
+        "broader use blocked",
+        "repetition/session-balance",
+    ):
+        if phrase not in revision_plan_text:
+            errors.append(f"Perek 3 item 004 revision plan missing phrase: {phrase}")
+
+    revision_fields, revision_rows = load_tsv(P3_ITEM_004_REVISION_PLAN_TSV)
+    if revision_fields != REVISION_PLAN_COLUMNS:
+        errors.append("Perek 3 item 004 revision plan TSV columns do not match required schema")
+    if len(revision_rows) != 1:
+        errors.append(f"Perek 3 item 004 revision plan TSV must have exactly 1 row, found {len(revision_rows)}")
+    if revision_rows:
+        row = revision_rows[0]
+        if row.get("candidate_id") != "g2ppcand_p3_004" or row.get("packet_item_id") != "g2ppacket_p3_002":
+            errors.append("Perek 3 item 004 revision plan TSV must target g2ppcand_p3_004 / g2ppacket_p3_002 only")
+        if row.get("current_decision") != "approve_with_revision":
+            errors.append("Perek 3 item 004 revision plan TSV must preserve approve_with_revision")
+        if row.get("broader_use_blocked") != "true":
+            errors.append("Perek 3 item 004 revision plan TSV must keep broader_use_blocked=true")
+        for gate in GATES:
+            if row.get(gate) != "false":
+                errors.append(f"Perek 3 item 004 revision plan TSV {gate} must be false")
+        if "repetition/session-balance" not in row.get("revision_issue", ""):
+            errors.append("Perek 3 item 004 revision plan TSV must mention repetition/session-balance")
 
     return {
         "valid": not errors,

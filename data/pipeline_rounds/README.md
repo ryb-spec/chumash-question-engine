@@ -94,4 +94,5 @@ Status: Yossi candidate decisions applied and still fail-closed. Decision counts
 - Internal packet report: `data/gate_2_protected_preview_packets/reports/bereishis_perek_3_internal_protected_preview_packet_report.md`
 - Internal review checklist: `data/gate_2_protected_preview_packets/reports/bereishis_perek_3_internal_protected_preview_review_checklist.md`
 - Internal review decisions applied report: `data/gate_2_protected_preview_packets/reports/bereishis_perek_3_internal_protected_preview_review_decisions_applied.md`
+- Item 004 revision plan: `data/gate_2_protected_preview_packets/reports/bereishis_perek_3_item_004_revision_plan.md`
 - Internal review status: 3 items approved for limited post-preview iteration; 1 item approved with revision for repetition/session-balance. No runtime activation, reviewed-bank promotion, or student-facing use.
