@@ -301,3 +301,10 @@ Status: only ????? and ???? are eligible for next packet-iteration readiness. ??
 - `perek_4_final_internal_iteration_and_perek_5_6_source_discovery_gate_2026_04_29.json` is the machine-readable gate.
 - `prompts/bereishis_perek_5_6_source_discovery_prompt.md` is a paste-ready prompt for a later Perek 5-6 source-discovery-only task.
 - Runtime activation, active scope expansion, reviewed-bank promotion, protected-preview packet creation, and student-facing use remain blocked.
+
+## Bereishis Perek 5-6 source discovery - 2026-04-29
+
+- `bereishis_perek_5_6_source_discovery_gate_2026_04_29.md` records the review-only launch gate.
+- `prompts/bereishis_perek_5_6_review_checklist_prompt.md` is the future compressed teacher-review checklist prompt.
+- Source discovery remains non-runtime, non-reviewed-bank, non-protected-preview, and non-student-facing.
+- Validator/test: `scripts/validate_perek_5_6_source_discovery.py` and `tests/test_perek_5_6_source_discovery.py`.
