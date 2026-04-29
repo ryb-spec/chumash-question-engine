@@ -1,0 +1,32 @@
+{
+  "branch_name": "feature/perek-3-short-repilot-scope-enforcement",
+  "runtime_scope_widened": false,
+  "perek_4_activated": false,
+  "excludes_ashis_shis": true,
+  "excludes_unverified_phrase_translation": true,
+  "enforcement_type": "manual",
+  "runtime_enforced": false,
+  "data_enforced": false,
+  "ready_for_short_repilot": true,
+  "manual_scope_watch_required": true,
+  "manual_checklist_path": "data/pipeline_rounds/perek_3_short_repilot_manual_checklist_2026_04_29.md",
+  "included_targets": [
+    "revised tense/form wording",
+    "revised prefix prompt wording",
+    "\u05d3\u05b6\u05bc\u05e8\u05b6\u05da\u05b0 translation distractor repair",
+    "\u05d0\u05b2\u05e8\u05d5\u05bc\u05e8\u05b8\u05d4 translation distractor repair"
+  ],
+  "excluded_targets": [
+    "\u05d0\u05b8\u05e9\u05b4\u05c1\u05d9\u05ea / \u05e9\u05d9\u05ea shoresh question",
+    "unverified phrase_translation questions",
+    "Perek 4 content",
+    "runtime expansion"
+  ],
+  "scope_leak_definition": [
+    "Any \u05d0\u05b8\u05e9\u05b4\u05c1\u05d9\u05ea / \u05e9\u05d9\u05ea shoresh prompt or answer appears",
+    "Any question_type=phrase_translation appears",
+    "Any Bereishis Perek 4 content appears"
+  ],
+  "normal_runtime_filter_added": false,
+  "fake_data_created": false
+}
