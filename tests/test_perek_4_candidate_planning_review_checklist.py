@@ -18,7 +18,7 @@ def test_required_artifacts_exist():
 
 def test_checklist_json_parses_and_has_four_eligible_candidates():
     payload = json.loads(validator.CHECKLIST_JSON.read_text(encoding="utf-8"))
-    assert payload["checklist_status"] == "planning_review_only"
+    assert payload["checklist_status"] == "planning_review_decisions_applied"
     assert payload["eligible_candidate_ids"] == validator.EXPECTED_ELIGIBLE_IDS
     assert len(payload["candidates"]) == 4
 
@@ -29,10 +29,10 @@ def test_blocked_candidate_remains_blocked():
     assert validator.BLOCKED_ID not in [candidate["candidate_id"] for candidate in payload["candidates"]]
 
 
-def test_planning_decisions_are_null():
+def test_planning_decisions_match_yossi_decisions():
     payload = json.loads(validator.CHECKLIST_JSON.read_text(encoding="utf-8"))
-    for candidate in payload["candidates"]:
-        assert candidate["planning_review_decision"] is None
+    decisions = {candidate["candidate_id"]: candidate["planning_review_decision"] for candidate in payload["candidates"]}
+    assert decisions == validator.EXPECTED_DECISIONS
 
 
 def test_no_runtime_reviewed_bank_student_facing_or_packet_promotion():
@@ -42,6 +42,7 @@ def test_no_runtime_reviewed_bank_student_facing_or_packet_promotion():
     assert payload["protected_preview_packet_allowed_now"] is False
     assert payload["student_facing_allowed"] is False
     assert payload["perek_4_activated"] is False
+    assert payload["protected_preview_packet_created"] is False
     for candidate in payload["candidates"]:
         assert candidate["runtime_allowed"] is False
         assert candidate["reviewed_bank_allowed"] is False

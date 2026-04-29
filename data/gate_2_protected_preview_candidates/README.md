@@ -56,4 +56,14 @@ Yossi applied five Perek 4 teacher-review decisions. Four source-discovery candi
 - Test: `../../tests/test_perek_4_candidate_planning_review_checklist.py`
 
 Status: planning review only for the four eligible Perek 4 candidates. `g2srcdisc_p4_005` remains blocked for source follow-up. Runtime, reviewed-bank, protected-preview-packet, and student-facing gates remain closed.
+## Bereishis Perek 4 candidate-planning decisions applied
+
+- Decisions-applied report: `reports/bereishis_perek_4_candidate_planning_decisions_applied_2026_04_29.md`
+- Decisions-applied JSON: `reports/bereishis_perek_4_candidate_planning_decisions_applied_2026_04_29.json`
+- Protected-preview-candidate review layer: `bereishis_perek_4_protected_preview_candidate_review.tsv`
+- Next-gate readiness report: `../pipeline_rounds/perek_4_candidate_planning_decisions_next_gate_readiness_2026_04_29.md`
+- Validator: `../../scripts/validate_perek_4_candidate_planning_decisions_applied.py`
+- Test: `../../tests/test_perek_4_candidate_planning_decisions_applied.py`
+
+Status: Yossi's planning decisions advance four Perek 4 candidates to protected-preview-candidate review only. `g2srcdisc_p4_005` remains blocked. Runtime, reviewed-bank, protected-preview-packet, and student-facing gates remain closed.
 

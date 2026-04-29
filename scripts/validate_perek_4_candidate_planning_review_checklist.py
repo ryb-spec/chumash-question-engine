@@ -19,6 +19,12 @@ SOURCE_PLANNING_TSV = ROOT / "data/gate_2_protected_preview_candidates/bereishis
 REQUIRED_FILES = (CHECKLIST_MD, CHECKLIST_JSON, READINESS_MD, SOURCE_PLANNING_TSV)
 EXPECTED_ELIGIBLE_IDS = ["g2srcdisc_p4_001", "g2srcdisc_p4_002", "g2srcdisc_p4_003", "g2srcdisc_p4_004"]
 BLOCKED_ID = "g2srcdisc_p4_005"
+EXPECTED_DECISIONS = {
+    "g2srcdisc_p4_001": "advance_to_protected_preview_candidate_review",
+    "g2srcdisc_p4_002": "advance_to_protected_preview_candidate_review",
+    "g2srcdisc_p4_003": "advance_with_minor_revision",
+    "g2srcdisc_p4_004": "advance_with_minor_revision",
+}
 EXPECTED_ALLOWED_DECISIONS = [
     "advance_to_protected_preview_candidate_review",
     "advance_with_minor_revision",
@@ -27,28 +33,13 @@ EXPECTED_ALLOWED_DECISIONS = [
     "reject",
     "source_only",
 ]
-FALSE_FIELDS = (
-    "runtime_allowed",
-    "reviewed_bank_allowed",
-    "protected_preview_packet_allowed_now",
-    "student_facing_allowed",
-    "perek_4_activated",
-)
+FALSE_FIELDS = ("runtime_allowed", "reviewed_bank_allowed", "protected_preview_packet_allowed_now", "student_facing_allowed", "perek_4_activated")
 FORBIDDEN_PATTERNS = (
-    "runtime_allowed=true",
-    "runtime_allowed: true",
-    '"runtime_allowed": true',
-    "reviewed_bank_allowed=true",
-    "reviewed_bank_allowed: true",
-    '"reviewed_bank_allowed": true',
-    "promoted_to_runtime",
-    "approved_for_runtime",
-    "Perek 4 is active runtime",
-    "Perek 4 runtime is active",
-    "Perek 4 runtime activation is approved",
-    "protected-preview packet has been created",
-    "protected-preview packet created: yes",
-    '"protected_preview_packet_created": true',
+    "runtime_allowed=true", "runtime_allowed: true", '"runtime_allowed": true',
+    "reviewed_bank_allowed=true", "reviewed_bank_allowed: true", '"reviewed_bank_allowed": true',
+    "promoted_to_runtime", "approved_for_runtime", "Perek 4 is active runtime", "Perek 4 runtime is active",
+    "Perek 4 runtime activation is approved", "protected-preview packet has been created",
+    "protected-preview packet created: yes", '"protected_preview_packet_created": true',
 )
 
 
@@ -87,13 +78,7 @@ def _read_planning_ids(errors: list[str]) -> list[str]:
         errors.append(f"source planning TSV must exclude blocked candidate {BLOCKED_ID}")
     for row in rows:
         context = row.get("candidate_id", "planning row")
-        for field in (
-            "runtime_allowed",
-            "reviewed_bank_allowed",
-            "protected_preview_packet_allowed_now",
-            "student_facing_allowed",
-            "perek_4_activated",
-        ):
+        for field in FALSE_FIELDS:
             if row.get(field) != "false":
                 errors.append(f"{context}: source planning TSV field {field} must be false")
     return ids
@@ -108,19 +93,20 @@ def validate() -> dict:
         return {"ok": False, "errors": errors}
 
     payload = _load_json(CHECKLIST_JSON, errors)
-    if payload.get("checklist_status") != "planning_review_only":
-        errors.append("checklist_status must be planning_review_only")
+    if payload.get("checklist_status") != "planning_review_decisions_applied":
+        errors.append("checklist_status must be planning_review_decisions_applied")
     if payload.get("source_planning_tsv") != _relative(SOURCE_PLANNING_TSV):
         errors.append("checklist JSON source_planning_tsv must point to the source planning TSV")
     if payload.get("eligible_candidate_ids") != EXPECTED_ELIGIBLE_IDS:
         errors.append(f"eligible_candidate_ids must be exactly {EXPECTED_ELIGIBLE_IDS}")
-    blocked = payload.get("blocked_candidate_ids")
-    if blocked != [BLOCKED_ID]:
+    if payload.get("blocked_candidate_ids") != [BLOCKED_ID]:
         errors.append(f"blocked_candidate_ids must include only {BLOCKED_ID}")
     if payload.get("allowed_planning_decisions") != EXPECTED_ALLOWED_DECISIONS:
         errors.append("allowed_planning_decisions do not match the expected planning-review options")
     for field in FALSE_FIELDS:
         _require_false(payload, field, errors, "checklist JSON")
+    if payload.get("protected_preview_packet_created") is not False:
+        errors.append("checklist JSON must keep protected_preview_packet_created false")
 
     candidates = payload.get("candidates")
     if not isinstance(candidates, list) or len(candidates) != 4:
@@ -136,11 +122,11 @@ def validate() -> dict:
             errors.append("candidate entry must be an object")
             continue
         context = candidate.get("candidate_id", "candidate")
-        if candidate.get("planning_review_decision") is not None:
-            errors.append(f"{context}: planning_review_decision must be null")
+        if candidate.get("planning_review_decision") != EXPECTED_DECISIONS.get(context):
+            errors.append(f"{context}: planning_review_decision does not match Yossi's applied decision")
         for field in FALSE_FIELDS:
             _require_false(candidate, field, errors, context)
-        for field in ("pasuk_ref", "hebrew_target", "prior_teacher_decision", "proposed_question", "expected_answer", "remaining_risk_note"):
+        for field in ("pasuk_ref", "hebrew_target", "prior_teacher_decision", "proposed_question", "expected_answer", "remaining_risk_note", "required_note"):
             if not candidate.get(field):
                 errors.append(f"{context}: {field} must be populated")
         distractors = candidate.get("distractors")
@@ -148,35 +134,19 @@ def validate() -> dict:
             errors.append(f"{context}: distractors must include exactly three choices")
 
     planning_ids = _read_planning_ids(errors)
-
     checklist_text = _read_text(CHECKLIST_MD)
     readiness_text = _read_text(READINESS_MD)
-    for required in (
-        "not runtime content",
-        "not reviewed-bank content",
-        "not an internal protected-preview packet",
-        "g2srcdisc_p4_005",
-        "Planning review decision:",
-        "Notes:",
-        "Fake teacher decisions created: no",
-    ):
+    for required in ("not runtime content", "not reviewed-bank content", "not an internal protected-preview packet", "g2srcdisc_p4_005", "Planning review decision:", "Fake teacher decisions created: no"):
         if required not in checklist_text:
             errors.append(f"checklist Markdown missing required phrase: {required}")
-    for required in (
-        "This checklist does not create a protected-preview packet, does not activate Perek 4, and does not create student-facing content.",
-        "g2srcdisc_p4_005",
-        "Perek 4 runtime activation remains blocked.",
-        "Internal protected-preview packet creation remains blocked.",
-    ):
+    for required in ("This checklist does not create a protected-preview packet, does not activate Perek 4, and does not create student-facing content.", "g2srcdisc_p4_005", "Perek 4 runtime activation remains blocked.", "Internal protected-preview packet creation remains blocked."):
         if required not in readiness_text:
             errors.append(f"readiness report missing required phrase: {required}")
-
     for path in (CHECKLIST_MD, CHECKLIST_JSON, READINESS_MD):
         text = _read_text(path)
         for pattern in FORBIDDEN_PATTERNS:
             if pattern in text:
                 errors.append(f"{_relative(path)} contains forbidden claim: {pattern}")
-
     return {"ok": not errors, "errors": errors, "eligible_candidate_ids": candidate_ids, "planning_tsv_candidate_ids": planning_ids}
 
 
