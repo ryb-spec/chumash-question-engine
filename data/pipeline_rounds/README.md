@@ -339,3 +339,13 @@ Status: seven Perek 5-6 candidates may move to candidate-planning review only. F
 - Validator/test: `../../scripts/validate_perek_5_6_candidate_planning_review_checklist.py` and `../../tests/test_perek_5_6_candidate_planning_review_checklist.py`
 
 Status: seven Perek 5-6 candidates are ready for candidate-planning review only; five held/source-only/source-follow-up candidates remain excluded. No runtime activation, active-scope expansion, reviewed-bank promotion, protected-preview packet creation, or student-facing content was created.
+
+## Bereishis Perek 5-6 candidate-planning decisions applied - 2026-04-29
+
+- Decisions-applied report: `../gate_2_source_discovery/reports/bereishis_perek_5_6_candidate_planning_decisions_applied_2026_04_29.md`
+- Decisions-applied JSON: `../gate_2_source_discovery/reports/bereishis_perek_5_6_candidate_planning_decisions_applied_2026_04_29.json`
+- Next-gate readiness report: `bereishis_perek_5_6_candidate_planning_decisions_next_gate_readiness_2026_04_29.md`
+- Future protected-preview-candidate review prompt: `prompts/bereishis_perek_5_6_protected_preview_candidate_review_decisions_prompt.md`
+- Validator/test: `../../scripts/validate_perek_5_6_candidate_planning_decisions_applied.py` and `../../tests/test_perek_5_6_candidate_planning_decisions_applied.py`
+
+Status: seven Perek 5-6 candidates advance to protected-preview-candidate review only. Five held/source-only/source-follow-up candidates remain excluded. Runtime, reviewed-bank, protected-preview-packet, and student-facing gates remain closed.

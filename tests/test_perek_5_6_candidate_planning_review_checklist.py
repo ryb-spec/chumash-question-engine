@@ -10,6 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 REPORT = ROOT / "data" / "gate_2_source_discovery" / "reports"
 CHECKLIST_MD = REPORT / "bereishis_perek_5_6_candidate_planning_review_checklist_2026_04_29.md"
 CHECKLIST_JSON = REPORT / "bereishis_perek_5_6_candidate_planning_review_checklist_2026_04_29.json"
+DECISIONS_APPLIED_JSON = REPORT / "bereishis_perek_5_6_candidate_planning_decisions_applied_2026_04_29.json"
 READINESS = ROOT / "data" / "pipeline_rounds" / "bereishis_perek_5_6_candidate_planning_review_checklist_readiness_2026_04_29.md"
 FUTURE_PROMPT = ROOT / "data" / "pipeline_rounds" / "prompts" / "bereishis_perek_5_6_candidate_planning_decisions_apply_prompt.md"
 
@@ -50,11 +51,25 @@ def test_json_parses_with_expected_counts_and_ids():
     assert [candidate["candidate_id"] for candidate in payload["candidates"]] == ELIGIBLE_IDS
 
 
-def test_decisions_are_null_and_notes_blank():
+def test_decisions_are_null_or_match_decision_applied_successor():
     payload = load_checklist()
+    decisions_applied = (
+        json.loads(DECISIONS_APPLIED_JSON.read_text(encoding="utf-8"))
+        if DECISIONS_APPLIED_JSON.exists()
+        else None
+    )
+    applied_by_id = {}
+    if decisions_applied is not None:
+        applied_by_id = {
+            decision["candidate_id"]: decision["planning_review_decision"]
+            for decision in decisions_applied["decisions"]
+        }
     for candidate in payload["candidates"]:
-        assert candidate["planning_review_decision"] is None
-        assert candidate["planning_review_notes"] == ""
+        if decisions_applied is None:
+            assert candidate["planning_review_decision"] is None
+            assert candidate["planning_review_notes"] == ""
+        else:
+            assert candidate["planning_review_decision"] == applied_by_id[candidate["candidate_id"]]
 
 
 def test_all_gates_false():

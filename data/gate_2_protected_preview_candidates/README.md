@@ -95,3 +95,10 @@ Status: four candidate-reviewed Perek 4 items moved into internal protected-prev
 
 Status: `g2srcdisc_p4_001` and `g2srcdisc_p4_002` are clean-ready for limited internal preview observation only. `g2srcdisc_p4_003`, `g2srcdisc_p4_004`, and `g2srcdisc_p4_005` remain blocked from the clean lane. No runtime activation, reviewed-bank promotion, or public/student-facing content was created.
 
+## Bereishis Perek 5-6 protected-preview-candidate review layer
+
+- Review-only TSV: `bereishis_perek_5_6_protected_preview_candidate_review.tsv`
+- Source decisions report: `../gate_2_source_discovery/reports/bereishis_perek_5_6_candidate_planning_decisions_applied_2026_04_29.md`
+- Validator/test: `../../scripts/validate_perek_5_6_candidate_planning_decisions_applied.py` and `../../tests/test_perek_5_6_candidate_planning_decisions_applied.py`
+
+Status: seven Perek 5-6 candidates are present for protected-preview-candidate review only. This is not a protected-preview packet, not runtime content, not reviewed-bank content, and not student-facing content.
