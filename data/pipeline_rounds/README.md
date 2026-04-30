@@ -514,3 +514,5 @@ Status: Streamlit now includes a collapsed sidebar Teacher Runtime Report Export
 - 2026-04-30: Perek 4 Broad Vocabulary Internal Protected-Preview Packet V1. Creates a five-item internal packet, review checklist, observation template, excluded register, lineage reconciliation, and next post-preview decision prompt. It does not create runtime content, student-facing content, or reviewed-bank promotion.
 
 - 2026-04-30: Perek 4 Broad Vocabulary Final Observation Gate V1. Applies Yossi's internal observation evidence to five observed packet items, records the final internal-completion contract, and creates the reviewed-bank-candidate planning readiness artifacts. Runtime activation and reviewed-bank promotion remain blocked.
+
+- 2026-04-30: Perek 4 Broad Vocabulary Reviewed-Bank Candidate Planning Gate V1. Prepares the five observed internal packet items for a future Yossi reviewed-bank decision packet only. No reviewed-bank entries, runtime questions, student-facing content, or runtime activation are created.

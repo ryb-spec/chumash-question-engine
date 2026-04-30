@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "feature_name": "perek_4_broad_vocabulary_reviewed_bank_candidate_planning",
+  "planning_only": true,
+  "reviewed_bank_candidate_planning_created": true,
+  "candidate_count": 5,
+  "reviewed_bank_promoted": false,
+  "reviewed_bank_entries_created": false,
+  "runtime_scope_widened": false,
+  "perek_activated": false,
+  "runtime_questions_created": false,
+  "runtime_content_promoted": false,
+  "student_facing_content_created": false,
+  "source_truth_changed": false,
+  "fake_teacher_approval_created": false,
+  "fake_observation_evidence_created": false,
+  "raw_logs_exposed": false,
+  "validators_weakened": false,
+  "ready_for_reviewed_bank_decision_packet": true,
+  "ready_for_reviewed_bank_promotion": false,
+  "ready_for_runtime_activation": false,
+  "runtime_activation_authorized": false,
+  "included_candidate_ids": [
+    "svqcl_p4_001",
+    "svqcl_p4_002",
+    "svqcl_p4_003",
+    "svqcl_p4_005",
+    "svqcl_p4_006"
+  ],
+  "excluded_revision_required_ids": [
+    "bsvb_p4_002",
+    "svqcl_p4_004"
+  ],
+  "excluded_held_ids": [
+    "bsvb_p4_003",
+    "bsvb_p4_004",
+    "svqcl_p4_007",
+    "svqcl_p4_008",
+    "svqcl_p4_009"
+  ],
+  "recommended_next_branch": "feature/perek-4-broad-vocabulary-reviewed-bank-decision-packet-v1"
+}

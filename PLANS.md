@@ -182,3 +182,5 @@
 - [x] Add validator/tests and keep runtime, reviewed-bank, student-facing, source-truth, scoring/mastery, and scope gates closed.
 
 - [x] Final Observation V1 (2026-04-30): record Yossi's internal final observation evidence for all five packet items, create final completion and readiness artifacts, and prepare reviewed-bank-candidate/runtime-readiness next-branch prompts while leaving runtime activation and reviewed-bank promotion blocked.
+
+- [x] Reviewed-Bank Candidate Planning V1 (2026-04-30): prepare the five observed Perek 4 broad-vocabulary packet items for a future Yossi reviewed-bank decision packet only, while preserving blocked/revision rows and keeping reviewed-bank promotion and runtime activation closed.

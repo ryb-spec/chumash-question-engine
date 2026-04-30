@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.0",
+  "map_type": "perek_4_broad_vocabulary_reviewed_bank_candidate_evidence_map",
+  "candidate_count": 5,
+  "final_observation_evidence_path": "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_broad_vocabulary_final_observation_evidence_2026_04_30.json",
+  "reviewed_bank_promoted": false,
+  "reviewed_bank_entries_created": false,
+  "runtime_scope_widened": false,
+  "perek_activated": false,
+  "runtime_questions_created": false,
+  "student_facing_content_created": false,
+  "source_truth_changed": false,
+  "items": [
+    {
+      "source_candidate_id": "svqcl_p4_001",
+      "packet_item_id": "p4bv_ipp_001",
+      "source_text_evidence": "data/source_texts/bereishis_hebrew_menukad_taamim.tsv#Bereishis 4:1",
+      "vocabulary_bank_evidence": "data/vocabulary_bank/bereishis_perek_4_broad_safe_vocabulary_bank_2026_04_30.tsv#bsvb_p4_001",
+      "simple_question_candidate_evidence": "data/question_candidate_lanes/bereishis_perek_4_simple_vocabulary_question_candidates_2026_04_30.tsv#svqcl_p4_001",
+      "teacher_review_decision_evidence": "data/teacher_review_decisions/bereishis_perek_4_broad_vocabulary_teacher_review_decisions_applied_2026_04_30.tsv",
+      "protected_preview_candidate_gate_evidence": "data/protected_preview_candidate_gates/bereishis_perek_4_broad_vocabulary_protected_preview_candidate_gate_2026_04_30.tsv",
+      "internal_packet_evidence": "data/gate_2_protected_preview_packets/bereishis_perek_4_broad_vocabulary_internal_protected_preview_packet_2026_04_30.tsv",
+      "internal_observation_evidence": "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_broad_vocabulary_final_observation_evidence_2026_04_30.json",
+      "remaining_risks": "none_beyond_future_yossi_decision",
+      "next_required_decision": "yossi_reviewed_bank_decision_required"
+    },
+    {
+      "source_candidate_id": "svqcl_p4_002",
+      "packet_item_id": "p4bv_ipp_002",
+      "source_text_evidence": "data/source_texts/bereishis_hebrew_menukad_taamim.tsv#Bereishis 4:1",
+      "vocabulary_bank_evidence": "data/vocabulary_bank/bereishis_perek_4_broad_safe_vocabulary_bank_2026_04_30.tsv#bsvb_p4_001",
+      "simple_question_candidate_evidence": "data/question_candidate_lanes/bereishis_perek_4_simple_vocabulary_question_candidates_2026_04_30.tsv#svqcl_p4_002",
+      "teacher_review_decision_evidence": "data/teacher_review_decisions/bereishis_perek_4_broad_vocabulary_teacher_review_decisions_applied_2026_04_30.tsv",
+      "protected_preview_candidate_gate_evidence": "data/protected_preview_candidate_gates/bereishis_perek_4_broad_vocabulary_protected_preview_candidate_gate_2026_04_30.tsv",
+      "internal_packet_evidence": "data/gate_2_protected_preview_packets/bereishis_perek_4_broad_vocabulary_internal_protected_preview_packet_2026_04_30.tsv",
+      "internal_observation_evidence": "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_broad_vocabulary_final_observation_evidence_2026_04_30.json",
+      "remaining_risks": "pasuk_context_observed_as_sufficient",
+      "next_required_decision": "yossi_reviewed_bank_decision_required"
+    },
+    {
+      "source_candidate_id": "svqcl_p4_003",
+      "packet_item_id": "p4bv_ipp_003",
+      "source_text_evidence": "data/source_texts/bereishis_hebrew_menukad_taamim.tsv#Bereishis 4:1",
+      "vocabulary_bank_evidence": "data/vocabulary_bank/bereishis_perek_4_broad_safe_vocabulary_bank_2026_04_30.tsv#bsvb_p4_001",
+      "simple_question_candidate_evidence": "data/question_candidate_lanes/bereishis_perek_4_simple_vocabulary_question_candidates_2026_04_30.tsv#svqcl_p4_003",
+      "teacher_review_decision_evidence": "data/teacher_review_decisions/bereishis_perek_4_broad_vocabulary_teacher_review_decisions_applied_2026_04_30.tsv",
+      "protected_preview_candidate_gate_evidence": "data/protected_preview_candidate_gates/bereishis_perek_4_broad_vocabulary_protected_preview_candidate_gate_2026_04_30.tsv",
+      "internal_packet_evidence": "data/gate_2_protected_preview_packets/bereishis_perek_4_broad_vocabulary_internal_protected_preview_packet_2026_04_30.tsv",
+      "internal_observation_evidence": "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_broad_vocabulary_final_observation_evidence_2026_04_30.json",
+      "remaining_risks": "none_beyond_future_yossi_decision",
+      "next_required_decision": "yossi_reviewed_bank_decision_required"
+    },
+    {
+      "source_candidate_id": "svqcl_p4_005",
+      "packet_item_id": "p4bv_ipp_004",
+      "source_text_evidence": "data/source_texts/bereishis_hebrew_menukad_taamim.tsv#Bereishis 4:2",
+      "vocabulary_bank_evidence": "data/vocabulary_bank/bereishis_perek_4_broad_safe_vocabulary_bank_2026_04_30.tsv#bsvb_p4_002",
+      "simple_question_candidate_evidence": "data/question_candidate_lanes/bereishis_perek_4_simple_vocabulary_question_candidates_2026_04_30.tsv#svqcl_p4_005",
+      "teacher_review_decision_evidence": "data/teacher_review_decisions/bereishis_perek_4_broad_vocabulary_teacher_review_decisions_applied_2026_04_30.tsv",
+      "protected_preview_candidate_gate_evidence": "data/protected_preview_candidate_gates/bereishis_perek_4_broad_vocabulary_protected_preview_candidate_gate_2026_04_30.tsv",
+      "internal_packet_evidence": "data/gate_2_protected_preview_packets/bereishis_perek_4_broad_vocabulary_internal_protected_preview_packet_2026_04_30.tsv",
+      "internal_observation_evidence": "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_broad_vocabulary_final_observation_evidence_2026_04_30.json",
+      "remaining_risks": "separate_tzoan_translation_and_word_gloss_revision_rows_remain_blocked",
+      "next_required_decision": "yossi_reviewed_bank_decision_required"
+    },
+    {
+      "source_candidate_id": "svqcl_p4_006",
+      "packet_item_id": "p4bv_ipp_005",
+      "source_text_evidence": "data/source_texts/bereishis_hebrew_menukad_taamim.tsv#Bereishis 4:2",
+      "vocabulary_bank_evidence": "data/vocabulary_bank/bereishis_perek_4_broad_safe_vocabulary_bank_2026_04_30.tsv#bsvb_p4_002",
+      "simple_question_candidate_evidence": "data/question_candidate_lanes/bereishis_perek_4_simple_vocabulary_question_candidates_2026_04_30.tsv#svqcl_p4_006",
+      "teacher_review_decision_evidence": "data/teacher_review_decisions/bereishis_perek_4_broad_vocabulary_teacher_review_decisions_applied_2026_04_30.tsv",
+      "protected_preview_candidate_gate_evidence": "data/protected_preview_candidate_gates/bereishis_perek_4_broad_vocabulary_protected_preview_candidate_gate_2026_04_30.tsv",
+      "internal_packet_evidence": "data/gate_2_protected_preview_packets/bereishis_perek_4_broad_vocabulary_internal_protected_preview_packet_2026_04_30.tsv",
+      "internal_observation_evidence": "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_broad_vocabulary_final_observation_evidence_2026_04_30.json",
+      "remaining_risks": "separate_tzoan_translation_and_word_gloss_revision_rows_remain_blocked",
+      "next_required_decision": "yossi_reviewed_bank_decision_required"
+    }
+  ]
+}

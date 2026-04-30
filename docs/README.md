@@ -71,3 +71,5 @@ Status: local teacher report/export layer only. It saves Markdown and JSON runti
 - Perek 4 Broad Vocabulary Internal Protected-Preview Packet V1: creates a five-item internal packet plus review checklist, observation template, excluded register, and lineage reconciliation. It does not activate runtime, create student-facing content, or promote reviewed bank.
 
 - Perek 4 Broad Vocabulary Final Observation Gate V1: applies Yossi's final internal observation evidence to five packet items, marks them approved for later reviewed-bank-candidate planning, keeps blocked/revision rows excluded, and leaves runtime activation blocked.
+
+- Perek 4 Broad Vocabulary Reviewed-Bank Candidate Planning Gate V1: prepares five observed internal packet items for a future Yossi reviewed-bank decision packet only. It does not create reviewed-bank entries or activate runtime.

@@ -1,0 +1,72 @@
+{
+  "schema_version": "1.0",
+  "register_type": "perek_4_broad_vocabulary_reviewed_bank_candidate_blocked_register",
+  "register_date": "2026-04-30",
+  "revision_required_count": 2,
+  "held_count": 5,
+  "reviewed_bank_promoted": false,
+  "reviewed_bank_entries_created": false,
+  "runtime_scope_widened": false,
+  "perek_activated": false,
+  "runtime_questions_created": false,
+  "student_facing_content_created": false,
+  "source_truth_changed": false,
+  "items": [
+    {
+      "source_candidate_id": "bsvb_p4_002",
+      "hebrew_word": "צֹאן",
+      "block_type": "revision_required",
+      "reason": "Word-level gloss consistency revision remains required.",
+      "reviewed_bank_status": "not_reviewed_bank",
+      "runtime_status": "not_runtime"
+    },
+    {
+      "source_candidate_id": "svqcl_p4_004",
+      "hebrew_word": "צֹאן",
+      "block_type": "revision_required",
+      "reason": "Translation expected-answer revision remains required.",
+      "reviewed_bank_status": "not_reviewed_bank",
+      "runtime_status": "not_runtime"
+    },
+    {
+      "source_candidate_id": "bsvb_p4_003",
+      "hebrew_word": "אֲדָמָה",
+      "block_type": "held",
+      "reason": "Ground / earth / land gloss policy remains unresolved.",
+      "reviewed_bank_status": "not_reviewed_bank",
+      "runtime_status": "not_runtime"
+    },
+    {
+      "source_candidate_id": "bsvb_p4_004",
+      "hebrew_word": "מִנְחָה",
+      "block_type": "held",
+      "reason": "Offering / gift / tribute gloss policy remains unresolved.",
+      "reviewed_bank_status": "not_reviewed_bank",
+      "runtime_status": "not_runtime"
+    },
+    {
+      "source_candidate_id": "svqcl_p4_007",
+      "hebrew_word": "אוֹת",
+      "block_type": "held",
+      "reason": "Context may be conceptually loaded.",
+      "reviewed_bank_status": "not_reviewed_bank",
+      "runtime_status": "not_runtime"
+    },
+    {
+      "source_candidate_id": "svqcl_p4_008",
+      "hebrew_word": "אוֹת",
+      "block_type": "held",
+      "reason": "Held with the אות candidate group.",
+      "reviewed_bank_status": "not_reviewed_bank",
+      "runtime_status": "not_runtime"
+    },
+    {
+      "source_candidate_id": "svqcl_p4_009",
+      "hebrew_word": "אוֹת",
+      "block_type": "held",
+      "reason": "Held with the אות candidate group.",
+      "reviewed_bank_status": "not_reviewed_bank",
+      "runtime_status": "not_runtime"
+    }
+  ]
+}
