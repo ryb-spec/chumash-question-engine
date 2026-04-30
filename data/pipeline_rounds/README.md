@@ -506,3 +506,5 @@ Status: Streamlit now includes a collapsed sidebar Teacher Runtime Report Export
 - 2026-04-30: Simple Vocabulary Question Candidate Lane V1. Creates `../question_candidate_lanes/` with Perek 4 teacher-review-only simple question candidates plus a blocker register. It does not create runtime questions, protected-preview promotion, reviewed-bank promotion, or runtime activation.
 
 - 2026-04-30: Broad Vocabulary Teacher Review Packet V1. Creates `broad_vocabulary_teacher_review_packet_v1_2026_04_30.md` / `.json` with blank Yossi review prompts for word-level vocabulary, simple question candidates, and revision/watch items. It records no decisions and performs no promotion or runtime activation.
+
+- 2026-04-30: Broad Vocabulary Teacher Review Decisions V1. Creates `broad_vocabulary_teacher_review_decisions_applied_2026_04_30.md` / `.json` plus `../teacher_review_decisions/` decision and eligibility registers. It records Yossi's explicit decisions only, makes five clean simple candidates eligible for a future candidate gate, and performs no protected-preview packet build, reviewed-bank movement, or runtime activation.

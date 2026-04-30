@@ -162,3 +162,9 @@
 - [x] Create blank Yossi review prompts for Perek 4 word-level vocabulary items, simple question candidates, and revision/watch items.
 - [x] Add a machine-readable safety contract, validator, focused tests, and concise index entries.
 - [x] Keep teacher-decision, protected-preview, reviewed-bank, runtime, source-truth, scoring/mastery, and scope gates closed.
+
+## Apply Yossi Broad Vocabulary Teacher Review Decisions V1 - 2026-04-30
+
+- [x] Record Yossi's explicit broad vocabulary and simple question candidate decisions as decision artifacts.
+- [x] Create a future-gate eligibility register with five clean simple candidates, two revision-required rows, and held follow-up rows.
+- [x] Add validator/tests and keep protected-preview packet, reviewed-bank, runtime, source-truth, scoring/mastery, and scope gates closed.

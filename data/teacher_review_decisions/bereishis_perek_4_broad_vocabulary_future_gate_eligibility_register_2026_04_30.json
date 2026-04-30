@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0",
+  "register_type": "future_protected_preview_candidate_gate_eligibility",
+  "reviewed_by": "Yossi",
+  "reviewed_at": "2026-04-30",
+  "clean_eligible_candidate_ids": [
+    "svqcl_p4_001",
+    "svqcl_p4_002",
+    "svqcl_p4_003",
+    "svqcl_p4_005",
+    "svqcl_p4_006"
+  ],
+  "revision_required_source_ids": [
+    "bsvb_p4_002",
+    "svqcl_p4_004"
+  ],
+  "held_source_ids": [
+    "bsvb_p4_003",
+    "bsvb_p4_004",
+    "svqcl_p4_007",
+    "svqcl_p4_008",
+    "svqcl_p4_009"
+  ],
+  "word_level_only_approved_source_ids": [
+    "bsvb_p4_001",
+    "bsvb_p4_005"
+  ],
+  "runtime_status": "not_runtime",
+  "reviewed_bank_status": "not_reviewed_bank",
+  "protected_preview_packet_created": false,
+  "runtime_activation_authorized": false
+}

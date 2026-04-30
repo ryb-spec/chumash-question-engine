@@ -63,3 +63,5 @@ Status: local teacher report/export layer only. It saves Markdown and JSON runti
 - Simple Vocabulary Question Candidate Lane V1: teacher-review-only simple question candidates from the broad vocabulary bank. Artifacts live in `../data/question_candidate_lanes/` and `../data/pipeline_rounds/simple_vocabulary_question_candidate_lane_v1_2026_04_30.*`; no runtime questions, protected-preview promotion, reviewed-bank promotion, or runtime activation.
 
 - Broad Vocabulary Teacher Review Packet V1: blank Yossi review prompts for word-level vocabulary items, simple question candidates, and revision/watch items. Artifacts live in `../data/pipeline_rounds/broad_vocabulary_teacher_review_packet_v1_2026_04_30.*`; no decisions, promotion, runtime questions, or runtime activation.
+
+- Broad Vocabulary Teacher Review Decisions V1: applies Yossi's explicit manual decisions as decision artifacts only. Clean simple candidates become eligible only for a future protected-preview candidate gate; revision-required and held rows stay blocked. No runtime questions, protected-preview packet, reviewed-bank movement, or runtime activation.
