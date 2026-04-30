@@ -65,3 +65,5 @@ Status: local teacher report/export layer only. It saves Markdown and JSON runti
 - Broad Vocabulary Teacher Review Packet V1: blank Yossi review prompts for word-level vocabulary items, simple question candidates, and revision/watch items. Artifacts live in `../data/pipeline_rounds/broad_vocabulary_teacher_review_packet_v1_2026_04_30.*`; no decisions, promotion, runtime questions, or runtime activation.
 
 - Broad Vocabulary Teacher Review Decisions V1: applies Yossi's explicit manual decisions as decision artifacts only. Clean simple candidates become eligible only for a future protected-preview candidate gate; revision-required and held rows stay blocked. No runtime questions, protected-preview packet, reviewed-bank movement, or runtime activation.
+
+- Perek 4 Broad Vocabulary Protected-Preview Candidate Gate V1: gates exactly five clean simple vocabulary candidates for future protected-preview packet planning while preserving revision-required and held rows as blocked. No protected-preview packet, reviewed-bank movement, runtime questions, or runtime activation.
