@@ -1,0 +1,229 @@
+{
+  "schema_version": "1.0",
+  "contract_name": "streamlined_expansion_governance_contract",
+  "contract_date": "2026-04-30",
+  "purpose": "Make the Chumash bank expansion model explicit and machine-readable without activating runtime content.",
+  "product_rule": "The Chumash bank must expand quickly but safely.",
+  "expansion_model": {
+    "horizontal_expansion": "Expand across more pesukim and perakim.",
+    "vertical_expansion": "Add deeper skills only on already-approved words.",
+    "default_order": "Perek-by-Perek by default, with explicitly governed exceptions.",
+    "discovery_may_run_ahead": true,
+    "activation_may_run_ahead": false,
+    "planning_only_future_perakim_allowed": true,
+    "runtime_active_subset_policy": "Runtime-active content must be the smallest, safest subset, not the full discovery bank."
+  },
+  "content_layers": {
+    "perek_based_bank": {
+      "description": "Horizontal per-perek source, vocabulary, and candidate inventory.",
+      "may_include_planning_only_future_perakim": true,
+      "runtime_default": false
+    },
+    "skill_based_bank": {
+      "description": "Skill-organized view that may deepen approved words into additional skill lanes.",
+      "requires_base_word_approval_for_depth": true,
+      "runtime_default": false
+    },
+    "reviewed_bank_content_layer": {
+      "description": "Teacher-reviewed and governance-approved content eligible for future runtime readiness checks.",
+      "requires_reviewed_bank_approved": true,
+      "runtime_default": false
+    },
+    "runtime_active_subset": {
+      "description": "Smallest safe subset currently allowed in supported runtime.",
+      "requires_reviewed_bank_approved": true,
+      "requires_runtime_ready": true,
+      "runtime_default": true
+    }
+  },
+  "required_minimum_traceability_fields": [
+    "sefer",
+    "perek",
+    "pasuk",
+    "hebrew_word_or_hebrew_phrase",
+    "basic_gloss",
+    "skill_category",
+    "source_evidence",
+    "review_status",
+    "runtime_status"
+  ],
+  "traceability_field_aliases": {
+    "hebrew_word_or_hebrew_phrase": [
+      "hebrew_word",
+      "hebrew_phrase"
+    ]
+  },
+  "approval_status_ladder": [
+    "planning_only",
+    "word_level_candidate",
+    "word_level_approved",
+    "simple_question_candidate",
+    "teacher_review_ready",
+    "teacher_approved",
+    "protected_preview_ready",
+    "observed_internally",
+    "reviewed_bank_candidate",
+    "reviewed_bank_approved",
+    "runtime_ready",
+    "runtime_active"
+  ],
+  "allowed_progression_rules": [
+    {
+      "from": "planning_only",
+      "to": "word_level_candidate"
+    },
+    {
+      "from": "word_level_candidate",
+      "to": "word_level_approved"
+    },
+    {
+      "from": "word_level_approved",
+      "to": "simple_question_candidate"
+    },
+    {
+      "from": "simple_question_candidate",
+      "to": "teacher_review_ready"
+    },
+    {
+      "from": "teacher_review_ready",
+      "to": "teacher_approved"
+    },
+    {
+      "from": "teacher_approved",
+      "to": "protected_preview_ready"
+    },
+    {
+      "from": "protected_preview_ready",
+      "to": "observed_internally"
+    },
+    {
+      "from": "observed_internally",
+      "to": "reviewed_bank_candidate"
+    },
+    {
+      "from": "reviewed_bank_candidate",
+      "to": "reviewed_bank_approved"
+    },
+    {
+      "from": "reviewed_bank_approved",
+      "to": "runtime_ready"
+    },
+    {
+      "from": "runtime_ready",
+      "to": "runtime_active"
+    }
+  ],
+  "forbidden_shortcuts": [
+    {
+      "from": "planning_only",
+      "to": "runtime_ready"
+    },
+    {
+      "from": "planning_only",
+      "to": "runtime_active"
+    },
+    {
+      "from": "word_level_approved",
+      "to": "runtime_active"
+    },
+    {
+      "from": "simple_question_candidate",
+      "to": "runtime_active"
+    },
+    {
+      "from": "protected_preview_ready",
+      "to": "runtime_active",
+      "missing_required_status": "observed_internally"
+    },
+    {
+      "from": "reviewed_bank_candidate",
+      "to": "runtime_active",
+      "missing_required_statuses": [
+        "reviewed_bank_approved",
+        "runtime_ready"
+      ]
+    }
+  ],
+  "runtime_active_requirements": {
+    "runtime_active_true_requires": [
+      "reviewed_bank_approved",
+      "runtime_ready"
+    ],
+    "runtime_active_must_have_evidence_for": [
+      "reviewed_bank_approved",
+      "runtime_ready"
+    ]
+  },
+  "depth_ladder": [
+    {
+      "stage": 1,
+      "id": "single_word_vocabulary"
+    },
+    {
+      "stage": 2,
+      "id": "word_function"
+    },
+    {
+      "stage": 3,
+      "id": "shoresh_or_morphology"
+    },
+    {
+      "stage": 4,
+      "id": "phrase_translation"
+    },
+    {
+      "stage": 5,
+      "id": "pasuk_comprehension"
+    },
+    {
+      "stage": 6,
+      "id": "rashi_or_deeper_pshat",
+      "default_expansion": false,
+      "late_stage_only": true
+    }
+  ],
+  "depth_gate": {
+    "stage_1_rule": "Stage 1 may begin with word-level review.",
+    "stage_2_plus_minimum_base_word_evidence": [
+      "word_level_approved",
+      "simple_question_reviewed_or_teacher_approved",
+      "observed_internally"
+    ],
+    "stage_2_plus_rule": "Stage 2 and deeper skills may not be generated as approved content unless the base word satisfies all minimum evidence.",
+    "stage_6_rule": "Stage 6 remains explicitly late-stage and is not default expansion."
+  },
+  "planning_only_rule": {
+    "future_perek_discovery_files_allowed": true,
+    "default_status": "planning_only",
+    "required_closed_fields": {
+      "runtime_allowed": false,
+      "protected_preview_allowed": false,
+      "reviewed_bank_allowed": false,
+      "runtime_active": false
+    },
+    "activation_may_not_run_ahead": true
+  },
+  "review_packet_separation_rule": {
+    "allowed_review_packet_types": [
+      "word_bank_review",
+      "simple_question_review",
+      "depth_expansion_review",
+      "protected_preview_observation",
+      "reviewed_bank_decision"
+    ],
+    "mixed_packet_default_allowed": false,
+    "mixed_packet_exception_requires": [
+      "explicit_exception_marker",
+      "explanation",
+      "separate_decision_fields_by_type",
+      "all_runtime_and_promotion_gates_closed"
+    ]
+  },
+  "non_runtime_safety_flags": {
+    "runtime_behavior_modified": false,
+    "streamlit_ui_modified": false,
+    "runtime_content_promoted": false,
+    "reviewed_bank_entries_created": false,
+    "source_truth_changed": false
+  }
+}
