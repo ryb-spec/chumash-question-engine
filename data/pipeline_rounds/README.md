@@ -443,3 +443,12 @@ Status: only סֵפֶר and בֵּן move into a clean limited iteration. בָש
 - Validator/test: `../../scripts/validate_runtime_learning_intelligence.py` and `../../tests/test_runtime_learning_intelligence.py`
 
 Status: product/runtime improvement only. Local attempt and pilot history now inform question-selection weighting to reduce cross-session repetition while preserving fallback for small safe scopes. No active scope, reviewed-bank, source-truth, scoring/mastery, auth, database, or PII behavior was added.
+
+## Runtime Learning Intelligence manual smoke test - 2026-04-30
+
+- Manual smoke test report: `runtime_learning_intelligence_manual_smoke_test_2026_04_30.md`
+- Manual smoke test JSON: `runtime_learning_intelligence_manual_smoke_test_2026_04_30.json`
+- Next-step recommendation: `runtime_learning_intelligence_next_step_recommendation_2026_04_30.md`
+- Validator/test: `../../scripts/validate_runtime_learning_intelligence_smoke_test.py` and `../../tests/test_runtime_learning_intelligence_smoke_test.py`
+
+Status: Yossi's manual smoke test found reduced repeated questions and repeated Hebrew targets with no observed slowdown, skips, missing questions, or confusing behavior. Small-pool fallback remains unknown/not determined and still needs targeted confirmation. No runtime logic, active scope, scoring/mastery, source truth, reviewed-bank, auth, database, PII, or student-facing behavior changed in this evidence-recording task.
