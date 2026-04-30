@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import csv
+import json
 from pathlib import Path
 
 from scripts import validate_perek_4_source_discovery as validator
@@ -97,8 +98,41 @@ def test_status_index_says_no_packet_or_activation():
     assert "No Perek 5 expansion" in text
 
 
-def test_no_perek_4_protected_preview_packet_exists():
-    assert validator.perek4_packet_paths() == []
+def test_governed_downstream_perek_4_packet_artifacts_are_allowed():
+    disallowed = {validator.repo_relative(path) for path in validator.perek4_packet_paths()}
+    assert disallowed.isdisjoint(set(validator.GOVERNED_PEREK_4_PACKET_REQUIREMENTS.keys()))
+
+
+def test_unrecognized_perek_4_packet_artifacts_are_blocked(tmp_path, monkeypatch):
+    fake_root = tmp_path / "repo"
+    fake_packet_dir = fake_root / "data" / "gate_2_protected_preview_packets"
+    fake_packet_dir.mkdir(parents=True)
+    fake_packet = fake_packet_dir / "bereishis_perek_4_fake_packet_2026_04_30.json"
+    fake_packet.write_text("{}", encoding="utf-8")
+
+    monkeypatch.setattr(validator, "ROOT", fake_root)
+    monkeypatch.setattr(validator, "PROTECTED_PREVIEW_PACKET_DIR", fake_packet_dir)
+    monkeypatch.setattr(
+        validator,
+        "GOVERNED_PEREK_4_PACKET_REQUIREMENTS",
+        {},
+    )
+
+    assert validator.perek4_packet_paths() == [fake_packet]
+
+
+def test_governed_downstream_contracts_keep_activation_and_release_gates_closed():
+    contract = json.loads(
+        (ROOT / "data/pipeline_rounds/perek_4_broad_vocabulary_internal_protected_preview_packet_v1_2026_04_30.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    assert contract["runtime_scope_widened"] is False
+    assert contract["perek_activated"] is False
+    assert contract["reviewed_bank_promoted"] is False
+    assert contract["runtime_questions_created"] is False
+    assert contract["student_facing_content_created"] is False
+    assert contract["fake_observation_evidence_created"] is False
 
 
 def test_next_review_checklist_prompt_exists_and_keeps_gates_closed():

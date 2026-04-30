@@ -16,36 +16,161 @@ EXCLUDED_RISK_LANES_REPORT = ROOT / "data/gate_2_source_discovery/reports/bereis
 STATUS_INDEX = ROOT / "data/gate_2_source_discovery/reports/bereishis_perek_4_source_discovery_status_index.md"
 NEXT_PROMPT = ROOT / "data/pipeline_rounds/prompts/bereishis_perek_4_review_checklist_prompt.md"
 PROTECTED_PREVIEW_PACKET_DIR = ROOT / "data/gate_2_protected_preview_packets"
-AUTHORIZED_PEREK_4_INTERNAL_PACKET_FILES = {
-    "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_two_item_limited_internal_packet_iteration_2026_04_29.json",
-    "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_two_item_limited_internal_packet_iteration_2026_04_29.md",
-    "data/gate_2_protected_preview_packets/bereishis_perek_4_two_item_limited_internal_packet_iteration.tsv",
-    "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_limited_internal_preview_hold_register_2026_04_29.md",
-    "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_limited_internal_preview_decisions_applied_2026_04_29.json",
-    "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_limited_internal_preview_decisions_applied_2026_04_29.md",
-    "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_limited_internal_preview_observation_template_2026_04_29.md",
-    "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_blocked_revision_register_2026_04_29.md",
-    "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_limited_internal_preview_readiness_2026_04_29.md",
-    "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_internal_protected_preview_review_decisions_applied_2026_04_29.json",
-    "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_internal_protected_preview_review_decisions_applied_2026_04_29.md",
-    "data/gate_2_protected_preview_packets/bereishis_perek_4_internal_protected_preview_packet.tsv",
-    "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_internal_protected_preview_packet_2026_04_29.md",
-    "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_internal_protected_preview_packet_2026_04_29.json",
-    "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_internal_protected_preview_packet_generation_report_2026_04_29.md",
-    "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_internal_protected_preview_review_checklist_2026_04_29.md",
-    "data/gate_2_protected_preview_packets/bereishis_perek_4_limited_protected_preview_build_gate_2026_04_30.tsv",
-    "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_limited_protected_preview_build_gate_2026_04_30.md",
-    "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_limited_protected_preview_build_gate_2026_04_30.json",
-    "data/gate_2_protected_preview_packets/bereishis_perek_4_broad_vocabulary_internal_protected_preview_packet_2026_04_30.tsv",
-    "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_broad_vocabulary_internal_protected_preview_packet_2026_04_30.md",
-    "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_broad_vocabulary_internal_protected_preview_packet_2026_04_30.json",
-    "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_broad_vocabulary_internal_review_checklist_2026_04_30.md",
-    "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_broad_vocabulary_internal_review_checklist_2026_04_30.tsv",
-    "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_broad_vocabulary_observation_template_2026_04_30.md",
-    "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_broad_vocabulary_observation_template_2026_04_30.tsv",
-    "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_broad_vocabulary_packet_excluded_register_2026_04_30.md",
-    "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_broad_vocabulary_packet_excluded_register_2026_04_30.json",
+
+GOVERNED_PEREK_4_PACKET_REQUIREMENTS: dict[str, tuple[str, ...]] = {
+    "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_two_item_limited_internal_packet_iteration_2026_04_29.json": (
+        "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_two_item_limited_internal_packet_iteration_2026_04_29.json",
+    ),
+    "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_two_item_limited_internal_packet_iteration_2026_04_29.md": (
+        "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_two_item_limited_internal_packet_iteration_2026_04_29.json",
+    ),
+    "data/gate_2_protected_preview_packets/bereishis_perek_4_two_item_limited_internal_packet_iteration.tsv": (
+        "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_two_item_limited_internal_packet_iteration_2026_04_29.json",
+    ),
+    "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_limited_internal_preview_hold_register_2026_04_29.md": (
+        "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_limited_internal_preview_decisions_applied_2026_04_29.json",
+    ),
+    "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_limited_internal_preview_decisions_applied_2026_04_29.json": (
+        "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_limited_internal_preview_decisions_applied_2026_04_29.json",
+    ),
+    "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_limited_internal_preview_decisions_applied_2026_04_29.md": (
+        "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_limited_internal_preview_decisions_applied_2026_04_29.json",
+    ),
+    "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_limited_internal_preview_observation_template_2026_04_29.md": (
+        "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_limited_internal_preview_decisions_applied_2026_04_29.json",
+    ),
+    "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_blocked_revision_register_2026_04_29.md": (
+        "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_limited_internal_preview_decisions_applied_2026_04_29.json",
+    ),
+    "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_limited_internal_preview_readiness_2026_04_29.md": (
+        "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_limited_internal_preview_decisions_applied_2026_04_29.json",
+    ),
+    "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_internal_protected_preview_review_decisions_applied_2026_04_29.json": (
+        "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_internal_protected_preview_review_decisions_applied_2026_04_29.json",
+    ),
+    "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_internal_protected_preview_review_decisions_applied_2026_04_29.md": (
+        "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_internal_protected_preview_review_decisions_applied_2026_04_29.json",
+    ),
+    "data/gate_2_protected_preview_packets/bereishis_perek_4_internal_protected_preview_packet.tsv": (
+        "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_internal_protected_preview_packet_2026_04_29.json",
+        "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_internal_protected_preview_review_decisions_applied_2026_04_29.json",
+    ),
+    "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_internal_protected_preview_packet_2026_04_29.md": (
+        "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_internal_protected_preview_packet_2026_04_29.json",
+    ),
+    "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_internal_protected_preview_packet_2026_04_29.json": (
+        "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_internal_protected_preview_packet_2026_04_29.json",
+    ),
+    "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_internal_protected_preview_packet_generation_report_2026_04_29.md": (
+        "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_internal_protected_preview_packet_2026_04_29.json",
+    ),
+    "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_internal_protected_preview_packet_planning_2026_04_29.md": (
+        "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_internal_protected_preview_packet_2026_04_29.json",
+    ),
+    "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_internal_protected_preview_review_checklist_2026_04_29.md": (
+        "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_internal_protected_preview_review_decisions_applied_2026_04_29.json",
+    ),
+    "data/gate_2_protected_preview_packets/bereishis_perek_4_limited_protected_preview_build_gate_2026_04_30.tsv": (
+        "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_limited_protected_preview_build_gate_2026_04_30.json",
+    ),
+    "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_limited_protected_preview_build_gate_2026_04_30.md": (
+        "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_limited_protected_preview_build_gate_2026_04_30.json",
+    ),
+    "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_limited_protected_preview_build_gate_2026_04_30.json": (
+        "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_limited_protected_preview_build_gate_2026_04_30.json",
+    ),
+    "data/gate_2_protected_preview_packets/bereishis_perek_4_broad_vocabulary_internal_protected_preview_packet_2026_04_30.tsv": (
+        "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_broad_vocabulary_internal_protected_preview_packet_2026_04_30.json",
+    ),
+    "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_broad_vocabulary_internal_protected_preview_packet_2026_04_30.md": (
+        "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_broad_vocabulary_internal_protected_preview_packet_2026_04_30.json",
+    ),
+    "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_broad_vocabulary_internal_protected_preview_packet_2026_04_30.json": (
+        "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_broad_vocabulary_internal_protected_preview_packet_2026_04_30.json",
+    ),
+    "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_broad_vocabulary_internal_review_checklist_2026_04_30.md": (
+        "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_broad_vocabulary_internal_protected_preview_packet_2026_04_30.json",
+        "data/pipeline_rounds/perek_4_broad_vocabulary_internal_protected_preview_packet_v1_2026_04_30.json",
+    ),
+    "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_broad_vocabulary_internal_review_checklist_2026_04_30.tsv": (
+        "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_broad_vocabulary_internal_protected_preview_packet_2026_04_30.json",
+        "data/pipeline_rounds/perek_4_broad_vocabulary_internal_protected_preview_packet_v1_2026_04_30.json",
+    ),
+    "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_broad_vocabulary_internal_review_checklist_yossi_completed_2026_04_30.md": (
+        "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_broad_vocabulary_internal_protected_preview_packet_2026_04_30.json",
+        "data/pipeline_rounds/perek_4_broad_vocabulary_internal_protected_preview_packet_v1_2026_04_30.json",
+    ),
+    "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_broad_vocabulary_internal_review_checklist_yossi_completed_2026_04_30.tsv": (
+        "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_broad_vocabulary_internal_protected_preview_packet_2026_04_30.json",
+        "data/pipeline_rounds/perek_4_broad_vocabulary_internal_protected_preview_packet_v1_2026_04_30.json",
+    ),
+    "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_broad_vocabulary_observation_template_2026_04_30.md": (
+        "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_broad_vocabulary_internal_protected_preview_packet_2026_04_30.json",
+    ),
+    "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_broad_vocabulary_observation_template_2026_04_30.tsv": (
+        "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_broad_vocabulary_internal_protected_preview_packet_2026_04_30.json",
+    ),
+    "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_broad_vocabulary_packet_excluded_register_2026_04_30.md": (
+        "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_broad_vocabulary_packet_excluded_register_2026_04_30.json",
+        "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_broad_vocabulary_internal_protected_preview_packet_2026_04_30.json",
+    ),
+    "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_broad_vocabulary_packet_excluded_register_2026_04_30.json": (
+        "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_broad_vocabulary_packet_excluded_register_2026_04_30.json",
+        "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_broad_vocabulary_internal_protected_preview_packet_2026_04_30.json",
+    ),
+    "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_broad_vocabulary_internal_review_decisions_and_next_gate_2026_04_30.json": (
+        "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_broad_vocabulary_internal_protected_preview_packet_2026_04_30.json",
+        "data/pipeline_rounds/perek_4_broad_vocabulary_internal_protected_preview_packet_v1_2026_04_30.json",
+    ),
+    "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_broad_vocabulary_internal_review_decisions_and_next_gate_2026_04_30.md": (
+        "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_broad_vocabulary_internal_protected_preview_packet_2026_04_30.json",
+        "data/pipeline_rounds/perek_4_broad_vocabulary_internal_protected_preview_packet_v1_2026_04_30.json",
+    ),
 }
+
+PEREK_4_GOVERNANCE_FALSE_GATE_ALIASES: dict[str, tuple[str, ...]] = {
+    "runtime_scope_widened": ("runtime_scope_widened",),
+    "perek_activated": ("perek_activated", "perek_4_activated"),
+    "reviewed_bank_promoted": ("reviewed_bank_promoted",),
+    "runtime_questions_created": ("runtime_questions_created",),
+    "student_facing_content_created": ("student_facing_content_created", "student_facing_created"),
+    "fake_observation_evidence_created": ("fake_observation_evidence_created", "fake_observations_created"),
+}
+
+def _read_json_contract(path: Path) -> dict[str, object]:
+    if not path.exists():
+        return {}
+    try:
+        return json.loads(path.read_text(encoding="utf-8-sig"))
+    except (json.JSONDecodeError, OSError):
+        return {}
+
+
+def _contract_gates_are_closed(payload: dict[str, object]) -> bool:
+    for key, aliases in PEREK_4_GOVERNANCE_FALSE_GATE_ALIASES.items():
+        found = False
+        for alias in aliases:
+            if alias not in payload:
+                continue
+            if payload[alias] is not False:
+                return False
+            found = True
+            break
+        if not found:
+            continue
+    return True
+
+
+def _is_governed_downstream_perek4_packet(path_text: str) -> bool:
+    contract_paths = GOVERNED_PEREK_4_PACKET_REQUIREMENTS.get(path_text)
+    if not contract_paths:
+        return False
+    for contract_path in contract_paths:
+        full_path = ROOT / contract_path
+        payload = _read_json_contract(full_path)
+        if not payload or not _contract_gates_are_closed(payload):
+            return False
+    return True
 
 REQUIRED_COLUMNS = [
     "candidate_id",
@@ -130,7 +255,7 @@ def perek4_packet_paths() -> list[Path]:
         path_text = repo_relative(path)
         if "packet_planning" in path.name or "planning-only" in read_text(path):
             continue
-        if repo_relative(path) in AUTHORIZED_PEREK_4_INTERNAL_PACKET_FILES:
+        if _is_governed_downstream_perek4_packet(path_text):
             continue
         packet_paths.append(path)
     return packet_paths

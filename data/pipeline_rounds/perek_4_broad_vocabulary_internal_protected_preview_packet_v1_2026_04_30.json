@@ -41,11 +41,11 @@
   "source_truth_changed": false,
   "raw_logs_exposed": false,
   "validators_weakened": false,
-  "ready_for_internal_review": true,
+  "ready_for_internal_review": false,
+  "internal_review_decisions_applied": true,
   "ready_for_internal_observation_after_review": true,
   "ready_for_reviewed_bank_promotion": false,
   "ready_for_runtime_activation": false,
   "runtime_activation_authorized": false,
   "recommended_next_branch": "feature/perek-4-broad-vocabulary-post-preview-decisions-v1"
 }
-
