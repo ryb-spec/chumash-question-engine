@@ -297,6 +297,7 @@ ALLOWED_CHANGE_EXACT = {
     "docs/sources/trusted_teacher_source_policy.md",
     "docs/question_templates/approved_question_template_policy.md",
     "runtime/attempt_history.py",
+    "runtime/exposure_summary.py",
     "runtime/question_identity.py",
     "runtime/question_flow.py",
     "runtime/scope_exhaustion.py",
@@ -307,12 +308,18 @@ ALLOWED_CHANGE_EXACT = {
     "data/pipeline_rounds/runtime_learning_intelligence_manual_smoke_test_2026_04_30.md",
     "data/pipeline_rounds/runtime_learning_intelligence_manual_smoke_test_2026_04_30.json",
     "data/pipeline_rounds/runtime_learning_intelligence_next_step_recommendation_2026_04_30.md",
+    "data/pipeline_rounds/teacher_facing_runtime_exposure_center_2026_04_30.md",
+    "data/pipeline_rounds/teacher_facing_runtime_exposure_center_2026_04_30.json",
+    "data/pipeline_rounds/runtime_learning_intelligence_fallback_test_plan_2026_04_30.md",
     "data/validation/runtime_learning_intelligence_report.md",
     "data/validation/runtime_learning_intelligence_summary.json",
     "scripts/validate_runtime_learning_intelligence.py",
     "scripts/validate_runtime_learning_intelligence_smoke_test.py",
+    "scripts/validate_teacher_facing_runtime_exposure_center.py",
     "tests/test_runtime_learning_intelligence.py",
     "tests/test_runtime_learning_intelligence_smoke_test.py",
+    "tests/test_teacher_facing_runtime_exposure_center.py",
+    "ui/runtime_exposure_summary.py",
     "scripts/validate_question_eligibility_audit.py",
     "scripts/validate_question_template_wording_policy.py",
     "scripts/validate_template_skeleton_planning.py",
@@ -1368,6 +1375,30 @@ def is_allowed_perek_3_short_repilot_scope_leak_fix(path: str) -> bool:
     return all(allowed_prompt_line(line) for line in changed_lines)
 
 
+def is_allowed_teacher_runtime_exposure_center_ui(path: str) -> bool:
+    if path != "streamlit_app.py":
+        return False
+    result = subprocess.run(
+        ["git", "diff", "--unified=8", "--", path],
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        check=False,
+    )
+    if result.returncode != 0:
+        return False
+    diff = result.stdout
+    required_fragments = [
+        "from runtime.exposure_summary import build_runtime_exposure_summary_from_default_logs",
+        "from ui.runtime_exposure_summary import render_runtime_exposure_center",
+        "build_runtime_exposure_summary_from_default_logs(",
+        "Runtime Exposure Center: teacher-facing, read-only observability.",
+        "render_runtime_exposure_center(runtime_exposure_summary)",
+    ]
+    return bool(diff) and all(fragment in diff for fragment in required_fragments)
+
+
 def forbidden_reason(path: str) -> str:
     for prefix in FORBIDDEN_CHANGE_PREFIXES:
         if path == prefix or path.startswith(prefix):
@@ -1491,6 +1522,7 @@ def validate_curriculum_extraction(*, check_git_diff: bool = False) -> dict:
                 and not is_allowed_perek_3_pilot_wording_fix(path)
                 and not is_allowed_perek_3_pilot_distractor_source_remediation(path)
                 and not is_allowed_perek_3_short_repilot_scope_leak_fix(path)
+                and not is_allowed_teacher_runtime_exposure_center_ui(path)
             ):
                 errors.append(forbidden_reason(path))
 

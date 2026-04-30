@@ -370,6 +370,7 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
             and not validator.is_allowed_perek_3_pilot_wording_fix(path)
             and not validator.is_allowed_perek_3_pilot_distractor_source_remediation(path)
             and not validator.is_allowed_perek_3_short_repilot_scope_leak_fix(path)
+            and not validator.is_allowed_teacher_runtime_exposure_center_ui(path)
         ]
         self.assertEqual(disallowed, [], [validator.forbidden_reason(path) for path in disallowed])
 
@@ -624,12 +625,19 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
     "data/pipeline_rounds/runtime_learning_intelligence_manual_smoke_test_2026_04_30.md",
     "data/pipeline_rounds/runtime_learning_intelligence_manual_smoke_test_2026_04_30.json",
     "data/pipeline_rounds/runtime_learning_intelligence_next_step_recommendation_2026_04_30.md",
+    "data/pipeline_rounds/teacher_facing_runtime_exposure_center_2026_04_30.md",
+    "data/pipeline_rounds/teacher_facing_runtime_exposure_center_2026_04_30.json",
+    "data/pipeline_rounds/runtime_learning_intelligence_fallback_test_plan_2026_04_30.md",
     "data/validation/runtime_learning_intelligence_report.md",
     "data/validation/runtime_learning_intelligence_summary.json",
     "scripts/validate_runtime_learning_intelligence.py",
     "scripts/validate_runtime_learning_intelligence_smoke_test.py",
+    "scripts/validate_teacher_facing_runtime_exposure_center.py",
     "tests/test_runtime_learning_intelligence.py",
     "tests/test_runtime_learning_intelligence_smoke_test.py",
+    "tests/test_teacher_facing_runtime_exposure_center.py",
+    "runtime/exposure_summary.py",
+    "ui/runtime_exposure_summary.py",
             "data/verified_source_skill_maps/README.md",
             "data/verified_source_skill_maps/bereishis_1_1_to_3_24_metsudah_skill_map.tsv",
             "data/verified_source_skill_maps/bereishis_1_1_to_1_5_source_to_skill_map.tsv",

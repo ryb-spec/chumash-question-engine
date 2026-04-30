@@ -44,6 +44,42 @@ Missing history files are safe. Malformed JSONL lines are skipped and counted.
 
 The runtime does not permanently suppress candidates. If the current safe scope is too small, or every candidate is already exposed, the best available safe candidate is still served. This keeps the app usable while making the fallback visible.
 
+## Teacher-Facing Runtime Exposure Center
+
+Runtime Learning Intelligence V1 now appears in the Streamlit sidebar as a collapsed `Runtime Exposure Center` near the teacher/pilot monitor.
+
+It shows:
+
+- whether repetition control is active
+- whether Runtime Learning Intelligence is enabled
+- recent attempts counted
+- attempt-log and pilot-event log presence
+- malformed/skipped log-line count
+- last observed attempt timestamp when available
+- most repeated Hebrew targets
+- most repeated pasuk plus skill combinations
+- most repeated skills and question types
+- small-pool fallback status and fallback count when local traces expose it
+
+Repeated targets are counted from normalized local attempt-history records. Pasuk/skill repeats are summarized by pairing each available `pasuk_ref` with its `skill`. Question-type and skill counts are summarized separately so a teacher can see when one lane is dominating the run.
+
+The center uses local logs only:
+
+- no login
+- no database
+- no PII
+- no raw JSONL lines exposed in the UI
+
+If logs are missing, the center shows `No local attempt history found yet.` and does not interrupt the student flow. If logs contain malformed lines, those lines are skipped and counted without exposing raw log content.
+
+Teacher interpretation guidance:
+
+- If one word or pasuk-skill pair appears many times, the app may be working with a narrow safe pool.
+- Repetition control downweights overused items but will still serve questions when the pool is small.
+- This is a teacher visibility tool; it does not change scores.
+
+Limitation: small-pool fallback still needs focused confirmation because the manual smoke test left that field unknown / not determined.
+
 ## Teacher expectations
 
 V1 provides a teacher-facing exposure summary through:
@@ -51,7 +87,7 @@ V1 provides a teacher-facing exposure summary through:
 - `data/validation/runtime_learning_intelligence_report.md`
 - `data/validation/runtime_learning_intelligence_summary.json`
 
-Direct Pilot Monitor/sidebar integration is deferred because `streamlit_app.py` remains intentionally protected by the curriculum diff guard outside UI-specific tasks.
+The app also provides direct sidebar visibility through the `Runtime Exposure Center`.
 
 The report shows:
 

@@ -452,3 +452,13 @@ Status: product/runtime improvement only. Local attempt and pilot history now in
 - Validator/test: `../../scripts/validate_runtime_learning_intelligence_smoke_test.py` and `../../tests/test_runtime_learning_intelligence_smoke_test.py`
 
 Status: Yossi's manual smoke test found reduced repeated questions and repeated Hebrew targets with no observed slowdown, skips, missing questions, or confusing behavior. Small-pool fallback remains unknown/not determined and still needs targeted confirmation. No runtime logic, active scope, scoring/mastery, source truth, reviewed-bank, auth, database, PII, or student-facing behavior changed in this evidence-recording task.
+
+## Teacher-facing Runtime Exposure Center V1 - 2026-04-30
+
+- Implementation report: `teacher_facing_runtime_exposure_center_2026_04_30.md`
+- Implementation JSON: `teacher_facing_runtime_exposure_center_2026_04_30.json`
+- Fallback test plan: `runtime_learning_intelligence_fallback_test_plan_2026_04_30.md`
+- Helper modules: `../../runtime/exposure_summary.py` and `../../ui/runtime_exposure_summary.py`
+- Validator/test: `../../scripts/validate_teacher_facing_runtime_exposure_center.py` and `../../tests/test_teacher_facing_runtime_exposure_center.py`
+
+Status: Streamlit now includes a collapsed sidebar Runtime Exposure Center for teacher visibility into local attempt-history exposure, repeated targets, repeated pasuk/skill pairs, skill/question-type concentration, and fallback status. This is read-only observability; no question-selection weighting, scoring/mastery, active scope, reviewed-bank, auth, database, PII, raw-log exposure, or student-facing content changed.
