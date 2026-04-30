@@ -359,3 +359,16 @@ Status: seven Perek 5-6 candidates advance to protected-preview-candidate review
 - Validator/test: `../../scripts/validate_perek_5_6_protected_preview_candidate_review_decisions.py` and `../../tests/test_perek_5_6_protected_preview_candidate_review_decisions.py`
 
 Status: two Perek 5-6 candidates are clean-approved for a later internal packet task, five require revision notes to remain visible, and five earlier excluded candidates remain excluded. No internal protected-preview packet, runtime activation, reviewed-bank promotion, or student-facing content was created.
+
+## Bereishis Perek 5-6 small internal protected-preview packet created - 2026-04-29
+
+- Packet TSV: `../gate_2_protected_preview_packets/bereishis_perek_5_6_small_internal_protected_preview_packet.tsv`
+- Packet Markdown: `../gate_2_protected_preview_packets/reports/bereishis_perek_5_6_small_internal_protected_preview_packet_2026_04_29.md`
+- Packet JSON: `../gate_2_protected_preview_packets/reports/bereishis_perek_5_6_small_internal_protected_preview_packet_2026_04_29.json`
+- Generation report: `../gate_2_protected_preview_packets/reports/bereishis_perek_5_6_small_internal_protected_preview_packet_generation_report_2026_04_29.md`
+- Review checklist: `../gate_2_protected_preview_packets/reports/bereishis_perek_5_6_small_internal_protected_preview_review_checklist_2026_04_29.md`
+- Excluded/revision register: `../gate_2_protected_preview_packets/reports/bereishis_perek_5_6_small_packet_excluded_revision_register_2026_04_29.md`
+- Pipeline status artifact: `bereishis_perek_5_6_small_internal_packet_created_2026_04_29.md`
+- Validator/test: `../../scripts/validate_perek_5_6_small_internal_protected_preview_packet.py` and `../../tests/test_perek_5_6_small_internal_protected_preview_packet.py`
+
+Status: small internal packet created for `g2srcdisc_p5_001` and `g2srcdisc_p5_005` only. No runtime activation, active-scope expansion, reviewed-bank promotion, public/student-facing content, fake review decisions, or fake student data was created.

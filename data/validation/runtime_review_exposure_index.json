@@ -107,7 +107,7 @@
   ],
   "protected_preview_family_counts": {
     "basic_noun_recognition": 14,
-    "not_available": 4
+    "not_available": 6
   },
   "schema_version": "1.0",
   "warning": "Read-only report. No runtime code, scope, generation caps, UI, scoring, or mastery behavior changed."
