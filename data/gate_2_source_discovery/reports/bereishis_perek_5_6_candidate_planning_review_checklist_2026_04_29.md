@@ -229,3 +229,17 @@ All candidates in this checklist keep runtime_allowed=false, reviewed_bank_allow
 ## What happens after Yossi fills the checklist
 
 A later explicit decision-application task may record Yossi's planning-review decisions, separate advancing candidates from held/source-follow-up candidates, and create the next safe readiness artifact. It must continue to keep all runtime, reviewed-bank, protected-preview, and student-facing gates false unless a later explicit gate changes policy.
+
+## Candidate-planning decisions applied - 2026-04-29
+
+Yossi's explicit planning decisions have now been applied. This update records decisions only; it does not create runtime content, reviewed-bank content, a protected-preview packet, or student-facing content.
+
+| Candidate | Perek | Ref | Target | Decision | Required note |
+|---|---:|---|---|---|---|
+| g2srcdisc_p5_001 | 5 | Bereishis 5:1 | סֵפֶר | advance_to_protected_preview_candidate_review | Do not cluster with other genealogy-opening terms. |
+| g2srcdisc_p5_002 | 5 | Bereishis 5:1 | תּוֹלְדֹת | advance_with_minor_revision | Keep strictly part-of-speech. Do not turn into translation or genealogy concept. |
+| g2srcdisc_p5_005 | 5 | Bereishis 5:28 | בֵּן | advance_to_protected_preview_candidate_review | Avoid clustering with בָּנִים / בָנוֹת. |
+| g2srcdisc_p6_001 | 6 | Bereishis 6:3 | בָשָׂר | advance_with_minor_revision | Keep part-of-speech only. Do not cluster with other בָשָׂר-context items. |
+| g2srcdisc_p6_003 | 6 | Bereishis 6:14 | תֵּבַת | advance_with_minor_revision | Keep part-of-speech only; avoid translation/context-heavy treatment. |
+| g2srcdisc_p6_006 | 6 | Bereishis 6:16 | פֶתַח | advance_with_minor_revision | Keep as part-of-speech only and avoid clustering with צֹהַר / תֵּבָה. |
+| g2srcdisc_p6_007 | 6 | Bereishis 6:17 | מַבּוּל | advance_with_minor_revision | Do not make this a translation/context question without later review. |

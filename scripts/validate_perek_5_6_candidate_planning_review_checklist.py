@@ -15,6 +15,7 @@ CHECKLIST_JSON = REPORT / "bereishis_perek_5_6_candidate_planning_review_checkli
 READINESS_MD = PIPELINE / "bereishis_perek_5_6_candidate_planning_review_checklist_readiness_2026_04_29.md"
 FUTURE_PROMPT = PIPELINE / "prompts" / "bereishis_perek_5_6_candidate_planning_decisions_apply_prompt.md"
 PLANNING_TSV = DISCOVERY / "bereishis_perek_5_6_candidate_planning.tsv"
+DECISIONS_APPLIED_JSON = REPORT / "bereishis_perek_5_6_candidate_planning_decisions_applied_2026_04_29.json"
 
 EXPECTED_ELIGIBLE_IDS = [
     "g2srcdisc_p5_001",
@@ -106,8 +107,15 @@ def validate() -> dict:
 
     try:
         checklist = read_json(CHECKLIST_JSON)
+        decisions_applied = read_json(DECISIONS_APPLIED_JSON) if DECISIONS_APPLIED_JSON.exists() else None
     except json.JSONDecodeError as error:
         return {"valid": False, "errors": [f"invalid JSON: {error}"]}
+    applied_by_id = {}
+    if decisions_applied is not None:
+        applied_by_id = {
+            decision.get("candidate_id"): decision
+            for decision in decisions_applied.get("decisions", [])
+        }
 
     if checklist.get("checklist_status") != "candidate_planning_review_only":
         errors.append("checklist_status must be candidate_planning_review_only")
@@ -134,10 +142,17 @@ def validate() -> dict:
 
     for candidate in candidates:
         candidate_id = candidate.get("candidate_id", "<missing>")
-        if candidate.get("planning_review_decision") is not None:
-            errors.append(f"{candidate_id}: planning_review_decision must be null")
-        if candidate.get("planning_review_notes") != "":
-            errors.append(f"{candidate_id}: planning_review_notes must be blank")
+        if decisions_applied is None:
+            if candidate.get("planning_review_decision") is not None:
+                errors.append(f"{candidate_id}: planning_review_decision must be null")
+            if candidate.get("planning_review_notes") != "":
+                errors.append(f"{candidate_id}: planning_review_notes must be blank")
+        else:
+            applied = applied_by_id.get(candidate_id)
+            if not applied:
+                errors.append(f"{candidate_id}: missing from decision-applied artifact")
+            elif candidate.get("planning_review_decision") != applied.get("planning_review_decision"):
+                errors.append(f"{candidate_id}: checklist decision must match decision-applied artifact")
         for field in FALSE_FIELDS:
             if candidate.get(field) is not False:
                 errors.append(f"{candidate_id}: {field} must be false")
