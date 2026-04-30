@@ -430,6 +430,12 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
         allowed_paths = [
         "tests/test_perek_4_limited_protected_preview_build_gate.py",
         "scripts/validate_perek_4_limited_protected_preview_build_gate.py",
+        "tests/test_broad_safe_vocabulary_bank.py",
+        "scripts/validate_broad_safe_vocabulary_bank.py",
+        "data/pipeline_rounds/broad_safe_vocabulary_bank_v1_2026_04_30.json",
+        "data/pipeline_rounds/broad_safe_vocabulary_bank_v1_2026_04_30.md",
+        "data/vocabulary_bank/bereishis_perek_4_broad_safe_vocabulary_bank_2026_04_30.tsv",
+        "data/vocabulary_bank/bereishis_perek_5_6_planning_only_vocabulary_inventory_2026_04_30.json",
         "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_limited_protected_preview_build_gate_2026_04_30.json",
         "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_limited_protected_preview_build_gate_2026_04_30.md",
         "data/gate_2_protected_preview_packets/bereishis_perek_4_limited_protected_preview_build_gate_2026_04_30.tsv",

@@ -142,3 +142,10 @@
 - [x] Recommend one primary next candidate: Perek 4 limited protected-preview build.
 - [x] Create next Codex prompt for the future build branch.
 - [x] Preserve no-runtime/no-promotion safety gates.
+
+## Broad Safe Vocabulary Bank V1 - 2026-04-30
+
+- [x] Create a Perek 4 word-level vocabulary bank separate from question/protected-preview/runtime approval.
+- [x] Preserve Perek 4 revision-watch blockers while allowing source-backed word-level tracking.
+- [x] Add Perek 5-6 as planning-only inventory, not part of the Perek 4 flow.
+- [x] Add validator/tests and keep runtime, reviewed-bank, and question-approval gates closed.

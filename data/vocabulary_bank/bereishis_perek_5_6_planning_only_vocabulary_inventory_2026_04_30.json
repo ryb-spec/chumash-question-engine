@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0",
+  "inventory_name": "bereishis_perek_5_6_planning_only_vocabulary_inventory",
+  "generated_date": "2026-04-30",
+  "planning_only": true,
+  "mixed_into_perek_4_flow": false,
+  "runtime_scope_widened": false,
+  "perek_5_activated": false,
+  "perek_6_activated": false,
+  "reviewed_bank_promoted": false,
+  "question_approval_created": false,
+  "item_count": 12,
+  "counts_by_classification": {
+    "planning_only": 12
+  },
+  "source_artifacts": [
+    "data/gate_2_source_discovery/bereishis_perek_5_6_review_only_safe_candidate_inventory.tsv",
+    "data/gate_2_protected_preview_candidates/bereishis_perek_5_6_protected_preview_candidate_review.tsv",
+    "data/gate_2_protected_preview_packets/bereishis_perek_5_6_clean_two_item_limited_packet_iteration.tsv"
+  ],
+  "included_candidate_ids": [
+    "g2srcdisc_p5_001",
+    "g2srcdisc_p5_002",
+    "g2srcdisc_p5_003",
+    "g2srcdisc_p5_004",
+    "g2srcdisc_p5_005",
+    "g2srcdisc_p6_001",
+    "g2srcdisc_p6_002",
+    "g2srcdisc_p6_003",
+    "g2srcdisc_p6_004",
+    "g2srcdisc_p6_005",
+    "g2srcdisc_p6_006",
+    "g2srcdisc_p6_007"
+  ],
+  "note": "This inventory is a planning-only reference to prior Perek 5-6 artifacts. It does not create word-level approval, question approval, protected-preview promotion, reviewed-bank promotion, runtime activation, or public/student-facing content."
+}

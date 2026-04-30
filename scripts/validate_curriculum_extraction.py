@@ -266,6 +266,7 @@ ALLOWED_CHANGE_PREFIXES = (
     "data/gate_2_source_discovery/",
     "data/gate_2_exact_wording_planning/",
     "data/gate_2_template_skeleton_planning/",
+    "data/vocabulary_bank/",
     "data/protected_preview_input_planning/",
         "data/protected_preview_planning_gate/",
         "data/protected_preview_candidates/",
@@ -286,6 +287,10 @@ ALLOWED_CHANGE_PREFIXES = (
 ALLOWED_CHANGE_EXACT = {
     "tests/test_perek_4_limited_protected_preview_build_gate.py",
     "scripts/validate_perek_4_limited_protected_preview_build_gate.py",
+    "tests/test_broad_safe_vocabulary_bank.py",
+    "scripts/validate_broad_safe_vocabulary_bank.py",
+    "data/pipeline_rounds/broad_safe_vocabulary_bank_v1_2026_04_30.json",
+    "data/pipeline_rounds/broad_safe_vocabulary_bank_v1_2026_04_30.md",
     "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_limited_protected_preview_build_gate_2026_04_30.json",
     "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_limited_protected_preview_build_gate_2026_04_30.md",
     "data/gate_2_protected_preview_packets/bereishis_perek_4_limited_protected_preview_build_gate_2026_04_30.tsv",

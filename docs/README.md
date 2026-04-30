@@ -57,3 +57,5 @@ Status: local teacher report/export layer only. It saves Markdown and JSON runti
 - Teacher Runtime Export Session Accuracy V1: documents planned lesson focus as a report label only, current-session bounded reports when identifiers are available, teacher-setup-window fallback, Recent local history diagnostic fallback, one export snapshot for Markdown/JSON, No raw logs, No login, No database, No PII, No scoring/mastery changes, and No runtime scope expansion.
 
 - Content Expansion Planning Gate V1: planning-only inventory/readiness map and Perek 4 protected-preview build recommendation. Artifacts live in `data/content_expansion_planning/` and `data/pipeline_rounds/content_expansion_planning_gate_2026_04_30.*`; no runtime activation, reviewed-bank promotion, source truth change, question-generation change, or scope widening.
+
+- Broad Safe Vocabulary Bank V1: word-level vocabulary approval lane only. Artifacts live in `../data/vocabulary_bank/` and `../data/pipeline_rounds/broad_safe_vocabulary_bank_v1_2026_04_30.*`; no question approval, protected-preview promotion, reviewed-bank promotion, runtime activation, or source-truth change.

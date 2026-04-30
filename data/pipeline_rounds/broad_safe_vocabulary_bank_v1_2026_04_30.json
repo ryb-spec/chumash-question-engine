@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0",
+  "feature_name": "broad_safe_vocabulary_bank_v1",
+  "planning_only": true,
+  "word_level_approval_created": true,
+  "question_approval_created": false,
+  "protected_preview_promotion_performed": false,
+  "reviewed_bank_promoted": false,
+  "runtime_scope_widened": false,
+  "perek_activated": false,
+  "runtime_content_promoted": false,
+  "source_truth_changed": false,
+  "fake_teacher_approval_created": false,
+  "fake_student_data_created": false,
+  "raw_logs_exposed": false,
+  "perek_4_bank_path": "data/vocabulary_bank/bereishis_perek_4_broad_safe_vocabulary_bank_2026_04_30.tsv",
+  "perek_4_bank_json_path": "data/vocabulary_bank/bereishis_perek_4_broad_safe_vocabulary_bank_2026_04_30.json",
+  "perek_5_6_inventory_path_or_null": "data/vocabulary_bank/bereishis_perek_5_6_planning_only_vocabulary_inventory_2026_04_30.tsv",
+  "perek_5_6_inventory_json_path_or_null": "data/vocabulary_bank/bereishis_perek_5_6_planning_only_vocabulary_inventory_2026_04_30.json",
+  "counts_by_classification": {
+    "protected_preview_ready": 2,
+    "revision_needed": 2,
+    "teacher_review_ready": 1,
+    "perek_5_6_planning_only": 12
+  },
+  "word_level_approved_count": 5,
+  "perek_4_item_count": 5,
+  "perek_5_6_planning_only_item_count": 12,
+  "protected_preview_ready_items": [
+    "bsvb_p4_001",
+    "bsvb_p4_002"
+  ],
+  "revision_needed_items": [
+    "bsvb_p4_003",
+    "bsvb_p4_004"
+  ],
+  "teacher_review_ready_items": [
+    "bsvb_p4_005"
+  ],
+  "ready_for_simple_question_candidate_lane": true,
+  "ready_for_runtime_activation": false,
+  "runtime_activation_authorized": false,
+  "next_recommended_branch": "feature/simple-vocabulary-question-candidate-lane-v1"
+}
