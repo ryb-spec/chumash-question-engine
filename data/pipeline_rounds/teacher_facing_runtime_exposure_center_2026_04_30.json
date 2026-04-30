@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0",
+  "feature_name": "teacher_facing_runtime_exposure_center",
+  "ui_added": true,
+  "ui_location": "Streamlit sidebar collapsed Runtime Exposure Center expander near the teacher/pilot monitor",
+  "helper_modules_created": [
+    "runtime/exposure_summary.py",
+    "ui/runtime_exposure_summary.py"
+  ],
+  "uses_local_attempt_history": true,
+  "uses_pilot_session_events": true,
+  "uses_database": false,
+  "uses_auth": false,
+  "uses_pii": false,
+  "exposes_raw_logs": false,
+  "changes_question_selection_weighting": false,
+  "changes_scoring_mastery": false,
+  "changes_content_scope": false,
+  "runtime_scope_widened": false,
+  "perek_activated": false,
+  "reviewed_bank_promoted": false,
+  "student_facing_content_created": false,
+  "small_pool_fallback_status": "unknown_not_determined",
+  "fallback_targeted_test_still_needed": true,
+  "handles_missing_logs": true,
+  "handles_malformed_logs": true,
+  "safe_ui_fallback": true
+}

@@ -27,5 +27,7 @@ Status: documentation-only future process standard. It does not change runtime, 
 - Validator/test: `../scripts/validate_runtime_learning_intelligence.py` and `../tests/test_runtime_learning_intelligence.py`
 - Manual smoke test evidence: `../data/pipeline_rounds/runtime_learning_intelligence_manual_smoke_test_2026_04_30.md` and `../data/pipeline_rounds/runtime_learning_intelligence_manual_smoke_test_2026_04_30.json`
 - Smoke test validator/test: `../scripts/validate_runtime_learning_intelligence_smoke_test.py` and `../tests/test_runtime_learning_intelligence_smoke_test.py`
+- Teacher-facing Runtime Exposure Center: `../data/pipeline_rounds/teacher_facing_runtime_exposure_center_2026_04_30.md`
+- Exposure center validator/test: `../scripts/validate_teacher_facing_runtime_exposure_center.py` and `../tests/test_teacher_facing_runtime_exposure_center.py`
 
-Status: runtime weighting improvement only. It uses local attempt history to reduce repetition without changing active scope, reviewed-bank status, scoring/mastery, source truth, auth, database, or PII.
+Status: runtime weighting improvement plus teacher-facing observability. It uses local attempt history to reduce repetition and display exposure summaries without changing active scope, reviewed-bank status, scoring/mastery, source truth, auth, database, or PII.

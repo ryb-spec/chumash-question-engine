@@ -33,6 +33,7 @@ from runtime.mode_handlers import (
     render_pasuk_flow,
     render_skill_practice_mode,
 )
+from runtime.exposure_summary import build_runtime_exposure_summary_from_default_logs
 from runtime.pilot_logging import (
     PILOT_EVENT_LOG_PATH,
     TEACHER_FLAG_LABELS,
@@ -137,6 +138,7 @@ from ui.render_question import (
     split_pasuk_phrases,
     uses_compact_pasuk_context,
 )
+from ui.runtime_exposure_summary import render_runtime_exposure_center
 
 try:
     from pasuk_flow_generator import analyze_pasuk as analyze_generator_pasuk
@@ -1429,6 +1431,29 @@ def main():
     st.sidebar.write(f"Current skill: **{sidebar_skill_context['student_label']}**")
     st.sidebar.write(f"Next skill: **{skill_path_label(next_skill)}**")
     render_teacher_pilot_monitor(progress)
+    try:
+        runtime_exposure_summary = build_runtime_exposure_summary_from_default_logs(
+            max_items=5,
+            fallback_count=st.session_state.get("history_weighting_fallback_count"),
+        )
+    except Exception:
+        runtime_exposure_summary = {
+            "summary_available": False,
+            "repetition_control_active": False,
+            "runtime_learning_intelligence_enabled": False,
+            "recent_attempt_count": 0,
+            "history_files": [],
+            "skipped_or_malformed_count": 0,
+            "small_pool_fallback_status": "unknown_not_determined",
+            "fallback_count": None,
+            "fallback_targeted_test_still_needed": True,
+            "warning_messages": ["Runtime exposure summary could not load."],
+            "teacher_interpretation_messages": [
+                "This teacher visibility tool does not change scores or question selection."
+            ],
+        }
+    # Runtime Exposure Center: teacher-facing, read-only observability.
+    render_runtime_exposure_center(runtime_exposure_summary)
 
     if not focus_mode:
         st.sidebar.caption(
