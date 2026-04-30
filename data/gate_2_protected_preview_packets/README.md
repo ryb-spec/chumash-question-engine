@@ -132,3 +132,12 @@ Status: two clean-approved Perek 5 items are packaged for internal protected-pre
 - Validator/test: `../../scripts/validate_perek_5_6_mixed_internal_review_packet.py` and `../../tests/test_perek_5_6_mixed_internal_review_packet.py`
 
 Status: mixed internal review only. Two Perek 5 clean-approved items and three Perek 6 revision-watch items are included. Revision-watch items are not clean-approved. Runtime, reviewed-bank, and public/student-facing gates remain closed.
+
+## Bereishis Perek 5-6 mixed internal review decisions and next gate - 2026-04-29
+
+- Phase 7 report: `reports/bereishis_perek_5_6_mixed_internal_review_decisions_and_next_gate_2026_04_29.md`
+- Phase 7 JSON contract: `reports/bereishis_perek_5_6_mixed_internal_review_decisions_and_next_gate_2026_04_29.json`
+- Updated mixed packet TSV/MD/JSON/checklist preserve clean-approved and revision-watch lanes.
+- Validator/test: `../../scripts/validate_perek_5_6_mixed_internal_review_decisions.py` and `../../tests/test_perek_5_6_mixed_internal_review_decisions.py`
+
+Status: two clean-approved items are limited-internal-preview ready, three Perek 6 items remain revision-watch for internal observation only, and seven candidates remain excluded. Runtime, reviewed-bank, and student-facing gates remain closed.

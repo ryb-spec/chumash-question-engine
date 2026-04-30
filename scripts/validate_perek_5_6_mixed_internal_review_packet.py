@@ -16,8 +16,9 @@ EXPECTED_INCLUDED_IDS=["g2srcdisc_p5_001","g2srcdisc_p5_005","g2srcdisc_p6_001",
 EXPECTED_CLEAN_IDS=["g2srcdisc_p5_001","g2srcdisc_p5_005"]
 EXPECTED_REVISION_WATCH_IDS=["g2srcdisc_p6_001","g2srcdisc_p6_006","g2srcdisc_p6_007"]
 EXPECTED_EXCLUDED_IDS=["g2srcdisc_p5_002","g2srcdisc_p5_003","g2srcdisc_p5_004","g2srcdisc_p6_002","g2srcdisc_p6_003","g2srcdisc_p6_004","g2srcdisc_p6_005"]
+EXPECTED_DECISIONS={"g2srcdisc_p5_001":"approve_for_limited_internal_preview","g2srcdisc_p5_005":"approve_for_limited_internal_preview","g2srcdisc_p6_001":"approve_with_revision","g2srcdisc_p6_006":"approve_with_revision","g2srcdisc_p6_007":"approve_with_revision"}
 FALSE_FIELDS=("runtime_allowed","reviewed_bank_allowed","student_facing_allowed","perek_5_activated","perek_6_activated")
-REQUIRED_TSV_COLUMNS="packet_item_id source_candidate_id perek lane pasuk_ref hebrew_target proposed_question expected_answer distractors proposed_skill canonical_skill_id prior_review_decision readiness_reason required_caution spacing_or_balance_note runtime_allowed reviewed_bank_allowed student_facing_allowed perek_5_activated perek_6_activated".split()
+REQUIRED_TSV_COLUMNS="packet_item_id source_candidate_id perek lane pasuk_ref hebrew_target proposed_question expected_answer distractors proposed_skill canonical_skill_id prior_review_decision internal_review_decision next_gate_status observation_required_before_broader_use readiness_reason required_caution spacing_or_balance_note runtime_allowed reviewed_bank_allowed student_facing_allowed perek_5_activated perek_6_activated".split()
 FORBIDDEN=("runtime_allowed=true",'"runtime_allowed": true',"reviewed_bank_allowed=true",'"reviewed_bank_allowed": true',"student_facing_allowed=true",'"student_facing_allowed": true',"promoted_to_runtime","approved_for_runtime","Perek 5 is active runtime","Perek 6 is active runtime","Perek 5 runtime is active","Perek 6 runtime is active","reviewed-bank promotion occurred","public launch","fake observation result","fake student data created: true")
 def rel(p:Path)->str: return p.relative_to(ROOT).as_posix()
 def text(p:Path)->str: return p.read_text(encoding="utf-8-sig")
@@ -44,10 +45,12 @@ def validate_tsv(errors:list[str])->list[str]:
     for x in EXPECTED_EXCLUDED_IDS:
         if x in ids: errors.append(f"{x} must not appear in packet TSV")
     for r in rs:
-        ctx=r.get("packet_item_id","packet row")
+        ctx=r.get("packet_item_id","packet row"); cid=r.get("source_candidate_id","")
         for f in FALSE_FIELDS:
             if r.get(f)!="false": errors.append(f"{ctx}: {f} must be false")
         if r.get("expected_answer")!="noun": errors.append(f"{ctx}: expected_answer must be noun")
+        if r.get("internal_review_decision")!=EXPECTED_DECISIONS.get(cid): errors.append(f"{ctx}: internal_review_decision mismatch")
+        if r.get("observation_required_before_broader_use")!="true": errors.append(f"{ctx}: observation_required_before_broader_use must be true")
         if r.get("lane")=="revision_watch" and "not clean-approved" not in r.get("required_caution",""): errors.append(f"{ctx}: revision-watch caution must say not clean-approved")
     return ids
 def validate_json(p:dict,errors:list[str])->list[str]:
@@ -56,7 +59,7 @@ def validate_json(p:dict,errors:list[str])->list[str]:
         if p.get(k)!=v: errors.append(f"{k} must be {v}")
     if p.get("included_candidate_ids")!=EXPECTED_INCLUDED_IDS: errors.append("included_candidate_ids mismatch")
     if sorted(p.get("excluded_candidate_ids",[]))!=sorted(EXPECTED_EXCLUDED_IDS): errors.append("excluded_candidate_ids must include exactly the seven excluded candidates")
-    for k in ("fake_review_decisions_created","fake_student_data_created","source_truth_changed","question_selection_changed","scoring_mastery_changed"): require_false(p,k,errors,"packet JSON")
+    for k in ("fake_review_decisions_created","fake_observations_created","fake_student_data_created","source_truth_changed","question_selection_changed","scoring_mastery_changed"): require_false(p,k,errors,"packet JSON")
     its=p.get("items")
     if not isinstance(its,list) or len(its)!=5: errors.append("packet JSON items must contain exactly 5 items"); its=[]
     ids=[str(i.get("source_candidate_id","")) for i in its if isinstance(i,dict)]
@@ -69,14 +72,15 @@ def validate_json(p:dict,errors:list[str])->list[str]:
         if x in ids: errors.append(f"{x} must not appear in packet JSON items")
     for i in its:
         if not isinstance(i,dict): continue
-        ctx=str(i.get("packet_item_id","packet JSON item"))
-        if i.get("internal_review_decision") is not None: errors.append(f"{ctx}: internal_review_decision must be null")
+        ctx=str(i.get("packet_item_id","packet JSON item")); cid=str(i.get("source_candidate_id",""))
+        if i.get("internal_review_decision")!=EXPECTED_DECISIONS.get(cid): errors.append(f"{ctx}: internal_review_decision mismatch")
+        if i.get("observation_result") is not None: errors.append(f"{ctx}: observation_result must remain null")
         for f in FALSE_FIELDS: require_false(i,f,errors,ctx)
         if i.get("expected_answer")!="noun": errors.append(f"{ctx}: expected_answer must be noun")
         if i.get("lane")=="revision_watch" and "not clean-approved" not in str(i.get("required_caution","")): errors.append(f"{ctx}: revision-watch caution must say not clean-approved")
     return ids
 def scan(errors:list[str]):
-    req={PACKET_MD:["revision-watch items are not clean-approved","included only to gather internal review evidence","Perek 5 and Perek 6 remain non-runtime"],GENERATION_REPORT:["Why three Perek 6 revision-watch items are included","still excluded for now","No fake observations"],REVIEW_CHECKLIST:["blank by design","Did the item stay part-of-speech only?","Should this item remain held after observation?"],EXCLUDED_REGISTER:EXPECTED_EXCLUDED_IDS,PIPELINE_STATUS:["mixed five-item internal review packet","These items are not clean-approved","Still not runtime"]}
+    req={PACKET_MD:["Revision-watch items are not clean-approved","included only to gather internal review evidence","Perek 5 and Perek 6 remain non-runtime"],GENERATION_REPORT:["Why three Perek 6 revision-watch items are included","still excluded for now","No fake observations"],REVIEW_CHECKLIST:["blank by design","Did the item stay part-of-speech only?","Should this item remain held after observation?"],EXCLUDED_REGISTER:EXPECTED_EXCLUDED_IDS,PIPELINE_STATUS:["mixed five-item internal review packet","These items are not clean-approved","Still not runtime"]}
     for p,phrases in req.items():
         body=text(p); low=body.lower()
         for ph in phrases:

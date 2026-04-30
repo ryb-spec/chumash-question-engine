@@ -397,3 +397,11 @@ Status: mixed internal review packet created for two clean-approved Perek 5 item
 - Validator/test: `../../scripts/validate_streamlined_review_process.py` and `../../tests/test_streamlined_review_process.py`
 
 Status: future Perek process standard only. The seven-phase process reduces paperwork-only gates while preserving human decision, observation, runtime, reviewed-bank, and student-facing safety gates.
+
+## Bereishis Perek 5-6 mixed packet internal review decisions - 2026-04-29
+
+- Streamlined Process V1 Phase 7 report: `../gate_2_protected_preview_packets/reports/bereishis_perek_5_6_mixed_internal_review_decisions_and_next_gate_2026_04_29.md`
+- Phase JSON contract: `../gate_2_protected_preview_packets/reports/bereishis_perek_5_6_mixed_internal_review_decisions_and_next_gate_2026_04_29.json`
+- Validator/test: `../../scripts/validate_perek_5_6_mixed_internal_review_decisions.py` and `../../tests/test_perek_5_6_mixed_internal_review_decisions.py`
+
+Status: Phase 7 applies Yossi's internal review decisions only. No student observation evidence was invented, and Perek 5-6 runtime, reviewed-bank, and student-facing gates remain closed.

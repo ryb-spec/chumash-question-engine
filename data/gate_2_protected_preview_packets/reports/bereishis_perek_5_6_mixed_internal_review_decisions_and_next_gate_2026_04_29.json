@@ -1,0 +1,155 @@
+{
+  "schema_version": "1.0",
+  "streamlined_process_version": "v1",
+  "phase_number": 7,
+  "phase_name": "Observation Decisions + Next-Gate Authorization",
+  "branch_name": "feature/perek-5-6-mixed-packet-internal-review-decisions",
+  "decision_date": "2026-04-29",
+  "scope": "Bereishis Perek 5–6 mixed limited internal review packet",
+  "item_count": 5,
+  "clean_approved_count": 2,
+  "revision_watch_count": 3,
+  "excluded_count": 7,
+  "fake_observations_created": false,
+  "student_observation_evidence_recorded": false,
+  "runtime_scope_widened": false,
+  "reviewed_bank_promoted": false,
+  "student_facing_created": false,
+  "source_truth_changed": false,
+  "question_selection_changed": false,
+  "scoring_mastery_changed": false,
+  "perek_5_activated": false,
+  "perek_6_activated": false,
+  "next_allowed_task": "Run limited internal review/observation on the mixed packet, or create a narrowed packet iteration from clean-approved items only.",
+  "decisions": [
+    {
+      "source_candidate_id": "g2srcdisc_p5_001",
+      "packet_item_id": "g2mixed_p5_6_001",
+      "perek": 5,
+      "pasuk_ref": "Bereishis 5:1",
+      "hebrew_target": "סֵפֶר",
+      "lane": "clean_approved",
+      "internal_review_decision": "approve_for_limited_internal_preview",
+      "reason": "Clear noun target. Good simple Perek 5 item. Suitable for limited internal review.",
+      "next_gate_status": "clean_limited_internal_preview_ready",
+      "observation_required_before_broader_use": true,
+      "runtime_allowed": false,
+      "reviewed_bank_allowed": false,
+      "student_facing_allowed": false,
+      "perek_5_activated": false,
+      "perek_6_activated": false
+    },
+    {
+      "source_candidate_id": "g2srcdisc_p5_005",
+      "packet_item_id": "g2mixed_p5_6_002",
+      "perek": 5,
+      "pasuk_ref": "Bereishis 5:28",
+      "hebrew_target": "בֵּן",
+      "lane": "clean_approved",
+      "internal_review_decision": "approve_for_limited_internal_preview",
+      "reason": "Clear simple family noun. Lower-risk than the plural family-vocabulary cluster.",
+      "next_gate_status": "clean_limited_internal_preview_ready",
+      "observation_required_before_broader_use": true,
+      "runtime_allowed": false,
+      "reviewed_bank_allowed": false,
+      "student_facing_allowed": false,
+      "perek_5_activated": false,
+      "perek_6_activated": false
+    },
+    {
+      "source_candidate_id": "g2srcdisc_p6_001",
+      "packet_item_id": "g2mixed_p5_6_003",
+      "perek": 6,
+      "pasuk_ref": "Bereishis 6:3",
+      "hebrew_target": "בָשָׂר",
+      "lane": "revision_watch",
+      "internal_review_decision": "approve_with_revision",
+      "reason": "Useful Perek 6 noun target, but repeated heavily in Perek 6. Keep part-of-speech only and do not cluster with other בָשָׂר-context items.",
+      "next_gate_status": "revision_watch_internal_observation_only",
+      "observation_required_before_broader_use": true,
+      "runtime_allowed": false,
+      "reviewed_bank_allowed": false,
+      "student_facing_allowed": false,
+      "perek_5_activated": false,
+      "perek_6_activated": false
+    },
+    {
+      "source_candidate_id": "g2srcdisc_p6_006",
+      "packet_item_id": "g2mixed_p5_6_004",
+      "perek": 6,
+      "pasuk_ref": "Bereishis 6:16",
+      "hebrew_target": "פֶתַח",
+      "lane": "revision_watch",
+      "internal_review_decision": "approve_with_revision",
+      "reason": "Useful Perek 6 noun target, but must stay part-of-speech only and avoid confusion with shoresh/verb work.",
+      "next_gate_status": "revision_watch_internal_observation_only",
+      "observation_required_before_broader_use": true,
+      "runtime_allowed": false,
+      "reviewed_bank_allowed": false,
+      "student_facing_allowed": false,
+      "perek_5_activated": false,
+      "perek_6_activated": false
+    },
+    {
+      "source_candidate_id": "g2srcdisc_p6_007",
+      "packet_item_id": "g2mixed_p5_6_005",
+      "perek": 6,
+      "pasuk_ref": "Bereishis 6:17",
+      "hebrew_target": "מַבּוּל",
+      "lane": "revision_watch",
+      "internal_review_decision": "approve_with_revision",
+      "reason": "Clear noun target, but flood-context-heavy. Do not make this a translation/context question without later review.",
+      "next_gate_status": "revision_watch_internal_observation_only",
+      "observation_required_before_broader_use": true,
+      "runtime_allowed": false,
+      "reviewed_bank_allowed": false,
+      "student_facing_allowed": false,
+      "perek_5_activated": false,
+      "perek_6_activated": false
+    }
+  ],
+  "excluded_candidates": [
+    {
+      "source_candidate_id": "g2srcdisc_p5_002",
+      "hebrew_target": "תּוֹלְדֹת",
+      "excluded_reason": "abstract/genealogy-heavy; keep excluded until part-of-speech-only revision is separately approved",
+      "eligible_for_next_gate": false
+    },
+    {
+      "source_candidate_id": "g2srcdisc_p5_003",
+      "hebrew_target": "בָּנִים",
+      "excluded_reason": "held for spacing/balance in the repeated family-vocabulary cluster",
+      "eligible_for_next_gate": false
+    },
+    {
+      "source_candidate_id": "g2srcdisc_p5_004",
+      "hebrew_target": "בָנוֹת",
+      "excluded_reason": "held for spacing/balance with בָּנִים and בֵּן",
+      "eligible_for_next_gate": false
+    },
+    {
+      "source_candidate_id": "g2srcdisc_p6_002",
+      "hebrew_target": "חָמָס",
+      "excluded_reason": "source-only/context-heavy moral term",
+      "eligible_for_next_gate": false
+    },
+    {
+      "source_candidate_id": "g2srcdisc_p6_003",
+      "hebrew_target": "תֵּבַת",
+      "excluded_reason": "construct/ark context concern; held for now",
+      "eligible_for_next_gate": false
+    },
+    {
+      "source_candidate_id": "g2srcdisc_p6_004",
+      "hebrew_target": "קִנִּים",
+      "excluded_reason": "technical ark-construction term needing source follow-up",
+      "eligible_for_next_gate": false
+    },
+    {
+      "source_candidate_id": "g2srcdisc_p6_005",
+      "hebrew_target": "צֹהַר",
+      "excluded_reason": "rare/technical word needing source follow-up",
+      "eligible_for_next_gate": false
+    }
+  ]
+}

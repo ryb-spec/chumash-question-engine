@@ -129,3 +129,11 @@ Status: only `g2srcdisc_p5_001` and `g2srcdisc_p5_005` entered the small interna
 - Pipeline status: `../pipeline_rounds/bereishis_perek_5_6_mixed_internal_review_packet_created_2026_04_29.md`
 
 Status: Yossi-authorized internal review packet includes `g2srcdisc_p5_001`, `g2srcdisc_p5_005`, `g2srcdisc_p6_001`, `g2srcdisc_p6_006`, and `g2srcdisc_p6_007`. Perek 6 rows are revision-watch, not clean-approved.
+
+## Bereishis Perek 5-6 mixed packet internal review decisions - 2026-04-29
+
+- Packet Phase 7 decision contract: `../gate_2_protected_preview_packets/reports/bereishis_perek_5_6_mixed_internal_review_decisions_and_next_gate_2026_04_29.json`
+- Clean-approved candidates remain `g2srcdisc_p5_001` and `g2srcdisc_p5_005`.
+- Revision-watch candidates remain not clean-approved and internal-observation only.
+
+Status: no protected-preview candidate was promoted to runtime, reviewed bank, or student-facing use.
