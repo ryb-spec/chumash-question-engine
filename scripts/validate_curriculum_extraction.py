@@ -1,4 +1,4 @@
-from __future__ import annotations
+﻿from __future__ import annotations
 
 import argparse
 import json
@@ -414,6 +414,7 @@ ALLOWED_CHANGE_EXACT = {
     "data/pipeline_rounds/bereishis_perek_5_6_mixed_internal_review_packet_created_2026_04_29.md",
     "data/pipeline_rounds/bereishis_perek_5_6_review_recommendation_report_2026_04_29.md",
     "data/pipeline_rounds/bereishis_perek_5_6_review_recommendation_report_2026_04_29.json",
+    "data/pipeline_rounds/bereishis_perek_5_6_mixed_packet_real_observation_post_gate_2026_04_30.md",
     "data/pipeline_rounds/streamlined_review_process_comparison_2026_04_29.md",
     "data/pipeline_rounds/repo_hygiene_inventory_2026_04_29.md",
     "data/source/bereishis_4_1_to_4_16.json",
@@ -548,6 +549,7 @@ ALLOWED_CHANGE_EXACT = {
     "scripts/validate_perek_5_6_mixed_internal_review_packet.py",
     "scripts/validate_perek_5_6_mixed_internal_review_decisions.py",
     "scripts/validate_perek_5_6_review_recommendation_report.py",
+    "scripts/validate_perek_5_6_mixed_packet_real_observation_evidence.py",
     "scripts/validate_streamlined_review_process.py",
     "scripts/validate_standards_data.py",
     "scripts/run_curriculum_quality_checks.py",
@@ -589,6 +591,7 @@ ALLOWED_CHANGE_EXACT = {
     "tests/test_perek_5_6_mixed_internal_review_packet.py",
     "tests/test_perek_5_6_mixed_internal_review_decisions.py",
     "tests/test_perek_5_6_review_recommendation_report.py",
+    "tests/test_perek_5_6_mixed_packet_real_observation_evidence.py",
     "tests/test_streamlined_review_process.py",
     "tests/test_prefix_question_generation.py",
     "tests/test_tense_morphology_questions.py",
@@ -658,8 +661,8 @@ PEREK_3_PILOT_DISTRACTOR_SOURCE_REMEDIATION_EXACT = {
     "data/active_scope_reviewed_questions.json",
 }
 PEREK_3_PILOT_DISTRACTOR_SOURCE_REMEDIATION_REQUIRED_DIFF_CONTEXT = (
-    '"question_text": "What does אֲרוּרָה mean?"',
-    '"question_text": "What does דֶּרֶךְ mean?"',
+    '"question_text": "What does ×Ö²×¨×•Ö¼×¨Ö¸×” mean?"',
+    '"question_text": "What does ×“Ö¶Ö¼×¨Ö¶×šÖ° mean?"',
 )
 PEREK_3_PILOT_DISTRACTOR_SOURCE_REMEDIATION_ALLOWED_CHANGED_LINES = {
     '        "Eden",',
@@ -1314,7 +1317,7 @@ def is_allowed_perek_3_short_repilot_scope_leak_fix(path: str) -> bool:
     diff = result.stdout
     if not diff:
         return False
-    if "בְּאִשְׁתּוֹ" not in diff:
+    if "×‘Ö°Ö¼×Ö´×©Ö°××ªÖ¼×•Ö¹" not in diff:
         return False
     if "What is the prefix in" not in diff:
         return False
@@ -1522,3 +1525,5 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+
+

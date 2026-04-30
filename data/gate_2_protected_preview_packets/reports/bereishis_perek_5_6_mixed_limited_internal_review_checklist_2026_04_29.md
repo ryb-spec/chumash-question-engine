@@ -102,3 +102,93 @@ Revision-watch items are not clean-approved and are included only for internal e
 - Should this item remain held after observation?:
 - Observation notes:
 - Observation result:
+
+---
+
+# Real Yossi Internal Review Evidence - Supersedes Prior Placeholder Status - 2026-04-30
+
+Evidence type: internal teacher/reviewer evidence.
+Reviewer: Yossi.
+Student observation evidence: no.
+No observations were invented.
+
+The earlier blank/not-observed state existed only because no real notes had been provided. The real evidence below supersedes that placeholder for the mixed packet while preserving the original packet definition.
+
+## g2mixed_p5_6_001 / g2srcdisc_p5_001 / סֵפֶר
+
+- Lane: clean_approved
+- Question clear?: yes
+- Noun target clear?: yes
+- Distractors fair?: yes
+- Any confusion?: no
+- Stayed part-of-speech only?: not applicable; clean lane item remained noun-recognition.
+- Context/translation/shoresh/story concern?: no concern recorded.
+- Post-observation decision: approve_for_later_packet_iteration
+- Next gate status: clean_limited_packet_iteration_ready
+- Observation notes: Strong simple noun-recognition item.
+- Student observation evidence?: no
+
+## g2mixed_p5_6_002 / g2srcdisc_p5_005 / בֵּן
+
+- Lane: clean_approved
+- Question clear?: yes
+- Noun target clear?: yes
+- Distractors fair?: yes
+- Any confusion?: no
+- Stayed part-of-speech only?: not applicable; clean lane item remained noun-recognition.
+- Context/translation/shoresh/story concern?: no concern recorded.
+- Post-observation decision: approve_for_later_packet_iteration
+- Next gate status: clean_limited_packet_iteration_ready
+- Observation notes: Clear noun target and appropriate for beginner review.
+- Student observation evidence?: no
+
+## g2mixed_p5_6_003 / g2srcdisc_p6_001 / בָשָׂר
+
+- Lane: revision_watch
+- Question clear?: unknown; not directly recorded.
+- Stayed part-of-speech only?: yes
+- Did context/translation distract?: possible but manageable
+- Noun target clear?: yes
+- Distractors fair?: yes
+- Any confusion?: possible context/translation distraction, manageable.
+- Post-observation decision: revise
+- Next gate status: revise_before_broader_movement
+- Observation notes: Keep as revision-watch. Wording must stay strictly part-of-speech and avoid context/translation.
+- Student observation evidence?: no
+
+## g2mixed_p5_6_004 / g2srcdisc_p6_006 / פֶתַח
+
+- Lane: revision_watch
+- Question clear?: unknown; not directly recorded.
+- Stayed part-of-speech only?: yes
+- Did shoresh/verb confusion arise?: possible but manageable
+- Noun target clear?: yes
+- Distractors fair?: yes
+- Any confusion?: possible shoresh/verb confusion, manageable.
+- Post-observation decision: revise
+- Next gate status: revise_before_broader_movement
+- Observation notes: Keep as revision-watch. Watch for confusion with action/root work.
+- Student observation evidence?: no
+
+## g2mixed_p5_6_005 / g2srcdisc_p6_007 / מַבּוּל
+
+- Lane: revision_watch
+- Question clear?: unknown; not directly recorded.
+- Stayed part-of-speech only?: partly
+- Did flood/story context distract?: possible
+- Noun target clear?: yes
+- Distractors fair?: yes
+- Any confusion?: possible flood/story context distraction.
+- Post-observation decision: hold
+- Next gate status: held_after_observation
+- Observation notes: Strong word, but story/context meaning may overpower the word-type task.
+- Student observation evidence?: no
+
+## Post-observation classification
+
+- Clean after internal review: g2srcdisc_p5_001 / סֵפֶר; g2srcdisc_p5_005 / בֵּן.
+- Revise after internal review: g2srcdisc_p6_001 / בָשָׂר; g2srcdisc_p6_006 / פֶתַח.
+- Hold after internal review: g2srcdisc_p6_007 / מַבּוּל.
+- Still excluded: g2srcdisc_p5_002, g2srcdisc_p5_003, g2srcdisc_p5_004, g2srcdisc_p6_002, g2srcdisc_p6_003, g2srcdisc_p6_004, g2srcdisc_p6_005.
+
+Runtime, reviewed-bank, and student-facing gates remain closed.

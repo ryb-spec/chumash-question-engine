@@ -141,3 +141,12 @@ Status: mixed internal review only. Two Perek 5 clean-approved items and three P
 - Validator/test: `../../scripts/validate_perek_5_6_mixed_internal_review_decisions.py` and `../../tests/test_perek_5_6_mixed_internal_review_decisions.py`
 
 Status: two clean-approved items are limited-internal-preview ready, three Perek 6 items remain revision-watch for internal observation only, and seven candidates remain excluded. Runtime, reviewed-bank, and student-facing gates remain closed.
+
+## Bereishis Perek 5-6 mixed packet real observation evidence - 2026-04-30
+
+- Real-observation Phase 7 report: `reports/bereishis_perek_5_6_mixed_packet_real_observation_evidence_and_next_gate_2026_04_30.md`
+- Real-observation Phase 7 JSON contract: `reports/bereishis_perek_5_6_mixed_packet_real_observation_evidence_and_next_gate_2026_04_30.json`
+- Updated mixed checklist records Yossi internal teacher/reviewer evidence only.
+- Validator/test: `../../scripts/validate_perek_5_6_mixed_packet_real_observation_evidence.py` and `../../tests/test_perek_5_6_mixed_packet_real_observation_evidence.py`
+
+Status: all five mixed packet items now have real internal review evidence. `g2srcdisc_p5_001` and `g2srcdisc_p5_005` are clean after observation, `g2srcdisc_p6_001` and `g2srcdisc_p6_006` require revision, and `g2srcdisc_p6_007` is held. No student evidence, runtime activation, reviewed-bank promotion, or student-facing content was created.
