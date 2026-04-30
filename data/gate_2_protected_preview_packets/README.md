@@ -100,3 +100,10 @@ Status: `g2ppacket_p4_001` and `g2ppacket_p4_002` are eligible for next packet-i
 - `reports/bereishis_perek_4_two_item_limited_internal_packet_iteration_2026_04_29.md` provides the internal-only item cards and observation fields.
 - `reports/bereishis_perek_4_two_item_limited_internal_packet_iteration_2026_04_29.json` is the machine-readable final iteration record.
 - `../../scripts/validate_perek_4_final_iteration_and_perek_5_6_gate.py` and `../../tests/test_perek_4_final_iteration_and_perek_5_6_gate.py` validate the final iteration and launch gate.
+
+## Bereishis Perek 5-6 internal packet planning only
+
+- Planning-only artifact: `reports/bereishis_perek_5_6_internal_protected_preview_packet_planning_2026_04_29.md`
+- Readiness report: `../pipeline_rounds/bereishis_perek_5_6_internal_protected_preview_packet_readiness_2026_04_29.md`
+
+Status: planning only. A Perek 5-6 internal protected-preview packet has not been created in this task.

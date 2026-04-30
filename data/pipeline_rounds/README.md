@@ -349,3 +349,13 @@ Status: seven Perek 5-6 candidates are ready for candidate-planning review only;
 - Validator/test: `../../scripts/validate_perek_5_6_candidate_planning_decisions_applied.py` and `../../tests/test_perek_5_6_candidate_planning_decisions_applied.py`
 
 Status: seven Perek 5-6 candidates advance to protected-preview-candidate review only. Five held/source-only/source-follow-up candidates remain excluded. Runtime, reviewed-bank, protected-preview-packet, and student-facing gates remain closed.
+
+## Bereishis Perek 5-6 protected-preview candidate review decisions applied - 2026-04-29
+
+- Decisions-applied report: `../gate_2_protected_preview_candidates/reports/bereishis_perek_5_6_protected_preview_candidate_review_decisions_applied_2026_04_29.md`
+- Decisions-applied JSON: `../gate_2_protected_preview_candidates/reports/bereishis_perek_5_6_protected_preview_candidate_review_decisions_applied_2026_04_29.json`
+- Internal packet readiness report: `bereishis_perek_5_6_internal_protected_preview_packet_readiness_2026_04_29.md`
+- Future internal packet prompt: `prompts/bereishis_perek_5_6_internal_protected_preview_packet_prompt.md`
+- Validator/test: `../../scripts/validate_perek_5_6_protected_preview_candidate_review_decisions.py` and `../../tests/test_perek_5_6_protected_preview_candidate_review_decisions.py`
+
+Status: two Perek 5-6 candidates are clean-approved for a later internal packet task, five require revision notes to remain visible, and five earlier excluded candidates remain excluded. No internal protected-preview packet, runtime activation, reviewed-bank promotion, or student-facing content was created.
