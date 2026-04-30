@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0",
+  "register_name": "bereishis_perek_4_simple_vocabulary_question_candidate_blockers",
+  "generated_date": "2026-04-30",
+  "planning_only": true,
+  "blocker_count": 2,
+  "blocked_vocabulary_ids": [
+    "bsvb_p4_003",
+    "bsvb_p4_004"
+  ],
+  "protected_preview_promoted": false,
+  "reviewed_bank_promoted": false,
+  "runtime_questions_created": false,
+  "runtime_scope_widened": false,
+  "items": [
+    {
+      "blocker_id": "svqcl_block_p4_001",
+      "vocabulary_id": "bsvb_p4_003",
+      "display_hebrew": "אֲדָמָה",
+      "blocked_from_candidate_reason": "Revision-needed vocabulary row; spacing/session-balance caution must be resolved before question-candidate review.",
+      "review_or_revision_needed": "Teacher must confirm spacing/session-balance treatment and whether the item stays part-of-speech only.",
+      "may_be_reconsidered_later": true,
+      "protected_preview_status": "blocked",
+      "reviewed_bank_status": "not_reviewed_bank",
+      "runtime_status": "not_runtime"
+    },
+    {
+      "blocker_id": "svqcl_block_p4_002",
+      "vocabulary_id": "bsvb_p4_004",
+      "display_hebrew": "מִנְחָה",
+      "blocked_from_candidate_reason": "Revision-needed vocabulary row; Minchah/offering alias and part-of-speech-only caution must be resolved before question-candidate review.",
+      "review_or_revision_needed": "Teacher must confirm wording, alias handling, and spacing/session-balance treatment.",
+      "may_be_reconsidered_later": true,
+      "protected_preview_status": "blocked",
+      "reviewed_bank_status": "not_reviewed_bank",
+      "runtime_status": "not_runtime"
+    }
+  ]
+}

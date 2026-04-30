@@ -502,3 +502,5 @@ Status: Streamlit now includes a collapsed sidebar Teacher Runtime Report Export
 - 2026-04-30: Perek 4 Limited Protected-Preview Build Gate. Builds only the bounded two-item protected-preview packet/report/contract from the Content Expansion Planning Gate recommendation; no runtime activation or reviewed-bank promotion.
 
 - 2026-04-30: Broad Safe Vocabulary Bank V1. Creates `../vocabulary_bank/` with a Perek 4 word-level vocabulary bank and Perek 5-6 planning-only inventory. Word-level approval is not question approval, protected-preview promotion, reviewed-bank promotion, or runtime activation.
+
+- 2026-04-30: Simple Vocabulary Question Candidate Lane V1. Creates `../question_candidate_lanes/` with Perek 4 teacher-review-only simple question candidates plus a blocker register. It does not create runtime questions, protected-preview promotion, reviewed-bank promotion, or runtime activation.

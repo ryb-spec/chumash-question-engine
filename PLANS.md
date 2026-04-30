@@ -149,3 +149,10 @@
 - [x] Preserve Perek 4 revision-watch blockers while allowing source-backed word-level tracking.
 - [x] Add Perek 5-6 as planning-only inventory, not part of the Perek 4 flow.
 - [x] Add validator/tests and keep runtime, reviewed-bank, and question-approval gates closed.
+
+## Simple Vocabulary Question Candidate Lane V1 - 2026-04-30
+
+- [x] Create teacher-review-only simple Perek 4 question candidates from the broad vocabulary bank.
+- [x] Keep revision-needed vocabulary rows in a blocker register.
+- [x] Keep Perek 5-6 planning-only and out of the Perek 4 candidate lane.
+- [x] Add validator/tests and keep runtime, protected-preview, and reviewed-bank gates closed.
