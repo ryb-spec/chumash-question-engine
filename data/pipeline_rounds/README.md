@@ -504,3 +504,5 @@ Status: Streamlit now includes a collapsed sidebar Teacher Runtime Report Export
 - 2026-04-30: Broad Safe Vocabulary Bank V1. Creates `../vocabulary_bank/` with a Perek 4 word-level vocabulary bank and Perek 5-6 planning-only inventory. Word-level approval is not question approval, protected-preview promotion, reviewed-bank promotion, or runtime activation.
 
 - 2026-04-30: Simple Vocabulary Question Candidate Lane V1. Creates `../question_candidate_lanes/` with Perek 4 teacher-review-only simple question candidates plus a blocker register. It does not create runtime questions, protected-preview promotion, reviewed-bank promotion, or runtime activation.
+
+- 2026-04-30: Broad Vocabulary Teacher Review Packet V1. Creates `broad_vocabulary_teacher_review_packet_v1_2026_04_30.md` / `.json` with blank Yossi review prompts for word-level vocabulary, simple question candidates, and revision/watch items. It records no decisions and performs no promotion or runtime activation.
