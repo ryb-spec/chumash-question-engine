@@ -422,3 +422,13 @@ Status: advisory only. It recommends keeping `g2srcdisc_p5_001` and `g2srcdisc_p
 - Validator/test: `../../scripts/validate_perek_5_6_mixed_packet_real_observation_evidence.py` and `../../tests/test_perek_5_6_mixed_packet_real_observation_evidence.py`
 
 Status: Yossi's real internal teacher/reviewer evidence supersedes the earlier not-observed placeholder. סֵפֶר and בֵּן may move to a later clean limited packet iteration; בָשָׂר and פֶתַח require revision; מַבּוּל remains held. Runtime, reviewed-bank, and student-facing gates remain closed.
+
+## Bereishis Perek 5-6 clean two-item limited packet iteration - 2026-04-30
+
+- Iteration TSV: `../gate_2_protected_preview_packets/bereishis_perek_5_6_clean_two_item_limited_packet_iteration.tsv`
+- Iteration Markdown: `../gate_2_protected_preview_packets/reports/bereishis_perek_5_6_clean_two_item_limited_packet_iteration_2026_04_30.md`
+- Iteration JSON: `../gate_2_protected_preview_packets/reports/bereishis_perek_5_6_clean_two_item_limited_packet_iteration_2026_04_30.json`
+- Next-gate report: `bereishis_perek_5_6_clean_two_item_iteration_next_gate_2026_04_30.md`
+- Validator/test: `../../scripts/validate_perek_5_6_clean_two_item_limited_packet_iteration.py` and `../../tests/test_perek_5_6_clean_two_item_limited_packet_iteration.py`
+
+Status: only סֵפֶר and בֵּן move into a clean limited iteration. בָשָׂר and פֶתַח require revision, מַבּוּל remains held, and seven other candidates remain excluded. No runtime activation, reviewed-bank promotion, or student-facing content occurred.
