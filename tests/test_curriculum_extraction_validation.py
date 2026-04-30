@@ -1,4 +1,4 @@
-﻿import copy
+import copy
 import json
 import unittest
 from unittest import mock
@@ -371,6 +371,7 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
             and not validator.is_allowed_perek_3_pilot_distractor_source_remediation(path)
             and not validator.is_allowed_perek_3_short_repilot_scope_leak_fix(path)
             and not validator.is_allowed_teacher_runtime_exposure_center_ui(path)
+            and not validator.is_allowed_teacher_lesson_session_setup_ui(path)
         ]
         self.assertEqual(disallowed, [], [validator.forbidden_reason(path) for path in disallowed])
 

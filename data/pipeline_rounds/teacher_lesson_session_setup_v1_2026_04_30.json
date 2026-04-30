@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0",
+  "feature_name": "teacher_lesson_session_setup_v1",
+  "ui_added": true,
+  "ui_location": "Streamlit sidebar collapsed Teacher Lesson / Session Setup expander near teacher monitor and Runtime Exposure Center",
+  "helper_modules_created": [
+    "runtime/lesson_session_setup.py",
+    "ui/teacher_lesson_session_setup.py"
+  ],
+  "stores_session_metadata_locally": true,
+  "storage_location": "streamlit_session_state",
+  "integrates_with_runtime_exposure_center": true,
+  "uses_auth": false,
+  "uses_database": false,
+  "uses_pii": false,
+  "exposes_raw_logs": false,
+  "creates_new_content": false,
+  "changes_question_selection": false,
+  "changes_question_selection_weighting": false,
+  "changes_scoring_mastery": false,
+  "changes_content_scope": false,
+  "runtime_scope_widened": false,
+  "perek_activated": false,
+  "reviewed_bank_promoted": false,
+  "student_facing_content_created": false,
+  "source_truth_changed": false,
+  "safe_ui_fallback": true,
+  "next_recommended_manual_step": "Run a live teacher-led session and confirm the label is useful inside the Runtime Exposure Center."
+}

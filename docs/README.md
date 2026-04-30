@@ -36,3 +36,11 @@ Status: documentation-only future process standard. It does not change runtime, 
 - Product-readiness validator/test: `../scripts/validate_runtime_learning_intelligence_product_readiness.py` and `../tests/test_runtime_learning_intelligence_product_readiness.py`
 
 Status: runtime weighting improvement plus teacher-facing observability. It uses local attempt history to reduce repetition and display exposure summaries without changing active scope, reviewed-bank status, scoring/mastery, source truth, auth, database, or PII.
+
+## Teacher Lesson / Session Setup V1
+
+- Runtime guide: `runtime/teacher_lesson_session_setup_v1.md`
+- Implementation report/JSON: `../data/pipeline_rounds/teacher_lesson_session_setup_v1_2026_04_30.md` and `../data/pipeline_rounds/teacher_lesson_session_setup_v1_2026_04_30.json`
+- Validator/test: `../scripts/validate_teacher_lesson_session_setup.py` and `../tests/test_teacher_lesson_session_setup.py`
+
+Status: local teacher session-context setup only. It does not add auth, database, PII, content, runtime scope expansion, scoring/mastery changes, or question-selection changes.

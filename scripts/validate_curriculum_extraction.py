@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import argparse
 import json
@@ -310,6 +310,13 @@ ALLOWED_CHANGE_EXACT = {
     "data/pipeline_rounds/runtime_learning_intelligence_next_step_recommendation_2026_04_30.md",
     "data/pipeline_rounds/teacher_facing_runtime_exposure_center_2026_04_30.md",
     "data/pipeline_rounds/teacher_facing_runtime_exposure_center_2026_04_30.json",
+    "data/pipeline_rounds/teacher_lesson_session_setup_v1_2026_04_30.md",
+    "data/pipeline_rounds/teacher_lesson_session_setup_v1_2026_04_30.json",
+    "docs/runtime/teacher_lesson_session_setup_v1.md",
+    "runtime/lesson_session_setup.py",
+    "ui/teacher_lesson_session_setup.py",
+    "scripts/validate_teacher_lesson_session_setup.py",
+    "tests/test_teacher_lesson_session_setup.py",
     "data/pipeline_rounds/runtime_learning_intelligence_fallback_test_plan_2026_04_30.md",
     "data/pipeline_rounds/runtime_learning_intelligence_small_pool_fallback_test_2026_04_30.md",
     "data/pipeline_rounds/runtime_learning_intelligence_small_pool_fallback_test_2026_04_30.json",
@@ -1407,6 +1414,29 @@ def is_allowed_teacher_runtime_exposure_center_ui(path: str) -> bool:
     return bool(diff) and all(fragment in diff for fragment in required_fragments)
 
 
+
+def is_allowed_teacher_lesson_session_setup_ui(path: str) -> bool:
+    if path != "streamlit_app.py":
+        return False
+    result = subprocess.run(
+        ["git", "diff", "--unified=8", "--", path],
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        check=False,
+    )
+    if result.returncode != 0:
+        return False
+    diff = result.stdout
+    required_fragments = [
+        "from ui.teacher_lesson_session_setup import render_teacher_lesson_session_setup",
+        "teacher_lesson_session_metadata = render_teacher_lesson_session_setup()",
+        'runtime_exposure_summary["teacher_lesson_session"] = teacher_lesson_session_metadata',
+        '"teacher_lesson_session": teacher_lesson_session_metadata',
+    ]
+    return bool(diff) and all(fragment in diff for fragment in required_fragments)
+
 def forbidden_reason(path: str) -> str:
     for prefix in FORBIDDEN_CHANGE_PREFIXES:
         if path == prefix or path.startswith(prefix):
@@ -1531,6 +1561,7 @@ def validate_curriculum_extraction(*, check_git_diff: bool = False) -> dict:
                 and not is_allowed_perek_3_pilot_distractor_source_remediation(path)
                 and not is_allowed_perek_3_short_repilot_scope_leak_fix(path)
                 and not is_allowed_teacher_runtime_exposure_center_ui(path)
+                and not is_allowed_teacher_lesson_session_setup_ui(path)
             ):
                 errors.append(forbidden_reason(path))
 

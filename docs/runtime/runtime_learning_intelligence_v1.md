@@ -162,3 +162,28 @@ Safety status remains:
 The recommended next product task is Teacher Lesson / Session Setup V1.
 
 That task should let the teacher label or select today's local session context while preserving the existing safety boundaries: no auth, no database, no PII, no new content, no scoring/mastery change, and no active runtime scope expansion.
+
+## Teacher Lesson / Session Setup V1 - 2026-04-30
+
+Teacher Lesson / Session Setup V1 adds a local sidebar setup panel so a teacher can label the current lesson/session before or during practice.
+
+It captures local session context only:
+
+- lesson/session label
+- mode focus
+- optional class period or group label
+- optional teacher notes
+
+The Runtime Exposure Center shows this session context above the exposure summaries, so repeated targets, repeated pasuk/skill pairs, and fallback/scope-small status can be interpreted against the current classroom purpose.
+
+Safety boundaries remain unchanged:
+
+- no auth
+- no database
+- no PII
+- no raw log exposure
+- no new content
+- no question generation change
+- no question-selection change
+- no scoring/mastery change
+- no active runtime scope expansion

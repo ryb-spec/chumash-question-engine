@@ -139,6 +139,7 @@ from ui.render_question import (
     uses_compact_pasuk_context,
 )
 from ui.runtime_exposure_summary import render_runtime_exposure_center
+from ui.teacher_lesson_session_setup import render_teacher_lesson_session_setup
 
 try:
     from pasuk_flow_generator import analyze_pasuk as analyze_generator_pasuk
@@ -1431,11 +1432,13 @@ def main():
     st.sidebar.write(f"Current skill: **{sidebar_skill_context['student_label']}**")
     st.sidebar.write(f"Next skill: **{skill_path_label(next_skill)}**")
     render_teacher_pilot_monitor(progress)
+    teacher_lesson_session_metadata = render_teacher_lesson_session_setup()
     try:
         runtime_exposure_summary = build_runtime_exposure_summary_from_default_logs(
             max_items=5,
             fallback_count=st.session_state.get("history_weighting_fallback_count"),
         )
+        runtime_exposure_summary["teacher_lesson_session"] = teacher_lesson_session_metadata
     except Exception:
         runtime_exposure_summary = {
             "summary_available": False,
@@ -1451,6 +1454,7 @@ def main():
             "teacher_interpretation_messages": [
                 "This teacher visibility tool does not change scores or question selection."
             ],
+            "teacher_lesson_session": teacher_lesson_session_metadata,
         }
     # Runtime Exposure Center: teacher-facing, read-only observability.
     render_runtime_exposure_center(runtime_exposure_summary)

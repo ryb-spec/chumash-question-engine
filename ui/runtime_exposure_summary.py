@@ -8,6 +8,7 @@ from runtime.exposure_summary import (
     format_repeated_targets,
     get_runtime_exposure_status_message,
 )
+from runtime.lesson_session_setup import lesson_session_summary_lines
 
 
 def _yes_no(value):
@@ -42,6 +43,10 @@ def render_runtime_exposure_center(summary):
         )
         st.caption("Data source: Local attempt history")
         st.caption("Privacy: No login, no database, no PII")
+
+        st.markdown("**Lesson/session context**")
+        for line in lesson_session_summary_lines(summary.get("teacher_lesson_session")):
+            st.caption(f"- {line}")
 
         st.markdown("**Recent history**")
         st.caption(f"Recent attempts counted: {summary.get('recent_attempt_count', 0)}")
