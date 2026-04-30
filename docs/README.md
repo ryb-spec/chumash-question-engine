@@ -44,3 +44,12 @@ Status: runtime weighting improvement plus teacher-facing observability. It uses
 - Validator/test: `../scripts/validate_teacher_lesson_session_setup.py` and `../tests/test_teacher_lesson_session_setup.py`
 
 Status: local teacher session-context setup only. It does not add auth, database, PII, content, runtime scope expansion, scoring/mastery changes, or question-selection changes.
+
+## Teacher Runtime Evidence Export Suite V1
+
+- Implementation report/JSON: `../data/pipeline_rounds/teacher_runtime_exposure_export_report_2026_04_30.md` and `../data/pipeline_rounds/teacher_runtime_exposure_export_report_2026_04_30.json`
+- Export helper: `../runtime/teacher_runtime_export.py`
+- UI helper: `../ui/teacher_runtime_export.py`
+- Validator/test: `../scripts/validate_teacher_runtime_exposure_export.py` and `../tests/test_teacher_runtime_exposure_export.py`
+
+Status: local teacher report/export layer only. It saves Markdown and JSON runtime exposure reports without changing runtime scope, question selection, weighting, scoring/mastery, question generation, reviewed-bank status, source truth, auth, database, PII, raw-log exposure, or student-facing content.

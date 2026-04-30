@@ -187,3 +187,11 @@ Safety boundaries remain unchanged:
 - no question-selection change
 - no scoring/mastery change
 - no active runtime scope expansion
+
+## Teacher Runtime Exposure Export / Report
+
+Teacher Runtime Evidence Export Suite V1 saves the Runtime Exposure Center summary for local teacher review after a class or pilot session.
+
+The export includes lesson/session setup metadata, repeated target summaries, pasuk/skill concentration, fallback/scope-small status, cautious teacher interpretation, and safety/privacy notes.
+
+It does not change Runtime Learning Intelligence behavior, question-selection weighting, scoring/mastery, question generation, active scope, reviewed-bank status, or source truth. It exposes no raw JSONL logs and adds no login, database, or PII.

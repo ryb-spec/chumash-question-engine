@@ -484,3 +484,13 @@ Status: Yossi's focused fallback test confirms the app keeps serving questions w
 - Validator/test: `../../scripts/validate_teacher_lesson_session_setup.py` and `../../tests/test_teacher_lesson_session_setup.py`
 
 Status: Streamlit now includes a collapsed sidebar Teacher Lesson / Session Setup panel. It stores local session metadata in Streamlit session state and shows that context inside the Runtime Exposure Center. No runtime scope, question selection, scoring/mastery, content, reviewed-bank, auth, database, PII, raw-log exposure, or Perek activation changed.
+
+## Teacher Runtime Evidence Export Suite V1 - 2026-04-30
+
+- Implementation report: `teacher_runtime_exposure_export_report_2026_04_30.md`
+- Implementation JSON: `teacher_runtime_exposure_export_report_2026_04_30.json`
+- Export helper: `../../runtime/teacher_runtime_export.py`
+- UI helper: `../../ui/teacher_runtime_export.py`
+- Validator/test: `../../scripts/validate_teacher_runtime_exposure_export.py` and `../../tests/test_teacher_runtime_exposure_export.py`
+
+Status: Streamlit now includes a collapsed sidebar Teacher Runtime Report Export control. It saves local Markdown/JSON reports with lesson/session metadata, Runtime Exposure Center summaries, cautious teacher interpretation, and safety/privacy notes. No question-selection behavior, Runtime Learning Intelligence weighting, scoring/mastery, active scope, reviewed-bank status, source truth, auth, database, PII, raw-log exposure, or student-facing content changed.

@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.0",
+  "feature_name": "teacher_runtime_exposure_export_report",
+  "feature_version": "v1",
+  "implemented_date": "2026-04-30",
+  "ui_added": true,
+  "export_helper_added": true,
+  "export_location": "data/teacher_exports",
+  "supports_markdown_export": true,
+  "supports_json_export": true,
+  "uses_teacher_lesson_session_setup": true,
+  "uses_runtime_exposure_summary": true,
+  "uses_local_attempt_history": true,
+  "uses_auth": false,
+  "uses_database": false,
+  "uses_pii": false,
+  "exposes_raw_logs": false,
+  "changes_question_selection_weighting": false,
+  "changes_question_selection_behavior": false,
+  "changes_scoring_mastery": false,
+  "changes_question_generation": false,
+  "changes_source_truth": false,
+  "changes_content_scope": false,
+  "runtime_scope_widened": false,
+  "perek_activated": false,
+  "reviewed_bank_promoted": false,
+  "student_facing_content_created": false,
+  "handles_missing_logs": true,
+  "handles_empty_logs": true,
+  "handles_malformed_logs": true,
+  "handles_missing_session_context": true,
+  "handles_write_failure": true,
+  "raw_log_export_allowed": false,
+  "teacher_interpretation_is_cautious": true,
+  "mastery_claims_allowed": false,
+  "promotion_claims_allowed": false,
+  "files_created": [
+    "runtime/teacher_runtime_export.py",
+    "ui/teacher_runtime_export.py",
+    "data/pipeline_rounds/teacher_runtime_exposure_export_report_2026_04_30.md",
+    "data/pipeline_rounds/teacher_runtime_exposure_export_report_2026_04_30.json",
+    "scripts/validate_teacher_runtime_exposure_export.py",
+    "tests/test_teacher_runtime_exposure_export.py"
+  ],
+  "files_modified": [
+    "streamlit_app.py",
+    "docs/runtime/teacher_lesson_session_setup_v1.md",
+    "docs/runtime/runtime_learning_intelligence_v1.md",
+    "docs/README.md",
+    "data/pipeline_rounds/README.md",
+    "scripts/validate_curriculum_extraction.py",
+    "tests/test_curriculum_extraction_validation.py",
+    "PLANS.md"
+  ],
+  "validators_added": [
+    "scripts/validate_teacher_runtime_exposure_export.py"
+  ],
+  "tests_added": [
+    "tests/test_teacher_runtime_exposure_export.py"
+  ],
+  "docs_updated": [
+    "docs/runtime/teacher_lesson_session_setup_v1.md",
+    "docs/runtime/runtime_learning_intelligence_v1.md",
+    "docs/README.md",
+    "data/pipeline_rounds/README.md"
+  ]
+}

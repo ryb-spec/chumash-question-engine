@@ -140,6 +140,7 @@ from ui.render_question import (
 )
 from ui.runtime_exposure_summary import render_runtime_exposure_center
 from ui.teacher_lesson_session_setup import render_teacher_lesson_session_setup
+from ui.teacher_runtime_export import render_teacher_runtime_export
 
 try:
     from pasuk_flow_generator import analyze_pasuk as analyze_generator_pasuk
@@ -1458,6 +1459,8 @@ def main():
         }
     # Runtime Exposure Center: teacher-facing, read-only observability.
     render_runtime_exposure_center(runtime_exposure_summary)
+    # Teacher Runtime Report Export: local, read-only evidence export.
+    render_teacher_runtime_export(teacher_lesson_session_metadata, runtime_exposure_summary)
 
     if not focus_mode:
         st.sidebar.caption(
