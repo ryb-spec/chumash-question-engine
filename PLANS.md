@@ -174,3 +174,9 @@
 - [x] Create a candidate gate for exactly five clean simple vocabulary candidates from Yossi's applied decisions.
 - [x] Preserve revision-required and held rows as blocked outside the gate.
 - [x] Add validator/tests and keep protected-preview packet, reviewed-bank, runtime, source-truth, scoring/mastery, and scope gates closed.
+
+## Perek 4 Broad Vocabulary Internal Protected-Preview Packet V1 - 2026-04-30
+
+- [x] Create a five-item internal protected-preview packet from the clean candidate gate only.
+- [x] Add review checklist, observation template, excluded register, lineage reconciliation, and next post-preview decision prompt.
+- [x] Add validator/tests and keep runtime, reviewed-bank, student-facing, source-truth, scoring/mastery, and scope gates closed.

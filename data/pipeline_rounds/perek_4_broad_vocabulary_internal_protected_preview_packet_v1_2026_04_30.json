@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0",
+  "feature_name": "perek_4_broad_vocabulary_internal_protected_preview_packet_v1",
+  "packet_created": true,
+  "packet_item_count": 5,
+  "included_candidate_ids": [
+    "svqcl_p4_001",
+    "svqcl_p4_002",
+    "svqcl_p4_003",
+    "svqcl_p4_005",
+    "svqcl_p4_006"
+  ],
+  "excluded_revision_required_ids": [
+    "bsvb_p4_002",
+    "svqcl_p4_004"
+  ],
+  "excluded_held_ids": [
+    "bsvb_p4_003",
+    "bsvb_p4_004",
+    "svqcl_p4_007",
+    "svqcl_p4_008",
+    "svqcl_p4_009"
+  ],
+  "internal_review_checklist_created": true,
+  "observation_template_created": true,
+  "lineage_reconciliation_created": true,
+  "yossi_decisions_applied": true,
+  "fake_teacher_approval_created": false,
+  "fake_observation_evidence_created": false,
+  "runtime_scope_widened": false,
+  "perek_activated": false,
+  "protected_preview_packet_created": true,
+  "reviewed_bank_promoted": false,
+  "runtime_questions_created": false,
+  "runtime_content_promoted": false,
+  "student_facing_content_created": false,
+  "question_generation_changed": false,
+  "question_selection_changed": false,
+  "question_selection_weighting_changed": false,
+  "scoring_mastery_changed": false,
+  "source_truth_changed": false,
+  "raw_logs_exposed": false,
+  "validators_weakened": false,
+  "ready_for_internal_review": true,
+  "ready_for_internal_observation_after_review": true,
+  "ready_for_reviewed_bank_promotion": false,
+  "ready_for_runtime_activation": false,
+  "runtime_activation_authorized": false,
+  "recommended_next_branch": "feature/perek-4-broad-vocabulary-post-preview-decisions-v1"
+}
+

@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.0",
+  "register_type": "perek_4_broad_vocabulary_packet_excluded_register",
+  "excluded_revision_required_ids": [
+    "bsvb_p4_002",
+    "svqcl_p4_004"
+  ],
+  "excluded_held_ids": [
+    "bsvb_p4_003",
+    "bsvb_p4_004",
+    "svqcl_p4_007",
+    "svqcl_p4_008",
+    "svqcl_p4_009"
+  ],
+  "runtime_status": "not_runtime",
+  "reviewed_bank_status": "not_reviewed_bank",
+  "student_facing_status": "not_student_facing",
+  "items": [
+    {
+      "source_id": "bsvb_p4_002",
+      "hebrew_word": "צֹאן",
+      "reason_excluded": "word-level gloss consistency revision required",
+      "before_reconsideration": "Normalize beginner gloss before future translation packet use."
+    },
+    {
+      "source_id": "svqcl_p4_004",
+      "hebrew_word": "צֹאן",
+      "reason_excluded": "translation expected-answer revision required",
+      "before_reconsideration": "Normalize expected answer before future packet use."
+    },
+    {
+      "source_id": "bsvb_p4_003",
+      "hebrew_word": "אֲדָמָה",
+      "reason_excluded": "held for ground / earth / land follow-up",
+      "before_reconsideration": "Teacher must decide beginner gloss and context policy."
+    },
+    {
+      "source_id": "bsvb_p4_004",
+      "hebrew_word": "מִנְחָה",
+      "reason_excluded": "held for offering / gift / tribute follow-up",
+      "before_reconsideration": "Teacher must decide beginner gloss and context policy."
+    },
+    {
+      "source_id": "svqcl_p4_007",
+      "hebrew_word": "אוֹת",
+      "reason_excluded": "held because context may be conceptually loaded",
+      "before_reconsideration": "Teacher follow-up required."
+    },
+    {
+      "source_id": "svqcl_p4_008",
+      "hebrew_word": "אוֹת",
+      "reason_excluded": "held with the אוֹת candidate group",
+      "before_reconsideration": "Teacher follow-up required."
+    },
+    {
+      "source_id": "svqcl_p4_009",
+      "hebrew_word": "אוֹת",
+      "reason_excluded": "held with the אוֹת candidate group",
+      "before_reconsideration": "Teacher follow-up required."
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0",
+  "report_type": "perek_4_broad_vocabulary_packet_lineage_reconciliation",
+  "prior_limited_packet_lineage_preserved": true,
+  "broad_vocabulary_packet_complements_prior_work": true,
+  "supersedes_prior_packet_work": false,
+  "runtime_activation_created": false,
+  "reviewed_bank_promotion_created": false,
+  "source_truth_changed": false,
+  "lineage_steps": [
+    "perek_4_source_discovery",
+    "perek_4_limited_protected_preview_build_gate",
+    "broad_safe_vocabulary_bank_v1",
+    "simple_vocabulary_question_candidate_lane_v1",
+    "broad_vocabulary_teacher_review_decisions_applied",
+    "perek_4_broad_vocabulary_protected_preview_candidate_gate",
+    "perek_4_broad_vocabulary_internal_protected_preview_packet"
+  ]
+}
