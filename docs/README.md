@@ -25,5 +25,7 @@ Status: documentation-only future process standard. It does not change runtime, 
 - Policy/audit artifacts: `../data/pipeline_rounds/runtime_learning_intelligence_policy_2026_04_30.json` and `../data/pipeline_rounds/runtime_learning_intelligence_audit_2026_04_30.md`
 - Runtime exposure report: `../data/validation/runtime_learning_intelligence_report.md`
 - Validator/test: `../scripts/validate_runtime_learning_intelligence.py` and `../tests/test_runtime_learning_intelligence.py`
+- Manual smoke test evidence: `../data/pipeline_rounds/runtime_learning_intelligence_manual_smoke_test_2026_04_30.md` and `../data/pipeline_rounds/runtime_learning_intelligence_manual_smoke_test_2026_04_30.json`
+- Smoke test validator/test: `../scripts/validate_runtime_learning_intelligence_smoke_test.py` and `../tests/test_runtime_learning_intelligence_smoke_test.py`
 
 Status: runtime weighting improvement only. It uses local attempt history to reduce repetition without changing active scope, reviewed-bank status, scoring/mastery, source truth, auth, database, or PII.
