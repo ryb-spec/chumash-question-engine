@@ -124,3 +124,41 @@ This V1 layer uses only local runtime artifacts. It does not add authentication,
 - Add a richer teacher export for stale/underused targets.
 - Add per-mode exposure thresholds.
 - Add a future account-safe identity layer only if a later product task explicitly authorizes it.
+
+## Small-Pool Fallback Manual Test - 2026-04-30
+
+Yossi ran a focused small-pool fallback manual test in Full Passuk view.
+
+Recorded evidence:
+
+- fallback confirmed
+- app kept serving questions when the safe pool was small
+- no crash or blank screen
+- Runtime Exposure Center showed fallback/scope-small status
+- repeated targets were still reduced where possible
+- no weird skips or missing questions
+- no slowdown
+- no confusing behavior
+- approximate question count was not recorded
+
+This is manual fallback test evidence, not controlled student pilot evidence. No missing question count was invented.
+
+## Product Readiness Status - 2026-04-30
+
+Runtime Learning Intelligence V1 is ready for continued pilot use and should remain enabled.
+
+This readiness status does not authorize runtime scope expansion, reviewed-bank promotion, student-facing public rollout, student login/database, scoring/mastery changes, source-truth changes, or Perek activation.
+
+Safety status remains:
+
+- no auth/database/PII
+- no scoring/mastery change
+- no scope expansion
+- no source-truth change
+- no reviewed-bank promotion
+
+## Recommended Next Product Step
+
+The recommended next product task is Teacher Lesson / Session Setup V1.
+
+That task should let the teacher label or select today's local session context while preserving the existing safety boundaries: no auth, no database, no PII, no new content, no scoring/mastery change, and no active runtime scope expansion.
