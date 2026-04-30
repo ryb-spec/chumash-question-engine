@@ -462,3 +462,15 @@ Status: Yossi's manual smoke test found reduced repeated questions and repeated 
 - Validator/test: `../../scripts/validate_teacher_facing_runtime_exposure_center.py` and `../../tests/test_teacher_facing_runtime_exposure_center.py`
 
 Status: Streamlit now includes a collapsed sidebar Runtime Exposure Center for teacher visibility into local attempt-history exposure, repeated targets, repeated pasuk/skill pairs, skill/question-type concentration, and fallback status. This is read-only observability; no question-selection weighting, scoring/mastery, active scope, reviewed-bank, auth, database, PII, raw-log exposure, or student-facing content changed.
+
+## Runtime Learning Intelligence V1 product-readiness gate - 2026-04-30
+
+- Small-pool fallback manual test report: `runtime_learning_intelligence_small_pool_fallback_test_2026_04_30.md`
+- Small-pool fallback manual test JSON: `runtime_learning_intelligence_small_pool_fallback_test_2026_04_30.json`
+- Product-readiness gate: `runtime_learning_intelligence_v1_product_readiness_gate_2026_04_30.md`
+- Product-readiness JSON: `runtime_learning_intelligence_v1_product_readiness_gate_2026_04_30.json`
+- Post-fallback product roadmap: `runtime_learning_intelligence_post_fallback_product_roadmap_2026_04_30.md`
+- Next prompt artifact: `prompts/teacher_lesson_session_setup_v1_prompt.md`
+- Validator/test: `../../scripts/validate_runtime_learning_intelligence_product_readiness.py` and `../../tests/test_runtime_learning_intelligence_product_readiness.py`
+
+Status: Yossi's focused fallback test confirms the app keeps serving questions when the safe pool is small and the Runtime Exposure Center shows fallback/scope-small status. Runtime Learning Intelligence V1 is ready for continued pilot use. No runtime behavior, active scope, UI behavior, scoring/mastery, source truth, reviewed-bank, auth, database, PII, or student-facing behavior changed in this evidence/readiness task.

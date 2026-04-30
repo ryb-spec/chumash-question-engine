@@ -30,4 +30,9 @@ Status: documentation-only future process standard. It does not change runtime, 
 - Teacher-facing Runtime Exposure Center: `../data/pipeline_rounds/teacher_facing_runtime_exposure_center_2026_04_30.md`
 - Exposure center validator/test: `../scripts/validate_teacher_facing_runtime_exposure_center.py` and `../tests/test_teacher_facing_runtime_exposure_center.py`
 
+- Small-pool fallback test evidence: `../data/pipeline_rounds/runtime_learning_intelligence_small_pool_fallback_test_2026_04_30.md` and `../data/pipeline_rounds/runtime_learning_intelligence_small_pool_fallback_test_2026_04_30.json`
+- Product-readiness gate: `../data/pipeline_rounds/runtime_learning_intelligence_v1_product_readiness_gate_2026_04_30.md` and `../data/pipeline_rounds/runtime_learning_intelligence_v1_product_readiness_gate_2026_04_30.json`
+- Post-fallback roadmap and next prompt: `../data/pipeline_rounds/runtime_learning_intelligence_post_fallback_product_roadmap_2026_04_30.md` and `../data/pipeline_rounds/prompts/teacher_lesson_session_setup_v1_prompt.md`
+- Product-readiness validator/test: `../scripts/validate_runtime_learning_intelligence_product_readiness.py` and `../tests/test_runtime_learning_intelligence_product_readiness.py`
+
 Status: runtime weighting improvement plus teacher-facing observability. It uses local attempt history to reduce repetition and display exposure summaries without changing active scope, reviewed-bank status, scoring/mastery, source truth, auth, database, or PII.

@@ -15,5 +15,13 @@
   "scoring_mastery_changed": false,
   "source_truth_changed": false,
   "pii_used": false,
-  "database_used": false
+  "database_used": false,
+  "small_pool_fallback_manual_test_status": "confirmed",
+  "small_pool_fallback_manual_test_date": "2026-04-30",
+  "small_pool_fallback_served_questions": true,
+  "fallback_targeted_test_still_needed": false,
+  "product_readiness_status": "ready_for_continued_pilot_use",
+  "keep_enabled_recommended": true,
+  "further_student_pilot_still_useful": true,
+  "teacher_lesson_session_setup_recommended_next": true
 }

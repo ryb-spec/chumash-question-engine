@@ -29,7 +29,7 @@ If the safe candidate pool is small or every candidate is already exposed, the r
 
 ## Teacher-visible summary
 
-V1 exposes the teacher-facing summary through this governed report and `data/validation/runtime_learning_intelligence_summary.json`. Direct sidebar integration was deferred because `streamlit_app.py` remains intentionally protected by the curriculum diff guard outside UI-specific tasks.
+V1 exposes the teacher-facing summary through this governed report, `data/validation/runtime_learning_intelligence_summary.json`, and the Streamlit sidebar Runtime Exposure Center. The sidebar center is read-only observability and does not change question-selection weighting, scoring/mastery, active scope, source truth, or content.
 
 The teacher-facing report summarizes:
 
@@ -55,3 +55,27 @@ The teacher-facing report summarizes:
 - no reviewed-bank promotion
 - no source-truth change
 - no scoring/mastery change
+
+## Small-pool fallback manual test status
+
+Yossi ran a focused small-pool fallback manual test on 2026-04-30 in Full Passuk view.
+
+Confirmed evidence:
+
+- small-pool fallback served questions
+- app avoided crash or blank-screen behavior
+- Runtime Exposure Center showed fallback/scope-small status
+- repeated targets were still reduced where possible
+- no weird skips or missing questions
+- no slowdown
+- no confusing behavior
+
+Approximate question count was not recorded and remains unknown / not recorded.
+
+## Product readiness status
+
+Runtime Learning Intelligence V1 is ready for continued pilot use and should remain enabled.
+
+Further student pilot evidence remains useful, especially for longer sessions, larger approved active scopes, and teacher usability of the Runtime Exposure Center.
+
+Recommended next product task: Teacher Lesson / Session Setup V1.
