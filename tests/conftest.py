@@ -10,6 +10,7 @@ def isolate_runtime_logs(tmp_path, monkeypatch):
     attempt_log_path = tmp_path / "attempt_log.jsonl"
     pilot_log_path = tmp_path / "pilot_session_events.jsonl"
 
+    monkeypatch.setenv("CHUMASH_ATTEMPT_LOG_PATH", str(attempt_log_path))
     monkeypatch.setenv("CHUMASH_PILOT_EVENT_LOG_PATH", str(pilot_log_path))
 
     import runtime.pilot_logging as pilot_logging

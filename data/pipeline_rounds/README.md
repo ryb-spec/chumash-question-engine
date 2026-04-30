@@ -432,3 +432,14 @@ Status: Yossi's real internal teacher/reviewer evidence supersedes the earlier n
 - Validator/test: `../../scripts/validate_perek_5_6_clean_two_item_limited_packet_iteration.py` and `../../tests/test_perek_5_6_clean_two_item_limited_packet_iteration.py`
 
 Status: only סֵפֶר and בֵּן move into a clean limited iteration. בָשָׂר and פֶתַח require revision, מַבּוּל remains held, and seven other candidates remain excluded. No runtime activation, reviewed-bank promotion, or student-facing content occurred.
+
+## Runtime Learning Intelligence V1 - 2026-04-30
+
+- Audit: `runtime_learning_intelligence_audit_2026_04_30.md`
+- Policy contract: `runtime_learning_intelligence_policy_2026_04_30.json`
+- Runtime report: `../validation/runtime_learning_intelligence_report.md`
+- Runtime summary JSON: `../validation/runtime_learning_intelligence_summary.json`
+- Runtime guide: `../../docs/runtime/runtime_learning_intelligence_v1.md`
+- Validator/test: `../../scripts/validate_runtime_learning_intelligence.py` and `../../tests/test_runtime_learning_intelligence.py`
+
+Status: product/runtime improvement only. Local attempt and pilot history now inform question-selection weighting to reduce cross-session repetition while preserving fallback for small safe scopes. No active scope, reviewed-bank, source-truth, scoring/mastery, auth, database, or PII behavior was added.

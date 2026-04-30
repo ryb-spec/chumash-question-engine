@@ -27,6 +27,7 @@ from pasuk_flow_generator import (
     validate_question_candidate as validate_generated_question_candidate,
 )
 from progress_store import load_progress_state
+from runtime.attempt_history import load_attempt_history
 from runtime.presentation import SKILL_ORDER
 from runtime.runtime_support import (
     analyze_generator_pasuk,
@@ -35,6 +36,12 @@ from runtime.runtime_support import (
     get_pasukh_text,
     load_progress,
     question_pipeline_source,
+)
+from runtime.scope_exhaustion import (
+    build_exposure_index,
+    explain_candidate_penalty,
+    history_weighting_enabled,
+    summarize_exposure,
 )
 from torah_parser.word_bank_adapter import normalize_hebrew_key
 
@@ -79,6 +86,8 @@ DEBUG_REJECTION_LABELS = {
     "recent_target_family_repeat": "recent target-family repeat blocked",
     "recent_translation_phrase_pattern_repeat": "translation phrase-pattern repeat blocked",
     "recent_meaning_repeat": "recent meaning repeat blocked",
+    "history_weighted_selection": "cross-session exposure weighting applied",
+    "fallback_scope_small": "history weighting fallback kept a small scope available",
     "recent_tense_lane_overlap": "tense-lane overlap blocked",
     "recent_surface_pattern_repeat": "recent surface-pattern repeat blocked",
     "limited_candidate_reuse": "limited candidate reuse allowed",
@@ -1229,6 +1238,13 @@ def candidate_quality_breakdown(
     )
     context_policy = display_context_policy(question)
     translation_route = translation_practice_route_bonus(question, recent_questions)
+    exposure_index = current_runtime_exposure_index()
+    exposure = explain_candidate_penalty(
+        question,
+        exposure_index,
+        current_session_state={"recent_questions": recent_questions or []},
+    )
+    history_penalty = round(exposure["penalty"] / 20.0, 2)
 
     clarity = 0.0
     if question.get("selected_word") or question.get("word"):
@@ -1278,7 +1294,7 @@ def candidate_quality_breakdown(
         2,
     )
     total = round(
-        total + translation_route,
+        total + translation_route - history_penalty,
         2,
     )
 
@@ -1291,9 +1307,37 @@ def candidate_quality_breakdown(
         "context_dependence": round(context_dependence, 2),
         "display_compactness": round(display_compactness, 2),
         "translation_route": round(translation_route, 2),
+        "history_penalty": history_penalty,
+        "history_reason_codes": exposure["reasons"],
         "display_context_mode": context_policy["mode"],
         "display_context_reason": context_policy["reason"],
     }
+
+
+def current_runtime_exposure_index():
+    history = load_attempt_history(max_records=500)
+    exposure_index = build_exposure_index(history["records"])
+    exposure_index["history_files_used"] = history["history_files_used"]
+    exposure_index["malformed_count"] = history["malformed_count"]
+    exposure_index["missing_files"] = history["missing_files"]
+    return exposure_index
+
+
+def runtime_learning_exposure_summary(limit=5):
+    exposure_index = current_runtime_exposure_index()
+    summary = summarize_exposure(
+        exposure_index,
+        limit=limit,
+        active=history_weighting_enabled(),
+    )
+    summary["history_files_used"] = exposure_index.get("history_files_used", [])
+    summary["malformed_count"] = exposure_index.get("malformed_count", 0)
+    summary["missing_files"] = exposure_index.get("missing_files", [])
+    try:
+        summary["fallback_count"] = int(st.session_state.get("history_weighting_fallback_count", 0))
+    except Exception:
+        summary["fallback_count"] = 0
+    return summary
 
 
 def skip_reason_codes(question, fallback_code):
@@ -1797,6 +1841,8 @@ def choose_weighted_pasuk_question(
     recent_questions=None,
 ):
     scored = []
+    exposure_index = current_runtime_exposure_index()
+    all_history_penalized = True
     for item in candidates:
         breakdown = candidate_quality_breakdown(
             item,
@@ -1806,6 +1852,8 @@ def choose_weighted_pasuk_question(
             progress=progress,
             adaptive_context=adaptive_context,
         )
+        if not breakdown.get("history_penalty"):
+            all_history_penalized = False
         scored.append(
             (
                 breakdown["total"],
@@ -1822,6 +1870,9 @@ def choose_weighted_pasuk_question(
 
     selected = scored[0][3]
     selected["candidate_score_breakdown"] = scored[0][4]
+    selected["history_weighting_fallback"] = bool(
+        all_history_penalized and exposure_index.get("record_count", 0)
+    )
     return selected
 
 
@@ -1836,12 +1887,26 @@ def rank_ready_rows(
     adaptive_context=None,
 ):
     scored = []
+    exposure_index = current_runtime_exposure_index()
     for row in ready_rows:
         route_bonus = translation_practice_ready_row_bonus(
             row,
             requested_skill=skill,
             recent_questions=recent_questions,
         )
+        exposure_candidate = {
+            "hebrew_target": row.get("word") or "",
+            "pasuk_ref": row.get("pasuk") or "",
+            "skill": skill or row.get("skill") or "",
+            "question_type": row.get("question_type") or "",
+            "mode": (adaptive_context or {}).get("selection_mode") or "",
+        }
+        exposure = explain_candidate_penalty(
+            exposure_candidate,
+            exposure_index,
+            current_session_state={"recent_questions": recent_questions or []},
+        )
+        history_penalty = round(exposure["penalty"] / 20.0, 2)
         scored.append(
             {
                 "weight": candidate_weight(
@@ -1850,11 +1915,13 @@ def rank_ready_rows(
                     recent_pesukim,
                     recent_words,
                     adaptive_context=adaptive_context,
-                ) + route_bonus,
+                ) + route_bonus - history_penalty,
                 "reviewed": bool(row.get("reviewed")),
                 "word": row.get("word") or "",
                 "pasuk": row.get("pasuk") or "",
                 "route_bonus": route_bonus,
+                "history_penalty": history_penalty,
+                "history_reason_codes": exposure["reasons"],
                 "row": row,
             }
         )
@@ -2171,6 +2238,22 @@ def select_pasuk_first_question(skill, progress=None, adaptive_context=None):
             "explicit_reteach_reuse",
         )
         trace_transition_reason = "Explicit reteach reused a recent safe candidate."
+    if selected.get("candidate_score_breakdown", {}).get("history_penalty"):
+        trace_rejection_counts = increment_debug_rejection_count(
+            trace_rejection_counts,
+            "history_weighted_selection",
+        )
+    if selected.get("history_weighting_fallback"):
+        trace_rejection_counts = increment_debug_rejection_count(
+            trace_rejection_counts,
+            "fallback_scope_small",
+        )
+        st.session_state.history_weighting_fallback_count = (
+            int(st.session_state.get("history_weighting_fallback_count", 0)) + 1
+        )
+        trace_transition_reason = trace_transition_reason or (
+            "History weighting kept the best available candidate because the safe scope was small."
+        )
     trace_filter_reasons = (
         [fallback_reason]
         if fallback_reason
