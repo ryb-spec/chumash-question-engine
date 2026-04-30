@@ -733,6 +733,7 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
     "data/pipeline_rounds/bereishis_perek_5_6_review_recommendation_report_2026_04_29.md",
     "data/pipeline_rounds/bereishis_perek_5_6_review_recommendation_report_2026_04_29.json",
     "data/pipeline_rounds/bereishis_perek_5_6_mixed_packet_real_observation_post_gate_2026_04_30.md",
+    "data/pipeline_rounds/bereishis_perek_5_6_clean_two_item_iteration_next_gate_2026_04_30.md",
     "data/pipeline_rounds/streamlined_review_process_comparison_2026_04_29.md",
     "docs/pipeline/streamlined_review_process_v1.md",
     "docs/pipeline/streamlined_review_process_v1.json",
@@ -809,6 +810,7 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
     "tests/test_perek_5_6_mixed_internal_review_decisions.py",
     "tests/test_perek_5_6_review_recommendation_report.py",
     "tests/test_perek_5_6_mixed_packet_real_observation_evidence.py",
+    "tests/test_perek_5_6_clean_two_item_limited_packet_iteration.py",
     "tests/test_streamlined_review_process.py",
             "scripts/validate_perek_4_limited_internal_preview_decisions.py",
             "scripts/validate_perek_4_final_iteration_and_perek_5_6_gate.py",
@@ -823,6 +825,7 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
     "scripts/validate_perek_5_6_mixed_internal_review_decisions.py",
     "scripts/validate_perek_5_6_review_recommendation_report.py",
     "scripts/validate_perek_5_6_mixed_packet_real_observation_evidence.py",
+    "scripts/validate_perek_5_6_clean_two_item_limited_packet_iteration.py",
     "scripts/validate_streamlined_review_process.py",
             "scripts/validate_standards_data.py",
             "tests/conftest.py",
@@ -922,6 +925,9 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+
 
 
 

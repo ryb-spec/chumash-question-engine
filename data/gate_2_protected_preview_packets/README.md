@@ -150,3 +150,12 @@ Status: two clean-approved items are limited-internal-preview ready, three Perek
 - Validator/test: `../../scripts/validate_perek_5_6_mixed_packet_real_observation_evidence.py` and `../../tests/test_perek_5_6_mixed_packet_real_observation_evidence.py`
 
 Status: all five mixed packet items now have real internal review evidence. `g2srcdisc_p5_001` and `g2srcdisc_p5_005` are clean after observation, `g2srcdisc_p6_001` and `g2srcdisc_p6_006` require revision, and `g2srcdisc_p6_007` is held. No student evidence, runtime activation, reviewed-bank promotion, or student-facing content was created.
+
+## Bereishis Perek 5-6 clean two-item limited packet iteration - 2026-04-30
+
+- Iteration TSV: `bereishis_perek_5_6_clean_two_item_limited_packet_iteration.tsv`
+- Iteration Markdown: `reports/bereishis_perek_5_6_clean_two_item_limited_packet_iteration_2026_04_30.md`
+- Iteration JSON: `reports/bereishis_perek_5_6_clean_two_item_limited_packet_iteration_2026_04_30.json`
+- Validator/test: `../../scripts/validate_perek_5_6_clean_two_item_limited_packet_iteration.py` and `../../tests/test_perek_5_6_clean_two_item_limited_packet_iteration.py`
+
+Status: clean limited packet iteration includes only `g2srcdisc_p5_001 / סֵפֶר` and `g2srcdisc_p5_005 / בֵּן`. Revision, held, and excluded items remain out. Runtime, reviewed-bank, and student-facing gates remain closed.
