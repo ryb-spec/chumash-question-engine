@@ -1,4 +1,4 @@
-import copy
+﻿import copy
 import json
 import unittest
 from unittest import mock
@@ -479,7 +479,7 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
     def test_perek_3_pilot_distractor_source_remediation_allows_only_exact_choice_repair(self):
         safe_diff = """diff --git a/data/active_scope_reviewed_questions.json b/data/active_scope_reviewed_questions.json
 @@
-      "question_text": "What does אֲרוּרָה mean?",
+      "question_text": "What does ×Ö²×¨×•Ö¼×¨Ö¸×” mean?",
 -        "Eden",
 -        "Eve",
 -        "all"
@@ -487,7 +487,7 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
 +        "living",
 +        "heel"
 @@
-      "question_text": "What does דֶּרֶךְ mean?",
+      "question_text": "What does ×“Ö¶Ö¼×¨Ö¶×šÖ° mean?",
 -        "Eve",
 -        "Eden",
 -        "all",
@@ -506,7 +506,7 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
 
         unsafe_diff = """diff --git a/data/active_scope_reviewed_questions.json b/data/active_scope_reviewed_questions.json
 @@
-      "question_text": "What does אֲרוּרָה mean?",
+      "question_text": "What does ×Ö²×¨×•Ö¼×¨Ö¸×” mean?",
 -      "correct_answer": "cursed",
 +      "correct_answer": "blessed",
 """
@@ -524,10 +524,10 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
     def test_perek_3_short_repilot_scope_leak_fix_allows_only_prefix_prompt_repair(self):
         safe_diff = """diff --git a/data/active_scope_reviewed_questions.json b/data/active_scope_reviewed_questions.json
 @@
--      "question_text": "What is the prefix in בְּאִשְׁתּוֹ?",
--      "question": "What is the prefix in בְּאִשְׁתּוֹ?",
-+      "question_text": "In בְּאִשְׁתּוֹ, which beginning letter is the prefix?",
-+      "question": "In בְּאִשְׁתּוֹ, which beginning letter is the prefix?",
+-      "question_text": "What is the prefix in ×‘Ö°Ö¼×Ö´×©Ö°××ªÖ¼×•Ö¹?",
+-      "question": "What is the prefix in ×‘Ö°Ö¼×Ö´×©Ö°××ªÖ¼×•Ö¹?",
++      "question_text": "In ×‘Ö°Ö¼×Ö´×©Ö°××ªÖ¼×•Ö¹, which beginning letter is the prefix?",
++      "question": "In ×‘Ö°Ö¼×Ö´×©Ö°××ªÖ¼×•Ö¹, which beginning letter is the prefix?",
 """
         with mock.patch.object(validator.subprocess, "run") as run_mock:
             run_mock.return_value.returncode = 0
@@ -540,9 +540,9 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
 
         unsafe_diff = """diff --git a/data/active_scope_reviewed_questions.json b/data/active_scope_reviewed_questions.json
 @@
-       "question_text": "What is the prefix in בְּאִשְׁתּוֹ?",
--      "correct_answer": "ב",
-+      "correct_answer": "כ",
+       "question_text": "What is the prefix in ×‘Ö°Ö¼×Ö´×©Ö°××ªÖ¼×•Ö¹?",
+-      "correct_answer": "×‘",
++      "correct_answer": "×›",
 """
         with mock.patch.object(validator.subprocess, "run") as run_mock:
             run_mock.return_value.returncode = 0
@@ -732,6 +732,7 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
     "data/pipeline_rounds/bereishis_perek_5_6_mixed_internal_review_packet_created_2026_04_29.md",
     "data/pipeline_rounds/bereishis_perek_5_6_review_recommendation_report_2026_04_29.md",
     "data/pipeline_rounds/bereishis_perek_5_6_review_recommendation_report_2026_04_29.json",
+    "data/pipeline_rounds/bereishis_perek_5_6_mixed_packet_real_observation_post_gate_2026_04_30.md",
     "data/pipeline_rounds/streamlined_review_process_comparison_2026_04_29.md",
     "docs/pipeline/streamlined_review_process_v1.md",
     "docs/pipeline/streamlined_review_process_v1.json",
@@ -807,6 +808,7 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
     "tests/test_perek_5_6_mixed_internal_review_packet.py",
     "tests/test_perek_5_6_mixed_internal_review_decisions.py",
     "tests/test_perek_5_6_review_recommendation_report.py",
+    "tests/test_perek_5_6_mixed_packet_real_observation_evidence.py",
     "tests/test_streamlined_review_process.py",
             "scripts/validate_perek_4_limited_internal_preview_decisions.py",
             "scripts/validate_perek_4_final_iteration_and_perek_5_6_gate.py",
@@ -820,6 +822,7 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
     "scripts/validate_perek_5_6_mixed_internal_review_packet.py",
     "scripts/validate_perek_5_6_mixed_internal_review_decisions.py",
     "scripts/validate_perek_5_6_review_recommendation_report.py",
+    "scripts/validate_perek_5_6_mixed_packet_real_observation_evidence.py",
     "scripts/validate_streamlined_review_process.py",
             "scripts/validate_standards_data.py",
             "tests/conftest.py",
@@ -919,3 +922,6 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+
