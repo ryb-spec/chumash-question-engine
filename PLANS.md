@@ -180,3 +180,5 @@
 - [x] Create a five-item internal protected-preview packet from the clean candidate gate only.
 - [x] Add review checklist, observation template, excluded register, lineage reconciliation, and next post-preview decision prompt.
 - [x] Add validator/tests and keep runtime, reviewed-bank, student-facing, source-truth, scoring/mastery, and scope gates closed.
+
+- [x] Final Observation V1 (2026-04-30): record Yossi's internal final observation evidence for all five packet items, create final completion and readiness artifacts, and prepare reviewed-bank-candidate/runtime-readiness next-branch prompts while leaving runtime activation and reviewed-bank promotion blocked.

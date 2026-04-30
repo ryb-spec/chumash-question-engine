@@ -1,0 +1,195 @@
+{
+  "schema_version": "1.0",
+  "register_type": "perek_4_broad_vocabulary_final_readiness_register",
+  "register_date": "2026-04-30",
+  "total_rows": 12,
+  "ready_items_count": 5,
+  "blocked_items_count": 7,
+  "ready_for_reviewed_bank_candidate_planning": true,
+  "ready_for_runtime_readiness_planning": true,
+  "ready_for_runtime_activation": false,
+  "runtime_activation_authorized": false,
+  "reviewed_bank_status_default": "not_reviewed_bank",
+  "runtime_status_default": "not_runtime",
+  "items": [
+    {
+      "source_candidate_id": "svqcl_p4_001",
+      "packet_item_id": "p4bv_ipp_001",
+      "hebrew_word": "אִישׁ",
+      "lane": "translate_hebrew_to_english",
+      "final_internal_status": "approved_after_internal_observation",
+      "recommended_next_gate": "ready_for_reviewed_bank_candidate_planning",
+      "reviewed_bank_status": "not_reviewed_bank",
+      "runtime_status": "not_runtime",
+      "runtime_activation_authorized": false,
+      "block_type": "observed",
+      "notes": "Approved after final internal observation."
+    },
+    {
+      "source_candidate_id": "svqcl_p4_002",
+      "packet_item_id": "p4bv_ipp_002",
+      "hebrew_word": "אִישׁ",
+      "lane": "find_word_in_pasuk",
+      "final_internal_status": "approved_after_internal_observation",
+      "recommended_next_gate": "ready_for_reviewed_bank_candidate_planning",
+      "reviewed_bank_status": "not_reviewed_bank",
+      "runtime_status": "not_runtime",
+      "runtime_activation_authorized": false,
+      "block_type": "observed",
+      "notes": "Approved after final internal observation. Full pasuk/context confirmed."
+    },
+    {
+      "source_candidate_id": "svqcl_p4_003",
+      "packet_item_id": "p4bv_ipp_003",
+      "hebrew_word": "אִישׁ",
+      "lane": "classify_basic_part_of_speech",
+      "final_internal_status": "approved_after_internal_observation",
+      "recommended_next_gate": "ready_for_reviewed_bank_candidate_planning",
+      "reviewed_bank_status": "not_reviewed_bank",
+      "runtime_status": "not_runtime",
+      "runtime_activation_authorized": false,
+      "block_type": "observed",
+      "notes": "Approved after final internal observation."
+    },
+    {
+      "source_candidate_id": "svqcl_p4_005",
+      "packet_item_id": "p4bv_ipp_004",
+      "hebrew_word": "צֹאן",
+      "lane": "find_word_in_pasuk",
+      "final_internal_status": "approved_after_internal_observation",
+      "recommended_next_gate": "ready_for_reviewed_bank_candidate_planning",
+      "reviewed_bank_status": "not_reviewed_bank",
+      "runtime_status": "not_runtime",
+      "runtime_activation_authorized": false,
+      "block_type": "observed",
+      "notes": "Approved after final internal observation. Full pasuk/context confirmed."
+    },
+    {
+      "source_candidate_id": "svqcl_p4_006",
+      "packet_item_id": "p4bv_ipp_005",
+      "hebrew_word": "צֹאן",
+      "lane": "classify_basic_part_of_speech",
+      "final_internal_status": "approved_after_internal_observation",
+      "recommended_next_gate": "ready_for_reviewed_bank_candidate_planning",
+      "reviewed_bank_status": "not_reviewed_bank",
+      "runtime_status": "not_runtime",
+      "runtime_activation_authorized": false,
+      "block_type": "observed",
+      "notes": "Approved after final internal observation."
+    },
+    {
+      "source_candidate_id": "bsvb_p4_002",
+      "source_id": "bsvb_p4_002",
+      "block_type": "revision_required",
+      "recommended_next_gate": "blocked_until_revision",
+      "final_internal_status": "blocked",
+      "reviewed_bank_status": "not_reviewed_bank",
+      "runtime_status": "not_runtime",
+      "runtime_activation_authorized": false,
+      "reason": "Translation revision remains required for this word."
+    },
+    {
+      "source_candidate_id": "svqcl_p4_004",
+      "source_id": "svqcl_p4_004",
+      "block_type": "revision_required",
+      "recommended_next_gate": "blocked_until_revision",
+      "final_internal_status": "blocked",
+      "reviewed_bank_status": "not_reviewed_bank",
+      "runtime_status": "not_runtime",
+      "runtime_activation_authorized": false,
+      "reason": "Expected-answer revision remains required for this word."
+    },
+    {
+      "source_candidate_id": "bsvb_p4_003",
+      "source_id": "bsvb_p4_003",
+      "block_type": "held",
+      "recommended_next_gate": "held",
+      "final_internal_status": "held",
+      "reviewed_bank_status": "not_reviewed_bank",
+      "runtime_status": "not_runtime",
+      "runtime_activation_authorized": false,
+      "reason": "Held for ground / earth / land follow-up."
+    },
+    {
+      "source_candidate_id": "bsvb_p4_004",
+      "source_id": "bsvb_p4_004",
+      "block_type": "held",
+      "recommended_next_gate": "held",
+      "final_internal_status": "held",
+      "reviewed_bank_status": "not_reviewed_bank",
+      "runtime_status": "not_runtime",
+      "runtime_activation_authorized": false,
+      "reason": "Held for offering / gift / tribute follow-up."
+    },
+    {
+      "source_candidate_id": "svqcl_p4_007",
+      "source_id": "svqcl_p4_007",
+      "block_type": "held",
+      "recommended_next_gate": "held",
+      "final_internal_status": "held",
+      "reviewed_bank_status": "not_reviewed_bank",
+      "runtime_status": "not_runtime",
+      "runtime_activation_authorized": false,
+      "reason": "אוֹת candidate remains held."
+    },
+    {
+      "source_candidate_id": "svqcl_p4_008",
+      "source_id": "svqcl_p4_008",
+      "block_type": "held",
+      "recommended_next_gate": "held",
+      "final_internal_status": "held",
+      "reviewed_bank_status": "not_reviewed_bank",
+      "runtime_status": "not_runtime",
+      "runtime_activation_authorized": false,
+      "reason": "אוֹת candidate remains held."
+    },
+    {
+      "source_candidate_id": "svqcl_p4_009",
+      "source_id": "svqcl_p4_009",
+      "block_type": "held",
+      "recommended_next_gate": "held",
+      "final_internal_status": "held",
+      "reviewed_bank_status": "not_reviewed_bank",
+      "runtime_status": "not_runtime",
+      "runtime_activation_authorized": false,
+      "reason": "אוֹת candidate remains held."
+    }
+  ],
+  "included_items": [
+    "svqcl_p4_001",
+    "svqcl_p4_002",
+    "svqcl_p4_003",
+    "svqcl_p4_005",
+    "svqcl_p4_006"
+  ],
+  "blocked_items": [
+    {
+      "source_candidate_id": "bsvb_p4_002",
+      "block_type": "revision_required"
+    },
+    {
+      "source_candidate_id": "svqcl_p4_004",
+      "block_type": "revision_required"
+    },
+    {
+      "source_candidate_id": "bsvb_p4_003",
+      "block_type": "held"
+    },
+    {
+      "source_candidate_id": "bsvb_p4_004",
+      "block_type": "held"
+    },
+    {
+      "source_candidate_id": "svqcl_p4_007",
+      "block_type": "held"
+    },
+    {
+      "source_candidate_id": "svqcl_p4_008",
+      "block_type": "held"
+    },
+    {
+      "source_candidate_id": "svqcl_p4_009",
+      "block_type": "held"
+    }
+  ]
+}

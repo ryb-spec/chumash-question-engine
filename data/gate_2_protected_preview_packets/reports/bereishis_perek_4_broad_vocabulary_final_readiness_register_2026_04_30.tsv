@@ -1,0 +1,13 @@
+source_candidate_id	packet_item_id	hebrew_word	lane	gate_readiness	block_type	final_internal_status	reviewed_bank_status	runtime_status	runtime_activation_authorized	next_action_notes
+svqcl_p4_001	p4bv_ipp_001	אִישׁ	translate_hebrew_to_english	ready_for_reviewed_bank_candidate_planning	observed	approved_after_internal_observation	not_reviewed_bank	not_runtime	false	Approved for reviewed-bank-candidate planning review.
+svqcl_p4_002	p4bv_ipp_002	אִישׁ	find_word_in_pasuk	ready_for_reviewed_bank_candidate_planning	observed	approved_after_internal_observation	not_reviewed_bank	not_runtime	false	Approved for reviewed-bank-candidate planning review.
+svqcl_p4_003	p4bv_ipp_003	אִישׁ	classify_basic_part_of_speech	ready_for_reviewed_bank_candidate_planning	observed	approved_after_internal_observation	not_reviewed_bank	not_runtime	false	Approved for reviewed-bank-candidate planning review.
+svqcl_p4_005	p4bv_ipp_004	צֹאן	find_word_in_pasuk	ready_for_reviewed_bank_candidate_planning	observed	approved_after_internal_observation	not_reviewed_bank	not_runtime	false	Approved for reviewed-bank-candidate planning review.
+svqcl_p4_006	p4bv_ipp_005	צֹאן	classify_basic_part_of_speech	ready_for_reviewed_bank_candidate_planning	observed	approved_after_internal_observation	not_reviewed_bank	not_runtime	false	Approved for reviewed-bank-candidate planning review.
+bsvb_p4_002		צֹאן	revision_required	blocked	revision_required	blocked	not_reviewed_bank	not_runtime	false	Translation revision remains required before broader movement.
+svqcl_p4_004		צֹאן	revision_required	blocked	revision_required	blocked	not_reviewed_bank	not_runtime	false	Expected-answer revision remains required before broader movement.
+bsvb_p4_003		ground/earth/land	held	blocked	held	blocked	not_reviewed_bank	not_runtime	false	Ground / earth / land follow-up remains held.
+bsvb_p4_004		offering/gift/tribute	held	blocked	held	blocked	not_reviewed_bank	not_runtime	false	Offering / gift / tribute follow-up remains held.
+svqcl_p4_007		אוֹת	held	blocked	held	blocked	not_reviewed_bank	not_runtime	false	אוֹת candidates remain held.
+svqcl_p4_008		אוֹת	held	blocked	held	blocked	not_reviewed_bank	not_runtime	false	אוֹת candidates remain held.
+svqcl_p4_009		אוֹת	held	blocked	held	blocked	not_reviewed_bank	not_runtime	false	אוֹת candidates remain held.

@@ -104,6 +104,28 @@ GOVERNED_PEREK_4_PACKET_REQUIREMENTS: dict[str, tuple[str, ...]] = {
         "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_broad_vocabulary_internal_protected_preview_packet_2026_04_30.json",
         "data/pipeline_rounds/perek_4_broad_vocabulary_internal_protected_preview_packet_v1_2026_04_30.json",
     ),
+    "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_broad_vocabulary_final_observation_evidence_2026_04_30.json": (
+        "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_broad_vocabulary_final_observation_evidence_2026_04_30.json",
+        "data/pipeline_rounds/perek_4_broad_vocabulary_final_internal_completion_gate_2026_04_30.json",
+        "data/pipeline_rounds/perek_4_broad_vocabulary_internal_protected_preview_packet_v1_2026_04_30.json",
+    ),
+    "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_broad_vocabulary_final_observation_evidence_2026_04_30.tsv": (
+        "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_broad_vocabulary_final_observation_evidence_2026_04_30.json",
+        "data/pipeline_rounds/perek_4_broad_vocabulary_final_internal_completion_gate_2026_04_30.json",
+        "data/pipeline_rounds/perek_4_broad_vocabulary_internal_protected_preview_packet_v1_2026_04_30.json",
+    ),
+    "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_broad_vocabulary_final_readiness_register_2026_04_30.json": (
+        "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_broad_vocabulary_final_readiness_register_2026_04_30.json",
+        "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_broad_vocabulary_final_observation_evidence_2026_04_30.json",
+        "data/pipeline_rounds/perek_4_broad_vocabulary_final_internal_completion_gate_2026_04_30.json",
+        "data/pipeline_rounds/perek_4_broad_vocabulary_internal_protected_preview_packet_v1_2026_04_30.json",
+    ),
+    "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_broad_vocabulary_final_readiness_register_2026_04_30.tsv": (
+        "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_broad_vocabulary_final_readiness_register_2026_04_30.json",
+        "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_broad_vocabulary_final_observation_evidence_2026_04_30.json",
+        "data/pipeline_rounds/perek_4_broad_vocabulary_final_internal_completion_gate_2026_04_30.json",
+        "data/pipeline_rounds/perek_4_broad_vocabulary_internal_protected_preview_packet_v1_2026_04_30.json",
+    ),
     "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_broad_vocabulary_observation_template_2026_04_30.md": (
         "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_broad_vocabulary_internal_protected_preview_packet_2026_04_30.json",
     ),
