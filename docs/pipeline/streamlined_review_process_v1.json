@@ -1,0 +1,296 @@
+{
+  "schema_version": "1.0",
+  "process_name": "Streamlined Review Process V1",
+  "target_step_reduction_percent": 35,
+  "tightening_rules": [
+    "one phase validator per bundled phase",
+    "phase JSON as source of truth",
+    "no standalone prompt artifacts unless complex/reusable/high-risk"
+  ],
+  "phases": [
+    {
+      "phase_number": 1,
+      "phase_name": "Source Discovery Bundle",
+      "purpose": "Create review-only source-backed inventory plus risk, duplicate, and status evidence in one bundle.",
+      "allowed_outputs": [
+        "phase report or checklist",
+        "phase JSON contract",
+        "bundled register when needed",
+        "one phase validator",
+        "one focused test"
+      ],
+      "prohibited_outputs": [
+        "runtime activation",
+        "active scope expansion",
+        "reviewed-bank promotion",
+        "student-facing content",
+        "fake decisions",
+        "fake observations"
+      ],
+      "required_safety_fields": [
+        "runtime_allowed=false",
+        "reviewed_bank_allowed=false",
+        "protected_preview_allowed=false unless explicitly appropriate for internal protected-preview artifacts",
+        "student_facing_allowed=false",
+        "perek_activated=false"
+      ],
+      "human_decision_required": false,
+      "observation_required": false,
+      "can_be_combined_with_previous": false,
+      "can_be_combined_with_next": true,
+      "stop_conditions": [
+        "missing required human decision",
+        "missing observation evidence when required",
+        "source confidence changed without review",
+        "any safety field is true unexpectedly"
+      ],
+      "recommended_validator_scope": "Validate all phase outputs, counts, decisions, held/blocked IDs, next_allowed_task, and safety fields from the phase JSON contract."
+    },
+    {
+      "phase_number": 2,
+      "phase_name": "Combined Teacher Review + Candidate Planning Checklist",
+      "purpose": "Let Yossi/teacher review candidates and planning suitability in one checklist.",
+      "allowed_outputs": [
+        "phase report or checklist",
+        "phase JSON contract",
+        "bundled register when needed",
+        "one phase validator",
+        "one focused test"
+      ],
+      "prohibited_outputs": [
+        "runtime activation",
+        "active scope expansion",
+        "reviewed-bank promotion",
+        "student-facing content",
+        "fake decisions",
+        "fake observations"
+      ],
+      "required_safety_fields": [
+        "runtime_allowed=false",
+        "reviewed_bank_allowed=false",
+        "protected_preview_allowed=false unless explicitly appropriate for internal protected-preview artifacts",
+        "student_facing_allowed=false",
+        "perek_activated=false"
+      ],
+      "human_decision_required": true,
+      "observation_required": false,
+      "can_be_combined_with_previous": true,
+      "can_be_combined_with_next": true,
+      "stop_conditions": [
+        "missing required human decision",
+        "missing observation evidence when required",
+        "source confidence changed without review",
+        "any safety field is true unexpectedly"
+      ],
+      "recommended_validator_scope": "Validate all phase outputs, counts, decisions, held/blocked IDs, next_allowed_task, and safety fields from the phase JSON contract."
+    },
+    {
+      "phase_number": 3,
+      "phase_name": "Combined Teacher/Planning Decisions Applied",
+      "purpose": "Apply teacher and planning decisions together and produce next-gate eligibility.",
+      "allowed_outputs": [
+        "phase report or checklist",
+        "phase JSON contract",
+        "bundled register when needed",
+        "one phase validator",
+        "one focused test"
+      ],
+      "prohibited_outputs": [
+        "runtime activation",
+        "active scope expansion",
+        "reviewed-bank promotion",
+        "student-facing content",
+        "fake decisions",
+        "fake observations"
+      ],
+      "required_safety_fields": [
+        "runtime_allowed=false",
+        "reviewed_bank_allowed=false",
+        "protected_preview_allowed=false unless explicitly appropriate for internal protected-preview artifacts",
+        "student_facing_allowed=false",
+        "perek_activated=false"
+      ],
+      "human_decision_required": true,
+      "observation_required": false,
+      "can_be_combined_with_previous": true,
+      "can_be_combined_with_next": true,
+      "stop_conditions": [
+        "missing required human decision",
+        "missing observation evidence when required",
+        "source confidence changed without review",
+        "any safety field is true unexpectedly"
+      ],
+      "recommended_validator_scope": "Validate all phase outputs, counts, decisions, held/blocked IDs, next_allowed_task, and safety fields from the phase JSON contract."
+    },
+    {
+      "phase_number": 4,
+      "phase_name": "Protected-Preview Candidate Review + Readiness",
+      "purpose": "Review eligible candidates for internal packet readiness and preserve holds/revisions.",
+      "allowed_outputs": [
+        "phase report or checklist",
+        "phase JSON contract",
+        "bundled register when needed",
+        "one phase validator",
+        "one focused test"
+      ],
+      "prohibited_outputs": [
+        "runtime activation",
+        "active scope expansion",
+        "reviewed-bank promotion",
+        "student-facing content",
+        "fake decisions",
+        "fake observations"
+      ],
+      "required_safety_fields": [
+        "runtime_allowed=false",
+        "reviewed_bank_allowed=false",
+        "protected_preview_allowed=false unless explicitly appropriate for internal protected-preview artifacts",
+        "student_facing_allowed=false",
+        "perek_activated=false"
+      ],
+      "human_decision_required": true,
+      "observation_required": false,
+      "can_be_combined_with_previous": true,
+      "can_be_combined_with_next": true,
+      "stop_conditions": [
+        "missing required human decision",
+        "missing observation evidence when required",
+        "source confidence changed without review",
+        "any safety field is true unexpectedly"
+      ],
+      "recommended_validator_scope": "Validate all phase outputs, counts, decisions, held/blocked IDs, next_allowed_task, and safety fields from the phase JSON contract."
+    },
+    {
+      "phase_number": 5,
+      "phase_name": "Protected-Preview Decisions Applied + Internal Packet Readiness",
+      "purpose": "Apply protected-preview candidate decisions and define internal packet lane.",
+      "allowed_outputs": [
+        "phase report or checklist",
+        "phase JSON contract",
+        "bundled register when needed",
+        "one phase validator",
+        "one focused test"
+      ],
+      "prohibited_outputs": [
+        "runtime activation",
+        "active scope expansion",
+        "reviewed-bank promotion",
+        "student-facing content",
+        "fake decisions",
+        "fake observations"
+      ],
+      "required_safety_fields": [
+        "runtime_allowed=false",
+        "reviewed_bank_allowed=false",
+        "protected_preview_allowed=false unless explicitly appropriate for internal protected-preview artifacts",
+        "student_facing_allowed=false",
+        "perek_activated=false"
+      ],
+      "human_decision_required": true,
+      "observation_required": false,
+      "can_be_combined_with_previous": true,
+      "can_be_combined_with_next": true,
+      "stop_conditions": [
+        "missing required human decision",
+        "missing observation evidence when required",
+        "source confidence changed without review",
+        "any safety field is true unexpectedly"
+      ],
+      "recommended_validator_scope": "Validate all phase outputs, counts, decisions, held/blocked IDs, next_allowed_task, and safety fields from the phase JSON contract."
+    },
+    {
+      "phase_number": 6,
+      "phase_name": "Internal Packet + Review Checklist",
+      "purpose": "Create internal-only packet and embedded review checklist/observation fields.",
+      "allowed_outputs": [
+        "phase report or checklist",
+        "phase JSON contract",
+        "bundled register when needed",
+        "one phase validator",
+        "one focused test"
+      ],
+      "prohibited_outputs": [
+        "runtime activation",
+        "active scope expansion",
+        "reviewed-bank promotion",
+        "student-facing content",
+        "fake decisions",
+        "fake observations"
+      ],
+      "required_safety_fields": [
+        "runtime_allowed=false",
+        "reviewed_bank_allowed=false",
+        "protected_preview_allowed=false unless explicitly appropriate for internal protected-preview artifacts",
+        "student_facing_allowed=false",
+        "perek_activated=false"
+      ],
+      "human_decision_required": false,
+      "observation_required": true,
+      "can_be_combined_with_previous": true,
+      "can_be_combined_with_next": true,
+      "stop_conditions": [
+        "missing required human decision",
+        "missing observation evidence when required",
+        "source confidence changed without review",
+        "any safety field is true unexpectedly"
+      ],
+      "recommended_validator_scope": "Validate all phase outputs, counts, decisions, held/blocked IDs, next_allowed_task, and safety fields from the phase JSON contract."
+    },
+    {
+      "phase_number": 7,
+      "phase_name": "Observation Decisions + Next-Gate Authorization",
+      "purpose": "Apply observation decisions and authorize the next safe task or next-Perek source discovery.",
+      "allowed_outputs": [
+        "phase report or checklist",
+        "phase JSON contract",
+        "bundled register when needed",
+        "one phase validator",
+        "one focused test"
+      ],
+      "prohibited_outputs": [
+        "runtime activation",
+        "active scope expansion",
+        "reviewed-bank promotion",
+        "student-facing content",
+        "fake decisions",
+        "fake observations"
+      ],
+      "required_safety_fields": [
+        "runtime_allowed=false",
+        "reviewed_bank_allowed=false",
+        "protected_preview_allowed=false unless explicitly appropriate for internal protected-preview artifacts",
+        "student_facing_allowed=false",
+        "perek_activated=false"
+      ],
+      "human_decision_required": true,
+      "observation_required": true,
+      "can_be_combined_with_previous": true,
+      "can_be_combined_with_next": false,
+      "stop_conditions": [
+        "missing required human decision",
+        "missing observation evidence when required",
+        "source confidence changed without review",
+        "any safety field is true unexpectedly"
+      ],
+      "recommended_validator_scope": "Validate all phase outputs, counts, decisions, held/blocked IDs, next_allowed_task, and safety fields from the phase JSON contract."
+    }
+  ],
+  "non_negotiable_gates": [
+    "source discovery",
+    "teacher review",
+    "candidate planning decision",
+    "protected-preview candidate review",
+    "internal packet review",
+    "observation evidence",
+    "runtime promotion gate"
+  ],
+  "prohibited_default_behaviors": [
+    "standalone readiness report after every small artifact",
+    "separate checklist for every tiny stage when one combined checklist can capture decisions",
+    "new validator per micro-artifact when one phase validator can cover a bundle",
+    "repeated README/index-only gates",
+    "protected-preview packet before explicit decision layer",
+    "runtime activation in source/candidate/packet planning phases",
+    "standalone future prompt artifacts unless complex/reusable/high-risk"
+  ]
+}

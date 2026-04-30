@@ -385,3 +385,15 @@ Status: small internal packet created for `g2srcdisc_p5_001` and `g2srcdisc_p5_0
 - Validator/test: `../../scripts/validate_perek_5_6_mixed_internal_review_packet.py` and `../../tests/test_perek_5_6_mixed_internal_review_packet.py`
 
 Status: mixed internal review packet created for two clean-approved Perek 5 items and three Perek 6 revision-watch items. No runtime activation, active-scope expansion, reviewed-bank promotion, public/student-facing content, fake review decisions, or fake student data was created.
+
+## Streamlined review process V1 - 2026-04-29
+
+- Process standard: `../../docs/pipeline/streamlined_review_process_v1.md`
+- Process contract JSON: `../../docs/pipeline/streamlined_review_process_v1.json`
+- Adoption guide: `../../docs/pipeline/streamlined_review_process_adoption_guide.md`
+- Template directory: `../../docs/pipeline/templates/`
+- Prompt template directory: `prompts/templates/`
+- Process comparison report: `streamlined_review_process_comparison_2026_04_29.md`
+- Validator/test: `../../scripts/validate_streamlined_review_process.py` and `../../tests/test_streamlined_review_process.py`
+
+Status: future Perek process standard only. The seven-phase process reduces paperwork-only gates while preserving human decision, observation, runtime, reviewed-bank, and student-facing safety gates.
