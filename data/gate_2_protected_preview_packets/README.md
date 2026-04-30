@@ -159,3 +159,5 @@ Status: all five mixed packet items now have real internal review evidence. `g2s
 - Validator/test: `../../scripts/validate_perek_5_6_clean_two_item_limited_packet_iteration.py` and `../../tests/test_perek_5_6_clean_two_item_limited_packet_iteration.py`
 
 Status: clean limited packet iteration includes only `g2srcdisc_p5_001 / סֵפֶר` and `g2srcdisc_p5_005 / בֵּן`. Revision, held, and excluded items remain out. Runtime, reviewed-bank, and student-facing gates remain closed.
+
+- 2026-04-30: Perek 4 Limited Protected-Preview Build Gate. Adds a bounded two-item Perek 4 protected-preview packet from the content expansion planning gate, preserves revision-watch items, and keeps runtime/reviewed-bank/student-facing gates false.

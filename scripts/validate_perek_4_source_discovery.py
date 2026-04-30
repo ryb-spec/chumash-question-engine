@@ -33,6 +33,9 @@ AUTHORIZED_PEREK_4_INTERNAL_PACKET_FILES = {
     "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_internal_protected_preview_packet_2026_04_29.json",
     "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_internal_protected_preview_packet_generation_report_2026_04_29.md",
     "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_internal_protected_preview_review_checklist_2026_04_29.md",
+    "data/gate_2_protected_preview_packets/bereishis_perek_4_limited_protected_preview_build_gate_2026_04_30.tsv",
+    "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_limited_protected_preview_build_gate_2026_04_30.md",
+    "data/gate_2_protected_preview_packets/reports/bereishis_perek_4_limited_protected_preview_build_gate_2026_04_30.json",
 }
 
 REQUIRED_COLUMNS = [

@@ -498,3 +498,5 @@ Status: Streamlit now includes a collapsed sidebar Teacher Runtime Report Export
 - 2026-04-30: Teacher Runtime Export Session Accuracy Fix and Content Expansion Readiness Gate. Adds scoped teacher exports, class/group label normalization, Planned lesson focus wording, one export snapshot for Markdown/JSON, `scripts/validate_teacher_runtime_export_session_accuracy.py`, and readiness artifacts without expanding content.
 
 - 2026-04-30: Content Expansion Planning Gate V1. Creates planning-only inventory, gap map, candidate plan, next Codex prompt, validator, and tests. Primary recommendation: future Perek 4 limited protected-preview build branch; no runtime activation or reviewed-bank promotion.
+
+- 2026-04-30: Perek 4 Limited Protected-Preview Build Gate. Builds only the bounded two-item protected-preview packet/report/contract from the Content Expansion Planning Gate recommendation; no runtime activation or reviewed-bank promotion.
