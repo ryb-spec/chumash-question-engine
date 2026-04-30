@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0",
+  "packet_status": "small_internal_protected_preview_only",
+  "scope": "Bereishis Perek 5-6",
+  "item_count": 2,
+  "included_candidate_ids": [
+    "g2srcdisc_p5_001",
+    "g2srcdisc_p5_005"
+  ],
+  "excluded_candidate_ids": [
+    "g2srcdisc_p5_002",
+    "g2srcdisc_p6_001",
+    "g2srcdisc_p6_003",
+    "g2srcdisc_p6_006",
+    "g2srcdisc_p6_007",
+    "g2srcdisc_p5_003",
+    "g2srcdisc_p5_004",
+    "g2srcdisc_p6_002",
+    "g2srcdisc_p6_004",
+    "g2srcdisc_p6_005"
+  ],
+  "fake_review_decisions_created": false,
+  "fake_student_data_created": false,
+  "source_truth_changed": false,
+  "question_selection_changed": false,
+  "scoring_mastery_changed": false,
+  "items": [
+    {
+      "packet_item_id": "g2ppacket_p5_6_001",
+      "source_candidate_id": "g2srcdisc_p5_001",
+      "perek": 5,
+      "pasuk_ref": "Bereishis 5:1",
+      "hebrew_target": "?????",
+      "question": "What type of word is ??????",
+      "expected_answer": "noun",
+      "distractors": [
+        "verb",
+        "adjective",
+        "prefix"
+      ],
+      "proposed_skill": "basic_noun_recognition",
+      "canonical_skill_id": "WORD.PART_OF_SPEECH_BASIC",
+      "prior_review_decision": "approve_for_internal_protected_preview_packet",
+      "readiness_reason": "Clear noun target; good simple opening item.",
+      "spacing_or_balance_note": "Do not cluster with other genealogy-opening terms.",
+      "internal_review_decision": null,
+      "runtime_allowed": false,
+      "reviewed_bank_allowed": false,
+      "student_facing_allowed": false,
+      "perek_5_activated": false,
+      "perek_6_activated": false
+    },
+    {
+      "packet_item_id": "g2ppacket_p5_6_002",
+      "source_candidate_id": "g2srcdisc_p5_005",
+      "perek": 5,
+      "pasuk_ref": "Bereishis 5:28",
+      "hebrew_target": "????",
+      "question": "What type of word is ?????",
+      "expected_answer": "noun",
+      "distractors": [
+        "verb",
+        "adjective",
+        "prefix"
+      ],
+      "proposed_skill": "basic_noun_recognition",
+      "canonical_skill_id": "WORD.PART_OF_SPEECH_BASIC",
+      "prior_review_decision": "approve_for_internal_protected_preview_packet",
+      "readiness_reason": "Clear simple family noun; lower risk than plural family cluster.",
+      "spacing_or_balance_note": "Avoid clustering with ??????? / ??????.",
+      "internal_review_decision": null,
+      "runtime_allowed": false,
+      "reviewed_bank_allowed": false,
+      "student_facing_allowed": false,
+      "perek_5_activated": false,
+      "perek_6_activated": false
+    }
+  ]
+}

@@ -111,3 +111,12 @@ Status: seven Perek 5-6 candidates are present for protected-preview-candidate r
 - Validator/test: `../../scripts/validate_perek_5_6_protected_preview_candidate_review_decisions.py` and `../../tests/test_perek_5_6_protected_preview_candidate_review_decisions.py`
 
 Status: two clean-approved items may be used in a later internal packet task; five revision items retain cautions. This did not create a protected-preview packet, runtime content, reviewed-bank content, or student-facing content.
+
+## Bereishis Perek 5-6 small internal packet created
+
+- Packet TSV: `../gate_2_protected_preview_packets/bereishis_perek_5_6_small_internal_protected_preview_packet.tsv`
+- Packet report: `../gate_2_protected_preview_packets/reports/bereishis_perek_5_6_small_internal_protected_preview_packet_2026_04_29.md`
+- Excluded/revision register: `../gate_2_protected_preview_packets/reports/bereishis_perek_5_6_small_packet_excluded_revision_register_2026_04_29.md`
+- Pipeline status: `../pipeline_rounds/bereishis_perek_5_6_small_internal_packet_created_2026_04_29.md`
+
+Status: only `g2srcdisc_p5_001` and `g2srcdisc_p5_005` entered the small internal packet. The five approve-with-revision candidates and five earlier excluded candidates remain out of packet scope.

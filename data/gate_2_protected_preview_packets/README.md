@@ -107,3 +107,15 @@ Status: `g2ppacket_p4_001` and `g2ppacket_p4_002` are eligible for next packet-i
 - Readiness report: `../pipeline_rounds/bereishis_perek_5_6_internal_protected_preview_packet_readiness_2026_04_29.md`
 
 Status: planning only. A Perek 5-6 internal protected-preview packet has not been created in this task.
+
+## Bereishis Perek 5-6 small internal protected-preview packet - 2026-04-29
+
+- Packet TSV: `bereishis_perek_5_6_small_internal_protected_preview_packet.tsv`
+- Packet Markdown: `reports/bereishis_perek_5_6_small_internal_protected_preview_packet_2026_04_29.md`
+- Packet JSON: `reports/bereishis_perek_5_6_small_internal_protected_preview_packet_2026_04_29.json`
+- Generation report: `reports/bereishis_perek_5_6_small_internal_protected_preview_packet_generation_report_2026_04_29.md`
+- Internal review checklist: `reports/bereishis_perek_5_6_small_internal_protected_preview_review_checklist_2026_04_29.md`
+- Excluded/revision register: `reports/bereishis_perek_5_6_small_packet_excluded_revision_register_2026_04_29.md`
+- Validator/test: `../../scripts/validate_perek_5_6_small_internal_protected_preview_packet.py` and `../../tests/test_perek_5_6_small_internal_protected_preview_packet.py`
+
+Status: two clean-approved Perek 5 items are packaged for internal protected-preview review only. Revision, held, source-only, and source-follow-up items remain excluded. Perek 5 and Perek 6 runtime, reviewed-bank, and public/student-facing gates remain closed.
