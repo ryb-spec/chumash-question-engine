@@ -4,13 +4,14 @@ import streamlit as st
 
 from runtime.lesson_session_setup import (
     DEFAULT_MODE_FOCUS,
+    DEFAULT_PLANNED_LESSON_FOCUS,
     get_lesson_session_metadata,
     lesson_session_summary_lines,
     reset_lesson_session_metadata,
     update_lesson_session_metadata,
 )
 
-MODE_FOCUS_OPTIONS = [
+PLANNED_LESSON_FOCUS_OPTIONS = [
     "Current app mode",
     "General review",
     "Full Passuk view",
@@ -18,6 +19,7 @@ MODE_FOCUS_OPTIONS = [
     "Pasuk Flow",
     "Pilot observation",
 ]
+MODE_FOCUS_OPTIONS = PLANNED_LESSON_FOCUS_OPTIONS
 
 
 def render_teacher_lesson_session_setup():
@@ -36,12 +38,26 @@ def render_teacher_lesson_session_setup():
             max_chars=80,
             help="Example: Perek 3 review, shoresh warmup, or Thursday pilot run.",
         )
-        current_focus = metadata.get("mode_focus") or DEFAULT_MODE_FOCUS
-        focus_index = MODE_FOCUS_OPTIONS.index(current_focus) if current_focus in MODE_FOCUS_OPTIONS else 0
-        mode_focus = st.selectbox("Mode focus", MODE_FOCUS_OPTIONS, index=focus_index)
-        class_period_label = st.text_input(
+        current_focus = (
+            metadata.get("planned_lesson_focus")
+            or metadata.get("mode_focus")
+            or DEFAULT_PLANNED_LESSON_FOCUS
+        )
+        focus_index = (
+            PLANNED_LESSON_FOCUS_OPTIONS.index(current_focus)
+            if current_focus in PLANNED_LESSON_FOCUS_OPTIONS
+            else 0
+        )
+        planned_lesson_focus = st.selectbox(
+            "Planned lesson focus",
+            PLANNED_LESSON_FOCUS_OPTIONS,
+            index=focus_index,
+            help="This is a teacher/report label only. It does not change the student question mode.",
+        )
+        st.caption("Planned lesson focus is for teacher reports only; it does not change the student question mode.")
+        class_group_label = st.text_input(
             "Class period / group label (optional)",
-            value=metadata.get("class_period_label", ""),
+            value=metadata.get("class_group_label") or metadata.get("class_period_label", ""),
             max_chars=60,
         )
         teacher_notes = st.text_area(
@@ -56,8 +72,10 @@ def render_teacher_lesson_session_setup():
                 metadata = update_lesson_session_metadata(
                     st.session_state,
                     lesson_label=lesson_label,
-                    mode_focus=mode_focus,
-                    class_period_label=class_period_label,
+                    mode_focus=planned_lesson_focus,
+                    planned_lesson_focus=planned_lesson_focus,
+                    class_period_label=class_group_label,
+                    class_group_label=class_group_label,
                     teacher_notes=teacher_notes,
                 )
                 st.success("Session setup saved locally.")
@@ -69,5 +87,7 @@ def render_teacher_lesson_session_setup():
         st.markdown("**Current session context**")
         for line in lesson_session_summary_lines(metadata):
             st.caption(f"- {line}")
-        st.caption("This context does not change scores, mastery, active scope, or question selection.")
+        st.caption(
+            "This context does not change scores, mastery, active scope, student question mode, or question selection."
+        )
     return metadata

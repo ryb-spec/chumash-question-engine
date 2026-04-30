@@ -284,6 +284,16 @@ ALLOWED_CHANGE_PREFIXES = (
 )
 
 ALLOWED_CHANGE_EXACT = {
+    "tests/test_teacher_runtime_exposure_export.py",
+    "ui/teacher_runtime_export.py",
+    "runtime/teacher_runtime_export.py",
+    "data/pipeline_rounds/teacher_runtime_exposure_export_report_2026_04_30.json",
+    "data/pipeline_rounds/teacher_runtime_exposure_export_report_2026_04_30.md",
+    "scripts/validate_teacher_runtime_export_session_accuracy.py",
+    "data/pipeline_rounds/content_expansion_readiness_after_teacher_export_accuracy_2026_04_30.json",
+    "data/pipeline_rounds/content_expansion_readiness_after_teacher_export_accuracy_2026_04_30.md",
+    "data/pipeline_rounds/teacher_runtime_export_session_accuracy_fix_2026_04_30.json",
+    "data/pipeline_rounds/teacher_runtime_export_session_accuracy_fix_2026_04_30.md",
     ".gitignore",
     "README.md",
     "PLANS.md",
@@ -1415,6 +1425,23 @@ def is_allowed_teacher_runtime_exposure_center_ui(path: str) -> bool:
 
 
 
+
+def is_allowed_teacher_runtime_export_session_accuracy_ui(path: str) -> bool:
+    if path != "streamlit_app.py":
+        return False
+    result = subprocess.run(
+        ["git", "diff", "--unified=8", "--", path],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    diff = result.stdout
+    return (
+        'pilot_session_id=st.session_state.get("pilot_session_id")' in diff
+        and 'fallback_count=st.session_state.get("history_weighting_fallback_count")' in diff
+        and "assessment_scope" not in diff
+    )
+
 def is_allowed_teacher_lesson_session_setup_ui(path: str) -> bool:
     if path != "streamlit_app.py":
         return False
@@ -1561,6 +1588,7 @@ def validate_curriculum_extraction(*, check_git_diff: bool = False) -> dict:
                 and not is_allowed_perek_3_pilot_distractor_source_remediation(path)
                 and not is_allowed_perek_3_short_repilot_scope_leak_fix(path)
                 and not is_allowed_teacher_runtime_exposure_center_ui(path)
+                and not is_allowed_teacher_runtime_export_session_accuracy_ui(path)
                 and not is_allowed_teacher_lesson_session_setup_ui(path)
             ):
                 errors.append(forbidden_reason(path))

@@ -1460,7 +1460,12 @@ def main():
     # Runtime Exposure Center: teacher-facing, read-only observability.
     render_runtime_exposure_center(runtime_exposure_summary)
     # Teacher Runtime Report Export: local, read-only evidence export.
-    render_teacher_runtime_export(teacher_lesson_session_metadata, runtime_exposure_summary)
+    render_teacher_runtime_export(
+        teacher_lesson_session_metadata,
+        runtime_exposure_summary,
+        pilot_session_id=st.session_state.get("pilot_session_id"),
+        fallback_count=st.session_state.get("history_weighting_fallback_count"),
+    )
 
     if not focus_mode:
         st.sidebar.caption(

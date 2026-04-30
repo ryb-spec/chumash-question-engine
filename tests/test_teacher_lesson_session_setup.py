@@ -5,6 +5,7 @@ from pathlib import Path
 
 from runtime.lesson_session_setup import (
     DEFAULT_MODE_FOCUS,
+    DEFAULT_PLANNED_LESSON_FOCUS,
     default_lesson_session_metadata,
     get_lesson_session_metadata,
     lesson_session_summary_lines,
@@ -28,6 +29,7 @@ def test_default_metadata_is_safe_and_inactive():
     assert metadata["changes_runtime_scope"] is False
     assert metadata["changes_scoring_mastery"] is False
     assert metadata["changes_question_selection"] is False
+    assert metadata["storage_scope"] == "local_streamlit_session_state_only"
 
 
 def test_update_metadata_stores_local_session_context():
@@ -37,15 +39,20 @@ def test_update_metadata_stores_local_session_context():
         state,
         lesson_label="  Perek 3 review  ",
         mode_focus="Full Passuk view",
+        planned_lesson_focus="Full Passuk view",
         class_period_label="Period 2",
+        class_group_label="Period 2",
         teacher_notes="Watch repetition.",
     )
 
     assert metadata["setup_active"] is True
     assert metadata["lesson_label"] == "Perek 3 review"
     assert metadata["mode_focus"] == "Full Passuk view"
+    assert metadata["planned_lesson_focus"] == "Full Passuk view"
     assert metadata["class_period_label"] == "Period 2"
+    assert metadata["class_group_label"] == "Period 2"
     assert metadata["teacher_notes"] == "Watch repetition."
+    assert metadata["saved_at"]
     assert state
 
 
@@ -62,7 +69,9 @@ def test_metadata_truncates_long_fields():
 
     assert len(metadata["lesson_label"]) == 80
     assert len(metadata["mode_focus"]) == 80
+    assert len(metadata["planned_lesson_focus"]) == 80
     assert len(metadata["class_period_label"]) == 60
+    assert len(metadata["class_group_label"]) == 60
     assert len(metadata["teacher_notes"]) == 240
 
 
@@ -70,6 +79,7 @@ def test_get_and_reset_metadata():
     state = {}
 
     assert get_lesson_session_metadata(state)["mode_focus"] == DEFAULT_MODE_FOCUS
+    assert get_lesson_session_metadata(state)["planned_lesson_focus"] == DEFAULT_PLANNED_LESSON_FOCUS
     update_lesson_session_metadata(state, lesson_label="Pilot")
     reset = reset_lesson_session_metadata(state)
 
@@ -80,17 +90,35 @@ def test_get_and_reset_metadata():
 def test_summary_lines_are_teacher_readable():
     metadata = {
         "lesson_label": "Perek 3",
-        "mode_focus": "Pilot observation",
-        "class_period_label": "Group A",
+        "planned_lesson_focus": "Pilot observation",
+        "class_group_label": "Group A",
         "teacher_notes": "Monitor fallback.",
     }
 
     lines = lesson_session_summary_lines(metadata)
 
     assert "Lesson: Perek 3" in lines
-    assert "Focus: Pilot observation" in lines
-    assert "Period: Group A" in lines
+    assert "Planned lesson focus: Pilot observation" in lines
+    assert "Class/group: Group A" in lines
     assert "Notes: Monitor fallback." in lines
+
+
+def test_legacy_keys_normalize_to_canonical_session_context():
+    metadata = get_lesson_session_metadata(
+        {
+            "teacher_lesson_session_setup": {
+                "lesson_label": "Legacy",
+                "mode_focus": "Pasuk Flow",
+                "class_period_label": "Group B",
+                "updated_at_utc": "2026-04-30T12:00:00+00:00",
+            }
+        }
+    )
+
+    assert metadata["lesson_session_label"] == "Legacy"
+    assert metadata["planned_lesson_focus"] == "Pasuk Flow"
+    assert metadata["class_group_label"] == "Group B"
+    assert metadata["saved_at"] == "2026-04-30T12:00:00+00:00"
 
 
 def test_contract_json_safety_fields():

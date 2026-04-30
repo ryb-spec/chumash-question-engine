@@ -126,3 +126,11 @@
 - [completed] Audit runtime skills, canonical crosswalk rows, Standard 3 draft skill IDs, verified source-map labels, and enrichment candidates for one Step 3 canonical contract
 - [completed] Create a deterministic canonical skill/standards contract plus validator/tests that keep review-only, source-verified, and runtime-ready boundaries distinct
 - [completed] Update skill-catalog alignment, report/docs, and rerun the required validation stack without opening any approval gates
+
+## Teacher Runtime Export Session Accuracy V1 - 2026-04-30
+
+- [x] Normalize class/group labels to `class_group_label` while preserving legacy keys.
+- [x] Rename report context from Mode focus to Planned lesson focus.
+- [x] Add current-session, teacher-setup-window, and Recent local history export scopes.
+- [x] Keep Markdown and JSON on one export snapshot.
+- [x] Create content-expansion readiness gate without expanding content.

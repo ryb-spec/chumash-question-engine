@@ -12,10 +12,20 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from runtime.attempt_history import load_attempt_history
+from runtime.exposure_summary import build_runtime_exposure_summary
 
-SCHEMA_VERSION = "1.0"
+SCHEMA_VERSION = "1.1"
 REPORT_TYPE = "teacher_runtime_exposure_report"
 DEFAULT_OUTPUT_DIR = "data/teacher_exports"
+RECENT_LOCAL_HISTORY_WARNING = "This report uses recent local history, not a bounded current session."
+
+SCOPE_LABELS = {
+    "current_pilot_session": "Current pilot/session only",
+    "teacher_setup_window": "Since teacher setup was saved",
+    "recent_local_history": "Recent local history diagnostic",
+    "no_history_available": "No local history available",
+}
 
 SAFETY_CONTRACT = {
     "uses_local_attempt_history": True,
@@ -34,22 +44,26 @@ SAFETY_CONTRACT = {
 }
 
 
-def _coerce_datetime(value: Any | None) -> datetime:
-    if value is None:
-        return datetime.now(timezone.utc)
+def _coerce_datetime(value: Any | None) -> datetime | None:
+    if value is None or value == "":
+        return None
     if isinstance(value, datetime):
         return value if value.tzinfo else value.replace(tzinfo=timezone.utc)
     if isinstance(value, str):
         try:
             parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
         except ValueError:
-            return datetime.now(timezone.utc)
+            return None
         return parsed if parsed.tzinfo else parsed.replace(tzinfo=timezone.utc)
+    return None
+
+
+def _now_datetime() -> datetime:
     return datetime.now(timezone.utc)
 
 
 def _iso_timestamp(value: Any | None = None) -> str:
-    return _coerce_datetime(value).astimezone(timezone.utc).isoformat().replace("+00:00", "Z")
+    return (_coerce_datetime(value) or _now_datetime()).astimezone(timezone.utc).isoformat().replace("+00:00", "Z")
 
 
 def _clean_text(value: Any) -> str:
@@ -91,19 +105,41 @@ def normalize_teacher_session_context(session_context: Any) -> dict[str, Any]:
     """Return a UI/export-safe teacher session context object."""
 
     context = session_context if isinstance(session_context, dict) else {}
+    planned_focus = _clean_optional(
+        context.get("planned_lesson_focus")
+        or context.get("teacher_focus_label")
+        or context.get("mode_focus")
+    )
+    class_group = _clean_optional(
+        context.get("class_group_label")
+        or context.get("class_period_group_label")
+        or context.get("class_period_group")
+        or context.get("class_period_label")
+        or context.get("period_label")
+        or context.get("group_label")
+    )
+    saved_at = _clean_optional(
+        context.get("saved_at") or context.get("session_context_saved_at") or context.get("updated_at_utc")
+    )
     normalized = {
         "lesson_session_label": _clean_optional(
             context.get("lesson_session_label") or context.get("lesson_label") or context.get("label")
         ),
-        "mode_focus": _clean_optional(context.get("mode_focus")),
-        "class_group_label": _clean_optional(
-            context.get("class_group_label") or context.get("class_period_group")
-        ),
+        "planned_lesson_focus": planned_focus,
+        "legacy_mode_focus": _clean_optional(context.get("mode_focus")),
+        "class_group_label": class_group,
         "teacher_notes": _clean_optional(context.get("teacher_notes")),
+        "saved_at": saved_at,
     }
-    missing = [key for key, value in normalized.items() if value is None]
-    normalized["context_provided"] = any(value is not None for value in normalized.values())
-    normalized["missing_fields"] = missing
+    required_fields = (
+        "lesson_session_label",
+        "planned_lesson_focus",
+        "class_group_label",
+        "teacher_notes",
+        "saved_at",
+    )
+    normalized["context_provided"] = any(normalized.get(key) for key in required_fields[:-1])
+    normalized["missing_fields"] = [key for key in required_fields if not normalized.get(key)]
     normalized["storage_scope"] = "local_streamlit_session_state_only"
     normalized["uses_auth"] = False
     normalized["uses_database"] = False
@@ -111,7 +147,200 @@ def normalize_teacher_session_context(session_context: Any) -> dict[str, Any]:
     return normalized
 
 
-def normalize_exposure_summary(exposure_summary: Any) -> dict[str, Any]:
+def _history_files_from_loaded(history: dict[str, Any]) -> list[dict[str, Any]]:
+    source_counts = history.get("source_counts") or {}
+    missing = set(history.get("missing_files") or [])
+    return [
+        {
+            "label": "attempt_log",
+            "present": not any("attempt_log" in path for path in missing),
+            "record_count": int(source_counts.get("attempt_log") or 0),
+            "malformed_count": 0,
+        },
+        {
+            "label": "pilot_session_events",
+            "present": not any("pilot_session_events" in path for path in missing),
+            "record_count": int(source_counts.get("pilot_events") or 0),
+            "malformed_count": int(history.get("malformed_count") or 0),
+        },
+    ]
+
+
+def _record_timestamp(record: dict[str, Any]) -> datetime | None:
+    return _coerce_datetime(record.get("timestamp"))
+
+
+def _scope_object(
+    *,
+    scope_type: str,
+    pilot_session_id: str | None,
+    teacher_setup_saved_at: str | None,
+    records_considered: int,
+    records_in_scope: int,
+    recent_attempt_limit: int,
+    scope_warning: str | None,
+) -> dict[str, Any]:
+    confidence = {
+        "current_pilot_session": "high",
+        "teacher_setup_window": "medium",
+        "recent_local_history": "low",
+        "no_history_available": "low",
+    }.get(scope_type, "low")
+    return {
+        "scope_type": scope_type,
+        "scope_label": SCOPE_LABELS.get(scope_type, scope_type),
+        "current_session_bounded": scope_type == "current_pilot_session",
+        "pilot_session_id": pilot_session_id,
+        "teacher_setup_saved_at": teacher_setup_saved_at,
+        "records_considered": records_considered,
+        "records_in_scope": records_in_scope,
+        "records_out_of_scope": max(0, records_considered - records_in_scope),
+        "recent_attempt_limit": recent_attempt_limit,
+        "scope_warning": scope_warning,
+        "confidence_level": confidence,
+    }
+
+
+def filter_attempt_records_for_export_scope(
+    records: list[dict[str, Any]],
+    *,
+    scope_type: str,
+    pilot_session_id: str | None = None,
+    teacher_setup_saved_at: str | None = None,
+) -> list[dict[str, Any]]:
+    records = [record for record in records if isinstance(record, dict)]
+    if scope_type == "current_pilot_session" and pilot_session_id:
+        return [record for record in records if record.get("session_id") == pilot_session_id]
+    if scope_type == "teacher_setup_window" and teacher_setup_saved_at:
+        threshold = _coerce_datetime(teacher_setup_saved_at)
+        if threshold is None:
+            return []
+        return [
+            record
+            for record in records
+            if (_record_timestamp(record) and _record_timestamp(record) >= threshold)
+        ]
+    if scope_type == "recent_local_history":
+        return list(records)
+    return []
+
+
+def determine_teacher_export_scope(
+    records: list[dict[str, Any]],
+    session_context: Any = None,
+    *,
+    requested_scope: str = "auto",
+    pilot_session_id: str | None = None,
+    recent_attempt_limit: int = 500,
+) -> dict[str, Any]:
+    normalized_session = normalize_teacher_session_context(session_context)
+    records = [record for record in records if isinstance(record, dict)]
+    records_considered = len(records)
+    saved_at = normalized_session.get("saved_at")
+    pilot_id = _clean_optional(pilot_session_id)
+    requested = requested_scope or "auto"
+
+    if requested in {"auto", "current_pilot_session"} and pilot_id:
+        scoped = filter_attempt_records_for_export_scope(
+            records,
+            scope_type="current_pilot_session",
+            pilot_session_id=pilot_id,
+        )
+        if scoped:
+            return _scope_object(
+                scope_type="current_pilot_session",
+                pilot_session_id=pilot_id,
+                teacher_setup_saved_at=saved_at,
+                records_considered=records_considered,
+                records_in_scope=len(scoped),
+                recent_attempt_limit=recent_attempt_limit,
+                scope_warning=None,
+            )
+    if requested in {"auto", "teacher_setup_window"} and saved_at:
+        scoped = filter_attempt_records_for_export_scope(
+            records,
+            scope_type="teacher_setup_window",
+            teacher_setup_saved_at=saved_at,
+        )
+        if scoped:
+            return _scope_object(
+                scope_type="teacher_setup_window",
+                pilot_session_id=pilot_id,
+                teacher_setup_saved_at=saved_at,
+                records_considered=records_considered,
+                records_in_scope=len(scoped),
+                recent_attempt_limit=recent_attempt_limit,
+                scope_warning="This report is bounded by the teacher setup saved_at timestamp, not by a pilot session id.",
+            )
+    if records:
+        return _scope_object(
+            scope_type="recent_local_history",
+            pilot_session_id=pilot_id,
+            teacher_setup_saved_at=saved_at,
+            records_considered=records_considered,
+            records_in_scope=records_considered,
+            recent_attempt_limit=recent_attempt_limit,
+            scope_warning=RECENT_LOCAL_HISTORY_WARNING,
+        )
+    return _scope_object(
+        scope_type="no_history_available",
+        pilot_session_id=pilot_id,
+        teacher_setup_saved_at=saved_at,
+        records_considered=records_considered,
+        records_in_scope=0,
+        recent_attempt_limit=recent_attempt_limit,
+        scope_warning="No local history was available for a bounded teacher report.",
+    )
+
+
+def summarize_export_scope_status(export_scope: dict[str, Any]) -> str:
+    if export_scope.get("scope_type") == "current_pilot_session":
+        return "Current-session bounded report."
+    if export_scope.get("scope_type") == "teacher_setup_window":
+        return "Teacher setup window report; medium confidence."
+    if export_scope.get("scope_type") == "recent_local_history":
+        return RECENT_LOCAL_HISTORY_WARNING
+    return "No local history available."
+
+
+def build_session_bounded_exposure_summary(
+    session_context: Any = None,
+    *,
+    requested_scope: str = "auto",
+    pilot_session_id: str | None = None,
+    fallback_count: int | None = None,
+    max_items: int = 5,
+    recent_attempt_limit: int = 500,
+) -> tuple[dict[str, Any], dict[str, Any]]:
+    history = load_attempt_history(max_records=recent_attempt_limit)
+    records = list(history.get("records") or [])
+    export_scope = determine_teacher_export_scope(
+        records,
+        session_context,
+        requested_scope=requested_scope,
+        pilot_session_id=pilot_session_id,
+        recent_attempt_limit=recent_attempt_limit,
+    )
+    scoped_records = filter_attempt_records_for_export_scope(
+        records,
+        scope_type=export_scope.get("scope_type"),
+        pilot_session_id=export_scope.get("pilot_session_id"),
+        teacher_setup_saved_at=export_scope.get("teacher_setup_saved_at"),
+    )
+    summary = build_runtime_exposure_summary(
+        scoped_records,
+        max_items=max_items,
+        history_files=_history_files_from_loaded(history),
+        fallback_count=fallback_count,
+        source_counts=history.get("source_counts"),
+    )
+    summary["attempts_in_scope"] = len(scoped_records)
+    summary["malformed_count"] = int(history.get("malformed_count") or 0)
+    summary["export_scope_status_message"] = summarize_export_scope_status(export_scope)
+    return normalize_exposure_summary(summary, export_scope), export_scope
+
+
+def normalize_exposure_summary(exposure_summary: Any, export_scope: dict[str, Any] | None = None) -> dict[str, Any]:
     """Return an export-safe exposure summary without raw log records."""
 
     summary = exposure_summary if isinstance(exposure_summary, dict) else {}
@@ -138,7 +367,9 @@ def normalize_exposure_summary(exposure_summary: Any) -> dict[str, Any]:
         "summary_available": bool(summary.get("summary_available")),
         "repetition_control_active": bool(summary.get("repetition_control_active")),
         "runtime_learning_intelligence_enabled": bool(summary.get("runtime_learning_intelligence_enabled")),
-        "recent_attempt_count": int(summary.get("recent_attempt_count") or 0),
+        "recent_attempt_count": int(summary.get("recent_attempt_count") or summary.get("attempts_in_scope") or 0),
+        "attempts_in_scope": int(summary.get("attempts_in_scope") or summary.get("recent_attempt_count") or 0),
+        "malformed_count": int(summary.get("malformed_count") or summary.get("skipped_or_malformed_count") or 0),
         "history_files": history_files,
         "history_file_status": summary.get("history_file_status") if isinstance(summary.get("history_file_status"), dict) else {},
         "skipped_or_malformed_count": int(summary.get("skipped_or_malformed_count") or 0),
@@ -169,12 +400,18 @@ def normalize_exposure_summary(exposure_summary: Any) -> dict[str, Any]:
         "auth_used": False,
         "raw_logs_exposed": False,
     }
+    if export_scope and export_scope.get("scope_warning"):
+        normalized["warning_messages"].append(_clean_text(export_scope["scope_warning"]))
     if not normalized["summary_available"] and not normalized["warning_messages"]:
         normalized["warning_messages"].append("No local attempt history found yet.")
     return normalized
 
 
-def _missing_data_warnings(session_context: dict[str, Any], exposure_summary: dict[str, Any]) -> list[str]:
+def _missing_data_warnings(
+    session_context: dict[str, Any],
+    exposure_summary: dict[str, Any],
+    export_scope: dict[str, Any],
+) -> list[str]:
     warnings: list[str] = []
     if not session_context.get("context_provided"):
         warnings.append("Teacher lesson/session setup context was not provided.")
@@ -186,8 +423,10 @@ def _missing_data_warnings(session_context: dict[str, Any], exposure_summary: di
         )
     if not exposure_summary.get("summary_available"):
         warnings.append("No local attempt history was available for this export.")
-    if exposure_summary.get("recent_attempt_count", 0) == 0:
-        warnings.append("Recent attempt count is zero; exposure interpretation is limited.")
+    if exposure_summary.get("attempts_in_scope", 0) == 0:
+        warnings.append("Attempts in export scope is zero; exposure interpretation is limited.")
+    if export_scope.get("scope_warning"):
+        warnings.append(export_scope["scope_warning"])
     if exposure_summary.get("skipped_or_malformed_count", 0):
         warnings.append(
             f"Malformed local history lines were skipped: {exposure_summary['skipped_or_malformed_count']}."
@@ -201,6 +440,8 @@ def build_teacher_interpretation(export_data: dict[str, Any]) -> dict[str, Any]:
     """Build cautious teacher-facing interpretation from summary data only."""
 
     exposure = export_data.get("exposure_summary") or {}
+    export_scope = export_data.get("export_scope") or {}
+    confidence_level = export_scope.get("confidence_level") or "low"
     targets = exposure.get("repeated_hebrew_targets") or []
     pasuk_skill = exposure.get("repeated_pasuk_skill_pairs") or []
     skills = exposure.get("repeated_skill_types") or []
@@ -251,6 +492,8 @@ def build_teacher_interpretation(export_data: dict[str, Any]) -> dict[str, Any]:
         narrow_pool_indicators.append("Fallback/scope-small behavior appeared in local summary counts.")
     if exposure.get("small_pool_fallback_status") == "unknown_not_determined":
         narrow_pool_indicators.append("Fallback status is unknown in this export; keep monitoring small-pool behavior.")
+    if export_scope.get("scope_type") == "recent_local_history":
+        narrow_pool_indicators.append(RECENT_LOCAL_HISTORY_WARNING)
 
     missing_evidence = list(export_data.get("missing_data_warnings") or [])
     if not possible_reteach_targets:
@@ -266,6 +509,7 @@ def build_teacher_interpretation(export_data: dict[str, Any]) -> dict[str, Any]:
             "Watch whether repeated targets diversify as the session continues.",
             "Confirm that fallback/scope-small messaging remains visible when the safe pool is narrow.",
             "Use this export as teacher evidence only, not as a mastery conclusion.",
+            "Review, reteach, or monitor only; do not treat this export as promotion approval.",
         ],
         "missing_evidence": missing_evidence,
         "caution_notes": [
@@ -273,20 +517,36 @@ def build_teacher_interpretation(export_data: dict[str, Any]) -> dict[str, Any]:
             "This report does not approve content for broader use.",
             "This report does not authorize reviewed-bank, runtime-scope, scoring, or question-generation changes.",
         ],
+        "confidence_level": confidence_level,
     }
 
 
-def build_teacher_runtime_export(session_context: Any, exposure_summary: Any, generated_at: Any | None = None) -> dict[str, Any]:
+def build_teacher_runtime_export(
+    session_context: Any,
+    exposure_summary: Any,
+    generated_at: Any | None = None,
+    *,
+    export_scope: dict[str, Any] | None = None,
+    requested_scope: str = "auto",
+    pilot_session_id: str | None = None,
+) -> dict[str, Any]:
     normalized_session = normalize_teacher_session_context(session_context)
-    normalized_exposure = normalize_exposure_summary(exposure_summary)
+    resolved_scope = export_scope or determine_teacher_export_scope(
+        [],
+        normalized_session,
+        requested_scope=requested_scope,
+        pilot_session_id=pilot_session_id,
+    )
+    normalized_exposure = normalize_exposure_summary(exposure_summary, resolved_scope)
     export_data = {
         "schema_version": SCHEMA_VERSION,
         "report_type": REPORT_TYPE,
         "generated_at": _iso_timestamp(generated_at),
+        "export_scope": resolved_scope,
         "session_context": normalized_session,
         "exposure_summary": normalized_exposure,
         "teacher_interpretation": {},
-        "missing_data_warnings": _missing_data_warnings(normalized_session, normalized_exposure),
+        "missing_data_warnings": _missing_data_warnings(normalized_session, normalized_exposure, resolved_scope),
         "output_contract": {
             "supports_markdown_export": True,
             "supports_json_export": True,
@@ -297,6 +557,15 @@ def build_teacher_runtime_export(session_context: Any, exposure_summary: Any, ge
             "promotion_claims_allowed": False,
         },
         "safety": dict(SAFETY_CONTRACT),
+        "content_expansion_readiness": {
+            "teacher_export_session_accuracy_fixed": True,
+            "current_session_export_supported": resolved_scope.get("scope_type") == "current_pilot_session",
+            "teacher_context_field_mapping_fixed": True,
+            "misleading_mode_focus_label_fixed": True,
+            "markdown_json_single_snapshot": True,
+            "ready_for_content_expansion_planning": True,
+            "runtime_scope_expansion_allowed_by_this_report": False,
+        },
     }
     export_data["teacher_interpretation"] = build_teacher_interpretation(export_data)
     return export_data
@@ -338,6 +607,7 @@ def _render_counted(items: list[dict[str, Any]], key: str, fallback: str) -> str
 
 def render_teacher_runtime_export_markdown(export_data: dict[str, Any]) -> str:
     session = export_data.get("session_context") or {}
+    export_scope = export_data.get("export_scope") or {}
     exposure = export_data.get("exposure_summary") or {}
     interpretation = export_data.get("teacher_interpretation") or {}
     safety = export_data.get("safety") or {}
@@ -357,24 +627,34 @@ def render_teacher_runtime_export_markdown(export_data: dict[str, Any]) -> str:
 - Report type: `{export_data.get('report_type')}`
 - Generated at: `{export_data.get('generated_at')}`
 - Schema version: `{export_data.get('schema_version')}`
+- Export scope type: `{export_scope.get('scope_type')}`
+- Export scope label: {_line_value(export_scope.get('scope_label'), 'unknown')}
+- Current-session bounded: {str(bool(export_scope.get('current_session_bounded'))).lower()}
+- Export confidence level: {_line_value(export_scope.get('confidence_level'), 'low')}
 
 ## Lesson / session context
 
 - Lesson/session label: {_line_value(session.get('lesson_session_label'))}
-- Mode focus: {_line_value(session.get('mode_focus'))}
+- Planned lesson focus: {_line_value(session.get('planned_lesson_focus'))}
 - Class/group label: {_line_value(session.get('class_group_label'))}
 - Teacher notes: {_line_value(session.get('teacher_notes'))}
+- Setup saved at: {_line_value(session.get('saved_at'), 'not provided')}
 - Context storage: local Streamlit session state only
+- Teacher setup note: planned lesson focus is a teacher/report label only. It does not change the student question mode.
 
 ## Runtime exposure summary
 
 - Repetition control active: {str(bool(exposure.get('repetition_control_active'))).lower()}
 - Runtime Learning Intelligence enabled: {str(bool(exposure.get('runtime_learning_intelligence_enabled'))).lower()}
-- Recent attempts counted: {exposure.get('recent_attempt_count', 0)}
-- Malformed/skipped log lines: {exposure.get('skipped_or_malformed_count', 0)}
+- Attempts in export scope: {exposure.get('attempts_in_scope', exposure.get('recent_attempt_count', 0))}
+- Records considered: {export_scope.get('records_considered', 0)}
+- Records in scope: {export_scope.get('records_in_scope', 0)}
+- Records out of scope: {export_scope.get('records_out_of_scope', 0)}
+- Malformed/skipped log lines: {exposure.get('malformed_count', exposure.get('skipped_or_malformed_count', 0))}
 - Last observed attempt timestamp: {_line_value(exposure.get('last_observed_attempt_timestamp'), 'unknown')}
 - Small-pool fallback status: {_line_value(exposure.get('small_pool_fallback_status'), 'unknown_not_determined')}
 - Fallback count: {_line_value(exposure.get('fallback_count'), 'unknown')}
+- Scope warning: {_line_value(export_scope.get('scope_warning'), 'none')}
 
 ## Repeated Hebrew targets
 
@@ -418,6 +698,10 @@ def render_teacher_runtime_export_markdown(export_data: dict[str, Any]) -> str:
 
 {_bullet_lines(interpretation.get('caution_notes') or [])}
 
+### Current-session confidence level
+
+- {_line_value(interpretation.get('confidence_level'), 'low')}
+
 ## Missing data warnings
 
 {_bullet_lines(export_data.get('missing_data_warnings') or [])}
@@ -449,7 +733,7 @@ def build_teacher_runtime_export_json(export_data: dict[str, Any]) -> str:
 
 
 def safe_filename_timestamp(generated_at: Any | None = None) -> str:
-    return _coerce_datetime(generated_at).astimezone(timezone.utc).strftime("%Y_%m_%d_%H%M%S")
+    return (_coerce_datetime(generated_at) or _now_datetime()).astimezone(timezone.utc).strftime("%Y_%m_%d_%H%M%S")
 
 
 def write_teacher_runtime_export(export_data: dict[str, Any], output_dir: str | Path = DEFAULT_OUTPUT_DIR) -> dict[str, Any]:

@@ -136,3 +136,8 @@ To be filled in after validation.
 - no raw log exposure
 - no student-facing content creation
 - no validator weakening
+
+
+## Session Accuracy V1 follow-up
+
+Teacher Runtime Export now uses `Planned lesson focus` as a report label only, normalizes class/group labels to `class_group_label`, adds export-scope metadata, and generates Markdown/JSON from one export snapshot. This follow-up does not change runtime scope, scoring/mastery, question selection, question generation, source truth, auth/database/PII, or reviewed-bank status.

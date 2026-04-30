@@ -371,6 +371,7 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
             and not validator.is_allowed_perek_3_pilot_distractor_source_remediation(path)
             and not validator.is_allowed_perek_3_short_repilot_scope_leak_fix(path)
             and not validator.is_allowed_teacher_runtime_exposure_center_ui(path)
+            and not validator.is_allowed_teacher_runtime_export_session_accuracy_ui(path)
             and not validator.is_allowed_teacher_lesson_session_setup_ui(path)
         ]
         self.assertEqual(disallowed, [], [validator.forbidden_reason(path) for path in disallowed])
@@ -427,6 +428,16 @@ class CurriculumExtractionValidationTests(unittest.TestCase):
 
     def test_governed_audit_artifact_paths_are_allowed_but_root_audits_are_forbidden(self):
         allowed_paths = [
+        "tests/test_teacher_runtime_exposure_export.py",
+        "ui/teacher_runtime_export.py",
+        "runtime/teacher_runtime_export.py",
+        "data/pipeline_rounds/teacher_runtime_exposure_export_report_2026_04_30.json",
+        "data/pipeline_rounds/teacher_runtime_exposure_export_report_2026_04_30.md",
+        "scripts/validate_teacher_runtime_export_session_accuracy.py",
+        "data/pipeline_rounds/content_expansion_readiness_after_teacher_export_accuracy_2026_04_30.json",
+        "data/pipeline_rounds/content_expansion_readiness_after_teacher_export_accuracy_2026_04_30.md",
+        "data/pipeline_rounds/teacher_runtime_export_session_accuracy_fix_2026_04_30.json",
+        "data/pipeline_rounds/teacher_runtime_export_session_accuracy_fix_2026_04_30.md",
             "data/curriculum_extraction/reports/audits/AUDIT_OVERNIGHT_CURRICULUM_QUALITY_REVIEW.md",
             "data/curriculum_extraction/reports/audits/AUDIT_OVERNIGHT_CURRICULUM_QUALITY_REVIEW.pdf",
         ]

@@ -68,3 +68,13 @@ Reports save locally under `data/teacher_exports/` as Markdown and JSON files. T
 The export has no scoring/mastery impact, no question-selection impact, no Runtime Learning Intelligence weighting impact, no reviewed-bank impact, and no runtime scope expansion. It is a teacher evidence artifact, not a mastery claim or content-approval gate.
 
 Limitations: if session setup is missing or local logs are empty, the report records that evidence gap instead of inventing context or observations.
+
+## Teacher Runtime Export Session Accuracy V1
+
+Teacher Runtime Exposure Export now treats `Planned lesson focus` as a teacher/report label only. It does not change the student question mode, scoring/mastery, question selection, or active content scope.
+
+The setup context is local Streamlit session state only. The canonical class/group key is `class_group_label`, with legacy class-period/group labels normalized for backward compatibility. Setup saves a local `saved_at` timestamp so exports can use a teacher-setup-window scope when a current pilot/session id is unavailable.
+
+Reports can be current-session bounded when session identifiers are available. If that is not possible, they can use the teacher setup window, or clearly fall back to Recent local history. Recent local history may include prior testing sessions and should be treated as diagnostic only.
+
+Markdown and JSON exports are generated from one export snapshot. No raw logs are exported. No login, No database, and No PII are used. No scoring/mastery, question-selection, question-generation, or content-scope changes are made.

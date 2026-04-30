@@ -195,3 +195,11 @@ Teacher Runtime Evidence Export Suite V1 saves the Runtime Exposure Center summa
 The export includes lesson/session setup metadata, repeated target summaries, pasuk/skill concentration, fallback/scope-small status, cautious teacher interpretation, and safety/privacy notes.
 
 It does not change Runtime Learning Intelligence behavior, question-selection weighting, scoring/mastery, question generation, active scope, reviewed-bank status, or source truth. It exposes no raw JSONL logs and adds no login, database, or PII.
+
+## Teacher Runtime Export / Report Session Accuracy
+
+Teacher Runtime Exposure Export now includes export-scope metadata so a report does not misleadingly look like a current-session report when it is using broader local history. The export can be current-session bounded when a pilot/session id is available, can fall back to the teacher setup `saved_at` window, and otherwise labels Recent local history as diagnostic.
+
+The export uses `Planned lesson focus` as a teacher/report label only; it does not change the student question mode. Markdown and JSON are generated from one export snapshot so repeated-target counts, fallback count, generated timestamp, warnings, and scope metadata match.
+
+No raw logs are exposed. No login, No database, and No PII are used. No scoring/mastery change, No runtime scope expansion, No question-selection change, No question-generation change, and No reviewed-bank promotion are authorized by this report.

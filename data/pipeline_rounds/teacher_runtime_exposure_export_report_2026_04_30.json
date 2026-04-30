@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "feature_name": "teacher_runtime_exposure_export_report",
   "feature_version": "v1",
   "implemented_date": "2026-04-30",
@@ -50,10 +50,15 @@
     "data/pipeline_rounds/README.md",
     "scripts/validate_curriculum_extraction.py",
     "tests/test_curriculum_extraction_validation.py",
-    "PLANS.md"
+    "PLANS.md",
+    "runtime/teacher_runtime_export.py",
+    "runtime/lesson_session_setup.py",
+    "ui/teacher_lesson_session_setup.py",
+    "ui/teacher_runtime_export.py"
   ],
   "validators_added": [
-    "scripts/validate_teacher_runtime_exposure_export.py"
+    "scripts/validate_teacher_runtime_exposure_export.py",
+    "scripts/validate_teacher_runtime_export_session_accuracy.py"
   ],
   "tests_added": [
     "tests/test_teacher_runtime_exposure_export.py"
@@ -63,5 +68,16 @@
     "docs/runtime/runtime_learning_intelligence_v1.md",
     "docs/README.md",
     "data/pipeline_rounds/README.md"
-  ]
+  ],
+  "session_accuracy_fix_added": true,
+  "supports_current_pilot_session_scope": true,
+  "supports_teacher_setup_window_scope": true,
+  "supports_recent_local_history_fallback": true,
+  "markdown_json_single_snapshot": true,
+  "class_group_label_mapping_fixed": true,
+  "planned_lesson_focus_label_used": true,
+  "content_expansion_performed": false,
+  "runtime_scope_expansion_authorized": false,
+  "perek_activation_authorized": false,
+  "reviewed_bank_promotion_authorized": false
 }

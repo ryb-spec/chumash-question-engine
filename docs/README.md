@@ -53,3 +53,5 @@ Status: local teacher session-context setup only. It does not add auth, database
 - Validator/test: `../scripts/validate_teacher_runtime_exposure_export.py` and `../tests/test_teacher_runtime_exposure_export.py`
 
 Status: local teacher report/export layer only. It saves Markdown and JSON runtime exposure reports without changing runtime scope, question selection, weighting, scoring/mastery, question generation, reviewed-bank status, source truth, auth, database, PII, raw-log exposure, or student-facing content.
+
+- Teacher Runtime Export Session Accuracy V1: documents planned lesson focus as a report label only, current-session bounded reports when identifiers are available, teacher-setup-window fallback, Recent local history diagnostic fallback, one export snapshot for Markdown/JSON, No raw logs, No login, No database, No PII, No scoring/mastery changes, and No runtime scope expansion.
