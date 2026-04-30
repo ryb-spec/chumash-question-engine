@@ -34,3 +34,25 @@ Review packets must declare a type: `word_bank_review`, `simple_question_review`
 Machine-readable contract:
 
 - `../data/expansion_governance/streamlined_expansion_contract.json`
+
+## Workflow Integration
+
+Future governed expansion files should use:
+
+- `../data/expansion_governance/templates/governed_expansion_items_template.tsv`
+- `../data/expansion_governance/FUTURE_EXPANSION_CHECKLIST.md`
+- `../data/expansion_governance/CODEX_EXPANSION_PROMPT_GUARDRAILS.md`
+
+Validate a new governed file directly:
+
+```powershell
+python scripts/validate_streamlined_expansion_governance.py --path PATH_TO_FILE
+```
+
+Run strict governance validation before release or merge:
+
+```powershell
+python scripts/validate_streamlined_expansion_governance.py --strict
+```
+
+The Python Tests GitHub workflow runs strict governance validation so future opt-in expansion files cannot silently bypass the process.

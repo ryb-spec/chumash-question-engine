@@ -42,6 +42,8 @@ ERROR_UNKNOWN_STATUS = "UNKNOWN_GOVERNANCE_STATUS"
 ERROR_MIXED_PACKET_TYPE = "MIXED_REVIEW_PACKET_TYPE"
 
 GOVERNANCE_FIELD_HINTS = {
+    "governance_scope",
+    "governed_by_streamlined_expansion_contract",
     "review_status",
     "runtime_status",
     "runtime_active",
@@ -65,9 +67,11 @@ GOVERNANCE_FIELD_HINTS = {
 
 EXPLICIT_OPT_IN_FIELDS = {
     "expansion_governance_contract",
+    "governance_scope",
     "streamlined_expansion_contract",
     "governance_contract",
     "governed_by",
+    "governed_by_streamlined_expansion_contract",
 }
 
 BANK_ITEM_HINT_FIELDS = {
@@ -157,6 +161,19 @@ LATE_STAGE_APPROVAL_ALIASES = {
     "stage_6_approved",
     "rashi_or_deeper_pshat_approved",
 }
+
+ALLOWED_REVIEW_PACKET_TYPES = {
+    "word_bank_review",
+    "simple_question_review",
+    "depth_expansion_review",
+    "protected_preview_observation",
+    "reviewed_bank_decision",
+}
+
+LEGACY_UNMANAGED_ROOTS = (
+    PROJECT_ROOT / "data" / "curriculum_extraction",
+    PROJECT_ROOT / "data" / "standards",
+)
 
 
 @dataclass(frozen=True)
@@ -295,9 +312,17 @@ def is_governed_record(
         return bool(keys & GOVERNANCE_FIELD_HINTS)
     if keys & EXPLICIT_OPT_IN_FIELDS:
         return True
+    if truthy(record.get("governed_by_streamlined_expansion_contract")):
+        return True
     if normalized_value(record.get("governed_by")) == "streamlined_expansion_contract":
         return True
     if normalized_value(record.get("expansion_governance_contract")):
+        return True
+    if is_legacy_unmanaged_path(path):
+        return False
+    if "review_status" in keys and "runtime_status" in keys:
+        return True
+    if "packet_type" in keys and packet_types(record) & ALLOWED_REVIEW_PACKET_TYPES:
         return True
     return False
 
@@ -310,6 +335,17 @@ def is_under_expansion_governance(path: Path) -> bool:
         return True
     except ValueError:
         return False
+
+
+def is_legacy_unmanaged_path(path: Path) -> bool:
+    resolved = path.resolve()
+    for root in LEGACY_UNMANAGED_ROOTS:
+        try:
+            resolved.relative_to(root)
+            return True
+        except ValueError:
+            continue
+    return False
 
 
 def is_bank_like_record(record: dict[str, Any]) -> bool:

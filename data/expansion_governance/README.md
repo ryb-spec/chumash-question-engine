@@ -21,3 +21,28 @@ This folder does not create runtime content, reviewed-bank entries, Streamlit UI
 New expansion artifacts enter Streamlined Expansion Governance enforcement when they either live under `data/expansion_governance/` or explicitly declare an opt-in field such as `expansion_governance_contract`, `streamlined_expansion_contract`, `governance_contract`, or `governed_by`. Path-specific validation with `scripts/validate_streamlined_expansion_governance.py --path ...` also treats recognizable governance fields as governed so draft artifacts can be checked before broader adoption.
 
 Legacy pipeline, protected-preview, vocabulary-bank, diagnostic-preview, and reviewed-bank planning artifacts that do not opt into this contract remain unmanaged by this validator until they are deliberately migrated. Once a file opts in, planning-only content must keep runtime and promotion flags closed, protected preview must not be treated as runtime, reviewed-bank candidates must not be treated as reviewed-bank approved, and vertical depth must show the required base-word approval and observation evidence.
+
+Legacy `data/curriculum_extraction/` and `data/standards/` artifacts may use fields like `review_status` or `runtime_status` with older meanings. They remain unmanaged unless they add an explicit Streamlined Expansion Governance opt-in marker.
+
+## Templates and workflow helpers
+
+- `templates/governed_expansion_items_template.tsv` provides planning-only governed columns for future expansion bank/review files.
+- `templates/README.md` explains template usage and default closed promotion/runtime flags.
+- `FUTURE_EXPANSION_CHECKLIST.md` captures the before-generation, horizontal expansion, vertical depth, review packet, runtime, and validator checklist.
+- `CODEX_EXPANSION_PROMPT_GUARDRAILS.md` is a paste-ready guardrail block for future Codex prompts.
+
+## Validation commands
+
+Validate a new governed expansion file before finalizing it:
+
+```powershell
+python scripts/validate_streamlined_expansion_governance.py --path PATH_TO_FILE
+```
+
+Run this before release or merge:
+
+```powershell
+python scripts/validate_streamlined_expansion_governance.py --strict
+```
+
+The GitHub Python Tests workflow also runs strict governance validation. `scripts/release_check.py` is a specialized runtime pilot prepare/finalize helper rather than a general validation-command registry, so the governance release command is documented here instead of being forced into that script.
