@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0",
+  "report_type": "advisory_review_recommendation",
+  "branch_name": "feature/perek-5-6-review-recommendation-report",
+  "source_decision_artifact": "data/gate_2_protected_preview_candidates/reports/bereishis_perek_5_6_protected_preview_candidate_review_decisions_applied_2026_04_29.json",
+  "source_mixed_packet_artifact": "data/gate_2_protected_preview_packets/reports/bereishis_perek_5_6_mixed_limited_internal_review_packet_2026_04_29.json",
+  "clean_approved_recommended": [
+    "g2srcdisc_p5_001",
+    "g2srcdisc_p5_005"
+  ],
+  "revision_watch_recommended": [
+    "g2srcdisc_p6_001",
+    "g2srcdisc_p6_006",
+    "g2srcdisc_p6_007"
+  ],
+  "hold_or_exclude_recommended": [
+    "g2srcdisc_p5_002",
+    "g2srcdisc_p5_003",
+    "g2srcdisc_p5_004",
+    "g2srcdisc_p6_002",
+    "g2srcdisc_p6_003",
+    "g2srcdisc_p6_004",
+    "g2srcdisc_p6_005"
+  ],
+  "recommendation_status": "advisory_only",
+  "decisions_applied": false,
+  "fake_observations_created": false,
+  "perek_5_activated": false,
+  "perek_6_activated": false,
+  "runtime_scope_widened": false,
+  "reviewed_bank_promoted": false,
+  "student_facing_created": false
+}

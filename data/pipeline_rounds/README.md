@@ -405,3 +405,11 @@ Status: future Perek process standard only. The seven-phase process reduces pape
 - Validator/test: `../../scripts/validate_perek_5_6_mixed_internal_review_decisions.py` and `../../tests/test_perek_5_6_mixed_internal_review_decisions.py`
 
 Status: Phase 7 applies Yossi's internal review decisions only. No student observation evidence was invented, and Perek 5-6 runtime, reviewed-bank, and student-facing gates remain closed.
+
+## Bereishis Perek 5-6 review recommendation report - 2026-04-29
+
+- Advisory report: `bereishis_perek_5_6_review_recommendation_report_2026_04_29.md`
+- Advisory JSON: `bereishis_perek_5_6_review_recommendation_report_2026_04_29.json`
+- Validator/test: `../../scripts/validate_perek_5_6_review_recommendation_report.py` and `../../tests/test_perek_5_6_review_recommendation_report.py`
+
+Status: advisory only. It recommends keeping `g2srcdisc_p5_001` and `g2srcdisc_p5_005` clean-approved, using `g2srcdisc_p6_001`, `g2srcdisc_p6_006`, and `g2srcdisc_p6_007` as revision-watch, and keeping the remaining seven candidates held or excluded. No decisions, observations, runtime, reviewed-bank, or student-facing status were changed.
