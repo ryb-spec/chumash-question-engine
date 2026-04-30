@@ -284,6 +284,19 @@ ALLOWED_CHANGE_PREFIXES = (
 )
 
 ALLOWED_CHANGE_EXACT = {
+    "data/pipeline_rounds/next_codex_prompt_content_build_candidate_2026_04_30.md",
+    "data/pipeline_rounds/content_expansion_planning_gate_2026_04_30.json",
+    "data/pipeline_rounds/content_expansion_planning_gate_2026_04_30.md",
+    "data/content_expansion_planning/content_expansion_candidate_plan_2026_04_30.json",
+    "data/content_expansion_planning/content_expansion_candidate_plan_2026_04_30.md",
+    "data/content_expansion_planning/content_expansion_gap_map_2026_04_30.json",
+    "data/content_expansion_planning/content_expansion_gap_map_2026_04_30.md",
+    "data/content_expansion_planning/content_expansion_inventory_2026_04_30.json",
+    "data/content_expansion_planning/content_expansion_inventory_2026_04_30.tsv",
+    "docs/content_expansion_planning_gate_v1.md",
+    "tests/test_content_expansion_planning_gate.py",
+    "scripts/validate_content_expansion_planning_gate.py",
+    "scripts/build_content_expansion_inventory.py",
     "tests/test_teacher_runtime_exposure_export.py",
     "ui/teacher_runtime_export.py",
     "runtime/teacher_runtime_export.py",

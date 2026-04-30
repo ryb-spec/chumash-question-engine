@@ -134,3 +134,11 @@
 - [x] Add current-session, teacher-setup-window, and Recent local history export scopes.
 - [x] Keep Markdown and JSON on one export snapshot.
 - [x] Create content-expansion readiness gate without expanding content.
+
+## Content Expansion Planning Gate V1 - 2026-04-30
+
+- [x] Inventory existing content/review landscape.
+- [x] Create gap/coverage map.
+- [x] Recommend one primary next candidate: Perek 4 limited protected-preview build.
+- [x] Create next Codex prompt for the future build branch.
+- [x] Preserve no-runtime/no-promotion safety gates.

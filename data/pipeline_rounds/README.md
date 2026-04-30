@@ -496,3 +496,5 @@ Status: Streamlit now includes a collapsed sidebar Teacher Lesson / Session Setu
 Status: Streamlit now includes a collapsed sidebar Teacher Runtime Report Export control. It saves local Markdown/JSON reports with lesson/session metadata, Runtime Exposure Center summaries, cautious teacher interpretation, and safety/privacy notes. No question-selection behavior, Runtime Learning Intelligence weighting, scoring/mastery, active scope, reviewed-bank status, source truth, auth, database, PII, raw-log exposure, or student-facing content changed.
 
 - 2026-04-30: Teacher Runtime Export Session Accuracy Fix and Content Expansion Readiness Gate. Adds scoped teacher exports, class/group label normalization, Planned lesson focus wording, one export snapshot for Markdown/JSON, `scripts/validate_teacher_runtime_export_session_accuracy.py`, and readiness artifacts without expanding content.
+
+- 2026-04-30: Content Expansion Planning Gate V1. Creates planning-only inventory, gap map, candidate plan, next Codex prompt, validator, and tests. Primary recommendation: future Perek 4 limited protected-preview build branch; no runtime activation or reviewed-bank promotion.

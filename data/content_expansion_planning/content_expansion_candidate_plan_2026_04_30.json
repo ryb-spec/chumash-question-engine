@@ -1,0 +1,81 @@
+{
+  "schema_version": "1.0",
+  "generated_date": "2026-04-30",
+  "primary_recommended_candidate": {
+    "candidate_id": "cepg_primary_bereishis_perek_4_limited_protected_preview_build",
+    "candidate_type": "protected_preview_candidate_packet_build",
+    "perek_or_slice": "Bereishis Perek 4",
+    "pasuk_range": "Bereishis 4:1-4:16 planning/review slice",
+    "skills": [
+      "basic_noun_recognition",
+      "source_discovery",
+      "teacher-reviewed limited packet selection"
+    ],
+    "question_types": [
+      "internal protected-preview noun recognition",
+      "teacher review packet"
+    ],
+    "source_evidence": [
+      "data/curriculum_extraction/reports/batch_005_review_resolution.md",
+      "data/gate_2_protected_preview_candidates/bereishis_perek_4_protected_preview_candidate_review.tsv",
+      "data/gate_2_protected_preview_packets/bereishis_perek_4_internal_protected_preview_packet.tsv",
+      "data/gate_2_protected_preview_packets/bereishis_perek_4_two_item_limited_internal_packet_iteration.tsv"
+    ],
+    "review_status": "review artifacts exist, but runtime activation remains blocked",
+    "blockers": [
+      "Protected preview is not reviewed bank.",
+      "Teacher/internal review artifacts do not authorize runtime activation.",
+      "Need a separate build branch to create the next allowed packet/report only."
+    ],
+    "next_required_artifacts": [
+      "Perek 4 limited protected-preview build or observation packet",
+      "machine-readable contract",
+      "validator and tests",
+      "explicit no-runtime safety gate"
+    ],
+    "future_branch_name": "feature/perek-4-limited-protected-preview-build-gate",
+    "risk_level": "low_to_medium",
+    "recommendation_summary": "Use Perek 4 because it is the next contiguous non-runtime Bereishis slice with reviewed planning and protected-preview artifacts, while keeping runtime activation blocked."
+  },
+  "alternate_candidates": [
+    {
+      "candidate_id": "cepg_alt_perek_5_6_clean_two_item_followup",
+      "candidate_type": "limited_packet_followup",
+      "perek_or_slice": "Bereishis Perek 5-6",
+      "pasuk_range": "clean two-item packet only",
+      "skills": [
+        "basic_noun_recognition"
+      ],
+      "question_types": [
+        "limited internal review packet"
+      ],
+      "risk_level": "low",
+      "recommendation_summary": "Safe but small; useful if the teacher wants a minimal packet continuation rather than a broader contiguous slice."
+    },
+    {
+      "candidate_id": "cepg_alt_standard_3_reviewed_bank_alignment_audit",
+      "candidate_type": "standards_alignment_audit",
+      "perek_or_slice": "Standard 3 cross-scope",
+      "pasuk_range": "not a pasuk expansion",
+      "skills": [
+        "Zekelman Standard 3 mapped language skills"
+      ],
+      "question_types": [
+        "audit only"
+      ],
+      "risk_level": "medium",
+      "recommendation_summary": "Useful for standards readiness, but not the best immediate content-expansion build because it is less classroom-slice specific."
+    }
+  ],
+  "staged_path": [
+    "Stage 1: planning/inventory complete",
+    "Stage 2: build candidate packet",
+    "Stage 3: teacher review",
+    "Stage 4: protected preview only",
+    "Stage 5: reviewed-bank promotion only after explicit approval",
+    "Stage 6: runtime activation only after explicit gate"
+  ],
+  "must_not_activate": true,
+  "ready_for_content_build_planning": true,
+  "ready_for_runtime_activation": false
+}

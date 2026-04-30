@@ -1,0 +1,102 @@
+{
+  "schema_version": "1.0",
+  "feature_name": "content_expansion_planning_gate",
+  "planning_only": true,
+  "content_expansion_performed": false,
+  "runtime_scope_widened": false,
+  "perek_activated": false,
+  "reviewed_bank_promoted": false,
+  "runtime_content_promoted": false,
+  "question_generation_changed": false,
+  "question_selection_changed": false,
+  "question_selection_weighting_changed": false,
+  "scoring_mastery_changed": false,
+  "source_truth_changed": false,
+  "fake_teacher_approval_created": false,
+  "fake_student_data_created": false,
+  "raw_logs_exposed": false,
+  "validators_weakened": false,
+  "active_runtime_scope_detected": {
+    "scope": "local_parsed_bereishis_1_1_to_3_24",
+    "sefer": "Bereishis",
+    "range": "Bereishis 1:1-3:24",
+    "status": "active_existing_scope_only",
+    "changed_by_this_task": false
+  },
+  "inventory_outputs": [
+    "data/content_expansion_planning/content_expansion_inventory_2026_04_30.tsv",
+    "data/content_expansion_planning/content_expansion_inventory_2026_04_30.json"
+  ],
+  "gap_map_outputs": [
+    "data/content_expansion_planning/content_expansion_gap_map_2026_04_30.md",
+    "data/content_expansion_planning/content_expansion_gap_map_2026_04_30.json"
+  ],
+  "candidate_plan_outputs": [
+    "data/content_expansion_planning/content_expansion_candidate_plan_2026_04_30.md",
+    "data/content_expansion_planning/content_expansion_candidate_plan_2026_04_30.json"
+  ],
+  "primary_recommended_candidate": {
+    "candidate_id": "cepg_primary_bereishis_perek_4_limited_protected_preview_build",
+    "candidate_type": "protected_preview_candidate_packet_build",
+    "perek_or_slice": "Bereishis Perek 4",
+    "pasuk_range": "Bereishis 4:1-4:16 planning/review slice",
+    "skills": [
+      "basic_noun_recognition",
+      "source_discovery",
+      "teacher-reviewed limited packet selection"
+    ],
+    "question_types": [
+      "internal protected-preview noun recognition",
+      "teacher review packet"
+    ],
+    "source_evidence": [
+      "data/curriculum_extraction/reports/batch_005_review_resolution.md",
+      "data/gate_2_protected_preview_candidates/bereishis_perek_4_protected_preview_candidate_review.tsv",
+      "data/gate_2_protected_preview_packets/bereishis_perek_4_internal_protected_preview_packet.tsv",
+      "data/gate_2_protected_preview_packets/bereishis_perek_4_two_item_limited_internal_packet_iteration.tsv"
+    ],
+    "review_status": "review artifacts exist, but runtime activation remains blocked",
+    "blockers": [
+      "Protected preview is not reviewed bank.",
+      "Teacher/internal review artifacts do not authorize runtime activation.",
+      "Need a separate build branch to create the next allowed packet/report only."
+    ],
+    "next_required_artifacts": [
+      "Perek 4 limited protected-preview build or observation packet",
+      "machine-readable contract",
+      "validator and tests",
+      "explicit no-runtime safety gate"
+    ],
+    "future_branch_name": "feature/perek-4-limited-protected-preview-build-gate",
+    "risk_level": "low_to_medium",
+    "recommendation_summary": "Use Perek 4 because it is the next contiguous non-runtime Bereishis slice with reviewed planning and protected-preview artifacts, while keeping runtime activation blocked."
+  },
+  "alternate_candidates": [
+    {
+      "candidate_id": "cepg_alt_perek_5_6_clean_two_item_followup",
+      "candidate_type": "limited_packet_followup",
+      "risk_level": "low"
+    },
+    {
+      "candidate_id": "cepg_alt_standard_3_reviewed_bank_alignment_audit",
+      "candidate_type": "standards_alignment_audit",
+      "risk_level": "medium"
+    }
+  ],
+  "blocked_items_summary": [
+    "diagnostic_preview_generation_idempotency",
+    "runtime_activation",
+    "reviewed_bank_promotion",
+    "unreviewed_extraction_to_runtime"
+  ],
+  "review_needed_summary": [
+    "Perek 4 future packet needs bounded teacher review/observation evidence before broader movement.",
+    "Batch 002 and Batch 003 extraction remain needs_review.",
+    "Diagnostic preview generation should be repaired before relying on diagnostic preview for expansion."
+  ],
+  "next_branch_recommendation": "feature/perek-4-limited-protected-preview-build-gate",
+  "next_task_type": "build protected-preview candidate packet/report only",
+  "ready_for_content_build_planning": true,
+  "ready_for_runtime_activation": false,
+  "runtime_activation_authorized": false
+}
