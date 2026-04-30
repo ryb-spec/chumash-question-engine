@@ -18,3 +18,12 @@ These documents are pilot-evidence materials only. They do not change runtime be
 - Validator/test: `../scripts/validate_streamlined_review_process.py` and `../tests/test_streamlined_review_process.py`
 
 Status: documentation-only future process standard. It does not change runtime, reviewed-bank, protected-preview packet content, or student-facing behavior.
+
+## Runtime learning intelligence V1
+
+- Runtime guide: `runtime/runtime_learning_intelligence_v1.md`
+- Policy/audit artifacts: `../data/pipeline_rounds/runtime_learning_intelligence_policy_2026_04_30.json` and `../data/pipeline_rounds/runtime_learning_intelligence_audit_2026_04_30.md`
+- Runtime exposure report: `../data/validation/runtime_learning_intelligence_report.md`
+- Validator/test: `../scripts/validate_runtime_learning_intelligence.py` and `../tests/test_runtime_learning_intelligence.py`
+
+Status: runtime weighting improvement only. It uses local attempt history to reduce repetition without changing active scope, reviewed-bank status, scoring/mastery, source truth, auth, database, or PII.

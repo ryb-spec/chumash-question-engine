@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0",
+  "policy_name": "runtime_learning_intelligence_v1",
+  "uses_attempt_history": true,
+  "uses_cross_session_history": true,
+  "uses_student_auth": false,
+  "uses_database": false,
+  "uses_pii": false,
+  "changes_question_selection_weighting": true,
+  "changes_scoring_mastery": false,
+  "changes_content_scope": false,
+  "activates_new_perek": false,
+  "reviewed_bank_promoted": false,
+  "fallback_allowed_when_scope_small": true,
+  "identity_dimensions": [
+    "question_id if available",
+    "source_candidate_id if available",
+    "pasuk_ref",
+    "hebrew_target",
+    "skill",
+    "question_type",
+    "mode"
+  ],
+  "weighting_policy": {
+    "exact_recent_repeat_penalty": "strongest",
+    "target_recent_repeat_penalty": "strong",
+    "pasuk_skill_repeat_penalty": "moderate",
+    "skill_type_repeat_penalty": "mild",
+    "fallback_min_candidate_count": 1
+  },
+  "safety_fields": {
+    "runtime_scope_widened": false,
+    "reviewed_bank_promoted": false,
+    "student_facing_content_created": false,
+    "source_truth_changed": false,
+    "scoring_mastery_changed": false
+  }
+}

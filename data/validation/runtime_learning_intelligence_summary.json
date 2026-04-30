@@ -1,0 +1,19 @@
+{
+  "policy_name": "runtime_learning_intelligence_v1",
+  "enabled_by_default": true,
+  "history_files_used": [
+    "data/attempt_log.jsonl",
+    "data/pilot/pilot_session_events.jsonl"
+  ],
+  "exact_repeat_penalty_available": true,
+  "target_repeat_penalty_available": true,
+  "pasuk_skill_repeat_penalty_available": true,
+  "fallback_available": true,
+  "teacher_summary_available": true,
+  "runtime_scope_widened": false,
+  "reviewed_bank_promoted": false,
+  "scoring_mastery_changed": false,
+  "source_truth_changed": false,
+  "pii_used": false,
+  "database_used": false
+}

@@ -407,6 +407,7 @@ def init_session_state():
     st.session_state.setdefault("recent_morpheme_families", [])
     st.session_state.setdefault("recent_question_groups", [])
     st.session_state.setdefault("recent_instructional_groups", [])
+    st.session_state.setdefault("history_weighting_fallback_count", 0)
     st.session_state.setdefault("feature_fallback_message", "")
     st.session_state.setdefault("practice_type", "Learn Mode")
     st.session_state.setdefault("practice_skill", SKILL_ORDER[0])
