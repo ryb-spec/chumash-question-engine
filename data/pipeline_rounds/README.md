@@ -372,3 +372,16 @@ Status: two Perek 5-6 candidates are clean-approved for a later internal packet 
 - Validator/test: `../../scripts/validate_perek_5_6_small_internal_protected_preview_packet.py` and `../../tests/test_perek_5_6_small_internal_protected_preview_packet.py`
 
 Status: small internal packet created for `g2srcdisc_p5_001` and `g2srcdisc_p5_005` only. No runtime activation, active-scope expansion, reviewed-bank promotion, public/student-facing content, fake review decisions, or fake student data was created.
+
+## Bereishis Perek 5-6 mixed limited internal review packet created - 2026-04-29
+
+- Mixed packet TSV: `../gate_2_protected_preview_packets/bereishis_perek_5_6_mixed_limited_internal_review_packet.tsv`
+- Mixed packet Markdown: `../gate_2_protected_preview_packets/reports/bereishis_perek_5_6_mixed_limited_internal_review_packet_2026_04_29.md`
+- Mixed packet JSON: `../gate_2_protected_preview_packets/reports/bereishis_perek_5_6_mixed_limited_internal_review_packet_2026_04_29.json`
+- Generation report: `../gate_2_protected_preview_packets/reports/bereishis_perek_5_6_mixed_limited_internal_review_packet_generation_report_2026_04_29.md`
+- Review checklist: `../gate_2_protected_preview_packets/reports/bereishis_perek_5_6_mixed_limited_internal_review_checklist_2026_04_29.md`
+- Excluded register: `../gate_2_protected_preview_packets/reports/bereishis_perek_5_6_mixed_packet_excluded_register_2026_04_29.md`
+- Pipeline status artifact: `bereishis_perek_5_6_mixed_internal_review_packet_created_2026_04_29.md`
+- Validator/test: `../../scripts/validate_perek_5_6_mixed_internal_review_packet.py` and `../../tests/test_perek_5_6_mixed_internal_review_packet.py`
+
+Status: mixed internal review packet created for two clean-approved Perek 5 items and three Perek 6 revision-watch items. No runtime activation, active-scope expansion, reviewed-bank promotion, public/student-facing content, fake review decisions, or fake student data was created.

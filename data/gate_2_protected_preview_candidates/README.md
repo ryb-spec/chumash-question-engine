@@ -120,3 +120,12 @@ Status: two clean-approved items may be used in a later internal packet task; fi
 - Pipeline status: `../pipeline_rounds/bereishis_perek_5_6_small_internal_packet_created_2026_04_29.md`
 
 Status: only `g2srcdisc_p5_001` and `g2srcdisc_p5_005` entered the small internal packet. The five approve-with-revision candidates and five earlier excluded candidates remain out of packet scope.
+
+## Bereishis Perek 5-6 mixed limited internal review packet
+
+- Mixed packet TSV: `../gate_2_protected_preview_packets/bereishis_perek_5_6_mixed_limited_internal_review_packet.tsv`
+- Mixed packet report: `../gate_2_protected_preview_packets/reports/bereishis_perek_5_6_mixed_limited_internal_review_packet_2026_04_29.md`
+- Excluded register: `../gate_2_protected_preview_packets/reports/bereishis_perek_5_6_mixed_packet_excluded_register_2026_04_29.md`
+- Pipeline status: `../pipeline_rounds/bereishis_perek_5_6_mixed_internal_review_packet_created_2026_04_29.md`
+
+Status: Yossi-authorized internal review packet includes `g2srcdisc_p5_001`, `g2srcdisc_p5_005`, `g2srcdisc_p6_001`, `g2srcdisc_p6_006`, and `g2srcdisc_p6_007`. Perek 6 rows are revision-watch, not clean-approved.
