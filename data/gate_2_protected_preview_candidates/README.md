@@ -102,3 +102,12 @@ Status: `g2srcdisc_p4_001` and `g2srcdisc_p4_002` are clean-ready for limited in
 - Validator/test: `../../scripts/validate_perek_5_6_candidate_planning_decisions_applied.py` and `../../tests/test_perek_5_6_candidate_planning_decisions_applied.py`
 
 Status: seven Perek 5-6 candidates are present for protected-preview-candidate review only. This is not a protected-preview packet, not runtime content, not reviewed-bank content, and not student-facing content.
+
+## Bereishis Perek 5-6 protected-preview candidate review decisions applied
+
+- Updated review layer: `bereishis_perek_5_6_protected_preview_candidate_review.tsv`
+- Decisions-applied report: `reports/bereishis_perek_5_6_protected_preview_candidate_review_decisions_applied_2026_04_29.md`
+- Decisions-applied JSON: `reports/bereishis_perek_5_6_protected_preview_candidate_review_decisions_applied_2026_04_29.json`
+- Validator/test: `../../scripts/validate_perek_5_6_protected_preview_candidate_review_decisions.py` and `../../tests/test_perek_5_6_protected_preview_candidate_review_decisions.py`
+
+Status: two clean-approved items may be used in a later internal packet task; five revision items retain cautions. This did not create a protected-preview packet, runtime content, reviewed-bank content, or student-facing content.
