@@ -119,3 +119,16 @@ Status: planning only. A Perek 5-6 internal protected-preview packet has not bee
 - Validator/test: `../../scripts/validate_perek_5_6_small_internal_protected_preview_packet.py` and `../../tests/test_perek_5_6_small_internal_protected_preview_packet.py`
 
 Status: two clean-approved Perek 5 items are packaged for internal protected-preview review only. Revision, held, source-only, and source-follow-up items remain excluded. Perek 5 and Perek 6 runtime, reviewed-bank, and public/student-facing gates remain closed.
+
+## Bereishis Perek 5-6 mixed limited internal review packet - 2026-04-29
+
+- Packet TSV: `bereishis_perek_5_6_mixed_limited_internal_review_packet.tsv`
+- Packet Markdown: `reports/bereishis_perek_5_6_mixed_limited_internal_review_packet_2026_04_29.md`
+- Packet JSON: `reports/bereishis_perek_5_6_mixed_limited_internal_review_packet_2026_04_29.json`
+- Generation report: `reports/bereishis_perek_5_6_mixed_limited_internal_review_packet_generation_report_2026_04_29.md`
+- Internal review checklist: `reports/bereishis_perek_5_6_mixed_limited_internal_review_checklist_2026_04_29.md`
+- Excluded register: `reports/bereishis_perek_5_6_mixed_packet_excluded_register_2026_04_29.md`
+- Pipeline status: `../pipeline_rounds/bereishis_perek_5_6_mixed_internal_review_packet_created_2026_04_29.md`
+- Validator/test: `../../scripts/validate_perek_5_6_mixed_internal_review_packet.py` and `../../tests/test_perek_5_6_mixed_internal_review_packet.py`
+
+Status: mixed internal review only. Two Perek 5 clean-approved items and three Perek 6 revision-watch items are included. Revision-watch items are not clean-approved. Runtime, reviewed-bank, and public/student-facing gates remain closed.
